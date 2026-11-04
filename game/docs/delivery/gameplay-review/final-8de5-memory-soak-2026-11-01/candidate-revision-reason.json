@@ -1,0 +1,13 @@
+{
+  "status": "STOPPED_BEFORE_RELEASE",
+  "build": "8de505c1a3f4d736e56359df1769cd831a99aeb6d766d69b67c91c429de7d5aa",
+  "runId": "campaign-qa-mvx9gc5j",
+  "activeWallMs": 1242142,
+  "reason": "Source review identified PMREM shader-program lifetime churn introduced by disposing the private sky material after every refresh. Retain and reuse one private capture owner instead. The observed595ms maximum interval is not causally attributed to that risk.",
+  "resourceEvidence": {
+    "latestGeometries": 1160,
+    "maximumGeometries": 1475
+  },
+  "fortyMinuteAcceptance": false,
+  "scope": "Assisted native High desktop train scenario; no physical-phone FPS or thermal claim."
+}

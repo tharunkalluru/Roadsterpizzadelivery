@@ -1,0 +1,309 @@
+{
+  "version": 1,
+  "scope": "Build-time source-bound estimated-apron corrections; no surveyed altitude claim, no runtime LP.",
+  "estimatedNodeLowering": [
+    {
+      "node": "9978bdf5-922",
+      "referenceRoad": "993fa404-3ac_0",
+      "maximumLowering": 0.876,
+      "target": 0,
+      "sourceRoads": [
+        "554f3714-afe_0",
+        "554f3714-afe_1"
+      ],
+      "reason": "The same-source split is an untagged approach,29.35m before the real positive bridge-layer interval. It shares the proved shallow apron with conditioned993fa404 at0. Lower the generated.875622m split datum coherently; preserve positive interior order and every independent finite headroom row."
+    },
+    {
+      "node": "7d6a6ea7-ed2",
+      "referenceRoad": "b3b69c85-e8a_1",
+      "referenceIndex": 0,
+      "maximumLowering": 1.004,
+      "target": 0,
+      "sourceRoads": [
+        "72e2e384-7c5_0",
+        "cd18974b-973_0",
+        "b3b69c85-e8a_1"
+      ],
+      "reason": "First test authorized coherent lowering of the unprotected short Mahavir node family7d6/545 toward the actual connected d89 source street0. The prior.898 datum was an estimated modeling choice; positive interior crossing headroom and all incident endpoint coherence remain enforced.",
+      "referenceHeight": 0.8981415985055492
+    },
+    {
+      "node": "055571a5-618",
+      "target": 2.038751929596641,
+      "referenceRoad": "39ce69a0-3a5_0",
+      "referenceIndex": 0,
+      "referenceAuthority": "strict historical conditioned model",
+      "maximumLowering": 0.613078,
+      "sourceRoads": [
+        "39ce69a0-3a5_0",
+        "5434fd55-a67_0",
+        "ce401cde-264_0"
+      ],
+      "reason": "Complete the authorized OldBombay no-worsening arterial family: retaining the generic2.651829m opposite node after lowering1d8c creates20.4% on the4.41m link; strict historical node2.038752 restores6.5%. No surveyed/source-positive/rail datum is introduced."
+    },
+    {
+      "node": "377fb734-b47",
+      "target": 0.3586722313883825,
+      "referenceRoad": "554f3714-afe_1",
+      "referenceIndex": -1,
+      "maximumLowering": 0.04,
+      "sourceRoads": [
+        "554f3714-afe_1",
+        "45987b95-b7c_0",
+        "b3984499-4d9_0"
+      ],
+      "reason": "Minimal coherent reconciliation of same-source continuation endpoint with two incident unprotected roads. All raw source heights0, no tile-only incident in complete304pack scan; generated mismatch39.833mm."
+    },
+    {
+      "node": "18b0835d-65f",
+      "target": 1.9722803309924128,
+      "referenceRoad": "167dac75-961_2",
+      "referenceIndex": -1,
+      "maximumLowering": 0.018,
+      "sourceRoads": [
+        "167dac75-961_2",
+        "167dac75-961_3"
+      ],
+      "pendingTileRoads": [
+        "498623cd-db1_0"
+      ],
+      "reason": "Minimal coherent same-source split reconciliation17.947mm. Raw0 and tile498623 source0 are not surveyed; final separate tile-profile closure must join this solved datum."
+    },
+    {
+      "node": "545863c4-b80",
+      "target": 0,
+      "referenceRoad": "b3b69c85-e8a_0",
+      "referenceIndex": -1,
+      "referenceHeight": 0.8981415985055492,
+      "maximumLowering": 0.899,
+      "sourceRoads": [
+        "b3b69c85-e8a_0",
+        "b3b69c85-e8a_1"
+      ],
+      "fixedTileRoads": [
+        "d89ff423-fc8_0"
+      ],
+      "reason": "Source-connected d89 tile approach is0. Test coherent lowering of both estimated core endpoints instead of constructing a new minor-street rise solely to preserve a generated.898m seed."
+    }
+  ],
+  "componentVariablePolicy": {
+    "considerUnnamedAndUnannotatedRoads": true,
+    "positiveExistingProfileRecoveryMeters": 80,
+    "keepProtectedAndNegativeProfiles": true,
+    "preserveUnknownZeroStreetProfiles": true,
+    "estimatedGroundApronMaximumAdjustment": 0.15,
+    "maximumModelGrade": 0.1,
+    "maximumSourceXYDisplacement": 5
+  },
+  "localHeightExceptions": [
+    {
+      "id": "e280323d-9ea_0",
+      "maximumCorrection": 0.3,
+      "maximumWindowMeters": 30,
+      "reason": "Generated unsurveyed connector valley needs about.24m redistribution inside the existing local endpoint-height envelope; true finite rail/underpass/mapped controls remain fixed."
+    },
+    {
+      "id": "cc7db1df-c57_0",
+      "maximumCorrection": 0.3,
+      "maximumWindowMeters": 30,
+      "reason": "Generated unsurveyed attached apron needs about.22m redistribution within existing node heights; no new higher street peak or source-positive crossing-order change."
+    },
+    {
+      "id": "167ce760-d96_0",
+      "maximumCorrection": 0.21,
+      "maximumWindowMeters": 30,
+      "reason": "Authorized actual20.927924m Narayanguda end apron: minimum direct budgetabout.196m; cap existing.866534456m and retain endpoints. No new raised-width/bridge threshold."
+    },
+    {
+      "id": "8c0f65ba-e2a_0",
+      "maximumCorrection": 0.162,
+      "maximumPeak": 0.8663887939651531,
+      "reason": "Authorized minimum generated shared-node apron redistribution; endpoints fixed, actual initial6.054m source road and30m policy window, no higher street peak."
+    }
+  ],
+  "generatedNodeComponents": [
+    {
+      "id": "kothaguda-short-node-generated-apron",
+      "nodes": [
+        "eae8c52c-975",
+        "4e2d4099-447",
+        "d26b97b3-82b"
+      ],
+      "sourceRoads": [
+        "57ec16ea-23d_0",
+        "6106b2f4-859_0",
+        "6106b2f4-859_1",
+        "8217f955-f14_0",
+        "53e6ab65-d79_0",
+        "718f53d9-d48_0"
+      ],
+      "nodeHeightBounds": [
+        1.8437944516516287,
+        3.0802568223232676
+      ],
+      "recoveryMeters": 80,
+      "reason": "Authorized local generated short-node apron reconciliation within its existing1.843794\u20133.080257m component envelope; all incident core endpoints remain identical, opposite endpoints/protected facilities/independent crossings unchanged.",
+      "nodeLoweringOnly": true
+    },
+    {
+      "id": "narayanguda-near-short-node-apron",
+      "nodes": [
+        "752cfb97-e60",
+        "19a60e87-8d0",
+        "4be337cd-fb8"
+      ],
+      "sourceRoads": [
+        "ecaffe4b-994_0",
+        "ecaffe4b-994_1",
+        "efddb998-d90_0",
+        "77c06af2-498_0"
+      ],
+      "nodeHeightBounds": [
+        1.9168779603764468,
+        2.2257476740098823
+      ],
+      "recoveryMeters": 80,
+      "nodeLoweringOnly": true,
+      "reason": "Authorized source-connected4.751842/4.743416m short-node component with generated datums. All incident arms share exact endpointY; lower/redistribute within existing envelope, protected independent spans unchanged."
+    },
+    {
+      "id": "kothaguda-east-short-node-apron",
+      "nodes": [
+        "d84d84d9-501",
+        "2c92c710-c6e"
+      ],
+      "sourceRoads": [
+        "3f16e30b-e47_0",
+        "9ce65172-f89_0",
+        "e346d4f7-942_0"
+      ],
+      "nodeHeightBounds": [
+        1.8395872639656317,
+        2.31279440676894
+      ],
+      "recoveryMeters": 80,
+      "nodeLoweringOnly": true,
+      "reason": "Authorized7.280110m physical short-node component, generated raw-null datums. Lower/redistribute within existing envelope; actual grades, rail/underpass and independent source-ordered headroom remain hard."
+    },
+    {
+      "id": "pv-tail-bc4a-lowering-test",
+      "nodes": [
+        "bc4a17a8-244"
+      ],
+      "nodeHeightBounds": [
+        0.0,
+        2.626723395467071
+      ],
+      "nodeLoweringOnly": true,
+      "recoveryMeters": 80.0,
+      "reason": "Root-authorized lowering-only test of generated NH44/PV unknown bridge-tail datum; all3 incident core arms coherent; Service Road receives no rise; genuine6ec positive-interior headroom hard.",
+      "sourceProof": "docs/qa/evidence/reported-roads/pv-tail-51e-bb53-source-classification-9413.json",
+      "sourceProofSHA256": "96701fd4a99354a84f4b812a95888fb91e2b14ac91cdb5dc9f2fbe7908f5a851",
+      "controlLoweringOnly": true
+    },
+    {
+      "id": "pv-tail-ceee-minimum-finite-join",
+      "nodes": [
+        "ceee2f62-828"
+      ],
+      "nodeHeightBounds": [
+        0.37980219499034973,
+        0.39580219499034985
+      ],
+      "nodeLoweringOnly": true,
+      "controlLoweringOnly": false,
+      "recoveryMeters": 30.0,
+      "reason": "Root-authorized coherent <=16mm lowering of generated shared Service/bb53/542 datum; exact finite mismatch requires15.5901mm; no Service rise, existing peaks and protected source crossings remain hard.",
+      "sourceProof": "docs/qa/evidence/reported-roads/pv-tail-51e-bb53-source-classification-9413.json",
+      "maximumInteriorCorrection": 0.15
+    }
+  ],
+  "profileLoweringComponents": [
+    {
+      "id": "kothaguda-shared-origin-ground-ribbons",
+      "roads": [
+        "57ec16ea-23d_0",
+        "6106b2f4-859_0"
+      ],
+      "node": "af596cab-569",
+      "sourceProof": "Same exact source origin and literal connected current ribbon component across284.516656/285.252179m; no mapped/negative/expressway authority. Generated midcomponent height discrepancy.23759m is not surveyed altitude.",
+      "bound": "lowering-only throughout the actual connected arm; no higher street peak",
+      "modelLengths": {
+        "57ec16ea-23d_0": 284.5166564529258,
+        "6106b2f4-859_0": 285.2521788094669
+      }
+    },
+    {
+      "id": "pv-tail-whole-bb53-lowering-test",
+      "roads": [
+        "bb53a146-41b_0"
+      ],
+      "node": "bc4a17a8-244",
+      "modelLengths": {
+        "bb53a146-41b_0": 141.7781594618932
+      },
+      "sourceProof": "docs/qa/evidence/reported-roads/pv-tail-51e-bb53-source-classification-9413.json",
+      "allowLocalNodeRedistribution": false,
+      "reason": "Root-authorized lowering-only whole literal141.759m affected mainline arm; Service Road no-rise and far source connector datum remain fixed, independent6ec bridge crossings hard.",
+      "geometryRebind": {
+        "prototypeModelSHA256": "f441e37a57e9c130c9b5a5047eab9410737e0940335c87b606b4bb43b11ef85e",
+        "previousModelLength": 141.7591266903126,
+        "scope": "Whole immutable source-owned arm under the reviewed common-heading geometry; only exact modeled length changes, no height/capacity/source authority changes."
+      }
+    }
+  ],
+  "localJunctionPatches": [
+    {
+      "id": "sir-louis-exact-source-9978-apron",
+      "node": "9978bdf5-922",
+      "radius": 5,
+      "roads": [
+        "554f3714-afe_0",
+        "554f3714-afe_1",
+        "993fa404-3ac_0",
+        "ab18c623-02a_0"
+      ],
+      "sourceSpine": [
+        "554f3714-afe_0",
+        "554f3714-afe_1"
+      ],
+      "sourceOriginNode": "711893a6-c4e",
+      "referenceRoad": "993fa404-3ac_0",
+      "reason": "Explicit source-full-UUID split plus connected initialapron. Only actual connected clipped pavement fragments inside5m of shared9978 may couple; no radius-only exemption, no positive remote interior or51degree longpath waiver."
+    },
+    {
+      "id": "sir-louis-far-short-connector-cluster",
+      "connector": "87e365e1-6dc_0",
+      "maximumConnectorLength": 7.827,
+      "radius": 12,
+      "roads": [
+        "993fa404-3ac_0",
+        "87e365e1-6dc_0",
+        "ab18c623-02a_0"
+      ],
+      "reason": "Explicit actual7.826238m sourceconnector76e60d7d\u2192a04d400b. Restrict to literal connected local pavement cluster within12m of connector midpoint; no51degree longapron or whole-pair exemption."
+    }
+  ],
+  "numericInteriorCorrections": [
+    {
+      "id": "b062cdd3-a99_0",
+      "controlIndices": [
+        186,
+        187
+      ],
+      "inputHeights": [
+        0.0923173929239316,
+        0.11102556821285393
+      ],
+      "maximumCorrection": 0.001,
+      "reason": "Root-authorized interior-only minimum correction of65.3micrometre historical finite deficit; no tolerance changes, source-supported3 lanes and all physical grades/headroom hard."
+    }
+  ],
+  "loweringOnlyRoads": [
+    {
+      "id": "51ebe3ea-4a1_3",
+      "reason": "Explicit no-rise condition on the declared one-lane Service Road during the PV-tail generated-datum lowering test. Existing node datums stay fixed unless separately authorized.",
+      "sourceProof": "docs/qa/evidence/reported-roads/pv-tail-51e-bb53-source-classification-9413.json"
+    }
+  ]
+}

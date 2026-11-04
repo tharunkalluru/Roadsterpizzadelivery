@@ -1,0 +1,110 @@
+{
+  "characterId": "ram-vvr",
+  "name": "Ram",
+  "film": "Vinaya Vidheya Rama",
+  "status": "approved",
+  "candidate": {
+    "assetId": "ram-vvr-train-roof-v1",
+    "sha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/ram-vvr/train-roof-v1.glb",
+      "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+    },
+    {
+      "path": "public/delivery/characters/ram-vvr/train-roof-v1.rig.json",
+      "sha256": "36030d99dd37495f83d864f79c49bb0734eb9b6c85cbaf6f2de80b90ea1f6eb7"
+    },
+    {
+      "path": "public/delivery/characters/ram-vvr/portrait-v1.png",
+      "sha256": "aa5a16d942dd7b8c7998a56daf9994c0ae7c49a44315fc80be7b672211236e1b"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T14:51:11.886089+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "ram-vvr-dvv-primary-native-92s",
+      "characterId": "ram-vvr",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=aV5HMqRas5g",
+      "publisher": "DVV Entertainment official",
+      "path": "docs/delivery/character-review/production/references/ram-dvv-92s.png",
+      "sha256": "0a98ace96d012ddecdcb8e00ef96b0354b660e1ec961e012353db37b83a78ba8",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually re-opened native correct-film Ram Charan close face at92s, grey-green open shirt, swept hair and short beard. Earlier52s Vivek frame is not used. Exact train-shot costume/lower clothing not wholly proven by this face/upper-body frame; game Vande Bharat rooftop scenario follows user direction."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-ram-final-v7/offline/front.png",
+      "sha256": "3fc381a74a9937b49a947d8d21c1238ecd6373d69324f43be7ab13ef215dea64",
+      "assetSha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d",
+      "comparedReferenceIds": [
+        "ram-vvr-dvv-primary-native-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-ram-final-v7/offline/three-quarter.png",
+      "sha256": "f662bf33cbb705057822258769c201eb3fd545d51fcd2c96e18f527c8716a003",
+      "assetSha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d",
+      "comparedReferenceIds": [
+        "ram-vvr-dvv-primary-native-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-ram-final-v7/offline/profile.png",
+      "sha256": "d80936e75b77df780df6e4e46c40a422b91ea74265c1b075dad6733ee191e5bb",
+      "assetSha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d",
+      "comparedReferenceIds": [
+        "ram-vvr-dvv-primary-native-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-ram-final-v7/offline/full-body.png",
+      "sha256": "d562a6f11790016f474343a46ee6f1efd38bb1a298456c31b09e6b6e3c9a4e09",
+      "assetSha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d",
+      "comparedReferenceIds": [
+        "ram-vvr-dvv-primary-native-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-ram-final-v7/native-final/01-final-night-ram-readable.png",
+      "sha256": "cf682f94ae2e81629c328e522bdc38e3f1f51f8ba51e04d8a0bafb324921b513",
+      "assetSha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d",
+      "comparedReferenceIds": [
+        "ram-vvr-dvv-primary-native-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval for the exact stylized Ram Charan/VVR actor. Five actual gameplay-mixer Idle views, two Walk poses, supported handoff full-body/underside and actual512 portrait were opened against real DVV92. Recognizable swept hair, close beard, face proportions and chosen grey-green rolled shirt are retained. Regular hair ridges and a small neck/chest tone transition are accepted game stylization; old raised neck ring and donor printed hand/hip defects are resolved.",
+    "Continuous real body volume, intact sleeves, separate hands and two palms plausibly support the .4m diagnostic carton. Existing explicit box-center catch contract remains unchanged. Diagnostic carton/floor evidence is labelled and is not described as native gameplay.",
+    "Actual fixed23:00 native roof run before lighting repair used assisted rear-coach descent, normal W/Space across multiple joints fromcoach7 to5m readiness, real F completion and stable train support after Next. Exact export campaign-qa-mvwhxh4j has no missing physical facts. Its unacceptable small/bleached actor evidence is preserved, not relabelled as a presentation pass. A later straight-W attempt fell off on a curve without steering; it is not silently claimed as successful or a proven new source regression.",
+    "Final isolated presentation run uses explicit DEV art-only landing above the actual customer coach followed by normal descent/contact. It honestly records qa-customer-coach-art-staging, not a rear-to-front drive or natural pickup. Real coach-edge worklights borrow existing light slots, reduced scene-only beams prevent bleach, and matched at-rest focus shows readable brown face/dark beard/grey-green costume. F600ms caused real completion; screenshot02 was already the result and is named completion. Next retains actor on the same source coach with natural Idle arms, manual orbit and mouse GO/Brake restore ordinary driving view.",
+    "Final export campaign-qa-mvwilr56 verifies exact8fb9 GLB/privatee292 rig, completed manual handoff, and explicitly still lists rail-multiple-coaches missing for this art-only run. That is kept separate from prior exactV7 full-roof evidence. The in-game evidence01 is the clean delivery-ready matched view, not a falsely claimed last carton/palm contact frame; exact support remains offline and the earlier real passing-carton animation was observed.",
+    "Canonical public36030d99 and privatee292 rig JSON independently parse equal. Native portraitaa5a16 was opened and faithfully renders this actor. Exact proposed three-file bundle83463991 is approved. Review itself does not insert assets, change the manifest or publish.",
+    "No full campaign, reversal/end-to-end railway accuracy, natural jump pickup, trusted-touch, physical-phone, FPS/thermal/battery claim. Source train setting/costume remains a user-directed game interpretation, not a pixel-exact recreation proven by a92s face still. Actual private-preview allScenarioEvidence remains false and the completion portrait integration is a subsequent release check."
+  ]
+}

@@ -1,0 +1,176 @@
+✔ canonical auxiliary endpoints retain mapped connections when a tile omits its ramps, with local discovery for unpatched roads (0.943458ms)
+✔ canonical patches replace and explicitly clear expressway classification without retaining stale tile metadata (0.084292ms)
+✖ a null-elevation canonical road clears stale seeded expressway metadata and auxiliary pavement (0.378667ms)
+✖ prepared caches reject lawful classification changes unsupported by their canonical source roads (0.767708ms)
+✔ generic grade preparation retains the canonical source road classification exactly (2.188458ms)
+✔ prepared caches reject malformed or unsupported canonical endpoint/classification metadata atomically (0.344958ms)
+✔ actual current World patches give the six ORR roads identical core, owner and context ribbons using their genuine ramp neighbors (19157.8545ms)
+✔ nested original-corridor metadata preserves signed coordinates/heights in both cache transports and worker patches (16.521084ms)
+✔ a later malformed original-corridor patch cannot partially warm the prepared-road maps (1.774209ms)
+✔ reused modeled cores reject appended stale incident roads and any changed road inventory atomically (0.96375ms)
+✔ a mixed final-core-patch tile cannot move its nodes and side streets while one core endpoint stays at source geometry (0.352333ms)
+✔ a later stale tile-only source keeps the entire owner/context zone unchanged (0.171792ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 10
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19299.953542
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-Q2gFHa/0.test.mjs:33075:1
+✖ a null-elevation canonical road clears stale seeded expressway metadata and auxiliary pavement (0.378667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Independent overlay road'
+  - null
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-Q2gFHa/0.test.mjs:33082:11)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Independent overlay road',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-Q2gFHa/0.test.mjs:33094:1
+✖ prepared caches reject lawful classification changes unsupported by their canonical source roads (0.767708ms)
+  AssertionError [ERR_ASSERTION]: add-expressway
+  + actual - expected
+  
+  + [
+  +   {
+  +     auxiliaryLaneEnds: undefined,
+  +     cls: 'primary',
+  +     elev: [
+  +       0,
+  +       1
+  +     ],
+  +     expressway: {
+  +       controlled: true,
+  +       ramp: false,
+  +       sourceDate: '2026-11-03',
+  +       sources: [
+  +         'source-fixture'
+  +       ],
+  +       throughLanes: 2,
+  +       uncertainty: 'Synthetic source metadata control'
+  +     },
+  +     from: 'start',
+  +     id: 'review-a',
+  +     joinedPavement: undefined,
+  +     laneEvidence: undefined,
+  +     lanes: 2,
+  +     maxspeed: 40,
+  +     name: 'Independent overlay road',
+  +     oneway: 'backward',
+  +     pts: [
+  +       [
+  +         10,
+  +         10
+  +       ],
+  +       [
+  +         30,
+  +         10
+  +       ]
+  +     ],
+  +     scenerySource: {
+  +       elev: [
+  +         -0,
+  +         0
+  +       ],
+  +       pts: [
+  +         [
+  +           -0,
+  +           0
+  +         ],
+  +         [
+  +           20,
+  +           0
+  +         ]
+  +       ],
+  +       width: 8.4
+  +     },
+  +     sceneryWidth: undefined,
+  +     seg: 'review-a',
+  +     sourceLaneIntervals: undefined,
+  +     to: 'join',
+  +     w: 7
+  +   },
+  +   {
+  +     auxiliaryLaneEnds: undefined,
+  +     cls: 'motorway_link',
+  +     elev: [
+  +       0,
+  +       1
+  +     ],
+  +     expressway: undefined,
+  +     from: 'join',
+  +     id: 'review-b',
+  +     joinedPavement: undefined,
+  +     laneEvidence: undefined,
+  +     lanes: 2,
+  +     maxspeed: 40,
+  +     name: 'Independent overlay road',
+  +     oneway: 'backward',
+  +     pts: [
+  +       [
+  +         30,
+  +         10
+  +       ],
+  +       [
+  +         50,
+  +         10
+  +       ]
+  +     ],
+  +     scenerySource: {
+  +       elev: [
+  +         -0,
+  +         0
+  +       ],
+  +       pts: [
+  +         [
+  +           -0,
+  +           0
+  +         ],
+  +         [
+  +           20,
+  +           0
+  +         ]
+  +       ],
+  +       width: 8.4
+  +     },
+  +     sceneryWidth: undefined,
+  +     seg: 'review-b',
+  +     sourceLaneIntervals: undefined,
+  +     to: 'end',
+  +     w: 7
+  +   }
+  + ]
+  - false
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-Q2gFHa/0.test.mjs:33110:13)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { id: 'review-a', seg: 'review-a', name: 'Independent overlay road', cls: 'primary', w: 7, lanes: 2, oneway: 'backward', from: 'start', to: 'join', pts: [Array], elev: [Array], maxspeed: 40, laneEvidence: undefined, sourceLaneIntervals: undefined, sceneryWidth: undefined, scenerySource: [Object], joinedPavement: undefined, expressway: [Object], auxiliaryLaneEnds: undefined }, { id: 'review-b', seg: 'review-b', name: 'Independent overlay road', cls: 'motorway_link', w: 7, lanes: 2, oneway: 'backward', from: 'join', to: 'end', pts: [Array], elev: [Array], maxspeed: 40, laneEvidence: undefined, sourceLaneIntervals: undefined, sceneryWidth: undefined, scenerySource: [Object], joinedPavement: undefined, expressway: undefined, auxiliaryLaneEnds: undefined } ],
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

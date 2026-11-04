@@ -1,0 +1,33 @@
+{
+  "observedAt": "2026-11-03T04:20:52.982Z",
+  "sourceCommit": "a679b72bacefb751057f0282a86571e8e6ef006d",
+  "sourceDirty": true,
+  "buildFingerprint": "afb050afc6b22631f07c19b911ef261ddef77d41f97589639cf141db6b20329e",
+  "currentFingerprint": "afb050afc6b22631f07c19b911ef261ddef77d41f97589639cf141db6b20329e",
+  "expandedBytes": 257989676,
+  "maximumBytes": 268435456,
+  "marginBytes": 10445780,
+  "assetCount": 18,
+  "modelCount": 17,
+  "sourceBytes": 146844715,
+  "storedBytes": 116950692,
+  "sourceAssetsAndRegistryUnchangedFrom": "a679b72bacefb751057f0282a86571e8e6ef006d",
+  "heldHashes": {
+    "scripts/asset-transport.mjs": "3d1c0045d70b7c3bc45d4c6e2589fcf9b3d3e4f5d1562c1d5edbcad8d8e927bd",
+    "scripts/build.mjs": "20516d10214fdfa69c634f42b45077f5c9e6ee8927e1051371ff8151d4384938",
+    "scripts/build-fingerprint.mjs": "0462ae43563e38de54b0fb74ead6a365eb392481fcd40442fa81b654258559b8",
+    "worker/asset-transport.ts": "3ea5e2ac5a55ccfc081b519417834bf8f817e9e4f1deb5f6e0bea738e9426bcd",
+    "worker/index.ts": "cf2fba55f87ea59b35430867805895c84b0b839926f96819c7620de35b8f50ef",
+    "package.json": "bc4022bea1af6c73a83387b853590bf211844de6fd9497c8442ad0e802360924",
+    "tests/v21-fixes/asset-transport.test.ts": "b9aaad3ddc998ee3335a039d6831d47dd1e562122dcef54c1f6def978ed98dba",
+    "tests/v21-fixes/build-fingerprint.test.ts": "0a8daf67bba8aec0f2728cc5fc4e0252237cc4c6a91e2aa25eadcc954c884205",
+    "tests/legacy/asset-transport-http.mjs": "d2a43eaeb0f3d35a85f7a8e25446a214d4ecfbb029fc3e6105d37c1d76edbe71",
+    "tests/legacy/bug-report-regressions.mjs": "205736700ea046cf76157035c4a72a312cc7f922d4806f4104abcbc054b07bd5"
+  },
+  "previewRuntimeTemporaryBytes": 68268,
+  "expandedBytesAfterPreview": 258063251,
+  "cleanBuildExpandedBytes": 257989676,
+  "cleanBuildMarginBytes": 10445780,
+  "note": "Clean npm run build deletes dist first. Preview creates dist/server/.wrangler temporary files; Root may add a temporary verification HTML. Neither should be packaged after the official clean release rebuild.",
+  "temporaryRootVerificationHtmlBytes": 5307
+}

@@ -1,0 +1,182 @@
+{
+  "scope": "Mac desktop Node/V8 synthetic setup measurement; not phone FPS, GPU rendering, thermal or battery evidence",
+  "baselineCommit": "40345bd",
+  "warmupActors": 3,
+  "measuredActors": 10,
+  "initialProductionPrewarm": {
+    "cpuMs": 69.402917,
+    "templates": 9,
+    "productionTemplates": 9,
+    "retainedTypedArrayBytes": 3591498
+  },
+  "factories": {
+    "before": {
+      "meanMs": 0.7401914000000005,
+      "minMs": 0.5504579999999919,
+      "maxMs": 1.2046670000000006,
+      "samplesMs": [
+        0.7154999999999916,
+        0.6405410000000131,
+        0.7795830000000024,
+        0.617083000000008,
+        0.6052910000000224,
+        0.5504579999999919,
+        1.2046670000000006,
+        0.7156249999999886,
+        0.9849999999999852,
+        0.5881660000000011
+      ]
+    },
+    "current": {
+      "meanMs": 0.043725100000000336,
+      "minMs": 0.04004199999999969,
+      "maxMs": 0.05283299999999258,
+      "samplesMs": [
+        0.04462499999999636,
+        0.04233299999998508,
+        0.040334000000001424,
+        0.04004199999999969,
+        0.04404200000001879,
+        0.04137500000001637,
+        0.04249999999998977,
+        0.04075000000000273,
+        0.05283299999999258,
+        0.0484170000000006
+      ]
+    }
+  },
+  "characters": [
+    {
+      "style": "pushpa",
+      "seated": true,
+      "before": {
+        "triangles": 756,
+        "vertices": 2268,
+        "actorAndPropDraws": 4
+      },
+      "current": {
+        "triangles": 15189,
+        "vertices": 10739,
+        "actorAndPropDraws": 4
+      }
+    },
+    {
+      "style": "simhadri",
+      "seated": false,
+      "before": {
+        "triangles": 636,
+        "vertices": 1908,
+        "actorAndPropDraws": 3
+      },
+      "current": {
+        "triangles": 13417,
+        "vertices": 9025,
+        "actorAndPropDraws": 3
+      }
+    },
+    {
+      "style": "trainHero",
+      "seated": false,
+      "before": {
+        "triangles": 520,
+        "vertices": 1560,
+        "actorAndPropDraws": 3
+      },
+      "current": {
+        "triangles": 12483,
+        "vertices": 8408,
+        "actorAndPropDraws": 3
+      }
+    },
+    {
+      "style": "gabbar",
+      "seated": false,
+      "before": {
+        "triangles": 448,
+        "vertices": 1344,
+        "actorAndPropDraws": 3
+      },
+      "current": {
+        "triangles": 13071,
+        "vertices": 8918,
+        "actorAndPropDraws": 3
+      }
+    },
+    {
+      "style": "jersey",
+      "seated": false,
+      "before": {
+        "triangles": 460,
+        "vertices": 1380,
+        "actorAndPropDraws": 4
+      },
+      "current": {
+        "triangles": 13561,
+        "vertices": 9246,
+        "actorAndPropDraws": 4
+      }
+    },
+    {
+      "style": "imax",
+      "seated": true,
+      "before": {
+        "triangles": 424,
+        "vertices": 1272,
+        "actorAndPropDraws": 3
+      },
+      "current": {
+        "triangles": 12303,
+        "vertices": 8276,
+        "actorAndPropDraws": 3
+      }
+    },
+    {
+      "style": "director",
+      "seated": false,
+      "before": {
+        "triangles": 608,
+        "vertices": 1824,
+        "actorAndPropDraws": 4
+      },
+      "current": {
+        "triangles": 13383,
+        "vertices": 9144,
+        "actorAndPropDraws": 4
+      }
+    },
+    {
+      "style": "extra",
+      "seated": false,
+      "before": {
+        "triangles": 400,
+        "vertices": 1200,
+        "actorAndPropDraws": 3
+      },
+      "current": {
+        "triangles": 12483,
+        "vertices": 8408,
+        "actorAndPropDraws": 3
+      }
+    },
+    {
+      "style": "unknown",
+      "seated": true,
+      "before": {
+        "triangles": 544,
+        "vertices": 1632,
+        "actorAndPropDraws": 4
+      },
+      "current": {
+        "triangles": 11385,
+        "vertices": 8054,
+        "actorAndPropDraws": 4
+      }
+    }
+  ],
+  "sourceSha256": {
+    "src/delivery/modules/character.ts": "46e64e5539f41fdcae2a388c1f0fc6df1ce090bea3728e778d0686d3fe2d9d03",
+    "src/delivery/modules/character-sculpt.ts": "518c0ffe9f96d707cb344101c9319982450456654380d4b8b67603068f8a47a3",
+    "src/delivery/modules/character-head.ts": "352234a436810bd81dc0240cb104208e8e35e79404ded100ce19be75ffc619ac",
+    "src/delivery/characters/anatomical-head.json": "28e6ed2473c362b96516ef1d143cfdacd5ca6795c1b9ca7cd04e97aac46ff595"
+  }
+}

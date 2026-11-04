@@ -3,8 +3,10 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTextures, kerbTexture } from './util';
+import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTextures, kerbTexture, stationWindowTextures } from './util';
+import { stationWindowMaterial } from './world-materials';
 import { makeSky, Mood, sunDirection } from './sky';
+import { EnvironmentSkyCapture } from './environment-capture';
 
 export class Engine {
   renderer: THREE.WebGLRenderer; scene = new THREE.Scene(); camera: THREE.PerspectiveCamera;
@@ -14,6 +16,7 @@ export class Engine {
   lampLights: THREE.PointLight[] = [];
   pmrem: THREE.PMREMGenerator; envRT: THREE.WebGLRenderTarget | null = null; envKey = '';
   mood!: Mood;
+  private environmentCapture: EnvironmentSkyCapture | null = null;
   constructor(public container: HTMLElement, public opts: { lowQ: boolean; still?: { w: number; h: number } }) {
     const still = opts.still;
     this.renderer = new THREE.WebGLRenderer({ antialias: !still, preserveDrawingBuffer: !!still, powerPreference: 'high-performance' });
@@ -34,8 +37,9 @@ export class Engine {
     this.sun.shadow.bias = -0.0004; this.sun.shadow.normalBias = 0.05;
     for (let i = 0; i < (opts.lowQ ? 3 : 6); i++) { const p = new THREE.PointLight('#ffcf8a', 0, 26, 1.6); this.scene.add(p); this.lampLights.push(p); }
     this.pmrem = new THREE.PMREMGenerator(this.renderer);
+    this.watchEnvironmentCaptureLifecycle(this.renderer.domElement, window);
 
-    const fac = facadeTextures(), shop = shopfrontTextures();
+    const fac = facadeTextures(), shop = shopfrontTextures(), station = stationWindowTextures();
     const DS = THREE.DoubleSide;
     this.mats = {
       ground: new THREE.MeshStandardMaterial({ color: '#8d8375', roughness: 0.95 }),
@@ -48,6 +52,7 @@ export class Engine {
       kerb: new THREE.MeshStandardMaterial({ vertexColors: true, map: kerbTexture(), roughness: 0.8, side: DS }),
       wall: new THREE.MeshStandardMaterial({ vertexColors: true, map: fac.map, emissiveMap: fac.emissive, emissive: new THREE.Color('#ffffff'), roughness: 0.85 }),
       shop: new THREE.MeshStandardMaterial({ vertexColors: true, map: shop.map, emissiveMap: shop.emissive, emissive: new THREE.Color('#ffffff'), roughness: 0.7 }),
+      stationWindow: stationWindowMaterial(station),
       roof: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: DS }),
       lit: new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }),
       glow: new THREE.MeshBasicMaterial({ map: radialTexture(), vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, opacity: 0.5 }),
@@ -97,6 +102,7 @@ export class Engine {
     this.renderer.toneMappingExposure = m.exposure;
     this.mats.lit.color.setScalar(m.lit);
     this.mats.wall.emissiveIntensity = m.windows; this.mats.shop.emissiveIntensity = m.windows * 1.15;
+    this.mats.stationWindow.emissiveIntensity = m.windows * .65;
     this.mats.glow.opacity = m.glow;
     this.mats.vLight.color.setScalar(m.lampLights > 2 ? 2.4 : 1.1);
     extra.signs?.(m.signs);
@@ -105,14 +111,27 @@ export class Engine {
     // refresh the image-based light only when the sky changed noticeably
     const k = m.skyTop + m.skyHor;
     if (k !== this.envKey) {
-      this.envKey = k;
-      const env = new THREE.Scene(); const s2 = makeSky();
-      (s2.material as THREE.ShaderMaterial).uniforms = THREE.UniformsUtils.clone(u); s2.scale.setScalar(0.03); env.add(s2);
-      const rt = this.pmrem.fromScene(env, 0.02);
-      this.envRT?.dispose(); this.envRT = rt;
-      this.scene.environment = rt.texture;
+      // Keep this private source material alive: disposing it per refresh
+      // would release the PMREM-specific linked shader program as well.
+      const capture = this.environmentCapture ??= new EnvironmentSkyCapture();
+      const rt = capture.render(this.pmrem, u);
+      const previous = this.envRT;
+      this.envRT = rt; this.scene.environment = rt.texture; this.envKey = k;
+      previous?.dispose();
     }
     (this.scene as any).environmentIntensity = m.env;
+  }
+  /** Release only the private PMREM source, never the visible sky or result. */
+  releaseEnvironmentCapture() {
+    this.environmentCapture?.dispose(); this.environmentCapture = null; this.envKey = '';
+  }
+  private watchEnvironmentCaptureLifecycle(canvas: EventTarget, page: EventTarget) {
+    // Three rebuilds this retained source's buffers/program after restoration;
+    // regenerate the derived environment on the next normal mood update.
+    canvas.addEventListener('webglcontextrestored', () => { this.envKey = ''; });
+    page.addEventListener('pagehide', event => {
+      if (!(event as PageTransitionEvent).persisted) this.releaseEnvironmentCapture();
+    });
   }
   placeSun(target: THREE.Vector3) {
     const d = sunDirection(this.mood);

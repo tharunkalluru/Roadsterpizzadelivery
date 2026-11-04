@@ -1,0 +1,126 @@
+{
+  "characterId": "devara",
+  "name": "Devara",
+  "film": "Devara",
+  "status": "approved",
+  "candidate": {
+    "assetId": "devara-underwater-neck-grip-v1",
+    "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/devara/neck-grip-v1.glb",
+      "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+    },
+    {
+      "path": "public/delivery/characters/devara/neck-grip-v1.rig.json",
+      "sha256": "225eeda36e87176a4db6019b4782d6c2ca48109e08111e94769c3dc07ccee6c6"
+    },
+    {
+      "path": "public/delivery/characters/devara/portrait-v1.png",
+      "sha256": "407b4e5353b7f45dc2e6eed4f97bc03e2c68e8f68782354ff2c3089359205690"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T14:32:26.297213+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "devara-ntrarts-primary-native-45s",
+      "characterId": "devara",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=5cx7rvMvAWo",
+      "publisher": "NTR Arts official",
+      "path": "docs/delivery/character-review/production/references/devara-first-ntr-arts-45s.png",
+      "sha256": "975f8e4da2ef09115d135d4d6ed592c9dc3cb1ecbce26d8c0ed369d8ebbf9af6",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually re-opened primary clear NTR/Devara face and dark shirt from NTR Arts first glimpse45s. Curly hair, beard, natural dark eyes and selected role appearance. Lower garment is an inferred game extension, not wholly verified by this upper-body source."
+    },
+    {
+      "id": "devara-ntrarts-primary-underwater-92s",
+      "characterId": "devara",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=HNYA6bqL6bU",
+      "publisher": "NTR Arts official",
+      "path": "docs/delivery/character-review/production/references/devara-ntr-arts-92s.png",
+      "sha256": "24236a0fb6888a21dca8be65009f9ceee70fbc430356d95ff873597cf19c3ffa",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually re-opened native official trailer92s: dim underwater intact skeleton composition. Hero/gripping hands are largely obscured, so this does not independently prove an exact pixel-matched pose. The clear actor-behind-skeleton cervical grip follows the user explicit scene direction; the92.85s title card is not used."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-devara-final-v8/authored/front.png",
+      "sha256": "103982aebbb4b08356a365ba2dec6e8b68e9a3dc00d7a94c94168b9b185d7b95",
+      "assetSha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a",
+      "comparedReferenceIds": [
+        "devara-ntrarts-primary-native-45s",
+        "devara-ntrarts-primary-underwater-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-devara-final-v8/authored/three-quarter.png",
+      "sha256": "72c462d47e9ab67c7fbe19b837cfe06dd61e272ae8b0801762e56547a3dea91b",
+      "assetSha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a",
+      "comparedReferenceIds": [
+        "devara-ntrarts-primary-native-45s",
+        "devara-ntrarts-primary-underwater-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-devara-final-v8/authored/profile.png",
+      "sha256": "8fd8d1e781e2446c9a7fed9192984fd4aa8af3bb4779e04133c086df8e2ede0a",
+      "assetSha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a",
+      "comparedReferenceIds": [
+        "devara-ntrarts-primary-native-45s",
+        "devara-ntrarts-primary-underwater-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-devara-final-v8/authored/full-body.png",
+      "sha256": "a510bbbb429b021182dbfa3a773fe58d3ace557a01f8f3de59458b436007f4c3",
+      "assetSha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a",
+      "comparedReferenceIds": [
+        "devara-ntrarts-primary-native-45s",
+        "devara-ntrarts-primary-underwater-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-devara-final-v8/native/02-night-underwater-final-v8.png",
+      "sha256": "3158150158bada15a9c7fec563f933cff7696a2db3937c87b1a026bb86ac81d4",
+      "assetSha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a",
+      "comparedReferenceIds": [
+        "devara-ntrarts-primary-native-45s",
+        "devara-ntrarts-primary-underwater-92s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval for exact stylized NTR/Devara V8. Actually viewed five current authored views, both cuff and collar closeups, actual anatomical-skeleton oblique, and native512 portrait against primary NTR Arts45 and92. Recognizable face, curly hair, beard and dark selected costume are retained. Regular coarse curls, subtle skin tone transition and small cuff edges are accepted game stylization, not requests for broad regeneration.",
+    "Named prior pale eyes, raised flat neck slab, duplicate lower neck side hole, gross forearm projections and black lower-leg islands are repaired. Separate fingers and continuous forearms plausibly hold the actual cervical region behind the intact anatomical skeleton. Skeleton e0e8286021d2feea89c8a99f40f13ba5d5e816603f03bc348421279a47ab4125 received a separate visual anatomy component pass; this actor review does not invent a new skeleton licensing assertion.",
+    "Actual Safari Q3 fixed23:00 used assisted Prepare/Stage only, then real F DIVE through smooth descent to Place Pizza readiness. Default quarter view shows readable face beside skull, body and hands clear of Roadster/controls, no silhouette or headlight bleaching. Native camera drag overrides focus while scene objects stay present. Real F places the carton on the adjacent stone without releasing the cervical grip, automatic surface return precedes completion, Next leaves Roadster safely above water in flight.",
+    "Native02 is the clean default in-game delivery-ready view, not mislabeled as the exact instant of carton placement. Actual manual placement was observed in UI and export; the following04 capture is honestly named completion. Final export campaign-qa-mvwhuqjr identifies exact6dfef GLB/private875edd rig, completed manual handoff, seven physical scene facts and no missing physical facts. No script advanced gameplay, authored pose or clock.",
+    "Canonical public225eeda3 and observed private875edd rig JSON independently parse equal. Native512 portrait407b4e was opened and faithfully represents the same static-grip actor. This approves proposed three-file bundle22e74feb; reviewer makes no runtime, public asset or manifest insertion.",
+    "Scope is the exact actor bundle and bounded underwater visual interaction. The user-described scene is a game interpretation, not a claim every unseen costume/pose detail is directly proven by the dim film frame. No natural jump-pickup, full14-level campaign, trusted touch, physical-phone, FPS, thermal or battery certification. Private-preview allScenarioEvidence remains false until release integration."
+  ]
+}

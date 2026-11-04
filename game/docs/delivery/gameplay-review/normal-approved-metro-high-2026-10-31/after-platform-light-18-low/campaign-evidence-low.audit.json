@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "auditor": "review_binding_audit independent read-only metadata audit",
+  "recordedAt": "2026-11-01T00:05:04.054222+00:00",
+  "scope": "Export structure/recorded facts and source provenance only. No UI, independent image visual verdict, export mutation or benchmark.",
+  "sourceExport": {
+    "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/after-platform-light-18-low/campaign-evidence-low.json",
+    "sha256": "2c428d9ee34d17e76513fe75cb8eeeab7e42a8710ca7a93720fc72f5a9c59996",
+    "runId": "campaign-qa-mvx2ejmp"
+  },
+  "validation": {
+    "expectedExportSha256": true,
+    "exactBuild": true,
+    "source4206NormalApprovedNoQaArt": true,
+    "urlAndEnvironmentLow": true,
+    "deviceAndRendererDprExactly1": true,
+    "viewportAndDrawingBufferExactly1264x505": true,
+    "sixRequiredFactsPresent": true,
+    "completedManualHandoff": true,
+    "noMissingPhysicalFacts": true,
+    "sceneMechanicsObserved": true,
+    "normalArtExportFlagAndNoMissingArt": true,
+    "bothInAppVisualChecksRecordedOnceWithNotes": true,
+    "rowAllScenarioEvidenceTrue": true,
+    "lowWalkCaptureLimitationExplicit": true,
+    "sameBuildAsHighSequence": true
+  },
+  "buildQuality": {
+    "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "source": "http://127.0.0.1:4206/?qaDelivery=10&qaScene=1&qaCampaign=1&qaPerf=1&qaRoute=1&qaTouch=1&q=low&qaNight=1",
+    "quality": "low",
+    "viewport": {
+      "width": 1264,
+      "height": 505
+    },
+    "devicePixelRatio": 1,
+    "rendererPixelRatio": 1,
+    "drawingBuffer": {
+      "width": 1264,
+      "height": 505
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15"
+  },
+  "mechanics": {
+    "facts": [
+      "metro-roof-contact",
+      "metro-next-station",
+      "authored-metro-exit",
+      "four-exit-anchors",
+      "grounded-arrival",
+      "manual-handoff"
+    ],
+    "manualHandoff": true,
+    "completed": true,
+    "handoffInputs": [
+      {
+        "kind": "handoff",
+        "source": "keyboard",
+        "at": 137833.9999999969
+      }
+    ],
+    "completedAt": 138583.99999999662,
+    "completionAfterLastHandoffMs": 749.9999999997381,
+    "missingPhysicalFacts": [],
+    "observedSceneMechanics": true
+  },
+  "visualMetadata": {
+    "requiredChecks": [
+      "Four visible correct-film people exit the proper door onto the physical platform.",
+      "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved."
+    ],
+    "recordedReviews": [
+      {
+        "check": "Four visible correct-film people exit the proper door onto the physical platform.",
+        "evidence": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/after-platform-light-18-low/04b-low-night-group-clear.png; /05-low-day-group-clear.png; /06-low-transfer-00..02.png; /07-low-retained-13.png. Low supplement to High actual walk/exit images; genuine new roof ride and next-station facts recorded, four on real platform observed; Low walk sequence not captured by native loop. Faces readable night/day, manual F catch and relaxed return. Natural walking separately seen High same build.",
+        "at": 155585.99999999104
+      },
+      {
+        "check": "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved.",
+        "evidence": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/after-platform-light-18-low/04b-low-night-group-clear.png; /05-low-day-group-clear.png; /06-low-transfer-00..02.png; /07-low-retained-13.png. Low supplement to High actual walk/exit images; genuine new roof ride and next-station facts recorded, four on real platform observed; Low walk sequence not captured by native loop. Faces readable night/day, manual F catch and relaxed return. Natural walking separately seen High same build.",
+        "at": 165050.99999998798
+      }
+    ],
+    "missingChecks": [],
+    "lowWalkSequenceCaptured": false,
+    "limitation": "Low genuine roof ride, next-station and authored-exit facts are recorded, but the native capture loop missed the Low walking phase. Recorded notes explicitly rely on actual High walking-sequence evidence from the same f096 build; Low night/day group, transfer and retained frames are a supplement. This auditor did not personally view or approve those images.",
+    "sameBuildHighExport": {
+      "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/after-platform-light-18/campaign-evidence-high.json",
+      "sha256": "56d5993fcd25b34d5afbb8a97908f185122cbd93945bd8bcc043efee8956ac6a",
+      "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+      "highInAppCheckboxGapRemainsSeparate": true
+    }
+  },
+  "normalPublicArtProvenance": {
+    "exportUnreviewedArtPreview": false,
+    "exportMissingArt": [],
+    "perAssetRuntimeShaExported": false,
+    "boundary": "URL and flags are consistent with ordinary approved public loading; no actual downloaded per-asset SHA is present in this export. Exact asset trios are separately tied by source/server-byte audit.",
+    "separateSourceServerProof": {
+      "path": "/tmp/roadster-final-normal-loader-provenance-4206-lamp18-f0960332/normal-loader-provenance-4206.json",
+      "sha256": "5d4f87156e02048574d09bdac82851d0ceb09b44a3918e10e735b8694788fa72",
+      "verdict": "SOURCE_AND_SERVER_BYTE_PROVENANCE_PASS",
+      "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a"
+    }
+  },
+  "assistanceBounds": {
+    "mode": "isolated-scene",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate",
+      "bhanumathi-wedding-street",
+      "sukumar-angle-parking"
+    ],
+    "globalAssistance": [
+      {
+        "kind": "qa-order-preparation",
+        "at": 321.0000000000001,
+        "levelId": null
+      },
+      {
+        "kind": "qa-scene-staging",
+        "at": 1553.999999999999,
+        "levelId": "vakeel-next-station"
+      },
+      {
+        "kind": "player-relocated",
+        "at": 1617.999999999999,
+        "levelId": "vakeel-next-station"
+      },
+      {
+        "kind": "pickup-not-observed",
+        "at": 138583.99999999662,
+        "levelId": "vakeel-next-station"
+      }
+    ],
+    "rowAssistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "naturalJumpPickup": false,
+    "inputEvidence": {
+      "pointerTypes": [
+        "mouse"
+      ],
+      "trustedTouchObserved": false,
+      "physicalHardwareVerified": false,
+      "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+    },
+    "rowAllScenarioEvidence": true,
+    "globalFullCampaignAccepted": false,
+    "globalAllScenarioEvidence": false,
+    "note": "Isolated assisted Prepare+Stage/player relocation; pickup not observed. Row scenario evidence true does not imply unassisted full-campaign acceptance. Native mouse/keyboard with touch-layout is not true touch/physical-phone evidence. No GPU/FPS/thermal/battery benchmark is certified."
+  },
+  "result": "LOW_BUILD_QUALITY_AND_RECORDED_SCENE_EVIDENCE_PASS_WITH_EXPLICIT_LOW_WALK_CAPTURE_LIMIT",
+  "exportPreserved": true
+}

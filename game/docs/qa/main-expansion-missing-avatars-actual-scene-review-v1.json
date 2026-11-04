@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-11-02T23:34:19.052956+00:00",
+  "reviewer": "/root/missing_avatars_independent_review",
+  "independentOfProducer": true,
+  "scope": "Actual-scene appearance review of immutable Odela v7 only. Salaar actual scene still pending. No production registry approval record.",
+  "characterId": "srikanth-odela",
+  "modelSha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b",
+  "canonicalContractSha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda",
+  "candidateIdentity": {
+    "assetId": "srikanth-odela-visible-scene-v3",
+    "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+  },
+  "isolatedReview": "docs/qa/main-expansion-missing-avatars-review-v3.json",
+  "actualSceneAppearanceVerdict": "PASS",
+  "productionReleaseApproved": false,
+  "salaarActualSceneVerdict": "PENDING",
+  "actualStoryMechanic": "RopeBucket: carton lowered/raised by bucket; TakePizza is not used in this actual story.",
+  "evidence": [
+    {
+      "path": "docs/qa/evidence/main-expansion/odela-actual-held-day-key-clear-v7.png",
+      "sha256": "2b159ecaadcc07d864800197e3c8f16afee6a8fc68c3dcd1fd02e354986a27bd",
+      "lighting": "day",
+      "actualNativeScreenshot": true,
+      "actuallyViewedByIndependentReviewer": true,
+      "viewportCssPixels": {
+        "width": 932,
+        "height": 430
+      },
+      "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/odela-actual-held-night-key-v7.png",
+      "sha256": "0265218540e4f80cd16362db0aec9c872bda1dfa4705d87fe39252713c072098",
+      "lighting": "night",
+      "actualNativeScreenshot": true,
+      "actuallyViewedByIndependentReviewer": true,
+      "viewportCssPixels": {
+        "width": 932,
+        "height": 430
+      },
+      "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5"
+    }
+  ],
+  "directlyObservedByReviewer": [
+    "The corrected held camera shows full actor, feet and larger facial area without winch/pole occlusion.",
+    "Day color and material treatment remain consistent with the isolated-reviewed model.",
+    "Night key from the physical lamp now makes cheek, beard and jaw readable while preserving dark sky and surroundings.",
+    "Head/neck, wrists and visible body silhouette are coherent in the actual production renderer screenshots.",
+    "Only Pause and Next remain as player controls; no map/navigation/action HUD obscures the actor."
+  ],
+  "observationsReportedByRootNotDirectlyWatchedByReviewer": [
+    "Native gameplay bucket lowers, receives physical pizza, raises, then enters the held Next scene.",
+    "The corrected held scene persists for many minutes without automatic advancement.",
+    "Exact immutable Odela v7 model and contract are used by the frozen build.",
+    "Mapped-roof foot-placement and camera visibility geometry checks pass 12/12."
+  ],
+  "limits": [
+    "This appearance PASS reviews actual native day/night stills in a 932x430 mobile-sized landscape viewport; it is not a physical-phone performance or touch-input certification.",
+    "No continuous playback was supplied to this reviewer; Root owns direct behavioral observation of bucket handoff and long hold.",
+    "Salaar actual day/night appearance remains unapproved, so no combined production approval draft is authorized yet."
+  ],
+  "curatedArchive": {
+    "manifest": "docs/delivery/character-review/production/final-avatars-20261102/curation-manifest.json",
+    "allFilesMatch": true,
+    "count": 41,
+    "checks": [
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-unified-v33.blend",
+        "sha256": "5d8c7c07ff3bb44798a9c81fbd5e6e4d0509410dc22466d86d150bdb62648bb5",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-unified-v33.production.json",
+        "sha256": "cc4031088d2656c35f39017bb6d1c707b3b4a28fe9294b521fd5e908ce6d38d5",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-review-candidate-v7.canonical.rig.json",
+        "sha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-asset-draft-round3-v7.json",
+        "sha256": "2f599f35d272eb33ae168a5d0a540364ec4f9a7fbe59a73cd9cfb0e34df3d986",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-round3-v7-final-structure.json",
+        "sha256": "c4405a4724fabeca4e3626c9dcf87807680394718446b96341939daf982dc140",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-independent-tool-contact-proof-round3-v7-final.json",
+        "sha256": "36ea3e61b2127dc8abeb2a85eb1cd7761a5ae5d776b2da314aebbb80a4a13728",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/back.png",
+        "sha256": "b4b7b329a17e46ae27baf392e2a4074ec580a04ff6c0ddbdf73a1dbdee3b0208",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/front.png",
+        "sha256": "fbb3ef73c1b918dbf2a2b9ed577cf3010ded1177bcf73bd437aaff44df4b4aa2",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/full-body.png",
+        "sha256": "3fe5503e9741bd2b5e92920ba2687f5915de07cb0516cda2b4bf88967f222e77",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/profile.png",
+        "sha256": "6005fa7ff0a0645294aaebbd0e65f996002b62893d3382d59078c71dcd0b6af2",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/three-quarter.png",
+        "sha256": "3e722c342a27795c3faf4a675060830a29f3de68f5eedb154b8d8ba37c372cc7",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbHandoffViews/front.png",
+        "sha256": "fdf4924145b4eab5a5e28b7377d05d5d99255bdb521a4aebb421a79df780a827",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbHandoffViews/full-body.png",
+        "sha256": "52ea60b806d15e3b2da6fd5f27f7293cc35e947aa0a2e04a3eff7f65fd787722",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbOppositeProfile/opposite-profile.png",
+        "sha256": "fef6d0836749a8a374732514d750e7ea094ae50473b671cbb6391ec035eca98d",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-natural-nape-v4.blend",
+        "sha256": "909d3cfc5bae8495e49557feb4c1abc39dc3af6ef2ce1a0e58c69c6a266cd74e",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-natural-nape-v3.production.json",
+        "sha256": "bc199c12479908d49759c4adde4916ea54cff3210b1466ee665555e50d43de59",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-natural-nape-v4.production.json",
+        "sha256": "e057f6f475031067738695dfef08b79ab466bf91602c0044c31dc2850d31075b",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-review-candidate-v9.canonical.rig.json",
+        "sha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-asset-draft-round4-v9.json",
+        "sha256": "b7c3a16a1af48eaf0ebcfa26013238c6134c0084d975040144070f75400456ba",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-round4-final-structure.json",
+        "sha256": "c66f80609d7028338e3282160d9b4a519ce5ca361c237b41c55ee1e609b7497a",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-round4-final-walk-contact.json",
+        "sha256": "e582371629c3ef80271cf1c534e9acfbdbd0c24f3dbb611826a43f0aa0007681",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/back.png",
+        "sha256": "503ef83d957b5ca1982dc24a763978af80ec2d62ae475d20737efae68304abee",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/front.png",
+        "sha256": "49ae1de9772304c0a0d55fead3aae97e4b74cd84ab330eca393c492803b49e22",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/full-body.png",
+        "sha256": "299571c44ebf80513d6c54f43fa80fa347408bce9250b83d23ba20386901476f",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/profile.png",
+        "sha256": "77ceaabf29aba76587ee883454712d961c7779ec0671fc292e432a40ccbe0eae",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/three-quarter.png",
+        "sha256": "d9fde44b07a5b65f1c0b0c2e52de47dafecbffa4bac807ca18f957a483db852b",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbHandoffViews/front.png",
+        "sha256": "740d12f7e68568a061f3d56c525b811188f2576c04fff5ceb7feefabc6e500a5",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbHandoffViews/full-body.png",
+        "sha256": "e2322cc04f4f44ef816f5fd6de03fc4bbba98e4c53226d07d0c70432d63f56a3",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbOppositeProfile/opposite-profile.png",
+        "sha256": "5e950ecca492179515e3adfdeb7320e1f97ed61e2ac35e8fbb41768d6cb0ca48",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-0067s.png",
+        "sha256": "561d946536624f68162f147740113e4fed6a08240b23bb413d0cc4be7de45212",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-0967s.png",
+        "sha256": "6604e8b0f13ca5315349a90131e3db1486e68018ba61f786bc014f0063d870fe",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-1057s.png",
+        "sha256": "e87e94cc719d611abbeb6215c178b1777fa88a7c6516e0d86e718e7511e67772",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-1372s.png",
+        "sha256": "d560e7df2d8d81069b9d9fc8f63169ffab23b26105faefad51f348d75b297cc7",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-1777s.png",
+        "sha256": "78b5324876ad51a464126c52398f7c9eae9c00b7adc3e6265dc8c96ab31cb293",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-2002s.png",
+        "sha256": "e8a04a82a12823353dbd7616d763cb54d917d5ceb084eaaea1f38589c3c21ed3",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-2317s.png",
+        "sha256": "315448d4a402771cb57f08c339e17bcae5ddfea15c72749f984c1a2ad6a524b4",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/shreyas-official-odela-speech-022s-decoded.png",
+        "sha256": "f06d975c3279721046a89e93c8a2e47229dcbbf66cacf67bb608d4ad4f16f858",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/shreyas-official-odela-speech-023s-decoded.png",
+        "sha256": "63dc40b0e59aed2c0a1ba2f93b6f8b1202f3f7d903f109383d31027f52e144e9",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/shreyas-official-odela-speech-024s-decoded.png",
+        "sha256": "69b79e503da75d48915a1e3f769618e060b4f1331e6afdede9d9ea083eea9f70",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/salaar-official-hombale-poster.png",
+        "sha256": "9f01427d3d23b2d676354926e02c0be7f953e18aa2f9fbc3c1456f70b9cfa1b5",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      },
+      {
+        "path": "docs/delivery/character-review/production/final-avatars-20261102/references/salaar-official-hombale-trailer-thumbnail.jpg",
+        "sha256": "fe42adb2b3b57463b4c7bb0bf4f9043d7cb4ab01d1d278d71826ef2657647108",
+        "matchesManifest": true,
+        "bytesMatchManifest": true
+      }
+    ]
+  },
+  "rejectedEarlierActualCapturesPreserved": [
+    "docs/qa/evidence/main-expansion/odela-actual-held-day-candidate-v7.png",
+    "docs/qa/evidence/main-expansion/odela-actual-held-day-key-v7.png"
+  ],
+  "registryEdited": false,
+  "runtimeSourceEdited": false,
+  "publicAssetsEdited": false
+}

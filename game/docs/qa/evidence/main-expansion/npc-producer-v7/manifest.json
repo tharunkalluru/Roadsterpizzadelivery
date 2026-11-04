@@ -1,0 +1,42 @@
+{
+  "status": "producer inspected walking geometry; native browser confirmation and independent review required",
+  "renderer": "Blender 4.5.9 LTS Cycles CPU, threads 2, samples 12",
+  "source": "actual production rig applyBoneTransform, bone-palette-transformed normals and vertex colours; game roughness .42/metalness .18",
+  "badFirstDelta": -0.8,
+  "phaseA": 0.7,
+  "phaseB": 3.84,
+  "perPersonPhaseOffset": 0.39,
+  "strideStartTicks": 5,
+  "convergedTicks": 90,
+  "sourceGeometryDirectory": "/tmp/roadster-npc-production-v7",
+  "sourceFiles": {
+    "src/world/human-gait.ts": "b66fbe520d4c09a7bd8eb915fab2702aea33ffd6d40e00299271dd58eb5ca76d",
+    "src/world/human-body.ts": "7566f5469e745bb4a35578e8e08216e0eacd3b8558013c224ea6eed801577545",
+    "src/world/human-skin.ts": "5defde186b8ac8eae0ebaeeb1473caca887f61c82937297702ddec77c9faee3d",
+    "src/world/people.ts": "95eb9f74ebcab5359a740c6a5fe9a0ccdba4f76895b5ef0bcb09d26cf1a53a78",
+    "src/world/npc-human-v4.json": "83c873bb5a9808193f264f42bb84eeb5b1c8408e904660687b27f26f98d64775",
+    "tests/browser/npc-people.browser.ts": "d397e45841a99b5e3ae9ba2b7bf0b878134fc403e7cf3a77844ea2545872f03d",
+    "scripts/art/export-npc-production.ts": "595574dc6a0f303474c9e0b011423a32724a15d5519f408956f9cbfddbab40c8",
+    "scripts/art/render-npc-production.py": "ecf6ec325712c174a4117b6ffc6e37a7d5f5331662641d696bd7cf849bf49992"
+  },
+  "views": [
+    {
+      "view": "stride-a",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v7/stride-a.png",
+      "sha256": "42782397ec780d0ab54a9f7c3cb0491ac72a7ff47194a7b16e92029754b96175",
+      "geometryJSONSha256": "bf1137ccd6790e85677b23dde6a2291e4be137e92a661d287aa4aa0d55171f03"
+    },
+    {
+      "view": "stride-b",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v7/stride-b.png",
+      "sha256": "00e623d187d9adde9a9d15825b2da123c16701ff191d38666c8d90665988ca5a",
+      "geometryJSONSha256": "73e66e52015e0b0815df4d96834f65b33a426b0e3e148cf6c9281d5f236821ef"
+    },
+    {
+      "view": "stride-start",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v7/stride-start.png",
+      "sha256": "5b8d39d53a3b08009d7a901e4146c4eb67579836edaefb61f17dc80f8121442f",
+      "geometryJSONSha256": "322269d88e6b3b2d4570d2f2d64b7535cc473c8efec65753bd56121d5419a7e7"
+    }
+  ]
+}

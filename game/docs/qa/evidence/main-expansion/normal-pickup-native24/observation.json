@@ -1,0 +1,30 @@
+{
+  "capturedAt": "2026-11-03T17:45:00Z",
+  "snapshot": "frozen24",
+  "runtimeFingerprint": "a81ebb5f3b6f8e46f94538766414d1eb6fe2cb54a42e6233f5570af5e9cce97e",
+  "method": "Native Chrome mouse held on ordinary on-screen controls; no staging, Prepare, teleport, auto-pickup, R, Jump assist or Fly assist. qaTouch=1 is layout only, not a physical phone.",
+  "observed": [
+    "Normal road acceleration, steering and braking",
+    "First attempts missed the moving pickup; ordinary retry and cooldown retained",
+    "Jump-grab successfully collected near player 6692.9,.55,430.2 yaw -147.7deg",
+    "Offer slice removed and compact existing trunk box shown after pickup",
+    "Road and minimap route guidance visible, 2.2km Follow the road",
+    "Pause menu opens normally"
+  ],
+  "limitations": [
+    "Not a completed delivery",
+    "No final roads profile candidate is enabled",
+    "Frozen24 mouth/meal snapshots have known defects; this evidence covers pickup and cargo only",
+    "Not a real-phone FPS, thermal, battery or 30-40-minute gameplay measurement"
+  ],
+  "screenshots": [
+    {
+      "path": "pickup-cargo-clean.png",
+      "sha256": "8568028e376caab3d83947f7d1fbf1e9b649fc522805d69af14d13156e3649c8"
+    },
+    {
+      "path": "pickup-cargo-with-readout.png",
+      "sha256": "ed664a6c5b8dedf4bde185b612edd865345dcc37f2eb869d5541906f32ad6c44"
+    }
+  ]
+}

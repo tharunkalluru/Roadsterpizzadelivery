@@ -1,0 +1,115 @@
+{
+  "scope": "Real immutable GLB classification with production-style timer yields between at most512 source vertices; host wall-clock CPU tasks, not GPU or phone FPS. Existing root pose and source GLB preserved.",
+  "sourceHashes": [
+    {
+      "path": "src/delivery/art/actor-performance.ts",
+      "sha256": "ee9dc1fdb910725e3979894305250f5e45ad482d7c7df377c582becff3bbac5c"
+    },
+    {
+      "path": "src/delivery/art/actor-meal-geometry.ts",
+      "sha256": "2f50b29f6bdc39a50ce49b8820022810e9ba3e839d61608012d7d63592b2ee5e"
+    },
+    {
+      "path": "src/delivery/art/released-gltf.ts",
+      "sha256": "fbaefefe750ac0e9e51ddfdd2f5111075f1614339e60f856092a91875574b7c7"
+    },
+    {
+      "path": "src/delivery/art/face-annotations.ts",
+      "sha256": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69"
+    },
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "sha256": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a"
+    }
+  ],
+  "report": [
+    {
+      "identity": "pushpa-raj",
+      "wallMs": 234.986084,
+      "maximumTaskMs": 1.9237909999999943,
+      "yields": 158,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "jessie",
+      "wallMs": 123.229375,
+      "maximumTaskMs": 0.6179579999999874,
+      "yields": 75,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "hasini",
+      "wallMs": 173.73541699999998,
+      "maximumTaskMs": 0.8578749999999218,
+      "yields": 117,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "ram-vvr",
+      "wallMs": 209.726,
+      "maximumTaskMs": 0.7231249999999818,
+      "yields": 139,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "sukumar",
+      "wallMs": 184.8988750000001,
+      "maximumTaskMs": 0.7365419999999858,
+      "yields": 122,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "nani-jersey",
+      "wallMs": 188.36912499999994,
+      "maximumTaskMs": 1.4898749999999836,
+      "yields": 118,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "arjun-reddy",
+      "wallMs": 183.512291,
+      "maximumTaskMs": 1.1354160000000775,
+      "yields": 119,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "maruthi",
+      "wallMs": 175.99070899999992,
+      "maximumTaskMs": 0.6767919999999776,
+      "yields": 107,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "bhanumathi",
+      "wallMs": 192.02287499999989,
+      "maximumTaskMs": 1.2863330000000133,
+      "yields": 104,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "vakeel-saab",
+      "wallMs": 91.98429199999964,
+      "maximumTaskMs": 0.6127919999998994,
+      "yields": 58,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    },
+    {
+      "identity": "srikanth-odela",
+      "wallMs": 217.06162499999982,
+      "maximumTaskMs": 0.5227499999996326,
+      "yields": 129,
+      "poseUnchanged": true,
+      "sourceUnchanged": true
+    }
+  ]
+}

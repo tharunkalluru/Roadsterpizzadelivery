@@ -1,0 +1,19 @@
+✔ a Next transaction cannot silently absorb multiple unobserved placements as one clean progression (1.719125ms)
+✔ a car that starts an old-scene departure under the loader cannot later acquire clean direct-Next proof (1.057834ms)
+✔ a vertical old-scene departure such as resurfacing under the loader cannot acquire clean direct-Next proof (0.728375ms)
+✔ a new order cannot inherit or finish an older attempt's pending Next transaction (0.666166ms)
+✔ one legitimate Next placement can finish asset warming before ready without being mislabeled assistance (0.827542ms)
+✔ an extra R placement during asset warming cannot be absorbed by a pending legitimate Next (0.243416ms)
+✔ the actual observer distinguishes front visible carton when certifying physical transfer (8.170375ms)
+✔ the actual observer distinguishes carton entirely behind the camera when certifying physical transfer (1.076834ms)
+✔ the actual observer distinguishes hidden carton material when certifying physical transfer (0.8745ms)
+✔ the actual observer distinguishes carton outside the camera layer when certifying physical transfer (0.941709ms)
+✔ the actual observer does not treat a hidden stale final-opening DOM node as a viewed ceremony (1.183375ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102.43675

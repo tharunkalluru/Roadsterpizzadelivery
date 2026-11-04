@@ -1,6 +1,8 @@
 // Player settings, kept in this browser. Quality is read at start-up (changing it reloads the page).
 import { GAME_BUILD } from '../game/bug-report';
+import { pauseProgressHtml, type PauseProgress } from './pause-progress';
 export interface Settings { quality: 'auto' | 'high' | 'low'; sound: boolean; steer: 'stick' | 'tilt'; tips: boolean }
+const esc = (value: string) => value.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
 const KEY = 'p2ph-settings-v1';
 const DEF: Settings = { quality: 'auto', sound: true, steer: 'stick', tips: true };
 
@@ -24,7 +26,7 @@ export const isTouch = () => ('ontouchstart' in window) || navigator.maxTouchPoi
 export function settingsHtml(s: Settings, touch: boolean) {
   const seg = (name: string, cur: string, opts: [string, string][]) =>
     `<div class="seg" role="group" aria-label="${name}">${opts.map(([v, l]) => `<button type="button" class="opt" data-k="${name}" data-v="${v}" aria-pressed="${cur === v}">${l}</button>`).join('')}</div>`;
-  return `<h2>Settings</h2>
+  return `<header class="sheet-header"><h2>Settings</h2><button type="button" class="btn go" id="set-done">Done</button></header>
     <div class="k">Graphics</div>${seg('quality', s.quality, [['auto', 'Auto'], ['high', 'High'], ['low', 'Low (faster)']])}
     <div class="sm">Auto uses Low on phones and tablets and High on computers. Changing it reloads the game; your progress is kept.</div>
     <div class="k">Sound</div>${seg('sound', s.sound ? 'on' : 'off', [['on', 'On'], ['off', 'Off']])}
@@ -34,6 +36,19 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <div class="k">Driving controls</div><div class="sm">Hold GO to accelerate. JUMP performs a short moving kickflip and lands automatically. The next jump is ready five seconds after landing. Road speed is limited to 120 km/h; flight to 160 km/h. FLY changes to LAND in the air, then LANDING while descending. Collection and handover buttons appear when you stop at the marked location.</div>` : ''}
     <div class="k">Tips while playing</div>${seg('tips', s.tips ? 'on' : 'off', [['on', 'Show'], ['off', 'Hide']])}
     <small class="sm build-info">Build ${GAME_BUILD.slice(0, 8)} · ${touch ? 'Opaque touch UI' : 'Opaque panel fallback'}</small>`;
+}
+
+export function pauseMenuHtml(campaign = false, progress?: PauseProgress, sessionLabel?: string) {
+  return `<div class="pause-menu" data-pause-menu><header class="sheet-header"><div class="pause-heading"><span class="pause-kicker">Take a breather</span><h2>Game paused</h2></div>${sessionLabel ? `<small class="pause-session">${esc(sessionLabel)}</small>` : ''}</header>
+    ${campaign ? pauseProgressHtml(progress) : ''}
+    <button type="button" class="btn go pause-primary" id="resume">Resume driving</button>
+    <div class="pause-grid${campaign ? ' campaign-grid' : ''}">
+      <button type="button" class="pause-card" id="settings"><span>Settings</span><small>Sound, steering and graphics</small></button>
+      ${campaign ? '<button type="button" class="pause-card" id="restaurant"><span>My restaurant</span><small>Restaurant and delivered customers</small></button>' : '<button type="button" class="pause-card" id="area"><span>Change area</span><small>Choose another part of Hyderabad</small></button>'}
+      <button type="button" class="pause-card" id="unstick"><span>Back to the road</span><small>Recover your Roadster nearby</small></button>
+    </div>
+    <footer class="pause-footer${campaign ? ' campaign-restarts' : ''}"><button type="button" class="pause-reset" id="reset">${campaign ? 'Restart current level' : 'Reset progress'}</button>${campaign ? '<button type="button" class="pause-reset" id="start-level-one">Start from level 1</button>' : ''}</footer>
+    <a class="pause-credits" href="/credits.html" target="_blank" rel="noopener">Map credits</a></div>`;
 }
 export function bindSettings(sheet: HTMLElement, s: Settings, apply: (s: Settings, changed: keyof Settings) => void) {
   sheet.querySelectorAll<HTMLButtonElement>('.opt[data-k]').forEach((b) => b.addEventListener('click', () => {

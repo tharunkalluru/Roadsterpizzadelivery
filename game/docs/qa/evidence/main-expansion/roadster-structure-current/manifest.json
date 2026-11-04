@@ -1,0 +1,32 @@
+{
+  "purpose": "Existing Roadster no-change appearance inspection; independent final acceptance pending",
+  "sourceSha256": {
+    "src/world/vehicles.ts": "093061b04ffc7c16d3d0cd6a565e48a255edd83878bb9cca21b4d3cb84558e4b",
+    "src/world/roadster-decals.ts": "f082bd092216dfddc64a1f3ad6fbf696dd75824c86bbf39f48877068a121051e",
+    "src/game/player-lights.ts": "8fdc182f46945a1cb889078cd05f02274cbcf8c23052f8a63bc94cda6513d26b"
+  },
+  "files": {
+    "front-quarter.png": "6d45e1279ba2d1514bf0f445081a06c366084268193f54dbebd79bbbb76dd7c3",
+    "rear-quarter.png": "c32f90f07b64284e9b5250cfb43b8a2ae221ca33332197e18d111aaa038632d1",
+    "side.png": "2b92e7e9d7edb70e37d1ce8fca35b967c14cea063ffacc8099b9a335b4dfe282",
+    "flight-deployed.png": "2c057d8df2edfb8dd4834a12280fdf58dbf99926b0353e32979626c0157c5b13",
+    "summary.json": "c7822c7c18d1791481b35b21f8fe1acc7dcd24ae76286d1d80a29bc4284ad502"
+  },
+  "geometryChecks": [
+    {
+      "deployment": 0,
+      "finitePositionsAndNormals": true,
+      "meshes": 150
+    },
+    {
+      "deployment": 1,
+      "finitePositionsAndNormals": true,
+      "meshes": 150
+    }
+  ],
+  "limitations": [
+    "Offline CPU structure render uses exact source vertices and normals, but substitutes canvas decal textures with plain gold surfaces.",
+    "Cycles lighting/material display is not a WebGL screenshot and not mobile performance evidence.",
+    "No production files changed."
+  ]
+}

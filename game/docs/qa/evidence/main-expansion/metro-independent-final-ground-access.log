@@ -1,0 +1,15 @@
+✔ bounded shifted lift restores access without relaxing the blocked preferred shafts or neighboring buildings (2.923334ms)
+✔ a ground-to-concourse-only lift requires retained internal stairs and does not invent a platform stop (16.205125ms)
+✔ a lower-only lift cannot count an isolated floor island as a route to the existing platform stairs (1.816292ms)
+✔ all actual station identities retain ground entry and every fallback floor terminates on real retained concourse support (24417.2575ms)
+ℹ {"stationIdentities":56,"fallbacks":[{"station":"st_bharat_nagar","lift":"st_bharat_nagar:lift:ground-access:-1:0:platform","u":0,"links":2},{"station":"st_chikkadpally","lift":"st_chikkadpally:lift:ground-access:-1:0:platform","u":0,"links":2},{"station":"st_rtc_cross_roads","lift":"st_rtc_cross_roads:lift:ground-access:-1:0:platform","u":0,"links":2}]}
+✔ lift parapet openings cover the actual full-width crossing including curved station platform guards (288.571333ms)
+ℹ {"actualLiftGuardCrossingSamples":528}
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 33647.624875

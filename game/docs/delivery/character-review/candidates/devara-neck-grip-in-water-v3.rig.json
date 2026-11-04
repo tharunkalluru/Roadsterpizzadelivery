@@ -1,0 +1,101 @@
+{
+  "id": "devara-neck-grip-in-water-v3",
+  "sceneName": "ReviewedCharacterScene",
+  "requireSkin": true,
+  "nodes": {
+    "leftArm": "LeftArm",
+    "rightArm": "RightArm",
+    "catchPoint": "PizzaCatch"
+  },
+  "pose": {
+    "mode": "authored-static"
+  },
+  "motions": {
+    "required": [
+      "idle"
+    ],
+    "clips": {
+      "idle": {
+        "clipName": "Idle"
+      }
+    }
+  },
+  "height": {
+    "min": 1.7289999999999999,
+    "max": 1.9110000000000003
+  },
+  "materialTreatment": "as-authored",
+  "motionBounds": {
+    "schemaVersion": 1,
+    "glbSha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399",
+    "sceneName": "ReviewedCharacterScene",
+    "sampling": {
+      "framesPerSecond": 24,
+      "marginMetres": 0.02,
+      "poseCount": 53,
+      "clips": [
+        {
+          "name": "Idle",
+          "duration": 2.0416667461395264,
+          "samples": 52
+        }
+      ]
+    },
+    "meshes": {
+      "geometry_0": {
+        "vertexCount": 30371,
+        "center": [
+          0.0017756301463972834,
+          0.9974292882409211,
+          0.06377130550466009
+        ],
+        "radius": 0.7155182710634462
+      },
+      "geometry_0_1": {
+        "vertexCount": 433,
+        "center": [
+          0.0005419924190915582,
+          1.3409122015662365,
+          0.10418463870224662
+        ],
+        "radius": 0.47734999576894127
+      },
+      "geometry_0_2": {
+        "vertexCount": 8317,
+        "center": [
+          0.015704469409964977,
+          0.2628550174174781,
+          0.04416973645387948
+        ],
+        "radius": 0.45037931139432125
+      },
+      "geometry_0_3": {
+        "vertexCount": 88,
+        "center": [
+          0.007430884926902026,
+          1.2878461580699536,
+          0.09123136029639885
+        ],
+        "radius": 0.456049973521814
+      },
+      "LeftAuthoredAnatomicalHand": {
+        "vertexCount": 2502,
+        "center": [
+          0.2090104925904076,
+          1.186483642364273,
+          0.2314722132354956
+        ],
+        "radius": 0.5635217437787123
+      },
+      "RightAuthoredAnatomicalHand": {
+        "vertexCount": 2502,
+        "center": [
+          -0.2048417562810682,
+          1.183729641809162,
+          0.22029342776523142
+        ],
+        "radius": 0.5704066242699373
+      }
+    }
+  }
+}

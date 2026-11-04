@@ -1,0 +1,2407 @@
+{
+  "measuredAt": "2026-11-03T08:38:28.211Z",
+  "scope": "Prototype side-street preflight only; held conditioned core and source-bound tile transport via public helpers, full actual colliders, normal Player updates; not final World or release acceptance",
+  "input": {
+    "model": "/tmp/roadster-road-freezes/lowered-side-streets-v1/model-fdef4f7d7c687757d0b1166f91da438f996616bfaedfa33b2c8bcd582611bb9b.json",
+    "modelSHA256": "fdef4f7d7c687757d0b1166f91da438f996616bfaedfa33b2c8bcd582611bb9b",
+    "supplement": "/tmp/roadster-road-freezes/lowered-side-streets-v1/supplement-566648b1e824a4f99e639d11d3d220d37b24cdbc15c49acbc4181a4811476df8.json",
+    "supplementSHA256": "566648b1e824a4f99e639d11d3d220d37b24cdbc15c49acbc4181a4811476df8"
+  },
+  "options": {
+    "rawCounterpart": true,
+    "failureCasesOnly": true
+  },
+  "sourceHashes": {
+    "src/core/util.ts": "95b53849ec130db189be88b927153f791a799d9fe9920cbac14166372dcd069d",
+    "src/world/metro-interchanges.ts": "112062092bb774c0d548855875cd48afb67e83e04f191c1771ef0f77544b1fff",
+    "src/world/metro-geometry.ts": "1cf28b5f8d25d3800f9f58022747c80399ef6e9f9cff9ca45c9e7176de941c14",
+    "src/world/station-board.ts": "99c871e2042dd329fdd94b30955c4fea9e7cf8b8176c0419cb215c8b8c1f09f0",
+    "src/world/station-sign-atlas.ts": "fba64b8cd7fe4a870ec2231cca563c3abe7e30e235b62d1e9996b6593f492850",
+    "src/world/signs.ts": "b342365be70e0c9f8f1f40b426d0e8b5fe9b5e3a50da7d6732f0849fd0faed27",
+    "src/world/npc-human-v4.json": "83c873bb5a9808193f264f42bb84eeb5b1c8408e904660687b27f26f98d64775",
+    "src/world/human-skin.ts": "5defde186b8ac8eae0ebaeeb1473caca887f61c82937297702ddec77c9faee3d",
+    "src/world/human-body.ts": "7566f5469e745bb4a35578e8e08216e0eacd3b8558013c224ea6eed801577545",
+    "src/world/human-gait.ts": "b66fbe520d4c09a7bd8eb915fab2702aea33ffd6d40e00299271dd58eb5ca76d",
+    "src/world/people.ts": "95eb9f74ebcab5359a740c6a5fe9a0ccdba4f76895b5ef0bcb09d26cf1a53a78",
+    "src/world/indian_flag.ts": "edd5dc69c12259ca5d608051995ff35cefa2e5a06d04b2a8852692ae6c9863dd",
+    "src/world/landmark_symbols.ts": "80ed2c2c31672b4a946f8b5e3d371018763850cfb5b9f2ab9f47123e6b63a2e9",
+    "src/world/landmarks_data.ts": "b338702e930ce61b54a09304add3a13c2f96b9a605c445ffbb9dcc113cc88c65",
+    "src/world/airfield-data.ts": "9237c55685983349612bb0044c8abc42fb852e4ed42f671865e8bf9a26a67d75",
+    "src/world/landmark-support.ts": "71f79b3cec16525104ba70cec1338fc3c6ae28b1e931726028ac867f4dbcb5a5",
+    "src/world/airfields.ts": "745eead44a2db7731a3770937857fdce1e9631783e950174d30ce9eb3748cb48",
+    "src/world/destination-hero-data.ts": "ea0e4eb00efbd8408a614557e2892da51f0366961b073cc788462c7f88a6e7ba",
+    "src/world/landmark-corrections.ts": "f575eb043f507588d287e980c835bad0d61ca5e790dc90a63b6b558b709abbe7",
+    "src/world/landmark-source-plans.ts": "be62e84d72f10374573efe269503121ad2e31a7416d7316b58d529f63de53199",
+    "src/world/destination-hero-models.ts": "e517e89cec0d09c0f1ec59087c1a744147e08203a9bc1fa0d9eb3e2858b4d035",
+    "src/world/landmarks2.ts": "d6fdc6cedcba2fe875efca590f00717136ef6a29170b23cdd38c2b51e2f04a46",
+    "src/world/durgam-bridge.ts": "a33d5b1210044bcbdd814f026d2142af9d3376e3cf867fd3a48c9ee83c1813a3",
+    "src/world/golconda-summit.ts": "4bd40122e9571f9cdb56079cb64f6cd0f7c8155b1897289a8f1a48cd01993160",
+    "src/world/ambedkar-monument.ts": "eafeeead046f62f925efcf685f765bfacbd839c77d22674afba08229f2e66d67",
+    "src/world/landmark_catalog.ts": "fb22a6aa1da682eaeb8a706bc1dbea28ecd120069ce76658369c7b58c53bc0d2",
+    "src/world/landmarks.ts": "78ed25fe3cba5e65db19a7eeb08955748692bd416f5d1b39cdb3e5c78dc2a4c1",
+    "src/world/expressway.ts": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025",
+    "src/world/railway-stations.ts": "c4e413151c0dac06370c2228279fef0c400d4bbd3e04bdf960e8d4911e6a0dcf",
+    "src/world/extras.ts": "9c6901e9d5bd88d396309d2ed3b389e55e6904e2e7769ff4c0db8cfb4c23d3dc",
+    "src/world/road-pavement.ts": "c9194cfa91d2c843e5dbee586468967f72550324f0b54e253be1faa6b14555b9",
+    "src/world/structure-clearance.ts": "58276fa10545bd4db08c883c521a74a6e786b8f6da73c012a38036c2d976accb",
+    "src/world/expressway-signs.ts": "24589ff5e6ce7f5155bbf7264f808517c8f16b4f89b5f23f5343878c3a4da084",
+    "src/world/road-surface.ts": "f78eb899c6fe067f62121a16a22f22b9a7589cee820b7776f2a465bd82fb084f",
+    "src/world/bridge-clearance.ts": "e06ac76fdcdf894b36ee13cd1572579f3f901c62983514d87eabfbd0516dd961",
+    "src/world/building-clearance.ts": "0fdf49c1a6966e465f6c20f8ca26b5ebae6eef634e1945c98a61d2e002584779",
+    "src/world/railway-source.json": "55dda4425b8029630a30fa57e6c452d3281cdee327a035cda17eaf7393b21e9c",
+    "src/world/railway-evidence.ts": "bcf79d05349ceb4954d1716884b0ec7f8aa8a88a550960eb56998b91aceadeb5",
+    "src/world/railway-clearance.ts": "0db1e710dc744338f899b2bca8f5ec622fafc91e3d108d3f434049f4b3dfa3bc",
+    "src/world/railway-geometry.ts": "bdaaaf576cabe3acec647128a2e40a5f4e536cc35826b50b06543fe265b38185",
+    "src/world/metro-clearance.ts": "71a313851043bc3c3906ff573adef498154f8a5a362db6273c97081c0e58d5ae",
+    "src/world/landmark-support-capture.ts": "a8214c73fc7cc906b220d23b1936a2bde01332a30a773aca116380ae3c1f74ca",
+    "src/world/signals.ts": "e39946522bfcf2135153556bba32d6c06b3faec39ccb47e2d41a01f9640fe71b",
+    "src/world/street-lamps.ts": "13698684ce71333c9fb7b4c852fb6aaa84a7bed07d15223d3714f1b738550b15",
+    "src/world/station-presentation.ts": "c97c61f030979d3ec805200029302140614c0ced5d29b2173b6146a8d9c55751",
+    "src/world/metro-street-lamp-clearance.ts": "86bb5929f92b48c12cf016e8d45e997cf7b91bc8079f0ecf4da403e8a63b831a",
+    "src/world/construction-data.ts": "534547f28c6a86df648132acfc31c6d9c37db18e6ff2582258e73f5babd30bda",
+    "src/world/construction.ts": "386f02ddfd63065e8ab2096f35291b0f9dd14c86e7b04cc6545ed07b3a668a70",
+    "src/world/metro-station-visuals.ts": "9233eeffa1e38611dde57aeeb92642fa42a8efd84fbc461cad5f1d62ff7eba23",
+    "src/world/metro-platform-lamps.ts": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+    "src/world/metro-station-access.ts": "724bd6f25e4c73709fb533ba3bc470053d3656fe4767c003f8798481e34a6ef0",
+    "src/world/street-presentation.ts": "985cfc5c5629cdad3bf285442bd6b0109316562e133f14cd324b1cf68ab8c3ae",
+    "src/world/destination-identity.ts": "20041b4917a01779a009c3361fcdc3e8d93d79a9214d789f89fc332e23c8f3a7",
+    "src/world/destination-recognition.ts": "5d2437401636eb4d71c6d20c9958d04532fec46f5a68578607fdd31ab2b6cda5",
+    "src/world/water.ts": "b1034eba03cf613d1bcc6414b70a1138cf819688897141408eed5112f8c28c34",
+    "src/world/stadium-roads.ts": "c10b1393ac654866be29710a937fd0363223538b70702f9a91f9ac5f9acf8e2d",
+    "src/world/railway-road-clearance.ts": "a32ec97b78cdf4c13feb9ef30298872d9ae04283cb00bf0f980080757834f15b",
+    "src/world/underpass-terrain.ts": "be8cc78bbf33fa47e88066ca8704d688cb1161a9641cbb766931370123a6a897",
+    "src/world/road-openings.ts": "eef1650a8fd6725e790e96504ae163a1d82de5825da1a208bb018c7a9dce5d30",
+    "src/world/city.ts": "ac69f0abb09ac69fbb1dcf415720618d4ee94235aa75505b74ea1a5c1c7c9e70",
+    "src/world/road-node-transport.ts": "6ec7c526bff68853ba834b95b3e22173e44a95944c46a28dacc04a1f58472154",
+    "src/world/destination-data.ts": "971568d5df2e387cdf64ea4426156f071334930725a03ce3de755a2f1da36755",
+    "src/game/moving-rail.ts": "28e4b2723461e5d98385cf88520b26b50ad0377d28e5eae3a0c2d2beba4bf061",
+    "src/game/physics.ts": "6a49738df819075324ecdc3cb74b4ad1895594906a765fedf3fb56fa1bec3ab1",
+    "src/world/vehicles.ts": "093061b04ffc7c16d3d0cd6a565e48a255edd83878bb9cca21b4d3cb84558e4b",
+    "src/game/landmark-contact.ts": "125e1f2ed0194a0adad84e482b3c8a655a8d917dbea82e93676945e260acd395",
+    "src/game/takeoff-kickflip.ts": "14ae5a6d3f9438842ee3c038e24428a874a33b9179912127e7baa30a1d8c326c",
+    "src/game/jump-motion.ts": "5ceaadd612716934fd0609b29cfb9ef4870162669f321463545d94d73b444670",
+    "src/game/player-lights.ts": "8fdc182f46945a1cb889078cd05f02274cbcf8c23052f8a63bc94cda6513d26b",
+    "src/world/roadster-decals.ts": "f082bd092216dfddc64a1f3ad6fbf696dd75824c86bbf39f48877068a121051e",
+    "src/game/road-wheel-contact.ts": "7c3f19118c2c0a907fea987116762131cc9aaebbd96b667f324dab6478e48f81",
+    "src/game/player.ts": "705069c764579fe352aedc3955da9422279ff55ba8689878ba851cf877cd5ae3",
+    "tests/fixtures/actual-player.ts": "cc444d6d9fa616238d2655247d8b62618c45dada8653cbec4e21fb99ecba2b00",
+    "tests/fixtures/emitted-player-contact.ts": "8d6a0431eb1124948ac486b9b58ef700de990641795c4f769b8edaebbb92fb7d",
+    "docs/qa/evidence/main-expansion/tile-node-actual-player-preflight.ts": "d8338f9580771ebf369d9eefa85e602f237dd59ce4b1aa30a1f24e7cf73def4c",
+    "package-lock.json": "4f6553d1e85caadbf5b6af31cfb426b3a608ca842789f594bbef5be0be31b09a"
+  },
+  "changedDuringRun": [],
+  "tiles": [
+    {
+      "tile": "-3_0",
+      "pack": "packs/p-1_0.pack.wasm",
+      "transported": [],
+      "modeledNodes": [],
+      "nodePositions": {
+        "25e8a829-ebc": [
+          -2168,
+          432.4
+        ],
+        "02fa2dd1-ebb": [
+          -2256.1,
+          609.6
+        ],
+        "0c31766a-322": [
+          -2264.1,
+          629.7
+        ],
+        "10720ccf-b9f": [
+          -2275.2,
+          657.6
+        ],
+        "114bac2c-e85": [
+          -2186.4,
+          601.8
+        ],
+        "2832db78-bc6": [
+          -2194,
+          593.6
+        ],
+        "50017f89-190": [
+          -2221.8,
+          568.5
+        ],
+        "7d7242fc-4c2": [
+          -2083.4,
+          443.4
+        ],
+        "826901c1-6cf": [
+          -2192.8,
+          567.7
+        ],
+        "8393192d-1b1": [
+          -2225.9,
+          576.6
+        ],
+        "a1be698c-bc7": [
+          -2202.5,
+          621.1
+        ],
+        "b022f1e7-8b0": [
+          -2240,
+          572.8
+        ],
+        "e708c144-b29": [
+          -2204.2,
+          525.1
+        ]
+      },
+      "sourceUnchanged": true,
+      "geometry": {
+        "buildings": 1161,
+        "boards": 783,
+        "roads": 412,
+        "verts": 489129,
+        "fillShops": 489,
+        "inferredSignals": 0
+      }
+    },
+    {
+      "tile": "-6_-3",
+      "pack": "packs/p-2_-1.pack.wasm",
+      "transported": [],
+      "modeledNodes": [],
+      "nodePositions": {
+        "753370ac-75e": [
+          -4949.2,
+          -2196.2
+        ]
+      },
+      "sourceUnchanged": true,
+      "geometry": {
+        "buildings": 1581,
+        "boards": 1392,
+        "roads": 481,
+        "verts": 303417,
+        "fillShops": 1536,
+        "inferredSignals": 0
+      }
+    },
+    {
+      "tile": "-5_-3",
+      "pack": "packs/p-2_-1.pack.wasm",
+      "transported": [],
+      "modeledNodes": [],
+      "nodePositions": {
+        "753370ac-75e": [
+          -4949.2,
+          -2196.2
+        ],
+        "2a9ee2a6-20f": [
+          -4817.4,
+          -2252.6
+        ],
+        "0b88cb51-464": [
+          -4776.4,
+          -2259.3
+        ],
+        "270fb7dc-2a3": [
+          -4794.4,
+          -2256.1
+        ]
+      },
+      "sourceUnchanged": true,
+      "geometry": {
+        "buildings": 1144,
+        "boards": 1823,
+        "roads": 476,
+        "verts": 471477,
+        "fillShops": 870,
+        "inferredSignals": 0
+      }
+    },
+    {
+      "tile": "20_-5",
+      "pack": "packs/p6_-2.pack.wasm",
+      "transported": [],
+      "modeledNodes": [],
+      "nodePositions": {
+        "d6f0c4a0-612": [
+          20627.4,
+          -4368.5
+        ]
+      },
+      "sourceUnchanged": true,
+      "geometry": {
+        "buildings": 572,
+        "boards": 16,
+        "roads": 236,
+        "verts": 75924,
+        "fillShops": 110,
+        "inferredSignals": 0
+      }
+    }
+  ],
+  "capEvidence": [
+    {
+      "id": "d8e43417-f5b_0",
+      "node": "7d7242fc-4c2",
+      "nodePosition": [
+        -2083.4,
+        443.4
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -2084.3888491892953,
+            0,
+            441.58975689240424
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        },
+        {
+          "point": [
+            -2083.326495575267,
+            0,
+            440.5757306365311
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        },
+        {
+          "point": [
+            -2082.3376463859718,
+            0,
+            442.38597374412694
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        },
+        {
+          "point": [
+            -2082.411150810705,
+            0,
+            445.2102431075958
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        },
+        {
+          "point": [
+            -2083.473504424733,
+            0,
+            446.22426936346886
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        },
+        {
+          "point": [
+            -2084.4623536140284,
+            0,
+            444.41402625587307
+          ],
+          "emittedSupport": -2.980232241545089e-10,
+          "error": 2.980232241545089e-10
+        }
+      ]
+    },
+    {
+      "id": "06c3a04a-26f_0",
+      "node": "0c31766a-322",
+      "nodePosition": [
+        -2264.1,
+        629.7
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -2266.453817572053,
+            0,
+            628.7633460700591
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2264.9889017305895,
+            0,
+            628.5390811280166
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2262.6350841585368,
+            0,
+            629.4757350579575
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2261.7461824279467,
+            0,
+            630.6366539299411
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2263.2110982694103,
+            0,
+            630.8609188719837
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2265.5649158414635,
+            0,
+            629.9242649420426
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        }
+      ]
+    },
+    {
+      "id": "105beac8-a00_1",
+      "node": "10720ccf-b9f",
+      "nodePosition": [
+        -2275.2,
+        657.6
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -2277.555234971398,
+            0,
+            656.6669230884471
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2276.070354035681,
+            0,
+            656.4472808305521
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2273.715119064283,
+            0,
+            657.380357742105
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2272.8447650286016,
+            0,
+            658.5330769115529
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2274.329645964319,
+            0,
+            658.7527191694479
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        },
+        {
+          "point": [
+            -2276.6848809357166,
+            0,
+            657.819642257895
+          ],
+          "emittedSupport": -1.0132789607375514e-9,
+          "error": 1.0132789607375514e-9
+        }
+      ]
+    },
+    {
+      "id": "7be4d085-f54_0",
+      "node": "753370ac-75e",
+      "nodePosition": [
+        -4949.2,
+        -2196.2
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -4950.969608990295,
+            0,
+            -2197.1934301705555
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4950.713801579783,
+            0,
+            -2198.9385793856013
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4948.944192589487,
+            0,
+            -2197.9451492150456
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4947.430391009705,
+            0,
+            -2195.206569829444
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4947.686198420218,
+            0,
+            -2193.4614206143983
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4949.4558074105125,
+            0,
+            -2194.454850784954
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        }
+      ]
+    },
+    {
+      "id": "6882abe6-c07_0",
+      "node": "0b88cb51-464",
+      "nodePosition": [
+        -4776.4,
+        -2259.3
+      ],
+      "capTriangles": 8,
+      "samples": [
+        {
+          "point": [
+            -4777.454574364024,
+            0,
+            -2261.134867616626
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.790236095441,
+            0,
+            -2262.404846281242
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4775.834664236991,
+            0,
+            -2261.4755826896976
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4774.93829155964,
+            0,
+            -2259.620831316226
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4775.3454256359755,
+            0,
+            -2257.4651323833746
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.009763904558,
+            0,
+            -2256.1951537187583
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.965335763009,
+            0,
+            -2257.1244173103028
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4777.8617084403595,
+            0,
+            -2258.9791686837743
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        }
+      ]
+    },
+    {
+      "id": "1bc95a46-c59_0",
+      "node": "0b88cb51-464",
+      "nodePosition": [
+        -4776.4,
+        -2259.3
+      ],
+      "capTriangles": 8,
+      "samples": [
+        {
+          "point": [
+            -4777.454574364024,
+            0,
+            -2261.134867616626
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.790236095441,
+            0,
+            -2262.404846281242
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4775.834664236991,
+            0,
+            -2261.4755826896976
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4774.93829155964,
+            0,
+            -2259.620831316226
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4775.3454256359755,
+            0,
+            -2257.4651323833746
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.009763904558,
+            0,
+            -2256.1951537187583
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4776.965335763009,
+            0,
+            -2257.1244173103028
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4777.8617084403595,
+            0,
+            -2258.9791686837743
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        }
+      ]
+    },
+    {
+      "id": "96fca61c-5e1_0",
+      "node": "270fb7dc-2a3",
+      "nodePosition": [
+        -4794.4,
+        -2256.1
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -4795.487443753146,
+            0,
+            -2257.443575052848
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4794.952248217844,
+            0,
+            -2259.184280256195
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4793.864804464697,
+            0,
+            -2257.840705203347
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4793.312556246853,
+            0,
+            -2254.756424947152
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4793.847751782156,
+            0,
+            -2253.015719743805
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4794.935195535302,
+            0,
+            -2254.3592947966526
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        }
+      ]
+    },
+    {
+      "id": "6a870f89-bc5_0",
+      "node": "2a9ee2a6-20f",
+      "nodePosition": [
+        -4817.4,
+        -2252.6
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            -4818.912660971908,
+            0,
+            -2253.6269067633207
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4818.224704714946,
+            0,
+            -2255.596479044569
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4816.712043743037,
+            0,
+            -2254.5695722812484
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4815.8873390280905,
+            0,
+            -2251.5730932366787
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4816.5752952850535,
+            0,
+            -2249.60352095543
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        },
+        {
+          "point": [
+            -4818.087956256963,
+            0,
+            -2250.6304277187514
+          ],
+          "emittedSupport": 2.98023217215615e-10,
+          "error": 2.98023217215615e-10
+        }
+      ]
+    },
+    {
+      "id": "625a9bf7-dae_0",
+      "node": "d6f0c4a0-612",
+      "nodePosition": [
+        20627.4,
+        -4368.5
+      ],
+      "capTriangles": 6,
+      "samples": [
+        {
+          "point": [
+            20626.963864574805,
+            0,
+            -4369.8631429979
+          ],
+          "emittedSupport": 3.6954879711892374e-9,
+          "error": 3.6954879711892374e-9
+        },
+        {
+          "point": [
+            20628.327667899528,
+            0,
+            -4370.271446952318
+          ],
+          "emittedSupport": 3.6954879711892374e-9,
+          "error": 3.6954879711892374e-9
+        },
+        {
+          "point": [
+            20628.76380332472,
+            0,
+            -4368.908303954419
+          ],
+          "emittedSupport": 3.6954879711892374e-9,
+          "error": 3.6954879711892374e-9
+        },
+        {
+          "point": [
+            20627.836135425197,
+            0,
+            -4367.1368570021
+          ],
+          "emittedSupport": 1.7881393449270533e-9,
+          "error": 1.7881393449270533e-9
+        },
+        {
+          "point": [
+            20626.472332100475,
+            0,
+            -4366.728553047682
+          ],
+          "emittedSupport": 1.7881393449270533e-9,
+          "error": 1.7881393449270533e-9
+        },
+        {
+          "point": [
+            20626.036196675283,
+            0,
+            -4368.091696045581
+          ],
+          "emittedSupport": 1.7881393449270533e-9,
+          "error": 1.7881393449270533e-9
+        }
+      ]
+    }
+  ],
+  "geometry": {
+    "d8e43417-f5b_0": {
+      "tiles": 1,
+      "road": 129,
+      "solid": 335,
+      "missingLift": 0
+    },
+    "06c3a04a-26f_0": {
+      "tiles": 1,
+      "road": 198,
+      "solid": 782,
+      "missingLift": 0
+    },
+    "105beac8-a00_1": {
+      "tiles": 1,
+      "road": 124,
+      "solid": 827,
+      "missingLift": 0
+    },
+    "7be4d085-f54_0": {
+      "tiles": 2,
+      "road": 131,
+      "solid": 1040,
+      "missingLift": 0
+    },
+    "6882abe6-c07_0": {
+      "tiles": 1,
+      "road": 206,
+      "solid": 1035,
+      "missingLift": 0
+    },
+    "1bc95a46-c59_0": {
+      "tiles": 1,
+      "road": 206,
+      "solid": 1035,
+      "missingLift": 0
+    },
+    "96fca61c-5e1_0": {
+      "tiles": 1,
+      "road": 176,
+      "solid": 1115,
+      "missingLift": 0
+    },
+    "6a870f89-bc5_0": {
+      "tiles": 1,
+      "road": 156,
+      "solid": 959,
+      "missingLift": 0
+    },
+    "625a9bf7-dae_0": {
+      "tiles": 1,
+      "road": 95,
+      "solid": 144,
+      "missingLift": 0
+    }
+  },
+  "results": [
+    {
+      "id": "6882abe6-c07_0",
+      "arm": "17390715-e3a_0",
+      "node": "0b88cb51-464",
+      "hz": 30,
+      "reverse": true,
+      "metres": 37.28223181124219,
+      "progress": 36.40000000000471,
+      "complete": true,
+      "seconds": 11.466666666666667,
+      "frames": 344,
+      "offRoad": 0,
+      "solidFrames": 0,
+      "maxError": 1.8852179033720475,
+      "finalPosition": [
+        -4784.7637464997315,
+        0.55,
+        -2276.1779708768254
+      ],
+      "pathPoints": [
+        [
+          -4793.415437492214,
+          0,
+          -2256.2750333347176
+        ],
+        [
+          -4776.4,
+          0,
+          -2259.3
+        ],
+        [
+          -4780.9,
+          0,
+          -2264.3
+        ],
+        [
+          -4783.5,
+          0,
+          -2272.1
+        ],
+        [
+          -4785.019547262447,
+          0,
+          -2276.9172881298873
+        ]
+      ],
+      "controller": {
+        "lookAhead": 4.5,
+        "steerGain": 3,
+        "cruiseSpeed": 4,
+        "nearNodeSpeed": 2.4,
+        "nearNodeRadius": 8,
+        "sideApproach": 20,
+        "coreDeparture": 18
+      },
+      "wallWitnesses": [],
+      "contact": {
+        "measuredFrames": 345,
+        "visibleVertexEvaluations": 3800520,
+        "slabFrames": 0,
+        "slabVertexHits": 0,
+        "wheelFramesOutside1cm": 0,
+        "missingWheelFrames": 32,
+        "minBodySupport": 0.05341057517485981,
+        "minTyreSupport": -0.010476822453045986,
+        "minWheelGap": -0.009397290749527276,
+        "maxWheelGap": 0.009451996757752379,
+        "witnesses": [],
+        "wheelWitnesses": [
+          {
+            "frame": 205,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.875387729071,
+                  -0.009397290451504059,
+                  -2264.002547130641
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.009397289557434386,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.1198661659,
+                  0.009451997055775596,
+                  -2264.702467658703
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.838416856279,
+                  -0.009397290451504059,
+                  -2261.4016450930812
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009397290749527276,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.082895293108,
+                  0.009451997055775596,
+                  -2262.1015656211434
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009451996757752379,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9288473879210323,
+              0.009973167993269671,
+              -0.3703283217260779,
+              0,
+              -0.009264011769506033,
+              0.9999502667233896,
+              0.0036935302566017143,
+              0,
+              0.3703467402829541,
+              2.168404344971009e-19,
+              0.9288935848426288,
+              0,
+              -4777.484236717562,
+              0.55,
+              -2263.050024934251,
+              1
+            ]
+          },
+          {
+            "frame": 206,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.929880367487,
+                  -0.008896161445866302,
+                  -2264.0398378606496
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.00889616055179663,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.192312797757,
+                  0.008945173561865583,
+                  -2264.7832358882156
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.828500882697,
+                  -0.008896161445866302,
+                  -2261.4655489820498
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008896161743889519,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.0909333129675,
+                  0.008945173561865583,
+                  -2262.2089470096157
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.008945173263842365,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9193479204918665,
+              0.00943985979245075,
+              -0.3933322897174594,
+              0,
+              -0.008678902171160706,
+              0.9999554435309099,
+              0.003713167112392104,
+              0,
+              0.39334981599637747,
+              -2.168404344971009e-19,
+              0.9193888852143124,
+              0,
+              -4777.515180236421,
+              0.55,
+              -2263.122350193221,
+              1
+            ]
+          },
+          {
+            "frame": 207,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.987519360418,
+                  -0.00934718471050694,
+                  -2264.0779514046817
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.009347183816437267,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.269895712776,
+                  0.009401307786643331,
+                  -2264.866315216059
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.819515504138,
+                  -0.00934718471050694,
+                  -2261.533198569589
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009347185008530157,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.101891856495,
+                  0.009401307786643331,
+                  -2262.321562380966
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009401307488620114,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9087955807631726,
+              0.009919837300079481,
+              -0.41712370972322815,
+              0,
+              -0.009015547890369987,
+              0.9999507972035124,
+              0.004138002935776318,
+              0,
+              0.41714423438609866,
+              0,
+              0.908840298247407,
+              0,
+              -4777.5496641597965,
+              0.55,
+              -2263.1974809912094,
+              1
+            ]
+          },
+          {
+            "frame": 208,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4779.04352727501,
+                  -0.008846039800429806,
+                  -2264.1122104785854
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.008846038906360133,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.3459416003925,
+                  0.008894499675709266,
+                  -2264.9428657323424
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.812872683285,
+                  -0.008846039800429806,
+                  -2261.5971579392008
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008846040098453023,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.115287008668,
+                  0.008894499675709266,
+                  -2262.4278131929577
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.00889449937768605,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.8981934786333954,
+              0.009386528823354001,
+              -0.4395001342628791,
+              0,
+              -0.008431290411851693,
+              0.9999559455679277,
+              0.004125562427436188,
+              0,
+              0.4395194970447061,
+              4.336808689942018e-19,
+              0.898233049780272,
+              0,
+              -4777.584044351565,
+              0.55,
+              -2263.2677427764365,
+              1
+            ]
+          }
+        ]
+      },
+      "missingWheelEvidence": [
+        {
+          "frame": 205,
+          "wheel": 1,
+          "point": [
+            -4777.1198661659,
+            0.009451997055775596,
+            -2264.702467658703
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.06977706177025876,
+            "point": [
+              -4777.054526659476,
+              0.041999999433755875,
+              -2264.677981187957
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 206,
+          "wheel": 1,
+          "point": [
+            -4777.192312797757,
+            0.008945173561865583,
+            -2264.7832358882156
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.16595990304332423,
+            "point": [
+              -4777.036907312403,
+              0.041999999433755875,
+              -2264.724996515451
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 207,
+          "wheel": 1,
+          "point": [
+            -4777.269895712776,
+            0.009401307786643331,
+            -2264.866315216059
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.2677634001359189,
+            "point": [
+              -4777.019161044973,
+              0.041999999433755875,
+              -2264.7723505162294
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 208,
+          "wheel": 1,
+          "point": [
+            -4777.3459416003925,
+            0.008894499675709266,
+            -2264.9428657323424
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.36583649989693123,
+            "point": [
+              -4777.003370908411,
+              0.041999999433755875,
+              -2264.814484792744
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        }
+      ],
+      "failures": [
+        "missing finite wheel pavement",
+        "actual tyre penetrates support beyond1cm"
+      ]
+    },
+    {
+      "id": "6882abe6-c07_0",
+      "arm": "17390715-e3a_0",
+      "node": "0b88cb51-464",
+      "hz": 60,
+      "reverse": true,
+      "metres": 37.28223181124219,
+      "progress": 36.300000000009774,
+      "complete": true,
+      "seconds": 11.416666666666666,
+      "frames": 685,
+      "offRoad": 0,
+      "solidFrames": 0,
+      "maxError": 1.9178453447469455,
+      "finalPosition": [
+        -4784.704632130743,
+        0.55,
+        -2276.006112548839
+      ],
+      "pathPoints": [
+        [
+          -4793.415437492214,
+          0,
+          -2256.2750333347176
+        ],
+        [
+          -4776.4,
+          0,
+          -2259.3
+        ],
+        [
+          -4780.9,
+          0,
+          -2264.3
+        ],
+        [
+          -4783.5,
+          0,
+          -2272.1
+        ],
+        [
+          -4785.019547262447,
+          0,
+          -2276.9172881298873
+        ]
+      ],
+      "controller": {
+        "lookAhead": 4.5,
+        "steerGain": 3,
+        "cruiseSpeed": 4,
+        "nearNodeSpeed": 2.4,
+        "nearNodeRadius": 8,
+        "sideApproach": 20,
+        "coreDeparture": 18
+      },
+      "wallWitnesses": [],
+      "contact": {
+        "measuredFrames": 686,
+        "visibleVertexEvaluations": 7556976,
+        "slabFrames": 0,
+        "slabVertexHits": 0,
+        "wheelFramesOutside1cm": 0,
+        "missingWheelFrames": 68,
+        "minBodySupport": 0.05344809775933723,
+        "minTyreSupport": -0.010450543562163905,
+        "minWheelGap": -0.009272023411400154,
+        "maxWheelGap": 0.009325276465637022,
+        "witnesses": [],
+        "wheelWitnesses": [
+          {
+            "frame": 409,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.824807634037,
+                  -0.008996399954359746,
+                  -2263.9874663695227
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.008996399060290074,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.066441191528,
+                  0.009046525937899008,
+                  -2264.6802303312584
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.79844388324,
+                  -0.008996399954359746,
+                  -2261.382360335011
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008996400252382963,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.04007744073,
+                  0.009046525937899008,
+                  -2262.0751242967467
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009046525639875791,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.930352615084639,
+              0.009546521636115766,
+              -0.3665417786962692,
+              0,
+              -0.008882036115300671,
+              0.9999544309240552,
+              0.003499358483396779,
+              0,
+              0.3665584824275931,
+              0,
+              0.9303950123256143,
+              0,
+              -4777.437327657247,
+              0.55,
+              -2263.0293706859693,
+              1
+            ]
+          },
+          {
+            "frame": 410,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.85232033714,
+                  -0.009221913379186597,
+                  -2264.007344188876
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.009221912485116925,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.1030096882705,
+                  0.009274591322992964,
+                  -2264.7226554030117
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.792549268482,
+                  -0.009221913379186597,
+                  -2261.415648743412
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009221913677209814,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.0432386196135,
+                  0.009274591322992964,
+                  -2262.130959957548
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009274591024969747,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9255611898776068,
+              0.00978651042443366,
+              -0.3784715418708005,
+              0,
+              -0.009058448033567042,
+              0.9999521109601761,
+              0.0037040930753308656,
+              0,
+              0.37848966737755446,
+              0,
+              0.925605516237035,
+              0,
+              -4777.452761624794,
+              0.55,
+              -2263.0671148220204,
+              1
+            ]
+          },
+          {
+            "frame": 411,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.879610651689,
+                  -0.008971340924124604,
+                  -2264.026186250842
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.008971340030054932,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.139403028994,
+                  0.009021187267506392,
+                  -2264.76337937265
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.787423201136,
+                  -0.008971340924124604,
+                  -2261.44798405302
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008971341222147822,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.04721557844,
+                  0.009021187267506392,
+                  -2262.1851771748284
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009021186969483175,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9207447739130081,
+              0.009519856186048125,
+              -0.3900492707980372,
+              0,
+              -0.00876575505064928,
+              0.9999546851423803,
+              0.0037133812348121974,
+              0,
+              0.3900669466261857,
+              -4.336808689942018e-19,
+              0.9207864992221184,
+              0,
+              -4777.4682342803435,
+              0.55,
+              -2263.1036393531563,
+              1
+            ]
+          },
+          {
+            "frame": 412,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4778.907544817794,
+                  -0.00919685792666386,
+                  -2264.045302507004
+                ],
+                "support": -8.940696724635266e-10,
+                "asphalt": 0.03999999910593033,
+                "gap": -0.009196857032594187,
+                "roadId": "6882abe6-c07_0"
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4777.1769386565165,
+                  0.009249249190636133,
+                  -2264.804751027763
+                ],
+                "support": null
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.782382308436,
+                  -0.00919685792666386,
+                  -2261.481319408866
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009196858224687077,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4776.051776147159,
+                  0.009249249190636133,
+                  -2262.2407679296252
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009249248892612916,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9156646355962053,
+              0.009759845035608433,
+              -0.4018246141581543,
+              0,
+              -0.00893717061133734,
+              0.9999523715782072,
+              0.003921932761144527,
+              0,
+              0.40184375334193323,
+              4.336808689942018e-19,
+              0.9157082493349438,
+              0,
+              -4777.484575926313,
+              0.55,
+              -2263.140878155296,
+              1
+            ]
+          }
+        ]
+      },
+      "missingWheelEvidence": [
+        {
+          "frame": 409,
+          "wheel": 1,
+          "point": [
+            -4777.066441191528,
+            0.009046525937899008,
+            -2264.6802303312584
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.011946092369583472,
+            "point": [
+              -4777.05525482513,
+              0.041999999433755875,
+              -2264.676038156439
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 410,
+          "wheel": 1,
+          "point": [
+            -4777.1030096882705,
+            0.009274591322992964,
+            -2264.7226554030117
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.06107696316343503,
+            "point": [
+              -4777.045816987321,
+              0.041999999433755875,
+              -2264.701222008802
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 411,
+          "wheel": 1,
+          "point": [
+            -4777.139403028994,
+            0.009021187267506392,
+            -2264.76337937265
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.10944685902254643,
+            "point": [
+              -4777.03691657332,
+              0.041999999433755875,
+              -2264.7249718036915
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 412,
+          "wheel": 1,
+          "point": [
+            -4777.1769386565165,
+            0.009249249190636133,
+            -2264.804751027763
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.15911368520180222,
+            "point": [
+              -4777.027943995627,
+              0.041999999433755875,
+              -2264.748914159613
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        }
+      ],
+      "failures": [
+        "missing finite wheel pavement",
+        "actual tyre penetrates support beyond1cm"
+      ]
+    },
+    {
+      "id": "1bc95a46-c59_0",
+      "arm": "34a11925-bf1_0",
+      "node": "0b88cb51-464",
+      "hz": 60,
+      "reverse": true,
+      "metres": 37.99999999999938,
+      "progress": 37.00000000000985,
+      "complete": true,
+      "seconds": 11.7,
+      "frames": 702,
+      "offRoad": 0,
+      "solidFrames": 0,
+      "maxError": 1.349380499128812,
+      "finalPosition": [
+        -4769.736624646419,
+        0.55,
+        -2277.1176725364217
+      ],
+      "pathPoints": [
+        [
+          -4758.449423185456,
+          0,
+          -2260.6329636248424
+        ],
+        [
+          -4776.4,
+          0,
+          -2259.3
+        ],
+        [
+          -4769.382727493729,
+          0,
+          -2278.0285313511963
+        ]
+      ],
+      "controller": {
+        "lookAhead": 4.5,
+        "steerGain": 3,
+        "cruiseSpeed": 4,
+        "nearNodeSpeed": 2.4,
+        "nearNodeRadius": 8,
+        "sideApproach": 20,
+        "coreDeparture": 18
+      },
+      "wallWitnesses": [],
+      "contact": {
+        "measuredFrames": 703,
+        "visibleVertexEvaluations": 7744248,
+        "slabFrames": 0,
+        "slabVertexHits": 0,
+        "wheelFramesOutside1cm": 0,
+        "missingWheelFrames": 10,
+        "minBodySupport": 0.05367397515432015,
+        "minTyreSupport": -0.010227462296836132,
+        "minWheelGap": -0.009171802337262946,
+        "maxWheelGap": 0.009223907107114904,
+        "witnesses": [],
+        "wheelWitnesses": [
+          {
+            "frame": 413,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4777.226371361554,
+                  0.00899584893941563,
+                  -2264.325301422013
+                ],
+                "support": null
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4775.337712320117,
+                  -0.00894628145447085,
+                  -2264.2564166983193
+                ],
+                "support": -5.66244127975235e-10,
+                "asphalt": 0.041999999433755875,
+                "gap": -0.008946280888226722,
+                "roadId": "1bc95a46-c59_0"
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.3284274028465,
+                  0.00899584893941563,
+                  -2261.5271619393507
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.008995848641392412,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4775.43976836141,
+                  -0.00894628145447085,
+                  -2261.458277215657
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008946281752494067,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9992904981143657,
+              -0.009493190684596036,
+              0.03644694375347347,
+              0,
+              0.00948688273964769,
+              0.9999549386500504,
+              0.0003460133787524173,
+              0,
+              -0.03644858617597032,
+              2.710505431213761e-20,
+              0.9993355295223786,
+              0,
+              -4776.327852075975,
+              0.55,
+              -2262.8915990114765,
+              1
+            ]
+          },
+          {
+            "frame": 414,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4777.206089279944,
+                  0.009223907405138121,
+                  -2264.377191802213
+                ],
+                "support": null
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4775.318470410884,
+                  -0.00917180203923973,
+                  -2264.284150934611
+                ],
+                "support": -5.66244127975235e-10,
+                "asphalt": 0.041999999433755875,
+                "gap": -0.009171801472995601,
+                "roadId": "1bc95a46-c59_0"
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.3439341318235,
+                  0.009223907405138121,
+                  -2261.580586932588
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009223907107114904,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4775.456315262763,
+                  -0.00917180203923973,
+                  -2261.487546064986
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009171802337262946,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9987401423595823,
+              -0.0097331796001999,
+              0.04922797227625396,
+              0,
+              0.009721377666733538,
+              0.999952631485547,
+              0.00047916739296602036,
+              0,
+              -0.049230304242632,
+              0,
+              0.9987874534375059,
+              0,
+              -4776.325855513636,
+              0.55,
+              -2262.932105391533,
+              1
+            ]
+          },
+          {
+            "frame": 415,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4777.185414005453,
+                  0.00897051104677754,
+                  -2264.4274219466047
+                ],
+                "support": null
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4775.29909804838,
+                  -0.008921221637524568,
+                  -2264.310837230647
+                ],
+                "support": -5.66244127975235e-10,
+                "asphalt": 0.041999999433755875,
+                "gap": -0.00892122107128044,
+                "roadId": "1bc95a46-c59_0"
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.358139842763,
+                  0.00897051104677754,
+                  -2261.6327545629747
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.008970510748754323,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4775.47182388569,
+                  -0.008921221637524568,
+                  -2261.516169847017
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.008921221935547785,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9980507709378649,
+              -0.009466525229789455,
+              0.061685034898323665,
+              0,
+              0.009448496177144022,
+              0.9999551914461337,
+              0.0005839691059765652,
+              0,
+              -0.061687799039389826,
+              0,
+              0.9980954941535785,
+              0,
+              -4776.323422272674,
+              0.55,
+              -2262.9714747138023,
+              1
+            ]
+          },
+          {
+            "frame": 416,
+            "wheels": [
+              {
+                "index": 0,
+                "point": [
+                  -4777.163883170198,
+                  0.009198566049281764,
+                  -2264.4786457347227
+                ],
+                "support": null
+              },
+              {
+                "index": 1,
+                "point": [
+                  -4775.279212965085,
+                  -0.009146745798763345,
+                  -2264.337998418733
+                ],
+                "support": -5.66244127975235e-10,
+                "asphalt": 0.041999999433755875,
+                "gap": -0.009146745232519217,
+                "roadId": "1bc95a46-c59_0"
+              },
+              {
+                "index": 2,
+                "point": [
+                  -4777.372259380717,
+                  0.009198566049281764,
+                  -2261.6864101868346
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": 0.009198565751258547,
+                "roadId": "17390715-e3a_0"
+              },
+              {
+                "index": 3,
+                "point": [
+                  -4775.487589175605,
+                  -0.009146745798763345,
+                  -2261.545762870845
+                ],
+                "support": 2.98023217215615e-10,
+                "asphalt": 0.07000000029802322,
+                "gap": -0.009146746096786562,
+                "roadId": "34a11925-bf1_0"
+              }
+            ],
+            "playerMatrixWorld": [
+              0.9971800027049371,
+              -0.009706514205314896,
+              0.07441656930659682,
+              0,
+              0.009679597860771477,
+              0.9999528906813471,
+              0.0007223595169499488,
+              0,
+              -0.07442007518563293,
+              0,
+              0.9972269813885727,
+              0,
+              -4776.320412394078,
+              0.55,
+              -2263.0118070050494,
+              1
+            ]
+          }
+        ]
+      },
+      "missingWheelEvidence": [
+        {
+          "frame": 413,
+          "wheel": 0,
+          "point": [
+            -4777.226371361554,
+            0.00899584893941563,
+            -2264.325301422013
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.0371521124298699,
+            "point": [
+              -4777.1915819819615,
+              0.041999999433755875,
+              -2264.3122638407353
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 414,
+          "wheel": 0,
+          "point": [
+            -4777.206089279944,
+            0.009223907405138121,
+            -2264.377191802213
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.03636949241736714,
+            "point": [
+              -4777.172032748712,
+              0.041999999433755875,
+              -2264.3644288613623
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 415,
+          "wheel": 0,
+          "point": [
+            -4777.185414005453,
+            0.00897051104677754,
+            -2264.4274219466047
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.03463606790606568,
+            "point": [
+              -4777.152980659536,
+              0.041999999433755875,
+              -2264.415267306641
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        },
+        {
+          "frame": 416,
+          "wheel": 0,
+          "point": [
+            -4777.163883170198,
+            0.009198566049281764,
+            -2264.4786457347227
+          ],
+          "reachableGround": {
+            "y": 0,
+            "s": null,
+            "onRoad": false,
+            "kind": "ground",
+            "elevatedRoad": false
+          },
+          "nearestEmittedPavement": {
+            "distance": 0.03245018682515881,
+            "point": [
+              -4777.133496691651,
+              0.041999999433755875,
+              -2264.4672581736786
+            ],
+            "roadId": "1bc95a46-c59_0",
+            "tile": "-5_-3",
+            "triangle": [
+              -4778.7412109375,
+              0.041999999433755875,
+              -2260.17724609375,
+              -4763.97900390625,
+              0.041999999433755875,
+              -2299.568603515625,
+              -4759.22119140625,
+              0.041999999433755875,
+              -2298.031494140625
+            ]
+          }
+        }
+      ],
+      "failures": [
+        "missing finite wheel pavement",
+        "actual tyre penetrates support beyond1cm"
+      ]
+    }
+  ],
+  "cases": 3,
+  "failedCases": 3,
+  "completedCases": 3
+}

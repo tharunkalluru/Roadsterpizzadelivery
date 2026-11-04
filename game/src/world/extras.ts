@@ -4,6 +4,7 @@ import type { XZ } from './types';
 import { isORR, roadPose, roadLength, travelDirection } from './expressway';
 import type { StructureFootprint } from './structure-clearance';
 import type { makeRailwayNetwork } from './railway-geometry';
+import { railwayStationBoards, railwayStationCode } from './railway-stations';
 
 // OpenStreetMap extras drawn into a tile: petrol bunks, toll plazas, motorway exit signs, skywalks and foot
 // overbridges, pedestrian subways, railway lines and stations, bus terminals, bus-stop names.
@@ -303,11 +304,18 @@ function rail(f: OsmFeature, C: ExtrasCtx) {
   let acc = 0;
   for (let i = 0; i < L.length - 1; i++) {
     const [ax, az] = L[i], [bx, bz] = L[i + 1], len = Math.hypot(bx - ax, bz - az); if (len < 0.3) continue;
-    const ya = profile?.elev[i] ?? (bridge ? 6.2 : 0), yb = profile?.elev[i + 1] ?? ya, y = (ya + yb) / 2;
+    const ya = profile?.elev[i] ?? 0, yb = profile?.elev[i + 1] ?? ya, y = (ya + yb) / 2;
     const mx = (ax + bx) / 2, mz = (az + bz) / 2, ang = Math.atan2(bx - ax, bz - az), nx = (bz - az) / len, nz = -(bx - ax) / len, rx = -Math.atan2(yb - ya, len), span = Math.hypot(len, yb - ya);
     if (C.inTile(mx, mz)) {
-      if (bridge || y > .2) {
-        B.st.box(mx, y - 0.6, mz, 5.2, 1.4, span + 0.2, '#8e8a93', { ry: ang, rx });
+      // The visible trackbed top is +.18m on approaches and bridge spans.
+      // Publish the same tyre-contact surface throughout the rail corridor:
+      // using +.10m only on bridge tags left tyres below the +.12m retaining
+      // wall lip, making the road-cut edge a barrier across the railway.
+      C.pad(ax, az, bx, bz, Math.min(ya,yb)+.18, bridge ? 2.6 : 1.7);
+      if (bridge) {
+        // Preserve the source bridge at its running datum and align the deck
+        // top with its approaches. The girder stays below the contact plane.
+        B.st.box(mx, y - 0.52, mz, 5.2, 1.4, span + 0.2, '#8e8a93', { ry: ang, rx });
         for (const s of [-1, 1]) B.st.box(mx + nx * s * 2.5, y + 0.6, mz + nz * s * 2.5, 0.3, 1.2, span + 0.2, '#6e6a74', { ry: ang, rx });
       } else B.foot.box(mx, y + 0.09, mz, 3.4, 0.18, span + 0.2, '#8b8179', { ry: ang, rx, uvScale: [0.6, len / 4] });
       for (const s of [-1, 1]) B.st.box(mx + nx * s * 0.84, y + 0.26, mz + nz * s * 0.84, 0.08, 0.1, span + 0.05, '#8c8f96', { ry: ang, rx });
@@ -331,6 +339,8 @@ function rail(f: OsmFeature, C: ExtrasCtx) {
 // ---------- railway / metro platforms ----------
 function platform(f: OsmFeature, C: ExtrasCtx) {
   const B = C.B;
+  if (/metro|subway|light_rail/i.test(`${f.t.network || ''} ${f.t.station || ''} ${f.t.name || ''}`)) return;
+  if (C.railway && !C.railway.platforms.some(p => p.id === f.id)) return;
   const base = (p: XZ) => C.railway?.closest(...p, 30)?.y || 0;
   const draw = (ring: XZ[]) => {
     for (const piece of C.platformPieces?.(ring) || [ring]) {
@@ -361,19 +371,21 @@ function platform(f: OsmFeature, C: ExtrasCtx) {
 function station(f: OsmFeature, C: ExtrasCtx) {
   const [px,pz]=mid(f),name=nm(f);if(!name||!C.inTile(px,pz))return;
   if(/metro|subway|light_rail/i.test(`${f.t.station||''} ${f.t.network||''} ${name}`))return;
-  const rail=C.railway?.closest(px,pz,150);if(!rail)return;
-  const B=C.B,{hx,hz}=rail,ang=Math.atan2(hx,hz),lines=[f.t['name:te'],f.t['name:hi'],name.replace(/ (railway )?station$/i,'')].filter(Boolean) as string[];
-  for(const side of [-1,1]){
+  if(!C.railway)return;
+  const B=C.B,code=railwayStationCode(f),english=name.replace(/ (railway )?station$/i,'')+(code?` · ${code}`:''),lines=[f.t['name:te'],f.t['name:hi'],english].filter(Boolean) as string[];
+  for(const anchor of railwayStationBoards(C.railway,f)){
+    const {hx,hz,side}=anchor,ang=Math.atan2(hx,hz);
     let at: XZ|null=null;
-    placement: for(const along of [0,-12,12,-24,24]) for(const offset of [4.5,6,8,10,2.75,14,18,24,32]){
-      const x=rail.x+hx*along-hz*side*offset,z=rail.z+hz*along+hx*side*offset;
-      if(extrasFootprintClear(C,boxFootprint(x,z,ang,.5,6.2),rail.y+.9,rail.y+4.5)){at=[x,z];break placement;}
+    const offsets=anchor.source==='mapped-platform'?[0]:[0,1.5,3.5,5.5,-1.75,9.5,13.5,19.5,27.5];
+    placement: for(const along of anchor.source==='mapped-platform'?[0]:[0,-12,12,-24,24]) for(const offset of offsets){
+      const x=anchor.x+hx*along-hz*side*offset,z=anchor.z+hz*along+hx*side*offset;
+      if(extrasFootprintClear(C,boxFootprint(x,z,ang,.5,6.2),anchor.y+.9,anchor.y+4.5)){at=[x,z];break placement;}
     }
     if(!at)continue;const [x,z]=at;
-    for(const s of [-1,1])B.st.box(x+hx*s*2.6,rail.y+2.1,z+hz*s*2.6,.16,2.4,.16,'#29272d');
-    B.st.box(x,rail.y+3.4,z,.14,2.2,6.2,'#242029',{ry:ang});
-    lines.slice(-3).forEach((text,k)=>C.sign(`${f.id}:${side}:${k}`,upper(text),'#f7d21d','#121116',[x+hz*side*.09,rail.y+4.1-k*.68,z-hx*side*.09],[hz*side,0,-hx*side],5.8,.62));
-    C.obstacle(x,z,.3,rail.y+4.5);
+    for(const s of [-1,1])B.st.box(x+hx*s*2.6,anchor.y+2.1,z+hz*s*2.6,.16,2.4,.16,'#29272d');
+    B.st.box(x,anchor.y+3.4,z,.14,2.2,6.2,'#242029',{ry:ang});
+    lines.slice(-3).forEach((text,k)=>C.sign(`${f.id}:${anchor.platform||side}:${k}`,upper(text),'#f7d21d','#121116',[x+hz*side*.09,anchor.y+4.1-k*.68,z-hx*side*.09],[hz*side,0,-hx*side],5.8,.62));
+    C.obstacle(x,z,.3,anchor.y+4.5);
   }
 }
 

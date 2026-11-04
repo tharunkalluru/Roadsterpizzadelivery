@@ -1,0 +1,17 @@
+✔ shared lamp clearance volumes contain every actual pole, arm, housing and emissive diffuser vertex (8.210667ms)
+✔ a clear pole does not allow its projecting arm or lamp head into station passenger space (0.96925ms)
+✔ grade and separate deck levels are evaluated vertically rather than deleting every light below a metro line (35.224625ms)
+✔ all real line assemblies use their own concourse levels, including raised interchange profiles (1.758375ms)
+ℹ {"assemblies":59,"lines":["blue","red","green"],"raisedInterchangeAssemblies":3}
+✔ actual retained city fixtures and emitters clear every generated station floor, access structure and source pillar (19143.713084ms)
+ℹ {"stationTiles":51,"retainedStreetFixtures":6613,"otherStructureConflicts":[]}
+✔ mapped park lights retain clear fixtures and never leave an emissive head or emitter in a station concourse (60.00275ms)
+✔ median pole obstacles are registered only for physically retained street fixtures (40.448292ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19562.864583

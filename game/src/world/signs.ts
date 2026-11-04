@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { canvas, hash } from '../core/util';
+import type { StationBoardContent } from './station-board';
+import { StationSignAtlas } from './station-sign-atlas';
 
 // Shop-board colour schemes: [background, text]
 const SCHEMES: Record<string, [string, string][]> = {
@@ -23,7 +25,7 @@ export function boardScheme(id: string, group: string): [string, string] {
   return s[hash(id) % s.length];
 }
 
-export interface SignInst { id: string; text: string; bg: string; fg: string; c: THREE.Vector3; right: THREE.Vector3; up: THREE.Vector3; w: number; h: number; slot: number; page: number; lastUse: number }
+export interface SignInst { id: string; text: string; bg: string; fg: string; station?: StationBoardContent; c: THREE.Vector3; right: THREE.Vector3; up: THREE.Vector3; w: number; h: number; slot: number; page: number; lastUse: number }
 
 const PAGE = 2048, SW = 256, SH = 64, COLS = PAGE / SW, ROWS = PAGE / SH, PER = COLS * ROWS;
 
@@ -55,16 +57,28 @@ export class SignSystem {
   material: THREE.MeshStandardMaterial[] = [];
   grid = new Map<string, SignInst[]>();
   frame = 0;
+  stationAtlas: StationSignAtlas | null = null;
+  private stationSigns: SignInst[] = [];
+  private stationDirty = false;
+  private stationPaintDirty = false;
+  private stationX = NaN;
+  private stationZ = NaN;
+  private disposed = false;
+  private fontSet: FontFaceSet | undefined;
+  private fontsReady = () => { this.stationPaintDirty = true; };
   constructor(public pageCount = 3, public radius = 230) {}
   add(s: Omit<SignInst, 'slot' | 'page' | 'lastUse'>) {
     const inst: SignInst = { ...s, slot: -1, page: -1, lastUse: 0 };
+    if (this.disposed) return inst;
     this.signs.push(inst);
+    if (inst.station) { this.stationSigns.push(inst); this.stationDirty = true; return inst; }
     const k = `${Math.floor(inst.c.x / 100)},${Math.floor(inst.c.z / 100)}`;
     (this.grid.get(k) || this.grid.set(k, []).get(k)!).push(inst);
     return inst;
   }
   // forget boards of an unloaded tile (their shared atlas slots are released by the next update)
   remove(list: SignInst[]) {
+    if (this.disposed) return;
     const gone = new Set(list);
     for (const inst of list) {
       inst.page = -1; inst.slot = -1;
@@ -72,8 +86,14 @@ export class SignSystem {
       const l = this.grid.get(k); if (l) { const f = l.filter((s) => !gone.has(s)); if (f.length) this.grid.set(k, f); else this.grid.delete(k); }
     }
     this.signs = this.signs.filter((s) => !gone.has(s));
+    if (list.some(s => s.station)) { this.stationSigns = this.stationSigns.filter(s => !gone.has(s)); this.stationDirty = true; }
   }
   init(emissive: number) {
+    if (this.disposed || this.pages.length) return;
+    // Font loading can finish after the startup timeout. Redraw text once when
+    // that happens; no atlas allocation or geometry change is needed.
+    this.fontSet = document.fonts;
+    this.fontSet?.addEventListener?.('loadingdone', this.fontsReady);
     for (let p = 0; p < this.pageCount; p++) {
       const c = canvas(PAGE, PAGE), g = c.getContext('2d')!;
       const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = true;
@@ -88,7 +108,19 @@ export class SignSystem {
   // stream: give the nearest boards a slot, rebuild page meshes. Boards with the same text and colours share one slot,
   // so streets full of generic signs don't crowd the named shops out of the atlas.
   slotOf = new Map<string, { page: number; slot: number }>();
+  private updateStations(px: number, pz: number, force: boolean) {
+    if (!force && !this.stationDirty && !this.stationPaintDirty && Math.hypot(px - this.stationX, pz - this.stationZ) < 6) return;
+    const radius = Math.max(260, this.radius + 70);
+    const near = this.stationSigns.map(s => ({ s, d: Math.hypot(s.c.x - px, s.c.z - pz) })).filter(s => s.d < radius).sort((a, b) => a.d - b.d).map(s => s.s);
+    if (near.length && !this.stationAtlas) { this.stationAtlas = new StationSignAtlas(this.pageCount <= 2); this.group.add(this.stationAtlas.mesh); }
+    this.stationAtlas?.sync(near, this.stationPaintDirty);
+    this.stationX = px; this.stationZ = pz; this.stationDirty = false; this.stationPaintDirty = false;
+  }
   update(px: number, pz: number, force = false) {
+    if (this.disposed) return;
+    // Station membership is driven by tile changes, font completion and travel,
+    // before the old shop cadence. A loaded name never waits 45 display frames.
+    this.updateStations(px, pz, force);
     this.frame++;
     if (!force && this.frame % 45) return;
     const R = this.radius, near: [SignInst, number][] = [];
@@ -118,7 +150,7 @@ export class SignSystem {
       dirty.add(pi);
     }
     const out = this.pages.map(() => ({ pos: [] as number[], nor: [] as number[], uv: [] as number[] }));
-    for (const s of this.signs) { s.page = -1; s.slot = -1; }
+    for (const s of this.signs) if (!s.station) { s.page = -1; s.slot = -1; }
     for (const [k, l] of want) {
       const sl = this.slotOf.get(k); if (!sl) continue;
       const i = sl.slot, o = out[sl.page];
@@ -142,6 +174,14 @@ export class SignSystem {
       geo.setAttribute('uv', new THREE.Float32BufferAttribute(out[pi].uv, 2));
       pg.mesh.geometry.dispose(); pg.mesh.geometry = geo;
     });
+  }
+  dispose() {
+    if (this.disposed) return; this.disposed = true;
+    this.fontSet?.removeEventListener?.('loadingdone', this.fontsReady); this.fontSet = undefined;
+    this.stationAtlas?.dispose(); this.stationAtlas = null;
+    for (const page of this.pages) { page.mesh.geometry.dispose(); page.tex.dispose(); }
+    for (const material of this.material) material.dispose();
+    this.group.clear(); this.pages.length = 0; this.material.length = 0; this.signs.length = 0; this.stationSigns.length = 0; this.grid.clear(); this.slotOf.clear();
   }
 }
 

@@ -1,0 +1,215 @@
+{
+  "release": "2026-10-21.0",
+  "query": "SELECT *,hex(geometry) AS geometryWKB FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18 AND substring(id,1,12) IN ('55d8e614-341','dff0279b-409','b15cc638-da9')",
+  "source": "s3://overturemaps-us-west-2/release/2026-10-21.0/theme=transportation/type=segment/*",
+  "prefixes": [
+    "55d8e614-341",
+    "dff0279b-409",
+    "b15cc638-da9"
+  ],
+  "rows": [
+    {
+      "id": "55d8e614-3414-4296-9613-35ec912b6828",
+      "names": null,
+      "subtype": "road",
+      "class": "residential",
+      "subclass": null,
+      "subclass_rules": null,
+      "connectors": [
+        {
+          "connector_id": "4a76bb46-9e12-40c3-9b63-62631e661a1c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "3d71eda4-b7ab-45aa-8ff3-045122ec675b",
+          "at": 1.0
+        }
+      ],
+      "road_surface": null,
+      "road_flags": null,
+      "rail_flags": null,
+      "width_rules": null,
+      "level_rules": null,
+      "access_restrictions": null,
+      "speed_limits": null,
+      "prohibited_transitions": null,
+      "routes": null,
+      "destinations": null,
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w213522306@7",
+          "update_time": "2023-04-18T02:59:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometry": "b'\\x01\\x02\\x00\\x00\\x00\\x07\\x00\\x00\\x000\\x9f\\xac\\x18\\xae\\xa1S@\\x7f-T\\xa3\\xfcy1@\\xca\\xfey\\x1a\\xb0\\xa1S@\\xaa\\\\MC\\xf9y1@\\x05B\\xa1T\\xb1\\xa1S@\"\\t\\xb1\\xe9\\xf7y1@\\xef\\xe6\\xa9\\x0e\\xb9\\xa1S@X\\x92<\\xd7\\xf7y1@G\\x88\\x97L\\xba\\xa1S@\\xed\\xc7\\xdck\\xf7y1@\\xbe\\xfd\\x14\"\\xbb\\xa1S@\\xbe\\xd3\\xaeS\\xf6y1@\\xc9\\xa5\\x96R\\xbc\\xa1S@<\\xb9K\\x87\\xf3y1@'",
+      "version": 1,
+      "bbox": {
+        "xmin": 78.5262451171875,
+        "xmax": 78.5271224975586,
+        "ymin": 17.47637176513672,
+        "ymax": 17.476512908935547
+      },
+      "theme": "transportation",
+      "type": "segment",
+      "geometryWKB": "010200000007000000309FAC18AEA153407F2D54A3FC793140CAFE791AB0A15340AA5C4D43F97931400542A154B1A153402209B1E9F7793140EFE6A90EB9A1534058923CD7F77931404788974CBAA15340EDC7DC6BF7793140BEFD1422BBA15340BED3AE53F6793140C9A59652BCA153403CB94B87F3793140"
+    },
+    {
+      "id": "dff0279b-4096-46e4-ba09-10ad6d91e51a",
+      "names": {
+        "primary": "Robert Road",
+        "common": null,
+        "rules": [
+          {
+            "variant": "common",
+            "language": null,
+            "perspectives": null,
+            "value": "Robert Road",
+            "between": null,
+            "side": null
+          }
+        ]
+      },
+      "subtype": "road",
+      "class": "tertiary",
+      "subclass": null,
+      "subclass_rules": null,
+      "connectors": [
+        {
+          "connector_id": "4a76bb46-9e12-40c3-9b63-62631e661a1c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "7c298fae-d442-4846-8e48-aa0d78e6de8a",
+          "at": 1.0
+        }
+      ],
+      "road_surface": null,
+      "road_flags": null,
+      "rail_flags": null,
+      "width_rules": null,
+      "level_rules": null,
+      "access_restrictions": null,
+      "speed_limits": null,
+      "prohibited_transitions": null,
+      "routes": null,
+      "destinations": null,
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w83890741@17",
+          "update_time": "2020-07-09T18:53:43Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometry": "b'\\x01\\x02\\x00\\x00\\x00\\x02\\x00\\x00\\x000\\x9f\\xac\\x18\\xae\\xa1S@\\x7f-T\\xa3\\xfcy1@5\\x9b\"\\x1b\\xa3\\xa1S@\\x94\\x83\\xd9\\x04\\x18z1@'",
+      "version": 1,
+      "bbox": {
+        "xmin": 78.52557373046875,
+        "xmax": 78.52625274658203,
+        "ymin": 17.476511001586914,
+        "ymax": 17.476930618286133
+      },
+      "theme": "transportation",
+      "type": "segment",
+      "geometryWKB": "010200000002000000309FAC18AEA153407F2D54A3FC793140359B221BA3A153409483D904187A3140"
+    },
+    {
+      "id": "b15cc638-da91-4d0e-8616-734ffa4a4f80",
+      "names": {
+        "primary": "All Saints Road",
+        "common": null,
+        "rules": [
+          {
+            "variant": "common",
+            "language": null,
+            "perspectives": null,
+            "value": "All Saints Road",
+            "between": null,
+            "side": null
+          }
+        ]
+      },
+      "subtype": "road",
+      "class": "secondary",
+      "subclass": null,
+      "subclass_rules": null,
+      "connectors": [
+        {
+          "connector_id": "f123f270-8393-425b-a72f-2e3e6f44b57a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "8e642705-db22-4b2f-938e-7ceec98f3ebe",
+          "at": 0.252701446
+        },
+        {
+          "connector_id": "4a76bb46-9e12-40c3-9b63-62631e661a1c",
+          "at": 1.0
+        }
+      ],
+      "road_surface": null,
+      "road_flags": null,
+      "rail_flags": null,
+      "width_rules": null,
+      "level_rules": null,
+      "access_restrictions": null,
+      "speed_limits": [
+        {
+          "min_speed": null,
+          "max_speed": {
+            "value": 50,
+            "unit": "km/h"
+          },
+          "is_max_speed_variable": null,
+          "when": null,
+          "between": null
+        }
+      ],
+      "prohibited_transitions": null,
+      "routes": null,
+      "destinations": null,
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w22839616@18",
+          "update_time": "2025-07-09T06:08:08Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometry": "b'\\x01\\x02\\x00\\x00\\x00\\x03\\x00\\x00\\x00A\\xd0v\\xf1\\xa3\\xa1S@K\\xe4\\x823\\xf8y1@{\\xc8J\\x82\\xa6\\xa1S@!\\xd5fR\\xf9y1@0\\x9f\\xac\\x18\\xae\\xa1S@\\x7f-T\\xa3\\xfcy1@'",
+      "version": 2,
+      "bbox": {
+        "xmin": 78.52561950683594,
+        "xmax": 78.52625274658203,
+        "ymin": 17.476442337036133,
+        "ymax": 17.476512908935547
+      },
+      "theme": "transportation",
+      "type": "segment",
+      "geometryWKB": "01020000000300000041D076F1A3A153404BE48233F87931407BC84A82A6A1534021D56652F9793140309FAC18AEA153407F2D54A3FC793140"
+    }
+  ],
+  "seconds": 34.491109917,
+  "duckdbVersion": "1.4.5",
+  "scope": "Anonymous read-only source completion for one historical same-connector cap datum. No profile/model/cut/manifest change or height survey inference."
+}

@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-03T18:01:28.996Z",
+  "purpose": "Instrumented native-control QA snapshot; never a publication archive.",
+  "sourceCheckout": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches",
+  "sourceCommit": "a679b72bacefb751057f0282a86571e8e6ef006d",
+  "sourceDirty": true,
+  "runtimeFingerprint": "2c560e8be4a33d01d21f5cd08af9f4aa546c3f6bfc1f7af3d8ce69ff2a827ab9",
+  "qaOnlyDifference": "Vite DEV guards enabled for visible diagnostic controls and passive evidence export; no timing/camera/quality override.",
+  "models": [
+    {
+      "characterId": "pushpa-raj",
+      "candidate": {
+        "assetId": "pushpa-raj-seated-reader-v1",
+        "sha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835"
+      },
+      "glb": {
+        "url": "/delivery/characters/pushpa-raj/reader-v1.glb",
+        "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb"
+      }
+    },
+    {
+      "characterId": "jessie",
+      "candidate": {
+        "assetId": "jessie-blue-saree-walking-v1",
+        "sha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82"
+      },
+      "glb": {
+        "url": "/delivery/characters/jessie/walking-v1.glb",
+        "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+      }
+    },
+    {
+      "characterId": "hasini",
+      "candidate": {
+        "assetId": "hasini-bommarillu-college-v1",
+        "sha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b"
+      },
+      "glb": {
+        "url": "/delivery/characters/hasini/college-v1.glb",
+        "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+      }
+    },
+    {
+      "characterId": "devara",
+      "candidate": {
+        "assetId": "devara-underwater-neck-grip-v1",
+        "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+      },
+      "glb": {
+        "url": "/delivery/characters/devara/neck-grip-v1.glb",
+        "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+      }
+    },
+    {
+      "characterId": "ram-vvr",
+      "candidate": {
+        "assetId": "ram-vvr-train-roof-v1",
+        "sha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d"
+      },
+      "glb": {
+        "url": "/delivery/characters/ram-vvr/train-roof-v1.glb",
+        "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+      }
+    },
+    {
+      "characterId": "sukumar",
+      "candidate": {
+        "assetId": "sukumar-studio-director-v1",
+        "sha256": "16c105800c3169f253b05d2b9e2bba8f8ca070c4948d3e12db66db040491641d"
+      },
+      "glb": {
+        "url": "/delivery/characters/sukumar/director-v1.glb",
+        "sha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292"
+      }
+    },
+    {
+      "characterId": "nani-jersey",
+      "candidate": {
+        "assetId": "nani-jersey-cricketer-v1",
+        "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+      },
+      "glb": {
+        "url": "/delivery/characters/nani-jersey/cricketer-v1.glb",
+        "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+      }
+    },
+    {
+      "characterId": "arjun-reddy",
+      "candidate": {
+        "assetId": "arjun-reddy-medical-courtyard-v1",
+        "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+      },
+      "glb": {
+        "url": "/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+        "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+      }
+    },
+    {
+      "characterId": "maruthi",
+      "candidate": {
+        "assetId": "maruthi-kondapur-director-v1",
+        "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+      },
+      "glb": {
+        "url": "/delivery/characters/maruthi/director-v1.glb",
+        "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+      }
+    },
+    {
+      "characterId": "arundhati",
+      "candidate": {
+        "assetId": "arundhati-haunted-gate-v1",
+        "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+      },
+      "glb": {
+        "url": "/delivery/characters/arundhati/gate-presence-v1.glb",
+        "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+      }
+    },
+    {
+      "characterId": "bhanumathi",
+      "candidate": {
+        "assetId": "bhanumathi-fidaa-procession-v1",
+        "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+      },
+      "glb": {
+        "url": "/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+        "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+      }
+    },
+    {
+      "characterId": "vakeel-saab",
+      "candidate": {
+        "assetId": "vakeel-saab-metro-lawyer-v1",
+        "sha256": "c711b033e1168850e4d8f93db57146053d7b10cf83da8adea0e226e87e6d4348"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+        "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-1",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-one-v1",
+        "sha256": "cb61dba907ac639634fee7d66fd63f126433f4adba146095c99976a83666695b"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+        "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-2",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-two-v1",
+        "sha256": "585f53c0c2fb44cb3859ea15ea72959358db752b98e79f4bd86c58fe10b751bc"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+        "sha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-3",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-three-v1",
+        "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+        "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+      }
+    },
+    {
+      "characterId": "srikanth-odela",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "glb": {
+        "url": "/delivery/characters/srikanth-odela/actor-v3.glb",
+        "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+      }
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "glb": {
+        "url": "/delivery/characters/prabhas-salaar/actor-v4.glb",
+        "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "path": "assets/BufferGeometryUtils-CEfojNdv.js",
+      "bytes": 695241,
+      "sha256": "65d8085bc10065cc8c4cc78c4d24f340d3a6ebbc329d18318196d793e9e8aeee"
+    },
+    {
+      "path": "assets/GLTFLoader-DbY1qgrl.js",
+      "bytes": 45091,
+      "sha256": "1b24264fb9eeeac938011f9c805ac4c3ea95538439202f9763228b1f29b4ecaa"
+    },
+    {
+      "path": "assets/character-performance-D0I3Q4R8.js",
+      "bytes": 7961,
+      "sha256": "512c5cd9c566e52df7f01fd0327e205213a796e084768800f6b4b3da1cfe88b2"
+    },
+    {
+      "path": "assets/city-D83HMVTv.js",
+      "bytes": 1345090,
+      "sha256": "e40c165cfb2f9b7948be400d46d6383de57c692ebadd4632108b33fc84d7cf71"
+    },
+    {
+      "path": "assets/index-QBMksrEx.js",
+      "bytes": 2093461,
+      "sha256": "c6ab54a59b1c9db756d131b8aed41b7396e0f42eb3b3ed2b5acb24b34eee3e9f"
+    },
+    {
+      "path": "assets/map-worker-ilv8np6I.js",
+      "bytes": 2201,
+      "sha256": "a592b7a1354a56bd523df38ec7c61eb055d4f35f0db3a9f26e96ee5947892fd7"
+    },
+    {
+      "path": "assets/metro-access-BkPO9mRJ.js",
+      "bytes": 4714,
+      "sha256": "15c1e6042bbb5b01fe7f269249124571643e9568eca00f76e480855e4c82fdda"
+    },
+    {
+      "path": "assets/npc-people-DOUp5VoL.js",
+      "bytes": 4923,
+      "sha256": "c7735bba32504aaab8aeb9874d302e975902e66ea621f42d7fcf21cdbc83b661"
+    },
+    {
+      "path": "assets/people-DxaTErj7.js",
+      "bytes": 1444427,
+      "sha256": "cc4973153467e0b36be916cc8279355717d1bb504217f2e9f7f5dd480014fc3c"
+    },
+    {
+      "path": "assets/pushpa-art-review-ByH1UcrL.js",
+      "bytes": 9375,
+      "sha256": "165e455be29b19c1b3bfdbdae3c7bc2309b139fced43d783152781498564b436"
+    },
+    {
+      "path": "assets/qa-BC5fzDE-.js",
+      "bytes": 59895,
+      "sha256": "0ba9ad6f318ee2bdd3ce7b9d72e34d3e88a51f2b28bcf77442fe56fee6f4fc2b"
+    },
+    {
+      "path": "assets/released-gltf-DDYcZORz.js",
+      "bytes": 406480,
+      "sha256": "50b85e52a4da37f5a3bd0c64eb329273138cf53b5c16e0912b067e0e3076370a"
+    },
+    {
+      "path": "assets/scene-art-review-DVjRyUMr.js",
+      "bytes": 7651,
+      "sha256": "68a9909f84cc0c7a54542abcc33c6a5f36d4dcf118fea68d496e73cbc471e4b3"
+    },
+    {
+      "path": "assets/signs-DnnZECiK.js",
+      "bytes": 20471,
+      "sha256": "d081b99529db8fbde9b7d3b35960fec8193a8de989516d158fb94abc583573ce"
+    },
+    {
+      "path": "assets/tileworker-DeQouP2A.js",
+      "bytes": 2928122,
+      "sha256": "c0f21bbe974cae02fd0d0eaf97d6a0b811b131860ce6fa1a1a37fe186615cf32"
+    },
+    {
+      "path": "assets/traffic-vehicles-ChoPXfex.js",
+      "bytes": 3484,
+      "sha256": "1d424e8c19aeaa700dc46344507fb46186fbe275025d92fcffe9cadfeda6a2a0"
+    },
+    {
+      "path": "assets/traffic_models-D4rbCVw3.js",
+      "bytes": 38953,
+      "sha256": "cbf3a49bede31e2590b6508127892491529d46c5d4a5d7ad63648ab02ff11e02"
+    }
+  ],
+  "noPrivateDocsCopied": true
+}

@@ -1,0 +1,16 @@
+{
+  "sourceSha256": "4cfaea8037dd52fee7be12e1169a492e8a94231f78b3f76bfc689a829bca1179",
+  "archivedSource": "v2-game-pre-delivery-only.mjs.gz",
+  "removedBecauseFeatureWasExplicitlyRetiredByUser": [
+    "saved leases validate films, prices, theatre identity and ordered day reports",
+    "GO remains held acceleration while cruise captures current speed and retargets after manual override",
+    "every brake path immediately cancels cruise and overrides a held accelerator without removing reverse",
+    "inactive, offered, reversing, landing and recovery states cancel cruise rather than resuming it later",
+    "theatre action appears at its entrance and cannot inherit a collection hold or bypass an offer",
+    "a theatre manager hold completes during an accepted pickup or customer leg",
+    "cinema settlement credits each day once and closes a seven-day lease once",
+    "weekly report waits for all overlays and hidden state, then appears exactly once",
+    "theatre GPS cannot erase an accepted delivery but can replace a pending offer"
+  ],
+  "replacement": "Current delivery/hold/actions/input are exercised by retained production Game integration groups; jump-kickflip-regressions.mjs covers original Version21 JUMP behavior. Cinema economy and cruise are absent by design. This test migration does not import NextLab runtime."
+}

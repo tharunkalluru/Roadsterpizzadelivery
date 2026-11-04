@@ -1,0 +1,118 @@
+{
+  "candidate": {
+    "assetId": "maruthi-kondapur-director-v1",
+    "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+  },
+  "privateModel": {
+    "path": "docs/delivery/character-review/candidates/maruthi-at-villa-v2.glb",
+    "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+  },
+  "privateRig": {
+    "path": "docs/delivery/character-review/candidates/maruthi-at-villa-v2.rig.json",
+    "sha256": "b8b97633552701351c419fcbeaa00b95f8a13b1f3df52d2cd082bf2000eb086f"
+  },
+  "canonicalRig": {
+    "path": "/tmp/roadster-maruthi-release-canonical-rig-v2.json",
+    "sha256": "ed3444f909dce0d7ac50e4b79f47074f496aa71744936fce38ac6a0e9b46d1e8",
+    "parsedEqualToPrivate": true
+  },
+  "images": [
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-authored/front.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/front.png",
+      "sha256": "7d7538b88f75cfb99e18ab47bdd1a31f8b924535452b4fb43f8b5e2ac55ac9e7",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-authored/three-quarter.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/three-quarter.png",
+      "sha256": "f81d4ab97ecdc07b5d3e5ab757ca9513e8a3c0a615f2615bdc18bf81b7705e8e",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-authored/profile.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/profile.png",
+      "sha256": "48df768d605bdba54740459a2fc146b350bb7d56d2e7dbeb9825cc2474c2228f",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-authored/back.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/back.png",
+      "sha256": "4fa9cbaea90f4f9acd768aa3318c350317f332a402fd5c4485322da357e49eb3",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-authored/full-body.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/full-body.png",
+      "sha256": "208a84142f2bce6955d573eeaab8a67d2ae9cbf7b3b0d72da16122efadfe7335",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/idle-clay/profile.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-clay/profile.png",
+      "sha256": "9aede1a0bf97d4a6ad24275a0690b212c84b3f6df4139711a0df7de9fddc8ea4",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/handoff-supported/full-body.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/handoff-supported/full-body.png",
+      "sha256": "2cc71c067a5722b292c120b24af0c07673383e52a475850f43d7d9d12f7c5f9b",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-final8-exact-glb/handoff-supported/profile.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/handoff-supported/profile.png",
+      "sha256": "2498cf8620d62f28c91dc8035044424b47444ba2441c81710a4c1f25ac8ac6ae",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/maruthi-local-neck-ownership-v9-portrait.png",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/portrait.png",
+      "sha256": "759a4f3675f8686470c80adbd1a8d64ba8a341be82017d5686c104799aa18af8",
+      "actuallyOpened": true
+    }
+  ],
+  "nativeExport": {
+    "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/campaign-qa-mvwnb2sk.json",
+    "sha256": "19e2f6a7d56d9970e90783db70325ed87859eb8385a5cf6b17cc502592e2cf0c",
+    "row11": {
+      "level": 11,
+      "id": "maruthi-villa-79",
+      "configuredScenario": true,
+      "completed": true,
+      "naturalJumpPickup": false,
+      "manualHandoff": true,
+      "assistance": [
+        "qa-scene-staging",
+        "player-relocated",
+        "pickup-not-observed"
+      ],
+      "missingPhysicalFacts": [],
+      "missingFacts": [],
+      "missingArt": [
+        "maruthi"
+      ],
+      "missingVisualChecks": [
+        "Villa number and frontage read clearly; scenery does not pretend to verify a private address.",
+        "The director is recognizable."
+      ],
+      "observedSceneMechanics": true,
+      "allScenarioEvidence": false
+    }
+  },
+  "nativeImageHashes": {
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/03-retained-idle.png": "a577f3d294cb2efc29ffbbd17de585190394a2a2b6f0a889001401bc060e5949",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/01-fixed-night-ready.png": "a1673073d8d7baae13cc5eb347944079134fd16511a720ead2cb6fa10bbcdaa1",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/04-manual-orbit.png": "d8eba595adea1d96a2dbd3d03b8d10174e12a295503910552e9a1393735ebe5c",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/05-reverse-brake.png": "116eba31390e0d160df7928264c62e8591ff4a7220aece66abe66adfa68b6d2b",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-4.png": "dac29213c6ea31d34a31debc6837c2c6ed90208a6f3f9519c37f7b3735fc1a80",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-5.png": "4439164d00b3f3b06fc0b316c4340709b936830e4177c2bdc341bb436b7dae40",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-6.png": "2c9d26a472b412900cd189b7a19d89a1da82b7f48c841b0c082ea60061a840ae",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-2.png": "27b77ffe086dd99f4d000dcce7fc275b31c2540cdcbb3010736188f22cd69e33",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-3.png": "0f7a1199026373279729cad5685245663b48984b2aa853cefdd6f80a26436300",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-1.png": "8a44d967298c7a7743a8c2ef4afbd32369b7efa1cc250a2d37307d1fe524ff15",
+    "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-0.png": "eadf36631281206699f7d0d10d77f422e7d6297b7343659f950307e42b21667c"
+  },
+  "finalNativeVerdict": "pass: readable fixed-night actor, real manual handoff, retained natural Idle, orbit and reverse/brake",
+  "reviewer": "container-underwater-independent-review"
+}

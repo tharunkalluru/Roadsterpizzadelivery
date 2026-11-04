@@ -1,0 +1,95 @@
+✖ a Next transaction cannot silently absorb multiple unobserved placements as one clean progression (1.369625ms)
+✖ a car that starts an old-scene departure under the loader cannot later acquire clean direct-Next proof (1.403333ms)
+✖ a new order cannot inherit or finish an older attempt's pending Next transaction (0.691625ms)
+✖ the actual observer cannot certify a physical carton that is entirely behind the gameplay camera (3.062083ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.733375
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17311:1
+✖ a Next transaction cannot silently absorb multiple unobserved placements as one clean progression (1.369625ms)
+  AssertionError [ERR_ASSERTION]: revision jump of two cannot prove that the only placement was the expected Next
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17315:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.start (node:internal/test_runner/test:1000:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17321:1
+✖ a car that starts an old-scene departure under the loader cannot later acquire clean direct-Next proof (1.403333ms)
+  AssertionError [ERR_ASSERTION]: the observed old-position drift must remain a failure, even if a later ready road is correct
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17327:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17332:1
+✖ a new order cannot inherit or finish an older attempt's pending Next transaction (0.691625ms)
+  AssertionError [ERR_ASSERTION]: a later attempt boundary must invalidate any incomplete old transition
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17338:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17421:1
+✖ the actual observer cannot certify a physical carton that is entirely behind the gameplay camera (3.062083ms)
+  AssertionError [ERR_ASSERTION]: scene-graph visibility alone does not prove the player could see the handoff
+  
+  true !== false
+  
+      at file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17476:10
+      at withObserverDom (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17413:5)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-2uksq0/0.test.mjs:17421:112)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

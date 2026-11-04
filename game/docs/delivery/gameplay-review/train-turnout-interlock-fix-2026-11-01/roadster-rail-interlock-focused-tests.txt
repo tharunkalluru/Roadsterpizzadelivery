@@ -1,0 +1,18 @@
+✔ actual Khaitalpur narrow curve clears both 8/13-coach rakes without overlap (308.437584ms)
+✔ actual Khaitalpur narrow curve clears both 13/13-coach rakes without overlap (207.512875ms)
+✔ native HITEC startup adopts13 coaches, reverses at the terminal and clears the ordinary8-coach train (232.954625ms)
+✔ native HITEC startup adopts13 coaches, reverses at the terminal and clears the ordinary13-coach train (297.969291ms)
+✔ clear parallel routes keep both trains moving without a false reservation (5.832417ms)
+✔ grade separated routes keep both trains moving without a false reservation (5.306459ms)
+✔ a live reservation survives a route prepend without changing the winning train or stop distance (1.479791ms)
+✔ yielding a story train at an interlock does not trigger its terminal reversal (16.632541ms)
+✔ cached coach envelopes include a shipped curved conflict whose source centrelines remain over3.5m apart (52.890667ms)
+✔ prepared windows include the full sloped coach height rather than only its centre roof (5.993125ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1199.389459

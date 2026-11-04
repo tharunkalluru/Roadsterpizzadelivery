@@ -1,0 +1,126 @@
+{
+  "characterId": "jessie",
+  "name": "Jessie",
+  "film": "Ye Maaya Chesave",
+  "status": "approved",
+  "candidate": {
+    "assetId": "jessie-blue-saree-walking-v1",
+    "sha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/jessie/walking-v1.glb",
+      "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+    },
+    {
+      "path": "public/delivery/characters/jessie/walking-v1.rig.json",
+      "sha256": "e3b2edcf05dc10cab3b34e8067bc8bfcae45514ece26129a92c777cf351ea438"
+    },
+    {
+      "path": "public/delivery/characters/jessie/portrait-v1.png",
+      "sha256": "9e036c5b96abc06e6fee57a35be090258c4aa717cea59e1d8afa136d50b1215c"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T13:55:58.528557+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "jessie-sony-primary-native-40s",
+      "characterId": "jessie",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=71jqdKpSYLM",
+      "publisher": "Sony Music South official",
+      "path": "docs/delivery/character-review/production/references/jessie-sony-40s.png",
+      "sha256": "96d0047799fe29dd84716ba85e60431ef44aa5efec6ecec2b6f25a397449f429",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually viewed native Telugu Ye Maaya Chesave frame at40s; Samantha/Jessie is the woman on the left. Face/hair, blue patterned sari/blouse, cross necklace and real padded shoulder strap. Tamil Trisha portrayal and synthetic guides are not used as primary identity evidence."
+    },
+    {
+      "id": "jessie-sony-primary-native-41s",
+      "characterId": "jessie",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=71jqdKpSYLM",
+      "publisher": "Sony Music South official",
+      "path": "docs/delivery/character-review/production/references/jessie-sony-41s.png",
+      "sha256": "bb816912425c7d861d2eb26c95b3d45f7b2c32d86171b385c045a2bfde549eaa",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually viewed native Telugu Ye Maaya Chesave frame at41s; Samantha/Jessie is the woman on the left. Face/hair, blue patterned sari/blouse, cross necklace and real padded shoulder strap. Tamil Trisha portrayal and synthetic guides are not used as primary identity evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-jessie-v12/offline/front.png",
+      "sha256": "ccf6a2f76f20bddaeb15b6a04abaf31dbc15c1083fcc096abfb92fec6d322e6a",
+      "assetSha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82",
+      "comparedReferenceIds": [
+        "jessie-sony-primary-native-40s",
+        "jessie-sony-primary-native-41s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-jessie-v12/offline/three-quarter.png",
+      "sha256": "deb419c36a722cd4e1d6958bf05322aad5a983c271e04f03b2d4d6a1ccd21289",
+      "assetSha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82",
+      "comparedReferenceIds": [
+        "jessie-sony-primary-native-40s",
+        "jessie-sony-primary-native-41s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-jessie-v12/offline/profile.png",
+      "sha256": "0d2e35f135f104d341571169f69034703c1e0cab629c10218654f282b47f7010",
+      "assetSha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82",
+      "comparedReferenceIds": [
+        "jessie-sony-primary-native-40s",
+        "jessie-sony-primary-native-41s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-jessie-v12/offline/full-body.png",
+      "sha256": "389d1c207e418921938f4d881d379151e77c0e32aa99c8ed5cb6bf11ce7a2fb7",
+      "assetSha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82",
+      "comparedReferenceIds": [
+        "jessie-sony-primary-native-40s",
+        "jessie-sony-primary-native-41s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-jessie-v12/native-calibrated/01-calibrated-night-handoff.png",
+      "sha256": "3d8461127560bbe17e3ba78cd08733956d29fd8b8e4373525711299b14a8fa32",
+      "assetSha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82",
+      "comparedReferenceIds": [
+        "jessie-sony-primary-native-40s",
+        "jessie-sony-primary-native-41s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Exact-candidate independent close-match approval for a stylized Samantha/Jessie: coherent actual face, loose side-parted hair, blue patterned sari/blouse, cross necklace, source-present padded shoulder strap, shortened pouch and sandals. Simplified sleeve hems/hair detail are accepted game stylization; no new broad realism or generation request.",
+    "Actually opened five exact gameplay-mixer Idle views, two Walk poses, handoff full-body and underside, plus the native512 portrait. Known blue upper-arm shell/jagged elbow is removed, source continuous jaw/head volume preserved, separate digits/palms support the.4m carton. Diagnostic props are labelled and not described as live gameplay.",
+    "Actual Safari fixed23:00 scene: assisted Prepare/Stage only, then normal W150ms and F450ms rolling handoff caused real carton transfer and completion, Next retained the walking actor. Calibrated actual ahead-of-travel route lamp gives readable warm skin and blue costume without bleaching; catch pose releases to natural arms-down walking. Earlier dark screenshots and out-of-range refusal are retained, not relabelled as passes.",
+    "The native handoff evidence image shows the passing carton before completion; exact final palm support is established by the actual exported gameplay-mixer underside/full-body diagnostics, not falsely claimed as a pixel-tight live contact frame. Verified final export campaign-qa-mvwgj5a9 contains exact614 GLB/private74e rig and manual handoff with no missing physical facts.",
+    "Canonical public rig e3b2 and observed private74e were independently parsed equal. The portrait9e036 was viewed and is a faithful native render of the same model, not a replacement primary film reference. Three-file proposed bundle22a408 is approved; this review itself does not install or publish assets.",
+    "Scope is this actor bundle and bounded visual delivery interaction. Observer allScenarioEvidence remains false for assisted/private preview; authored-walk fact requires releasedCharacter identity in its observer branch, while walking was visually observed here. No natural jump-pickup, full campaign, trusted-touch, physical-phone or FPS/thermal certification is claimed."
+  ]
+}

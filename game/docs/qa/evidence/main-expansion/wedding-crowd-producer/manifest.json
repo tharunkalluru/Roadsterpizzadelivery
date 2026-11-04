@@ -1,0 +1,41 @@
+{
+  "status": "producer inspected only; native campaign and independent appearance review pending",
+  "renderer": "Blender 4.5.9 LTS Cycles CPU, threads2 samples12; production roughness .82 metalness0",
+  "geometry": "exact baked production WeddingCrowd buffers and all16 original instance matrices at scene time12",
+  "templates": 4,
+  "people": 16,
+  "draws": 4,
+  "templateTriangles": [
+    3504,
+    2926,
+    3138,
+    2636
+  ],
+  "crowdRenderedTriangles": 48816,
+  "sourceFiles": {
+    "src/delivery/art/wedding-crowd.ts": "5798d548074eb9fad7de3483c1346f0e6a86c1bfdca07173c534042f4b388188",
+    "src/delivery/modules/street-scenes.ts": "f4a5c017f9d0d889faf0a3c45bba2d8e6f76694b3b829ba83b573943d3f3aa76",
+    "scripts/art/export-wedding-crowd.ts": "d021f034158ed600d09a79eede7ae7ca0fca4fc17a1bee5572cf00c0ebc98556",
+    "scripts/art/render-npc-production.py": "6dc28f900810d997b0271b8405243c5ef222231e562d9c9da1e00fc1f2fca3de"
+  },
+  "views": [
+    {
+      "view": "wedding-people",
+      "image": "docs/qa/evidence/main-expansion/wedding-crowd-producer/wedding-people.png",
+      "sha256": "99cea88639742601908ec3e708e02814bad43c5808aea98eb3e521a1e9be996e",
+      "geometryJSONSha256": "94f56541cf344256fd196f6f8a116c04d9f5c5089d266b85575ba9ee9cff1b4f"
+    },
+    {
+      "view": "wedding-profiles",
+      "image": "docs/qa/evidence/main-expansion/wedding-crowd-producer/wedding-profiles.png",
+      "sha256": "a387f850c4205cc6c293411a89c4a8c4f4e8054ab05ebc58c9dc2136c79f71b6",
+      "geometryJSONSha256": "789d02e878f47b2c7b3b205742d59998d9bd3a2e251271a375056b26564fc9c5"
+    },
+    {
+      "view": "wedding-procession",
+      "image": "docs/qa/evidence/main-expansion/wedding-crowd-producer/wedding-procession.png",
+      "sha256": "1d1469395a43995d218ce88a4b9a65a01fb78dc9ef082cf9ad1a356ceec9d7f8",
+      "geometryJSONSha256": "b3bf091ba240f5ae7e921f4f567caa1327414045005bbf4c26385a7f3aaf0160"
+    }
+  ]
+}

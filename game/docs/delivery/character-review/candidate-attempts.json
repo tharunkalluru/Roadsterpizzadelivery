@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-31T07:57:26.918Z",
+  "identity": "pushpa-raj",
+  "operator": "/root/likeness_release_gate",
+  "independence": "The operator requested generation and may not positively approve either generated candidate. A separate scene-review agent compares them.",
+  "officialServiceVerification": {
+    "repository": "https://github.com/microsoft/TRELLIS",
+    "project": "https://microsoft.github.io/TRELLIS/",
+    "linkedDemo": "https://huggingface.co/spaces/Microsoft/TRELLIS",
+    "observedRedirect": "https://huggingface.co/spaces/trellis-community/TRELLIS",
+    "standaloneApp": "https://trellis-community-trellis.hf.space/?__theme=system",
+    "account": "Existing user Chrome session; no account name or credentials recorded.",
+    "billingChanged": false,
+    "newTermsAccepted": false,
+    "extensionPermissionsChanged": false
+  },
+  "inputs": [
+    {
+      "path": "docs/delivery/character-review/candidate-inputs/pushpa-promotional-poster.jpg",
+      "bytes": 911234,
+      "sha256": "e42ca26df2674b72b3a52e6812dbd679de88b34aadb3d4388fb3fdc79e4614bf",
+      "width": 500,
+      "height": 750,
+      "source": "https://poster.gsc.com.my/2024/241202_Pushpa2Telugu_big.jpg",
+      "publisher": "Golden Screen Cinemas promotional poster hosting",
+      "credit": "Pushpa 2 film promotion; artwork carries Mythri Movie Makers and production/distribution marks.",
+      "usage": "Internal authorized image-to-3D candidate generation and comparison. Not shipped as game texture. No standalone commercial reuse license asserted."
+    },
+    {
+      "path": "docs/delivery/character-review/candidate-inputs/pushpa-promotional-poster-large.jpg",
+      "bytes": 727686,
+      "sha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "width": 1309,
+      "height": 1963,
+      "source": "https://image.tmdb.org/t/p/original/gpNcQfQ4YGtFwEcrjcK9HxVM2KF.jpg",
+      "publisher": "The Movie Database, same Pushpa 2 promotional artwork",
+      "usage": "Higher resolution reference only; no primary-publisher or release-license approval inferred."
+    },
+    {
+      "path": "public/delivery/celebrities/allu-arjun.jpg",
+      "bytes": 60991,
+      "sha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0",
+      "width": 500,
+      "height": 586,
+      "source": "https://upload.wikimedia.org/wikipedia/commons/0/09/Allu_Arjun_at_Pushpa_2_The_Rule_meet.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Allu_Arjun_at_Pushpa_2_The_Rule_meet.jpg",
+      "originalSource": "https://www.bollywoodhungama.com/news/parties-and-events/photos-allu-arjun-others-grace-pushpa-2-rule-thank-india-press-meet-delhi/photos-allu-arjun-and-others-grace-pushpa-2-the-rule-thank-you-india-press-meet-in-delhi-3/",
+      "publisher": "Bollywood Hungama",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "creditNote": "Attribution verified in the Commons license section and original upload history on 2026-10-29; its machine-readable Author field is empty.",
+      "sourceChanges": "Commons version cropped and retouched by Wikisorter; see linked source history.",
+      "usage": "Unaltered original local portrait uploaded once to the authenticated TRELLIS wrapper to concentrate generation detail on the face/head. No Python crop or image transformation."
+    }
+  ],
+  "attempts": [
+    {
+      "order": 1,
+      "host": "standalone-app",
+      "inputSha256": "e42ca26df2674b72b3a52e6812dbd679de88b34aadb3d4388fb3fdc79e4614bf",
+      "parameters": {
+        "sparseGuidance": 7.5,
+        "sparseSteps": 12,
+        "latentGuidance": 3,
+        "latentSteps": 12,
+        "simplify": 0.95,
+        "textureSize": 1024,
+        "randomizeSeed": true,
+        "seedDisplayedAfterGeneration": 1996072296
+      },
+      "outcome": "downloaded-real-glb",
+      "outputSha256": "5f54c86cbe9f8f0c6791703c41cd7da52782980d0f4faff42c81f055166ad6c3"
+    },
+    {
+      "order": 2,
+      "host": "standalone-app",
+      "inputSha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "parameters": {
+        "sparseSteps": 24,
+        "latentSteps": 24,
+        "simplify": 0.9,
+        "textureSize": 2048,
+        "randomizeSeed": false,
+        "seed": 1996072296
+      },
+      "outcome": "Both generated-asset and extracted-GLB panels displayed Error. No specific diagnostic visible. Cached first output remained; it was not relabeled."
+    },
+    {
+      "order": 3,
+      "host": "standalone-app",
+      "inputSha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "parameters": {
+        "sparseSteps": 12,
+        "latentSteps": 12,
+        "simplify": 0.9,
+        "textureSize": 2048,
+        "randomizeSeed": false,
+        "seed": 1996072296
+      },
+      "outcome": "Both output panels displayed generic Error again; no new output verified."
+    },
+    {
+      "order": 4,
+      "host": "standalone-app",
+      "inputSha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "parameters": {
+        "sparseSteps": 12,
+        "latentSteps": 12,
+        "simplify": 0.95,
+        "textureSize": 1024,
+        "randomizeSeed": false,
+        "seed": 1996072296
+      },
+      "outcome": "Default-budget retry still displayed generic Error; no quota or OOM diagnosis asserted."
+    },
+    {
+      "order": 5,
+      "host": "authenticated-huggingface-wrapper",
+      "inputSha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "parameters": {
+        "sparseGuidance": 7.5,
+        "sparseSteps": 12,
+        "latentGuidance": 3,
+        "latentSteps": 12,
+        "simplify": 0.9,
+        "textureSize": 2048,
+        "randomizeSeed": true,
+        "seedDisplayedAfterGeneration": 1832373245
+      },
+      "outcome": "downloaded-real-glb",
+      "outputSha256": "5a318d6b52f532f4a6ec8e21869a90fdd3bf222acf6b10f7898fcad7576222e1"
+    },
+    {
+      "order": 6,
+      "host": "authenticated-huggingface-wrapper",
+      "inputSha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0",
+      "parameters": {
+        "sparseGuidance": 7.5,
+        "sparseSteps": 12,
+        "latentGuidance": 3,
+        "latentSteps": 12,
+        "simplify": 0.9,
+        "textureSize": 2048,
+        "randomizeSeed": true,
+        "seedDisplayedBeforeGeneration": 1832373245,
+        "actualRandomSeed": null,
+        "seedNote": "Post-generation randomized seed was not captured; no value invented."
+      },
+      "outcome": "downloaded-real-glb",
+      "outputSha256": "267b8fd71c403b1220a705ffd3a0e4295867c928237008d19cb09d388594a737",
+      "note": "Exactly one portrait-head generation attempt; actual Allu Arjun preview and filename verified before submission. No wrong-person generation."
+    }
+  ],
+  "candidates": [
+    {
+      "path": "docs/delivery/character-review/candidates/pushpa-trellis-first-pass.glb",
+      "bytes": 1311744,
+      "sha256": "5f54c86cbe9f8f0c6791703c41cd7da52782980d0f4faff42c81f055166ad6c3",
+      "assetId": "pushpa-trellis-first-pass",
+      "triangles": 6908,
+      "materials": 1,
+      "skins": 0,
+      "animations": 0,
+      "appearanceStatus": "rejected",
+      "releaseStatus": "rejected",
+      "independentReviewer": "/root/container_underwater_scenes",
+      "feedback": [
+        "Some poster silhouette and brown-costume cues are retained, but this is not a close scene-ready likeness.",
+        "Red-tinted round glasses are present in the source; red tint itself is not the defect. Thin frames/lenses/eyes/nose boundaries are lost and the lower face merges into a broad black mask.",
+        "Hair and profile collapse into cap/wedge forms; rear texture is nearly black.",
+        "Walking/rifle statue is the wrong scene pose; no seated Japanese reader or handoff can be verified.",
+        "No skin or animation is present; a material change alone cannot correct texture, geometry or scene-role failures."
+      ],
+      "comparisonEvidence": {
+        "path": "docs/delivery/character-review/evidence/pushpa-trellis-first-pass-review.jpg",
+        "bytes": 125083,
+        "sha256": "f0b69f71c7c687c4667ee5a38c5852cf03a36699e5edb6fabe4ace9522705e56"
+      },
+      "reviewUrl": "http://127.0.0.1:4201/docs/delivery/character-review/generated.html",
+      "reviewReport": "docs/delivery/character-review/independent-generated-review.md"
+    },
+    {
+      "path": "docs/delivery/character-review/candidates/pushpa-trellis-second-pass.glb",
+      "bytes": 3555308,
+      "sha256": "5a318d6b52f532f4a6ec8e21869a90fdd3bf222acf6b10f7898fcad7576222e1",
+      "assetId": "pushpa-trellis-second-pass",
+      "triangles": 11086,
+      "materials": 1,
+      "skins": 0,
+      "animations": 0,
+      "appearanceStatus": "rejected",
+      "releaseStatus": "rejected",
+      "feedback": [
+        "Some side-of-head/beard/shirt detail improved, but face still has pale patches and blurred glasses/brow/cheek/nose separation. Red lenses are intentional; geometry and boundaries remain weak.",
+        "Profile beard remains a long dark flat-ended form with pale ear/sideburn streaks. Rear costume is nearly black and has inconsistent leg patches.",
+        "Red debris near feet resembles reconstructed promotional footer/logo. Walking/rifle pose is wrong for seated reader; no in-truck or handoff view exists."
+      ],
+      "reviewUrl": "http://127.0.0.1:4201/docs/delivery/character-review/generated.html?second=1",
+      "independentReviewer": "/root/container_underwater_scenes",
+      "reviewReport": "docs/delivery/character-review/independent-generated-review.md"
+    },
+    {
+      "path": "docs/delivery/character-review/candidates/pushpa-trellis-portrait-head.glb",
+      "bytes": 5224904,
+      "sha256": "267b8fd71c403b1220a705ffd3a0e4295867c928237008d19cb09d388594a737",
+      "assetId": "pushpa-trellis-portrait-head",
+      "triangles": 38447,
+      "materials": 1,
+      "skins": 0,
+      "animations": 0,
+      "appearanceStatus": "component-pending-cleanup",
+      "releaseStatus": "rejected",
+      "feedback": [
+        "Independent reviewer finds a substantially clearer head than both full-body poster attempts, useful as a component candidate but not accepted yet.",
+        "Glasses are warped/asymmetric/drooping; lip/nose-mouth proportions differ and lips appear inflated/pink; ear coloration is red. Rear texture remains black and original material remains dark.",
+        "Black press-shirt/microphone bust is not the correct film-reader body. No full-body rig, seated/book pose, or in-game handoff exists.",
+        "No positive identity/component or complete-scene release approval was granted. Cleanup, correct-film styling and fresh independent review are still required."
+      ],
+      "reviewUrl": "http://127.0.0.1:4201/docs/delivery/character-review/generated.html?head=1",
+      "correctFilmReference": {
+        "path": "docs/delivery/character-review/evidence/pushpa-official-profile-139s.jpg",
+        "bytes": 25114,
+        "sha256": "fd96fce796e83a0a3a358e1d8663da232f4738ffbe308bc28fd39b130d5d4d6a"
+      },
+      "correctFilmSource": "https://www.youtube.com/watch?v=g3JUbgOHgdw&t=139s",
+      "correctFilmPublisher": "Mythri Movie Makers, verified official channel and actual frame observed at 2:19",
+      "independentReviewer": "/root/container_underwater_scenes",
+      "reviewReport": "docs/delivery/character-review/independent-generated-review.md",
+      "comparisonEvidence": [
+        {
+          "path": "docs/delivery/character-review/evidence/independent-pushpa-head-unlit-review.jpg",
+          "bytes": 123663,
+          "sha256": "2d6c5c88eae32fd8223d4e2f8b906ea64711479550e05766cd952e85d29462d8"
+        },
+        {
+          "path": "docs/delivery/character-review/evidence/independent-pushpa-head-material-review.jpg",
+          "bytes": 109758,
+          "sha256": "83b997728c2eb47667d8b3f32214da87f04900884aa9952d6fea22c22aad5a43"
+        }
+      ]
+    }
+  ],
+  "materialFinding": "Both GLBs omit metallicFactor. Installed Three.js GLTFLoader defaults it to 1.0. The review viewer explicitly offers original PBR and unlit source-texture inspection; production import makes no automatic correction.",
+  "shippingStatus": "All three generated candidates remain outside public game assets and the empty production asset manifest. Both poster bodies were independently rejected; portrait-head component awaits cleanup and the current complete scene is rejected. No positive approvals."
+}

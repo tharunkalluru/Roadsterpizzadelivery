@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "auditor": "review_binding_audit independent read-only metadata audit",
+  "recordedAt": "2026-11-01T00:07:28.825049+00:00",
+  "scope": "Structural export/recorded facts and independent source/server bytes. No UI, new visual verdict, export edit or benchmark.",
+  "sourceExport": {
+    "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/nani-high-night/campaign-evidence-nani-high.json",
+    "sha256": "52a6d96971c554ee71b5176860548dda96ced20ed430585fec579df7c1fef975",
+    "runId": "campaign-qa-mvx2iz1w"
+  },
+  "validation": {
+    "expectedExportSha256": true,
+    "exactBuild": true,
+    "normal4206Level14NoQaArt": true,
+    "highQualityAndNightRequested": true,
+    "deviceAndRendererDpr1": true,
+    "drawingBufferViewport1264x505": true,
+    "fiveFactsRecorded": true,
+    "completedAndManual": true,
+    "noMissingPhysicalOrArtOrVisual": true,
+    "bothVisualChecksUniqueWithNotes": true,
+    "wrongBeatRejectionRecorded": true,
+    "twoFreshFInputsWithExactFalseThenTrueSamples": true,
+    "acceptedFCompletionAfter750ms": true,
+    "normalApprovedArt": true,
+    "sourceServerNaniTrioExact": true,
+    "bundleRecomputedExact": true,
+    "rowScenarioEvidenceTrue": true,
+    "25Transfer35Opening15RetainedFilesPresent": true
+  },
+  "buildQuality": {
+    "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "source": "http://127.0.0.1:4206/?qaDelivery=14&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+    "environment": {
+      "quality": "high",
+      "viewport": {
+        "width": 1264,
+        "height": 505
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1,
+      "drawingBuffer": {
+        "width": 1264,
+        "height": 505
+      },
+      "hardwareConcurrency": 8,
+      "refreshCapability": "Not measured by this callback observer"
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15"
+  },
+  "timingAndMechanics": {
+    "facts": [
+      "real-stadium-surface",
+      "grounded-arrival",
+      "valid-timing-window",
+      "manual-handoff",
+      "final-opening"
+    ],
+    "handoffInputs": [
+      {
+        "kind": "handoff",
+        "source": "keyboard",
+        "at": 18864.99999999976
+      },
+      {
+        "kind": "handoff",
+        "source": "keyboard",
+        "at": 27981.999999999247
+      }
+    ],
+    "exactSamplesAtF": [
+      {
+        "x": 5730.556092228551,
+        "y": 0.5850000000000001,
+        "z": 5.93329211314066,
+        "yaw": 0,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "DROP",
+        "ready": false,
+        "instruction": "Wait for the green break between overs",
+        "at": 18864.99999999976
+      },
+      {
+        "x": 5730.556092228551,
+        "y": 0.5850000000000001,
+        "z": 5.93329211314066,
+        "yaw": 0,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "DROP",
+        "ready": true,
+        "instruction": "Break in play \u2014 drop now!",
+        "at": 27981.999999999247
+      }
+    ],
+    "recordedFailureNotes": [
+      "Failed attempt: Not between overs yet. Wait for green and retry."
+    ],
+    "completedAt": 28731.999999999218,
+    "afterAcceptedFMs": 749.9999999999709,
+    "missingPhysicalFacts": [],
+    "observedSceneMechanics": true
+  },
+  "visualAndFinaleMetadata": {
+    "recordedReviews": [
+      {
+        "check": "Original oval field, wicket, stands and floodlights remain; no roads/traffic or duplicate pitch.",
+        "evidence": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/nani-high-night/01-high-night-stadium-arrival.png; /02-high-night-amber-before-F.png; /03-high-night-timing-attempt.png; /04-high-night-valid-window.png; /05-high-transfer-00..08.png; /06-opening-00..34.png; /07-high-grand-opening-card.png; /08-high-retained-*.png. Ordinary public High/night. Turf stripes, wicket, stands, distant floodlights remain visible without field/face white veil. Wrong beat rejected; green F accepted, carton caught, finale watched without Skip, Explore retained relaxed Jersey actor. Bright car headlamp hotspot confined to right vehicle, not actor or field. Assisted start only.",
+        "at": 38027.999999999454
+      },
+      {
+        "check": "Jersey Nani is recognizable and physically present at the handoff.",
+        "evidence": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/nani-high-night/01-high-night-stadium-arrival.png; /02-high-night-amber-before-F.png; /03-high-night-timing-attempt.png; /04-high-night-valid-window.png; /05-high-transfer-00..08.png; /06-opening-00..34.png; /07-high-grand-opening-card.png; /08-high-retained-*.png. Ordinary public High/night. Turf stripes, wicket, stands, distant floodlights remain visible without field/face white veil. Wrong beat rejected; green F accepted, carton caught, finale watched without Skip, Explore retained relaxed Jersey actor. Bright car headlamp hotspot confined to right vehicle, not actor or field. Assisted start only.",
+        "at": 46074.00000000002
+      }
+    ],
+    "pngSequenceFileCounts": {
+      "05-high-transfer-": 25,
+      "06-opening-": 35,
+      "08-high-retained-": 15
+    },
+    "openingFactRecorded": true,
+    "attribution": "Exported reviewer notes attest readable High/night field and Jersey actor, confined car-light hotspot, full opening watched without Skip, and Explore retaining a relaxed actor. Those are the parent reviewer observations, not new image judgments by this structural auditor. The final-opening fact proves the open state was reached; by itself it does not prove Skip was never clicked."
+  },
+  "normalPublicNaniSourceServerProof": {
+    "candidate": {
+      "assetId": "nani-jersey-cricketer-v1",
+      "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+    },
+    "authorId": "authored-character-bounds-art-producer",
+    "reviewerId": "likeness-release-gate-independent-final-review",
+    "approvedRecordSameRootAndRuntime": true,
+    "files": [
+      {
+        "path": "public/delivery/characters/nani-jersey/cricketer-v1.glb",
+        "approvedSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+        "rootSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+        "runtimeSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+        "serverUrl": "http://127.0.0.1:4206/delivery/characters/nani-jersey/cricketer-v1.glb",
+        "httpStatus": 200,
+        "httpSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+        "allExact": true
+      },
+      {
+        "path": "public/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+        "approvedSha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c",
+        "rootSha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c",
+        "runtimeSha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c",
+        "serverUrl": "http://127.0.0.1:4206/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+        "httpStatus": 200,
+        "httpSha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c",
+        "allExact": true
+      },
+      {
+        "path": "public/delivery/characters/nani-jersey/portrait-v1.png",
+        "approvedSha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+        "rootSha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+        "runtimeSha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+        "serverUrl": "http://127.0.0.1:4206/delivery/characters/nani-jersey/portrait-v1.png",
+        "httpStatus": 200,
+        "httpSha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+        "allExact": true
+      }
+    ],
+    "perAssetDownloadedShaInRuntimeExport": false,
+    "boundary": "Exact public trio hashes are independent ROOT/runtime/HTTP evidence. The runtime export contains no per-asset downloaded-SHA field, so this audit does not claim it observed the browser asset hash."
+  },
+  "assistanceBounds": {
+    "mode": "isolated-scene",
+    "initialCompletedCount": 13,
+    "assistance": [
+      {
+        "kind": "qa-order-preparation",
+        "at": 454.0000000000002,
+        "levelId": null
+      },
+      {
+        "kind": "qa-scene-staging",
+        "at": 5581,
+        "levelId": "between-overs"
+      },
+      {
+        "kind": "player-relocated",
+        "at": 5746,
+        "levelId": "between-overs"
+      },
+      {
+        "kind": "pickup-not-observed",
+        "at": 28731.999999999218,
+        "levelId": "between-overs"
+      }
+    ],
+    "naturalJumpPickup": false,
+    "inputEvidence": {
+      "pointerTypes": [],
+      "trustedTouchObserved": false,
+      "physicalHardwareVerified": false,
+      "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+    },
+    "rowAllScenarioEvidence": true,
+    "globalFullCampaignAccepted": false,
+    "globalAllScenarioEvidence": false,
+    "note": "Assisted isolated finale with13temporaryprecompletedlevels; no naturalpickup or unassistedfullcampaign proof. Keyboard F evidence does not establish true touch or physical phone. Desktop callback/resource export is not GPU/FPS/thermal/battery benchmark certification."
+  },
+  "result": "NANI_HIGH_BUILD_QUALITY_TIMING_AND_RECORDED_SCENE_EVIDENCE_PASS",
+  "exportPreserved": true
+}

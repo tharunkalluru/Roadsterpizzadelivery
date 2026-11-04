@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "archivedAt": "2026-11-01T03:51:24.723241+00:00",
+  "runtimeFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+  "softwareValidation": "Completed v9:764current tests,38portable legacy suites,application/Worker typechecks,production build,15/15character audit.",
+  "nativeComparison": "Fresh fe81 run in progress; no forty-minute or resource-plateau acceptance asserted.",
+  "supersedesCandidate": "8de505c1a3f4d736e56359df1769cd831a99aeb6d766d69b67c91c429de7d5aa",
+  "proposalStatusCaveat": "Original proposal manifest preserves rootEdited:false as preparation-time provenance; subsequent source-copy receipt and v9 software log evidence later application/validation.",
+  "credentialPatternScreen": "No matches; only four small proposal/receipt/software-log artifacts selected.",
+  "files": [
+    {
+      "file": "refined-proposal.patch",
+      "originalPath": "/tmp/roadster-env-reuse-proposal/proposal.patch",
+      "bytes": 19322,
+      "sha256": "4748b45f5feae4c7f57c5e88c7f911e9fe5d0acd2fbc0c9c5618549219fa0d73",
+      "originalPreserved": true
+    },
+    {
+      "file": "refined-proposal-manifest.json",
+      "originalPath": "/tmp/roadster-env-reuse-proposal/manifest.json",
+      "bytes": 1129,
+      "sha256": "09a3edcb46f4aa5ce09e150326aec39acf5afc9c91cb1c7bbf2defe824932cb6",
+      "originalPreserved": true
+    },
+    {
+      "file": "reviewed-source-copy-receipt.json",
+      "originalPath": "/tmp/roadster-environment-reuse-three-file-copy-20261101.json",
+      "bytes": 698,
+      "sha256": "0bd721913a2aacf7557955b55640169147bc61b568587ea307f9a7118a784d4f",
+      "originalPreserved": true
+    },
+    {
+      "file": "release-check-v9.txt",
+      "originalPath": "/tmp/roadster-fourteen-final-release-check-v9-env-reuse.log",
+      "bytes": 99753,
+      "sha256": "c2c910241d283284edd9150360bebad043d26702eb868993cd68db2d99bde3bb",
+      "originalPreserved": true
+    }
+  ]
+}

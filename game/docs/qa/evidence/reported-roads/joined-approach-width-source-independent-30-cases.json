@@ -1,0 +1,5083 @@
+{
+  "reviewedAtUtc": "2026-11-03T04:56:16.458021+00:00",
+  "scope": "Independent validation of official width provenance for the 30 previously classified skipped joined-approach cases. This is source provenance, not acceptance of any narrowed geometry or repaired gameplay.",
+  "summary": {
+    "caseCount": 30,
+    "uniqueRoadCount": 57,
+    "officialMatches": 57,
+    "explicitWidthRuleRecords": 0,
+    "classDefaultRecords": 46,
+    "linkDefaultRecords": 10,
+    "sourceSupportedLaneCountRecords": 1,
+    "physicalFailureCases": 26,
+    "packedLaneCounts": {
+      "3": 14,
+      "2": 30,
+      "1": 13
+    }
+  },
+  "sourceRelease": "2026-10-21.0",
+  "officialSource": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+  "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,sources,bbox FROM read_parquet(?,hive_partitioning=1)\nWHERE bbox.xmin>=78.20 AND bbox.xmax<=78.70 AND bbox.ymin>=17.20 AND bbox.ymax<=17.62\nAND substr(id,1,12) IN ('00095de8-b24','0011de8a-9c8','01537ac6-791','0207bb49-e32','03366fc8-d52','0497c98e-768','09584ea4-514','09c3e116-be1','0cc41574-a59','0cd54f5a-5e2','0fa5ecd9-9a1','106f86c9-f7b','10e508ba-f9d','129bab10-a8f','14156d54-317','14d55a2e-ec0','167dac75-961','178ae614-025','18ece25d-744','19717777-3a4','19baeded-058','1a00a55f-33b','1bdf4566-462','1ea87a01-8ee','20e2f5db-6cc','2109bfe0-0ef','21e48b5d-a97','22b5d213-be6','22be8f27-c0f','23427c8c-e37','2355bf42-f81','23fe12a0-50f','2576d676-6ad','2750f64e-400','2be42e67-e03','2f0f6c25-b5c','3074cb9e-c50','30884355-e07','30a6213b-6c9','30aa329d-3a7','318a7bac-aca','321d8169-d6b','33e79d8d-132','3560df67-8ff','3628b9ba-e52','37e421d1-548','38a7824d-0e1','39e85019-30a','3acb3da2-e23','413cf8e6-586','41966454-7d0','41a8d714-5f5','427107ff-fee','44b1ec50-837','453dadea-269','47b10a8e-8fe','47b85b5b-3ad','4a140566-ac2','4a8ebb83-553','4dbf5e49-7f5','4e324c1c-ae5','50fa16ed-e5e','51b1788b-89a','51be01ba-57f','5237fdd6-0a6','52a3f388-9d4','54010f0a-cf7','554f3714-afe','5627dc75-64d','5858b872-413','593a87ca-994','59b6ebbe-b01','5b18ece6-ad6','5cb4518a-9ba','5d5890cc-21d','5dbaa15e-212','5fbbbfac-540','5fc09021-928','5fd289ec-cef','606bbc23-035','626a3566-b84','636c7a19-454','638e91f6-7b3','63942b79-bee','65a66cb6-a7b','65ad1163-32c','66485b16-233','67945280-9ce','67c7bb3b-da0','69d691d0-45b','6aa48023-462','6ada4f9e-3d4','6b0b1c24-f02','6ccb3ed1-a7b','6da779cc-b5e','6e1e03e4-6dc','6e4498ab-07a','6fe696cd-2db','704d138e-2a2','7144c144-9d9','718f53d9-d48','720dd517-aed','72c96bbc-945','72e2e384-7c5','73833440-9e4','740da8ae-7e2','742c9ab8-1ff','786694e6-36e','7c5cdc7b-72e','7f2e28c5-5d8','7f6aaa08-ec2','7fa23180-147','808b15b2-43d','80f60242-396','81f423fb-878','8473035d-a28','871e2290-90b','881121ae-ac7','8a2c3f45-5c3','8a98ab2b-16e','8c160308-751','8c900614-da1','8e927f58-ce2','902290e9-68e','90d4f398-329','91438861-b8b','91f38db1-31c','94e381ed-cb6','95b46659-9c4','98454ee3-20d','9874746c-313','98e9dc32-f73','993fa404-3ac','9aef94af-576','9b763e96-686','9bfde755-4c2','9ce65172-f89','9d4c8fdb-10c','9e388b2e-599','9f8ea550-d6c','9fa3fe38-c05','a09a05a4-091','a0bfe54b-fed','a0d993a1-f57','a54160b6-59a','a75d6448-779','a7a404cf-9f4','a8d3b468-da5','aa31f929-ba4','aa6cd6f8-d6d','ad6f78f1-dc9','adb701c2-bb8','ae86991c-08b','af5d4b8b-2e5','b002b0ec-3e8','b2a6e4a9-63e','b327100f-498','b346cde2-c81','b3984499-4d9','b3d0fa97-ef4','b537250f-a26','b6333fff-70d','b6b95ba0-d42','b9b14256-b1a','b9bcd157-fca','bd2083cf-e47','bdacddca-ad7','bdf0bad3-182','be26bf0d-5ba','bf86edaf-080','c06a9f53-f93','c403d2fb-6bf','c4ec566b-98c','c594f8ee-d66','c601e334-611','c719582a-3ae','c74bed09-107','c79b6961-851','c846cc42-11f','c8486d6e-ac1','c8c73c25-cc3','c9a8bcff-b8b','c9dfb883-912','ca8a4b31-372','cb3e58ff-181','cc1245ed-64f','cc7db1df-c57','cd05037e-b42','cd18974b-973','cdf0839f-fdc','ce2b0a9b-f0e','ce401cde-264','ce84e92b-b63','d05e48fe-068','d0978a06-15a','d1244015-525','d166fb5e-eb5','d7fa783b-140','dc8dc99d-00e','df771331-cef','e0d9297d-546','e5c7d77e-3df','e6cbd3ab-c5e','e882c25b-c9d','e954c275-1a3','ea43d92c-dc4','eab5092f-06c','ed4c97de-0f2','ef45a196-2b1','f1764f6d-23a','f31f6f78-fd8','f5d7a47e-638','f706dc9a-940','f73ed62e-bc9','f8c337c5-356','f8cd1259-b6c','f9e58f04-6d2','fa7ede2f-999','fb33c904-e61','fbf9f25b-c5c','fc97e11a-1a7','fd999a38-464','fe32d89f-4dc','fec2a4df-ab8')",
+  "querySeconds": 93.484664208,
+  "sourceBatchRows": 224,
+  "inputSha256": {
+    "packedCore": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+    "classifiedCases": "724117e3ed17d626fa71fffe24a28102e07170ce16fe34bf74be8a5850154145",
+    "sourceQueryResult": "1028d234a93ee39a771dcf264de30e28dd7e95a309c80d102b302de462c2f68f"
+  },
+  "derivationFiles": {
+    "build_edges.py": "retained-2026-10-28-pipeline/build_edges.py",
+    "fix_links.py": "retained-2026-10-28-pipeline/fix_links.py",
+    "durgam_geometry.py": "retained-2026-10-28-pipeline/durgam_geometry.py"
+  },
+  "interpretation": [
+    "All 57 requested segment prefixes matched unique official retained-release records; every width_rules field is null.",
+    "46 packed widths match the original class default and one-way multiplier exactly; 10 further widths match the later categorical slip-road defaults.",
+    "Durgam Cheruvu a0d993a1-f57_0 has three source-supported lanes and a deliberate 3.2m-per-lane model. The null width_rules field does not authorize deleting its lane constraint.",
+    "Metric deck heights and ramp shapes are model estimates. Positive source level_rules are relative-layer evidence and must not be discarded as mere height estimates.",
+    "A null source width field does not establish that a proposed 7m carriageway is physically sufficient; actual road, full-body traffic, paint, parapet, crossing headroom and worker-transfer checks remain required."
+  ],
+  "roads": [
+    {
+      "roadId": "0497c98e-768_0",
+      "sourcePrefix": "0497c98e-768",
+      "packedName": "Bairamalguda Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "0497c98e-768c-4914-a553-b5961d9f0631",
+        "name": "Bairamalguda Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.0,
+              0.909025547
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w839138322@6",
+            "update_time": "2025-12-28T06:36:40Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.909025547
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215346@3",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.909025547,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.54315185546875,
+          "xmax": 78.54658508300781,
+          "ymin": 17.33905029296875,
+          "ymax": 17.34206771850586
+        }
+      }
+    },
+    {
+      "roadId": "09584ea4-514_0",
+      "sourcePrefix": "09584ea4-514",
+      "packedName": "Chandrayangutta Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "09584ea4-5144-4f5c-bf65-35586caf2028",
+        "name": "Chandrayangutta Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.01727154,
+              0.981328102
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1310033475@5",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.01727154
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310333805@6",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.01727154,
+              0.981328102
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432161599@6",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.981328102,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.47415924072266,
+          "xmax": 78.48442077636719,
+          "ymin": 17.325883865356445,
+          "ymax": 17.329517364501953
+        }
+      }
+    },
+    {
+      "roadId": "0cd54f5a-5e2_0",
+      "sourcePrefix": "0cd54f5a-5e2",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "0cd54f5a-5e2f-4f26-aebf-8eabea67a969",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1350772869@3",
+            "update_time": "2026-05-18T06:31:31Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.51178741455078,
+          "xmax": 78.51321411132812,
+          "ymin": 17.342744827270508,
+          "ymax": 17.342967987060547
+        }
+      }
+    },
+    {
+      "roadId": "10e508ba-f9d_0",
+      "sourcePrefix": "10e508ba-f9d",
+      "packedName": "Flyover",
+      "packedClass": "motorway_link",
+      "packedWidth": 6.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "10e508ba-f9d3-4a24-bff7-ff2cb49f46d6",
+        "name": "Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.0,
+              0.73962168
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203837189@4",
+            "update_time": "2025-11-18T07:00:44Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.73962168
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375637993@8",
+            "update_time": "2025-11-18T07:00:44Z",
+            "confidence": null,
+            "between": [
+              0.73962168,
+              0.936583225
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203837190@4",
+            "update_time": "2025-11-18T07:00:44Z",
+            "confidence": null,
+            "between": [
+              0.936583225,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.4159164428711,
+          "xmax": 78.41826629638672,
+          "ymin": 17.34661102294922,
+          "ymax": 17.35250473022461
+        }
+      }
+    },
+    {
+      "roadId": "178ae614-025_1",
+      "sourcePrefix": "178ae614-025",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "178ae614-0256-40d1-9d75-b5f71d755f06",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1148198920@9",
+            "update_time": "2026-06-25T05:13:26Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.54315185546875,
+          "xmax": 78.54499816894531,
+          "ymin": 17.33905029296875,
+          "ymax": 17.340497970581055
+        }
+      }
+    },
+    {
+      "roadId": "19717777-3a4_0",
+      "sourcePrefix": "19717777-3a4",
+      "packedName": "P.V. Narasimha Rao Flyover",
+      "packedClass": "motorway",
+      "packedWidth": 13.0,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "19717777-3a4c-4196-ad8d-aef406d92136",
+        "name": "P.V. Narasimha Rao Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.023530223,
+              1.0
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r13028264@9",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638020@9",
+            "update_time": "2025-11-18T06:39:56Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.023530223
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375637999@9",
+            "update_time": "2025-11-18T06:39:56Z",
+            "confidence": null,
+            "between": [
+              0.023530223,
+              0.132707964
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638000@9",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.132707964,
+              0.186741715
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638051@9",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.186741715,
+              0.233409212
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638010@9",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.233409212,
+              0.417637294
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640699@9",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.417637294,
+              0.483278664
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w393419599@8",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.483278664,
+              0.526072796
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640700@8",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.526072796,
+              0.587213953
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640696@8",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.587213953,
+              0.64197123
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640704@8",
+            "update_time": "2025-11-18T06:43:24Z",
+            "confidence": null,
+            "between": [
+              0.64197123,
+              0.767999044
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640706@8",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.767999044,
+              0.808214051
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640702@13",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.808214051,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42948150634766,
+          "xmax": 78.44432830810547,
+          "ymin": 17.381303787231445,
+          "ymax": 17.398571014404297
+        }
+      }
+    },
+    {
+      "roadId": "19baeded-058_0",
+      "sourcePrefix": "19baeded-058",
+      "packedName": "Flyover",
+      "packedClass": "motorway_link",
+      "packedWidth": 6.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "19baeded-0582-49a8-ab1e-76258e403d23",
+        "name": "Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.276852862,
+              1.0
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r13028264@9",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203042051@3",
+            "update_time": "2026-05-07T12:54:30Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.016278422
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1124070421@4",
+            "update_time": "2026-05-07T12:54:30Z",
+            "confidence": null,
+            "between": [
+              0.016278422,
+              0.057333559
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203042050@5",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.057333559,
+              0.276852862
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375640707@10",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.276852862,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42948150634766,
+          "xmax": 78.42964935302734,
+          "ymin": 17.381303787231445,
+          "ymax": 17.38507080078125
+        }
+      }
+    },
+    {
+      "roadId": "22b5d213-be6_0",
+      "sourcePrefix": "22b5d213-be6",
+      "packedName": null,
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "22b5d213-be6e-41ac-b1c7-96de27775ffd",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.202422353,
+              0.900817584
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r336372@207",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201387971@1",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.202422353
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w253055799@5",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.202422353,
+              0.900817584
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201387969@1",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.900817584,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.68973541259766,
+          "xmax": 78.69083404541016,
+          "ymin": 17.44582176208496,
+          "ymax": 17.44662094116211
+        }
+      }
+    },
+    {
+      "roadId": "23427c8c-e37_0",
+      "sourcePrefix": "23427c8c-e37",
+      "packedName": "Tarnaka Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "23427c8c-e371-447d-a62e-f68f3afd47b4",
+        "name": "Tarnaka Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.042431564,
+              0.948591049
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w316767714@5",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.042431564
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432570567@5",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.042431564,
+              0.948591049
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432570569@4",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.948591049,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.52945709228516,
+          "xmax": 78.53439331054688,
+          "ymin": 17.42504119873047,
+          "ymax": 17.427738189697266
+        }
+      }
+    },
+    {
+      "roadId": "30aa329d-3a7_0",
+      "sourcePrefix": "30aa329d-3a7",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "30aa329d-3a7e-4825-90fb-470499a5633e",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638053@12",
+            "update_time": "2026-02-19T10:38:01Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42403411865234,
+          "xmax": 78.42688751220703,
+          "ymin": 17.357736587524414,
+          "ymax": 17.360172271728516
+        }
+      }
+    },
+    {
+      "roadId": "318a7bac-aca_0",
+      "sourcePrefix": "318a7bac-aca",
+      "packedName": "Narayanguda Road",
+      "packedClass": "tertiary",
+      "packedWidth": 6.1,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 6.1,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "318a7bac-aca3-4fb9-a80a-a872e08810b5",
+        "name": "Narayanguda Road",
+        "class": "tertiary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310474524@9",
+            "update_time": "2025-08-25T12:05:47Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.49452209472656,
+          "xmax": 78.49604034423828,
+          "ymin": 17.39663314819336,
+          "ymax": 17.397693634033203
+        }
+      }
+    },
+    {
+      "roadId": "38a7824d-0e1_0",
+      "sourcePrefix": "38a7824d-0e1",
+      "packedName": "Krishna Deva Raya Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "38a7824d-0e1b-4b98-b11f-324c20b78c69",
+        "name": "Krishna Deva Raya Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432358624@6",
+            "update_time": "2025-12-23T07:30:37Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.52953338623047,
+          "xmax": 78.53086853027344,
+          "ymin": 17.427078247070312,
+          "ymax": 17.4278621673584
+        }
+      }
+    },
+    {
+      "roadId": "413cf8e6-586_0",
+      "sourcePrefix": "413cf8e6-586",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "413cf8e6-5866-45f1-a682-849919edec95",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1109179957@4",
+            "update_time": "2024-03-28T04:41:38Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.41705322265625,
+          "xmax": 78.41826629638672,
+          "ymin": 17.350069046020508,
+          "ymax": 17.35250473022461
+        }
+      }
+    },
+    {
+      "roadId": "41a8d714-5f5_0",
+      "sourcePrefix": "41a8d714-5f5",
+      "packedName": null,
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "41a8d714-5f5d-453a-b8c7-5430ca482023",
+        "name": null,
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.014711042,
+              0.982003994
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1530569550@1",
+            "update_time": "2026-06-18T11:25:34Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.014711042
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1530569547@1",
+            "update_time": "2026-06-18T11:25:34Z",
+            "confidence": null,
+            "between": [
+              0.014711042,
+              0.982003994
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1530569551@1",
+            "update_time": "2026-06-18T11:25:34Z",
+            "confidence": null,
+            "between": [
+              0.982003994,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.35865783691406,
+          "xmax": 78.36797332763672,
+          "ymin": 17.538450241088867,
+          "ymax": 17.540945053100586
+        }
+      }
+    },
+    {
+      "roadId": "4e324c1c-ae5_0",
+      "sourcePrefix": "4e324c1c-ae5",
+      "packedName": "Masab Tank Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "4e324c1c-ae5b-4591-b786-81b4dc1882be",
+        "name": "Masab Tank Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.020634843,
+              0.949384064
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5661577@48",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w393423457@5",
+            "update_time": "2024-11-02T11:03:55Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.020634843
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w393419595@7",
+            "update_time": "2024-11-02T11:03:55Z",
+            "confidence": null,
+            "between": [
+              0.020634843,
+              0.084298932
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1056191334@5",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.084298932,
+              0.949384064
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1311455363@3",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.949384064,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.45037841796875,
+          "xmax": 78.4563980102539,
+          "ymin": 17.39948081970215,
+          "ymax": 17.404359817504883
+        }
+      }
+    },
+    {
+      "roadId": "52a3f388-9d4_0",
+      "sourcePrefix": "52a3f388-9d4",
+      "packedName": "APJ Abdul Kalam Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "52a3f388-9d48-462a-af5c-0d7bbfb56131",
+        "name": "APJ Abdul Kalam Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.093493233,
+              0.870080351
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1310032678@4",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.048208376
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1350772867@2",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.048208376,
+              0.093493233
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1207729254@6",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.093493233,
+              0.870080351
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1350772868@2",
+            "update_time": "2025-07-08T05:54:14Z",
+            "confidence": null,
+            "between": [
+              0.870080351,
+              0.960551074
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1310032677@5",
+            "update_time": "2025-11-18T10:57:36Z",
+            "confidence": null,
+            "between": [
+              0.960551074,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.50028991699219,
+          "xmax": 78.51321411132812,
+          "ymin": 17.339397430419922,
+          "ymax": 17.343563079833984
+        }
+      }
+    },
+    {
+      "roadId": "5d5890cc-21d_0",
+      "sourcePrefix": "5d5890cc-21d",
+      "packedName": "Sardar Patel Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "5d5890cc-21d1-4a76-baf2-869cbacfa55d",
+        "name": "Sardar Patel Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w28129864@20",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.49079132080078,
+          "xmax": 78.49384307861328,
+          "ymin": 17.443252563476562,
+          "ymax": 17.44337272644043
+        }
+      }
+    },
+    {
+      "roadId": "636c7a19-454_0",
+      "sourcePrefix": "636c7a19-454",
+      "packedName": null,
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "636c7a19-454f-437d-8ba6-94382c086fa7",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r17407315@218",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r334161@1476",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5803164@150",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6428573@152",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w314378272@7",
+            "update_time": "2025-07-08T11:49:11Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42874145507812,
+          "xmax": 78.4317855834961,
+          "ymin": 17.31966209411621,
+          "ymax": 17.32166290283203
+        }
+      }
+    },
+    {
+      "roadId": "66485b16-233_0",
+      "sourcePrefix": "66485b16-233",
+      "packedName": null,
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "66485b16-2332-4131-9d28-bb09b939dd74",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.149847328,
+              0.828461475
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r336372@207",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201387968@1",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.149847328
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w253055796@5",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.149847328,
+              0.828461475
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201387970@1",
+            "update_time": "2023-08-23T10:38:47Z",
+            "confidence": null,
+            "between": [
+              0.828461475,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.68961334228516,
+          "xmax": 78.6906967163086,
+          "ymin": 17.445884704589844,
+          "ymax": 17.44667625427246
+        }
+      }
+    },
+    {
+      "roadId": "6b0b1c24-f02_0",
+      "sourcePrefix": "6b0b1c24-f02",
+      "packedName": "Langar House Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "6b0b1c24-f024-4501-8dba-ad7f34e2a9cd",
+        "name": "Langar House Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.081605597,
+              0.975155538
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5661577@48",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w380187102@5",
+            "update_time": "2025-07-07T10:59:34Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.081605597
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w380186812@6",
+            "update_time": "2025-07-07T10:59:34Z",
+            "confidence": null,
+            "between": [
+              0.081605597,
+              0.975155538
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1311220453@3",
+            "update_time": "2026-02-24T06:45:05Z",
+            "confidence": null,
+            "between": [
+              0.975155538,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.41842651367188,
+          "xmax": 78.42179107666016,
+          "ymin": 17.37442398071289,
+          "ymax": 17.38098907470703
+        }
+      }
+    },
+    {
+      "roadId": "6e1e03e4-6dc_0",
+      "sourcePrefix": "6e1e03e4-6dc",
+      "packedName": "Babu Jagjivan Ram Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "6e1e03e4-6dc3-40b7-a055-37dcb1e17b3a",
+        "name": "Babu Jagjivan Ram Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.026728385,
+              0.982174478
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1310469391@3",
+            "update_time": "2025-07-08T12:26:48Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.026728385
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w865840660@7",
+            "update_time": "2025-07-08T12:26:48Z",
+            "confidence": null,
+            "between": [
+              0.026728385,
+              0.982174478
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w964880315@4",
+            "update_time": "2025-07-08T12:26:48Z",
+            "confidence": null,
+            "between": [
+              0.982174478,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.4422607421875,
+          "xmax": 78.4527359008789,
+          "ymin": 17.463829040527344,
+          "ymax": 17.468563079833984
+        }
+      }
+    },
+    {
+      "roadId": "72e2e384-7c5_0",
+      "sourcePrefix": "72e2e384-7c5",
+      "packedName": "Masab Tank Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "72e2e384-7c5f-4dc3-9f0b-85a9884b8ca0",
+        "name": "Masab Tank Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.052007385,
+              0.978374069
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5661577@48",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1311455364@3",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.052007385
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w28197085@15",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.052007385,
+              0.9145262
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w393419597@8",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.9145262,
+              0.978374069
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w393423456@6",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": [
+              0.978374069,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.45043182373047,
+          "xmax": 78.45634460449219,
+          "ymin": 17.399456024169922,
+          "ymax": 17.40428352355957
+        }
+      }
+    },
+    {
+      "roadId": "786694e6-36e_0",
+      "sourcePrefix": "786694e6-36e",
+      "packedName": "Golkonda Road",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "786694e6-36e1-4a56-8bbb-168ce5b6fdc3",
+        "name": "Golkonda Road",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r3249370@248",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5661577@48",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w313512530@15",
+            "update_time": "2025-07-07T10:57:33Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.4430923461914,
+          "xmax": 78.44432830810547,
+          "ymin": 17.397342681884766,
+          "ymax": 17.398571014404297
+        }
+      }
+    },
+    {
+      "roadId": "7f6aaa08-ec2_0",
+      "sourcePrefix": "7f6aaa08-ec2",
+      "packedName": "Krishna Deva Raya Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "7f6aaa08-ec27-4974-985c-f2768287f61f",
+        "name": "Krishna Deva Raya Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w166512368@8",
+            "update_time": "2025-05-12T11:33:33Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.52945709228516,
+          "xmax": 78.53072357177734,
+          "ymin": 17.426910400390625,
+          "ymax": 17.427738189697266
+        }
+      }
+    },
+    {
+      "roadId": "81f423fb-878_0",
+      "sourcePrefix": "81f423fb-878",
+      "packedName": "Vijayavada Highway Flyover",
+      "packedClass": "trunk",
+      "packedWidth": 10.8,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "81f423fb-8786-4dc9-8dff-510411a25a3d",
+        "name": "Vijayavada Highway Flyover",
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.29740537,
+              0.811315333
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r336888@655",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5826793@229",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215374@4",
+            "update_time": "2025-07-08T05:17:18Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.043819197
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215375@4",
+            "update_time": "2025-07-08T05:17:18Z",
+            "confidence": null,
+            "between": [
+              0.043819197,
+              0.29740537
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215376@4",
+            "update_time": "2025-07-08T05:17:18Z",
+            "confidence": null,
+            "between": [
+              0.29740537,
+              0.811315333
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215377@4",
+            "update_time": "2025-07-08T05:17:18Z",
+            "confidence": null,
+            "between": [
+              0.811315333,
+              0.984506668
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1313235805@2",
+            "update_time": "2025-07-08T05:17:18Z",
+            "confidence": null,
+            "between": [
+              0.984506668,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.54862976074219,
+          "xmax": 78.55438995361328,
+          "ymin": 17.344087600708008,
+          "ymax": 17.348758697509766
+        }
+      }
+    },
+    {
+      "roadId": "90d4f398-329_0",
+      "sourcePrefix": "90d4f398-329",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "90d4f398-3299-413b-afe6-c9512d6f8d1c",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310342384@9",
+            "update_time": "2025-04-09T11:38:09Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.48189544677734,
+          "xmax": 78.48442077636719,
+          "ymin": 17.328426361083984,
+          "ymax": 17.329517364501953
+        }
+      }
+    },
+    {
+      "roadId": "9b763e96-686_0",
+      "sourcePrefix": "9b763e96-686",
+      "packedName": "Flyover",
+      "packedClass": "motorway_link",
+      "packedWidth": 6.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "9b763e96-686f-469c-9d10-00f4d4f9b0f2",
+        "name": "Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.0,
+              0.719496099
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r13028264@9",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203042052@5",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.719496099
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203042048@5",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.719496099,
+              0.882986212
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203042049@5",
+            "update_time": "2025-11-18T06:53:38Z",
+            "confidence": null,
+            "between": [
+              0.882986212,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42933654785156,
+          "xmax": 78.429443359375,
+          "ymin": 17.381303787231445,
+          "ymax": 17.384794235229492
+        }
+      }
+    },
+    {
+      "roadId": "a0bfe54b-fed_3",
+      "sourcePrefix": "a0bfe54b-fed",
+      "packedName": null,
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "a0bfe54b-fedf-4655-8608-3aa3f4a4cb4a",
+        "name": null,
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310014828@12",
+            "update_time": "2025-08-28T05:31:27Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.45024871826172,
+          "xmax": 78.4527359008789,
+          "ymin": 17.463829040527344,
+          "ymax": 17.465072631835938
+        }
+      }
+    },
+    {
+      "roadId": "a0d993a1-f57_0",
+      "sourcePrefix": "a0d993a1-f57",
+      "packedName": "Durgam Cheruvu Bridge",
+      "packedClass": "secondary",
+      "packedWidth": 9.6,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "source-supported-lane-count-with-explicit-model-lane-width",
+      "baseExporterDerivedWidth": 7.6,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [
+        "laneEvidence"
+      ],
+      "laneEvidence": {
+        "sources": [
+          "https://api.openstreetmap.org/api/0.6/map?bbox=78.385,17.429,78.392,17.434",
+          "https://www.larsentoubro.com/media/42542/2020-09-25-lt-built-iconic-durgam-cheruvu-cable-stay-bridge-dedicated-to-the-people-of-hyderbad.pdf"
+        ],
+        "sourceWays": [
+          852586032,
+          852586033,
+          852586035,
+          852638378,
+          1201412881,
+          1201412882
+        ],
+        "reviewedOn": "2026-10-26",
+        "confidence": "high-for-three-lanes; model-width-assumption",
+        "uncertainty": "3.2m per lane is a rendering assumption. Preserve mapped XY; inherited edge endpoints include up to34m beyond exact source-way overlap."
+      },
+      "officialSourceRecord": {
+        "id": "a0d993a1-f577-4e70-8624-cc00ba666560",
+        "name": "Durgam Cheruvu Bridge",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": null
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w852586029@3",
+            "update_time": "2025-07-08T07:09:45Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.019128529
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w852586035@12",
+            "update_time": "2025-07-08T07:09:45Z",
+            "confidence": null,
+            "between": [
+              0.019128529,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.3938217163086,
+          "xmax": 78.40666961669922,
+          "ymin": 17.42683219909668,
+          "ymax": 17.435089111328125
+        }
+      }
+    },
+    {
+      "roadId": "a54160b6-59a_0",
+      "sourcePrefix": "a54160b6-59a",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "a54160b6-59a7-4354-99a8-517ffb4415de",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w314225198@13",
+            "update_time": "2025-05-12T11:21:39Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42938995361328,
+          "xmax": 78.429443359375,
+          "ymin": 17.38329315185547,
+          "ymax": 17.384794235229492
+        }
+      }
+    },
+    {
+      "roadId": "a75d6448-779_0",
+      "sourcePrefix": "a75d6448-779",
+      "packedName": "Narayanguda Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "a75d6448-779d-4915-8652-144b84714777",
+        "name": "Narayanguda Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.056415083,
+              0.991127143
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310473526@6",
+            "update_time": "2025-08-25T12:05:47Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.056415083
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w28110968@14",
+            "update_time": "2025-08-25T12:05:47Z",
+            "confidence": null,
+            "between": [
+              0.056415083,
+              0.991127143
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w28110969@11",
+            "update_time": "2025-08-25T12:05:47Z",
+            "confidence": null,
+            "between": [
+              0.991127143,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.49169921875,
+          "xmax": 78.49604034423828,
+          "ymin": 17.39663314819336,
+          "ymax": 17.399494171142578
+        }
+      }
+    },
+    {
+      "roadId": "a7a404cf-9f4_0",
+      "sourcePrefix": "a7a404cf-9f4",
+      "packedName": "Basheerbagh road",
+      "packedClass": "secondary",
+      "packedWidth": 7.6,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 7.6,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "a7a404cf-9f44-4246-9cc0-fda1b85bb0b2",
+        "name": "Basheerbagh road",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w312173408@9",
+            "update_time": "2025-08-25T08:57:30Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.47496795654297,
+          "xmax": 78.47551727294922,
+          "ymin": 17.3995304107666,
+          "ymax": 17.400737762451172
+        }
+      }
+    },
+    {
+      "roadId": "aa6cd6f8-d6d_0",
+      "sourcePrefix": "aa6cd6f8-d6d",
+      "packedName": null,
+      "packedClass": "trunk_link",
+      "packedWidth": 6.0,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "aa6cd6f8-d6de-49d2-9fea-553cd7432173",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w656636624@3",
+            "update_time": "2024-06-01T08:13:27Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.68973541259766,
+          "xmax": 78.69034576416016,
+          "ymin": 17.44582176208496,
+          "ymax": 17.446025848388672
+        }
+      }
+    },
+    {
+      "roadId": "adb701c2-bb8_0",
+      "sourcePrefix": "adb701c2-bb8",
+      "packedName": "Masab Tank Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "adb701c2-bb8b-425c-ac4a-e102d7baf9c4",
+        "name": "Masab Tank Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w28197087@23",
+            "update_time": "2026-07-16T10:13:00Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.45043182373047,
+          "xmax": 78.45178985595703,
+          "ymin": 17.399456024169922,
+          "ymax": 17.401641845703125
+        }
+      }
+    },
+    {
+      "roadId": "ae86991c-08b_0",
+      "sourcePrefix": "ae86991c-08b",
+      "packedName": null,
+      "packedClass": "tertiary",
+      "packedWidth": 8.5,
+      "packedLanes": 1,
+      "packedOneway": null,
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 8.5,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "ae86991c-08be-40a6-9c35-a0082ab28d3e",
+        "name": null,
+        "class": "tertiary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.395685148,
+              0.504816537
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1499528843@1",
+            "update_time": "2026-04-15T06:43:44Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.395685148
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w823465358@1",
+            "update_time": "2020-07-06T13:59:19Z",
+            "confidence": null,
+            "between": [
+              0.395685148,
+              0.504816537
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w823465357@1",
+            "update_time": "2020-07-06T13:59:19Z",
+            "confidence": null,
+            "between": [
+              0.504816537,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.68370056152344,
+          "xmax": 78.68970489501953,
+          "ymin": 17.443233489990234,
+          "ymax": 17.446088790893555
+        }
+      }
+    },
+    {
+      "roadId": "b537250f-a26_0",
+      "sourcePrefix": "b537250f-a26",
+      "packedName": "Basheerbagh road",
+      "packedClass": "secondary",
+      "packedWidth": 7.6,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 7.6,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "b537250f-a265-4ba9-af14-c390ef598038",
+        "name": "Basheerbagh road",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310065944@8",
+            "update_time": "2025-08-25T08:57:30Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.47624206542969,
+          "xmax": 78.47637939453125,
+          "ymin": 17.402637481689453,
+          "ymax": 17.40388298034668
+        }
+      }
+    },
+    {
+      "roadId": "b6b95ba0-d42_0",
+      "sourcePrefix": "b6b95ba0-d42",
+      "packedName": "P.V. Narasimha Rao Flyover",
+      "packedClass": "motorway",
+      "packedWidth": 13.0,
+      "packedLanes": 3,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "b6b95ba0-d428-492c-b331-e98f8ad46d74",
+        "name": "P.V. Narasimha Rao Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.046880128,
+              1.0
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r13028264@9",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w61574402@16",
+            "update_time": "2025-11-18T07:10:59Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.046880128
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638032@9",
+            "update_time": "2025-11-18T07:10:59Z",
+            "confidence": null,
+            "between": [
+              0.046880128,
+              0.235553881
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375637994@10",
+            "update_time": "2025-11-18T07:10:59Z",
+            "confidence": null,
+            "between": [
+              0.235553881,
+              0.432721339
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w375638018@10",
+            "update_time": "2025-11-18T07:10:59Z",
+            "confidence": null,
+            "between": [
+              0.432721339,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42608642578125,
+          "xmax": 78.43119049072266,
+          "ymin": 17.31966209411621,
+          "ymax": 17.32606315612793
+        }
+      }
+    },
+    {
+      "roadId": "b9b14256-b1a_0",
+      "sourcePrefix": "b9b14256-b1a",
+      "packedName": "Medak Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "b9b14256-b1a6-4a59-bf31-a0b3df8ac074",
+        "name": "Medak Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1103162088@6",
+            "update_time": "2026-08-07T14:49:40Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.36679077148438,
+          "xmax": 78.36797332763672,
+          "ymin": 17.540098190307617,
+          "ymax": 17.54088592529297
+        }
+      }
+    },
+    {
+      "roadId": "bd2083cf-e47_0",
+      "sourcePrefix": "bd2083cf-e47",
+      "packedName": null,
+      "packedClass": "tertiary_link",
+      "packedWidth": 5.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 6.1,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "bd2083cf-e475-463f-9940-0ddfba5abcda",
+        "name": null,
+        "class": "tertiary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1192380551@4",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.39852142333984,
+          "xmax": 78.3988037109375,
+          "ymin": 17.465248107910156,
+          "ymax": 17.46669578552246
+        }
+      }
+    },
+    {
+      "roadId": "bdf0bad3-182_0",
+      "sourcePrefix": "bdf0bad3-182",
+      "packedName": "Tarnaka Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "bdf0bad3-1820-4372-8b41-e9579168954b",
+        "name": "Tarnaka Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.050966279,
+              0.956468819
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432570568@3",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.050966279
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432570566@3",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.050966279,
+              0.956468819
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w316767715@5",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.956468819,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.52953338623047,
+          "xmax": 78.534423828125,
+          "ymin": 17.425119400024414,
+          "ymax": 17.4278621673584
+        }
+      }
+    },
+    {
+      "roadId": "bf86edaf-080_0",
+      "sourcePrefix": "bf86edaf-080",
+      "packedName": null,
+      "packedClass": "tertiary",
+      "packedWidth": 6.1,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 6.1,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "bf86edaf-0805-42d4-9f4c-3c96a5384758",
+        "name": null,
+        "class": "tertiary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.0,
+              0.985726163
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1236220048@2",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.176925209
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1066016623@4",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.176925209,
+              0.232567019
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201844405@4",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.232567019,
+              0.473755894
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201849149@3",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.473755894,
+              0.584855791
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1066016624@9",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.584855791,
+              0.985726163
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1236220045@2",
+            "update_time": "2025-03-10T05:09:55Z",
+            "confidence": null,
+            "between": [
+              0.985726163,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.39668273925781,
+          "xmax": 78.39888000488281,
+          "ymin": 17.460412979125977,
+          "ymax": 17.46669578552246
+        }
+      }
+    },
+    {
+      "roadId": "c8486d6e-ac1_0",
+      "sourcePrefix": "c8486d6e-ac1",
+      "packedName": "Masjid Banda Road",
+      "packedClass": "secondary",
+      "packedWidth": 7.6,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 7.6,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "c8486d6e-ac10-4ac3-b3e6-ddd9e01f1830",
+        "name": "Masjid Banda Road",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w736387681@7",
+            "update_time": "2025-10-30T04:06:49Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.36066436767578,
+          "xmax": 78.36186218261719,
+          "ymin": 17.45648765563965,
+          "ymax": 17.45709228515625
+        }
+      }
+    },
+    {
+      "roadId": "c8c73c25-cc3_0",
+      "sourcePrefix": "c8c73c25-cc3",
+      "packedName": "Inner Ring Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "c8c73c25-cc33-4cff-8eb0-c33303c0ba2e",
+        "name": "Inner Ring Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w313195124@20",
+            "update_time": "2026-05-07T12:54:30Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.4295425415039,
+          "xmax": 78.42961883544922,
+          "ymin": 17.382732391357422,
+          "ymax": 17.38507080078125
+        }
+      }
+    },
+    {
+      "roadId": "c9dfb883-912_0",
+      "sourcePrefix": "c9dfb883-912",
+      "packedName": null,
+      "packedClass": "trunk_link",
+      "packedWidth": 6.0,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "c9dfb883-912a-4100-a03f-da2f888609ff",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w823472979@4",
+            "update_time": "2026-07-24T03:43:17Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.6900405883789,
+          "xmax": 78.6906967163086,
+          "ymin": 17.44637107849121,
+          "ymax": 17.44667625427246
+        }
+      }
+    },
+    {
+      "roadId": "cc1245ed-64f_1",
+      "sourcePrefix": "cc1245ed-64f",
+      "packedName": "HITEC City Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "cc1245ed-64f8-4806-bd8a-9d81353309b0",
+        "name": "HITEC City Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w314808459@11",
+            "update_time": "2026-01-03T11:04:59Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.37954711914062,
+          "xmax": 78.38060760498047,
+          "ymin": 17.45023536682129,
+          "ymax": 17.45104217529297
+        }
+      }
+    },
+    {
+      "roadId": "cc7db1df-c57_0",
+      "sourcePrefix": "cc7db1df-c57",
+      "packedName": null,
+      "packedClass": "trunk_link",
+      "packedWidth": 6.0,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "cc7db1df-c572-4dfe-b423-234b8517e076",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1303849578@2",
+            "update_time": "2026-07-24T03:43:17Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.68961334228516,
+          "xmax": 78.68970489501953,
+          "ymin": 17.445884704589844,
+          "ymax": 17.446088790893555
+        }
+      }
+    },
+    {
+      "roadId": "cd18974b-973_0",
+      "sourcePrefix": "cd18974b-973",
+      "packedName": "Masab Tank Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "cd18974b-9735-42c0-add7-8df4833801b2",
+        "name": "Masab Tank Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w207472309@10",
+            "update_time": "2024-11-02T11:03:55Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.4537124633789,
+          "xmax": 78.45634460449219,
+          "ymin": 17.40346336364746,
+          "ymax": 17.40424346923828
+        }
+      }
+    },
+    {
+      "roadId": "d0978a06-15a_0",
+      "sourcePrefix": "d0978a06-15a",
+      "packedName": "Sardar Patel Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "d0978a06-15a6-4da1-982a-c10ce439351f",
+        "name": "Sardar Patel Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.038981402,
+              0.922103195
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w166505547@6",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.038981402
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w166505544@6",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.038981402,
+              0.922103195
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w432570557@4",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": [
+              0.922103195,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.49079132080078,
+          "xmax": 78.50137329101562,
+          "ymin": 17.442838668823242,
+          "ymax": 17.44332504272461
+        }
+      }
+    },
+    {
+      "roadId": "d1244015-525_0",
+      "sourcePrefix": "d1244015-525",
+      "packedName": null,
+      "packedClass": "trunk_link",
+      "packedWidth": 6.0,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 10.8,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "d1244015-5256-4c72-a1ab-6ea709b1d0dc",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w823472978@2",
+            "update_time": "2024-06-01T08:13:27Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.69049072265625,
+          "xmax": 78.6913070678711,
+          "ymin": 17.44557762145996,
+          "ymax": 17.44662094116211
+        }
+      }
+    },
+    {
+      "roadId": "e0d9297d-546_0",
+      "sourcePrefix": "e0d9297d-546",
+      "packedName": "Masab Tank Road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "e0d9297d-546c-4715-a8b0-e5afdf92e291",
+        "name": "Masab Tank Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w207472310@8",
+            "update_time": "2024-11-02T11:03:55Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.070945109
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w313512531@11",
+            "update_time": "2026-07-16T10:13:00Z",
+            "confidence": null,
+            "between": [
+              0.070945109,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.45037841796875,
+          "xmax": 78.45162963867188,
+          "ymin": 17.39948081970215,
+          "ymax": 17.401718139648438
+        }
+      }
+    },
+    {
+      "roadId": "e6cbd3ab-c5e_0",
+      "sourcePrefix": "e6cbd3ab-c5e",
+      "packedName": "HITEC City Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "e6cbd3ab-c5e5-42a6-b80b-ea8cc7fa9524",
+        "name": "HITEC City Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.146959228,
+              0.937308856
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w609663731@6",
+            "update_time": "2026-01-03T11:18:34Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.146959228
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w233495773@10",
+            "update_time": "2026-01-03T11:18:34Z",
+            "confidence": null,
+            "between": [
+              0.146959228,
+              0.25115327
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w368749000@8",
+            "update_time": "2026-01-03T11:18:34Z",
+            "confidence": null,
+            "between": [
+              0.25115327,
+              0.687805689
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w435248369@9",
+            "update_time": "2026-01-03T11:18:34Z",
+            "confidence": null,
+            "between": [
+              0.687805689,
+              0.937308856
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w368748997@9",
+            "update_time": "2026-01-03T11:18:34Z",
+            "confidence": null,
+            "between": [
+              0.937308856,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.37954711914062,
+          "xmax": 78.3839340209961,
+          "ymin": 17.45023536682129,
+          "ymax": 17.455873489379883
+        }
+      }
+    },
+    {
+      "roadId": "e954c275-1a3_0",
+      "sourcePrefix": "e954c275-1a3",
+      "packedName": "Kothaguda-Kondapur Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "e954c275-1a36-4399-8e58-1609d275e1d8",
+        "name": "Kothaguda-Kondapur Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.042650128,
+              1.0
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1311256750@2",
+            "update_time": "2024-08-26T13:02:56Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.042650128
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1134082542@9",
+            "update_time": "2025-03-14T18:52:56Z",
+            "confidence": null,
+            "between": [
+              0.042650128,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.36066436767578,
+          "xmax": 78.36446380615234,
+          "ymin": 17.455602645874023,
+          "ymax": 17.45709228515625
+        }
+      }
+    },
+    {
+      "roadId": "f31f6f78-fd8_0",
+      "sourcePrefix": "f31f6f78-fd8",
+      "packedName": "Flyover",
+      "packedClass": "motorway_link",
+      "packedWidth": 6.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 13.0,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "f31f6f78-fd83-46ec-82fa-cfaffc011974",
+        "name": "Flyover",
+        "class": "motorway",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.42627875,
+              1.0
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1124359190@6",
+            "update_time": "2025-11-18T06:56:09Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.064723209
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203886568@4",
+            "update_time": "2025-11-18T06:56:09Z",
+            "confidence": null,
+            "between": [
+              0.064723209,
+              0.42627875
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1203886569@4",
+            "update_time": "2025-11-18T06:56:09Z",
+            "confidence": null,
+            "between": [
+              0.42627875,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42403411865234,
+          "xmax": 78.4269027709961,
+          "ymin": 17.357736587524414,
+          "ymax": 17.36016082763672
+        }
+      }
+    },
+    {
+      "roadId": "f5d7a47e-638_0",
+      "sourcePrefix": "f5d7a47e-638",
+      "packedName": "Basheer Bagh Flyover",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "f5d7a47e-6388-4e39-ac26-16a8ab42d272",
+        "name": "Basheer Bagh Flyover",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.052350984,
+              0.961959205
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r334161@1476",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6428573@152",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w310065943@8",
+            "update_time": "2025-07-08T06:28:05Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.052350984
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w305274293@12",
+            "update_time": "2025-07-08T06:28:05Z",
+            "confidence": null,
+            "between": [
+              0.052350984,
+              0.961959205
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w365506533@6",
+            "update_time": "2025-07-08T06:28:05Z",
+            "confidence": null,
+            "between": [
+              0.961959205,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.47496795654297,
+          "xmax": 78.47635650634766,
+          "ymin": 17.3995304107666,
+          "ymax": 17.40388298034668
+        }
+      }
+    },
+    {
+      "roadId": "f73ed62e-bc9_0",
+      "sourcePrefix": "f73ed62e-bc9",
+      "packedName": "Langar House road",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "f73ed62e-bc93-407c-be61-26d5b90951c2",
+        "name": "Langar House road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w238304703@16",
+            "update_time": "2025-12-16T12:09:50Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.42096710205078,
+          "xmax": 78.42180633544922,
+          "ymin": 17.37858009338379,
+          "ymax": 17.38098907470703
+        }
+      }
+    },
+    {
+      "roadId": "fbf9f25b-c5c_0",
+      "sourcePrefix": "fbf9f25b-c5c",
+      "packedName": "Road Number 45",
+      "packedClass": "secondary_link",
+      "packedWidth": 5.5,
+      "packedLanes": 1,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-fix_links-class-default",
+      "baseExporterDerivedWidth": 7.6,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "fbf9f25b-c5cb-4d0d-bbb3-5f00f123d97f",
+        "name": "Road Number 45",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w852586037@4",
+            "update_time": "2025-08-29T06:09:10Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.40553283691406,
+          "xmax": 78.40666961669922,
+          "ymin": 17.42683219909668,
+          "ymax": 17.427637100219727
+        }
+      }
+    },
+    {
+      "roadId": "fc97e11a-1a7_0",
+      "sourcePrefix": "fc97e11a-1a7",
+      "packedName": "Vijaywada Highway",
+      "packedClass": "primary",
+      "packedWidth": 9.4,
+      "packedLanes": 2,
+      "packedOneway": "backward",
+      "sourceWidthRulesAbsent": true,
+      "widthBasis": "pipeline-build_edges-class-default",
+      "baseExporterDerivedWidth": 9.4,
+      "matchedKnownPipelineDerivation": true,
+      "protectionReasons": [],
+      "laneEvidence": null,
+      "officialSourceRecord": {
+        "id": "fc97e11a-1a7f-4e44-9ae5-42f06398d4b6",
+        "name": "Vijaywada Highway",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r336888@655",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1288215373@6",
+            "update_time": "2025-12-10T12:06:47Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "bbox": {
+          "xmin": 78.55181121826172,
+          "xmax": 78.55438995361328,
+          "ymin": 17.344087600708008,
+          "ymax": 17.345844268798828
+        }
+      }
+    }
+  ],
+  "cases": [
+    {
+      "node": "b31f417a-5c7",
+      "roads": [
+        "b9b14256-b1a_0",
+        "41a8d714-5f5_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "b9b14256-b1a_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 5,
+      "contact": {
+        "distance": 15,
+        "side": 0,
+        "point": [
+          -13679.453274826095,
+          1.1294317921748929,
+          -14883.694702987003
+        ],
+        "feet": 0.43060220090063134,
+        "top": 1.971684766920713,
+        "underside": 1.0016847383104837
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "f7b9da75-8c1",
+      "roads": [
+        "10e508ba-f9d_0",
+        "413cf8e6-586_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "413cf8e6-586_0",
+      "classification": "no-penetration-in-sampled-bypass-centre-and-two-lanes",
+      "poses": 297,
+      "contact": null,
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "f0ebfd3d-6aa",
+      "roads": [
+        "b6b95ba0-d42_0",
+        "636c7a19-454_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "636c7a19-454_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -7205.506601213873,
+          2.812624232813909,
+          9579.92055759069
+        ],
+        "feet": 2.208509938761785,
+        "top": 3.138373403743264,
+        "underside": 2.1583790062630275
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "e3817aca-588",
+      "roads": [
+        "09584ea4-514_0",
+        "90d4f398-329_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "90d4f398-329_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -1302.5868748406979,
+          1.5737938301098497,
+          8504.323209086799
+        ],
+        "feet": 0.9696795360577258,
+        "top": 1.8137014905826667,
+        "underside": 0.8387014713638067
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "926e8852-543",
+      "roads": [
+        "e0d9297d-546_0",
+        "4e324c1c-ae5_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "e0d9297d-546_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -4908.9162517793175,
+          1.1735372525340084,
+          745.1221988565866
+        ],
+        "feet": 0.5694229584818844,
+        "top": 1.4523537308280836,
+        "underside": 0.47735375620252235
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "59eccfc1-3d5",
+      "roads": [
+        "adb701c2-bb8_0",
+        "72e2e384-7c5_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "adb701c2-bb8_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -4900.284437776859,
+          3.0788834213188103,
+          751.9433187166896
+        ],
+        "feet": 2.474769127266686,
+        "top": 3.157068494853383,
+        "underside": 2.1820636276530343
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "7d6a6ea7-ed2",
+      "roads": [
+        "72e2e384-7c5_0",
+        "cd18974b-973_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "cd18974b-973_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -4286.937487596159,
+          1.460066636178216,
+          311.20832478371483
+        ],
+        "feet": 0.8559523421260921,
+        "top": 1.6732990817332767,
+        "underside": 0.6983064276979188
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "e0aaadaa-be0",
+      "roads": [
+        "a7a404cf-9f4_0",
+        "f5d7a47e-638_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "a7a404cf-9f4_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -2292.2565865968113,
+          1.2470480258995746,
+          740.7252523377579
+        ],
+        "feet": 0.6429337318474506,
+        "top": 1.5329170780137362,
+        "underside": 0.5629167111213753
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "36522157-fd8",
+      "roads": [
+        "f5d7a47e-638_0",
+        "b537250f-a26_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "b537250f-a26_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -2149.3829130578065,
+          1.7040028435643797,
+          274.712089431411
+        ],
+        "feet": 1.0998885495122557,
+        "top": 1.7656358970883754,
+        "underside": 0.79563645496921
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "5ad8d17b-2b9",
+      "roads": [
+        "52a3f388-9d4_0",
+        "0cd54f5a-5e2_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "0cd54f5a-5e2_0",
+      "classification": "no-penetration-in-sampled-bypass-centre-and-two-lanes",
+      "poses": 174,
+      "contact": null,
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "e21953f4-125",
+      "roads": [
+        "318a7bac-aca_0",
+        "a75d6448-779_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "318a7bac-aca_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 78,
+      "contact": {
+        "distance": 5,
+        "side": -1.3,
+        "point": [
+          -65.40527660004452,
+          2.657895192755177,
+          1064.565391076546
+        ],
+        "feet": 2.053780898703053,
+        "top": 2.9047723722320593,
+        "underside": 1.9347721949065584
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "0f27f8b1-82c",
+      "roads": [
+        "6b0b1c24-f02_0",
+        "f73ed62e-bc9_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "f73ed62e-bc9_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -7947.9694006660475,
+          0.8600697965563281,
+          2811.083665789324
+        ],
+        "feet": 0.25595550250420407,
+        "top": 1.2486935427278563,
+        "underside": 0.27369446734715225
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "f5d7ad3d-880",
+      "roads": [
+        "a0d993a1-f57_0",
+        "fbf9f25b-c5c_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "fbf9f25b-c5c_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -9562.562357776249,
+          3.3158433180976807,
+          -2275.552329804438
+        ],
+        "feet": 2.7117290240455563,
+        "top": 3.384126660047131,
+        "underside": 2.4221244631373864
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": [
+        "a0d993a1-f57_0"
+      ]
+    },
+    {
+      "node": "abf3c6bf-e5b",
+      "roads": [
+        "786694e6-36e_0",
+        "19717777-3a4_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "786694e6-36e_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -5563.193124985871,
+          2.3648601726675382,
+          860.6125210347989
+        ],
+        "feet": 1.7607458786154144,
+        "top": 2.600367494842195,
+        "underside": 1.6203675261726471
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "b35d62ab-f9c",
+      "roads": [
+        "c8c73c25-cc3_0",
+        "19baeded-058_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "c8c73c25-cc3_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 29,
+      "contact": {
+        "distance": 75,
+        "side": 0,
+        "point": [
+          -7118.621197033673,
+          0.604114294052124,
+          2426.8133592348076
+        ],
+        "feet": 0,
+        "top": 1.2561937515789414,
+        "underside": 0.28619377915712163
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "6ccd3676-148",
+      "roads": [
+        "a54160b6-59a_0",
+        "9b763e96-686_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "a54160b6-59a_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 152,
+      "contact": {
+        "distance": 67.5,
+        "side": 1.3,
+        "point": [
+          -7140.06064641107,
+          0.604114294052124,
+          2449.813257148234
+        ],
+        "feet": 0,
+        "top": 1.4127697510593469,
+        "underside": 0.4427697375855186
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "ba123263-37e",
+      "roads": [
+        "30aa329d-3a7_0",
+        "f31f6f78-fd8_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "30aa329d-3a7_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 124,
+      "contact": {
+        "distance": 65,
+        "side": -1.3,
+        "point": [
+          -7661.2252318167175,
+          0.604114294052124,
+          5328.7733357610605
+        ],
+        "feet": 0,
+        "top": 1.3750044252507414,
+        "underside": 0.4050044264428343
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "ada3aaa9-f7d",
+      "roads": [
+        "0497c98e-768_0",
+        "178ae614-025_1"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "178ae614-025_1",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          4955.173075428172,
+          2.4636573286208217,
+          7438.394462273876
+        ],
+        "feet": 1.8595430345686974,
+        "top": 2.767309843795583,
+        "underside": 1.7923098199537257
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "1c6bf8cb-f06",
+      "roads": [
+        "81f423fb-878_0",
+        "fc97e11a-1a7_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "fc97e11a-1a7_0",
+      "classification": "no-penetration-in-sampled-bypass-centre-and-two-lanes",
+      "poses": 297,
+      "contact": null,
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "a103d5c0-1ed",
+      "roads": [
+        "c8486d6e-ac1_0",
+        "e954c275-1a3_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "c8486d6e-ac1_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -14434.21733259326,
+          5.002420730315632,
+          -5617.014301533493
+        ],
+        "feet": 4.398306436263508,
+        "top": 5.251463196160353,
+        "underside": 4.281462867727641
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "391706d9-228",
+      "roads": [
+        "a0bfe54b-fed_3",
+        "6e1e03e4-6dc_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "a0bfe54b-fed_3",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -4667.050342375574,
+          1.6039877358870358,
+          -6372.256958290593
+        ],
+        "feet": 0.9998734418349118,
+        "top": 1.7393518270216326,
+        "underside": 0.7693486454781915
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "170d6830-56a",
+      "roads": [
+        "bd2083cf-e47_0",
+        "bf86edaf-080_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "bd2083cf-e47_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          -10417.124920463742,
+          1.4145628733809652,
+          -6675.374324754655
+        ],
+        "feet": 0.8104485793288412,
+        "top": 1.7161250756603055,
+        "underside": 0.761125092349606
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "6df78584-de9",
+      "roads": [
+        "e6cbd3ab-c5e_0",
+        "cc1245ed-64f_1"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "cc1245ed-64f_1",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -12433.891972933823,
+          2.0003292820278986,
+          -4868.935277593979
+        ],
+        "feet": 1.3962149879757748,
+        "top": 2.1019938319858134,
+        "underside": 1.1319938033755839
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "0da29a72-48c",
+      "roads": [
+        "d0978a06-15a_0",
+        "5d5890cc-21d_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "5d5890cc-21d_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          -609.6264234036321,
+          2.6666521586298586,
+          -4099.264613280624
+        ],
+        "feet": 2.0625378645777346,
+        "top": 2.726967782955738,
+        "underside": 1.7569675434870355
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "4cda42fb-55e",
+      "roads": [
+        "38a7824d-0e1_0",
+        "bdf0bad3-182_0"
+      ],
+      "reason": "Insufficient remaining ramp run to preserve an independently separated crossing.",
+      "groundRoad": "38a7824d-0e1_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          3508.467337560043,
+          1.6278903324570937,
+          -2382.2946814038264
+        ],
+        "feet": 1.0237760384049697,
+        "top": 1.870771052069433,
+        "underside": 0.9007732573740503
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "25727bcc-0d4",
+      "roads": [
+        "7f6aaa08-ec2_0",
+        "23427c8c-e37_0"
+      ],
+      "reason": "Merge exceeds bounded approach.",
+      "groundRoad": "7f6aaa08-ec2_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 2,
+      "contact": {
+        "distance": 7.5,
+        "side": 0,
+        "point": [
+          3499.8765233904173,
+          1.6562829152296827,
+          -2368.200905606579
+        ],
+        "feet": 1.0521686211775587,
+        "top": 1.87559412482385,
+        "underside": 0.9055946714761258
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "b02578cb-4ba",
+      "roads": [
+        "d1244015-525_0",
+        "22b5d213-be6_0"
+      ],
+      "reason": "Insufficient remaining ramp run to preserve an independently separated crossing.",
+      "groundRoad": "d1244015-525_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          20632.142128938405,
+          2.028751311244344,
+          -4456.9793891085155
+        ],
+        "feet": 1.4246370171922196,
+        "top": 2.1073133259196357,
+        "underside": 1.1323097636062582
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "422aa621-0d5",
+      "roads": [
+        "22b5d213-be6_0",
+        "aa6cd6f8-d6d_0"
+      ],
+      "reason": "Insufficient remaining ramp run to preserve an independently separated crossing.",
+      "groundRoad": "aa6cd6f8-d6d_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 55,
+      "contact": {
+        "distance": 15,
+        "side": 1.3,
+        "point": [
+          20536.1486140374,
+          3.2743140298187843,
+          -4377.442681960798
+        ],
+        "feet": 2.311206324702512,
+        "top": 4.1887611886177805,
+        "underside": 3.2139817238114974
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "dec0d738-182",
+      "roads": [
+        "66485b16-233_0",
+        "c9dfb883-912_0"
+      ],
+      "reason": "Insufficient remaining ramp run to preserve an independently separated crossing.",
+      "groundRoad": "c9dfb883-912_0",
+      "classification": "no-penetration-in-sampled-bypass-centre-and-two-lanes",
+      "poses": 84,
+      "contact": null,
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    },
+    {
+      "node": "4d903f01-9c5",
+      "roads": [
+        "cc7db1df-c57_0",
+        "ae86991c-08b_0"
+      ],
+      "reason": "Insufficient remaining ramp run to preserve an independently separated crossing.",
+      "groundRoad": "cc7db1df-c57_0",
+      "classification": "confirmed-actual-car-body-in-rendered-slab",
+      "poses": 1,
+      "contact": {
+        "distance": 5,
+        "side": 0,
+        "point": [
+          20514.956522118315,
+          1.9512667502181409,
+          -4397.033468654137
+        ],
+        "feet": 1.3471524561660169,
+        "top": 2.0604417013518144,
+        "underside": 1.0924397177693486
+      },
+      "bothOfficialWidthRulesAbsent": true,
+      "laneConstraintRoads": []
+    }
+  ],
+  "baselineEvidence": {
+    "commit": "a679b72bacefb751057f0282a86571e8e6ef006d",
+    "equivalentTreeCommit": "177621a",
+    "tree": "6173367a6d4c24b0aadf672ef13d8a8f04d40785",
+    "baselineCoreBlob": "1262744c46c8218ae043e7e7fbe0073a6b8fe165",
+    "workingCoreBlob": "1262744c46c8218ae043e7e7fbe0073a6b8fe165"
+  }
+}

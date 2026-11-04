@@ -1,0 +1,56 @@
+{
+  "researchOnly": true,
+  "releaseApproved": false,
+  "implementationFiles": [
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/merge-historical-road-coverage.py",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/historical-road-coverage-union.test.py"
+  ],
+  "generatorSHA256": "82b8c7feb5169c96ba0529e61be996b0119b9d2b81751b53f641fc7febe6d9db",
+  "tests": {
+    "command": "python3 tests/historical-road-coverage-union.test.py",
+    "passed": 9,
+    "testFileSHA256": "b1669bc31591a4183adb1ca493dcbd9a8131c5210ba17e393ed9bb8e67612007"
+  },
+  "implementationChoices": [
+    "Require exact SHA-bound joint physicalCoreCoverage with matching model, selected owners and physical footprints; its road IDs must equal supplement includedCoreRoadIDs.",
+    "Keep complete parent road, footprint, triangle and variant prefixes. Equal records deduplicate only when appending supplement records.",
+    "Reject selected/context/core canonical footprint changes. Preserve authentic nonprotected differences only as explicit original-copy-bound variant rows, never overwrite a parent representative.",
+    "Verify every original variant and both sides of each new canonical difference using exporter-compatible JavaScript JSON SHA, unchanged physical road SHA, positive literal emission receipt and historical source pack SHA.",
+    "Preserve protected variants with explicit blockingReviewRequired=true, solverReferenceApproved=false and releaseApproved=false.",
+    "Keep all actualSurfaceBindings inside complete literal triangle records; do not average, normalize, reconstruct or resample surfaces."
+  ],
+  "unionPath": "/tmp/roadster-researched-joint-historical-union-9413-v1.json",
+  "unionSHA256": "dfccc814e522359add059509b693d2b9f880d7d89102941265c436e52a7af12e",
+  "verificationPath": "/tmp/roadster-researched-joint-historical-union-preservation-verification-9413-v1.json",
+  "verificationSHA256": "391a526ea78f19582a032e6e48479c774e252fd5252a12228db80824706378d2",
+  "preservationChecks": {
+    "allParentRoadRowsPreservedAsExactPrefix": 21385,
+    "allParentFootprintsPreservedAsExactPrefix": 21385,
+    "allParentTrianglesPreservedAsExactPrefix": 426880,
+    "allParentVariantsPreservedAsExactPrefix": 17,
+    "unionTriangleRecordSetExactlyEqualsBothInputRecordSets": 533393,
+    "everySupplementTriangleRecordRetained": 491219,
+    "everyInputVariantRecordRetained": 32,
+    "allVariantRecordsUnique": 34,
+    "variantRoadIDs": 19,
+    "alternateRepresentativesRetainedWithSourceOrigins": [
+      "515af5fd-bd4_0",
+      "c7cc1887-36e_0"
+    ],
+    "allRequiredAndCoreHaveLiteralTriangles": {
+      "required": 4935,
+      "core": 1856
+    },
+    "allInputAndGeneratorSHA256StillMatch": true,
+    "solverReferenceApproved": false,
+    "protectedVariantBlockers": [
+      "aa2e2270-ebc_0",
+      "ad427c5d-668_0",
+      "c32df37f-b8f_0",
+      "d6572402-4e2_0"
+    ]
+  },
+  "runtimeSolverChanges": false,
+  "committed": false,
+  "published": false
+}

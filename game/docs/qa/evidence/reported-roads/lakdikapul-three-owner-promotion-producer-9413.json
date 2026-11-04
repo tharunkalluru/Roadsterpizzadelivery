@@ -1,0 +1,3087 @@
+{
+  "schemaVersion": 1,
+  "scope": "Inactive source-bound joint input promotion only; no height target, raw source mutation or runtime activation.",
+  "parentJoint": {
+    "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/jointInputBaseline21-e866b9f8bf2217bd25c7a3d45f28cef541e5fc60dbd7deb353cacaea55ed4b5f.json",
+    "sha256": "e866b9f8bf2217bd25c7a3d45f28cef541e5fc60dbd7deb353cacaea55ed4b5f",
+    "bytes": 13561606
+  },
+  "jointInput": {
+    "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/jointInputThreeOwners-cdddad2359ebfce82ccae2a300199a308296c3810b090f08296102eb6896a06a.json",
+    "sha256": "cdddad2359ebfce82ccae2a300199a308296c3810b090f08296102eb6896a06a",
+    "bytes": 13582272
+  },
+  "coreModel": {
+    "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/model-be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7.json",
+    "sha256": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7"
+  },
+  "sourceData": {
+    "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+    "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+  },
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "sourceCoreSHA256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+  "ownerPromotionPolicy": {
+    "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/lakdikapul-three-owner-promotion-binding-9413.json",
+    "sha256": "b166ab6453ed25e33497495240f76494b82bc19ea2d0389382ee0e80fc0ea4b7"
+  },
+  "summary": {
+    "scannedPacks": 304,
+    "allDetailedOwners": 427442,
+    "selectedRoads": 490,
+    "existingPreparedPreserved": 13,
+    "ownerCopies": 490,
+    "contextCopies": 133,
+    "fixedContextRoads": 811,
+    "incidentBoundaryRoads": 479,
+    "selectedNodes": 759,
+    "coreAnchorNodes": 329,
+    "components": 281,
+    "unverifiedAllArmSourceNodes": 0
+  },
+  "parity": {
+    "tileRoads": {
+      "priorEntries": 487,
+      "unchanged": true
+    },
+    "transports": {
+      "priorEntries": 487,
+      "unchanged": true
+    },
+    "footprints": {
+      "priorEntries": 487,
+      "unchanged": true
+    },
+    "preHeightWidths": {
+      "priorEntries": 487,
+      "unchanged": true
+    },
+    "copies": {
+      "priorIDs": 487,
+      "unchanged": true
+    },
+    "contextRoads": {
+      "priorEntries": 814,
+      "promotedRemoved": 3,
+      "allOtherEntriesUnchanged": true
+    },
+    "contextFootprints": {
+      "priorEntries": 814,
+      "promotedRemoved": 3,
+      "allOtherEntriesUnchanged": true
+    },
+    "boundaryRoads": {
+      "priorEntries": 482,
+      "promotedRemoved": 3,
+      "allOtherEntriesUnchanged": true
+    }
+  },
+  "all304RawPackHashesUnchanged": true,
+  "allReferencedWorldHelperHashesCurrent": true,
+  "addedOwners": [
+    {
+      "road": {
+        "id": "15bd5c37-531_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -3497.7,
+            270
+          ],
+          [
+            -3556.5,
+            196
+          ],
+          [
+            -3585,
+            140.9
+          ],
+          [
+            -3622.9,
+            58.2
+          ],
+          [
+            -3632,
+            8.9
+          ],
+          [
+            -3636.3,
+            -14.7
+          ],
+          [
+            -3639.8,
+            -28.9
+          ]
+        ],
+        "elev": null,
+        "from": "15008086-2cf",
+        "to": "d4838ba8-da9",
+        "name": "Masjid Mohiuddin Road",
+        "lanes": 1,
+        "maxspeed": null,
+        "scenerySource": {
+          "pts": [
+            [
+              -3497.7,
+              270
+            ],
+            [
+              -3556.5,
+              196
+            ],
+            [
+              -3585,
+              140.9
+            ],
+            [
+              -3622.9,
+              58.2
+            ],
+            [
+              -3632,
+              8.9
+            ],
+            [
+              -3636.3,
+              -14.7
+            ],
+            [
+              -3639.8,
+              -28.9
+            ]
+          ],
+          "elev": null,
+          "width": 4.5
+        },
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              336.26843772707434
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "seg": "15bd5c37-531_0",
+        "sourceArc": [
+          0,
+          94.51687679986057,
+          156.5512221256557,
+          247.52209658556188,
+          297.65492016453055,
+          321.64345909461133,
+          336.26843772707434
+        ],
+        "sourceXY": [
+          [
+            -3497.7,
+            270
+          ],
+          [
+            -3556.5,
+            196
+          ],
+          [
+            -3585,
+            140.9
+          ],
+          [
+            -3622.9,
+            58.2
+          ],
+          [
+            -3632,
+            8.9
+          ],
+          [
+            -3636.3,
+            -14.7
+          ],
+          [
+            -3639.8,
+            -28.9
+          ]
+        ]
+      },
+      "transport": {
+        "id": "15bd5c37-531_0",
+        "expected": {
+          "id": "15bd5c37-531_0",
+          "cls": "service",
+          "w": 4.5,
+          "lanes": 1,
+          "oneway": null,
+          "from": "15008086-2cf",
+          "to": "d4838ba8-da9",
+          "pts": [
+            [
+              -3497.7,
+              270
+            ],
+            [
+              -3556.5,
+              196
+            ],
+            [
+              -3585,
+              140.9
+            ],
+            [
+              -3622.9,
+              58.2
+            ],
+            [
+              -3632,
+              8.9
+            ],
+            [
+              -3636.3,
+              -14.7
+            ],
+            [
+              -3639.8,
+              -28.9
+            ]
+          ],
+          "elev": null
+        },
+        "pts": [
+          [
+            -3497.7,
+            270
+          ],
+          [
+            -3556.5,
+            196
+          ],
+          [
+            -3585,
+            140.9
+          ],
+          [
+            -3622.9,
+            58.2
+          ],
+          [
+            -3632,
+            8.9
+          ],
+          [
+            -3636.3,
+            -14.7
+          ],
+          [
+            -3639.8,
+            -28.9
+          ]
+        ],
+        "elev": null,
+        "sourceArc": [
+          0,
+          94.51687679986057,
+          156.5512221256557,
+          247.52209658556188,
+          297.65492016453055,
+          321.64345909461133,
+          336.26843772707434
+        ],
+        "sourceXY": [
+          [
+            -3497.7,
+            270
+          ],
+          [
+            -3556.5,
+            196
+          ],
+          [
+            -3585,
+            140.9
+          ],
+          [
+            -3622.9,
+            58.2
+          ],
+          [
+            -3632,
+            8.9
+          ],
+          [
+            -3636.3,
+            -14.7
+          ],
+          [
+            -3639.8,
+            -28.9
+          ]
+        ],
+        "maximumDisplacement": 0,
+        "minimumTransportMask": 1,
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              336.26843772707434
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "scenerySource": {
+          "pts": [
+            [
+              -3497.7,
+              270
+            ],
+            [
+              -3556.5,
+              196
+            ],
+            [
+              -3585,
+              140.9
+            ],
+            [
+              -3622.9,
+              58.2
+            ],
+            [
+              -3632,
+              8.9
+            ],
+            [
+              -3636.3,
+              -14.7
+            ],
+            [
+              -3639.8,
+              -28.9
+            ]
+          ],
+          "elev": null,
+          "width": 4.5
+        },
+        "copies": [
+          {
+            "pack": "packs/p-2_-1.pack.wasm",
+            "tile": "-4_-1",
+            "context": true,
+            "rawRoadSHA256": "22f9866b6dbcd02a68f59689b39d8311a8505fab14848bbfdced722906d0406b",
+            "sourceRoadSHA256": "22f9866b6dbcd02a68f59689b39d8311a8505fab14848bbfdced722906d0406b",
+            "sourceInput": {
+              "id": "15bd5c37-531_0",
+              "cls": "service",
+              "w": 4.5,
+              "lanes": null,
+              "oneway": null,
+              "from": "15008086-2cf",
+              "to": "d4838ba8-da9",
+              "pts": [
+                [
+                  -3497.7,
+                  270
+                ],
+                [
+                  -3556.5,
+                  196
+                ],
+                [
+                  -3585,
+                  140.9
+                ],
+                [
+                  -3622.9,
+                  58.2
+                ],
+                [
+                  -3632,
+                  8.9
+                ],
+                [
+                  -3636.3,
+                  -14.7
+                ],
+                [
+                  -3639.8,
+                  -28.9
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": true
+          },
+          {
+            "pack": "packs/p-2_0.pack.wasm",
+            "tile": "-4_0",
+            "context": false,
+            "rawRoadSHA256": "fdb9701e604d06e3fbaf4ebef59922a481fc5070a02c140c63c148ff5a6150fa",
+            "sourceRoadSHA256": "fdb9701e604d06e3fbaf4ebef59922a481fc5070a02c140c63c148ff5a6150fa",
+            "sourceInput": {
+              "id": "15bd5c37-531_0",
+              "cls": "service",
+              "w": 4.5,
+              "lanes": 1,
+              "oneway": null,
+              "from": "15008086-2cf",
+              "to": "d4838ba8-da9",
+              "pts": [
+                [
+                  -3497.7,
+                  270
+                ],
+                [
+                  -3556.5,
+                  196
+                ],
+                [
+                  -3585,
+                  140.9
+                ],
+                [
+                  -3622.9,
+                  58.2
+                ],
+                [
+                  -3632,
+                  8.9
+                ],
+                [
+                  -3636.3,
+                  -14.7
+                ],
+                [
+                  -3639.8,
+                  -28.9
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": false
+          }
+        ]
+      },
+      "footprint": {
+        "id": "15bd5c37-531_0",
+        "L": [
+          [
+            -3495.938409841318,
+            268.6002499820202
+          ],
+          [
+            -3554.636145574426,
+            194.73962438921276
+          ],
+          [
+            -3582.9730444568722,
+            139.92329573248415
+          ],
+          [
+            -3620.7803550730823,
+            57.44527794268844
+          ],
+          [
+            -3629.787073932676,
+            8.49323444029985
+          ],
+          [
+            -3634.096425061756,
+            -15.154705939637713
+          ],
+          [
+            -3637.6153814235954,
+            -29.438462325170164
+          ]
+        ],
+        "R": [
+          [
+            -3499.4615901586817,
+            271.3997500179798
+          ],
+          [
+            -3558.363854425574,
+            197.26037561078724
+          ],
+          [
+            -3587.0269555431278,
+            141.87670426751586
+          ],
+          [
+            -3625.019644926918,
+            58.954722057311564
+          ],
+          [
+            -3634.212926067324,
+            9.306765559700152
+          ],
+          [
+            -3638.5035749382446,
+            -14.245294060362285
+          ],
+          [
+            -3641.984618576405,
+            -28.361537674829833
+          ]
+        ]
+      },
+      "preHeightWidth": {
+        "id": "15bd5c37-531_0",
+        "widthBefore": 4.5,
+        "formerlyFlat": true,
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              336.26843772707434
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "preservedExistingPreparedArrays": false,
+        "preservedFixedSourceArrays": false,
+        "preservedCoarseApproachControls": true,
+        "baselineFootprintSHA256": "1d7b73a25e1e5f183aba9055c3773b41fbd0348940213d9310a1963c952bfbc0",
+        "coarseControlCount": 7,
+        "promotionReason": "Source-node-proved d483 bridge-approach owner needed for localized recovery; no whole road height target."
+      }
+    },
+    {
+      "road": {
+        "id": "657ef2ad-efa_0",
+        "cls": "service",
+        "w": 5.5,
+        "oneway": "backward",
+        "pts": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3702.4,
+            -23.3
+          ],
+          [
+            -3702.6,
+            -25.7
+          ],
+          [
+            -3704,
+            -45.1
+          ]
+        ],
+        "elev": null,
+        "from": "a2c52c39-5dc",
+        "to": "2d4e79bd-779",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null,
+        "scenerySource": {
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3702.4,
+              -23.3
+            ],
+            [
+              -3702.6,
+              -25.7
+            ],
+            [
+              -3704,
+              -45.1
+            ]
+          ],
+          "elev": null,
+          "width": 5.5
+        },
+        "joinedPavement": {
+          "sourceWidth": 5.5,
+          "originalWidth": 5.5,
+          "physicalWidth": 5.5,
+          "intervals": [
+            [
+              0,
+              27.181362134889852
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "seg": "657ef2ad-efa_0",
+        "sourceArc": [
+          0,
+          5.32259335286867,
+          7.730912268627112,
+          27.181362134889852
+        ],
+        "sourceXY": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3702.4,
+            -23.3
+          ],
+          [
+            -3702.6,
+            -25.7
+          ],
+          [
+            -3704,
+            -45.1
+          ]
+        ]
+      },
+      "transport": {
+        "id": "657ef2ad-efa_0",
+        "expected": {
+          "id": "657ef2ad-efa_0",
+          "cls": "service",
+          "w": 5.5,
+          "lanes": 1,
+          "oneway": "backward",
+          "from": "a2c52c39-5dc",
+          "to": "2d4e79bd-779",
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3702.4,
+              -23.3
+            ],
+            [
+              -3702.6,
+              -25.7
+            ],
+            [
+              -3704,
+              -45.1
+            ]
+          ],
+          "elev": null
+        },
+        "pts": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3702.4,
+            -23.3
+          ],
+          [
+            -3702.6,
+            -25.7
+          ],
+          [
+            -3704,
+            -45.1
+          ]
+        ],
+        "elev": null,
+        "sourceArc": [
+          0,
+          5.32259335286867,
+          7.730912268627112,
+          27.181362134889852
+        ],
+        "sourceXY": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3702.4,
+            -23.3
+          ],
+          [
+            -3702.6,
+            -25.7
+          ],
+          [
+            -3704,
+            -45.1
+          ]
+        ],
+        "maximumDisplacement": 0,
+        "minimumTransportMask": 1,
+        "joinedPavement": {
+          "sourceWidth": 5.5,
+          "originalWidth": 5.5,
+          "physicalWidth": 5.5,
+          "intervals": [
+            [
+              0,
+              27.181362134889852
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "scenerySource": {
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3702.4,
+              -23.3
+            ],
+            [
+              -3702.6,
+              -25.7
+            ],
+            [
+              -3704,
+              -45.1
+            ]
+          ],
+          "elev": null,
+          "width": 5.5
+        },
+        "copies": [
+          {
+            "pack": "packs/p-2_-1.pack.wasm",
+            "tile": "-4_-1",
+            "context": false,
+            "rawRoadSHA256": "8e5b5922ebf350dc4016230dccc80fb21b34adeba992c66de25fcbaface9564f",
+            "sourceRoadSHA256": "8e5b5922ebf350dc4016230dccc80fb21b34adeba992c66de25fcbaface9564f",
+            "sourceInput": {
+              "id": "657ef2ad-efa_0",
+              "cls": "service",
+              "w": 5.5,
+              "lanes": 1,
+              "oneway": "backward",
+              "from": "a2c52c39-5dc",
+              "to": "2d4e79bd-779",
+              "pts": [
+                [
+                  -3697.6,
+                  -21
+                ],
+                [
+                  -3702.4,
+                  -23.3
+                ],
+                [
+                  -3702.6,
+                  -25.7
+                ],
+                [
+                  -3704,
+                  -45.1
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": false
+          },
+          {
+            "pack": "packs/p-2_0.pack.wasm",
+            "tile": "-4_0",
+            "context": true,
+            "rawRoadSHA256": "e8cb2c20d55fc31111d94287735760786fc5066d1bc8d45acf6796b473c6264e",
+            "sourceRoadSHA256": "e8cb2c20d55fc31111d94287735760786fc5066d1bc8d45acf6796b473c6264e",
+            "sourceInput": {
+              "id": "657ef2ad-efa_0",
+              "cls": "service",
+              "w": 5.5,
+              "lanes": null,
+              "oneway": "backward",
+              "from": "a2c52c39-5dc",
+              "to": "2d4e79bd-779",
+              "pts": [
+                [
+                  -3697.6,
+                  -21
+                ],
+                [
+                  -3702.4,
+                  -23.3
+                ],
+                [
+                  -3702.6,
+                  -25.7
+                ],
+                [
+                  -3704,
+                  -45.1
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": true
+          }
+        ]
+      },
+      "footprint": {
+        "id": "657ef2ad-efa_0",
+        "L": [
+          [
+            -3696.411669503816,
+            -23.479994078992757
+          ],
+          [
+            -3700.5164974758886,
+            -25.30372608948052
+          ],
+          [
+            -3699.8573769937566,
+            -25.90129343165086
+          ],
+          [
+            -3701.257132849532,
+            -45.297938866528646
+          ]
+        ],
+        "R": [
+          [
+            -3698.788330496184,
+            -18.520005921007243
+          ],
+          [
+            -3704.2835025241116,
+            -21.29627391051948
+          ],
+          [
+            -3705.3426230062432,
+            -25.49870656834914
+          ],
+          [
+            -3706.742867150468,
+            -44.902061133471356
+          ]
+        ]
+      },
+      "preHeightWidth": {
+        "id": "657ef2ad-efa_0",
+        "widthBefore": 5.5,
+        "formerlyFlat": true,
+        "joinedPavement": {
+          "sourceWidth": 5.5,
+          "originalWidth": 5.5,
+          "physicalWidth": 5.5,
+          "intervals": [
+            [
+              0,
+              27.181362134889852
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "preservedExistingPreparedArrays": false,
+        "preservedFixedSourceArrays": false,
+        "preservedCoarseApproachControls": true,
+        "baselineFootprintSHA256": "224ad7f6e9a45a62f85d62df3f1bf2fd8fe00cbcd4bf62aa9c8b62ec8b5d8936",
+        "coarseControlCount": 4,
+        "promotionReason": "Necessary verified service-facility owner in bounded7.5% recovery domain from proved1ef positive rail-bridge controls; no height target installed."
+      }
+    },
+    {
+      "road": {
+        "id": "9d47e10a-a42_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3694.4,
+            2.1
+          ]
+        ],
+        "elev": null,
+        "from": "a2c52c39-5dc",
+        "to": "fa8433cd-793",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null,
+        "scenerySource": {
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3694.4,
+              2.1
+            ]
+          ],
+          "elev": null,
+          "width": 4.5
+        },
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              23.32059175921569
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "seg": "9d47e10a-a42_0",
+        "sourceArc": [
+          0,
+          23.32059175921569
+        ],
+        "sourceXY": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3694.4,
+            2.1
+          ]
+        ]
+      },
+      "transport": {
+        "id": "9d47e10a-a42_0",
+        "expected": {
+          "id": "9d47e10a-a42_0",
+          "cls": "service",
+          "w": 4.5,
+          "lanes": 1,
+          "oneway": null,
+          "from": "a2c52c39-5dc",
+          "to": "fa8433cd-793",
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3694.4,
+              2.1
+            ]
+          ],
+          "elev": null
+        },
+        "pts": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3694.4,
+            2.1
+          ]
+        ],
+        "elev": null,
+        "sourceArc": [
+          0,
+          23.32059175921569
+        ],
+        "sourceXY": [
+          [
+            -3697.6,
+            -21
+          ],
+          [
+            -3694.4,
+            2.1
+          ]
+        ],
+        "maximumDisplacement": 0,
+        "minimumTransportMask": 1,
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              23.32059175921569
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "scenerySource": {
+          "pts": [
+            [
+              -3697.6,
+              -21
+            ],
+            [
+              -3694.4,
+              2.1
+            ]
+          ],
+          "elev": null,
+          "width": 4.5
+        },
+        "copies": [
+          {
+            "pack": "packs/p-2_-1.pack.wasm",
+            "tile": "-4_-1",
+            "context": true,
+            "rawRoadSHA256": "f80f4db0a60befb0e4b909c1bb17202eac327eeb32cbefcaa319c7de15fd664b",
+            "sourceRoadSHA256": "f80f4db0a60befb0e4b909c1bb17202eac327eeb32cbefcaa319c7de15fd664b",
+            "sourceInput": {
+              "id": "9d47e10a-a42_0",
+              "cls": "service",
+              "w": 4.5,
+              "lanes": null,
+              "oneway": null,
+              "from": "a2c52c39-5dc",
+              "to": "fa8433cd-793",
+              "pts": [
+                [
+                  -3697.6,
+                  -21
+                ],
+                [
+                  -3694.4,
+                  2.1
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": true
+          },
+          {
+            "pack": "packs/p-2_0.pack.wasm",
+            "tile": "-4_0",
+            "context": false,
+            "rawRoadSHA256": "04626d7eeb0355b17d157ffecd8e219e9986374bf4bd29f550a76a1c0e06e602",
+            "sourceRoadSHA256": "04626d7eeb0355b17d157ffecd8e219e9986374bf4bd29f550a76a1c0e06e602",
+            "sourceInput": {
+              "id": "9d47e10a-a42_0",
+              "cls": "service",
+              "w": 4.5,
+              "lanes": 1,
+              "oneway": null,
+              "from": "a2c52c39-5dc",
+              "to": "fa8433cd-793",
+              "pts": [
+                [
+                  -3697.6,
+                  -21
+                ],
+                [
+                  -3694.4,
+                  2.1
+                ]
+              ],
+              "elev": null
+            },
+            "laneMetadataOmitted": false
+          }
+        ]
+      },
+      "footprint": {
+        "id": "9d47e10a-a42_0",
+        "L": [
+          [
+            -3699.828717029852,
+            -20.6912599785486
+          ],
+          [
+            -3696.6287170298524,
+            2.4087400214514
+          ]
+        ],
+        "R": [
+          [
+            -3695.3712829701476,
+            -21.3087400214514
+          ],
+          [
+            -3692.171282970148,
+            1.7912599785486003
+          ]
+        ]
+      },
+      "preHeightWidth": {
+        "id": "9d47e10a-a42_0",
+        "widthBefore": 4.5,
+        "formerlyFlat": true,
+        "joinedPavement": {
+          "sourceWidth": 4.5,
+          "originalWidth": 4.5,
+          "physicalWidth": 4.5,
+          "intervals": [
+            [
+              0,
+              23.32059175921569
+            ]
+          ],
+          "taper": 1,
+          "release": "source-bound-facility-approach-coarse-baseline-v1"
+        },
+        "preservedExistingPreparedArrays": false,
+        "preservedFixedSourceArrays": false,
+        "preservedCoarseApproachControls": true,
+        "baselineFootprintSHA256": "da2de34443bbcd29be925521a8ec55c594dee5b8e1461d88d4775ad0ee870c6c",
+        "coarseControlCount": 2,
+        "promotionReason": "Necessary verified service-facility owner in bounded7.5% recovery domain from proved1ef positive rail-bridge controls; no height target installed."
+      }
+    }
+  ],
+  "allEndpointSourceProofs": [
+    {
+      "node": "15008086-2cf",
+      "fullConnectorAliases": [
+        "15008086-2cf0-40de-b335-edec199fdea5"
+      ],
+      "coreArms": [],
+      "tileArms": [
+        {
+          "id": "15bd5c37-531_0",
+          "end": "from",
+          "selected": true,
+          "point": [
+            -3497.7,
+            270
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        }
+      ],
+      "sourceProofs": [
+        {
+          "id": "15bd5c37-531_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "15bd5c37-531c-435a-8a69-262300253dbc",
+              "name": "Masjid Mohiuddin Road",
+              "class": "service",
+              "width_rules": null,
+              "level_rules": null,
+              "road_flags": null,
+              "access_restrictions": null,
+              "connectors": [
+                {
+                  "connector_id": "15008086-2cf0-40de-b335-edec199fdea5",
+                  "at": 0
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.970853022
+                },
+                {
+                  "connector_id": "93ced0c6-5cd2-4843-b0a0-8aba8392f259",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w318599536@7",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.970865385
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1288312293@1",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0.970865385,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "01020000000900000066CFAFF7AC9D53406EA5D76663673140E8B523E6A39D5340F24BB32F8F6731401AA88C7F9F9D5340657E24DBAF6731401112B3A8999D5340D48DC1D4E067314071653F41989D53402BFBAE08FE67314041FB4795979D5340B8848DFC0B683140485FF70C979D534037CFC76B1468314053C5F940979D53403CFC90121668314083D3CCA4979D5340708D19F219683140",
+              "bbox": {
+                "xmin": 78.46234130859375,
+                "xmax": 78.46368408203125,
+                "ymin": 17.403860092163086,
+                "ymax": 17.406646728515625
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        }
+      ],
+      "allCoreHeightsAgreeWithin1cm": null,
+      "modeledZeroIsSurveyedGround": false,
+      "classification": [],
+      "sourceConnectionVerifiedForEveryArm": true
+    },
+    {
+      "node": "2d4e79bd-779",
+      "fullConnectorAliases": [
+        "2d4e79bd-7796-4297-a621-c59a8be6f552"
+      ],
+      "coreArms": [
+        {
+          "id": "1ef14a96-339_0",
+          "end": "to",
+          "point": [
+            -3704.8,
+            -45.3
+          ],
+          "y": 0
+        },
+        {
+          "id": "1ef14a96-339_1",
+          "end": "from",
+          "point": [
+            -3704.8,
+            -45.3
+          ],
+          "y": 0
+        }
+      ],
+      "tileArms": [
+        {
+          "id": "657ef2ad-efa_0",
+          "end": "to",
+          "selected": true,
+          "point": [
+            -3704,
+            -45.1
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        }
+      ],
+      "sourceProofs": [
+        {
+          "id": "1ef14a96-339_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "1ef14a96-3395-46c1-a27a-6e6fbcf5b0e2",
+              "name": "Lakdikapul Road",
+              "class": "trunk",
+              "width_rules": null,
+              "level_rules": [
+                {
+                  "value": 1,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "road_flags": [
+                {
+                  "values": [
+                    "is_bridge"
+                  ],
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": null,
+                    "mode": [
+                      "foot"
+                    ],
+                    "vehicle": null
+                  },
+                  "between": [
+                    0.621856179,
+                    1
+                  ]
+                },
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "connectors": [
+                {
+                  "connector_id": "f1d4b8d9-711f-487b-840f-553cbd146e1f",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 0.265174706
+                },
+                {
+                  "connector_id": "48b1c891-59d4-486a-ba18-b6c1a698ebde",
+                  "at": 0.285178587
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.456371207
+                },
+                {
+                  "connector_id": "0f6056b3-04b5-40e7-a0ed-fed6b858937d",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "/routes",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "r3249370@248",
+                  "update_time": null,
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w28655558@16",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.289455951
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454732@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454733@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.39817126,
+                    0.456362196
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1104598457@3",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.456362196,
+                    0.502649785
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w570226382@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.502649785,
+                    0.621856179
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682063@2",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.621856179,
+                    0.947310386
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682064@5",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.947310386,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "0102000000110000006067F9707F9D5340D243238E2B683140F4DB7CC8809D53404A383EA42968314046161F55839D5340E1794E1F266831404212AC608A9D5340BACAC97A20683140B2EF2F278D9D53400888EEFE1D68314094EAF1318E9D5340C27F040F1D6831401CCEFC6A8E9D5340DF98AFDC1C6831409176ED1C949D5340115D065218683140CB8B0233959D53403667333D17683140485FF70C979D534037CFC76B146831405E81E849999D53404BD6975B10683140DAF8B8DB9A9D5340B2DBC24E0C683140F14B58769C9D5340A945E9770668314020E1C50C9E9D53400C6602340068314012C53FC7A29D534065FB35FEE96731406235F169A99D5340432B4190CD673140CCE20F50AB9D534083A9C18FC5673140",
+              "bbox": {
+                "xmin": 78.46089172363281,
+                "xmax": 78.46358489990234,
+                "ymin": 17.405357360839844,
+                "ymax": 17.406917572021484
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "1ef14a96-339_1",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "1ef14a96-3395-46c1-a27a-6e6fbcf5b0e2",
+              "name": "Lakdikapul Road",
+              "class": "trunk",
+              "width_rules": null,
+              "level_rules": [
+                {
+                  "value": 1,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "road_flags": [
+                {
+                  "values": [
+                    "is_bridge"
+                  ],
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": null,
+                    "mode": [
+                      "foot"
+                    ],
+                    "vehicle": null
+                  },
+                  "between": [
+                    0.621856179,
+                    1
+                  ]
+                },
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "connectors": [
+                {
+                  "connector_id": "f1d4b8d9-711f-487b-840f-553cbd146e1f",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 0.265174706
+                },
+                {
+                  "connector_id": "48b1c891-59d4-486a-ba18-b6c1a698ebde",
+                  "at": 0.285178587
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.456371207
+                },
+                {
+                  "connector_id": "0f6056b3-04b5-40e7-a0ed-fed6b858937d",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "/routes",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "r3249370@248",
+                  "update_time": null,
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w28655558@16",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.289455951
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454732@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454733@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.39817126,
+                    0.456362196
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1104598457@3",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.456362196,
+                    0.502649785
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w570226382@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.502649785,
+                    0.621856179
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682063@2",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.621856179,
+                    0.947310386
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682064@5",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.947310386,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "0102000000110000006067F9707F9D5340D243238E2B683140F4DB7CC8809D53404A383EA42968314046161F55839D5340E1794E1F266831404212AC608A9D5340BACAC97A20683140B2EF2F278D9D53400888EEFE1D68314094EAF1318E9D5340C27F040F1D6831401CCEFC6A8E9D5340DF98AFDC1C6831409176ED1C949D5340115D065218683140CB8B0233959D53403667333D17683140485FF70C979D534037CFC76B146831405E81E849999D53404BD6975B10683140DAF8B8DB9A9D5340B2DBC24E0C683140F14B58769C9D5340A945E9770668314020E1C50C9E9D53400C6602340068314012C53FC7A29D534065FB35FEE96731406235F169A99D5340432B4190CD673140CCE20F50AB9D534083A9C18FC5673140",
+              "bbox": {
+                "xmin": 78.46089172363281,
+                "xmax": 78.46358489990234,
+                "ymin": 17.405357360839844,
+                "ymax": 17.406917572021484
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "657ef2ad-efa_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "657ef2ad-efa7-4094-a0c2-f01a1f1c2be4",
+              "names": null,
+              "subtype": "road",
+              "class": "service",
+              "subclass": null,
+              "subclass_rules": null,
+              "connectors": [
+                {
+                  "connector_id": "a2c52c39-5dc5-482d-a2bd-1393ad63c50d",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 1
+                }
+              ],
+              "road_surface": null,
+              "road_flags": null,
+              "rail_flags": null,
+              "width_rules": null,
+              "level_rules": null,
+              "access_restrictions": [
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                },
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": [
+                      "as_private"
+                    ],
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "speed_limits": null,
+              "prohibited_transitions": null,
+              "routes": null,
+              "destinations": null,
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1458328665@1",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "version": 1,
+              "bbox": {
+                "xmin": 78.46173858642578,
+                "xmax": 78.46180725097656,
+                "ymin": 17.4064884185791,
+                "ymax": 17.406707763671875
+              },
+              "theme": "transportation",
+              "type": "segment",
+              "name": null,
+              "geometryWKB": "01020000000400000088B201228E9D534057282DB70F6831404C101A668D9D53405CF9D11511683140DBB3F85E8D9D53403246DA7C12683140B2EF2F278D9D53400888EEFE1D683140"
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/joint-tile-missing-source-completion-9413.json",
+            "sha256": "3b60328e8df165694a1d1c80fdedb804f833b640532f7b15dc9426ac01c870f9",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "destinations",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "names",
+              "prohibited_transitions",
+              "rail_flags",
+              "road_flags",
+              "road_surface",
+              "routes",
+              "sources",
+              "speed_limits",
+              "subclass",
+              "subclass_rules",
+              "subtype",
+              "theme",
+              "type",
+              "version",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": true,
+            "priorBindings": []
+          }
+        }
+      ],
+      "allCoreHeightsAgreeWithin1cm": true,
+      "modeledZeroIsSurveyedGround": false,
+      "classification": [],
+      "sourceConnectionVerifiedForEveryArm": true
+    },
+    {
+      "node": "a2c52c39-5dc",
+      "fullConnectorAliases": [
+        "a2c52c39-5dc5-482d-a2bd-1393ad63c50d"
+      ],
+      "coreArms": [],
+      "tileArms": [
+        {
+          "id": "657ef2ad-efa_0",
+          "end": "from",
+          "selected": true,
+          "point": [
+            -3697.6,
+            -21
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        },
+        {
+          "id": "aa98d784-5a2_0",
+          "end": "to",
+          "selected": true,
+          "point": [
+            -3697.6,
+            -21
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        },
+        {
+          "id": "9d47e10a-a42_0",
+          "end": "from",
+          "selected": true,
+          "point": [
+            -3697.6,
+            -21
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        }
+      ],
+      "sourceProofs": [
+        {
+          "id": "657ef2ad-efa_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "657ef2ad-efa7-4094-a0c2-f01a1f1c2be4",
+              "names": null,
+              "subtype": "road",
+              "class": "service",
+              "subclass": null,
+              "subclass_rules": null,
+              "connectors": [
+                {
+                  "connector_id": "a2c52c39-5dc5-482d-a2bd-1393ad63c50d",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 1
+                }
+              ],
+              "road_surface": null,
+              "road_flags": null,
+              "rail_flags": null,
+              "width_rules": null,
+              "level_rules": null,
+              "access_restrictions": [
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                },
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": [
+                      "as_private"
+                    ],
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "speed_limits": null,
+              "prohibited_transitions": null,
+              "routes": null,
+              "destinations": null,
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1458328665@1",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "version": 1,
+              "bbox": {
+                "xmin": 78.46173858642578,
+                "xmax": 78.46180725097656,
+                "ymin": 17.4064884185791,
+                "ymax": 17.406707763671875
+              },
+              "theme": "transportation",
+              "type": "segment",
+              "name": null,
+              "geometryWKB": "01020000000400000088B201228E9D534057282DB70F6831404C101A668D9D53405CF9D11511683140DBB3F85E8D9D53403246DA7C12683140B2EF2F278D9D53400888EEFE1D683140"
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/joint-tile-missing-source-completion-9413.json",
+            "sha256": "3b60328e8df165694a1d1c80fdedb804f833b640532f7b15dc9426ac01c870f9",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "destinations",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "names",
+              "prohibited_transitions",
+              "rail_flags",
+              "road_flags",
+              "road_surface",
+              "routes",
+              "sources",
+              "speed_limits",
+              "subclass",
+              "subclass_rules",
+              "subtype",
+              "theme",
+              "type",
+              "version",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": true,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "aa98d784-5a2_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "aa98d784-5a24-49a1-85b1-bb872e0a14d8",
+              "name": null,
+              "class": "service",
+              "width_rules": null,
+              "level_rules": null,
+              "road_flags": null,
+              "access_restrictions": [
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                },
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": [
+                      "as_private"
+                    ],
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "connectors": [
+                {
+                  "connector_id": "48b1c891-59d4-486a-ba18-b6c1a698ebde",
+                  "at": 0
+                },
+                {
+                  "connector_id": "a2c52c39-5dc5-482d-a2bd-1393ad63c50d",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1458328666@1",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "01020000000400000094EAF1318E9D5340C27F040F1D68314004D149A58E9D53403246DA7C1268314070287CB68E9D5340F78F85E81068314088B201228E9D534057282DB70F683140",
+              "bbox": {
+                "xmin": 78.46179962158203,
+                "xmax": 78.46183776855469,
+                "ymin": 17.4064884185791,
+                "ymax": 17.406696319580078
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "9d47e10a-a42_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "9d47e10a-a421-435b-ae34-3be331e4dd18",
+              "names": null,
+              "subtype": "road",
+              "class": "service",
+              "subclass": null,
+              "subclass_rules": null,
+              "connectors": [
+                {
+                  "connector_id": "a2c52c39-5dc5-482d-a2bd-1393ad63c50d",
+                  "at": 0
+                },
+                {
+                  "connector_id": "fa8433cd-7938-443f-9aa5-3d42cebb7ced",
+                  "at": 1
+                }
+              ],
+              "road_surface": null,
+              "road_flags": null,
+              "rail_flags": null,
+              "width_rules": null,
+              "level_rules": null,
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": [
+                      "as_private"
+                    ],
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "speed_limits": null,
+              "prohibited_transitions": null,
+              "routes": null,
+              "destinations": null,
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1458328667@1",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "version": 1,
+              "bbox": {
+                "xmin": 78.46179962158203,
+                "xmax": 78.46183776855469,
+                "ymin": 17.406280517578125,
+                "ymax": 17.406490325927734
+              },
+              "theme": "transportation",
+              "type": "segment",
+              "name": null,
+              "geometryWKB": "01020000000200000088B201228E9D534057282DB70F68314052B3ACA08E9D534023FEBC0402683140"
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/joint-tile-missing-source-completion-9413.json",
+            "sha256": "3b60328e8df165694a1d1c80fdedb804f833b640532f7b15dc9426ac01c870f9",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "destinations",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "names",
+              "prohibited_transitions",
+              "rail_flags",
+              "road_flags",
+              "road_surface",
+              "routes",
+              "sources",
+              "speed_limits",
+              "subclass",
+              "subclass_rules",
+              "subtype",
+              "theme",
+              "type",
+              "version",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": true,
+            "priorBindings": []
+          }
+        }
+      ],
+      "allCoreHeightsAgreeWithin1cm": null,
+      "modeledZeroIsSurveyedGround": false,
+      "classification": [],
+      "sourceConnectionVerifiedForEveryArm": true
+    },
+    {
+      "node": "d4838ba8-da9",
+      "fullConnectorAliases": [
+        "d4838ba8-da90-4690-b151-8eb4c8239741"
+      ],
+      "coreArms": [
+        {
+          "id": "1ef14a96-339_2",
+          "end": "to",
+          "point": [
+            -3641.2,
+            -29.5
+          ],
+          "y": 0
+        },
+        {
+          "id": "1ef14a96-339_3",
+          "end": "from",
+          "point": [
+            -3641.2,
+            -29.5
+          ],
+          "y": 0
+        }
+      ],
+      "tileArms": [
+        {
+          "id": "15bd5c37-531_1",
+          "end": "from",
+          "selected": true,
+          "point": [
+            -3639.8,
+            -28.9
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        },
+        {
+          "id": "15bd5c37-531_0",
+          "end": "to",
+          "selected": true,
+          "point": [
+            -3639.8,
+            -28.9
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        }
+      ],
+      "sourceProofs": [
+        {
+          "id": "1ef14a96-339_2",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "1ef14a96-3395-46c1-a27a-6e6fbcf5b0e2",
+              "name": "Lakdikapul Road",
+              "class": "trunk",
+              "width_rules": null,
+              "level_rules": [
+                {
+                  "value": 1,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "road_flags": [
+                {
+                  "values": [
+                    "is_bridge"
+                  ],
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": null,
+                    "mode": [
+                      "foot"
+                    ],
+                    "vehicle": null
+                  },
+                  "between": [
+                    0.621856179,
+                    1
+                  ]
+                },
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "connectors": [
+                {
+                  "connector_id": "f1d4b8d9-711f-487b-840f-553cbd146e1f",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 0.265174706
+                },
+                {
+                  "connector_id": "48b1c891-59d4-486a-ba18-b6c1a698ebde",
+                  "at": 0.285178587
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.456371207
+                },
+                {
+                  "connector_id": "0f6056b3-04b5-40e7-a0ed-fed6b858937d",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "/routes",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "r3249370@248",
+                  "update_time": null,
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w28655558@16",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.289455951
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454732@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454733@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.39817126,
+                    0.456362196
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1104598457@3",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.456362196,
+                    0.502649785
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w570226382@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.502649785,
+                    0.621856179
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682063@2",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.621856179,
+                    0.947310386
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682064@5",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.947310386,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "0102000000110000006067F9707F9D5340D243238E2B683140F4DB7CC8809D53404A383EA42968314046161F55839D5340E1794E1F266831404212AC608A9D5340BACAC97A20683140B2EF2F278D9D53400888EEFE1D68314094EAF1318E9D5340C27F040F1D6831401CCEFC6A8E9D5340DF98AFDC1C6831409176ED1C949D5340115D065218683140CB8B0233959D53403667333D17683140485FF70C979D534037CFC76B146831405E81E849999D53404BD6975B10683140DAF8B8DB9A9D5340B2DBC24E0C683140F14B58769C9D5340A945E9770668314020E1C50C9E9D53400C6602340068314012C53FC7A29D534065FB35FEE96731406235F169A99D5340432B4190CD673140CCE20F50AB9D534083A9C18FC5673140",
+              "bbox": {
+                "xmin": 78.46089172363281,
+                "xmax": 78.46358489990234,
+                "ymin": 17.405357360839844,
+                "ymax": 17.406917572021484
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "1ef14a96-339_3",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "1ef14a96-3395-46c1-a27a-6e6fbcf5b0e2",
+              "name": "Lakdikapul Road",
+              "class": "trunk",
+              "width_rules": null,
+              "level_rules": [
+                {
+                  "value": 1,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "road_flags": [
+                {
+                  "values": [
+                    "is_bridge"
+                  ],
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ]
+                }
+              ],
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": null,
+                    "mode": [
+                      "foot"
+                    ],
+                    "vehicle": null
+                  },
+                  "between": [
+                    0.621856179,
+                    1
+                  ]
+                },
+                {
+                  "access_type": "denied",
+                  "when": {
+                    "during": null,
+                    "heading": "backward",
+                    "using": null,
+                    "recognized": null,
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "connectors": [
+                {
+                  "connector_id": "f1d4b8d9-711f-487b-840f-553cbd146e1f",
+                  "at": 0
+                },
+                {
+                  "connector_id": "2d4e79bd-7796-4297-a621-c59a8be6f552",
+                  "at": 0.265174706
+                },
+                {
+                  "connector_id": "48b1c891-59d4-486a-ba18-b6c1a698ebde",
+                  "at": 0.285178587
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.456371207
+                },
+                {
+                  "connector_id": "0f6056b3-04b5-40e7-a0ed-fed6b858937d",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "/routes",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "r3249370@248",
+                  "update_time": null,
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w28655558@16",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.289455951
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454732@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.289455951,
+                    0.39817126
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w166454733@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.39817126,
+                    0.456362196
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1104598457@3",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.456362196,
+                    0.502649785
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w570226382@8",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.502649785,
+                    0.621856179
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682063@2",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.621856179,
+                    0.947310386
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w829682064@5",
+                  "update_time": "2025-07-07T10:50:55Z",
+                  "confidence": null,
+                  "between": [
+                    0.947310386,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "0102000000110000006067F9707F9D5340D243238E2B683140F4DB7CC8809D53404A383EA42968314046161F55839D5340E1794E1F266831404212AC608A9D5340BACAC97A20683140B2EF2F278D9D53400888EEFE1D68314094EAF1318E9D5340C27F040F1D6831401CCEFC6A8E9D5340DF98AFDC1C6831409176ED1C949D5340115D065218683140CB8B0233959D53403667333D17683140485FF70C979D534037CFC76B146831405E81E849999D53404BD6975B10683140DAF8B8DB9A9D5340B2DBC24E0C683140F14B58769C9D5340A945E9770668314020E1C50C9E9D53400C6602340068314012C53FC7A29D534065FB35FEE96731406235F169A99D5340432B4190CD673140CCE20F50AB9D534083A9C18FC5673140",
+              "bbox": {
+                "xmin": 78.46089172363281,
+                "xmax": 78.46358489990234,
+                "ymin": 17.405357360839844,
+                "ymax": 17.406917572021484
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "15bd5c37-531_1",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "15bd5c37-531c-435a-8a69-262300253dbc",
+              "name": "Masjid Mohiuddin Road",
+              "class": "service",
+              "width_rules": null,
+              "level_rules": null,
+              "road_flags": null,
+              "access_restrictions": null,
+              "connectors": [
+                {
+                  "connector_id": "15008086-2cf0-40de-b335-edec199fdea5",
+                  "at": 0
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.970853022
+                },
+                {
+                  "connector_id": "93ced0c6-5cd2-4843-b0a0-8aba8392f259",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w318599536@7",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.970865385
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1288312293@1",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0.970865385,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "01020000000900000066CFAFF7AC9D53406EA5D76663673140E8B523E6A39D5340F24BB32F8F6731401AA88C7F9F9D5340657E24DBAF6731401112B3A8999D5340D48DC1D4E067314071653F41989D53402BFBAE08FE67314041FB4795979D5340B8848DFC0B683140485FF70C979D534037CFC76B1468314053C5F940979D53403CFC90121668314083D3CCA4979D5340708D19F219683140",
+              "bbox": {
+                "xmin": 78.46234130859375,
+                "xmax": 78.46368408203125,
+                "ymin": 17.403860092163086,
+                "ymax": 17.406646728515625
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        },
+        {
+          "id": "15bd5c37-531_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "15bd5c37-531c-435a-8a69-262300253dbc",
+              "name": "Masjid Mohiuddin Road",
+              "class": "service",
+              "width_rules": null,
+              "level_rules": null,
+              "road_flags": null,
+              "access_restrictions": null,
+              "connectors": [
+                {
+                  "connector_id": "15008086-2cf0-40de-b335-edec199fdea5",
+                  "at": 0
+                },
+                {
+                  "connector_id": "d4838ba8-da90-4690-b151-8eb4c8239741",
+                  "at": 0.970853022
+                },
+                {
+                  "connector_id": "93ced0c6-5cd2-4843-b0a0-8aba8392f259",
+                  "at": 1
+                }
+              ],
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w318599536@7",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0,
+                    0.970865385
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                },
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1288312293@1",
+                  "update_time": "2024-05-31T09:52:17Z",
+                  "confidence": null,
+                  "between": [
+                    0.970865385,
+                    1
+                  ],
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "geometryWKB": "01020000000900000066CFAFF7AC9D53406EA5D76663673140E8B523E6A39D5340F24BB32F8F6731401AA88C7F9F9D5340657E24DBAF6731401112B3A8999D5340D48DC1D4E067314071653F41989D53402BFBAE08FE67314041FB4795979D5340B8848DFC0B683140485FF70C979D534037CFC76B1468314053C5F940979D53403CFC90121668314083D3CCA4979D5340708D19F219683140",
+              "bbox": {
+                "xmin": 78.46234130859375,
+                "xmax": 78.46368408203125,
+                "ymin": 17.403860092163086,
+                "ymax": 17.406646728515625
+              }
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+            "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "road_flags",
+              "sources",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": false,
+            "priorBindings": []
+          }
+        }
+      ],
+      "allCoreHeightsAgreeWithin1cm": true,
+      "modeledZeroIsSurveyedGround": false,
+      "classification": [],
+      "sourceConnectionVerifiedForEveryArm": true
+    },
+    {
+      "node": "fa8433cd-793",
+      "fullConnectorAliases": [
+        "fa8433cd-7938-443f-9aa5-3d42cebb7ced"
+      ],
+      "coreArms": [],
+      "tileArms": [
+        {
+          "id": "9d47e10a-a42_0",
+          "end": "to",
+          "selected": true,
+          "point": [
+            -3694.4,
+            2.1
+          ],
+          "y": 0,
+          "rawSourceY": 0
+        }
+      ],
+      "sourceProofs": [
+        {
+          "id": "9d47e10a-a42_0",
+          "source": {
+            "state": "retained-full-source",
+            "row": {
+              "id": "9d47e10a-a421-435b-ae34-3be331e4dd18",
+              "names": null,
+              "subtype": "road",
+              "class": "service",
+              "subclass": null,
+              "subclass_rules": null,
+              "connectors": [
+                {
+                  "connector_id": "a2c52c39-5dc5-482d-a2bd-1393ad63c50d",
+                  "at": 0
+                },
+                {
+                  "connector_id": "fa8433cd-7938-443f-9aa5-3d42cebb7ced",
+                  "at": 1
+                }
+              ],
+              "road_surface": null,
+              "road_flags": null,
+              "rail_flags": null,
+              "width_rules": null,
+              "level_rules": null,
+              "access_restrictions": [
+                {
+                  "access_type": "allowed",
+                  "when": {
+                    "during": null,
+                    "heading": null,
+                    "using": null,
+                    "recognized": [
+                      "as_private"
+                    ],
+                    "mode": null,
+                    "vehicle": null
+                  },
+                  "between": null
+                }
+              ],
+              "speed_limits": null,
+              "prohibited_transitions": null,
+              "routes": null,
+              "destinations": null,
+              "sources": [
+                {
+                  "property": "",
+                  "dataset": "OpenStreetMap",
+                  "license": "ODbL-1.0",
+                  "record_id": "w1458328667@1",
+                  "update_time": "2025-12-13T18:11:14Z",
+                  "confidence": null,
+                  "between": null,
+                  "provider": "osm",
+                  "resource": "planet",
+                  "version": "2026-10-10"
+                }
+              ],
+              "version": 1,
+              "bbox": {
+                "xmin": 78.46179962158203,
+                "xmax": 78.46183776855469,
+                "ymin": 17.406280517578125,
+                "ymax": 17.406490325927734
+              },
+              "theme": "transportation",
+              "type": "segment",
+              "name": null,
+              "geometryWKB": "01020000000200000088B201228E9D534057282DB70F68314052B3ACA08E9D534023FEBC0402683140"
+            },
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/joint-tile-missing-source-completion-9413.json",
+            "sha256": "3b60328e8df165694a1d1c80fdedb804f833b640532f7b15dc9426ac01c870f9",
+            "retainedFields": [
+              "access_restrictions",
+              "bbox",
+              "class",
+              "connectors",
+              "destinations",
+              "geometryWKB",
+              "id",
+              "level_rules",
+              "name",
+              "names",
+              "prohibited_transitions",
+              "rail_flags",
+              "road_flags",
+              "road_surface",
+              "routes",
+              "sources",
+              "speed_limits",
+              "subclass",
+              "subclass_rules",
+              "subtype",
+              "theme",
+              "type",
+              "version",
+              "width_rules"
+            ],
+            "allReleaseColumnsCaptured": true,
+            "priorBindings": []
+          }
+        }
+      ],
+      "allCoreHeightsAgreeWithin1cm": null,
+      "modeledZeroIsSurveyedGround": false,
+      "classification": [],
+      "sourceConnectionVerifiedForEveryArm": true
+    }
+  ],
+  "negativeControls": {
+    "passed": true,
+    "cases": [
+      {
+        "case": "coarse-control",
+        "exitCode": 1,
+        "stderr": "file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/export-joint-road-tile-input.mjs:33\nfor(const r of promotionById.values())if(!r.preserveCoarseControls||!Number.isFinite(r.physicalWidth)||r.physicalWidth!==r.expectedPreparedRoad.w||sha(stable(r.expectedFootprint))!==r.footprintSHA256||stable(promotionParent.contextRoads.find(e=>e.id===r.id))!==stable(r.expectedPreparedRoad)||stable(promotionParent.contextFootprints.find(e=>e.id===r.id))!==stable(r.expectedFootprint)||stable(promotionParent.contextCopies[r.id])!==stable(r.copies)||stable(promotionParent.sourceEvidence[r.id.split('_')[0]])!==stable(r.sourceProof))throw Error('Changed exact owner/source/footprint promotion '+r.id);\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^\n\nError: Changed exact owner/source/footprint promotion 15bd5c37-531_0",
+        "outputWritten": false
+      },
+      {
+        "case": "copy",
+        "exitCode": 1,
+        "stderr": "file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/export-joint-road-tile-input.mjs:33\nfor(const r of promotionById.values())if(!r.preserveCoarseControls||!Number.isFinite(r.physicalWidth)||r.physicalWidth!==r.expectedPreparedRoad.w||sha(stable(r.expectedFootprint))!==r.footprintSHA256||stable(promotionParent.contextRoads.find(e=>e.id===r.id))!==stable(r.expectedPreparedRoad)||stable(promotionParent.contextFootprints.find(e=>e.id===r.id))!==stable(r.expectedFootprint)||stable(promotionParent.contextCopies[r.id])!==stable(r.copies)||stable(promotionParent.sourceEvidence[r.id.split('_')[0]])!==stable(r.sourceProof))throw Error('Changed exact owner/source/footprint promotion '+r.id);\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^\n\nError: Changed exact owner/source/footprint promotion 15bd5c37-531_0",
+        "outputWritten": false
+      },
+      {
+        "case": "source-connector",
+        "exitCode": 1,
+        "stderr": "file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/export-joint-road-tile-input.mjs:33\nfor(const r of promotionById.values())if(!r.preserveCoarseControls||!Number.isFinite(r.physicalWidth)||r.physicalWidth!==r.expectedPreparedRoad.w||sha(stable(r.expectedFootprint))!==r.footprintSHA256||stable(promotionParent.contextRoads.find(e=>e.id===r.id))!==stable(r.expectedPreparedRoad)||stable(promotionParent.contextFootprints.find(e=>e.id===r.id))!==stable(r.expectedFootprint)||stable(promotionParent.contextCopies[r.id])!==stable(r.copies)||stable(promotionParent.sourceEvidence[r.id.split('_')[0]])!==stable(r.sourceProof))throw Error('Changed exact owner/source/footprint promotion '+r.id);\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^\n\nError: Changed exact owner/source/footprint promotion 15bd5c37-531_0",
+        "outputWritten": false
+      },
+      {
+        "case": "model",
+        "exitCode": 1,
+        "stderr": "file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/export-joint-road-tile-input.mjs:30\nif(promotions&&(promotions.version!==1||promotions.kind!=='source-bound-joint-owner-promotion'||inputs.promotionParent.sha256!==promotions.parentJoint.sha256||promotions.sourceModelSHA256!==inputs.model.sha256||promotions.sourceRoadGeometryGeneration!==source.generationID||promotions.sourceDataSHA256!==inputs.sourceGeometry.sha256||promotions.sourceCoreSHA256!==source.sourceCorePackSHA256))throw Error('Stale owner-promotion binding');\n                                                                                                                                                                                                                                                                                                                                                                                                               ^\n\nError: Stale owner-promotion binding",
+        "outputWritten": false
+      }
+    ],
+    "policySHA256": "b166ab6453ed25e33497495240f76494b82bc19ea2d0389382ee0e80fc0ea4b7"
+  },
+  "baseline": "Each added owner has exact coarse points and L/R equality to literal a679 d746 old City reference; inherited widths and lanes are unchanged.",
+  "openGates": [
+    "Feasible joint heights/source-positive railway approaches",
+    "Grounded-facility construction and terrain classification",
+    "Actual finite headroom/caps/obstacles and full vehicles",
+    "Active World/worker/cache parity and native routes"
+  ],
+  "releaseApproved": false
+}

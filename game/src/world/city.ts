@@ -6,12 +6,12 @@ import { drawLandmark, inClear, Landmark } from './landmarks';
 import { drawExtras, OsmFeature, RoadHit } from './extras';
 import { isORR, auxiliaryLane, expresswayBarrierClipper, travelDirection } from './expressway';
 import { drawExpresswaySigns, drawRampChevrons } from './expressway-signs';
-import { roadQuadHeight, type RoadQuad } from './road-surface';
+import { roadQuadHeight, clipRoadQuadToTile, clipRoadPathToTile, roadSpansMultipleTiles, type RoadQuad } from './road-surface';
 import { bridgeBoundaryClipper, roadRibbon } from './bridge-clearance';
 import { buildingTransportClearance, type BuildingCorrection } from './building-clearance';
 import { railwayNetwork } from './railway-geometry';
 import { metroStructureClearance } from './metro-clearance';
-import { metroCorridors, metroLineColor, metroStationFrame, metroDeckHeight, metroTrackDeckHeight, metroPlatformAssemblies, projectMetroPath, sampleMetroPath } from './metro-geometry';
+import { metroCorridors, metroLineColor, metroStationFrame, metroDeckHeight, metroTrackDeckHeight, metroPlatformAssemblies, projectMetroPath, sampleMetroPath, METRO_PLATFORM_OFFSET, METRO_PLATFORM_HALF_WIDTH, METRO_PLATFORM_HALF_LENGTH, METRO_PLATFORM_OUTER_EDGE } from './metro-geometry';
 import { bridgeSupportPlan, roadStructureClearance, type BridgeSupportSite, type StructureSupport } from './structure-clearance';
 import { captureLandmarkBatches } from './landmark-support-capture';
 import type { LandmarkSurfaceGrid } from './landmark-support';
@@ -19,11 +19,26 @@ import { drawAirfieldTile, airfieldClearAt, type Airfield } from './airfields';
 import type { RoadEdge, Building, XZ, Board, Furniture, Area } from './types';
 import type { SignSystem } from './signs';
 import { resolveSignalSites, type SignalSite } from './signals';
-import { drawStreetLamp, type LampFixture } from './street-lamps';
+import { drawStreetLamp, streetLampFixture, type LampFixture, type StreetLampVolume } from './street-lamps';
+import { metroStreetLampClearance, metroAccessStreetLampClearance } from './metro-street-lamp-clearance';
 import { drawConstruction, type ConstructionPlan } from './construction';
 import { drawMetroStationVisuals } from './metro-station-visuals';
+import { drawMetroPlatformLamps } from './metro-platform-lamps';
+import type { StationBoardContent } from './station-board';
+import { drawStationPresentation } from './station-presentation';
+import { stationAccessPlan, stationInterchangeTransfers, stationBuildingOccupied, stationPhysicalObstacles, stationGuardSegments, stationLiftGuardOpenings, stationFlightSections, landingFootprint, drawStationFlight, drawStationLanding, drawStationEntryPortal, drawStationLift, type StationAccessBuildObservation } from './metro-station-access';
+import { StreetPresentationBudget, STREET_DETAIL_KIT_LIMIT, drawShelterPresentation } from './street-presentation';
 import { destinationIndex, type DestinationIdentity } from './destination-identity';
 import { decorateDestinationBuilding } from './destination-recognition';
+import { waterGrid, type WaterGrid } from './water';
+import { excludeStadiumRoads, stadiumExclusionsAt } from './stadium-roads';
+import { railwayRoadClearance, roadHeightAt } from './railway-road-clearance';
+import { underpassAreaClipper, buildUnderpassTile } from './underpass-terrain';
+import { shareRoadJunction } from './road-openings';
+import type { MetroFlightClearance } from './metro-flight-clearance';
+import { roadClearanceWidth, roadPavementWidth, roadPavementWidthAt, roadSupportWidthAt, roadPavementLanes } from './road-pavement';
+import { dividerStripeDistance, drawClosedDivider } from './road-divider-mesh';
+import { continuousPaintStroke, paintOnRoad } from './road-paint-mesh';
 
 const PALETTE = ['#E8A87C', '#F2D49B', '#9FC7C1', '#C9B6E4', '#F4B6C2', '#E7D7C1', '#B5C99A', '#F1C27D', '#D9CAB3', '#8FB9C9',
   '#E3A6A1', '#F3EFE6', '#C8D6A3', '#E9C46A', '#BFD7EA', '#F0B78F', '#EDE6DA', '#D8CFC0'];
@@ -38,14 +53,16 @@ export interface Wall { ax: number; az: number; bx: number; bz: number; y0a: num
 export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: number; hx: number; hz: number }
 // one 1 km map tile as exported by the pipeline; roads flagged ctx belong to a neighbour (kerbs/trimming context only)
 export interface TileZone { i: number; j: number; roads: (RoadEdge & { ctx?: number })[]; nodes: Record<string, XZ>; buildings: Building[]; boards: Board[]; furniture: Furniture[]; areas: Area[]; osm?: OsmFeature[] }
-export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
-export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number }
+export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; te?: string | null; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
+export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number; station?: StationBoardContent }
 export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
   key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[];
-  buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
+  underpassGround?: boolean;
+  buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number; bottom?: number }[]>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
+  waterGrid?: WaterGrid;
   signals: SignalSite[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; signs: SignEntry[];
   activity: [string, number][];       // shop units per 100 m cell: how busy the street life around a spot should be
   rails: { id: string; pts: XZ[]; elev?: number[]; bridge?: boolean }[];
@@ -78,12 +95,15 @@ const FILL: [string, string, number, number, string?][] = [
 ];
 const BIKE_COLS = ['#1d1c22', '#1d1c22', '#b3262b', '#1f4fa8', '#8b8f99', '#e9e6e1', '#2f2d36', '#6b1f2a'];
 export interface CityData {
+  metroFlightClearance?: MetroFlightClearance;
   movingRail?: import('../game/moving-rail').MovingRailBody[];
+  railwayWalls?: Wall[];
   group: THREE.Group; signs: SignSystem; lit: THREE.Mesh | null; glow: THREE.Mesh | null;
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; byBuilding: Map<string, Building>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
+  waterGrid?: WaterGrid;
   signals: SignalSite[]; lamps: THREE.Vector3[]; bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
-  obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
+  obstacles: Map<string, { x: number; z: number; r: number; top: number; bottom?: number }[]>;
   centroid: (b: Building) => XZ;
   walls: Map<string, Wall[]>; busStops: BusStop[]; walkPaths: { pts: XZ[]; edge: string; side: 1 | -1 }[];
 }
@@ -98,14 +118,23 @@ function signedArea(ring: XZ[]) { let a = 0; for (let i = 0; i < ring.length; i+
 const key = (x: number, z: number, s = 50) => `${Math.floor(x / s)},${Math.floor(z / s)}`;
 
 // Build the geometry and gameplay data of one map tile. Pure data in, plain data out, so it runs in a worker.
-export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroData; landmarks?: Landmark[]; airfields?:Airfield[]; construction?: ConstructionPlan; destinations?: readonly DestinationIdentity[] }): TileBuilt {
+export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroData; landmarks?: Landmark[]; airfields?:Airfield[]; construction?: ConstructionPlan; destinations?: readonly DestinationIdentity[]; railway?: ReturnType<typeof railwayNetwork>;
+  /** Optional passive cold-build inspection; never supplied or serialized by runtime workers. */
+  observeStationAccess?:(observation:StationAccessBuildObservation)=>void }): TileBuilt {
+  const stadiums=(opts.landmarks||[]).filter(l=>l.id==='uppal_stadium'&&l.x!=null&&l.z!=null).flatMap(l=>stadiumExclusionsAt(l.x!,l.z!));
+  zone={...zone,roads:excludeStadiumRoads(zone.roads,stadiums)};
   const r = rng(20261021 + zone.i * 7919 + zone.j * 104729);
   const T = () => new TiledBatch(500);
-  const B = { st: T(), wall: T(), shop: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
+  const B = { st: T(), wall: T(), shop: T(), stationWindow: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
+  const streetDetailBudget = new StreetPresentationBudget(opts.lowQ ? STREET_DETAIL_KIT_LIMIT.low : STREET_DETAIL_KIT_LIMIT.high);
   const TX0 = zone.i * 1000, TZ0 = zone.j * 1000;
   const inTile = (x: number, z: number) => x >= TX0 && x < TX0 + 1000 && z >= TZ0 && z < TZ0 + 1000;
-  const railway = railwayNetwork();
+  const railway = opts.railway || railwayNetwork();
   const railways = railway.profiles.filter(r => r.bounds[0] < TX0 + 1100 && r.bounds[1] > TX0 - 100 && r.bounds[2] < TZ0 + 1100 && r.bounds[3] > TZ0 - 100);
+  const railRoadGaps = railwayRoadClearance(zone.roads, railway.profiles);
+  const roadsById = new Map(zone.roads.map(e => [e.id, e]));
+  const depressedRoads = new Set(zone.roads.filter(e => e.elev?.some(y => y < -.001)));
+  const groundYAt = (e: RoadEdge, x: number, z: number) => depressedRoads.has(e) ? roadHeightAt(e, x, z) : 0;
   const airClear=(x:number,z:number)=>airfieldClearAt(opts.airfields||[],x,z);
   const ownRoads = zone.roads.filter((e) => !e.ctx), ctxRoads = zone.roads.filter((e) => e.ctx);
   // Overture's ORR edges can span12km. Midpoint ownership would leave most of
@@ -113,9 +142,10 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // local segments from the context copy instead, with unique midpoint ownership.
   const localExpressway = (e: RoadEdge) => isORR(e) || !!e.expressway?.ramp;
   const clipExpresswayBarrier = expresswayBarrierClipper(zone.roads);
-  const localGrades = new Set(zone.roads.filter(e => localExpressway(e) || e.elev?.some(y => y > .001)).map(e => e.id));
-  const renderRoads = ownRoads.concat(ctxRoads.filter(e => localGrades.has(e.id)));
-  const ownsRoadPoint = (e: RoadEdge, x: number, z: number) => !localGrades.has(e.id) || inTile(x, z);
+  const localGrades = new Set(zone.roads.filter(e => localExpressway(e) || e.elev?.some(y => Math.abs(y) > .001)).map(e => e.id));
+  const localLongRoads = new Set(zone.roads.filter(e => !localGrades.has(e.id) && roadSpansMultipleTiles(e.pts)).map(e => e.id));
+  const renderRoads = ownRoads.concat(ctxRoads.filter(e => localGrades.has(e.id) || localLongRoads.has(e.id)));
+  const ownsRoadPoint = (e: RoadEdge, x: number, z: number) => !(localGrades.has(e.id) || localLongRoads.has(e.id)) || inTile(x, z);
   const ctxGrid = new Map<string, Surface[]>();
   const byBuilding = new Map<string, Building>();
   zone.buildings.forEach((b) => byBuilding.set(b.id, b));
@@ -124,18 +154,28 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const landmarkSurfaceGrid: LandmarkSurfaceGrid = new Map();
   const lamps: THREE.Vector3[] = [];
   const lampFixtures: LampFixture[] = [];
-  const streetLamp = (site: Parameters<typeof drawStreetLamp>[1]) => {
+  const metroLampClearance = metroStreetLampClearance(opts.metro);
+  const pendingStreetLamps: {site:Parameters<typeof drawStreetLamp>[1];emitter:THREE.Vector3;obstacle:boolean}[]=[];
+  const pendingParkLamps: {x:number;z:number;parts:StreetLampVolume[];emitter:THREE.Vector3}[]=[];
+  const streetLamp = (site: Parameters<typeof drawStreetLamp>[1], obstacle=false) => {
+    const road = roadsById.get(site.road);
+    if (road && railRoadGaps.blocked(site.x, site.z, road, .8)) return;
+    if (road && site.base === undefined) { const y = groundYAt(road, site.x, site.z); if (y) site = { ...site, base: y, surfaceY: y + (site.surfaceY || 0) }; }
     const base = site.base || 0;
     if (structureClearance.conflicts({ x: site.x, z: site.z, r: .2 }, base, base + (site.height || 9)).some(id => id !== site.road)) return;
-    const fixture = drawStreetLamp(B, site); lampFixtures.push(fixture); lamps.push(new THREE.Vector3(...fixture.head)); return fixture;
+    if (!metroLampClearance.clear(site)) return;
+    // Reserve spacing now, but wait for the actual building-fitted metro
+    // access plan before emitting any geometry, glow pool or pole collider.
+    const fixture=streetLampFixture(site),emitter=new THREE.Vector3(...fixture.head);lamps.push(emitter);
+    pendingStreetLamps.push({site,emitter,obstacle});return fixture;
   };
-  const obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>();
+  const obstacles = new Map<string, { x: number; z: number; r: number; top: number; bottom?: number }[]>();
   const structureSupports: StructureSupport[] = [], roadClearance = roadStructureClearance(zone.roads);
   const structureClearance = {
     clear: (p: import('./structure-clearance').StructureFootprint, bottom: number, top: number) => roadClearance.clear(p, bottom, top) && railway.clear(p, bottom, top),
     conflicts: (p: import('./structure-clearance').StructureFootprint, bottom: number, top: number) => [...roadClearance.conflicts(p, bottom, top), ...railway.conflicts(p, bottom, top)],
   };
-  const addObstacle = (x: number, z: number, r: number, top: number) => { const k = key(x, z); (obstacles.get(k) || obstacles.set(k, []).get(k)!).push({ x, z, r, top }); };
+  const addObstacle = (x: number, z: number, r: number, top: number, bottom = 0) => { const k = key(x, z); (obstacles.get(k) || obstacles.set(k, []).get(k)!).push({ x, z, r, top, ...(bottom ? { bottom } : {}) }); };
   const walls = new Map<string, Wall[]>();
   const addWall = (w: Wall) => {
     const L = Math.hypot(w.bx - w.ax, w.bz - w.az), n = Math.max(1, Math.ceil(L / 10)), ks = new Set<string>();
@@ -155,6 +195,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   }
 
   // ---------- parks / water ----------
+  const clipGroundArea = underpassAreaClipper(zone.roads);
   const parkPolys: XZ[][] = [], parkInfo: { ring: XZ[]; cls: string; name: string | null }[] = [], waterRings: XZ[][] = [];
   for (const a of zone.areas) {
     const green = a.kind === 'landuse' && /park|grass|garden|recreation|cemetery|meadow|pitch|playground|forest|stadium/.test(`${a.sub} ${a.cls}`);
@@ -165,7 +206,9 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const y = a.kind === 'water' ? 0.02 : 0.03;
     const b = a.kind === 'water' ? B.water : B.park;
     const col = a.kind === 'water' ? '#3f6f8f' : (/cemetery/.test(a.cls) ? '#7d8a5a' : '#5f8f45');
-    for (const t of tris) { const p0 = a.ring[t[0]], p1 = a.ring[t[1]], p2 = a.ring[t[2]]; b.tri([p0[0], y, p0[1]], [p2[0], y, p2[1]], [p1[0], y, p1[1]], col); }
+    for (const t of tris) for (const polygon of clipGroundArea([a.ring[t[0]], a.ring[t[2]], a.ring[t[1]]])) for (let k = 1; k < polygon.length - 1; k++) {
+      const p0 = polygon[0], p1 = polygon[k], p2 = polygon[k + 1]; b.tri([p0[0], y, p0[1]], [p1[0], y, p1[1]], [p2[0], y, p2[1]], col);
+    }
     if (green) { parkPolys.push(a.ring); parkInfo.push({ ring: a.ring, cls: `${a.sub} ${a.cls}`, name: a.name }); }
     else waterRings.push(a.ring);
   }
@@ -201,15 +244,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const parapets: { p: XZ; q: XZ; ea: number; eb: number; e: RoadEdge; segment: number }[] = [];
   const near = (x: number, z: number) => { const out: Surface[] = []; for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) { const k = `${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`; const a = surfaceGrid.get(k), b = ctxGrid.get(k); if (a) out.push(...a); if (b) out.push(...b); } return out; };
   const blocked = (x: number, z: number, own: any, pad = 0.3, hx = 0, hz = 0) => {
+    if (own?.pts && railRoadGaps.blocked(x, z, own, pad)) return true;
+    const ownY = own?.pts ? roadHeightAt(own, x, z) : 0;
     for (const s of near(x, z)) {
-      if (s.kind !== 'road' || !s.e || s.e === own) continue;
+      if (s.kind !== 'road' || !s.e || s.e === own || s.e.id === own?.id) continue;
       const ramp = s.ya > 0.3 || s.yb > 0.3 || (!!s.e?.elev && Math.max(...s.e.elev) > 1.2);   // any piece of a flyover or its ramps: blocks where a car on it would be low
       if (!ramp && (s.ya > 1.2 || s.yb > 1.2)) continue;
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
-      if (!ramp && (hx || hz) && !localExpressway(s.e) && Math.abs(dx * hx + dz * hz) / Math.sqrt(L2) > 0.94) continue;      // parallel ordinary carriageway, not a mapped ramp merge
+      if (!ramp && (hx || hz) && !localExpressway(s.e) && Math.abs(dx * hx + dz * hz) / Math.sqrt(L2) > 0.94 && !shareRoadJunction(own, s.e)) continue;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
-      if (ramp && s.ya + (s.yb - s.ya) * t > 2.4) continue;    // the deck passes high over this spot
-      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e!.w / 2 + pad) return true;
+      if (Math.abs(s.ya + (s.yb - s.ya) * t - ownY) > 2.4) continue;    // another road passes safely above or below this roadside feature
+      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e!) / 2 + pad) return true;
     }
     return false;
   };
@@ -220,7 +265,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       if (s.kind !== 'road' || !s.e || (s.ya <= 1.2 && s.yb <= 1.2)) continue;
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
-      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) > s.e.w / 2 + pad) continue;
+      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) > roadClearanceWidth(s.e) / 2 + pad) continue;
       const y = s.ya + (s.yb - s.ya) * t;
       if (y > 1.2 && (!best || y < best.y)) best = { y, s };
     }
@@ -234,15 +279,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
       const cx = s.ax + dx * t, cz = s.az + dz * t, d = Math.hypot(x - cx, z - cz);
-      if (d < s.e.w / 2 - 0.3 && (!best || d < best.d)) best = { e: s.e, d, cx, cz, w: s.e.w };
+      const width=roadPavementWidthAt(s.e,cx,cz);
+      if (d < width / 2 - 0.3 && (!best || d < best.d)) best = { e: s.e, d, cx, cz, w: width };
     }
     return best;
   };
   for (const e of renderRoads) {
     const y0 = ROAD_Y[e.cls] ?? 0.04;
     const elevAt = (i: number) => (e.elev ? e.elev[i] : 0);
-    // narrow over-bridges get a deck at least 8.4 m wide between the parapets, so a car can take their bends
-    const { hw, extra, outer, L, R, quads: roadQuads } = roadRibbon(e, zone.roads);
+    // The same finite pavement boundary drives drawing, support, and soffits.
+    const { hw, widths, extra, outer, L, R, quads: roadQuads } = roadRibbon(e, zone.roads);
+    const pavementLine=(side:number,offset:number):XZ[]=>e.joinedPavement?e.pts.map((p,i)=>{const edge=side>0?L[i]:R[i],scale=(widths[i]+offset)/(widths[i]||1);return[p[0]+(edge[0]-p[0])*scale,p[1]+(edge[1]-p[1])*scale];}):offsetLine(e.pts,side*(hw+offset));
     const pierSites = new Map<number, BridgeSupportSite[]>();
     for (const site of bridgeSupportPlan(zone.roads).get(e) || []) (pierSites.get(site.i) || pierSites.set(site.i, []).get(site.i)!).push(site);
     let v = 0;
@@ -250,13 +297,20 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const seg = Math.hypot(e.pts[i + 1][0] - e.pts[i][0], e.pts[i + 1][1] - e.pts[i][1]);
       const ya = elevAt(i) + y0, yb = elevAt(i + 1) + y0;
       const v1 = v + seg / 6;
-      if (!ownsRoadPoint(e, (e.pts[i][0] + e.pts[i + 1][0]) / 2, (e.pts[i][1] + e.pts[i + 1][1]) / 2)) { v = v1; continue; }
-      B.road.quad([R[i][0], ya, R[i][1]], [R[i + 1][0], yb, R[i + 1][1]], [L[i + 1][0], yb, L[i + 1][1]], [L[i][0], ya, L[i][1]], '#ffffff',
+      const localQuads = localLongRoads.has(e.id) ? clipRoadQuadToTile(roadQuads[i], zone.i, zone.j) : null;
+      if (localQuads ? !localQuads.length : !ownsRoadPoint(e, (e.pts[i][0] + e.pts[i + 1][0]) / 2, (e.pts[i][1] + e.pts[i + 1][1]) / 2)) { v = v1; continue; }
+      if (localQuads) for (const quad of localQuads) B.road.quad(...quad.map(p => [p[0], p[1] + y0, p[2]]) as [number[], number[], number[], number[]], '#ffffff', quad.map(p => [p[0] / 6, p[2] / 6]));
+      else B.road.quad([R[i][0], ya, R[i][1]], [R[i + 1][0], yb, R[i + 1][1]], [L[i + 1][0], yb, L[i + 1][1]], [L[i][0], ya, L[i][1]], '#ffffff',
         [[0, v], [0, v1], [e.w / 6, v1], [e.w / 6, v]]);
       v = v1;
       // collision/drive surface
-      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: hw + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road', roadQuad: roadQuads[i], paintLift: y0 };
-      addSurface(surfaceGrid, s);
+      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: Math.max(widths[i],widths[i+1]) + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road', roadQuad: roadQuads[i], paintLift: y0 };
+      if (localQuads) for (const quad of localQuads) {
+        // A clipped triangle can begin with its short transverse edge. Index
+        // its longest edge so the far end remains discoverable by supportAt.
+        const pair = [[0, 1], [1, 2], [2, 0]].sort((a, b) => Math.hypot(quad[b[0]][0] - quad[b[1]][0], quad[b[0]][2] - quad[b[1]][2]) - Math.hypot(quad[a[0]][0] - quad[a[1]][0], quad[a[0]][2] - quad[a[1]][2]))[0], a = quad[pair[0]], b = quad[pair[1]];
+        addSurface(surfaceGrid, { ...s, ax: a[0], az: a[2], bx: b[0], bz: b[2], ya: a[1], yb: b[1], roadQuad: quad });
+      } else addSurface(surfaceGrid, s);
       // elevated deck: soffit, parapets, piers
       const ea = elevAt(i), eb = elevAt(i + 1);
       if (ea > 1.2 || eb > 1.2) {
@@ -274,10 +328,11 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         for (const site of pierSites.get(i) || []) {
           const { x, z, h, hx, hz } = site;
           if (!ownsRoadPoint(e, x, z)) continue;
-          const footprint = { x, z, r: .8 }, cap = { x, z, hx, hz, hw: Math.min(e.w, 9) / 2, hl: .8 };
+          const capWidth = Math.min(roadSupportWidthAt(e,x,z),9);
+          const footprint = { x, z, r: .8 }, cap = { x, z, hx, hz, hw: capWidth / 2, hl: .8 };
           if (!structureClearance.clear(footprint, 0, h) || !structureClearance.clear(cap, h - .7, h)) continue;
           B.st.add(TPL.cyl, x, h / 2, z, 0.75, h, 0.75, '#bdb8c8', { ao: true, aoH: 3 }); addObstacle(x, z, 0.8, h);
-          B.st.box(x, h - 0.35, z, Math.min(e.w, 9), 0.7, 1.6, '#c4bfcf', { ry: Math.atan2(hx, hz) });
+          B.st.box(x, h - 0.35, z, capWidth, 0.7, 1.6, '#c4bfcf', { ry: Math.atan2(hx, hz) });
           structureSupports.push({ source: e.id, sourceIds: site.sources, part: 'bridge', footprint, bottom: 0, top: h, cap: { footprint: cap, bottom: h - .7, top: h } });
         }
       }
@@ -286,11 +341,19 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const centreMedian = hasCentreMedian(e);
     // lane markings
     if (!opts.lowQ || MAJOR.has(e.cls) || MOTORWAY.has(e.cls)) {
-      const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6) => {
+      const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6, keep?: (i: number) => boolean) => {
         let acc = 0;
+        // Continuous yellow boundaries share their exact cross-section at a
+        // bend instead of leaving a wedge between two separately capped strips.
+        const joinedStroke = off === 0 ? continuousPaintStroke(pts, wid) : null;
+        const emit = (polygon: XZ[], segment: number) => {
+          for(const strip of paintOnRoad(polygon,roadQuads[segment],y0+.012))
+            for(const q of localLongRoads.has(e.id)?clipRoadQuadToTile(strip,zone.i,zone.j):[strip])B.marks.tri(q[0],q[1],q[2],col);
+        };
         for (let i = 0; i < pts.length - 1; i++) {
           const ax = pts[i][0], az = pts[i][1], bx = pts[i + 1][0], bz = pts[i + 1][1];
           const L2 = Math.hypot(bx - ax, bz - az); if (L2 < 0.01) continue;
+          if (keep && !keep(i)) { acc += L2; continue; }
           const dx = (bx - ax) / L2, dz = (bz - az) / L2, ang = Math.atan2(dx, dz);
           for (let d = 0; d < L2 - 1e-6;) {
             const phase = (acc + d) % (on + off);
@@ -298,35 +361,49 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
             const len = Math.min(off === 0 ? L2 - d : on - phase, L2 - d);
             if (len <= 1e-6) { d += .00001; continue; }
             const mx = ax + dx * (d + len / 2), mz = az + dz * (d + len / 2);
-            if (!ownsRoadPoint(e, mx, mz)) { d += len; continue; }
+            if (!localLongRoads.has(e.id) && !ownsRoadPoint(e, mx, mz)) { d += len; continue; }
             const x0 = ax + dx * d, z0 = az + dz * d, x1 = ax + dx * (d + len), z1 = az + dz * (d + len), nx = -dz * wid / 2, nz = dx * wid / 2;
-            const vertex = (x: number, z: number) => {
-              const a = e.pts[i], b = e.pts[i + 1], ex = b[0] - a[0], ez = b[1] - a[1];
-              const u = Math.max(0, Math.min(1, ((x - a[0]) * ex + (z - a[1]) * ez) / (ex * ex + ez * ez || 1)));
-              return [x, (roadQuadHeight(roadQuads[i], x, z) ?? elevAt(i) + (elevAt(i + 1) - elevAt(i)) * u) + y0 + .012, z];
-            };
             // Paint is a film following the asphalt triangles, never a row of
             // horizontal boxes protruding from a descending flyover.
-            B.marks.quad(vertex(x0 + nx, z0 + nz), vertex(x1 + nx, z1 + nz), vertex(x1 - nx, z1 - nz), vertex(x0 - nx, z0 - nz), col);
+            const stroke=joinedStroke?.segments[i];
+            const strip:XZ[]=stroke ? [stroke.left0,stroke.left1,stroke.right1,stroke.right0] : [[x0+nx,z0+nz],[x1+nx,z1+nz],[x1-nx,z1-nz],[x0-nx,z0-nz]];
+            // Continuous edge paint may span kilometres. Its source midpoint
+            // cannot assign the whole strip to one tile after asphalt is local.
+            emit(strip,i);
             d += len;
           }
           acc += L2;
         }
+        for(const bevel of joinedStroke?.bevels||[]) {
+          if(!localLongRoads.has(e.id)&&!ownsRoadPoint(e,...pts[bevel.index]))continue;
+          for(const segment of [bevel.index-1,bevel.index])emit(bevel.points,segment);
+        }
       };
       if (e.w >= 7.5 && !e.oneway && !centreMedian) dash(e.pts, '#ecebf0', 0.14);
-      if (e.oneway && e.w >= 7 && !e.workZone) {
+      if (e.oneway && (e.w >= 7 || e.joinedPavement?.usableLanes && e.joinedPavement.originalWidth >= 7) && !e.workZone) {
         // one dashed line between each pair of lanes (ORR and the expressways run four lanes a side)
-        const nl = e.expressway?.controlled ? e.expressway.throughLanes : Math.max(2, Math.round(e.w / 3.3));
-        for (let k = 1; k < nl; k++) {
-          const off = e.expressway?.controlled ? travelDirection(e) * (-hw + (e.expressway.shoulders?.[0] || 0) + k * (e.expressway.laneWidth || 3.5)) : -hw + k * e.w / nl;
-          dash(nl === 2 ? e.pts : offsetLine(e.pts, off), '#ecebf0', 0.14, MOTORWAY.has(e.cls) ? 4.5 : 3, MOTORWAY.has(e.cls) ? 7.5 : 6);
+        if (e.joinedPavement?.usableLanes && !e.expressway?.controlled) {
+          let along = 0;
+          const counts = e.pts.map((p, i) => { if(i)along+=Math.hypot(p[0]-e.pts[i-1][0],p[1]-e.pts[i-1][1]);return roadPavementLanes(e,along); });
+          for(let k=1;k<Math.max(...counts);k++){
+            const line: XZ[] = e.pts.map((p,i)=>{const offset=-widths[i]+2*widths[i]*k/counts[i];return[p[0]+(L[i][0]-p[0])*offset/(widths[i]||1),p[1]+(L[i][1]-p[1])*offset/(widths[i]||1)];});
+            // A source lane-count boundary ends a stripe; do not draw a short
+            // diagonal joining unrelated divider positions across that change.
+            dash(line,'#ecebf0',.14,MOTORWAY.has(e.cls)?4.5:3,MOTORWAY.has(e.cls)?7.5:6,i=>counts[i]===counts[i+1]&&k<counts[i]);
+          }
+        } else {
+          const nl = e.expressway?.controlled ? e.expressway.throughLanes : Math.max(2, Math.round(e.w / 3.3));
+          for (let k = 1; k < nl; k++) {
+            const off = e.expressway?.controlled ? travelDirection(e) * (-hw + (e.expressway.shoulders?.[0] || 0) + k * (e.expressway.laneWidth || 3.5)) : -hw + k * e.w / nl;
+            dash(nl === 2 ? e.pts : offsetLine(e.pts, off), '#ecebf0', 0.14, MOTORWAY.has(e.cls) ? 4.5 : 3, MOTORWAY.has(e.cls) ? 7.5 : 6);
+          }
         }
       }
       if (MOTORWAY.has(e.cls)) {
-        dash(offsetLine(e.pts, (hw - .45) * travelDirection(e)), '#e8c84a', .16, 50, 0);
-        dash(isORR(e) ? (outer === -1 ? R : L) : offsetLine(e.pts, -(hw - .45) * travelDirection(e)), '#f4f2f6', .16, 50, 0);
+        dash(e.joinedPavement?pavementLine(-travelDirection(e),-.45):offsetLine(e.pts, (hw - .45) * travelDirection(e)), '#e8c84a', .16, 50, 0);
+        dash(isORR(e) ? (outer === -1 ? R : L) : e.joinedPavement?pavementLine(travelDirection(e),-.45):offsetLine(e.pts, -(hw - .45) * travelDirection(e)), '#f4f2f6', .16, 50, 0);
       }
-      if (MAJOR.has(e.cls) && e.w >= 9) { dash(offsetLine(e.pts, hw - 0.35), '#d9c25a', 0.12, 50, 0); dash(offsetLine(e.pts, -hw + 0.35), '#d9c25a', 0.12, 50, 0); }
+      if (MAJOR.has(e.cls) && (e.w >= 9||e.joinedPavement)) { dash(pavementLine(1,-.35), '#d9c25a', 0.12, 50, 0); dash(pavementLine(-1,-.35), '#d9c25a', 0.12, 50, 0); }
     }
     // ORR and expressways at ground level: steel crash barriers on both sides (open wherever another road joins or
     // crosses), a planted strip along the median side, and lamps on the median side
@@ -348,7 +425,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
                 const ya = span.ya + (span.yb - span.ya) * u0, yb = span.ya + (span.yb - span.ya) * u1;
                 B.st.box((x0 + x1) / 2, (ya + yb) / 2 + .62, (z0 + z1) / 2, 0.08, 0.32, Math.hypot(ll, yb - ya), '#b7bcc4', { ry: ang, rx: -Math.atan2(yb - ya, ll) });
                 for (let q = 0; q <= Math.floor(ll / 4); q++) { const u = q / Math.max(1, Math.floor(ll / 4)); B.st.box(x0 + (x1 - x0) * u, ya + (yb - ya) * u + .38, z0 + (z1 - z0) * u, .1, .76, .1, '#8f949c'); }
-                addWall({ ax: x0, az: z0, bx: x1, bz: z1, y0a: ya - 1, y0b: yb - 1, y1a: ya + .85, y1b: yb + .85, kind: 'median',
+                addWall({ ax: x0, az: z0, bx: x1, bz: z1, y0a: ya, y0b: yb, y1a: ya + .85, y1b: yb + .85, kind: 'median',
                   ...(localExpressway(e) ? { expresswayRoad: e.id } : {}) } as Wall & { expresswayRoad?: string });
               }
               run = -1;
@@ -356,7 +433,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
             for (let k = 0; k < n; k++) {
               const u = (k + .5) / n, x = ax + (bx - ax) * u, z = az + (bz - az) * u;
               if (!ownsRoadPoint(e, x, z)) { flush(k); continue; }
-              const opening = localExpressway(e) ? false : blocked(x, z, e, .4);
+              const opening = railRoadGaps.spanBlocked(ax + (bx - ax) * k / n, az + (bz - az) * k / n, ax + (bx - ax) * (k + 1) / n, az + (bz - az) * (k + 1) / n, e, .4) || (!localExpressway(e) && blocked(x, z, e, .4));
               if (opening) flush(k); else if (run < 0) run = k;
             }
             flush(n);
@@ -364,15 +441,15 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         }
         // median shrubs and lamps
         if (median && !opts.lowQ) {
-          const sl = offsetLine(e.pts, side * (hw + 1.6)); let acc = hash(e.id) % 40;
+          const sl = pavementLine(side,1.6); let acc = hash(e.id) % 40;
           for (let i = 0; i < sl.length - 1; i++) {
             const ax = sl[i][0], az = sl[i][1], bx = sl[i + 1][0], bz = sl[i + 1][1], L2 = Math.hypot(bx - ax, bz - az), ang = Math.atan2(bx - ax, bz - az);
-            for (let d = 0; d < L2; d += 7) { const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2; if (ownsRoadPoint(e, x, z) && elevAt(i) < .1 && !blocked(x, z, e, .6)) B.st.add(TPL.ico0, x, .6, z, .75, .6, .75, ['#4e7d33', '#5c8f3a', '#6fa14a'][Math.floor(d) % 3]); }
+            for (let d = 0; d < L2; d += 7) { const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2; if (ownsRoadPoint(e, x, z) && elevAt(i) < .1 && !blocked(x, z, e, .6)) B.st.add(TPL.ico0, x, groundYAt(e, x, z) + .6, z, .75, .6, .75, ['#4e7d33', '#5c8f3a', '#6fa14a'][Math.floor(d) % 3]); }
             for (let d = 40 - acc; d < L2; d += 40) {
               const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2;
               if (!ownsRoadPoint(e, x, z) || elevAt(i) > .1) continue;
               if (blocked(x, z, e, 0.8)) continue;
-              if (streetLamp({ road: e.id, kind: 'median', x, z, inwardX: Math.cos(ang) * side, inwardZ: -Math.sin(ang) * side, height: 10, reach: 2.6, surfaceY: y0 })) addObstacle(x, z, 0.2, 10);
+              streetLamp({ road: e.id, kind: 'median', x, z, inwardX: Math.cos(ang) * side, inwardZ: -Math.sin(ang) * side, height: 10, reach: 2.6, surfaceY: y0 },true);
             }
             acc = (acc + L2) % 40;
           }
@@ -382,7 +459,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     // flyover lamps: on the parapet, every ~35 m, arm reaching over the carriageway
     if (elevated && (MAJOR.has(e.cls) || MOTORWAY.has(e.cls))) late.push(() => {
       const sd = e.oneway === 'backward' ? 1 : -1;           // the left parapet in the direction of travel
-      const lp = offsetLine(e.pts, sd * (hw + 0.15));
+      const lp = pavementLine(sd,.15);
       let acc = hash(e.id) % 35;
       for (let i = 0; i < lp.length - 1; i++) {
         const ax = lp[i][0], az = lp[i][1], bx = lp[i + 1][0], bz = lp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
@@ -408,13 +485,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         let run: { a: number[]; b: number[]; d0: number; d1: number; ang: number } | null = null;
         const flush = () => {
           if (!run) return;
-          const { a, b, d0, d1 } = run; const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1;
-          const nx = (-dz / L) * wid / 2, nz = (dx / L) * wid / 2;
-          const p0 = [a[0] - nx, a[1] - nz], p1 = [b[0] - nx, b[1] - nz], q0 = [a[0] + nx, a[1] + nz], q1 = [b[0] + nx, b[1] + nz];
-          const uv = [[d0, 0], [d1, 0], [d1, 1], [d0, 1]];
-          B.kerb.quad([p0[0], hgt, p0[1]], [p1[0], hgt, p1[1]], [q1[0], hgt, q1[1]], [q0[0], hgt, q0[1]], pattern[0], uv);
-          B.kerb.quad([p0[0], 0, p0[1]], [p1[0], 0, p1[1]], [p1[0], hgt, p1[1]], [p0[0], hgt, p0[1]], pattern[0], uv);
-          B.kerb.quad([q1[0], 0, q1[1]], [q0[0], 0, q0[1]], [q0[0], hgt, q0[1]], [q1[0], hgt, q1[1]], pattern[0], [[d1, 0], [d0, 0], [d0, 1], [d1, 1]]);
+          const { a, b, d0, d1 } = run, ya = groundYAt(e, a[0], a[1]), yb = groundYAt(e, b[0], b[1]);
+          drawClosedDivider(B.kerb, a, b, wid, hgt, ya, yb, pattern[0], dividerStripeDistance(d0,total), dividerStripeDistance(d1,total));
           run = null;
         };
         for (let i = 0; i < pts.length - 1; i++) {
@@ -426,13 +498,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
             along += L2 / n;
             const x0 = ax + (bx - ax) * u0, z0 = az + (bz - az) * u0, x1 = ax + (bx - ax) * u1, z1 = az + (bz - az) * u1;
             const dm = dist + L2 * u;
-            const skip = (uturns && along % 240 < 12) || dm < trimA || dm > total - trimB || blocked(ax + (bx - ax) * u, az + (bz - az) * u, e, 0.3, kind === 'median' ? (bx - ax) / (L2 || 1) : 0, kind === 'median' ? (bz - az) / (L2 || 1) : 0);
+            if (!ownsRoadPoint(e, (x0 + x1) / 2, (z0 + z1) / 2)) { flush(); continue; }
+            const skip = railRoadGaps.spanBlocked(x0, z0, x1, z1, e, wid / 2 + .1) || (uturns && along % 240 < 12) || dm < trimA || dm > total - trimB || blocked(ax + (bx - ax) * u, az + (bz - az) * u, e, 0.3, kind === 'median' ? (bx - ax) / (L2 || 1) : 0, kind === 'median' ? (bz - az) / (L2 || 1) : 0);
             if (skip) { flush(); continue; }
             if (!run) run = { a: [x0, z0], b: [x1, z1], d0: dist + L2 * u0, d1: dist + L2 * u1, ang: 0 };
             else { run.b = [x1, z1]; run.d1 = dist + L2 * u1; }
             if (kind) {
-              const top = kind === 'kerb' ? hgt : 1.0;
-              addWall({ ax: x0, az: z0, bx: x1, bz: z1, y0a: -1, y0b: -1, y1a: top, y1b: top, kind });
+              // Collision must end at the painted curb, including while a
+              // shallow Jump passes above it. No invisible metre-high wall.
+              const top = hgt;
+              const ya = groundYAt(e, x0, z0), yb = groundYAt(e, x1, z1);
+              addWall({ ax: x0, az: z0, bx: x1, bz: z1, y0a: ya, y0b: yb, y1a: ya + top, y1b: yb + top, kind });
             }
           }
           flush();               // runs follow one polyline segment, so bends stay crisp
@@ -445,50 +521,53 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const flush = (k1: number) => {
           if (k0 < 0) return;
           const u0 = k0 / n, u1 = k1 / n, len = L2 * (u1 - u0);
-          B.foot.add(TPL.box, ax + (bx - ax) * (u0 + u1) / 2, 0.1, az + (bz - az) * (u0 + u1) / 2, wid, 0.2, len + 0.1, '#ffffff', { ry, uvScale: [0.6, len / 4] });
+          const ya = groundYAt(e, ax + (bx - ax) * u0, az + (bz - az) * u0), yb = groundYAt(e, ax + (bx - ax) * u1, az + (bz - az) * u1);
+          B.foot.add(TPL.box, ax + (bx - ax) * (u0 + u1) / 2, (ya + yb) / 2 + 0.1, az + (bz - az) * (u0 + u1) / 2, wid, 0.2, Math.hypot(len, yb - ya) + 0.1, '#ffffff', { ry, rx: -Math.atan2(yb - ya, len), uvScale: [0.6, len / 4] });
           k0 = -1;
         };
         for (let k = 0; k < n; k++) {
           const u = (k + 0.5) / n;
-          if (blocked(ax + (bx - ax) * u, az + (bz - az) * u, e, 0.6)) flush(k); else if (k0 < 0) k0 = k;
+          if (!ownsRoadPoint(e, ax + (bx - ax) * u, az + (bz - az) * u)) { flush(k); continue; }
+          if (railRoadGaps.spanBlocked(ax + (bx - ax) * k / n, az + (bz - az) * k / n, ax + (bx - ax) * (k + 1) / n, az + (bz - az) * (k + 1) / n, e, wid / 2 + .1) || blocked(ax + (bx - ax) * u, az + (bz - az) * u, e, 0.6)) flush(k); else if (k0 < 0) k0 = k;
         }
         flush(n);
       };
       if (e.oneway) {
-        curb(offsetLine(e.pts, sideRight * (hw + 0.2)), 0.4, 0.42, ['#FFC21A', '#1b1a1f'], 1, 'median');
+        curb(pavementLine(sideRight,.2), 0.4, 0.42, ['#FFC21A', '#1b1a1f'], 1, 'median');
         if (!opts.lowQ) {
-          const fp = offsetLine(e.pts, -sideRight * (hw + 1.2));
+          const fp = pavementLine(-sideRight,1.2);
           for (let i = 0; i < fp.length - 1; i++) {
             const ax = fp[i][0], az = fp[i][1], bx = fp[i + 1][0], bz = fp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
             footRun(ax, az, bx, bz, L2, 2.2);
           }
-          curb(offsetLine(e.pts, -sideRight * (hw + 0.1)), 0.22, 0.26, ['#f1eff4', '#232129'], 1, 'kerb');
-          { const wp = trimPath(offsetLine(e.pts, -sideRight * (hw + 1.2)), e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: (-sideRight) as 1 | -1 }); }
+          curb(pavementLine(-sideRight,.1), 0.22, 0.26, ['#f1eff4', '#232129'], 1, 'kerb');
+          { const wp = trimPath(pavementLine(-sideRight,1.2), e); for (const pts of localLongRoads.has(e.id) ? clipRoadPathToTile(wp, zone.i, zone.j) : [wp]) if (pts.length >= 2) walkPaths.push({ pts, edge: e.id, side: (-sideRight) as 1 | -1 }); }
         }
       } else if (e.cls !== 'tertiary' || e.w >= 8) {
         if (centreMedian) {
           curb(e.pts, 0.9, 0.36, ['#FFC21A', '#1b1a1f'], 1.2, 'median', true);
           // shrubs in the median
-          if (!opts.lowQ) { let acc = hash(e.id + 'm') % 9; for (let i = 0; i < e.pts.length - 1; i++) { const ax = e.pts[i][0], az = e.pts[i][1], bx = e.pts[i + 1][0], bz = e.pts[i + 1][1], L2 = Math.hypot(bx - ax, bz - az); for (let d = 9 - acc; d < L2; d += 9) { const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2; if (!blocked(x, z, e)) B.st.add(TPL.ico0, x, 0.75, z, 0.45, 0.45, 0.45, ['#4e7d33', '#5c8f3a', '#6fa14a'][Math.floor(d) % 3]); } acc = (acc + L2) % 9; } }
+          if (!opts.lowQ) { let acc = hash(e.id + 'm') % 9; for (let i = 0; i < e.pts.length - 1; i++) { const ax = e.pts[i][0], az = e.pts[i][1], bx = e.pts[i + 1][0], bz = e.pts[i + 1][1], L2 = Math.hypot(bx - ax, bz - az); for (let d = 9 - acc; d < L2; d += 9) { const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2; if (ownsRoadPoint(e, x, z) && !blocked(x, z, e)) B.st.add(TPL.ico0, x, groundYAt(e, x, z) + 0.75, z, 0.45, 0.45, 0.45, ['#4e7d33', '#5c8f3a', '#6fa14a'][Math.floor(d) % 3]); } acc = (acc + L2) % 9; } }
         }
         for (const sgn of [1, -1]) {
           if (opts.lowQ) break;
-          const fp = offsetLine(e.pts, sgn * (hw + 1.1));
+          const fp = pavementLine(sgn,1.1);
           for (let i = 0; i < fp.length - 1; i++) {
             const ax = fp[i][0], az = fp[i][1], bx = fp[i + 1][0], bz = fp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
             footRun(ax, az, bx, bz, L2, 2.0);
           }
-          curb(offsetLine(e.pts, sgn * (hw + 0.05)), 0.2, 0.25, ['#f1eff4', '#232129'], 1, 'kerb');
-          { const wp = trimPath(fp, e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: sgn as 1 | -1 }); }
+          curb(pavementLine(sgn,.05), 0.2, 0.25, ['#f1eff4', '#232129'], 1, 'kerb');
+          { const wp = trimPath(fp, e); for (const pts of localLongRoads.has(e.id) ? clipRoadPathToTile(wp, zone.i, zone.j) : [wp]) if (pts.length >= 2) walkPaths.push({ pts, edge: e.id, side: sgn as 1 | -1 }); }
         }
       }
       // street lamps along major roads, every ~30 m, on the left kerb
-      const lp = offsetLine(e.pts, (e.oneway ? sideRight : 1) * (hw + (e.oneway ? 0.2 : 0.4)));
+      const lp = pavementLine(e.oneway ? sideRight : 1,e.oneway ? .2 : .4);
       let acc = hash(e.id) % 30;
       for (let i = 0; i < lp.length - 1; i++) {
         const ax = lp[i][0], az = lp[i][1], bx = lp[i + 1][0], bz = lp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
         for (let d = 30 - acc; d < L2; d += 30) {
           const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2;
+          if (!ownsRoadPoint(e, x, z)) continue;
           if (blocked(x, z, e, 0.8) || deckOver(x, z, 2)) continue;     // no poles punching up through a flyover
           const ang = Math.atan2(bx - ax, bz - az);
           const side = e.oneway ? sideRight : 1;
@@ -505,7 +584,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   for (const e of zone.roads) for (const [node, i, j] of [[e.from, 0, 1], [e.to, e.pts.length - 1, e.pts.length - 2]] as [string | null, number, number][]) {
     if (!node || !e.pts[i] || !e.pts[j] || !inTile(...e.pts[i])) continue;
     const p = e.pts[i], q = e.pts[j], length = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1;
-    const width = e.elev?.some(y => y > 1.2) ? Math.max(e.w / 2, 4.2) : e.w / 2, extra = auxiliaryLane(e, zone.roads)[i] || 0, outer = -travelDirection(e);
+    const endDistance=i===0?0:e.pts.slice(1).reduce((s,p,n)=>s+Math.hypot(p[0]-e.pts[n][0],p[1]-e.pts[n][1]),0);
+    const width = roadPavementWidth(e,endDistance)/2, extra = auxiliaryLane(e, zone.roads)[i] || 0, outer = -travelDirection(e);
     const direction = i === 0 ? 1 : -1, dx = (q[0] - p[0]) / length * direction, dz = (q[1] - p[1]) / length * direction;
     const edge = (side: number): XZ => [p[0] - dz * side * (width + (side === outer ? extra : 0)), p[1] + dx * side * (width + (side === outer ? extra : 0))];
     (caps.get(node) || caps.set(node, []).get(node)!).push({ e, i: Math.min(i, e.pts.length - 2), y: e.elev?.[i] || 0, pts: [edge(1), edge(-1)] });
@@ -964,7 +1044,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const [x, y, z] = a.pole, face = Math.atan2(-a.hx, -a.hz);
     B.st.box(x, y + 2.9, z, .18, 5.8, .18, '#2f2d36');
     B.st.box(x, y + 5.3, z, .5, 1.25, .4, '#141317', { ry: face });
-    if (y <= 1.5) addObstacle(x, z, .12, y + 5.8);
+    if (y <= 1.5) addObstacle(x, z, .12, y + 5.8, y);
     else addWall({ ax: x - .12, az: z, bx: x + .12, bz: z, y0a: y, y0b: y, y1a: y + 5.8, y1b: y + 5.8, kind: 'rail' });
     // The white stop bar and NPC nose use this same approach stop position.
     const paint = a.paint.map(p => [p[0], p[1] + .11, p[2]]);
@@ -973,7 +1053,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // market streets (side streets lined with shops) get walking strips along their edges for the crowds
   if (!opts.lowQ) for (const e of ownRoads) {
     if (!STREETS.has(e.cls) || (e.elev && Math.max(...e.elev) > 1.2) || (unitsByEdge.get(e.id) || 0) < 3) continue;
-    for (const sgn of [1, -1] as (1 | -1)[]) { const wp = trimPath(offsetLine(e.pts, sgn * (e.w / 2 + 0.7)), e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: sgn }); }
+    for (const sgn of [1, -1] as (1 | -1)[]) { const wp = trimPath(e.joinedPavement?e.pts.map((p,i)=>{const a=e.pts[Math.max(0,i-1)],b=e.pts[Math.min(e.pts.length-1,i+1)],length=Math.hypot(b[0]-a[0],b[1]-a[1])||1,off=sgn*(roadPavementWidthAt(e,...p)/2+.7);return[p[0]-(b[1]-a[1])/length*off,p[1]+(b[0]-a[0])/length*off] as XZ;}):offsetLine(e.pts, sgn * (e.w / 2 + 0.7)), e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: sgn }); }
   }
   for (const f of zone.furniture) {
     const [x, z] = f.p;
@@ -994,38 +1074,40 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const cx = a[0] + (b2[0] - a[0]) * best.t, cz = a[1] + (b2[1] - a[1]) * best.t;
       const side: 1 | -1 = (x - cx) * hz + (z - cz) * -hx >= 0 ? 1 : -1;          // left of the edge direction = (hz, -hx)
       const lx = hz * side, lz = -hx * side;
-      const off = e.w / 2 + 1.7, sx = cx + lx * off, sz = cz + lz * off, ang = Math.atan2(hx, hz);
+      const off = roadClearanceWidth(e) / 2 + 1.7 + (depressedRoads.has(e) ? .15 : 0), sx = cx + lx * off, sz = cz + lz * off, ang = Math.atan2(hx, hz);
+      const base = groundYAt(e, sx, sz);
       if (busStops.some((q) => Math.hypot(q.x - sx, q.z - sz) < 12)) continue;
-      if (!structureClearance.clear({ x: sx, z: sz, hx, hz, hw: 1.25, hl: 3.2 }, 0, 3.4)) continue;
+      if (!structureClearance.clear({ x: sx, z: sz, hx, hz, hw: 1.25, hl: 3.2 }, base, base + 3.4)) continue;
       let along = 0; for (let k = 0; k < best.i; k++) along += Math.hypot(e.pts[k + 1][0] - e.pts[k][0], e.pts[k + 1][1] - e.pts[k][1]);
       along += L * best.t;
       busStops.push({ edge: e.id, s: along, side, x: cx + lx * (e.w / 2 - 1.5), z: cz + lz * (e.w / 2 - 1.5), hx, hz });
       const P = (u: number, v: number): [number, number] => [sx + hx * u + lx * v, sz + hz * u + lz * v];   // u along the road, v away from it
-      let q = P(0, 0); B.st.box(q[0], 2.65, q[1], 2.3, 0.12, 5.2, '#2E66C9', { ry: ang });              // roof
-      q = P(0, 0.95); B.st.box(q[0], 1.45, q[1], 0.06, 2.2, 4.8, '#d9dde6', { ry: ang });              // back panel
-      q = P(0, 0.9); B.st.box(q[0], 1.6, q[1], 0.03, 1.1, 2.6, '#FFB627', { ry: ang });                // advert
-      for (const u of [-2.4, 2.4]) { q = P(u, 0.85); B.st.box(q[0], 1.3, q[1], 0.1, 2.6, 0.1, '#9aa0ab', { ry: ang }); q = P(u, -0.95); B.st.box(q[0], 1.3, q[1], 0.08, 2.6, 0.08, '#9aa0ab', { ry: ang }); }
-      q = P(0, 0.45); B.st.box(q[0], 0.55, q[1], 0.45, 0.08, 4.2, '#9aa0ab', { ry: ang });             // bench
+      let q = P(0, 0); B.st.box(q[0], base + 2.65, q[1], 2.3, 0.12, 5.2, '#2E66C9', { ry: ang });              // roof
+      q = P(0, 0.95); B.st.box(q[0], base + 1.45, q[1], 0.06, 2.2, 4.8, '#d9dde6', { ry: ang });              // back panel
+      q = P(0, 0.9); B.st.box(q[0], base + 1.6, q[1], 0.03, 1.1, 2.6, '#FFB627', { ry: ang });                // advert
+      for (const u of [-2.4, 2.4]) { q = P(u, 0.85); B.st.box(q[0], base + 1.3, q[1], 0.1, 2.6, 0.1, '#9aa0ab', { ry: ang }); q = P(u, -0.95); B.st.box(q[0], base + 1.3, q[1], 0.08, 2.6, 0.08, '#9aa0ab', { ry: ang }); }
+      q = P(0, 0.45); B.st.box(q[0], base + 0.55, q[1], 0.45, 0.08, 4.2, '#9aa0ab', { ry: ang });             // bench
+      drawShelterPresentation(sx, sz, hx, hz, lx, lz, base, B, streetDetailBudget);
       // the stop's name from OpenStreetMap on a board above the roof edge
       { let nmB = '', bdB = 45; for (const o of zone.osm || []) { if (o.k !== 'bus_stop' || !o.p || !o.t.name) continue; const d = Math.hypot(o.p[0] - sx, o.p[1] - sz); if (d < bdB && !/^bus ?stop$/i.test(o.t.name)) { bdB = d; nmB = o.t.name; } }
-        if (nmB) { q = P(0, -1.05); B.st.box(q[0], 3.05, q[1], 0.06, 0.6, 3.4, '#1f5fae', { ry: ang });
-          signs.push({ id: `bs_${f.p.join(',')}`, text: nmB.toUpperCase().replace(/\s*BUS ?STOP\s*$/i, '').slice(0, 26), bg: '#1f5fae', fg: '#ffffff', c: [q[0] - lx * 0.04, 3.05, q[1] - lz * 0.04], right: [-lz, 0, lx], up: [0, 1, 0], w: 3.2, h: 0.5 }); } }
-      q = P(2.9, -0.9); B.st.add(TPL.cyl, q[0], 1.4, q[1], 0.05, 2.8, 0.05, '#6f6a76'); B.st.box(q[0], 2.75, q[1], 0.06, 0.5, 0.5, '#E8413A', { ry: ang });
+        if (nmB) { q = P(0, -1.05); B.st.box(q[0], base + 3.05, q[1], 0.06, 0.6, 3.4, '#1f5fae', { ry: ang });
+          signs.push({ id: `bs_${f.p.join(',')}`, text: nmB.toUpperCase().replace(/\s*BUS ?STOP\s*$/i, '').slice(0, 26), bg: '#1f5fae', fg: '#ffffff', c: [q[0] - lx * 0.04, base + 3.05, q[1] - lz * 0.04], right: [-lz, 0, lx], up: [0, 1, 0], w: 3.2, h: 0.5 }); } }
+      q = P(2.9, -0.9); B.st.add(TPL.cyl, q[0], base + 1.4, q[1], 0.05, 2.8, 0.05, '#6f6a76'); B.st.box(q[0], base + 2.75, q[1], 0.06, 0.5, 0.5, '#E8413A', { ry: ang });
       const k0 = P(-2.6, 0), k1 = P(2.6, 0);
-      const pad: Surface = { e: null, i: 0, ax: k0[0], az: k0[1], bx: k1[0], bz: k1[1], ya: 2.71, yb: 2.71, hw: 1.1, kind: 'pad' };
+      const pad: Surface = { e: null, i: 0, ax: k0[0], az: k0[1], bx: k1[0], bz: k1[1], ya: base + 2.71, yb: base + 2.71, hw: 1.1, kind: 'pad' };
       (surfaceGrid.get(key(sx, sz, 30)) || surfaceGrid.set(key(sx, sz, 30), []).get(key(sx, sz, 30))!).push(pad);
-      addObstacle(P(-2.4, 0.85)[0], P(-2.4, 0.85)[1], 0.15, 2.6); addObstacle(P(2.4, 0.85)[0], P(2.4, 0.85)[1], 0.15, 2.6);
-      addObstacle(P(-2.4, -0.95)[0], P(-2.4, -0.95)[1], 0.15, 2.6); addObstacle(P(2.4, -0.95)[0], P(2.4, -0.95)[1], 0.15, 2.6);
+      addObstacle(P(-2.4, 0.85)[0], P(-2.4, 0.85)[1], 0.15, base + 2.6, base); addObstacle(P(2.4, 0.85)[0], P(2.4, 0.85)[1], 0.15, base + 2.6, base);
+      addObstacle(P(-2.4, -0.95)[0], P(-2.4, -0.95)[1], 0.15, base + 2.6, base); addObstacle(P(2.4, -0.95)[0], P(2.4, -0.95)[1], 0.15, base + 2.6, base);
       // people waiting
       const pr = rng(hash(f.p.join(',')));
-      for (let k = 0; k < pr.int(1, 4); k++) { const w = P(pr.range(-2, 2), pr.range(-0.6, 0.3)); drawPerson(B.st, randomPerson(pr), w[0], w[1], ang + (side > 0 ? -Math.PI / 2 : Math.PI / 2) + pr.range(-0.4, 0.4), true, 0.2, true); }
+      for (let k = 0; k < pr.int(1, 4); k++) { const w = P(pr.range(-2, 2), pr.range(-0.6, 0.3)); drawPerson(B.st, randomPerson(pr), w[0], w[1], ang + (side > 0 ? -Math.PI / 2 : Math.PI / 2) + pr.range(-0.4, 0.4), true, base + 0.2, true); }
     } else if (f.kind === 'street_lamp') {
       if (over) {
         // a lamp mapped under a flyover belongs on the deck: stand it at the deck's edge nearest the mapped spot
         const sf = over.s, dx = sf.bx - sf.ax, dz = sf.bz - sf.az, L2 = Math.hypot(dx, dz) || 1;
         const t = Math.max(0, Math.min(1, ((x - sf.ax) * dx + (z - sf.az) * dz) / (L2 * L2)));
         const cx = sf.ax + dx * t, cz = sf.az + dz * t, nx = -dz / L2, nz = dx / L2, side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1;
-        const off = Math.max(sf.e!.w / 2, 4.2) + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95;
+        const off = roadPavementWidthAt(sf.e!,cx,cz)/2 + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95;
         const ox = -nx * side * 1.6, oz = -nz * side * 1.6;
         if (lamps.some((l) => Math.hypot(l.x - lx - ox, l.z - lz - oz) < 12)) continue;
         streetLamp({ road: sf.e!.id, kind: 'mapped', x: lx, z: lz, base: y, inwardX: -nx * side, inwardZ: -nz * side, height: 8, surfaceY: over.y });
@@ -1045,14 +1127,19 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           // A mapped median mast serves both carriageways with separate heads.
           for (const side of [-1, 1]) streetLamp({ road: e.id, kind: 'median', x: cx, z: cz, inwardX: nx * side, inwardZ: nz * side, reach: 2.4, surfaceY: ROAD_Y[e.cls] ?? .04 });
         } else {
-          const side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1, off = e.w / 2 + .6;
+          const side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1, off = roadPavementWidthAt(e,cx,cz) / 2 + .6;
           const lx = cx + nx * off * side, lz = cz + nz * off * side;
           if (lamps.some(l => Math.hypot(l.x - lx + nx * side * 1.9, l.z - lz + nz * side * 1.9) < 7)) continue;
           streetLamp({ road: e.id, kind: 'mapped', x: lx, z: lz, inwardX: -nx * side, inwardZ: -nz * side, reach: 1.9, surfaceY: ROAD_Y[e.cls] ?? .04 });
         }
       } else if (structureClearance.clear({ x, z, r: .2 }, 0, 9)) {
         // Park/path lamps without a nearby motor road retain their mapped site.
-        B.st.add(TPL.cyl6, x, 4.5, z, .09, 9, .09, '#8d8899'); B.lit.box(x, 8.9, z, .5, .06, .5, '#fff0cc'); lamps.push(new THREE.Vector3(x, 8.6, z));
+        const parts:StreetLampVolume[]=[
+          {part:'pole',footprint:{x,z,r:.09},bottom:0,top:9},
+          {part:'head',footprint:{x,z,hx:0,hz:1,hw:.25,hl:.25},bottom:8.87,top:8.93},
+        ];
+        if (!metroLampClearance.clearVolumes(parts)) continue;
+        const emitter=new THREE.Vector3(x,8.6,z);lamps.push(emitter);pendingParkLamps.push({x,z,parts,emitter});
       }
     } else if (f.kind === 'atm' || f.kind === 'bench') {
       if (f.kind === 'bench' && structureClearance.clear({ x, z, hx: 0, hz: 1, hw: .8, hl: .25 }, 0, .6)) B.st.box(x, 0.45, z, 1.6, 0.1, 0.5, '#7a5235');
@@ -1162,8 +1249,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         if (L < 70) continue;
         // heading into the junction and the spot 32 m before it
         const nP = pts[pts.length - 1], pP = pts[pts.length - 2], hl = Math.hypot(nP[0] - pP[0], nP[1] - pP[1]) || 1, hx = (nP[0] - pP[0]) / hl, hz = (nP[1] - pP[1]) / hl;
-        let back = 32, k = pts.length - 1, bx = nP[0], bz = nP[1];
-        while (k > 0) { const sl = Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); if (sl >= back) { const u = back / sl; bx = pts[k][0] + (pts[k - 1][0] - pts[k][0]) * u; bz = pts[k][1] + (pts[k - 1][1] - pts[k][1]) * u; break; } back -= sl; k--; }
+        let back = 32, k = pts.length - 1, bx = nP[0], bz = nP[1], approachX = hx, approachZ = hz;
+        while (k > 0) { const sl = Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); if (sl >= back) { const u = back / sl; bx = pts[k][0] + (pts[k - 1][0] - pts[k][0]) * u; bz = pts[k][1] + (pts[k - 1][1] - pts[k][1]) * u; approachX = (pts[k][0] - pts[k - 1][0]) / sl; approachZ = (pts[k][1] - pts[k - 1][1]) / sl; break; } back -= sl; k--; }
         if (!inTile(bx, bz)) continue;
         const lines: string[] = [], seenN = new Set<string>();
         for (const o of others) {
@@ -1176,12 +1263,20 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         }
         if (!lines.length) continue;
         lines.sort((a, b) => '←↑→'.indexOf(a[0]) - '←↑→'.indexOf(b[0])); lines.length = Math.min(lines.length, 3);
-        const lx = hz, lz = -hx, off = e.w / 2 + (e.oneway ? 1.2 : 1.6), px = bx + lx * off, pz = bz + lz * off;
+        // Position and face the board from the tangent at its actual roadside
+        // location, rather than the last segment of a curved junction approach.
+        const lx = approachZ, lz = -approachX, off = roadClearanceWidth(e) / 2 + (e.oneway ? 1.2 : 1.6), px = bx + lx * off, pz = bz + lz * off;
         if (blocked(px, pz, e, 0.4)) continue;
-        const ang = Math.atan2(hx, hz), H = 0.72 * lines.length + 0.3, top = 4.4 + H;
-        B.st.box(px, top / 2, pz, 0.16, top, 0.16, '#5b5a63'); addObstacle(px, pz, 0.2, top);
-        B.st.box(px - lx * 1.6, 4.4 + H / 2, pz - lz * 1.6, 3.6, H, 0.08, '#17703f', { ry: ang });
-        lines.forEach((t, i) => signs.push({ id: `dir_${e.id}_${fwd}_${i}`, text: t, bg: '#17703f', fg: '#ffffff', c: [px - lx * 1.6 - hx * 0.06, 4.4 + H - 0.5 - i * 0.72, pz - lz * 1.6 - hz * 0.06], right: [-hz, 0, hx], up: [0, 1, 0], w: 3.4, h: 0.6 }));
+        const ang = Math.atan2(approachX, approachZ), H = 0.72 * lines.length + 0.3, top = 4.4 + H, base = groundYAt(e, px, pz);
+        // Panels extend away from the pole/road. Check their whole footprint
+        // and every road level, including the owning carriageway; otherwise a
+        // large board could cover a bend even with its pole safely on the kerb.
+        const panelX = px + lx * 1.6, panelZ = pz + lz * 1.6;
+        if (!structureClearance.clear({ x: px, z: pz, r: .2 }, base, base + top) ||
+          !structureClearance.clear({ x: panelX, z: panelZ, hx: approachX, hz: approachZ, hw: 1.8, hl: .06 }, base + 4.4, base + top)) continue;
+        B.st.box(px, base + top / 2, pz, 0.16, top, 0.16, '#5b5a63'); addObstacle(px, pz, 0.2, base + top, base);
+        B.st.box(panelX, base + 4.4 + H / 2, panelZ, 3.6, H, 0.08, '#17703f', { ry: ang });
+        lines.forEach((t, i) => signs.push({ id: `dir_${e.id}_${fwd}_${i}`, text: t, bg: '#17703f', fg: '#ffffff', c: [panelX - approachX * 0.06, base + 4.4 + H - 0.5 - i * 0.72, panelZ - approachZ * 0.06], right: [-approachZ, 0, approachX], up: [0, 1, 0], w: 3.4, h: 0.6 }));
       }
     }
   }
@@ -1224,7 +1319,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         for (const s of near(x, z)) {
           if (s.kind !== 'road' || !s.e || NOTCAR.test(s.e.cls)) continue;
           const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
-          if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e.w / 2 + pad) return true;
+          if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e) / 2 + pad) return true;
         }
         return false;
       },
@@ -1283,7 +1378,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const ks = new Set<string>(); for (let x = minx; x <= maxx + 49; x += 49) for (let z = minz; z <= maxz + 49; z += 49) ks.add(key(Math.min(x, maxx), Math.min(z, maxz)));
         for (const k of ks) (buildingGrid.get(k) || buildingGrid.set(k, []).get(k)!).push(bld);
       },
-      road: (x, z, pad) => { for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 2 || s.yb > 2) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e.w / 2 + pad) return true; } return false; },
+      road: (x, z, pad) => { for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 2 || s.yb > 2) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e) / 2 + pad) return true; } return false; },
       sign: (id, text, bg, fg, c, f, w, h) => { const l2 = Math.hypot(f[0], f[2]) || 1; signs.push({ id, text, bg, fg, c, right: [f[2] / l2, 0, -f[0] / l2], up: [0, 1, 0], w, h }); },
       roadNear: (x, z, R) => { let best: any = null; for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 1.2 || /footway|path|steps|service/.test(s.e.cls)) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, L = Math.sqrt(L2); const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)), cx = s.ax + dx * t, cz = s.az + dz * t, d = Math.hypot(x - cx, z - cz); if (d < R && (!best || d < best.d)) best = { d, cx, cz, hx: dx / L, hz: dz / L, w: s.e.w }; } return best; },
       roadY: (x, z) => { let best: number | null = null; for (const s of near(x, z)) { if (s.kind !== 'road') continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.hw) { const y = s.ya + (s.yb - s.ya) * t; if (best === null || y > best) best = y; } } return best; },
@@ -1348,42 +1443,83 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       }
     }
   }
-  // ---------- metro stations: a two-level box over the road, curved roof, stairs down both kerbs, name boards ----------
-  for (const assembly of metroPlatformAssemblies(M?.stations || [], corridors, baseMetroHeight)) {
+  // ---------- metro stations: open concourse, connected access and platforms, curved roof, name boards ----------
+  const stationAssemblies=metroPlatformAssemblies(M?.stations||[],corridors,baseMetroHeight);
+  const localStationAssemblies=stationAssemblies.filter(a=>inTile(a.source.p[0],a.source.p[1]));
+  // The temporary scenery index is needed only on an actual station tile.
+  // Ordinary streamed streets never allocate or fill this additional grid.
+  const stationScenery=localStationAssemblies.length?stationPhysicalObstacles(obstacles):null;
+  const stationAccessClear=(p:import('./structure-clearance').StructureFootprint,bottom:number,top:number)=>metroSupportClear(p,bottom,top)&&(!stationScenery||stationScenery.clear(p,bottom,top));
+  const stationOccupied=(x:number,z:number,pad:number,bottom=0,top=Infinity)=>stationBuildingOccupied(buildingGrid,x,z,pad,bottom)||!!stationScenery?.occupied(x,z,pad,bottom,top);
+  const stationTransfers=stationInterchangeTransfers(localStationAssemblies,stationAccessClear,stationOccupied);
+  for (const assembly of stationAssemblies) {
     const st = { ...assembly.source, id: assembly.key, name: assembly.source.name || assembly.stationId }, best = assembly.frame, DH = assembly.deckHeight;
     const [sx, sz] = st.p; if (!inTile(sx, sz)) continue;
-    const { hx, hz, cx, cz } = best, ang = Math.atan2(hx, hz), nx = -hz, nz = hx, Ls = 130, Ws = 24;
+    const { hx, hz, cx, cz } = best, ang = Math.atan2(hx, hz), nx = -hz, nz = hx, Ls = METRO_PLATFORM_HALF_LENGTH * 2, Ws = 24;
     const P = (u: number, v: number): XZ => [cx + hx * u + nx * v, cz + hz * u + nz * v];
     const cY = DH - 4.2;                                                   // concourse floor under the platforms
-    // A flyover can pass between ground and station platforms. Its height must
-    // also clear the concourse, not only the ground columns. Keep the station
-    // deck/platforms continuous while opening the modeled concourse at a road.
-    const concourse = { x: cx, z: cz, hx, hz, hw: (Ws - 4) / 2, hl: Ls * .31 };
-    if (metroSupportClear(concourse, cY, cY + 3.4)) {
-      B.st.box(cx, cY + 1.7, cz, Ws - 4, 3.4, Ls * .62, '#d9d6de', { ry: ang });
-      B.lit.box(cx, cY + 2, cz, Ws - 3.9, 1.1, Ls * .6, '#cfe6ff', { ry: ang });
-      structureSupports.push({ source: st.id, part: 'station_concourse', footprint: concourse, bottom: cY, top: cY + 3.4 });
-    } else {
-      const nu = 14, nv = 5, du = Ls * .62 / nu, dv = (Ws - 4) / nv;
-      for (let i = 0; i < nu; i++) for (let j = 0; j < nv; j++) {
-        const q = P(-Ls * .31 + (i + .5) * du, -(Ws - 4) / 2 + (j + .5) * dv), footprint = { x: q[0], z: q[1], hx, hz, hw: dv / 2, hl: du / 2 };
-        if (!metroSupportClear(footprint, cY, cY + 3.4)) continue;
-        B.st.box(q[0], cY + 1.7, q[1], dv, 3.4, du, '#d9d6de', { ry: ang });
-        if (j === 0 || j === nv - 1) B.lit.box(q[0], cY + 2, q[1], dv + .02, 1.1, du, '#cfe6ff', { ry: ang });
-        structureSupports.push({ source: st.id, part: 'station_concourse', footprint, bottom: cY, top: cY + 3.4 });
+    const sharedTransfer=stationTransfers.find(t=>t.stationId===assembly.stationId);
+    const access = stationAccessPlan(assembly, stationAccessClear, stationOccupied,!!sharedTransfer);
+    // Open concourse, not a filled building: a walkable slab, parapets and
+    // slender frames. Each actual face is checked at its own elevation so a
+    // flyover cannot acquire a decorative window panel across its lanes.
+    const nu=14,nv=5,du=Ls*.62/nu,dv=(Ws-4)/nv;
+    for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){
+      const u0=-Ls*.31+i*du,u1=u0+du,q=P((u0+u1)/2,-(Ws-4)/2+(j+.5)*dv),footprint={x:q[0],z:q[1],hx,hz,hw:dv/2,hl:du/2};
+      if(!metroSupportClear(footprint,cY-.35,cY))continue;
+      B.st.box(q[0],cY-.175,q[1],dv,.35,du,'#c9ced0',{ry:ang});
+      const a=P(u0,-(Ws-4)/2+(j+.5)*dv),b=P(u1,-(Ws-4)/2+(j+.5)*dv);
+      addSurface(surfaceGrid,{e:null,i:0,ax:a[0],az:a[1],bx:b[0],bz:b[1],ya:cY,yb:cY,hw:dv/2,kind:'pad'});
+      structureSupports.push({source:st.id,part:'station_concourse',footprint,bottom:cY-.35,top:cY});
+    }
+    for(const side of [-1,1]){
+      const openings:[number,number][]=[...access.arms.filter(a=>a.side===side).map(a=>[a.u-2.1,a.u+2.1] as [number,number]),...access.lifts.flatMap(l=>stationLiftGuardOpenings(assembly,l,side,'concourse')),
+        ...sharedTransfer?.connections.filter(c=>c.key===assembly.key&&c.side===side).map(c=>[c.u-1.5,c.u+1.5] as [number,number])??[],
+        ...access.platformFlights.filter(f=>f.side===side).map(f=>{const a=(f.from.x-cx)*hx+(f.from.z-cz)*hz,b=(f.to.x-cx)*hx+(f.to.z-cz)*hz;return[Math.min(a,b)-1.5,Math.max(a,b)+1.5] as [number,number];})];
+      for(let u=-Ls*.31;u<Ls*.31;u+=6)for(const [u0,u1]of stationGuardSegments(u,Math.min(Ls*.31,u+6),openings)){
+        const a=P(u0,side*10.02),b=P(u1,side*10.02),mid=P((u0+u1)/2,side*10.02),footprint={x:mid[0],z:mid[1],hx,hz,hw:.12,hl:(u1-u0)/2};
+        if(metroSupportClear(footprint,cY,cY+1.05)){B.st.box(mid[0],cY+.525,mid[1],.2,1.05,u1-u0,'#dde2e3',{ry:ang});structureSupports.push({source:st.id,part:'station_concourse',footprint,bottom:cY,top:cY+1.05});}
+        if(metroSupportClear(footprint,cY+1.35,cY+2.6))B.stationWindow.quad([a[0],cY+1.35,a[1]],[b[0],cY+1.35,b[1]],[b[0],cY+2.6,b[1]],[a[0],cY+2.6,a[1]],'#ffffff',[[0,0],[(u1-u0)/4,0],[(u1-u0)/4,1],[0,1]]);
+        for(const edge of [u0,u1]){const p=P(edge,side*10.02);if(metroSupportClear({x:p[0],z:p[1],r:.075},cY,cY+3.2))B.st.box(p[0],cY+1.6,p[1],.12,3.2,.12,'#aab5bb');}
       }
     }
+    // Ticket/security facilities sit on the actual concourse floor; the
+    // broad unpaid cross-station path and both paid platform routes stay open.
+    for(const u of [-10,10])for(const v of [-3,-1,1,3]){const p=P(u,v),footprint={x:p[0],z:p[1],hx,hz,hw:.18,hl:.6};if(!metroSupportClear(footprint,cY-.35,cY+1.1))continue;B.st.box(p[0],cY+.52,p[1],.3,1.04,1.15,'#8c9a9f',{ry:ang});B.st.box(p[0],cY+1.06,p[1],.25,.05,.26,'#30735f',{ry:ang});}
     // Follow the retained corridor through each platform: a straight tangent
     // slab can cut across a curved terminal track (notably JBS Parade Ground).
     const stationS = projectMetroPath(assembly.corridor.center, [cx, cz]).s;
     const platformPoint = (u: number, v: number): XZ => { const p = sampleMetroPath(assembly.corridor.center, stationS + u); return [p.x - p.hz * v, p.z + p.hx * v]; };
     for (const side of [-1, 1]) for (let u = -Ls / 2; u < Ls / 2; u += 10) {
-      const end = Math.min(Ls / 2, u + 10), a = platformPoint(u, side * 5.6), b = platformPoint(end, side * 5.6), len = Math.hypot(b[0] - a[0], b[1] - a[1]), angle = Math.atan2(b[0] - a[0], b[1] - a[1]);
+      const end = Math.min(Ls / 2, u + 10), a = platformPoint(u, side * METRO_PLATFORM_OFFSET), b = platformPoint(end, side * METRO_PLATFORM_OFFSET), len = Math.hypot(b[0] - a[0], b[1] - a[1]), angle = Math.atan2(b[0] - a[0], b[1] - a[1]);
       if (len < .01) continue;
-      B.st.box((a[0] + b[0]) / 2, DH + .95, (a[1] + b[1]) / 2, 3.4, .5, len + .02, '#cdc8d2', { ry: angle });
-      const c = platformPoint(u, side * 7.4), d = platformPoint(end, side * 7.4), wallLength = Math.hypot(d[0] - c[0], d[1] - c[1]);
-      B.st.box((c[0] + d[0]) / 2, DH + 2, (c[1] + d[1]) / 2, .25, 2.6, wallLength + .02, '#e9eef2', { ry: Math.atan2(d[0] - c[0], d[1] - c[1]) });
-      addSurface(surfaceGrid, { e: null, i: 0, ax: a[0], az: a[1], bx: b[0], bz: b[1], ya: DH + 1.2, yb: DH + 1.2, hw: 1.7, kind: 'pad' });
+      B.st.box((a[0] + b[0]) / 2, DH + .95, (a[1] + b[1]) / 2, METRO_PLATFORM_HALF_WIDTH * 2, .5, len + .02, '#cdc8d2', { ry: angle });
+      const stairWells:[number,number][]=access.platformFlights.filter(f=>f.side===side).map(f=>{
+        const from=(f.from.x-cx)*hx+(f.from.z-cz)*hz,to=(f.to.x-cx)*hx+(f.to.z-cz)*hz;return[Math.min(from,to)-.5,Math.max(from,to)+1.7];});
+      const innerOuter=METRO_PLATFORM_OFFSET+METRO_PLATFORM_HALF_WIDTH,wingWidth=METRO_PLATFORM_OUTER_EDGE-innerOuter,wingOffset=(innerOuter+METRO_PLATFORM_OUTER_EDGE)/2;
+      for(const [u0,u1]of stationGuardSegments(u,end,stairWells)){
+        const a=platformPoint(u0,side*wingOffset),b=platformPoint(u1,side*wingOffset),length=Math.hypot(b[0]-a[0],b[1]-a[1]);
+        B.st.box((a[0]+b[0])/2,DH+.95,(a[1]+b[1])/2,wingWidth,.5,length+.02,'#cdc8d2',{ry:Math.atan2(b[0]-a[0],b[1]-a[1])});
+        addSurface(surfaceGrid,{e:null,i:0,ax:a[0],az:a[1],bx:b[0],bz:b[1],ya:DH+1.2,yb:DH+1.2,hw:wingWidth/2,kind:'pad'});
+      }
+      for(const [lo,hi]of stairWells)for(const [u0,u1]of stationGuardSegments(Math.max(u,lo),Math.min(end,hi),[[-41.3,-37.7],[37.7,41.3]])){
+        const a=platformPoint(u0,side*(innerOuter+.03)),b=platformPoint(u1,side*(innerOuter+.03)),length=Math.hypot(b[0]-a[0],b[1]-a[1]),ry=Math.atan2(b[0]-a[0],b[1]-a[1]);
+        for(const y of [DH+1.75,DH+2.25])B.st.box((a[0]+b[0])/2,y,(a[1]+b[1])/2,.065,.06,length,'#83949c',{ry});
+        for(const t of [0,1])B.st.box(a[0]+(b[0]-a[0])*t,DH+1.72,a[1]+(b[1]-a[1])*t,.06,1.05,.06,'#83949c');
+        addWall({ax:a[0],az:a[1],bx:b[0],bz:b[1],y0a:DH+1.2,y0b:DH+1.2,y1a:DH+2.28,y1b:DH+2.28,kind:'parapet'});
+      }
+      const openings:[number,number][]=[...access.platformFlights.filter(f=>f.side===side).map(f=>[f.end*39.5-1.7,f.end*39.5+1.7] as [number,number]),...access.lifts.flatMap(l=>stationLiftGuardOpenings(assembly,l,side,'platform'))];
+      for(const [u0,u1]of stationGuardSegments(u,end,openings)){
+        const c=platformPoint(u0,side*(METRO_PLATFORM_OUTER_EDGE+.12)),d=platformPoint(u1,side*(METRO_PLATFORM_OUTER_EDGE+.12)),wallLength=Math.hypot(d[0]-c[0],d[1]-c[1]);
+        const footprint={x:(c[0]+d[0])/2,z:(c[1]+d[1])/2,hx:(d[0]-c[0])/wallLength,hz:(d[1]-c[1])/wallLength,hw:.125,hl:wallLength/2};
+        if(metroSupportClear(footprint,DH+.7,DH+2.75)){
+          const ry=Math.atan2(d[0]-c[0],d[1]-c[1]);
+          B.st.box(footprint.x,DH+1.15,footprint.z,.22,.9,wallLength+.02,'#e4e9eb',{ry});
+          for(const y of [DH+1.8,DH+2.25,DH+2.7])B.st.box(footprint.x,y,footprint.z,.09,.065,wallLength+.02,'#a6b5bd',{ry});
+          const posts=Math.max(1,Math.ceil(wallLength/4));for(let k=0;k<=posts;k++)B.st.box(c[0]+(d[0]-c[0])*k/posts,DH+2.05,c[1]+(d[1]-c[1])*k/posts,.07,1.3,.07,'#a6b5bd');
+        }
+      }
+      addSurface(surfaceGrid, { e: null, i: 0, ax: a[0], az: a[1], bx: b[0], bz: b[1], ya: DH + 1.2, yb: DH + 1.2, hw: METRO_PLATFORM_HALF_WIDTH, kind: 'pad' });
     }
     // the curved 'umbrella' roof: a shallow vault of slats over platforms and tracks, on tall columns
     const segs = 7;
@@ -1395,42 +1531,43 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       B.st.box(q[0], hm, q[1], wv + 0.05, 0.3, Ls + 4, k % 2 ? '#f2f4f6' : '#e3e8ec', { ry: ang, rz: -tilt });
       void am;
     }
-    for (let u = -Ls / 2 + 6; u <= Ls / 2 - 6; u += 14) for (const s of [-1, 1]) { const q = P(u, s * 8.2); B.st.box(q[0], DH + 4.6, q[1], 0.4, 7.6, 0.4, '#a9a4b5'); }
-    // station portal columns at the kerbs (not in the traffic), carrying the concourse
-    for (let u = -Ls * 0.28; u <= Ls * 0.28; u += 20) for (const s of [-1, 1]) {
-      let v = s * (Ws / 2 - 1.5), q = P(u, v);
-      const clear = () => metroSupportClear({ x: q[0], z: q[1], r: .85 }, 0, cY) && !inFoot(q[0], q[1], null, .9);
-      for (let tries = 0; tries < 6 && !clear(); tries++) { v += s * 2; q = P(u, v); }
-      if (!clear()) continue;
-      B.st.add(TPL.cyl, q[0], cY / 2, q[1], 0.8, cY, 0.8, '#bdb8c8', { ao: true, aoH: 4 }); addObstacle(q[0], q[1], 0.85, cY);
-      structureSupports.push({ source: st.id, part: 'station_column', footprint: { x: q[0], z: q[1], r: .85 }, bottom: 0, top: cY });
+    drawStationPresentation(assembly, B, opts.lowQ, metroSupportClear);
+    // Physical batched luminaires; their exact diffusers can borrow a pooled light.
+    drawMetroPlatformLamps(assembly, B);
+    for (let u = -Ls / 2 + 6; u <= Ls / 2 - 6; u += 14) for (const s of [-1, 1]) { const q = P(u, s * (METRO_PLATFORM_OUTER_EDGE+.4)); B.st.box(q[0], DH + 4.6, q[1], 0.4, 7.6, 0.4, '#a9a4b5'); }
+    // Hyderabad's spine-and-wing form does not use a new row of portal
+    // columns across both kerbs. Retain only the source metro pier row below;
+    // checked cantilever ribs carry this open concourse to its side wings.
+    for(const u of [-30,-10,10,30]){const q=P(u,0),footprint={x:q[0],z:q[1],hx,hz,hw:10,hl:.3};if(metroSupportClear(footprint,cY-.85,cY-.35))B.st.box(q[0],cY-.6,q[1],20,.5,.6,'#adb9bf',{ry:ang});}
+    // Real open treads, continuous landing links and internal platform access.
+    // No invisible building collider remains in the former stair housing.
+    for(const flight of [...access.arms.flatMap(a=>a.flights),...access.platformFlights]){
+      drawStationFlight(flight,B,opts.lowQ,assembly.lineId);
+      for(const section of stationFlightSections(flight))structureSupports.push({source:st.id,part:'station_stairs',footprint:section.footprint,bottom:section.bottom,top:section.top});
+      addSurface(surfaceGrid,{e:null,i:0,ax:flight.from.x,az:flight.from.z,bx:flight.to.x,bz:flight.to.z,ya:flight.from.y,yb:flight.to.y,hw:flight.width/2,kind:'pad'});
     }
-    // stairs and escalators down to both footpaths at each end
-    for (const ue of [-Ls * 0.3, Ls * 0.3]) for (const s of [-1, 1]) {
-      const len = 16; let v = s * (Ws / 2 + 2.5), run = P(ue + Math.sign(ue) * len / 2, v);
-      const footprint = () => ({ x: run[0], z: run[1], hx, hz, hw: 2.2, hl: len / 2 + .5 });
-      const clear = () => metroSupportClear(footprint(), 0, cY + 2.4) &&
-        [-len / 2, 0, len / 2].every(u => { const p = P(ue + Math.sign(ue) * len / 2 + u, v); return !inFoot(p[0], p[1], null, 2.2); });
-      for (let tries = 0; tries < 4 && !clear(); tries++) { v += s * 3; run = P(ue + Math.sign(ue) * len / 2, v); }
-      if (!clear()) continue;
-      B.st.box(run[0], cY / 2, run[1], 3.6, cY, len, '#c9c4cf', { ry: ang, ao: true, aoH: 3 });
-      for (let k = 0; k < 10; k++) { const sp = P(ue + Math.sign(ue) * (len - k * 1.5), v); B.st.box(sp[0], 0.3 + k * (cY / 10), sp[1], 3.7, 0.14, 0.6, '#a8a3ae', { ry: ang }); }
-      B.st.box(run[0], cY + 2.3, run[1], 4.4, 0.18, len + 1, '#e9eef2', { ry: ang });
-      const c0 = P(ue, v - 1.8), c1 = P(ue + Math.sign(ue) * len, v - 1.8), c2 = P(ue + Math.sign(ue) * len, v + 1.8), c3 = P(ue, v + 1.8);
-      const bld: Building = { id: `ms_${st.id}_${ue}_${s}`, name: null, cls: 'structure', h: cY, hs: 'model', ring: [c0, c1, c2, c3], fc: null, rc: null } as any;
-      const xs = bld.ring.map(p => p[0]), zs = bld.ring.map(p => p[1]);
-      for (let i = Math.floor(Math.min(...xs) / 50); i <= Math.floor(Math.max(...xs) / 50); i++) for (let j = Math.floor(Math.min(...zs) / 50); j <= Math.floor(Math.max(...zs) / 50); j++) {
-        const kk = `${i},${j}`; (buildingGrid.get(kk) || buildingGrid.set(kk, []).get(kk)!).push(bld);
-      }
-      structureSupports.push({ source: st.id, part: 'station_stairs', footprint: footprint(), bottom: 0, top: cY + 2.4 });
-      // people, autos and bikes waiting at the foot of the stairs
-      const pr = rng(hash(st.id + ue + s));
-      const foot = P(ue + Math.sign(ue) * (len + 3), v);
-      for (let k = 0; k < pr.int(2, 6); k++) drawPerson(B.st, randomPerson(pr), foot[0] + pr.range(-3, 3), foot[1] + pr.range(-3, 3), pr.range(0, 6.28), true, 0.2, true);
-      if (!opts.lowQ && bikesLeft > 0) for (let k = 0; k < 3; k++) { const b2 = P(ue + Math.sign(ue) * (len + 6 + k * 1.1), v + s * 1.5); bike(b2[0], b2[1], ang + Math.PI / 2, pr); bikesLeft--; }
-      addActivity(foot[0], foot[1], 6);
+    for(const link of [...access.arms.flatMap(a=>[a.rest,a.link]),...access.platformLinks]){
+      drawStationLanding(link,B);structureSupports.push({source:st.id,part:'station_stairs',footprint:landingFootprint(link),bottom:link.from.y-.35,top:link.from.y+(link.covered?2.85:1.15)});
+      addSurface(surfaceGrid,{e:null,i:0,ax:link.from.x,az:link.from.z,bx:link.to.x,bz:link.to.z,ya:link.from.y,yb:link.to.y,hw:link.width/2,kind:'pad'});
+    }
+    for(const lift of access.lifts){
+      drawStationLift(lift,assembly,B);const footprint={x:lift.point.x,z:lift.point.z,hx,hz,hw:1.35,hl:1.35};
+      structureSupports.push({source:st.id,part:'station_stairs',footprint,bottom:0,top:lift.top+2.6});addObstacle(lift.point.x,lift.point.z,1.35,lift.top+2.6);
+      for(const link of lift.links){structureSupports.push({source:st.id,part:'station_stairs',footprint:landingFootprint(link),bottom:link.from.y-.35,top:link.from.y+1.15});addSurface(surfaceGrid,{e:null,i:0,ax:link.from.x,az:link.from.z,bx:link.to.x,bz:link.to.z,ya:link.from.y,yb:link.to.y,hw:link.width/2,kind:'pad'});}
+    }
+    if(sharedTransfer?.owner===assembly.key){
+      const lift=sharedTransfer.lift;drawStationLift(lift,assembly,B);
+      structureSupports.push({source:st.id,part:'station_stairs',footprint:{x:lift.point.x,z:lift.point.z,r:1.7},bottom:lift.bottom!-.35,top:lift.top+2.6});
+      for(const link of lift.links){structureSupports.push({source:st.id,part:'station_stairs',footprint:landingFootprint(link),bottom:link.from.y-.35,top:link.from.y+2.85});addSurface(surfaceGrid,{e:null,i:0,ax:link.from.x,az:link.from.z,bx:link.to.x,bz:link.to.z,ya:link.from.y,yb:link.to.y,hw:link.width/2,kind:'pad'});}
+    }
+    for(const arm of access.arms){
+      drawStationEntryPortal(arm,B,assembly.lineId);const pr=rng(hash(arm.id));
+      const dx=arm.foot.x-arm.top.x,dz=arm.foot.z-arm.top.z,len=Math.hypot(dx,dz),foot={x:arm.foot.x+dx/len*2,z:arm.foot.z+dz/len*2};
+      for(let k=0;k<pr.int(2,6);k++)drawPerson(B.st,randomPerson(pr),foot.x+pr.range(-1.4,1.4),foot.z+pr.range(-1.4,1.4),pr.range(0,6.28),true,.2,true);
+      addActivity(foot.x,foot.z,5);
     }
     drawMetroStationVisuals(st, best, DH, { B, signs, wall: addWall, clearance: metroSupportClear, exterior: !assembly.secondary });
+    opts.observeStationAccess?.({assembly,plan:access,clear:stationAccessClear,occupied:stationOccupied,physical:stationScenery!});
   }
   for (const p of M?.pillars || []) {
     const [x, z] = p.p;
@@ -1445,6 +1582,20 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       cap: { footprint: cap, bottom: DH - 2.2, top: DH - 1 } });
   }
 
+  // Final worker-only fixture pass: actual station access exists now. Omitting
+  // a conflicting lamp removes its emitter too; no invisible pole or floating
+  // night pool is left behind. The ordinary lamp dimensions/cadence stay intact.
+  const accessLampClearance=metroAccessStreetLampClearance(structureSupports),rejectedEmitters=new Set<THREE.Vector3>();
+  for(const pending of pendingStreetLamps){
+    if(!accessLampClearance.clear(pending.site)){rejectedEmitters.add(pending.emitter);continue;}
+    const fixture=drawStreetLamp(B,pending.site);lampFixtures.push(fixture);
+    if(pending.obstacle)addObstacle(fixture.pole[0],fixture.pole[2],.2,fixture.head[1]+.4,fixture.pole[1]);
+  }
+  for(const pending of pendingParkLamps){
+    if(!accessLampClearance.clearVolumes(pending.parts)){rejectedEmitters.add(pending.emitter);continue;}
+    B.st.add(TPL.cyl6,pending.x,4.5,pending.z,.09,9,.09,'#8d8899');B.lit.box(pending.x,8.9,pending.z,.5,.06,.5,'#fff0cc');
+  }
+  if(rejectedEmitters.size){let kept=0;for(const emitter of lamps)if(!rejectedEmitters.has(emitter))lamps[kept++]=emitter;lamps.length=kept;}
   const workZoneFeatures = opts.construction ? drawConstruction(opts.construction, zone.roads, [zone.i, zone.j], { B, signs, wall: addWall, obstacle: addObstacle, clear: structureClearance, occupied: (x, z, pad) => inFoot(x, z, null, pad) }) : undefined;
 
   // ---------- hand back plain buffers ----------
@@ -1455,10 +1606,20 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     buffers.push({ mat, pos: new Float32Array(bt.pos), nor: new Float32Array(bt.nor), uv: new Float32Array(bt.uv), col: new Float32Array(bt.col) });
     verts += bt.pos.length / 3;
   }
+  // Cut terrain is prepared here, alongside ordinary tile geometry in the
+  // worker. World only installs these buffers and never tessellates a cut on a
+  // gameplay frame. The shared grids carry its retained walls and pavement.
+  const underpass = buildUnderpassTile(zone.roads, zone.i, zone.j);
+  if (underpass) {
+    for (const wall of underpass.walls) addWall(wall);
+    for (const surface of underpass.surfaces) addSurface(surfaceGrid, surface);
+    buffers.push(...underpass.buffers);
+    for (const buffer of underpass.buffers) verts += buffer.pos.length / 3;
+  }
   void r; void byBuilding;
   return {
-    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads,
-    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
+    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads, ...(underpass ? { underpassGround: true } : {}),
+    buildingGrid, surfaceGrid, landmarkSurfaceGrid, waterGrid: waterGrid(zone.areas, zone), walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
     activity: [...activity],
     rails: railways.filter(r => !r.service).map(r => ({ id: r.id, pts: r.pts, elev: r.elev, bridge: r.bridge })),
     counts: { buildings: zone.buildings.length, boards: zone.boards.length, roads: ownRoads.length, verts, fillShops, inferredSignals },

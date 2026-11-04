@@ -1,0 +1,156 @@
+{
+  "createdAtUtc": "2026-11-03T02:09:53.371274+00:00",
+  "build": "frozen18",
+  "expectedFingerprint": "ab8aef925b05341e038067c7783f063a208d46aa75a8b49c2bd4a289db18b963",
+  "origin": "http://127.0.0.1:4268/",
+  "status": "bounded-emulator-compatibility-pass-with-open-gates",
+  "physicalDevice": false,
+  "fpsThermalBatteryMeasured": false,
+  "normalPickupCompleted": false,
+  "allLevelsCompleted": false,
+  "graphicsSavedRestored": "Automatic",
+  "runningRendererOverride": "swiftshader",
+  "gameQualityObserved": "Auto",
+  "files": [
+    {
+      "name": "01-loopback-loading.jpg",
+      "bytes": 140398,
+      "sha256": "716ae666c93fa460f6750c19693a19c5fa6e31c67ab40510573b3427c653f817"
+    },
+    {
+      "name": "02-portrait-guard.jpg",
+      "bytes": 141149,
+      "sha256": "f2cf15e9cb7188ebc4309aa32c351aa1157fe112c203e0c17582bfb3aca85d67"
+    },
+    {
+      "name": "03-landscape-title.jpg",
+      "bytes": 125962,
+      "sha256": "2717d0a9dceef5f5806bc90d1e3acd42c84577a8ce530e242c5d880bfbf29ddc"
+    },
+    {
+      "name": "04-driving-tip.jpg",
+      "bytes": 119030,
+      "sha256": "1b915ca8e305a7cda614aa717f13b8e80a694c1add12b09925694da4765b8452"
+    },
+    {
+      "name": "05-hud-without-world.jpg",
+      "bytes": 119811,
+      "sha256": "ee72b338271beaaacb1dbdcbbc13be77006e0d32ea291093b45cc5433e204e2d"
+    },
+    {
+      "name": "06-pause-menu.jpg",
+      "bytes": 126493,
+      "sha256": "cbf4613d48dbfaffd06a34fa39021e5d22f1eed54101276bdf8ccb1c262387a6"
+    },
+    {
+      "name": "07-settings-done-top-right.jpg",
+      "bytes": 121094,
+      "sha256": "6f3466e19b90dad19ca1057d0204b592e7f61738ceb84378254156134d3763e7"
+    },
+    {
+      "name": "08-low-preset-hud-without-world.jpg",
+      "bytes": 119872,
+      "sha256": "f6622629fb136717a43560319ea1391f993a7f1475c64149655e4b80dae5c39c"
+    },
+    {
+      "name": "09-go-ui-response.jpg",
+      "bytes": 119431,
+      "sha256": "4c19a6f3c7eaafbde9af5bfac0a61a253a49578d6ae23d2a199a4e58b14b54e3"
+    },
+    {
+      "name": "10-fly-land-ui-state.jpg",
+      "bytes": 119389,
+      "sha256": "5dee7a6e4be3b5e58ebd39da305df87ce13663c457b55ee9896bac9c8e183115"
+    },
+    {
+      "name": "11-full-map.jpg",
+      "bytes": 157018,
+      "sha256": "491d0c17d7074877ccaf7c4d8c61f2b3316575efdaa8a76379969740eb5d18c0"
+    },
+    {
+      "name": "12-avd-original-automatic.jpg",
+      "bytes": 75337,
+      "sha256": "742a16fb24cb215874f78f63798c3ebc1ee415aeb05be83b883a7e0a78ed4daf"
+    },
+    {
+      "name": "13-software-hud-without-world.jpg",
+      "bytes": 119723,
+      "sha256": "84e084cc8e42439dd214305e2ff996f34d2a6c6ec37fdf1746db7e5a436377e1"
+    },
+    {
+      "name": "14-paused-software.jpg",
+      "bytes": 126364,
+      "sha256": "f8dabf1a6bec5ebade430e503dd0116099765b6f1c62167ada210326cc96225d"
+    },
+    {
+      "name": "15-avd-restored-automatic.jpg",
+      "bytes": 76063,
+      "sha256": "38231398519b4702813ead995be3a310b792207fc0acc62e675201f0be5eb208"
+    },
+    {
+      "name": "16-swiftshader-visible-world.jpg",
+      "bytes": 144851,
+      "sha256": "2bc6a6f94848f466f35dfd6035a9d63d1da76b087a6e611935f9fbbec1e52cda"
+    },
+    {
+      "name": "17-visible-drive.jpg",
+      "bytes": 144259,
+      "sha256": "380afa2dd8332497d138f3ae1e2b3f47a6bc6ee41ebcfccd93c6337cec8492df"
+    },
+    {
+      "name": "18-jump-returned-ground.jpg",
+      "bytes": 144339,
+      "sha256": "6b1616254290bfcd0ba334ce0380648f2c3d02960a580d586a9f7338ce82220e"
+    },
+    {
+      "name": "19-swiftshader-map.jpg",
+      "bytes": 155716,
+      "sha256": "88e62042946363c9ac860065de9a9def0de094d2e66c48e1f8f19a207d05c2a8"
+    },
+    {
+      "name": "20-visible-flight.jpg",
+      "bytes": 147551,
+      "sha256": "1121547991bb0bd31f8b169b95d7d52ab72b34c6e05875ad6ad7bc8b54a3baa2"
+    },
+    {
+      "name": "21-android-home-background.jpg",
+      "bytes": 123813,
+      "sha256": "6276dc1f154e7fe93cf992d2f11aa2180a3ee33b046ed648019af5eccc6e2d69"
+    },
+    {
+      "name": "22-chrome-return-paused.jpg",
+      "bytes": 127798,
+      "sha256": "c9b681975efeb185e362b4183951a70de55f63561b135eadbac349f8e68cb569"
+    },
+    {
+      "name": "23-auto-preset-restored-visible.jpg",
+      "bytes": 125172,
+      "sha256": "fafa6f8030f27eb433f950670a0808b16e1960816830f68824fc6857d1149548"
+    },
+    {
+      "name": "24-done-returned-paused.jpg",
+      "bytes": 127797,
+      "sha256": "3368981816954dfa8db65a81fbe29332ed9f1897e98652df3e53ad84c4fb26d4"
+    },
+    {
+      "name": "chromium-explicit-swiftshader-gpu-diagnostic.txt",
+      "bytes": 18165,
+      "sha256": "0f02e2b1f40378be225e4e01bb1a8a4b197355ca27327412b5b990c2c4c1d01f"
+    },
+    {
+      "name": "chromium-gpu-diagnostic.txt",
+      "bytes": 15195,
+      "sha256": "53f77919a0b17a2a8a75b31fbf6b91a4fc1e7ba5edb2a08ab38f435c87a0b496"
+    },
+    {
+      "name": "chromium-software-gpu-diagnostic.txt",
+      "bytes": 9355,
+      "sha256": "f7f02854fe34a0a744b5702a9f155aea8523ebccc8ae65b524bfcede7f3f2b25"
+    },
+    {
+      "name": "restored-avd-graphics.txt",
+      "bytes": 389,
+      "sha256": "eaccee57d1edb207a511f95d5de6e60becd60dbcdbb64a4eda42e3b04eabc624"
+    }
+  ]
+}

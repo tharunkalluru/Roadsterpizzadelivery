@@ -1,0 +1,17 @@
+# Independent focused rendered scenes — fe81
+
+**Scoped PASS:** Nani High night manual completion/readability and Metro Low night ride, platform handoff and four retained actors. This is a renderer/resource-refinement supplement, not full campaign, physical-phone, FPS or new asset approval.
+
+Both exports identify build `fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a`, ordinary approved-loader URLs without `qaArt`, and Safari at 1264×543, DPR1. Layout is touch-style; inputs are mouse/keyboard, with trusted touch and hardware verification false. Exact rows, snapshots and nine evidence hashes are in [independent-focused-scenes-hash-audit.json](independent-focused-scenes-hash-audit.json).
+
+[Nani High export](nani-high-evidence.json), run `campaign-qa-mvxcjodw`, records all five required facts and manual F at game 26.733 seconds, followed by completion at 27.483 seconds. [The pre-handoff view](nani-high-night-before-handoff.png) keeps the face, cricket kit and field readable at High night; the bright headlamp area is confined to the right. [The saved completion](nani-high-night-complete-grand-opening.png) shows Grand opening and Explore Hyderabad. The operator reports choosing Explore; no separate post-Explore image is saved here. Prior progress and scene staging are explicit assistance, not natural pickup or a full campaign.
+
+[Metro Low export](metro-low-evidence.json), run `campaign-qa-mvxcl8cf`, records all six required facts: roof contact, next station, authored exit, four anchors, grounded arrival and manual handoff. [The actual roof ride](metro-low-night-actual-roof-ride.png) and [platform-exit view](metro-low-night-platform-exit.png) preserve the physical setting. At F, the car is stopped at y 14.25, grounded/ready with no flight or descent; passing follows and completion occurs 750 ms later. [The parked group](metro-low-night-four-actors-parked.png) has all four faces/crowns and outfits readable; controls/car partly cover the lawyer's lower body, so full-body/palm inspection is not claimed. [Completion](metro-low-night-delivery-complete.png) and [after Next](metro-low-night-after-next-retained.png) show the result and four relaxed retained actors. The operator reports progression to Level 11; no explicit next-level index is exported.
+
+Both target rows have `completed`, `manualHandoff` and `observedSceneMechanics` true, with no missing facts or art. In-app visual-review checkboxes remain empty, so `allScenarioEvidence` and full campaign acceptance remain false. The exports are preserved exactly; this independent review does not alter their flags or replace immutable formal art approvals.
+
+**No fe81 Metro High completion claim:** the operator's earlier High attempt reached rendering/ride/four-actor phases but missed platform parking and was not saved/exported here. Earlier f096 High/Low complete proofs remain separate. Mid-handoff carton/palm motion and a complete walking sequence are not re-proven by these stills.
+
+These are separate short RunIDs and are not appended to the 40-minute soak. No GPU-presented FPS, refresh, latency, full memory/VRAM, physical-phone, true-touch, thermal or battery claim is made. Diagnostic export/capture work can affect later observer intervals. The seven `.png` filenames contain JPEG/JFIF data; originals are unchanged.
+
+Only this README and hash audit were written. No UI, source/art, main acceptance-document, test, build, Git or publication actions were performed by this audit.

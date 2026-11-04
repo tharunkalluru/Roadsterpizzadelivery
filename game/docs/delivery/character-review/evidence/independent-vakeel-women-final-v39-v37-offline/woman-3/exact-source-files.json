@@ -1,0 +1,280 @@
+{
+  "status": "FROZEN UNAPPROVED source integration manifest; independent whole-actor and actual scene review required",
+  "characterId": "vakeel-woman-3",
+  "candidate": {
+    "assetId": "vakeel-woman-3-final-v39",
+    "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+  },
+  "files": {
+    "model": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.glb",
+    "rig": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.rig.json",
+    "motionBounds": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.motion-bounds.json",
+    "portrait": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.png"
+  },
+  "sha256": {
+    "model": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+    "rig": "742debc5bed36768ca039b8b6026885cf18eb427a4ca5d08e2ff789aa3b6d517",
+    "motionBounds": "feb6ca652b1c316fdd06dd3145a83e7355121f4625ac738bd7d98aa8ed57395e",
+    "portrait": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+  },
+  "fileRecords": {
+    "model": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.glb",
+      "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+      "bytes": 5842792
+    },
+    "rig": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.rig.json",
+      "sha256": "742debc5bed36768ca039b8b6026885cf18eb427a4ca5d08e2ff789aa3b6d517",
+      "bytes": 1835
+    },
+    "motionBounds": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.motion-bounds.json",
+      "sha256": "feb6ca652b1c316fdd06dd3145a83e7355121f4625ac738bd7d98aa8ed57395e",
+      "bytes": 3000
+    },
+    "portrait": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.png",
+      "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc",
+      "bytes": 211595
+    }
+  },
+  "actualProofs": {
+    "proposal": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/final-proposal.json",
+      "sha256": "f2a2b8737beeaf9e962912eb0c49421a4f56ee69ce8844d1035e5aac38bac909",
+      "bytes": 8455
+    },
+    "nativeInspection": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/inspection.json",
+      "sha256": "208fdaab8d5ec3a35372f0181ae666422782e2eacc692e2a3622fdfdd6bfe3b4",
+      "bytes": 381732
+    },
+    "nativePalmVertices": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-palms.json",
+      "sha256": "75d1d45ba862145c1c3ad098c5fe5c7cab729c6d6107711f381ca778bd0775e9",
+      "bytes": 20224
+    },
+    "actualContinuingContact": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/continuing-walk-contact.json",
+      "sha256": "2fbd36591a166b1bddfa30abd9e93a11747790a25501705fef24b5efcf2f70a7",
+      "bytes": 58274
+    },
+    "portraitProof": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.portrait.json",
+      "sha256": "a0408d36ce9f1b88438a5ad5b2cd28edf572ccab7eb5ea587fcaf1ff7e89f45d",
+      "bytes": 665
+    }
+  },
+  "actualNativeImages": [
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/front.png",
+      "sha256": "a6f83f15e43afb0618db6f0d2d748262269a2cb965df7cad09ef2a53ec59add2",
+      "bytes": 654257
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/three-quarter.png",
+      "sha256": "63034660a21a1d8f53a17aee2d53e8397aa97e01a8f896fa438eab58224251ed",
+      "bytes": 676947
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/profile.png",
+      "sha256": "42f83ed011cdbc5c54b2c891c6fe8b46fff7294f4e8e94ad90027c8ad565447c",
+      "bytes": 637618
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/back.png",
+      "sha256": "6ebbe6a69cc65adb1ecf3935788eedab722e4f22c0e8b9956a51ccf335c1b1a1",
+      "bytes": 644435
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/full-body.png",
+      "sha256": "625e010822eb0f8427ec0088f16059b334369da9fb0623c70d55f7f14706479d",
+      "bytes": 659406
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/profile-clay.png",
+      "sha256": "bc0666778895355a8046900e200243f678123d11bc463baec27401b70c64e4d6",
+      "bytes": 546081
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/take0-full-body.png",
+      "sha256": "36c16491f434d451935bccd619931783dc71b043b8a2981a58bc8b04a12a5920",
+      "bytes": 649056
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/take05-full-body.png",
+      "sha256": "d601c6ae51dfa4f4b57c0e195033d577daa13d6433b22f2a9000fa02016b3197",
+      "bytes": 651307
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/take1-full-body.png",
+      "sha256": "d53b628ce96680781763436baec50f6f65cc1e641612eaafe2e0540e126c32af",
+      "bytes": 655563
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/take1-palm-underside.png",
+      "sha256": "4105bc0defe48925c12b64e450b9c307e602f7369ce3e16b70729bf466328fa7",
+      "bytes": 737494
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/walk-00.png",
+      "sha256": "388b889e5e8b3573e2480f68708f925b3a88df43add1093ee3c8f07daa6e08d0",
+      "bytes": 651314
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/walk-01.png",
+      "sha256": "4558943d52c9a81cae50b64e69fed69591121f2a6fe2e49be097de530d40c9c4",
+      "bytes": 645119
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/walk-02.png",
+      "sha256": "c86389c41d46a1793e1e29c6cfb56abb3176c9696de7dd7dd77c76f412f0c193",
+      "bytes": 650577
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/walk-03.png",
+      "sha256": "56b1287b8d7aef4811984567e70efe2b99cc460e7292cb6cb3719b8b7810dcda",
+      "bytes": 661061
+    },
+    {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/walk-04.png",
+      "sha256": "7b01c24b647e605d892320c7ac76eae2358c10762ef83bda2780734a869cd453",
+      "bytes": 654941
+    }
+  ],
+  "actualFrozenMixerPoses": [
+    {
+      "kind": "idle",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/idle.glb",
+        "sha256": "eacbbcafd3436ef302d432e351b2e13ea9fa27595bd9cbf677db8f13abad9ea1",
+        "bytes": 5760548
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/idle.pose-proof.json",
+        "sha256": "efa1afddcc94fba251a796c33e9dae62e4550a379eeb1e6edefb8b5f85ae6eb8",
+        "bytes": 19806
+      }
+    },
+    {
+      "kind": "take0",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-00.glb",
+        "sha256": "4e39d96f1be837e755d5e11c71c39b170972e909f590dccb30199b7ea6422f9b",
+        "bytes": 5761300
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-00.pose-proof.json",
+        "sha256": "2384e8575ad3af3f1e9de1da5ab7d316addd39ddd89dfb2ee6e545258a071603",
+        "bytes": 19799
+      }
+    },
+    {
+      "kind": "take05",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-05.glb",
+        "sha256": "babdd3fbc6198429839e33cb910915d51d769e26bc058ca2b48f700ae7088390",
+        "bytes": 5760976
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-05.pose-proof.json",
+        "sha256": "207c2ca65eeff42a699730eb15bf7c89e4568ce12b2291088b055cf6d81706d5",
+        "bytes": 19768
+      }
+    },
+    {
+      "kind": "take1",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-10.glb",
+        "sha256": "0f7dd2e980b8b1a99d5c9ceb2ede00d46fa34d2da3c435889359d2d51563796a",
+        "bytes": 5761088
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/take-10.pose-proof.json",
+        "sha256": "d9f04327ac91636116a60160fa477a13fc7101cd4f30197c71588fe09b9798d3",
+        "bytes": 19735
+      }
+    },
+    {
+      "kind": "walk",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-00.glb",
+        "sha256": "35ecde12480239597c43b1897947ba2f0b898cf6d5a9a73d30d425841058e29f",
+        "bytes": 5761304
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-00.pose-proof.json",
+        "sha256": "9ee35f7957136b745cf5001825c7e1aeaf8d553207a5b10bc4dff371b8f34f2a",
+        "bytes": 19791
+      }
+    },
+    {
+      "kind": "walk",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-01.glb",
+        "sha256": "fbc65743fc7d639ba2f2a35f3890862cfb7384509b7118eb7315fc7cbd498d08",
+        "bytes": 5761304
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-01.pose-proof.json",
+        "sha256": "707d28a488e7d2e8bc0c3c121b13ad1b456a5b9241c1a3e3b6fe62056f17a2d9",
+        "bytes": 19869
+      }
+    },
+    {
+      "kind": "walk",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-02.glb",
+        "sha256": "e4b6b63fb2fdcb2eb1e760e66ef6d3661d0b729c5ea003af11c04deaaa8ada1e",
+        "bytes": 5761292
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-02.pose-proof.json",
+        "sha256": "e7928a2c993cb7878e3da18612ca2611360fa731d98c2ba8eaff45ff28139d65",
+        "bytes": 19817
+      }
+    },
+    {
+      "kind": "walk",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-03.glb",
+        "sha256": "4e0a079c8a24aa7447c27fbb422021997870a64d9ab22ee93d3fa4b72994c959",
+        "bytes": 5761296
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-03.pose-proof.json",
+        "sha256": "d01af83b9989b799449900ec607bd2ef3a32ee8aad74280845a535eab0f93d0f",
+        "bytes": 19870
+      }
+    },
+    {
+      "kind": "walk",
+      "model": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-04.glb",
+        "sha256": "5f91af7198ba31b1c28e7f41dbde4e4f45c4f207c0c9c56fee57a806a027935c",
+        "bytes": 5761304
+      },
+      "proof": {
+        "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/walk-04.pose-proof.json",
+        "sha256": "33aa5f35b6f22f5652d0a067eefe4335ee3add47fb2b11cec75281b533ce817d",
+        "bytes": 19812
+      }
+    }
+  ],
+  "primaryReferenceFrames": [
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+      "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+      "bytes": 1321945
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+      "sha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+      "bytes": 2040834
+    }
+  ],
+  "authorId": "likeness-release-gate-vakeel-art-producer",
+  "nativeFilesVerifiedAgainstProposal": true,
+  "scope": "Raw source rig and separate motionBounds are inputs; parent must canonicalize reviewed public rig before final3file release fingerprint. This source manifest is not an approved release bundle."
+}

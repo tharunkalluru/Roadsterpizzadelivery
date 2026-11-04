@@ -1,0 +1,52 @@
+✖ the real camera-selected Ameerpet bay cannot place actual Roadster body vertices inside an existing interchange lift (104.012917ms)
+✖ the automatic real-roof-to-bay movement clears existing interchange shafts throughout its actual StoryDirector poses (78.779959ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6972.687958
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-omCUuS/0.test.mjs:43892:1
+✖ the real camera-selected Ameerpet bay cannot place actual Roadster body vertices inside an existing interchange lift (104.012917ms)
+  AssertionError [ERR_ASSERTION]: actual held body intersects retained station shaft: [{"source":"st_ameerpet","point":[-5531.481062867259,13.909999993443488,-3215.859904414818]},{"source":"st_ameerpet","point":[-5531.570209356953,14.556752932071685,-3215.859031581917]},{"source":"st_ameerpet","point":[-5531.743783534406,14.521752965450286,-3215.752148028121]},{"source":"st_ameerpet","point":[-5531.768579874472,14.4167529463768,-3215.7368789311486]}]
+  
+  325 !== 0
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-omCUuS/0.test.mjs:43899:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.start (node:internal/test_runner/test:1000:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 325,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-omCUuS/0.test.mjs:43904:1
+✖ the automatic real-roof-to-bay movement clears existing interchange shafts throughout its actual StoryDirector poses (78.779959ms)
+  AssertionError [ERR_ASSERTION]: automatic entry body intersects retained shaft at frame 8: [{"source":"st_ameerpet","point":[-5532.002614863005,17.369999998807906,-3217.396873342949]},{"source":"st_ameerpet","point":[-5532.016203311737,17.893657171726225,-3217.4108177198864]},{"source":"st_ameerpet","point":[-5531.995820659439,17.998657131195067,-3217.389901175825]},{"source":"st_ameerpet","point":[-5532.027918821875,17.369999998807906,-3217.3569287717078]}]
+  
+  18 !== 0
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-omCUuS/0.test.mjs:43915:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 18,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

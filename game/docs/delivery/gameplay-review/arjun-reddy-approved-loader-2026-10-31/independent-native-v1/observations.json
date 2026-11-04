@@ -1,0 +1,118 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.047402+00:00",
+  "scenario": 13,
+  "characterId": "arjun-reddy",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=13&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Fixed night classroom13 context and actor visible; F300 receiving/completion; Next retains Idle, S380+space300.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate",
+      "bhanumathi-wedding-street",
+      "sukumar-angle-parking",
+      "vakeel-next-station",
+      "maruthi-villa-79",
+      "salaar-inner-compound"
+    ]
+  },
+  "row": {
+    "level": 13,
+    "id": "arjun-classroom",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "A doorway/room identity and medical classroom context replace an isolated number post.",
+      "Arjun Reddy appearance matches the film reference."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwq1f3p.json",
+    "sha256": "eb11f09ee64c314326658d8085eaafb8506390e257eada84d6b411901ad5c806"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "arjun-reddy-medical-courtyard-v1",
+      "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+        "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+      },
+      {
+        "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+        "sha256": "0b1134b0f517b9d8f31d8aae0f81d8a2fbfc2a0b3257eca7eaca11d5fdf007f1"
+      },
+      {
+        "path": "public/delivery/characters/arjun-reddy/portrait-v1.png",
+        "sha256": "87ab8145f553a37e38a81f954abbce29fb6bd2f9f1a5985ac00053b768ebe11e"
+      }
+    ],
+    "glbUrl": "/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+    "contractPath": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/01-ready.png",
+      "sha256": "46acaef3b5b0addf2ebb404d5cd4946a3195559bc9169e56446a7c39790c1cb0"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "e81d4cd3b818223fa6d86113b74e422a79151f8c2012a4788098e37297bcabf2"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "e0972b8ffac2e1db8e5bd66054469d19f5490eb2026d1536444b50978ab22cc3"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "12465c394864fc21d40a073d536285779a51ab4ff06e182602d2770ad765c68a"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arjun-reddy-approved-loader-2026-10-31/independent-native-v1/03-retained.png",
+      "sha256": "731147002ed8a6311d34b1ee0a19feca84645bd9d9770ff71a5c1a1073a8c20b"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

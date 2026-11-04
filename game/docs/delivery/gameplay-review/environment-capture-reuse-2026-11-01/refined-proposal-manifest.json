@@ -1,0 +1,27 @@
+{
+  "rootEdited": false,
+  "files": [
+    {
+      "file": "src/core/engine.ts",
+      "originalSha256": "d0bfd61f630eddacfdd919068cae9d4b73a84e7ea5319910ef8326992460871d",
+      "proposedSha256": "f4e5f2079e76b59d904d1931dfd6a2afeb3169f322bbcc6c989c9ebe8f86b775"
+    },
+    {
+      "file": "src/core/environment-capture.ts",
+      "originalSha256": null,
+      "proposedSha256": "e71835f822f09d1d2b7fd1d74a6d66bde3fe5faa21658ec8a6ee38a8bb344f83"
+    },
+    {
+      "file": "tests/v21-fixes/engine-environment-ownership.test.ts",
+      "originalSha256": "ae66cee49c105d9da2235f2a3e716824956ecc998435dc5dcde89ff69bb081f7",
+      "proposedSha256": "8109b6eccd63569887e5c0b42ddae2ae43cfbc25b3535a2edaad2af17a5e34f1"
+    }
+  ],
+  "proposalSha256": "4748b45f5feae4c7f57c5e88c7f911e9fe5d0acd2fbc0c9c5618549219fa0d73",
+  "targetedTests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "sourceTypecheck": "passed; tests excluded like root tsconfig (Node type definitions unavailable)",
+  "uniformUploadGuard": "uniformsNeedUpdate true per capture, never material.needsUpdate; tests simulate PMREM consuming the flag including failure/retry"
+}

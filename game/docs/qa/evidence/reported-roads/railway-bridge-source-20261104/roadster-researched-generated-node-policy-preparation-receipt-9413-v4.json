@@ -1,0 +1,172 @@
+{
+  "schema": "researched-generated-node-policy-preparation-receipt-v4",
+  "releaseApproved": false,
+  "heightAuthorityExpanded": false,
+  "scope": "Actual review, diagnosis, all304-pack incidence and policy producers rerun against retained v11 source and held solver after the mixed-junction-witness path consumer fix. Existing node evidence and decisions retained exactly. No elevation fit, production producer/solver edit by this subtask, runtime change, source-stage activation, new source cuts, metric-height or release approval.",
+  "artifacts": {
+    "model": {
+      "path": "/tmp/source-9413-researched-rail-facilities-world-v1.json",
+      "sha256": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f"
+    },
+    "joint": {
+      "path": "/tmp/source-9413-researched-rail-facilities-joint-input-v2.json",
+      "sha256": "3b9e495d8e0ec4ec2d33d2fdb9fb2f7bab11e0b9f756c548c0b83568d4aab823"
+    },
+    "sourceReference": {
+      "path": "/tmp/roadster-researched-joint-complete-source-reference-9413-v11.json",
+      "sha256": "9a27414d4b9ebee7486ea91f71313697261e450562f859688bab4d057b9e81c8"
+    },
+    "oldSourceReference": {
+      "path": "/tmp/roadster-researched-joint-complete-source-reference-9413-v10.json",
+      "sha256": "7612c1eb77a3b21459e8d46e2e823a201b83912c810d986221571914d84e9a83"
+    },
+    "freshDiagnosis": {
+      "path": "/tmp/roadster-researched-generated-node-datum-diagnostic-9413-v4.json",
+      "sha256": "5ac62b9f0128abe31c8a05fdc24abeced99542dcd4f210a78a80a9305077cd71"
+    },
+    "priorDiagnosis": {
+      "path": "/tmp/roadster-researched-generated-node-datum-diagnostic-9413-v3.json",
+      "sha256": "de115b312d68caf9c32cbebd3fb1f2e250e93a5e92b76f1d16db07916acfe6a3"
+    },
+    "originalDiagnosis": {
+      "path": "/tmp/roadster-researched-generated-node-datum-diagnostic-9413-v1.json",
+      "sha256": "c14a0533db16dfd648ffe0326f27958535cbc48a3564d4f09726cc8140f72910"
+    },
+    "freshPackedIncidence": {
+      "path": "/tmp/roadster-researched-generated-node-datum-packed-incidence-9413-v4.json",
+      "sha256": "7722aca595eee0912fb7eff01fde66a6c39fe29b8cbfaee7e8bfd23e7f00cf4c"
+    },
+    "priorPackedIncidence": {
+      "path": "/tmp/roadster-researched-generated-node-datum-packed-incidence-9413-v3.json",
+      "sha256": "0625a34ebfddcb08df59beecc4db3672cecff73e9a5fe3a6c9d24a11442bcc8b"
+    },
+    "consistentSourceReview": {
+      "path": "/tmp/roadster-consistent-generated-source-node-field-diagnostic-9413-v5.json",
+      "sha256": "4fef680fd29517895260a67fe130ecb4cc09df1c3ff88a0ed4ec246515bdd7eb"
+    },
+    "priorConsistentSourceReview": {
+      "path": "/tmp/roadster-consistent-generated-source-node-field-diagnostic-9413-v4.json",
+      "sha256": "b48a068a428e3fc57268edf8b0312a1d7f34d8c010c441af6ba59d6b96e46b0c"
+    },
+    "policy": {
+      "path": "/tmp/roadster-researched-generated-node-datum-policy-9413-v4.json",
+      "sha256": "46305e30f8785f798a7b05ef049049fe72ae1a833a7dae3ab6b859e94ad5c884"
+    },
+    "priorPolicy": {
+      "path": "/tmp/roadster-researched-generated-node-datum-policy-9413-v3.json",
+      "sha256": "f6bd7b94d610c52ecfa6b9cd1eee44aa84c18cf14c0c80baeb354c15650c2cc8"
+    },
+    "originalPolicy": {
+      "path": "/tmp/roadster-researched-generated-node-datum-policy-9413-v1.json",
+      "sha256": "df5d47e48b3fb8f800521b9cb4f6ae036c1a86e1c19d879e694692185223a08b"
+    },
+    "priorReceipt": {
+      "path": "/tmp/roadster-researched-generated-node-policy-preparation-receipt-9413-v3.json",
+      "sha256": "e7cb4a4626e086f4267687495b712708742f0bcfff7982e1ef9c3c0ec2d92854"
+    },
+    "generator": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/prepare-generated-node-datums.py",
+      "sha256": "0a9f920c2d5dd5e9e35cbbcbbbd1f5dbc83d1662a1ee4eb494e6ebca8befa3e4"
+    },
+    "incidenceGenerator": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/audit-generated-node-incidence.py",
+      "sha256": "70268cfe0c17fe95392928d3e13f81334cb9f49deaa3f32b0d2eb46748101a62"
+    },
+    "diagnosisGenerator": {
+      "path": "/tmp/prepare-researched-generated-node-diagnosis-9413-v4.py",
+      "sha256": "5b1b0e4c4693cb723718796e573037c236f88bcc3ed66b66dc8bf284a42b7055"
+    },
+    "priorDiagnosisGenerator": {
+      "path": "/tmp/prepare-researched-generated-node-diagnosis-9413-v3.py",
+      "sha256": "285876799e4511d9a90f6212ef0b7beb30672b5d9f0b1b14206cb4e43c8a00c5"
+    },
+    "consistentReviewGenerator": {
+      "path": "/tmp/audit-consistent-generated-source-nodes-9413-v5.py",
+      "sha256": "06e433c772be1a2d69cfdfa36e5ea449708bc57a2dc64411f67fd643dfa1445a"
+    },
+    "priorConsistentReviewGenerator": {
+      "path": "/tmp/audit-consistent-generated-source-nodes-9413-v4.py",
+      "sha256": "74e810fc259da280b3fad0bd1caefe3d751eef3e90b3facd9fff12896239070d"
+    },
+    "solver": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/solve-road-profiles.py",
+      "sha256": "46219d8cb566ff117895507fd4e43219bc5a498a7e225cb2617a59392a0fad6e"
+    },
+    "mappedLevels": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/bridge-level-data.json",
+      "sha256": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5"
+    },
+    "apronPolicy": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceApronPolicy-4ad2b07df529a0259f67ccebe3f7204a97171cd39598eca008d3fb9113bcc958.json",
+      "sha256": "4ad2b07df529a0259f67ccebe3f7204a97171cd39598eca008d3fb9113bcc958"
+    }
+  },
+  "freshInventory": {
+    "nodes": 354,
+    "oldSelectors": 315,
+    "reviewedConsistentSelectors": 6,
+    "additionalDiagnosticSelectors": 33,
+    "endpointClasses": {
+      "consistent": 37,
+      "inconsistent": 305,
+      "negative": 12
+    }
+  },
+  "incidence": {
+    "packs": 304,
+    "nodes": 354,
+    "detailedOwners": 337,
+    "ownerVariants": 0,
+    "missingOwners": 0
+  },
+  "policy": {
+    "authorizedNodes": 301,
+    "authorizedClasses": {
+      "reviewed-consistent-generated-node": 5,
+      "inconsistent-generated-node": 296
+    },
+    "excludedNodes": 53,
+    "exclusionReasons": {
+      "Existing negative facility remains under its separate verified authority": 14,
+      "Existing explicit node datum policy remains authoritative": 8,
+      "Consistent generated endpoint has no explicit full-source review in the selected six-node inventory": 30,
+      "Consistent-node source review does not authorize redistribution": 1
+    },
+    "nodesCanonicalSHA256": "04df80ab51aecad2e38167ee929ee03e81277efde7ab150c25069845232a7a48",
+    "priorNodesCanonicalSHA256": "04df80ab51aecad2e38167ee929ee03e81277efde7ab150c25069845232a7a48",
+    "exclusionsCanonicalSHA256": "c25931223abb45e3db739f0093f93ccb1eeff32adac1cbbf5cbf66b40eb20ba4",
+    "priorExclusionsCanonicalSHA256": "c25931223abb45e3db739f0093f93ccb1eeff32adac1cbbf5cbf66b40eb20ba4"
+  },
+  "checks": {
+    "actualConsistentReviewBoundToCurrentHeldSolver": true,
+    "allDerivedConsistentReviewEvidenceUnchanged": true,
+    "all354DiagnosisRowsEqualV1AndV3": true,
+    "all354ActualSourceIDsPointsHeightsAndEnvelopesVerified": true,
+    "all301PolicyRowsEqualV1AndV3": true,
+    "all53ExclusionsEqualV1AndV3": true,
+    "all304PackedOwnerFilesScannedAndRehashed": true,
+    "allCurrentInputHashesVerifiedAtFinish": true,
+    "all10343PriorSourceRowsUnchanged": true,
+    "allPriorArtifactsPreserved": true,
+    "helpersOnlyOutputAndReviewInputPathSubstitutions": true,
+    "productionProducersUnchanged": true,
+    "canonicalRailControlsRemainExact": true,
+    "sourceXYWidthsAndLaneCapacityRemainExact": true,
+    "noImplicitConsistentNodeAuthority": true,
+    "noNewSurveyedGroundDatum": true
+  },
+  "readiness": {
+    "v11AndCurrentSolverBoundGeneratedNodePolicyReady": true,
+    "solverSHA256": "46219d8cb566ff117895507fd4e43219bc5a498a7e225cb2617a59392a0fad6e",
+    "sourceReferenceSHA256": "9a27414d4b9ebee7486ea91f71313697261e450562f859688bab4d057b9e81c8",
+    "policySHA256": "46305e30f8785f798a7b05ef049049fe72ae1a833a7dae3ab6b859e94ad5c884",
+    "freshPreparationAndFitRequired": true
+  },
+  "executionNotes": [
+    "All actual producer invocations completed successfully in dependency order."
+  ],
+  "remaining": [
+    "Existing source-order, negative-facility, explicit-policy and unreviewed-consistent exclusions remain exactly unchanged.",
+    "Solver feasibility, literal mesh, full-car driving and native/browser acceptance remain separate."
+  ]
+}

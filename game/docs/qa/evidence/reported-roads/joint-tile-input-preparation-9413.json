@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "scope": "Inactive joint-input/source preparation. Not height feasibility, actual emitted road/structure acceptance, gameplay or a release.",
+  "jointInput": {
+    "path": "/tmp/source-9413-joint-tile-input-1f989-v2.json",
+    "sha256": "740221cfb0d110ca1e4b5c9ead78d200ffa83f672c08c876470cdb074ffed7e6",
+    "summary": {
+      "scannedPacks": 304,
+      "allDetailedOwners": 427442,
+      "selectedRoads": 487,
+      "existingPreparedPreserved": 13,
+      "ownerCopies": 487,
+      "contextCopies": 130,
+      "fixedContextRoads": 806,
+      "incidentBoundaryRoads": 482,
+      "selectedNodes": 756,
+      "coreAnchorNodes": 328,
+      "components": 281,
+      "unverifiedAllArmSourceNodes": 0
+    }
+  },
+  "geographicAudit": {
+    "path": "/tmp/source-9413-joint-tile-geographic-endpoints-1f989-v1.json",
+    "sha256": "94f60ce87a3aa6a50cbc8f0b777bc639aa9605dd6456a01af67f9b9ae8fb4d44",
+    "summary": {
+      "roads": 1524,
+      "sourcePrefixes": 1293,
+      "endpointRows": 3048,
+      "unresolvedEndpoints": 0,
+      "nodes": 1596,
+      "preInferredEndpointsAbove75mm": 213,
+      "preInferredEndpointsAbove1m": 25,
+      "maximumPreInferredEndpointDeltaM": 6.391987855191939,
+      "maximumCurrentInferredEndpointDeltaM": 6.391987855191939,
+      "currentNodesAbove1cmArmSpread": 80,
+      "maximumCurrentNodeArmSpreadM": 6.350590523722888,
+      "officialNodesAbove75mmSourceDisagreement": 0
+    }
+  },
+  "pjrPolicy": {
+    "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/pjr-joint-component-policy-1f989.json",
+    "sha256": "09ccecfbf30ca44597ab79891435abacaff615ff458b6fc82e56097ff52c216d"
+  },
+  "builder": {
+    "path": "scripts/export-joint-road-tile-input.mjs",
+    "sha256": "97ceee638c866d94477b80258c735c59b592a92f349fc406485a8e667cd3894e"
+  },
+  "controls": {
+    "existing13PreparedPointsYAndSourceArcsIdentical": true,
+    "newSparseMaximumSegmentM": 1.999936083712115,
+    "noHeightTargetsOrRuntimeChanges": true,
+    "allOwnerContextCopiesBound": true,
+    "all304PacksUnchangedDuringBuilder": true,
+    "all756SelectedNodesFullUUIDAndIncidentSourceAuthority": true,
+    "authorityDoesNotProveGeography": true,
+    "all50ExistingSourceCutCorrectionsGeographicallyConfirmed": true,
+    "existing50SourceNodesMaximumGeographicDeltaM": 1.4478689988239872e-06,
+    "selectedNodesWithLegacyXYArmSpreadsAbove1cm": 75,
+    "fiveCriticalPJRNodesHaveZeroArmSpread": true
+  },
+  "open": [
+    "Height feasibility and whole joint core/tile solve",
+    "Actual finite classification of endpoint-coordinate spreads, rather than treating a centerline spread as proof of a visible/collidable road gap",
+    "Source-relative independently crossing fragments and canonical rail/metro remain hard",
+    "Grounded construction versus genuine bridge/underpass classification after feasible profiles",
+    "Final source-stage/cache/runtime emission/reuse and native driving acceptance"
+  ],
+  "activationOrPublicationChanged": false
+}

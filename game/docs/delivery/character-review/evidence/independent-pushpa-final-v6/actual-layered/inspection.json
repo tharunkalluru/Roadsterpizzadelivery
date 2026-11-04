@@ -1,0 +1,277 @@
+{
+  "status": "Native renderer of exact Three.js Read+maskedTake pose. Box/points/chair/floor are labeled diagnostic props, not actual game or likeness approval.",
+  "sourcePoseProof": {
+    "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+    "input": "/tmp/roadster-reader-pose-work/pushpa-glance-palm-garment-verified-v6.glb",
+    "inputSha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb",
+    "outputSha256": "da8b6d03f4db3fdd6f8530d2c6616345381286f728608929c00675a2a99e4f33",
+    "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+    "mode": "read",
+    "elapsed": 0.35,
+    "catchAmount": 1,
+    "baseClockBeforeCatch": 0.35,
+    "baseClockAfterCatch": 0.35,
+    "skinnedVerticesBaked": 42167,
+    "allOriginalTexturesAndMaterialsRetained": true,
+    "catchWorldThree": [
+      -0.41079450668221895,
+      1.0774417754259908,
+      0.4575124434062521
+    ],
+    "catchPointSpace": "palm-contact",
+    "palmEvidence": {
+      "sourceIndices": [
+        {
+          "nativeVertexIndex": 483,
+          "exportedVertexIndex": 483,
+          "coincidentExportedVertices": [
+            483
+          ]
+        },
+        {
+          "nativeVertexIndex": 484,
+          "exportedVertexIndex": 484,
+          "coincidentExportedVertices": [
+            484
+          ]
+        },
+        {
+          "nativeVertexIndex": 486,
+          "exportedVertexIndex": 486,
+          "coincidentExportedVertices": [
+            486
+          ]
+        },
+        {
+          "nativeVertexIndex": 487,
+          "exportedVertexIndex": 487,
+          "coincidentExportedVertices": [
+            487
+          ]
+        },
+        {
+          "nativeVertexIndex": 489,
+          "exportedVertexIndex": 489,
+          "coincidentExportedVertices": [
+            489
+          ]
+        },
+        {
+          "nativeVertexIndex": 490,
+          "exportedVertexIndex": 490,
+          "coincidentExportedVertices": [
+            490
+          ]
+        },
+        {
+          "nativeVertexIndex": 491,
+          "exportedVertexIndex": 491,
+          "coincidentExportedVertices": [
+            491
+          ]
+        },
+        {
+          "nativeVertexIndex": 492,
+          "exportedVertexIndex": 492,
+          "coincidentExportedVertices": [
+            492
+          ]
+        },
+        {
+          "nativeVertexIndex": 804,
+          "exportedVertexIndex": 804,
+          "coincidentExportedVertices": [
+            804
+          ]
+        },
+        {
+          "nativeVertexIndex": 805,
+          "exportedVertexIndex": 805,
+          "coincidentExportedVertices": [
+            805
+          ]
+        },
+        {
+          "nativeVertexIndex": 1558,
+          "exportedVertexIndex": 1558,
+          "coincidentExportedVertices": [
+            1558
+          ]
+        },
+        {
+          "nativeVertexIndex": 1559,
+          "exportedVertexIndex": 1559,
+          "coincidentExportedVertices": [
+            1559
+          ]
+        },
+        {
+          "nativeVertexIndex": 1560,
+          "exportedVertexIndex": 1560,
+          "coincidentExportedVertices": [
+            1560
+          ]
+        },
+        {
+          "nativeVertexIndex": 1561,
+          "exportedVertexIndex": 1561,
+          "coincidentExportedVertices": [
+            1561
+          ]
+        },
+        {
+          "nativeVertexIndex": 1562,
+          "exportedVertexIndex": 1562,
+          "coincidentExportedVertices": [
+            1562
+          ]
+        },
+        {
+          "nativeVertexIndex": 1563,
+          "exportedVertexIndex": 1563,
+          "coincidentExportedVertices": [
+            1563
+          ]
+        },
+        {
+          "nativeVertexIndex": 1564,
+          "exportedVertexIndex": 1564,
+          "coincidentExportedVertices": [
+            1564
+          ]
+        },
+        {
+          "nativeVertexIndex": 2180,
+          "exportedVertexIndex": 2180,
+          "coincidentExportedVertices": [
+            2180
+          ]
+        }
+      ],
+      "pointsWorldThree": [
+        [
+          -0.39888112270632037,
+          1.0763952182656098,
+          0.4568347991686451
+        ],
+        [
+          -0.4016777538440871,
+          1.0784835610773655,
+          0.44828597650631075
+        ],
+        [
+          -0.40118928572802504,
+          1.0768631728277938,
+          0.4506250681139866
+        ],
+        [
+          -0.4004806635501114,
+          1.0764917431934033,
+          0.4526198840068061
+        ],
+        [
+          -0.4078399526275842,
+          1.079948051545735,
+          0.4501063168159135
+        ],
+        [
+          -0.4086960241019021,
+          1.0769957661925482,
+          0.4557094492192566
+        ],
+        [
+          -0.40909145269639857,
+          1.0779354225171174,
+          0.45251390633570343
+        ],
+        [
+          -0.4086236289479395,
+          1.0771109300361044,
+          0.4647842269238516
+        ],
+        [
+          -0.39482167333188745,
+          1.0761843368019617,
+          0.46364380037036773
+        ],
+        [
+          -0.4002849371640502,
+          1.0771413367180016,
+          0.46325674022247443
+        ],
+        [
+          -0.4176664469738586,
+          1.0803821076922961,
+          0.45315476821598843
+        ],
+        [
+          -0.41743067402699074,
+          1.07856726461803,
+          0.45452983326788676
+        ],
+        [
+          -0.41738577104962166,
+          1.0772921553509398,
+          0.4562595009491388
+        ],
+        [
+          -0.4240557780851911,
+          1.0790037525986005,
+          0.4555675035865159
+        ],
+        [
+          -0.4223900091372731,
+          1.0762788536406758,
+          0.45979546421751716
+        ],
+        [
+          -0.4207832367378578,
+          1.0761640405719177,
+          0.46609376857659623
+        ],
+        [
+          -0.42485765810735343,
+          1.0767114448570947,
+          0.45837976493359345
+        ],
+        [
+          -0.41814505146348824,
+          1.0760027991626462,
+          0.4730632098819818
+        ]
+      ],
+      "meanWorldThree": [
+        -0.41079450668221895,
+        1.0774417754259908,
+        0.457512443406252
+      ],
+      "catchToPalmMetres": 5.551115123125783e-17
+    },
+    "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+    "scriptSha256": "423f153696bf84565db54e8f0a144e92ecc6752d19467515a3d0cc141a5c0e13"
+  },
+  "nativeActorBounds": [
+    [
+      -0.459877610206604,
+      -0.5919920206069946,
+      -0.01791350357234478
+    ],
+    [
+      0.32835161685943604,
+      0.16583257913589478,
+      1.4231246709823608
+    ]
+  ],
+  "nativePalmMean": [
+    -0.4107944965362549,
+    -0.45751243829727173,
+    1.0774418115615845
+  ],
+  "nativeBoxCenter": [
+    -0.4107944965362549,
+    -0.45751243829727173,
+    1.1124417781829834
+  ],
+  "sourceDiagnosticSha256": "da8b6d03f4db3fdd6f8530d2c6616345381286f728608929c00675a2a99e4f33",
+  "producerSha256": "2911f8e1e214ef5187093f01f4663c5a4fc189affec3bd927229a813294d5e91"
+}

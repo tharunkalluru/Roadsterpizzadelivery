@@ -1,5 +1,10 @@
+import { applySceneLamp } from './scene-lamp-pool';
+import { roadNavigationCue } from '../ui/flight-navigation';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
 import { frameTakeoff } from './kickflip-camera';
+import { installCameraLook } from './camera-look';
+import { speedCameraDistance, speedCameraFov, DRIVING_CAMERA, drivingCameraLookAhead, drivingCameraHeight, drivingCameraAimWeight } from './camera';
+import { CameraTranslationFollow } from './camera-translation';
 import * as THREE from 'three';
 import type { Engine } from '../core/engine';
 import type { CoreData, CityPoi, XZ } from '../world/types';
@@ -9,15 +14,21 @@ import { moodAt } from '../core/sky';
 import { rng } from '../core/util';
 import { Player, Input } from './player';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
+import { launchPreparedGame } from './startup-readiness';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
 import { Traffic } from './traffic';
+import { trafficPopulationLimit } from './traffic-density';
+import { TrafficHeadlights } from './traffic-headlights';
+import { vehicleDarkness, stepSceneHeadlightGain } from './player-lights';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
 import { FullMap } from '../ui/map';
+import { railwayMapLayer, drawRailways } from '../ui/railway-map';
+import { strokeMinimapRoute, drawMinimapPlayer, MINIMAP_NAVIGATION } from '../ui/minimap-navigation';
 import { AreaPicker, AreaChoice } from '../ui/areapicker';
-import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, canFullscreen } from '../ui/title';
-import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings } from '../ui/settings';
+import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, fullscreenFallbackHtml } from '../ui/title';
+import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings, pauseMenuHtml } from '../ui/settings';
 import { paintDiagnostics, graphicsDiagnostics } from '../ui/paint-safety';
 import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
@@ -27,12 +38,23 @@ import { BugReporter, GAME_BUILD, gameCoordinates, gameScreenshot, reportObserva
 import { DESTINATION_IDENTITIES } from '../world/destination-data';
 import { RailTrains } from './rail';
 import { MovingRailInteraction } from './moving-rail';
+import { RailwayCrossings, buildRailwayCrossingSites, type RailwayCrossingSite, type RailwayRoadUser } from './railway-crossings';
+import { RailwayCrossingGates } from '../world/railway-crossing-gates';
+import { railwayNetwork } from '../world/railway-geometry';
+import { runningRailwayTracks } from './running-railway-tracks';
+import { RailTrackFallback } from '../world/rail-track-fallback';
 import { fetchPack } from '../world/packs';
 import type { BusFeed } from './bus-services';
 import { AirportAircraft } from '../world/airport-aircraft';
 import { Sound } from './audio';
 import { supportAt } from './physics';
-import { findClearStreetSpot, findClearRecoverySpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
+import { findClearStreetSpot, findClearRecoverySpot, staticSolidAt, clearCameraPosition, type CameraCollisionOptions } from './spatial-safety';
+import { EventBus, type DeliveryEvents } from '../delivery/core/events';
+import { CarrierMarker } from '../delivery/systems/carrier-marker';
+import { PickupDetector, type JumpPickupPose } from '../delivery/systems/pickup-detector';
+import { pickupPathClear } from '../delivery/systems/pickup-clearance';
+import { DeliveryRuntime, type DeliveryRuntimeOptions } from '../delivery/runtime';
+import type { StorageLike } from '../delivery/core/types';
 
 // the city opens up as you level: early orders stay in the neighbourhood, later ones cross Hyderabad
 const LEVELS = [
@@ -43,18 +65,39 @@ const DAY_SECONDS = 600;                    // one in-game day = 10 real minutes
 const SAVE_KEY = 'p2ph-save-v1';
 const TUT_KEY = 'p2ph-tutorial-v1';
 const AREA_KEY = 'p2ph-area-v1';
+const PICKUP_TUT_KEY = 'roadster-carrier-tutorial-v1';
 
 interface Stop { x: number; z: number; y: number; label: string; sub: string }
 interface Order { id?: string; pickup: Stop; drop: Stop; pickupName: string; dist: number; limit: number; t: number; state: 'offer' | 'toPickup' | 'toDrop'; heat: number; slices: number }
 function fmtTime(min: number) { const h = Math.floor(min / 60) % 24, m = Math.floor(min % 60); const ap = h >= 12 ? 'PM' : 'AM'; return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${ap}`; }
 
 export class Game {
+  // Isolated mystery-delivery branch. Legacy saves/dispatch remain dormant.
+  readonly carrierPickupMode = true;
+  story?: DeliveryRuntime;
+  readonly deliveryEvents = new EventBus<DeliveryEvents>();
+  carriers!: CarrierMarker;
+  pickupDetector!: PickupDetector;
+  private carrierSpawnT = 0;
+  private carrierView = { cameraX:0,cameraY:0,cameraZ:0, forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
+  private cameraCollisionOptions: CameraCollisionOptions = {};
+  private pickupBefore: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
+  private pickupAfter: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   railContacts = new MovingRailInteraction();
+  railTrackFallback?: RailTrackFallback;
+  trafficHeadlights?: TrafficHeadlights;
+  railwayCrossings?: RailwayCrossings;
+  railwayGates?: RailwayCrossingGates;
+  private crossingSites = new Map<string,RailwayCrossingSite>();
+  private crossingRoadIds = new Set<string>();
+  private crossingRoadUsers: RailwayRoadUser[] = [];
   aircraft!: AirportAircraft;
   stationLife!: MetroStationLife;
   bugReports: BugReporter | null = null;
   metro!: MetroTrains; rail!: RailTrains; player!: Player; graph!: RoadGraph; traffic!: Traffic; hud!: Hud; walkers!: Walkers; map: FullMap | null = null; sound = new Sound();
   orbitYaw = 0; orbitPitch = 0.38; orbitDist = 0; dragging = false; halted = false;
+  airOrbitPitch = .62; airOrbitDist = 0;
+  private releaseCameraLook?: () => void;
   keys = new Set<string>(); flyQueued = false; jumpQueued = false; actHeld = false; actTap = 0;
   coins = 500; level = 0; doneInLevel = 0; streak = 1; totalDelivered = 0;
   acceptingOrders = true;
@@ -73,12 +116,24 @@ export class Game {
   beacon!: THREE.Group;
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
   cameraPlacementRevision = -1;
+  private cameraTranslation?: CameraTranslationFollow;
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
-  constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: { lowQ: boolean; still?: boolean }) {
+  constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: {
+    lowQ: boolean; still?: boolean; delivery?: DeliveryRuntimeOptions;
+    sessionStorage?: StorageLike; initialArea?: AreaChoice; touchControls?: boolean;
+  }) {
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
-    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops, city);
+    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, trafficPopulationLimit(opts.lowQ,0,.75), city.busStops, city);
+    this.trafficHeadlights = new TrafficHeadlights(engine.scene, opts.lowQ);
+    this.carriers = new CarrierMarker(engine.scene);
+    this.pickupDetector = new PickupDetector(this.deliveryEvents);
+    this.deliveryEvents.on('orderPicked', event => {
+      if(this.carriers.collect(event.carrierId, this.player.group))this.player.setCarryingPizza(true);
+      this.sound.cue('flight'); this.sound.cue('pickup');
+      this.hud?.pickupStatus(true);
+    });
     void fetchPack<BusFeed>('transit/tgsrtc.pack.wasm').then(feed => {
       if (Math.abs(feed.origin.lat - zone.origin.lat) < 1e-7 && Math.abs(feed.origin.lon - zone.origin.lon) < 1e-7) this.traffic.setBusFeed(feed);
       else console.warn('Bus route coordinates do not match this city.');
@@ -86,6 +141,17 @@ export class Game {
     this.metro = new MetroTrains(zone.metro as any, { body: engine.mats.vBody, lights: engine.mats.vLight }); engine.scene.add(this.metro.group);
     this.stationLife = new MetroStationLife(zone.metro, engine.mats.vBody, { lowQ: opts.lowQ, isStationLoaded: station => city.tiles.has(`${Math.floor(station.p[0] / 1000)}_${Math.floor(station.p[1] / 1000)}`) }); engine.scene.add(this.stationLife.group);
     this.rail = new RailTrains(engine.mats.vBody); engine.scene.add(this.rail.group);
+    this.railTrackFallback = new RailTrackFallback(city.railway || railwayNetwork(), { st: engine.mats.st, foot: engine.mats.foot }, { lowQ: opts.lowQ });
+    engine.scene.add(this.railTrackFallback.group);
+    this.railwayCrossings = new RailwayCrossings([]);
+    this.rail.setCrossings(this.railwayCrossings); this.traffic.setRailwayCrossings(this.railwayCrossings);
+    this.addRailwayCrossings(zone.roads);
+    this.railwayGates = new RailwayCrossingGates(this.railwayCrossings); engine.scene.add(this.railwayGates.group);
+    this.railwayCrossings.onHorn = event => {
+      const c=this.engine.camera,dx=event.x-c.position.x,dz=event.z-c.position.z,distance=Math.hypot(dx,dz);
+      const right=new THREE.Vector3().setFromMatrixColumn(c.matrixWorld,0);
+      this.sound.trainHorn(distance,(dx*right.x+dz*right.z)/Math.max(8,distance));
+    };
     this.aircraft = new AirportAircraft(zone.origin, { lowQ: opts.lowQ }); engine.scene.add(this.aircraft.group);
     this.traffic.onHorn = (kind, x, z) => {
       const c = this.engine.camera, dx = x - c.position.x, dz = z - c.position.z;
@@ -109,15 +175,39 @@ export class Game {
   }
   tileAdded(t: LoadedTile, paths: boolean) {
     this.graph.addRoads(t.built.roads, t.built.signals);
+    this.addRailwayCrossings(t.built.roads);
     this.traffic.setBusStops(this.city.busStops);
     if (paths) this.walkers.addPaths(t.built.walkPaths);
   }
   tileRemoved(t: LoadedTile) {
     const gone = this.graph.removeRoads(t.built.roads.map((e) => e.id));
+    for(const edge of gone)this.crossingRoadIds?.delete(edge.e.id);
+    if(this.railwayCrossings){let changed=false;for(const [id,site] of this.crossingSites)if(!this.graph.byId.has(site.roadId)){this.crossingSites.delete(id);changed=true;}if(changed)this.railwayCrossings.setSites([...this.crossingSites.values()]);}
     this.traffic.dropEdges(gone);
     this.graph.forgetSignals(t.built.signals);
     this.traffic.setBusStops(this.city.busStops);
     this.walkers.removePaths(t.built.walkPaths);
+  }
+  private addRailwayCrossings(roads: import('../world/types').RoadEdge[]) {
+    if(!this.railwayCrossings)return;
+    const fresh=roads.filter(r=>this.graph.byId.has(r.id)&&!this.crossingRoadIds.has(r.id));
+    if(!fresh.length)return;
+    for(const road of fresh)this.crossingRoadIds.add(road.id);
+    let changed=false;
+    for(const site of buildRailwayCrossingSites(fresh,this.city.railway?.profiles||railwayNetwork().profiles))if(!this.crossingSites.has(site.id)){this.crossingSites.set(site.id,site);changed=true;}
+    if(changed)this.railwayCrossings.setSites([...this.crossingSites.values()]);
+  }
+  private updateRailwayCrossings(dt:number) {
+    if(!this.railwayCrossings)return;
+    const cars=this.traffic.cars,player=this.player,grounded=!player.airborne;
+    const count=cars.length+(grounded?1:0);
+    while(this.crossingRoadUsers.length<count)this.crossingRoadUsers.push({x:0,y:0,z:0});
+    this.crossingRoadUsers.length=count;
+    cars.forEach((c,i)=>{const u=this.crossingRoadUsers[i];u.x=c.x;u.y=c.y;u.z=c.z;u.hx=c.hx;u.hz=c.hz;u.halfLength=c.size[2]/2;u.halfWidth=c.size[0]/2;});
+    if(grounded){const u=this.crossingRoadUsers[count-1],f=player.forward;u.x=player.pos.x;u.y=player.pos.y-.55;u.z=player.pos.z;u.hx=f.x;u.hz=f.z;u.halfLength=2.4;u.halfWidth=1.1;}
+    this.railwayCrossings.update(dt,this.rail.approaches,this.crossingRoadUsers);
+    this.city.railwayWalls=this.railwayCrossings.barriers;
+    this.railwayGates?.update(player.pos.x,player.pos.z);
   }
 
   // ---------- world points ----------
@@ -171,9 +261,13 @@ export class Game {
 
   // ---------- persistence ----------
   save() {
+    // The new progression will get its own versioned save in Step 4. Never
+    // overwrite the player's existing game progress with pickup-preview state.
+    if (this.carrierPickupMode) return;
     try { localStorage.setItem(SAVE_KEY, JSON.stringify({ coins: this.coins, level: this.level, doneInLevel: this.doneInLevel, day: this.day, minutes: this.minutes, total: this.totalDelivered, acceptingOrders: this.orderOffersEnabled })); } catch { /* storage unavailable */ }
   }
   load() {
+    if (this.carrierPickupMode) return;
     try {
       const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!s || typeof s !== 'object' || Array.isArray(s)) return;
       const num = (v: unknown, fallback: number, min: number, max: number, integer = true) =>
@@ -192,11 +286,13 @@ export class Game {
 
   // ---------- orders ----------
   get ordersUnlocked() { return this.totalDelivered >= 1; }
-  private get orderOffersEnabled() { return !this.ordersUnlocked || this.acceptingOrders; }
+  private get orderOffersEnabled() { return !this.carrierPickupMode && (!this.ordersUnlocked || this.acceptingOrders); }
   private updateOrderAvailability() {
+    if (this.carrierPickupMode) { this.hud?.carrierPickupMode(); return; }
     this.hud?.orderAvailability({ unlocked: this.ordersUnlocked, accepting: this.orderOffersEnabled, activeOrder: !!this.order && this.order.state !== 'offer' });
   }
   setAcceptingOrders(accepting: boolean) {
+    if (this.carrierPickupMode) return;
     if (!this.ordersUnlocked || typeof accepting !== 'boolean' || accepting === this.acceptingOrders) return;
     this.acceptingOrders = accepting;
     if (!accepting) {
@@ -244,6 +340,7 @@ export class Game {
     if (!this.order) this.nextOfferAt = now + 1000; // bounded retry if no valid route could be generated
   }
   showOffer() {
+    if (this.carrierPickupMode) { this.order = null; this.nextOfferAt = null; return; }
     // A delayed offer callback must not replace an accepted delivery or appear over area selection.
     if (!this.orderOffersEnabled || document.hidden || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
     // Reopening a cancelled area picker restores the same offer, including its route and pay.
@@ -263,6 +360,7 @@ export class Game {
       [{ label: document.documentElement.classList.contains('is-touch') ? 'Accept order' : 'Accept order (E)', cls: 'go', fn: () => this.acceptOffer() }, { label: 'Decline', cls: 'alt', fn: () => { this.order = null; this.hud.offer(null); this.showOffer(); } }]);
   }
   acceptOffer() {
+    if (this.carrierPickupMode) return;
     if (!this.orderOffersEnabled || !this.order || this.order.state !== 'offer') return;
     this.resetInput();
     this.order.state = 'toPickup'; this.hud.offer(null); this.setTarget(this.order.pickup, '#FFB627');
@@ -272,7 +370,11 @@ export class Game {
     this.updateHud();
   }
   routeColor = '#FFB627';
-  setTarget(s: Stop | null, color = '#FFB627') {
+  setTarget(s: Stop | null, color = '#FFB627', preserveRoad = false) {
+    if (s && preserveRoad && this.routeTarget && this.route) {
+      this.routeTarget = s; this.routeT = 0; this.routePlacementRevision = -1;
+      this.beacon.position.set(s.x,s.y,s.z); return;
+    }
     this.routeTarget = s; this.routeT = 0; this.route = null;
     this.routeGuide = []; this.routeGuidanceBlocked = false; this.routeGuideT = 0; this.routeAlpha = 0;
     this.beacon.visible = !!s; this.routeColor = color;
@@ -285,6 +387,7 @@ export class Game {
     }
   }
   completeDelivery() {
+    if (this.carrierPickupMode) return;
     const o = this.order; if (!o || o.state !== 'toDrop') return;
     const tier = o.heat >= 70 ? 1.5 : o.heat >= 40 ? 1.0 : o.heat > 0 ? 0.5 : 0;
     const fare = Math.round(35 + o.dist * 0.07);
@@ -311,12 +414,13 @@ export class Game {
       Math.abs(p.pos.y - stop.y) < 3 && Math.hypot(stop.x - p.pos.x, stop.z - p.pos.z) < radius;
   }
   resetInput() {
+    this.releaseCameraLook?.();
     this.keys.clear(); this.flyQueued = false; this.jumpQueued = false; this.actHeld = false; this.actTap = 0; this.actProgress = 0; this.dragging = false;
     this.hud?.resetControls();
     this.sound.vehicle({ speed: 0, throttle: 0, flying: false, active: false });
   }
   private motionAvailable() {
-    return !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked &&
+    return !document.hidden && !this.paused && !this.story?.blocking && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked &&
       !this.map?.open && !this.choosing && !this.relocating && !!this.area && this.order?.state !== 'offer';
   }
   jumpAvailable() {
@@ -342,29 +446,34 @@ export class Game {
   // ---------- loop ----------
   start() {
     this.load();
-    const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    const touch = this.opts.touchControls ?? (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
     this.hud = new Hud(touch);
+    if (this.carrierPickupMode) this.story = new DeliveryRuntime(this, this.opts.delivery);
     this.bugReports = new BugReporter();
     this.hud.onInputReset = () => this.resetInput();
     this.updateOrderAvailability();
     this.settings = loadSettings();
     this.sound.setMuted(!this.settings.sound);
     if (touch && this.settings.steer === 'tilt') void this.applySteering(false, false);
-    this.hud.el['b-full'].hidden = !canFullscreen();
-    try { this.tutStep = localStorage.getItem(TUT_KEY) ? -1 : 0; } catch { this.tutStep = -1; }
+    this.hud.el['b-full'].hidden = false;
+    try { this.tutStep = (this.opts.sessionStorage ?? localStorage).getItem(this.carrierPickupMode ? PICKUP_TUT_KEY : TUT_KEY) ? -1 : 0; } catch { this.tutStep = -1; }
     this.hud.onButton = (id) => {
       if (id === 'tip-close') {
+        if (this.carrierPickupMode) {
+          this.tutStep = -1;
+          try { (this.opts.sessionStorage ?? localStorage).setItem(PICKUP_TUT_KEY, '1'); } catch { /* optional coaching */ }
+        }
         this.tipDismissed = this.tutStep;
         if (this.tutStep >= 0) this.acknowledgedTips.add(this.tutStep);
         this.resetInput(); this.clock.getDelta();
         this.engine.renderer.domElement.focus({ preventScroll: true });
         return;
       }
+      if (id === 'fullscreen') { this.requestFullscreen(); return; }
       if (this.hud.rotationBlocked) return;
       if (id === 'pause') this.openPause();
       else if (id === 'report') this.openBugReport();
       else if (id === 'rescue') this.rescue();
-      else if (id === 'fullscreen') { if (isFullscreen()) exitFullscreen(); else goFullscreen(); }
       else if (id === 'fly') this.queueFlight();
       else if (id === 'jump') this.queueJump();
       else if (id === 'orders') {
@@ -376,10 +485,10 @@ export class Game {
     // full map from the minimap
     this.map = new FullMap(this.hud.root, this.zone, () => ({
       player: this.area ? { x: this.player.pos.x, z: this.player.pos.z, yaw: this.player.yaw } : null,
-      canMove: !!this.area && (!this.order || this.order.state === 'offer'),
+      canMove: this.canMoveFromMap(),
       route: this.route ? (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts) : null,
       target: this.routeTarget ? { x: this.routeTarget.x, z: this.routeTarget.z, label: this.routeTarget.label } : null,
-      pickups: this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
+      pickups: this.carrierPickupMode ? [] : this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
     }), () => {
       this.resetInput();
       if (!this.choosing) {
@@ -387,9 +496,9 @@ export class Game {
         // Pointer/map-shortcut players return to driving; explicit keyboard openers keep their navigation focus.
         if (!this.mapKeyboardOpener) this.engine.renderer.domElement.focus({ preventScroll: true });
       }
-    }, { mapUrl: new URL('city/map.pack.wasm', location.href).href, buildings: () => this.city.loadedBuildings() });
+    }, { mapUrl: new URL('city/map.pack.wasm', location.href).href, buildings: () => this.city.loadedBuildings(), hidePickupLegend: this.carrierPickupMode });
     this.map.areaName = (x, z) => this.areaName(x, z);
-    this.map.onMove = (x, z) => this.relocate({ name: this.areaName(x, z) || 'Hyderabad', x, z });
+    this.map.onMove = (x, z) => this.relocate({ name: this.areaName(x, z) || 'Hyderabad', x, z }, 'map');
     // where to deliver: chosen at the start, changeable after any delivery
     this.picker = new AreaPicker(this.hud.root, this.zone);
     this.picker.onPick = (c) => this.relocate(c);
@@ -405,18 +514,12 @@ export class Game {
     // look around: drag on the scene while the car is stopped; scroll to move the camera in or out
     const cv = this.engine.renderer.domElement;
     cv.tabIndex = -1;
-    let last: { x: number; y: number } | null = null;
-    cv.addEventListener('pointerdown', (e) => { if (this.paused || this.choosing || this.map?.open || this.hud.modalOpen || this.hud.rotationBlocked) return; last = { x: e.clientX, y: e.clientY }; this.dragging = true; });
-    addEventListener('pointerup', () => { last = null; this.dragging = false; });
-    addEventListener('pointercancel', () => { last = null; this.dragging = false; });
-    cv.addEventListener('pointermove', (e) => {
-      if (!last || !this.dragging || this.hud.modalOpen) return;
-      const dx = e.clientX - last.x, dy = e.clientY - last.y; last = { x: e.clientX, y: e.clientY };
-      if (Math.abs(this.player.speed) > 2 && !this.player.flying) return;
-      this.orbitYaw -= dx * 0.008; this.orbitPitch = Math.max(0.05, Math.min(1.25, this.orbitPitch + dy * 0.005));
+    this.releaseCameraLook = installCameraLook(cv, this, {
+      blocked: () => this.paused || this.choosing || !!this.map?.open || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || !!this.story?.cinematic,
+      flight: () => this.player.flying || this.player.descending,
+      speed: () => this.player.speed,
     });
-    cv.addEventListener('wheel', (e) => { if (Math.abs(this.player.speed) < 2) { e.preventDefault(); this.orbitDist = Math.max(-4, Math.min(22, this.orbitDist + e.deltaY * 0.01)); } }, { passive: false });
-    addEventListener('keyup', (e) => { this.keys.delete(e.code); if (e.code === 'KeyE') this.actHeld = false; });
+    addEventListener('keyup', (e) => { this.keys.delete(e.code); this.hud.controlFeedback?.(e.code, false); if (e.code === 'KeyF') this.actHeld = false; });
     addEventListener('blur', () => this.background());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.background(); });
     addEventListener('pagehide', () => { this.resetInput(); this.save(); });
@@ -426,25 +529,32 @@ export class Game {
     // ?area=Uppal starts straight there (shareable links, tests); otherwise ask
     const want = new URLSearchParams(location.search).get('area');
     const hit = want ? [...this.picker.popular, ...this.picker.list].find((c) => c.name.toLowerCase() === want.toLowerCase()) : null;
-    this.title = new TitleScreen(this.hud.root, touch);
-    this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') void this.applySteering(); this.chooseArea(true); };
+    this.title = new TitleScreen(this.hud.root, touch, this.carrierPickupMode);
+    this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') void this.applySteering(); this.carrierPickupMode ? this.startCampaign() : this.chooseArea(true); };
     this.title.onSettings = () => this.openSettings(() => { this.hud.modal(null); this.title!.show(); });
-    if (hit) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title.show(); }
-    const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
-    requestAnimationFrame(loop);
+    return launchPreparedGame(this.story?.initialCharacterPreparation(),()=>{
+      if (this.opts.initialArea) this.relocate(this.opts.initialArea);
+      else if (hit && !this.carrierPickupMode) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title!.show(); }
+      const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
+      requestAnimationFrame(loop);
+    });
   }
   handleKeyDown(e: KeyboardEvent) {
+    if(e.ctrlKey||e.metaKey||e.altKey||(e.target as Element|null)?.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;
+    if (this.story?.blocking) return;
+    if(this.story?.cinematic&&!['KeyP','Escape'].includes(e.code))return;
     if (this.hud.tipOpen) return;
     if (this.hud.rotationBlocked) return;
-    if (e.repeat && ['Space', 'KeyJ', 'KeyE', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
+    if (e.repeat && ['KeyQ', 'KeyE', 'KeyF', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
     if (this.map?.open) { this.map.handleKey(e); return; }
     if (this.choosing) return;
     if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
     this.keys.add(e.code);
-    if (e.code === 'Space') { this.queueFlight(); e.preventDefault(); }
-    if (e.code === 'KeyJ') { this.queueJump(); e.preventDefault(); }
-    if (e.code.startsWith('Arrow')) e.preventDefault();
-    if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
+    this.hud.controlFeedback?.(e.code, true);
+    if (e.code === 'KeyQ') { this.queueFlight(); e.preventDefault(); }
+    if (e.code === 'KeyE') { this.queueJump(); e.preventDefault(); }
+    if (e.code === 'Space' || e.code.startsWith('Arrow')) e.preventDefault();
+    if (e.code === 'KeyF') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
     if (e.code === 'KeyM') { this.openMap(); return; }
     if (e.code === 'KeyH' && !e.repeat) this.sound.horn('car', 4, 0, true);
     if (e.code === 'KeyR' && !e.repeat) this.rescue();
@@ -464,7 +574,7 @@ export class Game {
     if (this.area && !this.choosing && !this.paused && !this.hud.modalOpen && !this.map?.open) this.openPause();
   }
   openMap(keyboardOpener = false) {
-    if (!this.map || this.hud.modalOpen || this.hud.rotationBlocked || this.choosing) return;
+    if (!this.map || this.hud.modalOpen || this.hud.rotationBlocked || this.choosing || this.story?.cinematic) return;
     this.mapKeyboardOpener = keyboardOpener;
     this.hud.tip(null);
     this.resetInput();
@@ -482,11 +592,17 @@ export class Game {
   }
   savedArea(): AreaChoice | null {
     try {
-      const c = JSON.parse(localStorage.getItem(AREA_KEY) || 'null');
+      const c = JSON.parse((this.opts.sessionStorage ?? localStorage).getItem(AREA_KEY) || 'null');
       return this.validArea(c) ? c : null;
     } catch { return null; }
   }
+  startCampaign() {
+    const next=this.story?.startArea();
+    if(next) void this.relocate(next);
+    else this.hud.toast('No safe main-road start is available. Reload to retry.', 'pink');
+  }
   chooseArea(first: boolean) {
+    if(this.carrierPickupMode) { if(this.area)this.resume();else this.startCampaign();return; }
     this.hud.tip(null);
     this.resetInput();
     if (!first && this.order && this.order.state !== 'offer') { this.resume(); this.hud.toast('Finish this delivery first!', 'pink'); return; }
@@ -494,9 +610,12 @@ export class Game {
     this.picker.onClose = first ? null : () => { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); };
     this.picker.show({ first, last: first ? this.savedArea() : null, current: this.area?.name });
   }
-  async relocate(c: AreaChoice) {
+  canMoveFromMap() {
+    return !!this.area && !this.relocating && !this.story?.activeOrder && (!this.order || this.order.state === 'offer');
+  }
+  async relocate(c: AreaChoice, source: 'campaign' | 'map' = 'campaign') {
     // A delayed choice must never overwrite a newer destination or an accepted job.
-    if (this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
+    if (this.story?.activeOrder || this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
     if (!this.validArea(c)) { this.hud.toast('Choose a spot inside the playable Hyderabad map.', 'pink'); return; }
     c = { name: c.name.trim(), x: c.x, z: c.z };
     const request = (this.relocationId || 0) + 1; this.relocationId = request;
@@ -512,16 +631,28 @@ export class Game {
     catch (e) {
       if (request !== this.relocationId) return;
       console.error('relocate', e);
-      this.relocationFailed(c, 'The streets could not load. Check your connection and retry this same destination.');
+      this.relocationFailed(c, 'The streets could not load. Check your connection and retry this same destination.', source);
       return;
     }
     if (request !== this.relocationId) return;
-    if (!this.placeNear(c.x, c.z)) {
-      this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.');
+    if (!this.placeNear(c.x, c.z, source !== 'map' && this.carrierPickupMode && !this.opts.initialArea)) {
+      this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.', source);
       return;
     }
     this.relocationAbort = undefined;
     this.order = null; this.nextOfferAt = null; this.setTarget(null);
+    if (this.carrierPickupMode) {
+      this.carriers.clear(); this.pickupDetector.reset(); this.carrierSpawnT = 0;
+      this.hud.pickupStatus(false);
+      this.story?.retry();
+    }
+    try { await this.story?.prepareCurrentCharacters(); }
+    catch(error){
+      if(request!==this.relocationId)return;
+      console.error('Delivery character preparation',error);
+      this.relocationFailed(c,'The delivery characters could not load. Retry to prepare this same delivery.',source);return;
+    }
+    if(request!==this.relocationId)return;
     // the old neighbourhood's traffic and people stay behind
     this.traffic.clear();
     for (const w of this.walkers.list) this.walkers.group.remove(w.g); this.walkers.list.length = 0;
@@ -541,7 +672,7 @@ export class Game {
     }
     if (request !== this.relocationId) return;
     this.area = c;
-    try { localStorage.setItem(AREA_KEY, JSON.stringify(c)); } catch { /* storage unavailable */ }
+    try { (this.opts.sessionStorage ?? localStorage).setItem(AREA_KEY, JSON.stringify(c)); } catch { /* storage unavailable */ }
     this.updateHud();
     setLoading('');
     this.relocating = false; this.choosing = false; this.paused = false; this.clock.getDelta();
@@ -550,23 +681,53 @@ export class Game {
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
     this.queueOffer(2200);
   }
-  private relocationFailed(c: AreaChoice, message: string) {
+  private relocationFailed(c: AreaChoice, message: string, source: 'campaign' | 'map' = 'campaign') {
+    if(this.carrierPickupMode && source !== 'map') {
+      setLoading('');this.relocating=false;this.relocationAbort=undefined;
+      const diagnostic=import.meta.env.DEV?`<p class="sm">Development loading evidence: ${esc(c.name)} ${c.x.toFixed(1)}, ${c.z.toFixed(1)} · ${this.city.tiles.size} tiles · ${this.city.pending.size} pending · ${this.city.failures.size} failed.</p>`:'';
+      this.hud.modal(`<h2>Could not prepare the road</h2><p>${esc(message)}</p>${diagnostic}<button class="btn go" id="campaign-retry">Retry</button>`,sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c, source)));
+      return;
+    }
+
     setLoading(''); this.relocating = false; this.relocationAbort = undefined;
     this.city.focus = this.area ? [this.player.pos.x, this.player.pos.z] : null;
     this.sound.cue('error');
-    const close = () => {
+    const close = async () => {
+      if(this.map?.open)this.map.hide();
       this.hud.modal(null);
-      if (this.area) { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); }
-      else this.chooseArea(true);
+      if (this.area) {
+        if(source==='map') {
+          // The failed pin may be far enough away that ensure() retired the
+          // previous tiles. Keep the opaque loading screen up while restoring
+          // those streets, rather than resuming over an empty world.
+          const request=(this.relocationId||0)+1;this.relocationId=request;
+          this.relocationAbort?.abort();
+          const controller=new AbortController();this.relocationAbort=controller;
+          this.relocating=true;setLoading(`Returning to ${this.area.name}…`);
+          try {
+            await this.city.ensure(this.player.pos.x,this.player.pos.z,Math.max(650,this.city.radius||0),controller.signal);
+            if(request!==this.relocationId)return;
+            if(this.engine.prepareFrame){this.updateCamera(0);await this.engine.prepareFrame();}
+          } catch(error) {
+            if(request!==this.relocationId)return;
+            console.error('return to area',error);
+            this.relocationFailed(c,'The previous area could not reload. Check your connection and choose Stay here to retry.',source);
+            return;
+          }
+          if(request!==this.relocationId)return;
+          this.relocationAbort=undefined;this.relocating=false;setLoading('');
+        }
+        this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer();
+      } else this.chooseArea(true);
     };
     // Keep the exact destination and existing progress until placement succeeds.
     this.hud.modal(`<h2>Could not move to ${esc(c.name)}</h2><p>${message}</p><div class="sm">Your current area and progress are unchanged.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="area-retry">Retry this destination</button><button type="button" class="btn alt" id="area-nearby">Choose nearby street</button><button type="button" class="btn alt" id="area-stay">${this.area ? 'Stay here' : 'Back to areas'}</button></div>`, sheet => {
-      sheet.querySelector('#area-retry')!.addEventListener('click', () => this.relocate(c));
+      sheet.querySelector('#area-retry')!.addEventListener('click', () => this.relocate(c, source));
       sheet.querySelector('#area-stay')!.addEventListener('click', close);
       sheet.querySelector('#area-nearby')!.addEventListener('click', () => {
         this.hud.modal(null);
-        this.map.showPick({ onPick: (x, z) => this.relocate({ name: this.areaName(x, z) || c.name, x, z }),
-          onCancel: () => this.relocationFailed(c, message) }, { x: c.x, z: c.z, scale: .5 });
+        this.map.showPick({ onPick: (x, z) => this.relocate({ name: this.areaName(x, z) || c.name, x, z }, source),
+          onCancel: () => { this.map.hide(); this.relocationFailed(c, message, source); } }, { x: c.x, z: c.z, scale: .5 });
       });
     });
   }
@@ -592,6 +753,11 @@ export class Game {
   watchStuck(dt: number, inp: Input) {
     const pl = this.player, P = pl.pos;
     if (pl.glide || pl.flying || pl.descending || pl.jumping || this.paused) { this.stuckT = 0; this.hud.rescue(false); return; }
+    const leaving=inp.throttle>0||(inp.brake>0&&inp.allowReverse!==false);
+    if(!leaving&&this.story?.intentionalStop){
+      this.stuckT=0;this.slowT=0;this.stuckRef[0]=this.slowRef[0]=P.x;this.stuckRef[1]=this.slowRef[1]=P.z;
+      this.hud.rescue(false);return;
+    }
     const onRoof = pl.lastKind === 'roof';
     const trying = inp.throttle > 0 || inp.brake > 0 || Math.abs(inp.steer) > 0.3;
     if (Math.hypot(P.x - this.stuckRef[0], P.z - this.stuckRef[1]) > 4) { this.stuckRef = [P.x, P.z]; if (!onRoof) this.stuckT = 0; }
@@ -603,9 +769,9 @@ export class Game {
     this.hud.rescue(show, onRoof ? 'On a roof? Glide down to the street' : 'Stuck? Get back on the road');
     if (!onRoof && (this.stuckT > 9 || this.slowT > 26)) { this.slowT = 0; this.rescue(); }   // still wedged after a while: help without being asked
   }
-  placeNear(x: number, z: number) {
-    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true }) ??
-      findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true });
+  placeNear(x: number, z: number, campaign = this.carrierPickupMode && !this.opts.initialArea) {
+    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, majorOnly:campaign,forwardClearance:campaign?40:8 }) ??
+      (!campaign ? findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true }) : null);
     if (!p) return false;
     this.player.place(p.x, p.z, p.yaw, p.y);
     return true;
@@ -614,13 +780,43 @@ export class Game {
     if (this.map?.open || this.choosing) return;
     this.resetInput();
     this.paused = true;
-    this.hud.modal(`      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="resume">Resume</button><button type="button" class="btn alt" id="area">Change area</button><button type="button" class="btn alt" id="unstick">Back to the road</button><button type="button" class="btn alt" id="settings">Settings</button><button type="button" class="btn alt" id="tut">Replay tips</button><button type="button" class="btn alt" id="reset">Reset progress</button></div>`, (sh) => {
+    const sessionLabel = Number.isFinite(this.day) && Number.isFinite(this.minutes) ? `Day ${this.day} · ${fmtTime(this.minutes)}` : undefined;
+    this.hud.modal(pauseMenuHtml(this.carrierPickupMode, this.story?.pauseProgress, sessionLabel), (sh) => {
       sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
       sh.querySelector('#settings')!.addEventListener('click', () => this.openSettings(() => this.openPause()));
-      sh.querySelector('#tut')!.addEventListener('click', () => { try { localStorage.removeItem(TUT_KEY); } catch { /* ignore */ } this.tutStep = 0; this.tipDismissed = -2; this.acknowledgedTips.clear(); this.flewOnce = false; this.settings.tips = true; this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.tutorialTick(); });
-      sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
-      sh.querySelector('#unstick')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
-      sh.querySelector('#reset')!.addEventListener('click', () => { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } location.reload(); });
+      if (!this.carrierPickupMode) sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
+      sh.querySelector('#restaurant')?.addEventListener('click', () => {
+        if (!this.story) return;
+        this.hud.modal(null); this.paused = false; this.resetInput(); this.clock.getDelta();
+        if (!this.story.openRestaurant()) this.openPause();
+      });
+      const unstick=sh.querySelector<HTMLButtonElement>('#unstick')!;
+      if(this.story?.cinematic){unstick.disabled=true;unstick.title='Resume the story, or restart this level.';}
+      unstick.addEventListener('click', () => { if(this.story?.cinematic)return;this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
+      sh.querySelector('#start-level-one')?.addEventListener('click', () => {
+        this.story?.startFromLevelOne();
+        this.startCampaign();
+      });
+      sh.querySelector('#reset')!.addEventListener('click', () => {
+        if (this.carrierPickupMode) {
+          if (this.story) {this.resume();void this.story.restartCurrentLevel();return;}
+          else { this.carriers.clear(); this.pickupDetector.reset(); this.hud.pickupStatus(false); }
+          this.resume();
+        } else {
+          try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } location.reload();
+        }
+      });
+    });
+  }
+  requestFullscreen() {
+    if (isFullscreen()) { exitFullscreen(); return; }
+    const wasPaused=this.paused;
+    void goFullscreen().then(entered=>{
+      if(entered||this.hud.rotationBlocked||this.hud.modalOpen||this.map?.open||this.choosing)return;
+      this.resetInput();this.paused=true;
+      this.hud.modal(fullscreenFallbackHtml(),sh=>sh.querySelector('#fullscreen-done')!.addEventListener('click',()=>{
+        this.hud.modal(null);if(wasPaused)this.openPause();else this.resume();
+      }));
     });
   }
   openBugReport() {
@@ -682,7 +878,7 @@ export class Game {
   openSettings(back: () => void) {
     this.resetInput();
     const touch = document.documentElement.classList.contains('is-touch');
-    this.hud.modal(settingsHtml(this.settings, touch) + '<div style="display:flex;gap:8px"><button type="button" class="btn go" id="set-done">Done</button></div>', (sh) => {
+    this.hud.modal(settingsHtml(this.settings, touch), (sh) => {
       bindSettings(sh, this.settings, (st, k) => {
         if (k === 'quality') { setTimeout(() => location.reload(), 150); }
         else if (k === 'sound') this.sound.setMuted(!st.sound);
@@ -699,8 +895,15 @@ export class Game {
     if (this.hud.tipOpen) return;
     if (this.tutStep < 0 || !this.settings.tips || this.choosing) { if (this.tutStep >= 0 || !this.settings.tips) this.hud.tip(null); return; }
     if (document.hidden || this.paused || this.hud.modalOpen || this.hud.rotationBlocked || this.map?.open || this.relocating || this.order?.state === 'offer') return;
+    if (this.carrierPickupMode) {
+      const touch = document.documentElement.classList.contains('is-touch');
+      this.hud.tip(touch
+        ? 'Look for a glowing pizza slice floating above traffic. Hold GO to approach, release it, then tap JUMP to grab the slice. Fly does not collect it.'
+        : 'Look for a glowing pizza slice floating above traffic. Drive with W and steer with A / D, then press E to jump through the slice. Q flies; it does not collect.');
+      return;
+    }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
-    const act = touch ? 'the button in the middle of the screen' : 'E', fly = touch ? 'FLY' : 'Space';
+    const act = touch ? 'the button in the middle of the screen' : 'F', fly = touch ? 'FLY' : 'Q';
     let step = this.tutStep, text: string | null = null;
     if (step <= 1 && o?.state === 'offer') { step = 1; text = touch ? 'A new order! Review the request, then slide to accept.' : 'A new order! Press E or slide to accept.'; }
     else if (o && o.state === 'toPickup') {
@@ -754,15 +957,15 @@ export class Game {
   }
   input(): Input {
     const k = this.keys, h = this.hud;
-    const brake = k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
-    if (this.hud.tipOpen || this.order?.state === 'offer') {
+    const brake = k.has('Space') || k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
+    if (this.hud.tipOpen || this.order?.state === 'offer' || this.story?.cinematic) {
       this.flyQueued = false; this.jumpQueued = false;
       return { throttle: 0, brake: 0, steer: 0, flyPressed: false, jumpPressed: false, boost: false };
     }
     if (this.autopilot) { const a = this.autoInput(); if (a) { this.flyQueued = false; this.jumpQueued = false; return { ...a, jumpPressed: false }; } }
     const manualGo = k.has('KeyW') || k.has('ArrowUp') || h.touchGas;
     const inp: Input = {
-      throttle: brake ? 0 : manualGo ? 1 : 0, brake: brake ? 1 : 0,
+      throttle: brake ? 0 : manualGo ? 1 : 0, brake: brake ? 1 : 0, allowReverse: !k.has('Space'),
       steer: Math.max(-1, Math.min(1, (k.has('KeyD') || k.has('ArrowRight') ? 1 : 0) - (k.has('KeyA') || k.has('ArrowLeft') ? 1 : 0) + h.steer)),
       flyPressed: this.flyQueued && !this.player.descending && !this.player.jumping,
       jumpPressed: this.jumpQueued && this.jumpAvailable(), boost: k.has('ShiftLeft') || k.has('ShiftRight'),
@@ -780,13 +983,15 @@ export class Game {
     this.rotationWasBlocked = this.hud.rotationBlocked;
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
-    const active = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
-    this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
+    const storyVisible = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
+    this.story?.tick(dt, storyVisible);
+    const active = storyVisible && !this.story?.blocking;
+    this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('Space') && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
       (this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas) ? 1 : 0,
       flying: this.player.flying || this.player.jumping, descending: this.player.descending, active: active && this.order?.state !== 'offer' });
     this.tickOfferQueue();
-    if (this.map?.open) { this.map.tick(dt); return; }
-    if (!active) { this.engine.render(); return; }
+    if (this.map?.open) { this.hud.flightNavigation(null, dt); this.map.tick(dt); return; }
+    if (!active) { this.hud.flightNavigation(null, dt); this.engine.render(); return; }
     this.t += dt;
     // clock
     const before = this.minutes;
@@ -795,39 +1000,50 @@ export class Game {
     if ((this.moodT -= dt) <= 0) { this.moodT = 0.5; this.applyClockMood(); }
     // player + traffic
     const inp = this.input();
+    if (this.carrierPickupMode) { this.capturePickupPose(this.pickupBefore); this.carriers.beforeFrame(); }
     const wasAirborne = this.player.flying || this.player.jumping;
     this.metro.update(dt, this.player.pos.x, this.player.pos.z);
     this.stationLife?.update(dt, this.minutes, this.metro.stationDwells, this.player.pos.x, this.player.pos.z);
-    this.rail.update(dt, this.player.pos.x, this.player.pos.z, this.city.rails);
-    this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies];
+    this.updateRailwayCrossings(dt);
+    this.rail.update(dt, this.player.pos.x, this.player.pos.z, runningRailwayTracks(this.city.railway?.profiles || railwayNetwork().profiles));
+    this.story?.beforePlayer(dt);
+    // A capture can begin in beforePlayer, after this frame's input sample.
+    // Consume that old sample too: a queued Jump/Fly cannot leak into story.
+    if(this.story?.cinematic)Object.assign(inp,{throttle:0,brake:0,steer:0,flyPressed:false,jumpPressed:false,boost:false});
+    this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies, ...(this.story?.supports ?? [])];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, !!(inp.flyPressed || inp.jumpPressed), dt);
     this.player.update(dt, inp, this.t);
+    if (!wasAirborne && this.player.flying) { this.airOrbitPitch = .62; this.airOrbitDist = 0; }
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const railContact = this.railContacts.afterPlayer(this.player, dt);
+    this.story?.afterPlayer(dt);
     // External train impacts may impart momentum after the driving update.
     // Bound that velocity without altering coach carry or collision separation.
     this.player.enforceSpeedLimit();
     this.updateJumpState();
-    if (railContact.hit && this.player.hitCooldown <= 0) {
+    if (railContact.hit && !this.story?.cinematic && this.player.hitCooldown <= 0) {
       this.player.hitCooldown = 1; this.player.bump = Math.max(this.player.bump, 0.45);
-      this.sound.cue('bump'); this.hud.toast('Mind the train!', 'pink');
+      this.sound.cue('bump');
+      this.hud.toast(railContact.body?.id.startsWith('delivery-') ? 'Watch your clearance!' : 'Mind the train!', 'pink');
       if (this.order?.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; }
     }
     if (!wasAirborne && (this.player.flying || this.player.jumping)) this.sound.cue('flight');
-    this.watchStuck(dt, inp);
+    if(!this.story?.cinematic)this.watchStuck(dt, inp);
     const P = this.player.pos;
     this.bugReports?.record({ time: this.t, x: P.x, y: P.y, z: P.z, speed: this.player.speed, throttle: inp.throttle, brake: inp.brake, steer: inp.steer, flying: this.player.flying, surface: this.player.lastKind });
     this.aircraft.update(dt, P.x, P.z);
     this.city.update(P.x, P.z, dt);
+    this.railTrackFallback?.update(P.x, P.z, this.city.tiles, dt, this.rail.bodies);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
+    if (this.carrierPickupMode) this.updateCarrierPickup(dt);
     this.city.updateSignals(this.traffic.t);
     const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const jumpBounds = this.player.jumping ? this.player.jumpTrafficBounds : undefined;
-    const hit = this.player.flying ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
-    if (!this.player.flying) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
+    const hit = this.player.flying || this.story?.cinematic ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
+    if (!this.player.flying&&!this.story?.cinematic) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
     if (hit && this.player.hitCooldown <= 0) {
       this.sound.cue('bump');
       this.player.hitCooldown = 1.5; this.player.speed *= 0.35; this.player.bump = 0.6;
@@ -863,8 +1079,24 @@ export class Game {
     this.hud.prompt(promptText, this.actProgress, promptAction);
     // gps
     this.updateRoute(dt);
+    const flightOrder = this.order;
+    const flightStop = this.story?.destination ?? (flightOrder?.state === 'toPickup' ? flightOrder.pickup : flightOrder?.state === 'toDrop' ? flightOrder.drop : null);
+    this.hud.flightNavigation(flightStop ? { x: P.x, z: P.z, yaw: this.player.yaw,
+      flying: this.player.flying || this.player.jumping, descending: this.player.descending,
+      road: this.story && !this.player.airborne ? this.roadNavigation(flightStop) : undefined,
+      target: { x: flightStop.x, z: flightStop.z, kind: flightOrder?.state === 'toPickup' ? 'pickup' : 'customer' } } : null, dt);
     this.updateCamera(dt);
-    if (this.beacon.visible) { const s = 1 + Math.sin(this.t * 3) * 0.08; (this.beacon as any).ring.scale.setScalar(s); }
+    // Apply after all driving, collision and camera-visibility transforms.
+    const darkness = vehicleDarkness(this.engine.mood?.lampLights ?? 0);
+    this.deliveryHeadlightGain=stepSceneHeadlightGain(this.deliveryHeadlightGain,this.story?.headlightGain,dt);
+    this.player.lamps?.update(darkness, inp.brake, this.player.speed, (this.opts.lowQ ? 1 : .22)*this.deliveryHeadlightGain);
+    this.trafficHeadlights?.update(P, this.traffic.cars, darkness);
+    if (this.beacon.visible) {
+      const s = 1 + Math.sin(this.t * 3) * 0.08;
+      (this.beacon as any).ring.scale.setScalar(s);
+      // Keep the distant landmark, then clear the actor and entrance on approach.
+      (this.beacon as any).col.visible = !this.story || !flightStop || Math.hypot(flightStop.x - P.x, flightStop.z - P.z) > 45;
+    }
     this.engine.render();
     if (Math.floor(this.t * 8) !== Math.floor((this.t - dt) * 8)) { this.updateHud(); this.tutorialTick(); }
     // stats overlay (real frame rate, not game time)
@@ -874,7 +1106,12 @@ export class Game {
       if (this.devOn) {
         const r = this.engine.renderer.info, w = this.city; let verts = 0; for (const t of w.tiles.values()) verts += t.built.counts.verts;
         const mem = (performance as any).memory ? Math.round((performance as any).memory.usedJSHeapSize / 1e6) + ' MB' : 'n/a';
-        this.hud.el.dev.textContent = `${this.fps} fps · ${r.render.calls} draws · ${Math.round(r.render.triangles / 1000)}k tris\ntiles ${w.tiles.size} (+${w.pending.size}) · ${Math.round(verts / 1000)}k verts · heap ${mem}\ncars ${this.traffic.cars.length}/${this.traffic.max} · people ${this.walkers.list.length}/${this.walkers.max} · busy ${this.busy.toFixed(2)}\n${this.area?.name || ''} · ${this.areaName(this.player.pos.x, this.player.pos.z)}${this.autopilot ? ' · AUTOPILOT' : ''}`;
+        const pickupReadout = this.carrierPickupMode ? this.carriers.markers.map(marker => {
+          const dx = marker.position.x - P.x, dz = marker.position.z - P.z, f = this.player.forward;
+          const angle = Math.atan2(f.x * dz - f.z * dx, f.x * dx + f.z * dz) * 180 / Math.PI;
+          return `${Math.round(Math.hypot(dx, dz))}m ${angle < 0 ? 'L' : 'R'}${Math.round(Math.abs(angle))}°`;
+        }).join(' / ') : '';
+        this.hud.el.dev.textContent = `${this.fps} fps · ${r.render.calls} draws · ${Math.round(r.render.triangles / 1000)}k tris\ntiles ${w.tiles.size} (+${w.pending.size}) · ${Math.round(verts / 1000)}k verts · heap ${mem}\ncars ${this.traffic.cars.length}/${this.traffic.max} · people ${this.walkers.list.length}/${this.walkers.max} · busy ${this.busy.toFixed(2)}\n${this.area?.name || ''} · ${this.areaName(this.player.pos.x, this.player.pos.z)}${this.autopilot ? ' · AUTOPILOT' : ''}${this.carrierPickupMode ? `\ncarriers ${this.carriers.activeCount} · ${this.pickupDetector.caught ? 'carrying' : 'searching'}\n${pickupReadout}` : ''}`;
       }
     }
   }
@@ -885,32 +1122,83 @@ export class Game {
       this.cameraPlacementRevision = this.player.placementRevision;
       this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
       this.orbitYaw = 0; this.orbitPitch = 0.38; this.orbitDist = 0;
+      this.airOrbitPitch = .62; this.airOrbitDist = 0;
+      this.cameraTranslation?.reset();
     }
     const f = this.player.forward;
-    const air = this.player.pos.y - (this.player.lastSupport + 0.55) > 2;
-    const moving = Math.abs(this.player.speed) > 2 || air;
-    if (moving && !this.dragging) { const k2 = 1 - Math.exp(-dt * 1.8); this.orbitYaw *= 1 - k2; this.orbitPitch += (0.38 - this.orbitPitch) * k2; this.orbitDist *= 1 - k2; }
-    const back = 7.6 + Math.abs(this.player.speed) * 0.06 + (air ? 4 : 0) + this.orbitDist;
+    const flight = this.player.flying || this.player.descending;
+    const underwater = this.player.deliveryMotion?.mode === 'underwater' && P.y < -.8;
+    const motion = this.player.deliveryMotion;
+    this.cameraCollisionOptions ??= {};
+    this.cameraCollisionOptions.underwater = underwater && motion ? motion : undefined;
+    const solids=this.story?.supports??[];
+    this.cameraCollisionOptions.deliverySolids=solids;
+    const bed=solids.find(b=>b.id==='delivery-interior-floor'),roof=solids.find(b=>b.id==='delivery-interior-roof');
+    const interior=!!bed&&!!roof&&P.y>bed.roof+.15&&P.y<roof.bottom&&
+      Math.abs((P.x-bed.x)*bed.hz-(P.z-bed.z)*bed.hx)<bed.halfWidth-.15&&
+      Math.abs((P.x-bed.x)*bed.hx+(P.z-bed.z)*bed.hz)<bed.halfLength+.5;
+    const requestedFocus=this.story?.cameraFocus;
+    const parkedHandoff=requestedFocus?.context==='stationary-handoff'&&!flight&&!this.player.jumping&&!this.player.descending&&Math.abs(this.player.speed)<=.75&&Math.abs(this.orbitPitch-.38)<.04&&Math.abs(this.orbitDist)<.1;
+    // Once controls are captured, a previous manual orbit cannot lock the
+    // customer out of view. Ordinary driving/interior orbit keeps its gates.
+    const interactionFocus=this.story?.cinematic?requestedFocus:
+      (interior||underwater||parkedHandoff)&&!this.dragging&&Math.abs(this.orbitYaw)<.12?requestedFocus:undefined;
+    const air = flight || this.player.pos.y - (this.player.lastSupport + 0.55) > 2;
+    // Airborne does not mean moving: a hovering player keeps their chosen view.
+    const moving = Math.abs(this.player.speed) > 2;
+    if (moving && !this.dragging) {
+      const k2 = 1 - Math.exp(-dt * 1.8);
+      // Free orbit can cross many turns. Rejoin the chase view by the short arc.
+      this.orbitYaw = Math.atan2(Math.sin(this.orbitYaw), Math.cos(this.orbitYaw)) * (1 - k2);
+      this.orbitPitch += (0.38 - this.orbitPitch) * k2; this.orbitDist *= 1 - k2;
+      if (flight) { this.airOrbitPitch += (.62 - this.airOrbitPitch) * k2; this.airOrbitDist *= 1 - k2; }
+    }
+    const driving = !air && !flight && !this.player.jumping && !interior && !underwater && !interactionFocus;
+    const back = interior ? 3.5 : underwater ? 7 : (driving ? DRIVING_CAMERA.distance : 7.6) + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
     const cy = Math.cos(this.orbitYaw), sy = Math.sin(this.orbitYaw);
     const bx = f.x * cy - f.z * sy, bz = f.x * sy + f.z * cy;          // camera looks along the rotated forward
-    const pitch = air ? 0.62 : this.orbitPitch;
-    const hd = back * Math.cos(pitch) / Math.cos(0.38), up = 0.4 + back * Math.sin(pitch) * 0.95;
+    const pitch = interior || underwater ? .12 : flight ? this.airOrbitPitch : air ? .62 : this.orbitPitch;
+    const hd = back * Math.cos(pitch) / Math.cos(0.38), up = driving ? drivingCameraHeight(this.player.speed, pitch, back) : 0.4 + back * Math.sin(pitch) * 0.95;
     const pivot = new THREE.Vector3(P.x, P.y + 1.4, P.z);
     let desired = new THREE.Vector3(P.x - bx * hd, P.y + up, P.z - bz * hd);
-    desired = this.clearCamera(pivot, desired);
+    if(interactionFocus)desired.set(interactionFocus.position.x,interactionFocus.position.y,interactionFocus.position.z);
+    // Authored story shots may frame a rooftop customer while the car remains
+    // on the street. Test that real subject-to-camera line, not a ray from the
+    // car through the restaurant wall. Ordinary chase/orbit behavior is intact.
+    const clearFocus=interactionFocus?.clearanceTarget??interactionFocus?.target;
+    const cameraPivot=this.story?.cinematic&&clearFocus?new THREE.Vector3(clearFocus.x,clearFocus.y,clearFocus.z):pivot;
+    desired = this.clearCamera(cameraPivot, desired);
+    this.cameraTranslation ??= new CameraTranslationFollow();
+    if (this.cameraTranslation.advance(this.camPos, this.camLook, P, dt, !interactionFocus)) {
+      this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
+    }
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
+    // This captured truck shot has a checked pivot beyond the car's nose.
+    // Its smoothed transition must not pass through the parked Roadster on
+    // the way there. Apply the existing solid-escape cut only to this opt-in
+    // story shot; ordinary chase/orbit/flight retain their original branch.
+    let insideHero=false;
+    if(this.story?.cinematic&&interactionFocus?.clearanceTarget){
+      const dx=this.camPos.x-P.x,dz=this.camPos.z-P.z;
+      insideHero=Math.abs(dx*f.x+dz*f.z)<2.75&&Math.abs(dx*f.z-dz*f.x)<1.5&&this.camPos.y+.35>P.y-.55&&this.camPos.y-.35<P.y+.8;
+    }
     // if the smoothed camera would sit inside something, snap to the clear point
-    if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
+    if (insideHero||this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
-    else { const vis = this.clearCamera(pivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
-    const look = moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * 20, P.y + 1.2, P.z + f.z * 20) : pivot.clone();
-    if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, k);
+    else { const vis = this.clearCamera(cameraPivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
+    const aimWeight = driving ? drivingCameraAimWeight(this.orbitYaw, this.orbitPitch, this.dragging) : 0;
+    const ahead = drivingCameraLookAhead(this.player.speed) * aimWeight;
+    const look = interactionFocus ? new THREE.Vector3(interactionFocus.target.x, interactionFocus.target.y, interactionFocus.target.z) : driving ?
+      new THREE.Vector3(P.x + f.x * ahead, P.y + 1.4 + (DRIVING_CAMERA.lookHeight - 1.4) * aimWeight, P.z + f.z * ahead) :
+      moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * (interior ? 4 : 20), P.y + 1.2, P.z + f.z * (interior ? 4 : 20)) : pivot.clone();
+    const aimK = driving && !this.dragging ? 1 - Math.exp(-dt * DRIVING_CAMERA.aimDamping) : k;
+    if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, aimK);
     const cam = this.engine.camera;
     cam.position.copy(this.camPos);
     if (this.player.bump > 0) cam.position.add(new THREE.Vector3((Math.random() - 0.5) * this.player.bump, (Math.random() - 0.5) * this.player.bump, 0));
     cam.lookAt(this.camLook);
-    const baseFov = 60 + Math.abs(this.player.speed) * .3;
+    const baseFov = speedCameraFov(this.player.speed);
     cam.fov = dt > 0 ? THREE.MathUtils.lerp(cam.fov, baseFov, 1 - Math.exp(-dt * 6)) : baseFov;
     if (this.player.takeoffAnimating) {
       frameTakeoff(cam, this.player.group, this.camLook, { solid: p => this.insideSolid(p), clear: (from, to) => this.clearCamera(from, to) });
@@ -934,34 +1222,50 @@ export class Game {
     }
     this.busy = shops;
     const low = this.opts.lowQ;
-    this.traffic.max = Math.round((low ? 16 : 26) + (low ? 18 : 38) * Math.max(shops, road));
+    this.traffic.max = trafficPopulationLimit(low,shops,road);
     this.walkers.max = Math.round((low ? 6 : 12) + (low ? 22 : 70) * shops + (low ? 4 : 8) * road);
   }
   // Camera volume against buildings, landmark piers, poles, walls and decks.
   insideSolid(p: THREE.Vector3) {
-    return staticSolidAt(this.city, p);
+    return staticSolidAt(this.city, p, .35, .35, this.cameraCollisionOptions);
   }
   // walk from the car toward the wanted camera spot and stop before the first solid thing
   clearCamera(from: THREE.Vector3, to: THREE.Vector3) {
-    const p = clearCameraPosition(this.city, from, to);
+    const p = clearCameraPosition(this.city, from, to, this.cameraCollisionOptions);
     return new THREE.Vector3(p.x, p.y, p.z);
   }
   lampT = 0;
+  private streetLampPositions:THREE.Vector3[]=[];
+  private sceneLampReserved=false;
+  private deliveryHeadlightGain=1;
   placeLampLights() {
+    const sceneLamp=this.story?.sceneLamp,slot=this.engine.lampLights[0],mood=this.engine.mood?.lampLights??0;
+    // A moving fixture updates one pooled light each frame. Ordinary street
+    // selection keeps its Version21 cadence and there are no extra lights.
+    if(slot&&(sceneLamp||this.sceneLampReserved)){this.sceneLampReserved=applySceneLamp(slot,sceneLamp??null,this.streetLampPositions[0]??null,mood,0);}
     if ((this.lampT -= 1) > 0) return; this.lampT = 20;
     const P = this.player.pos;
     const near = this.city.lamps.filter((l) => Math.abs(l.x - P.x) < 70 && Math.abs(l.z - P.z) < 70).sort((a, b) => a.distanceTo(P) - b.distanceTo(P));
-    this.engine.lampLights.forEach((L, i) => { const p = near[i]; if (p) L.position.copy(p); else L.position.set(0, -200, 0); });
+    this.streetLampPositions=near;
+    this.engine.lampLights.forEach((L,i)=>applySceneLamp(L,i===0?sceneLamp??null:null,near[i]??null,mood,i));
+    this.sceneLampReserved=!!sceneLamp;
   }
   updateRoute(dt: number) {
     const tgt = this.routeTarget, P = this.player.pos, f = this.player.forward;
+    // Keep actual road/minimap planning and the small HUD direction cue. The
+    // occupied truck interior only clears its world-space beacon and ribbon.
+    const hideWorldGuidance=!!this.story?.hideWorldGuidance;
+    if(this.beacon)this.beacon.visible=!!tgt&&!hideWorldGuidance;
     if (!tgt) { this.gps.visible = false; return; }
+    // Authored scenes may be on a roof, inside a hall or on a train. Route
+    // the car along real roads to their approach; keep the exact scene marker.
+    const roadTarget = this.story?.roadNavigationTarget ?? tgt;
     this.routeT -= dt; this.routeGuideT = (this.routeGuideT || 0) - dt;
     const airborne = this.player.flying || this.player.descending || this.player.jumping;
     if (airborne) {
       // Flight uses the beacon. The map may retain a coarse road overview, but
       // landing always creates a new route from the actual road and height.
-      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, undefined, tgt.y); this.routeT = 4; }
+      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, undefined, roadTarget.y); this.routeT = 4; }
       this.routeWasAirborne = true; this.gps.visible = false; return;
     }
     const revision = this.graph.revision || 0, changed = revision !== this.routeGraphRevision;
@@ -985,7 +1289,7 @@ export class Game {
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
     if (replan) {
-      this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, tgt.y);
+      this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, roadTarget.y, P.y, true);
       this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
     } else if (advanced) this.route = advanced.route;
     this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;
@@ -1006,10 +1310,41 @@ export class Game {
       attribute.setUsage(THREE.DynamicDrawUsage); geometry.setAttribute('position', attribute);
     }
     (attribute.array as Float32Array).set(vertices); attribute.needsUpdate = true; geometry.setDrawRange(0, vertices.length / 3);
+    // Dynamic route vertices move between streets; a cached sphere can cull
+    // the newly uploaded ribbon using the previous route location.
+    this.gps.frustumCulled = false;
     this.routeAlpha = (this.routeAlpha || 0) + (1 - (this.routeAlpha || 0)) * (1 - Math.exp(-dt * 12));
     const material = this.gps.material as THREE.MeshBasicMaterial;
     material.side = THREE.DoubleSide; material.opacity = .6 * this.routeAlpha;
-    this.gps.visible = !!this.route && vertices.length > 0;
+    this.gps.visible = !hideWorldGuidance && !!this.route && vertices.length > 0;
+  }
+  private capturePickupPose(pose: JumpPickupPose) {
+    const p = this.player, bounds = p.jumpTrafficBounds;
+    pose.x = p.pos.x; pose.y = p.pos.y; pose.z = p.pos.z;
+    pose.bottom = bounds?.bottom ?? p.pos.y - .55;
+    pose.top = bounds?.top ?? p.pos.y + .8;
+    pose.jumping = p.jumping;
+  }
+  private updateCarrierPickup(dt: number) {
+    const P = this.player.pos;
+    const available = !this.story || this.story.canPickup;
+    this.pickupDetector.enabled = available;
+    const view = this.carrierView ??= { cameraX:0,cameraY:0,cameraZ:0, forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
+    view.forwardX = -Math.sin(this.player.yaw); view.forwardZ = -Math.cos(this.player.yaw);
+    const camera = this.engine.camera.position; view.cameraX=camera.x; view.cameraY=camera.y; view.cameraZ=camera.z;
+    view.jumping = this.player.jumping; view.airborne = this.player.flying || this.player.descending || this.player.jumping;
+    this.carriers.update(dt, this.traffic.cars, P, available && !this.pickupDetector.caught, view);
+    this.carrierSpawnT = Math.max(0, this.carrierSpawnT - dt);
+    if (available && !this.pickupDetector.caught && !this.carriers.activeCount && this.carrierSpawnT === 0) {
+      // A bounded call to Traffic's collision/gate-aware spawner also covers a
+      // full budget of distant cars. Its normal update retires the farthest car.
+      this.carrierSpawnT = 1;
+      if (this.traffic.cars.length <= this.traffic.max) this.traffic.spawn(P.x, P.z);
+      this.carriers.update(0, this.traffic.cars, P, available, view);
+    }
+    this.capturePickupPose(this.pickupAfter);
+    this.pickupDetector.update(this.pickupBefore, this.pickupAfter, this.carriers.markers,
+      (marker, time) => pickupPathClear(this.city, this.pickupBefore, this.pickupAfter, marker, time));
   }
   areaNow = ''; areaCand = ''; areaCandT = 0;
   campusProximity = new CampusProximity(DESTINATION_IDENTITIES);
@@ -1019,10 +1354,10 @@ export class Game {
     { const a = this.areaName(P.x, P.z) || ''; if (a !== this.areaCand) { this.areaCand = a; this.areaCandT = this.t; } else if (a && a !== this.areaNow && this.t - this.areaCandT > 1.5) { if (this.areaNow) h.areaChip(a); this.areaNow = a; } }
     const campus = this.campusProximity?.update(P.x, P.z, P.y, this.t);
     if (campus) h.areaChip(campus, 'Nearby');
-    h.set('coins', this.coins.toLocaleString('en-IN'));
+    if (!this.carrierPickupMode) h.set('coins', this.coins.toLocaleString('en-IN'));
     h.set('clock', `Day ${this.day} · ${fmtTime(this.minutes)}`);
     const L = LEVELS[Math.min(this.level, LEVELS.length - 1)];
-    h.set('level', `Level ${this.level + 1} · ${this.doneInLevel}/${L.n}`);
+    h.set('level', this.story?.levelLabel ?? (this.carrierPickupMode ? 'Jump grab · Preview' : `Level ${this.level + 1} · ${this.doneInLevel}/${L.n}`));
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
     h.flightReserve?.(1, true);
     h.flightState?.(this.player.flying, this.player.descending);
@@ -1042,9 +1377,18 @@ export class Game {
     }
     this.drawMinimap();
   }
+  /** One local path for the ground cue, road ribbon and rotating minimap. */
+  private navigationRoadPoints() {
+    return this.player.flying || this.player.descending || this.player.jumping ? this.route?.pts || [] : this.routeGuide;
+  }
+  private roadNavigation(target: { x: number; z: number }) {
+    return this.story?.localNavigation ?? roadNavigationCue(this.routeGuidanceBlocked ? undefined : this.navigationRoadPoints(),
+      this.route?.len ?? Math.hypot(target.x - this.player.pos.x, target.z - this.player.pos.z), { yaw: this.player.yaw });
+  }
   drawMinimap() {
     const c = this.hud.el.minimap as HTMLCanvasElement; const g = c.getContext('2d')!;
     const W = c.width, R = 240, sc = (W / 2) / R, P = this.player.pos, yaw = this.player.yaw;
+    const backingPerCss = W / (c.clientWidth || W);
     g.clearRect(0, 0, W, W); g.save();
     g.beginPath(); g.arc(W / 2, W / 2, W / 2, 0, 7); g.clip();
     g.fillStyle = '#1B1633'; g.fillRect(0, 0, W, W);
@@ -1055,11 +1399,13 @@ export class Game {
       g.lineWidth = Math.max(2.5, e.e.w * 0.9);
       g.beginPath(); e.e.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke();
     }
+    const railways = railwayMapLayer(this.city.railway?.profiles || railwayNetwork().profiles);
+    drawRailways(g, railways.nearby(P.x, P.z, R), sc);
     for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
-    if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
+    if (this.route) strokeMinimapRoute(g, this.navigationRoadPoints().length > 1 ? this.navigationRoadPoints() : this.route.pts, sc, backingPerCss);
+    if (this.routeTarget) { g.fillStyle = MINIMAP_NAVIGATION.target; g.strokeStyle = MINIMAP_NAVIGATION.casing; g.lineWidth = 2 * backingPerCss / sc; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 5 * backingPerCss / sc, 0, 7); g.fill(); g.stroke(); }
     g.restore();
-    g.fillStyle = '#FFB627'; g.beginPath(); g.moveTo(W / 2, W / 2 - 16); g.lineTo(W / 2 + 11, W / 2 + 12); g.lineTo(W / 2, W / 2 + 5); g.lineTo(W / 2 - 11, W / 2 + 12); g.closePath(); g.fill();
+    drawMinimapPlayer(g, W, backingPerCss);
   }
   stillFrame(q: URLSearchParams) {
     const sr = (q.get('showroom') || '').split(',').map(Number);

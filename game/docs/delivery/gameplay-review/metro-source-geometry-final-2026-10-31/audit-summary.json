@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "kind": "Independent finite source-geometry audit evidence; no art, rendered-camera, GPU or physical-device approval",
+  "history": {
+    "v1": {
+      "state": "Superseded for host camera safety; actor-foot support observations remain valid for unchanged actor poses.",
+      "cameraOutwardFromFinalRow": 1.65,
+      "cameraHeightAbovePlatform": 2.1,
+      "testedNearFieldHalfExtent": 0.15,
+      "minimumCameraCentreGuardClearance": 0.21209399883761304,
+      "actualHostRadius": 0.35,
+      "actualHostRadiusDeficitMetres": 0.13790600116238694,
+      "finding": "A positive0.15m envelope result did not cover Game.insideSolid radius0.35m and half-height0.35m. It must not be presented as a passing host-volume check."
+    },
+    "v2": {
+      "state": "Pass for all finite source-platform pad samples and exact cylinder-versus-source-guard geometry.",
+      "cameraOutwardFromFinalRow": 1.4,
+      "cameraHeightAbovePlatform": 2.25,
+      "actualHostRadius": 0.35,
+      "actualHostHalfHeight": 0.35,
+      "minimumCameraCentreGuardClearance": 0.4620939839307894,
+      "minimumExactCylinderGuardGap": 0.1120939839307894,
+      "minimumSampledDiscGuardGap": 0.11209994360126418,
+      "counts": {
+        "assemblies": 59,
+        "directions": 118,
+        "candidateDoors": 1062,
+        "acceptedDoors": 1061,
+        "actorFeet": 4244,
+        "footSamples": 513524,
+        "cameraSamples": 1070549,
+        "invalidActorRows": 0,
+        "invalidCameraPoints": 0,
+        "cameraCircleSamples": 1070549,
+        "cameraCircleUnsupported": 0,
+        "cameraCircleGuardIntersections": 0,
+        "cameraCylinderGuardIntersections": 0
+      },
+      "worstCase": {
+        "assembly": "st_secunderabad_west",
+        "station": "Secunderabad West",
+        "stationId": "st_secunderabad_west",
+        "line": "green",
+        "direction": -1,
+        "side": 1,
+        "coach": 0,
+        "offset": 0,
+        "camera": {
+          "x": 313.1687020583326,
+          "y": 15.95,
+          "z": -3038.6654652999987
+        },
+        "clearance": 0.4620939839307894
+      }
+    }
+  },
+  "hostSource": {
+    "path": "src/game/game.ts",
+    "line": 1185,
+    "call": "staticSolidAt(this.city,p,.35,.35,this.cameraCollisionOptions)"
+  },
+  "cameraSource": {
+    "path": "src/delivery/modules/metro-ride.ts",
+    "lines": [
+      39,
+      46
+    ],
+    "parameters": "Final row uses METRO_DELIVERY_WALK_DISTANCE1.65; camera moves outward1.4m, along\u22120.15m, height2.25m; look target height1.05m."
+  },
+  "guardSource": {
+    "path": "src/world/city.ts",
+    "lines": [
+      1412,
+      1418
+    ],
+    "parameters": "Actual finite10m corridor-offset guard chords at\u00b17.4m, width0.25m, length extension0.02m, vertical intervaldeck+0.7..deck+3.3."
+  },
+  "method": "All59 source station assemblies,118 directions,9 real offset-track door frames each. Only1061/1062 doors accepted by current source parking helper are evaluated. Standing actors use conservative0.5\u00d70.5m squares sampled every0.05m. Camera discs use radius0.35m sampled at8 concentric rings and144 angles; exact camera-cylinder/guard intersection uses signed distance to each finite guard rectangle minus0.35 with the real vertical interval.",
+  "limits": [
+    "Camera-versus-guard cylinder separation is exact for the modeled rectangles; platform foot/disc union support is densely sampled.",
+    "This does not build the entire world collision grids or certify unrelated buildings, transient trains, interpolated camera travel or final rendered occlusion.",
+    "No UI, camera art, character approval, device FPS, GPU, thermal or battery result follows from this geometry audit."
+  ],
+  "sourceChangesByAuditor": [],
+  "newFilesOnlyInThisEvidenceDirectory": [
+    {
+      "file": "metro-final-foot-camera-audit-v1.json",
+      "sha256": "c1fdc1905a428b53707543a44f0ba17618cd2cc055457d378328c7c679155fbb",
+      "bytes": 395183,
+      "copiedExactlyFrom": "/tmp/roadster-metro-final-foot-camera-audit.json"
+    },
+    {
+      "file": "metro-final-foot-camera-audit-v1.mjs",
+      "sha256": "e06bfbaf5f9be3e42ec2341208942496426bdbe4716634660cc7343333aba240",
+      "bytes": 7079,
+      "copiedExactlyFrom": "/tmp/roadster-metro-final-foot-camera-audit.mjs"
+    },
+    {
+      "file": "metro-final-foot-camera-audit-v2.json",
+      "sha256": "1f9e753ae5da57995a6e6544eef7da5f465d39d1f1609a275c746ceef6dd166c",
+      "bytes": 490952,
+      "copiedExactlyFrom": "/tmp/roadster-metro-final-foot-camera-audit-v2.json"
+    },
+    {
+      "file": "metro-final-foot-camera-audit-v2.mjs",
+      "sha256": "01dc4823b7e52fc3d5e0a32adbf21e01db9c434d4e3caa1d36098f2660b8db43",
+      "bytes": 8700,
+      "copiedExactlyFrom": "/tmp/roadster-metro-final-foot-camera-audit-v2.mjs"
+    }
+  ],
+  "execution": "The retained scripts import source from the original audit root. They were bundled with esbuild(platform:node,format:esm,target:node22), then executed with Node; bundled scratch outputs remain in/tmp. Source hashes are in each report.",
+  "packagingRequirement": "Include both.mjs scripts explicitly in the final selected-source inventory; the existing gameplay-review extension allowlist previously omitted.mjs."
+}

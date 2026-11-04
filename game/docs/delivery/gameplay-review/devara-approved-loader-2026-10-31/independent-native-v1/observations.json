@@ -1,0 +1,112 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.033996+00:00",
+  "scenario": 3,
+  "characterId": "devara",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=3&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Surface F300 DIVE, actual lakebed character grips intact anatomical skeleton, F300 PLACE, safe automatic surface/hover and Next; W380+space300.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table"
+    ]
+  },
+  "row": {
+    "level": 3,
+    "id": "devara-depths",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "Devara is behind the intact skeleton, hands on its neck, framed ahead of the Roadster.",
+      "Correct Devara likeness, costume and fixed grip survive the handover."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwq09iy.json",
+    "sha256": "624def71af8d78c31c4299c160b0eb831e7104d1c570d4d74000b2cfc4e9df2e"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "devara-underwater-neck-grip-v1",
+      "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/devara/neck-grip-v1.glb",
+        "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+      },
+      {
+        "path": "public/delivery/characters/devara/neck-grip-v1.rig.json",
+        "sha256": "225eeda36e87176a4db6019b4782d6c2ca48109e08111e94769c3dc07ccee6c6"
+      },
+      {
+        "path": "public/delivery/characters/devara/portrait-v1.png",
+        "sha256": "407b4e5353b7f45dc2e6eed4f97bc03e2c68e8f68782354ff2c3089359205690"
+      }
+    ],
+    "glbUrl": "/delivery/characters/devara/neck-grip-v1.glb",
+    "contractPath": "public/delivery/characters/devara/neck-grip-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/01-surface-dive.png",
+      "sha256": "11924b2300f2cfa5165c72f19c4056965ebb1304a8f85c5b7bd8bfe826c63187"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/02-actual-underwater.png",
+      "sha256": "c8de707bdc2cac9817d4bbabb757977c527a3c9c0b00241236f657236d22e59d"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/03-place-0.png",
+      "sha256": "2ca988a8e94c28ee561f432761c34f06e7ca8d5f439b6e235c09f43d8d2f77aa"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/03-place-1.png",
+      "sha256": "3cb90ebb648979a591c629abd1b43609200ade97336e7f0eb64b09a068112fd3"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/03-place-2.png",
+      "sha256": "fdd306fdb5b7752d4dcd3bc590a66391efee669598f4e9769da5f4b90029c51a"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-approved-loader-2026-10-31/independent-native-v1/04-surface-after-next.png",
+      "sha256": "8266c18959968a6ed56223578f4adfcad758961dfb8be3b6e464289787bfab63"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

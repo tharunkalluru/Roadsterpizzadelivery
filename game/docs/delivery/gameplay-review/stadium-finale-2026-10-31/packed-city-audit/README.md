@@ -1,0 +1,5 @@
+# Read-only actual packed-city pitch audit
+
+The temporary audit reproduced main/worker road preparation and called the actual `buildTile` with the shipped owner tile5_0 from `packs/p1_0.pack.wasm`, current catalogue landmarks, metro, airfields, construction, destinations and railway transport. The real `modelClearance` was active; this was not the old synthetic Kit fixture with `clear` omitted. Low and High both emitted36 brown-pitch vertices,216 wicket vertices and72 crease vertices at the actual hero anchor x5723.556092/z13.933292. Pitch bounds measure3.05×20.12m, y.04–.07; wickets extend to.77m. The unchanged source code therefore contains the physical pitch/wickets in actual city buffers. Their absence from one camera angle is not evidence of missing/culling geometry.
+
+The hero anchor is17.40617410487805/78.55046686341466; the prior level marker is about44m north. Root may adjust only delivery staging nearer the actual wicket for better in-play composition. This audit is geometry-presence evidence, not a native screenshot, performance benchmark or a claim about exact surveyed wicket bearing. No repository gameplay/world source was changed.

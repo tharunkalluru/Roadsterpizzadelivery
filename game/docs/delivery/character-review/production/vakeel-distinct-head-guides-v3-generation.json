@@ -1,0 +1,52 @@
+{
+  "mode": "built-in image_gen only; no CLI/API fallback or local3D neural generation",
+  "outputs": [
+    {
+      "role": "vakeel-woman-2",
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/vakeel-woman-2-head-guide-reference-v3.png",
+      "sha256": "874a4cacd23a49c8784f6dd55a71f211022a828709eb6dfe47b036b73f91652b",
+      "primaryInput": "middle178+170 only",
+      "mode": "built-in image_gen; never CLI/API fallback",
+      "status": "UNREVIEWED primary-derived authoring guide; model/face must pass independent full-reference comparison",
+      "promptVerbatim": "Create a faithful production portrait of the SPECIFIC MIDDLE WOMAN in image1, not either of her companions. She is behind the two foreground women, centered at about x=0.48 in image1, with side-parted dark hair and a black/dark blue saree in that scene. Image2 is the SAME middle woman on a phone, supporting her exact nose, chin, eyebrows, mouth and hair. Image3 shows her partly obscured in a gray/white everyday kurta; use only for tied-back daytime hair. There are NO generic portrait scaffolds: derive her actual distinct facial identity directly from these film frames. Do not output the RIGHT woman's fuller round face and large eyes. The middle woman has her own narrower oval/tapered face and more slender nose and chin as seen in image1 and2. Output ONLY her head, full hair silhouette, ears and short neck on genuinely transparent background, looking directly forward, neutral natural expression, natural unretouched pores and skin. Soft even neutral daylight, remove only the extreme orange nighttime light, retain her actual complexion. High resolution square portrait suitable for mapping onto a real 3D head. Preserve her actual facial proportions, asymmetry, eyebrows, smaller eyes and lip contours; do not beautify, average identities, or make a generic attractive Indian woman. No body, no clothes, no collage, labels or extra head.",
+      "transparentBackground": true,
+      "primaryReferencesUnmodified": true,
+      "inputOrder": [
+        "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+        "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-women-aditya-170s.png",
+        "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png"
+      ]
+    },
+    {
+      "role": "vakeel-woman-3",
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/vakeel-woman-3-head-guide-reference-v3.png",
+      "sha256": "c55e91b159db303b7f89ed4736d10cd20dbf878ded2261a2c7e59a82670b3e90",
+      "primaryInput": "right178 unaltered crop+day106.5",
+      "mode": "built-in image_gen; never CLI/API fallback",
+      "status": "UNREVIEWED primary-derived authoring guide; model/face must pass independent full-reference comparison",
+      "promptVerbatim": "Create a faithful front-facing photorealistic HEAD AND NECK reference of the EXACT WOMAN in the cropped first image. This unretouched film crop shows her distinct fuller face, large eyes, strong thick eyebrows, rounded nose, lips, subtle bindi and pulled-back hairline. Preserve HER facial identity and proportions; no generic woman, face averaging, beautification, glamour changes or resemblance to any other person. Second image is supporting daytime hair context: she is the maroon-kurta companion immediately left of the lawyer, not the gray/white companion behind the cream/red woman. Output one isolated frontal head with complete hair silhouette, ears and short neck on a genuinely transparent background, square high resolution. Use calm natural closed-mouth expression and straight gaze while preserving her actual distinctive eyes, brows, nose and jaw. Hair should be tied/pulled back in the court-day style from image2, with the same individual hairline. Soft even neutral daylight and natural skin pores; compensate only the warm nighttime color cast from the crop. No shoulders/clothes, labels, collage, frame, body, extra faces or invented accessories. A modeler will use this for actual 3D geometry and color projection; distinct anatomy and identity are essential.",
+      "transparentBackground": true,
+      "primaryReferencesUnmodified": true,
+      "inputOrder": [
+        "/tmp/roadster-vakeel-production/woman3-actual178s-unaltered-crop-v1.png",
+        "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png"
+      ],
+      "unalteredCropProvenance": {
+        "role": "woman3",
+        "source": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+        "sourceSha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+        "cropTopDownPixels": {
+          "left": 1170,
+          "top": 195,
+          "width": 350,
+          "height": 490
+        },
+        "output": "/tmp/roadster-vakeel-production/woman3-actual178s-unaltered-crop-v1.png",
+        "sha256": "f4c4545f20bb83200cbbbc62469795e60603094d62176c6934f409edc2f2d24e",
+        "operations": "exact integer coordinate crop only; no retouch/resample/recolor/identity change",
+        "purpose": "analytic modeling input; full original remains independent comparison source"
+      }
+    }
+  ],
+  "status": "Artist modeling inputs only, never independent appearance approval; original primary film frames remain comparison source"
+}

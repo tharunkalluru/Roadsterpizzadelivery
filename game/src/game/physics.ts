@@ -1,20 +1,23 @@
 import type { CityData, Surface, Wall } from '../world/city';
 import { pointInRing } from '../world/city';
 import type { Building } from '../world/types';
-import { movingRailSupport, railRoofAt } from './moving-rail';
+import { movingRailSupport, railRoofAt, deliveryRampClimb } from './moving-rail';
 import { landmarkHeightAt, landmarkRoofUnder } from '../world/landmark-support';
 import { roadQuadHeight } from '../world/road-surface';
+import { waterHeightAt, WATER_DRAFT } from '../world/water';
 
 const k30 = (x: number, z: number) => `${Math.floor(x / 30)},${Math.floor(z / 30)}`;
 const k50 = (x: number, z: number) => `${Math.floor(x / 50)},${Math.floor(z / 50)}`;
 
-export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof' | 'rail' | 'landmark';
+export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof' | 'rail' | 'landmark' | 'water';
 export interface Support { y: number; s: Surface | null; onRoad: boolean; kind: SupportKind; elevatedRoad: boolean }
 
 // Highest surface under (x,z) that the car can reach from height `fromY`: roads and flyovers, the metro deck,
 // bus-shelter roofs and building roofs. Surfaces more than 1.6 m above `fromY` are overhead and ignored.
-export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false): Support {
+export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false, previous?: {x:number;z:number;feet:number}): Support {
   let best: Support = { y: 0, s: null, onRoad: false, kind: 'ground', elevatedRoad: false }, found = false, bestScore = Math.abs(fromY);
+  const water = roadsOnly ? null : waterHeightAt(city.waterGrid, x, z);
+  if (water !== null) best = { y: water - WATER_DRAFT, s: null, onRoad: false, kind: 'water', elevatedRoad: false };
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
     const cell = city.surfaceGrid.get(`${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`);
     if (!cell) continue;
@@ -46,8 +49,8 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
   if (!roadsOnly) {
     const landmark = landmarkHeightAt(city.landmarkSurfaceGrid, x, z, fromY + 1.6);
     if (landmark !== null && landmark >= best.y - .01) best = { y: landmark, s: null, onRoad: false, kind: 'landmark', elevatedRoad: false };
-    const rail = movingRailSupport(city.movingRail || [], x, z, fromY);
-    if (rail && (Math.abs(rail.y - fromY) < Math.abs(best.y - fromY) + .01)) best = { y: rail.y, s: null, onRoad: false, kind: 'rail', elevatedRoad: false };
+    const rail = movingRailSupport(city.movingRail || [], x, z, fromY, previous);
+    if (rail && (Math.abs(rail.y - fromY) < Math.abs(best.y - fromY) + .01 || deliveryRampClimb(rail.body,x,z,previous)>0 && rail.y>=best.y)) best = { y: rail.y, s: null, onRoad: false, kind: 'rail', elevatedRoad: false };
   }
   return best;
 }
@@ -64,15 +67,30 @@ export function roofUnder(city: CityData, pts: [number, number][]): number {
   for (const [x, z] of pts) {
     for (const b of nearbyBuildings(city, x, z)) if ((!city.landmarkSurfaceGrid || b.cls !== 'landmark') && b.h > h && pointInRing(x, z, b.ring)) h = b.h;
     h = Math.max(h, landmarkRoofUnder(city.landmarkSurfaceGrid, x, z));
+    h = Math.max(h, city.metroFlightClearance?.heightAt(x, z) || 0);
+    // Road/metro decks and shelter pads are real overhead geometry even when
+    // there is no building footprint. Keep this distinct from supportAt's
+    // height-reachable tyre contact so manual train/metro landing is unchanged.
+    const seen = new Set<Surface>();
+    for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const surface of city.surfaceGrid.get(`${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`) || []) {
+      if (seen.has(surface)) continue; seen.add(surface);
+      const dx = surface.bx - surface.ax, dz = surface.bz - surface.az, u = Math.max(0, Math.min(1, ((x - surface.ax) * dx + (z - surface.az) * dz) / (dx * dx + dz * dz || 1)));
+      const exact = surface.roadQuad ? roadQuadHeight(surface.roadQuad, x, z) : undefined;
+      if (exact === null || exact === undefined && Math.hypot(x - surface.ax - dx * u, z - surface.az - dz * u) > surface.hw) continue;
+      h = Math.max(h, exact ?? surface.ya + (surface.yb - surface.ya) * u);
+    }
     for (const body of city.movingRail || []) h = Math.max(h, railRoofAt(body, x, z) || 0);
   }
   return h;
 }
 
 // Push a circle out of building footprints taller than the car's height. Returns penetration depth (0 = no hit).
-export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number): number {
+export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number, bodyTop = y + 1.2): number {
   let hit = 0;
   for (const b of nearbyBuildings(city, pos.x, pos.z)) {
+    // Source building footprints start at local ground, not an infinite
+    // basement through a road-under-bridge cut.
+    if (bodyTop < 0) continue;
     if (city.landmarkSurfaceGrid && b.cls === 'landmark') {
       const top = landmarkHeightAt(city.landmarkSurfaceGrid, pos.x, pos.z);
       if (top !== null && Math.abs(top - y) < .8) continue;
@@ -98,7 +116,7 @@ export function collideBuildings(city: CityData, pos: { x: number; z: number }, 
   }
   const cx = Math.floor(pos.x / 50), cz = Math.floor(pos.z / 50);
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const o of city.obstacles.get(`${cx + i},${cz + j}`) || []) {
-    if (y > o.top) continue;
+    if (y > o.top || bodyTop < (o.bottom ?? 0)) continue;
     const dx = pos.x - o.x, dz = pos.z - o.z, d = Math.hypot(dx, dz), m = o.r + r * 0.85;
     if (d < m) { const L = d || 1; pos.x = o.x + (dx / L) * m; pos.z = o.z + (dz / L) * m; hit = Math.max(hit, m - d); }
   }
@@ -107,11 +125,16 @@ export function collideBuildings(city: CityData, pos: { x: number; z: number }, 
 
 // Dividers, kerbs and bridge parapets. `bottom`/`top` is the car body's vertical extent.
 // Solid walls stop the car (no tunnelling: a step that crosses the line is pulled back); kerbs only report a bump.
-export function collideWalls(city: CityData, prev: { x: number; z: number }, pos: { x: number; z: number }, r: number, bottom: number, top: number): { hit: number; kerb: boolean; nx: number; nz: number } {
+export function collideWalls(city: CityData, prev: { x: number; z: number }, pos: { x: number; z: number }, r: number, bottom: number, top: number,
+  gateFootprint?: { hx: number; hz: number; halfLength: number; halfWidth: number }): { hit: number; kerb: boolean; nx: number; nz: number } {
   const res = { hit: 0, kerb: false, nx: 0, nz: 0 };
   const seen = new Set<Wall>();
   const cx = Math.floor(pos.x / 30), cz = Math.floor(pos.z / 30);
-  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const w of city.walls.get(`${cx + i},${cz + j}`) || []) {
+  const nearby: Wall[] = [...(city.railwayWalls || [])];
+  const gateCount = nearby.length;
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) nearby.push(...(city.walls.get(`${cx + i},${cz + j}`) || []));
+  for (let i = 0; i < nearby.length; i++) {
+    const w = nearby[i];
     if (seen.has(w)) continue; seen.add(w);
     const dx = w.bx - w.ax, dz = w.bz - w.az, L2 = dx * dx + dz * dz || 1, L = Math.sqrt(L2);
     const t = Math.max(0, Math.min(1, ((pos.x - w.ax) * dx + (pos.z - w.az) * dz) / L2));
@@ -120,16 +143,37 @@ export function collideWalls(city: CityData, prev: { x: number; z: number }, pos
     const px = w.ax + dx * t, pz = w.az + dz * t;
     // which side of the line were we on, and did this step cross it?
     const nX = -dz / L, nZ = dx / L;
+    // Stop the whole nose before a gate. A centre-circle contact would leave
+    // bodywork inside its protected space and falsely reopen the arm as occupied.
+    // A small beam clearance also absorbs the contact response's slight yaw.
+    // Other walls retain the original arcade collision radius.
+    const radius = gateFootprint && i < gateCount ? Math.abs(nX * gateFootprint.hx + nZ * gateFootprint.hz) * gateFootprint.halfLength +
+      Math.abs(nX * gateFootprint.hz - nZ * gateFootprint.hx) * gateFootprint.halfWidth + .05 : r;
     const sPrev = (prev.x - w.ax) * nX + (prev.z - w.az) * nZ, sNow = (pos.x - w.ax) * nX + (pos.z - w.az) * nZ;
     const along = ((pos.x - w.ax) * dx + (pos.z - w.az) * dz) / L2;
-    const crossed = sPrev * sNow < 0 && along > -0.02 && along < 1.02;
+    const crossingT = sPrev / (sPrev - sNow || 1);
+    const crossX = prev.x + (pos.x - prev.x) * crossingT, crossZ = prev.z + (pos.z - prev.z) * crossingT;
+    const crossAlong = ((crossX - w.ax) * dx + (crossZ - w.az) * dz) / L2;
+    const crossed = sPrev * sNow < 0 && crossAlong >= 0 && crossAlong <= 1;
     if (w.kind === 'kerb') { if (crossed) res.kerb = true; continue; }
+    // A finite divider ends where its mesh ends. Percentage-based extensions
+    // made long parapets block open merges many metres beyond the visible tip.
+    // Rounded end contact uses distance to the actual endpoint, not its line.
+    if (!crossed && (along < 0 || along > 1)) {
+      const ex = along < 0 ? w.ax : w.bx, ez = along < 0 ? w.az : w.bz;
+      const endDistance = Math.hypot(pos.x - ex, pos.z - ez);
+      if (endDistance >= radius || endDistance < 1e-8) continue;
+      const nx = (pos.x - ex) / endDistance, nz = (pos.z - ez) / endDistance;
+      pos.x = ex + nx * radius; pos.z = ez + nz * radius;
+      res.hit = Math.max(res.hit, radius - endDistance); res.nx = nx; res.nz = nz;
+      continue;
+    }
     const d = Math.abs(sNow);
-    if (!crossed && (d >= r || along < -0.05 || along > 1.05)) continue;
+    if (!crossed && d >= radius) continue;
     const side = Math.sign(sPrev) || Math.sign(sNow) || 1;
     // put the car back on the side it came from, r away from the line
-    pos.x = px + nX * side * r; pos.z = pz + nZ * side * r;
-    res.hit = Math.max(res.hit, crossed ? r + d : r - d); res.nx = nX * side; res.nz = nZ * side;
+    pos.x = px + nX * side * radius; pos.z = pz + nZ * side * radius;
+    res.hit = Math.max(res.hit, crossed ? radius + d : radius - d); res.nx = nX * side; res.nz = nZ * side;
   }
   return res;
 }

@@ -1,0 +1,40 @@
+{
+  "scope": "Explicit provisional endpoint extensions of inferred displacement/height-ceiling/width fields during old packed\u2192corrected source resegmentation. These are NOT exact historical transport or surveyed authority. No immutable model arrays are changed by this ledger.",
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "historicalComparisonAuthority": {
+    "file": "docs/qa/evidence/reported-roads/geodetic-historical-reference-9413-20261103.json",
+    "sha256": "651cc769bbc83ace4eedcca9ca8e92654b774330f3d7ad682dc4749b6ec6da97",
+    "policy": "Final solver and actual finite audit must use geographic WGS84 actualBefore correspondence and sibling source-family ownership, independently of the producer\u2019s clamped same-ID reference."
+  },
+  "independentReceipt": {
+    "file": "/tmp/producer-source-frame-independent-detail.json",
+    "sha256": "7bade7e509c9390ee129f6364ce9eaf30393d2e85e719769a42a276706175467"
+  },
+  "extensions": [
+    {
+      "id": "167dac75-961_2",
+      "oldReferenceLength": 42.91318861,
+      "correctedTailExtension": 0.25760394,
+      "provisionalClampedHeightCeiling": 1.97228033,
+      "heightBelowGeographicSibling": 0.017777,
+      "policy": "Inferred ceiling extension only; do not cite as exact historic altitude."
+    },
+    {
+      "id": "554f3714-afe_0",
+      "oldReferenceLength": 42.40080562,
+      "correctedTailExtension": 1.02579844,
+      "provisionalClampedHeightCeiling": 0.87562211,
+      "heightBelowGeographicSibling": 0.065717,
+      "ownModeledWidth": 9.4,
+      "siblingModeledWidth": 7,
+      "policy": "Inferred endpoint/width field extension only; exact final sibling-aware road footprints/headroom/body constraints govern."
+    },
+    {
+      "id": "5a23ce42-637_0",
+      "displacementDifferenceFromGeographicSibling": 0.000453329,
+      "height": 0,
+      "ownAndSiblingWidths": 7.6,
+      "policy": "Submillimetre inferred displacement extension, not exact source coordinate transport. Corrected source stage remains separately authoritative."
+    }
+  ]
+}

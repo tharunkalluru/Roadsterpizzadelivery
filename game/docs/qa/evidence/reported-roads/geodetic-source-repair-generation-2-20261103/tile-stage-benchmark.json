@@ -1,0 +1,208 @@
+{
+  "scope": "Incremental decoded-tile source-stage cost on this desktop Node process. Excludes pack download/decompression, mesh generation, browser worker concurrency, GPU, physical-phone performance/heat and FPS.",
+  "generatedAt": "2026-11-03T11:26:42.318Z",
+  "environment": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "node": "v24.13.1",
+    "cpu": "Apple M4",
+    "logicalCPUs": 10
+  },
+  "generationID": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "datasetSHA256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b",
+  "moduleSHA256": "6b7471e3a3d19e57fd730ca134ca3bc5d97ba47457592f8e25de5f47b64494fe",
+  "validationOnly": {
+    "samples": 161,
+    "batch": 3,
+    "calls": 483,
+    "medianMs": 0.2486946666666654,
+    "p95Ms": 0.3655416666666724,
+    "p99Ms": 0.9567223333333459,
+    "maximumMs": 1.1933473333333116,
+    "averageMs": 0.28154089233954416,
+    "cpuMsPerCall": 0.35688612836438927,
+    "elapsedMs": 136.03554199999996
+  },
+  "results": [
+    {
+      "name": "pv_bridge",
+      "pack": "packs/p-3_2.pack.wasm",
+      "tile": "-8_7",
+      "roads": 419,
+      "affectedRoads": 5,
+      "correctedPoints": 301,
+      "nodeChanges": 2,
+      "disabledStageIdentity": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.000027666666672606272,
+        "p95Ms": 0.000041666666675155284,
+        "p99Ms": 0.0010416666666515084,
+        "maximumMs": 0.00180566666665527,
+        "averageMs": 0.00004770186335293754,
+        "cpuMsPerCall": 0.00014699792960662524,
+        "elapsedMs": 0.03554200000007768
+      },
+      "rawSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.4351390000000113,
+        "p95Ms": 0.5723333333333661,
+        "p99Ms": 0.6512636666667125,
+        "maximumMs": 0.8663196666666408,
+        "averageMs": 0.4594987826086953,
+        "cpuMsPerCall": 0.551600414078675,
+        "elapsedMs": 221.97766599999989
+      },
+      "idempotentSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.34773600000001653,
+        "p95Ms": 0.4024443333333541,
+        "p99Ms": 0.4553473333333689,
+        "maximumMs": 0.4690416666666503,
+        "averageMs": 0.35433437060041617,
+        "cpuMsPerCall": 0.36188819875776396,
+        "elapsedMs": 171.17225000000008
+      }
+    },
+    {
+      "name": "most_affected_roads",
+      "pack": "packs/p-7_-4.pack.wasm",
+      "tile": "-19_-10",
+      "roads": 726,
+      "affectedRoads": 11,
+      "correctedPoints": 160,
+      "nodeChanges": 7,
+      "disabledStageIdentity": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.000013999999964653398,
+        "p95Ms": 0.00002800000000509802,
+        "p99Ms": 0.000041666666675155284,
+        "maximumMs": 0.00006933333330986595,
+        "averageMs": 0.00001768530020852203,
+        "cpuMsPerCall": 0.00005175983436853002,
+        "elapsedMs": 0.015958999999838852
+      },
+      "rawSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.4303613333333942,
+        "p95Ms": 0.5147916666666484,
+        "p99Ms": 0.5465416666666746,
+        "maximumMs": 0.6030140000000301,
+        "averageMs": 0.43982799585921223,
+        "cpuMsPerCall": 0.4414306418219462,
+        "elapsedMs": 212.4722079999999
+      },
+      "idempotentSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.3483333333333576,
+        "p95Ms": 0.4352916666666715,
+        "p99Ms": 0.4821666666666715,
+        "maximumMs": 0.5364446666666632,
+        "averageMs": 0.35913448654244784,
+        "cpuMsPerCall": 0.37721739130434784,
+        "elapsedMs": 173.49004100000002
+      }
+    },
+    {
+      "name": "most_corrected_points",
+      "pack": "packs/p-3_2.pack.wasm",
+      "tile": "-8_7",
+      "roads": 419,
+      "affectedRoads": 5,
+      "correctedPoints": 301,
+      "nodeChanges": 2,
+      "disabledStageIdentity": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.000013999999964653398,
+        "p95Ms": 0.000027666666634710662,
+        "p99Ms": 0.00002800000000509802,
+        "maximumMs": 0.00005566666671559991,
+        "averageMs": 0.000015190476192373285,
+        "cpuMsPerCall": 0.000035196687370600414,
+        "elapsedMs": 0.013874999999870852
+      },
+      "rawSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.4185693333333044,
+        "p95Ms": 0.47838900000003076,
+        "p99Ms": 0.503750000000006,
+        "maximumMs": 0.5181526666666135,
+        "averageMs": 0.42544928157349454,
+        "cpuMsPerCall": 0.4399006211180124,
+        "elapsedMs": 205.51529200000004
+      },
+      "idempotentSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.3416943333333317,
+        "p95Ms": 0.39794433333327106,
+        "p99Ms": 0.42575000000003155,
+        "maximumMs": 0.4483333333333424,
+        "averageMs": 0.34839052795031306,
+        "cpuMsPerCall": 0.3476231884057971,
+        "elapsedMs": 168.29937500000005
+      }
+    },
+    {
+      "name": "unaffected_large_tile",
+      "pack": "packs/p-3_-4.pack.wasm",
+      "tile": "-8_-12",
+      "roads": 1375,
+      "affectedRoads": 0,
+      "correctedPoints": 0,
+      "nodeChanges": 0,
+      "disabledStageIdentity": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.000014000000040444624,
+        "p95Ms": 0.000027999999929306796,
+        "p99Ms": 0.000028000000080889247,
+        "maximumMs": 0.00005566666671559991,
+        "averageMs": 0.00001707867494819451,
+        "cpuMsPerCall": 0.00004140786749482402,
+        "elapsedMs": 0.016666999999870313
+      },
+      "rawSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.35281933333332444,
+        "p95Ms": 0.4095416666665794,
+        "p99Ms": 0.4696806666667423,
+        "maximumMs": 0.47430566666662344,
+        "averageMs": 0.35783635817806136,
+        "cpuMsPerCall": 0.35762111801242236,
+        "elapsedMs": 172.86004200000025
+      },
+      "idempotentSourceStage": {
+        "samples": 161,
+        "batch": 3,
+        "calls": 483,
+        "medianMs": 0.3440969999999955,
+        "p95Ms": 0.4123609999999947,
+        "p99Ms": 0.46159733333327796,
+        "maximumMs": 0.48772233333329496,
+        "averageMs": 0.35204856728777917,
+        "cpuMsPerCall": 0.35148240165631467,
+        "elapsedMs": 170.0624170000001
+      }
+    }
+  ]
+}

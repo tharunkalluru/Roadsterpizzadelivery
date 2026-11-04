@@ -1,0 +1,92 @@
+{
+  "scope": "Independent old accepted finite-ribbon overlap vertices and centroid, changed model road pairs; no native/device claim",
+  "oldFile": "/tmp/reported-flyover-model-old.json",
+  "newFile": "/tmp/reported-road-final-finite-identity-model.json",
+  "oldModelSha256": "67f0b8be0d2123156653ed4e48facf7e6d06c07ddae4533d3f0167d95181d496",
+  "candidateModelSha256": "0e35fc8f8694a44e1ce6f20ed219d980bae98820c7721c71568f0c55df9d29c1",
+  "sourceAttachedComponents": [
+    {
+      "pair": "38a7824d-0e1_0/bdf0bad3-182_0",
+      "polygonFragments": 366,
+      "nodes": [
+        "4cda42fb-55e"
+      ]
+    },
+    {
+      "pair": "38a7824d-0e1_1/bdf0bad3-182_0",
+      "polygonFragments": 45,
+      "nodes": [
+        "4cda42fb-55e"
+      ]
+    },
+    {
+      "pair": "37e421d1-548_1/bdf0bad3-182_0",
+      "polygonFragments": 92,
+      "nodes": [
+        "e97da6ca-736"
+      ]
+    },
+    {
+      "pair": "37e421d1-548_0/bdf0bad3-182_0",
+      "polygonFragments": 97,
+      "nodes": [
+        "e97da6ca-736"
+      ]
+    },
+    {
+      "pair": "808b15b2-43d_3/d0978a06-15a_0",
+      "polygonFragments": 66,
+      "nodes": [
+        "d60b33b7-410"
+      ]
+    },
+    {
+      "pair": "808b15b2-43d_2/d0978a06-15a_0",
+      "polygonFragments": 96,
+      "nodes": [
+        "d60b33b7-410"
+      ]
+    },
+    {
+      "pair": "808b15b2-43d_1/d0978a06-15a_0",
+      "polygonFragments": 113,
+      "nodes": [
+        "d60b33b7-410"
+      ]
+    },
+    {
+      "pair": "51be01ba-57f_0/c4ec566b-98c_1",
+      "polygonFragments": 92,
+      "nodes": [
+        "111ae5f3-7ac"
+      ]
+    },
+    {
+      "pair": "51be01ba-57f_0/c4ec566b-98c_0",
+      "polygonFragments": 508,
+      "nodes": [
+        "111ae5f3-7ac"
+      ]
+    }
+  ],
+  "justifiedGround": [],
+  "oldAcceptedCrossings": 12218,
+  "changedRoads": 163,
+  "affectedOrderedPairs": 495,
+  "polygons": 38426,
+  "samples": 138337,
+  "sameCoverage": 138337,
+  "missingBoundary": 0,
+  "missingCentroid": 0,
+  "minOld": 4.500774744944163,
+  "minNew": 4.500774744944163,
+  "regressionPairs": [],
+  "failures": [],
+  "missing": [],
+  "coverageChanges": [],
+  "newFinitePolygons": 38426,
+  "newFiniteSamples": 180089,
+  "newFiniteProtectedSamples": 138337,
+  "newFiniteWithoutOldCoverage": 0,
+  "newFiniteFailures": []
+}

@@ -1,0 +1,427 @@
+[
+  {
+    "id": "sandalwood-special",
+    "level": 1,
+    "celebrity": {
+      "name": "Pushpa Raj",
+      "movie": "Pushpa 2",
+      "image": "/delivery/celebrities/allu-arjun.jpg"
+    },
+    "destination": {
+      "label": "Inner Ring Road · Sandalwood truck",
+      "x": 6597.702079788641,
+      "z": 1788.7502300308,
+      "y": 0,
+      "lat": 17.390231456790957,
+      "lon": 78.55871217026612
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "matchAndLand",
+    "moduleParams": {
+      "scene": "truckInterior",
+      "speed": 8,
+      "immersiveHandoff": true,
+      "characterId": "pushpa-raj"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Pizza cart",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe.",
+    "campaignRole": "opening",
+    "campaignOrder": "fixed"
+  },
+  {
+    "id": "train-top-table",
+    "level": 2,
+    "celebrity": {
+      "name": "Ram",
+      "movie": "Vinaya Vidheya Rama",
+      "image": "/delivery/characters/ram-vvr/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Ghatkesar — Hitec City · Vande Bharat",
+      "x": 510,
+      "z": -2844.3,
+      "y": 4.2
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "matchAndLand",
+    "moduleParams": {
+      "vehicle": "train",
+      "scene": "trainRoof",
+      "speed": 18,
+      "radius": 6,
+      "holdSeconds": 0.35,
+      "matchTolerance": 5,
+      "immersiveHandoff": true,
+      "shuttle": [
+        "n1974699692",
+        "n1425916857"
+      ],
+      "characterId": "ram-vvr"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Cart canopy",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "devara-depths",
+    "level": 3,
+    "celebrity": {
+      "name": "Devara",
+      "movie": "Devara",
+      "image": "/delivery/characters/devara/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Hussain Sagar · Water handoff",
+      "x": -2273.8,
+      "z": -1361.3,
+      "y": 0,
+      "lat": 17.4186,
+      "lon": 78.4752
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "underwater",
+    "moduleParams": {
+      "scene": "devaraUnderwater",
+      "depth": 6,
+      "characterId": "devara"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Street stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "paradise-rope-bucket",
+    "level": 4,
+    "celebrity": {
+      "name": "Srikanth Odela",
+      "movie": "Paradise rooftop",
+      "image": "/delivery/celebrities/unknown.svg"
+    },
+    "destination": {
+      "label": "Paradise Circle · Rooftop bucket",
+      "x": -1020.04,
+      "z": -3917.85,
+      "y": 0,
+      "lat": 17.4417,
+      "lon": 78.487
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "ropeBucket",
+    "moduleParams": {
+      "roofHeight": 15,
+      "characterId": "srikanth-odela"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Counter and oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arundhati-haunted-gate",
+    "level": 5,
+    "celebrity": {
+      "name": "Arundhati",
+      "movie": "Arundhati",
+      "image": "/delivery/characters/arundhati/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Old mansion · Fictional Hyderabad outskirts",
+      "x": -8610.261684147968,
+      "z": -5786.2969821742845,
+      "y": 0,
+      "lat": 17.458278952409042,
+      "lon": 78.41554116568253
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "haunted",
+      "characterId": "arundhati"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Takeaway stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "jessie-walking-delivery",
+    "level": 6,
+    "celebrity": {
+      "name": "Jessie",
+      "movie": "Ye Maaya Chesave",
+      "image": "/delivery/characters/jessie/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Jubilee Hills · Quiet residential lane",
+      "x": -8833.766936478234,
+      "z": -2017.753034909226,
+      "y": 0,
+      "lat": 17.424425700996313,
+      "lon": 78.41343703971258
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "walkingHandoff",
+    "moduleParams": {
+      "characterId": "jessie",
+      "walkSpeed": 0.7
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "First shop",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "hasini-college-gate",
+    "level": 7,
+    "celebrity": {
+      "name": "Hasini",
+      "movie": "Bommarillu",
+      "image": "/delivery/characters/hasini/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nizam College · Basheerbagh entrance",
+      "x": -2241.95,
+      "z": 1007.13,
+      "y": 0,
+      "lat": 17.3972,
+      "lon": 78.4755
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "college",
+      "characterId": "hasini"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Shop seating",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "bhanumathi-wedding-street",
+    "level": 8,
+    "celebrity": {
+      "name": "Bhanumathi",
+      "movie": "Fidaa",
+      "image": "/delivery/characters/bhanumathi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Shamirpet outskirts · Fictional wedding procession",
+      "x": 6311.47,
+      "z": -17453.26,
+      "y": 0,
+      "lat": 17.564,
+      "lon": 78.556
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "weddingHandoff",
+    "moduleParams": {
+      "characterId": "bhanumathi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Brick oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "sukumar-angle-parking",
+    "level": 9,
+    "celebrity": {
+      "name": "Sukumar",
+      "movie": "Film Nagar production office",
+      "image": "/delivery/characters/sukumar/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Film Nagar · Fictional production courtyard",
+      "x": -9520.34,
+      "z": -741.51,
+      "y": 0,
+      "lat": 17.413,
+      "lon": 78.407
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "angleParking",
+    "moduleParams": {
+      "characterId": "sukumar",
+      "parkingYaw": 0.7853981633974483,
+      "angleTolerance": 8
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant kitchen",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "vakeel-next-station",
+    "level": 10,
+    "celebrity": {
+      "name": "Pawan Kalyan",
+      "movie": "Vakeel Saab",
+      "image": "/delivery/characters/vakeel-saab/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nearest metro · Next-station handoff",
+      "x": -5482.69,
+      "z": -3176.34,
+      "y": 18,
+      "lat": 17.435,
+      "lon": 78.445
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "metroRide",
+    "moduleParams": {
+      "characterId": "vakeel-saab",
+      "immersiveHandoff": true,
+      "nearestMetro": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Dining room",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "maruthi-villa-79",
+    "level": 11,
+    "celebrity": {
+      "name": "Maruthi",
+      "movie": "Kondapur villa",
+      "image": "/delivery/characters/maruthi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Kondapur · Fictional Villa 79 near Kolla Luxuria",
+      "x": -15364.29,
+      "z": -6828.57,
+      "y": 0,
+      "lat": 17.468,
+      "lon": 78.352
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "villa",
+      "villaNumber": 79,
+      "characterId": "maruthi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant terrace",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "salaar-inner-compound",
+    "level": 12,
+    "celebrity": {
+      "name": "Prabhas",
+      "movie": "Salaar",
+      "image": "/delivery/celebrities/unknown.svg"
+    },
+    "destination": {
+      "label": "Fictional fortified compound · Hyderabad outskirts",
+      "x": -16636.87953851929,
+      "z": -6170.91953851929,
+      "y": 0,
+      "lat": 17.461734059814223,
+      "lon": 78.33997687848031
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "salaar",
+      "characterId": "prabhas-salaar"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "New facade",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arjun-classroom",
+    "level": 13,
+    "celebrity": {
+      "name": "Arjun Reddy",
+      "movie": "Arjun Reddy",
+      "image": "/delivery/characters/arjun-reddy/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Osmania Medical College · Koti courtyard",
+      "x": -1615.06,
+      "z": 2589.77,
+      "y": 0,
+      "lat": 17.3829,
+      "lon": 78.4814
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "classroomHandoff",
+    "moduleParams": {
+      "characterId": "arjun-reddy"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Neon sign",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "between-overs",
+    "level": 14,
+    "celebrity": {
+      "name": "Nani",
+      "movie": "Jersey",
+      "image": "/delivery/characters/nani-jersey/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Uppal Stadium · Field handoff",
+      "x": 5730.556092228551,
+      "z": 5.93329211314066,
+      "y": 7,
+      "lat": 17.40624638937244,
+      "lon": 78.55053274344411
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "beatDrop",
+    "moduleParams": {
+      "theme": "jersey",
+      "characterId": "nani-jersey",
+      "windowStart": 0.35,
+      "windowEnd": 0.65,
+      "period": 5,
+      "immersiveHandoff": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Grand opening",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe.",
+    "campaignRole": "finale"
+  }
+]

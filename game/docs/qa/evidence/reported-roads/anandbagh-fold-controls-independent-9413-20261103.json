@@ -1,0 +1,2947 @@
+{
+  "version": 1,
+  "scope": "Independent Shapely distance of literal frozen pavement triangles to canonical staged rail profiles, plus approved corrected-source fraction control classification. No LP/model/source/underpass/manifest mutation.",
+  "releaseApproved": false,
+  "pass": true,
+  "shapelyVersion": "2.0.7",
+  "records": [
+    {
+      "road": "28b00d08-4ff_1",
+      "sourceSegmentID": "28b00d08-4fff-47c6-ac03-7842ffb1a7b3",
+      "sourceArtifact": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+        "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63"
+      },
+      "sourceLevelRules": [
+        {
+          "value": -1,
+          "between": [
+            0.418746379,
+            0.665369678
+          ]
+        }
+      ],
+      "sourceRoadFlags": [
+        {
+          "values": [
+            "is_tunnel"
+          ],
+          "between": [
+            0.418746379,
+            0.665369678
+          ]
+        }
+      ],
+      "rawSourceProfile": null,
+      "currentProfileIsSurveyed": false,
+      "controlCounts": {
+        "endpoint": 2,
+        "generated-exterior-recovery": 38,
+        "tagged-known-underpass-generated-approach": 20,
+        "canonical-rail-finite-corridor": 8
+      },
+      "controls": [
+        {
+          "index": 0,
+          "point": [
+            4587.526789724,
+            -5824.109354924
+          ],
+          "modelArc": 0.0,
+          "sourceCorrectedArc": 0.0,
+          "officialSourceFraction": 0.398237401,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.691059355021845,
+          "classification": "endpoint",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        },
+        {
+          "index": 1,
+          "point": [
+            4587.771448115,
+            -5824.149150268
+          ],
+          "modelArc": 0.24787375353303204,
+          "sourceCorrectedArc": 0.24787375353303204,
+          "officialSourceFraction": 0.39891389350538015,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.707171149001492,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 2,
+          "point": [
+            4591.3573747,
+            -5824.732424830499
+          ],
+          "modelArc": 3.880927384883841,
+          "sourceCorrectedArc": 3.8809273848838415,
+          "officialSourceFraction": 0.4088291617263642,
+          "sourceProjectionResidualM": 4.487829087298737e-13,
+          "inputHeight": -3.9433196350392943,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 3,
+          "point": [
+            4594.943301285,
+            -5825.315699393
+          ],
+          "modelArc": 7.513981016234796,
+          "sourceCorrectedArc": 7.513981016234796,
+          "officialSourceFraction": 0.4187444299473486,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.1794681210771065,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 4,
+          "point": [
+            4594.944015131,
+            -5825.315678266
+          ],
+          "modelArc": 7.514695174803508,
+          "sourceCorrectedArc": 7.514695174803508,
+          "officialSourceFraction": 0.418746379,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.179514541384073,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 5,
+          "point": [
+            4595.188819323,
+            -5825.308432825
+          ],
+          "modelArc": 7.7596065645670755,
+          "sourceCorrectedArc": 7.7596065645670755,
+          "officialSourceFraction": 0.4194147821322115,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.195433781718704,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 6,
+          "point": [
+            4599.028602866199,
+            -5825.1947853818
+          ],
+          "modelArc": 11.601071571562851,
+          "sourceCorrectedArc": 11.601071571562853,
+          "officialSourceFraction": 0.4298987668957632,
+          "sourceProjectionResidualM": 3.5287958585922063e-13,
+          "inputHeight": -4.4451290071734295,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 7,
+          "point": [
+            4602.8683864094,
+            -5825.0811379386
+          ],
+          "modelArc": 15.442536578559563,
+          "sourceCorrectedArc": 15.442536578559565,
+          "officialSourceFraction": 0.4403827516593174,
+          "sourceProjectionResidualM": 1.7643942384861518e-13,
+          "inputHeight": -4.694824232628216,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 8,
+          "point": [
+            4606.7081699526,
+            -5824.9674904954
+          ],
+          "modelArc": 19.28400158555534,
+          "sourceCorrectedArc": 19.28400158555534,
+          "officialSourceFraction": 0.45086673642286906,
+          "sourceProjectionResidualM": 1.7643942384861518e-13,
+          "inputHeight": -4.944519458082941,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 9,
+          "point": [
+            4610.5479534958,
+            -5824.853843052199
+          ],
+          "modelArc": 23.125466592552055,
+          "sourceCorrectedArc": 23.12546659255205,
+          "officialSourceFraction": 0.4613507211864233,
+          "sourceProjectionResidualM": 3.5287884769723035e-13,
+          "inputHeight": -5.194214683537727,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 10,
+          "point": [
+            4614.387737039,
+            -5824.740195609
+          ],
+          "modelArc": 26.96693159954783,
+          "sourceCorrectedArc": 26.96693159954783,
+          "officialSourceFraction": 0.47183470594997495,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.4439099089924525,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 11,
+          "point": [
+            4614.748864487,
+            -5824.659884065
+          ],
+          "modelArc": 27.336881566162933,
+          "sourceCorrectedArc": 27.336881566162933,
+          "officialSourceFraction": 0.4728443733961095,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.467956656822434,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 12,
+          "point": [
+            4618.623599503778,
+            -5823.798173641223
+          ],
+          "modelArc": 31.306279039922703,
+          "sourceCorrectedArc": 31.306279039922703,
+          "officialSourceFraction": 0.4836776549458634,
+          "sourceProjectionResidualM": 3.945829624456509e-13,
+          "inputHeight": -5.725967492616819,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 13,
+          "point": [
+            4622.4983345205555,
+            -5822.936463217445
+          ],
+          "modelArc": 35.27567651368267,
+          "sourceCorrectedArc": 35.275676513682676,
+          "officialSourceFraction": 0.4945109364956178,
+          "sourceProjectionResidualM": 9.866379057398559e-14,
+          "inputHeight": -5.983978328411217,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 14,
+          "point": [
+            4626.373069537333,
+            -5822.074752793667
+          ],
+          "modelArc": 39.24507398744244,
+          "sourceCorrectedArc": 39.245073987442446,
+          "officialSourceFraction": 0.5053442180453717,
+          "sourceProjectionResidualM": 2.957780830098981e-13,
+          "inputHeight": -6.241989164205602,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 15,
+          "point": [
+            4630.247804554111,
+            -5821.213042369889
+          ],
+          "modelArc": 43.21447146120241,
+          "sourceCorrectedArc": 43.214471461202415,
+          "officialSourceFraction": 0.516177499595126,
+          "sourceProjectionResidualM": 1.9732758114797117e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        },
+        {
+          "index": 16,
+          "point": [
+            4634.122539570889,
+            -5820.351331946112
+          ],
+          "modelArc": 47.18386893496218,
+          "sourceCorrectedArc": 47.18386893496219,
+          "officialSourceFraction": 0.52701078114488,
+          "sourceProjectionResidualM": 1.9752736613500227e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 17,
+          "point": [
+            4637.997274587667,
+            -5819.489621522333
+          ],
+          "modelArc": 51.153266408722146,
+          "sourceCorrectedArc": 51.15326640872215,
+          "officialSourceFraction": 0.5378440626946344,
+          "sourceProjectionResidualM": 2.9558065392551915e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 18,
+          "point": [
+            4641.872009604444,
+            -5818.627911098556
+          ],
+          "modelArc": 55.122663882481916,
+          "sourceCorrectedArc": 55.12266388248192,
+          "officialSourceFraction": 0.5486773442443882,
+          "sourceProjectionResidualM": 9.842764234207404e-14,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 19,
+          "point": [
+            4645.746744621222,
+            -5817.766200674778
+          ],
+          "modelArc": 59.092061356241885,
+          "sourceCorrectedArc": 59.09206135624189,
+          "officialSourceFraction": 0.5595106257941427,
+          "sourceProjectionResidualM": 3.9465516229594235e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 20,
+          "point": [
+            4649.621479638,
+            -5816.904490251
+          ],
+          "modelArc": 63.061458830001655,
+          "sourceCorrectedArc": 63.061458830001655,
+          "officialSourceFraction": 0.5703439073438965,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 21,
+          "point": [
+            4649.969731098,
+            -5816.775986339
+          ],
+          "modelArc": 63.43266272921545,
+          "sourceCorrectedArc": 63.43266272921545,
+          "officialSourceFraction": 0.5713570188393506,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 22,
+          "point": [
+            4653.560192259555,
+            -5815.451111517111
+          ],
+          "modelArc": 67.25976406656102,
+          "sourceCorrectedArc": 67.25976406656102,
+          "officialSourceFraction": 0.5818021714311572,
+          "sourceProjectionResidualM": 5.1915244259217e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 23,
+          "point": [
+            4657.150653421111,
+            -5814.126236695222
+          ],
+          "modelArc": 71.08686540390713,
+          "sourceCorrectedArc": 71.08686540390713,
+          "officialSourceFraction": 0.5922473240229653,
+          "sourceProjectionResidualM": 1.2973562921966273e-13,
+          "inputHeight": -6.251238413072503,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 24,
+          "point": [
+            4660.741114582666,
+            -5812.801361873333
+          ],
+          "modelArc": 74.9139667412527,
+          "sourceCorrectedArc": 74.9139667412527,
+          "officialSourceFraction": 0.602692476614772,
+          "sourceProjectionResidualM": 3.892056208806147e-13,
+          "inputHeight": -6.002476826145041,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 25,
+          "point": [
+            4664.331575744222,
+            -5811.476487051445
+          ],
+          "modelArc": 78.7410680785988,
+          "sourceCorrectedArc": 78.7410680785988,
+          "officialSourceFraction": 0.61313762920658,
+          "sourceProjectionResidualM": 2.5947125843932547e-13,
+          "inputHeight": -5.753715239217544,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 26,
+          "point": [
+            4667.9220369057775,
+            -5810.151612229555
+          ],
+          "modelArc": 82.56816941594437,
+          "sourceCorrectedArc": 82.56816941594437,
+          "officialSourceFraction": 0.6235827817983867,
+          "sourceProjectionResidualM": 2.5989654674417885e-13,
+          "inputHeight": -5.504953652290082,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 27,
+          "point": [
+            4671.512498067334,
+            -5808.826737407667
+          ],
+          "modelArc": 86.39527075329048,
+          "sourceCorrectedArc": 86.39527075329048,
+          "officialSourceFraction": 0.6340279343901947,
+          "sourceProjectionResidualM": 3.888233721933347e-13,
+          "inputHeight": -5.256192065362585,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 28,
+          "point": [
+            4675.102959228889,
+            -5807.501862585777
+          ],
+          "modelArc": 90.22237209063604,
+          "sourceCorrectedArc": 90.22237209063604,
+          "officialSourceFraction": 0.6444730869820013,
+          "sourceProjectionResidualM": 1.2977134739478573e-13,
+          "inputHeight": -5.007430478435123,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 29,
+          "point": [
+            4678.693420390445,
+            -5806.176987763889
+          ],
+          "modelArc": 94.04947342798215,
+          "sourceCorrectedArc": 94.04947342798215,
+          "officialSourceFraction": 0.6549182395738093,
+          "sourceProjectionResidualM": 5.189425168786509e-13,
+          "inputHeight": -4.758668891507626,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 30,
+          "point": [
+            4682.283881552,
+            -5804.852112942
+          ],
+          "modelArc": 97.87657476532772,
+          "sourceCorrectedArc": 97.87657476532772,
+          "officialSourceFraction": 0.665363392165616,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.509907304580164,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 31,
+          "point": [
+            4682.285921419,
+            -5804.85104381
+          ],
+          "modelArc": 97.87887782863802,
+          "sourceCorrectedArc": 97.87887782863802,
+          "officialSourceFraction": 0.665369678,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.509757605464993,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 32,
+          "point": [
+            4682.575994976,
+            -5804.699010786
+          ],
+          "modelArc": 98.20637852918279,
+          "sourceCorrectedArc": 98.20637852918279,
+          "officialSourceFraction": 0.6662635374560789,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.4884700599295835,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 33,
+          "point": [
+            4685.867596330143,
+            -5802.973817466
+          ],
+          "modelArc": 101.92268468798719,
+          "sourceCorrectedArc": 101.92268468798719,
+          "officialSourceFraction": 0.6764065881119503,
+          "sourceProjectionResidualM": 4.657911558188567e-13,
+          "inputHeight": -4.246910159607297,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 34,
+          "point": [
+            4689.1591976842865,
+            -5801.248624146
+          ],
+          "modelArc": 105.63899084679197,
+          "sourceCorrectedArc": 105.63899084679198,
+          "officialSourceFraction": 0.6865496387678227,
+          "sourceProjectionResidualM": 2.9595972139354804e-13,
+          "inputHeight": -4.0053502592849854,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 35,
+          "point": [
+            4692.450799038429,
+            -5799.523430826
+          ],
+          "modelArc": 109.35529700559637,
+          "sourceCorrectedArc": 109.35529700559638,
+          "officialSourceFraction": 0.696692689423694,
+          "sourceProjectionResidualM": 1.7002064289643994e-13,
+          "inputHeight": -3.7637903589626993,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 36,
+          "point": [
+            4695.742400392572,
+            -5797.798237506
+          ],
+          "modelArc": 113.07160316440036,
+          "sourceCorrectedArc": 113.07160316440037,
+          "officialSourceFraction": 0.7068357400795643,
+          "sourceProjectionResidualM": 1.692766478911017e-13,
+          "inputHeight": -3.5222304586404403,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 37,
+          "point": [
+            4699.034001746714,
+            -5796.073044186
+          ],
+          "modelArc": 116.78790932320476,
+          "sourceCorrectedArc": 116.78790932320477,
+          "officialSourceFraction": 0.7169787907354356,
+          "sourceProjectionResidualM": 2.971192457271541e-13,
+          "inputHeight": -3.280670558318154,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 38,
+          "point": [
+            4702.325603100858,
+            -5794.347850866
+          ],
+          "modelArc": 120.50421548200954,
+          "sourceCorrectedArc": 120.50421548200956,
+          "officialSourceFraction": 0.727121841391308,
+          "sourceProjectionResidualM": 4.656224009900094e-13,
+          "inputHeight": -3.0391106579958427,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 39,
+          "point": [
+            4705.617204455,
+            -5792.622657546
+          ],
+          "modelArc": 124.22052164081394,
+          "sourceCorrectedArc": 124.22052164081397,
+          "officialSourceFraction": 0.7372648920471794,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -2.7975507576735565,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 40,
+          "point": [
+            4705.782794972,
+            -5792.549893954
+          ],
+          "modelArc": 124.40139385991071,
+          "sourceCorrectedArc": 124.40139385991074,
+          "officialSourceFraction": 0.73775854565942,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -2.7857940634322667,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 41,
+          "point": [
+            4709.309854845818,
+            -5791.000032684637
+          ],
+          "modelArc": 128.25395421735746,
+          "sourceCorrectedArc": 128.2539542173575,
+          "officialSourceFraction": 0.7482733225175681,
+          "sourceProjectionResidualM": 6.662263269364698e-14,
+          "inputHeight": -2.5353776401982278,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 42,
+          "point": [
+            4712.836914719636,
+            -5789.450171415273
+          ],
+          "modelArc": 132.1065145748042,
+          "sourceCorrectedArc": 132.10651457480424,
+          "officialSourceFraction": 0.7587880993757161,
+          "sourceProjectionResidualM": 1.3324526538729395e-13,
+          "inputHeight": -2.284961216964189,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 43,
+          "point": [
+            4716.363974593455,
+            -5787.900310145909
+          ],
+          "modelArc": 135.9590749322518,
+          "sourceCorrectedArc": 135.95907493225184,
+          "officialSourceFraction": 0.7693028762338665,
+          "sourceProjectionResidualM": 1.6620331620675976e-13,
+          "inputHeight": -2.034544793730096,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 44,
+          "point": [
+            4719.891034467273,
+            -5786.350448876546
+          ],
+          "modelArc": 139.81163528969856,
+          "sourceCorrectedArc": 139.8116352896986,
+          "officialSourceFraction": 0.7798176530920146,
+          "sourceProjectionResidualM": 9.938077547175342e-14,
+          "inputHeight": -1.7841283704960567,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 45,
+          "point": [
+            4723.418094341091,
+            -5784.800587607182
+          ],
+          "modelArc": 143.6641956471453,
+          "sourceCorrectedArc": 143.66419564714533,
+          "officialSourceFraction": 0.7903324299501626,
+          "sourceProjectionResidualM": 3.337471495267141e-14,
+          "inputHeight": -1.5337119472620175,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 46,
+          "point": [
+            4726.945154214909,
+            -5783.250726337818
+          ],
+          "modelArc": 147.51675600459205,
+          "sourceCorrectedArc": 147.51675600459208,
+          "officialSourceFraction": 0.8008472068083108,
+          "sourceProjectionResidualM": 3.449061096984636e-14,
+          "inputHeight": -1.2832955240279784,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 47,
+          "point": [
+            4730.472214088727,
+            -5781.700865068455
+          ],
+          "modelArc": 151.3693163620388,
+          "sourceCorrectedArc": 151.36931636203886,
+          "officialSourceFraction": 0.8113619836664588,
+          "sourceProjectionResidualM": 1.0012414485801422e-13,
+          "inputHeight": -1.0328791007939393,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 48,
+          "point": [
+            4733.999273962545,
+            -5780.151003799091
+          ],
+          "modelArc": 155.22187671948555,
+          "sourceCorrectedArc": 155.2218767194856,
+          "officialSourceFraction": 0.8218767605246069,
+          "sourceProjectionResidualM": 1.6561134004869392e-13,
+          "inputHeight": -0.7824626775599002,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 49,
+          "point": [
+            4737.526333836364,
+            -5778.601142529727
+          ],
+          "modelArc": 159.07443707693315,
+          "sourceCorrectedArc": 159.07443707693318,
+          "officialSourceFraction": 0.8323915373827573,
+          "sourceProjectionResidualM": 1.3349885981068564e-13,
+          "inputHeight": -0.532046254325807,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 50,
+          "point": [
+            4741.053393710182,
+            -5777.051281260364
+          ],
+          "modelArc": 162.9269974343799,
+          "sourceCorrectedArc": 162.92699743437996,
+          "officialSourceFraction": 0.8429063142409053,
+          "sourceProjectionResidualM": 6.674942990534282e-14,
+          "inputHeight": -0.2816298310917679,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 51,
+          "point": [
+            4744.580453584,
+            -5775.501419991
+          ],
+          "modelArc": 166.77955779182665,
+          "sourceCorrectedArc": 166.7795577918267,
+          "officialSourceFraction": 0.8534210910990534,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -0.03121340785772886,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 52,
+          "point": [
+            4744.636243447,
+            -5775.479754237
+          ],
+          "modelArc": 166.8394068829644,
+          "sourceCorrectedArc": 166.83940688296445,
+          "officialSourceFraction": 0.8535844355761326,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -0.027323216933775856,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 53,
+          "point": [
+            4748.238725553778,
+            -5774.080741968222
+          ],
+          "modelArc": 170.7040042304047,
+          "sourceCorrectedArc": 170.70400423040476,
+          "officialSourceFraction": 0.8641319776338469,
+          "sourceProjectionResidualM": 3.4015211533067115e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 54,
+          "point": [
+            4751.8412076605555,
+            -5772.681729699444
+          ],
+          "modelArc": 174.56860157784536,
+          "sourceCorrectedArc": 174.5686015778454,
+          "officialSourceFraction": 0.874679519691562,
+          "sourceProjectionResidualM": 1.674045508878909e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 55,
+          "point": [
+            4755.443689767333,
+            -5771.282717430667
+          ],
+          "modelArc": 178.43319892528567,
+          "sourceCorrectedArc": 178.43319892528572,
+          "officialSourceFraction": 0.8852270617492761,
+          "sourceProjectionResidualM": 1.725628043649116e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 56,
+          "point": [
+            4759.046171874111,
+            -5769.883705161888
+          ],
+          "modelArc": 182.29779627272632,
+          "sourceCorrectedArc": 182.29779627272637,
+          "officialSourceFraction": 0.8957746038069913,
+          "sourceProjectionResidualM": 3.348091017757818e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 57,
+          "point": [
+            4762.648653980889,
+            -5768.484692893111
+          ],
+          "modelArc": 186.16239362016748,
+          "sourceCorrectedArc": 186.16239362016753,
+          "officialSourceFraction": 0.9063221458647078,
+          "sourceProjectionResidualM": 3.3433753942657616e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 58,
+          "point": [
+            4766.251136087667,
+            -5767.085680624333
+          ],
+          "modelArc": 190.02699096760813,
+          "sourceCorrectedArc": 190.02699096760816,
+          "officialSourceFraction": 0.916869687922423,
+          "sourceProjectionResidualM": 1.7383809581678728e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 59,
+          "point": [
+            4769.853618194445,
+            -5765.686668355555
+          ],
+          "modelArc": 193.89158831504844,
+          "sourceCorrectedArc": 193.89158831504847,
+          "officialSourceFraction": 0.9274172299801371,
+          "sourceProjectionResidualM": 1.6633378991627446e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 60,
+          "point": [
+            4773.456100301222,
+            -5764.287656086777
+          ],
+          "modelArc": 197.7561856624891,
+          "sourceCorrectedArc": 197.75618566248912,
+          "officialSourceFraction": 0.9379647720378522,
+          "sourceProjectionResidualM": 3.4107901638000697e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 61,
+          "point": [
+            4777.058582408,
+            -5762.888643818
+          ],
+          "modelArc": 201.6207830099294,
+          "sourceCorrectedArc": 201.62078300992943,
+          "officialSourceFraction": 0.9485123140955665,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 62,
+          "point": [
+            4777.125976378,
+            -5762.862471518
+          ],
+          "modelArc": 201.69308056507217,
+          "sourceCorrectedArc": 201.6930805650722,
+          "officialSourceFraction": 0.9487096339272768,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 63,
+          "point": [
+            4780.8207811024,
+            -5762.2099772144
+          ],
+          "modelArc": 205.445057479671,
+          "sourceCorrectedArc": 205.44505747967102,
+          "officialSourceFraction": 0.9589677071418226,
+          "sourceProjectionResidualM": 1.158672918277794e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 64,
+          "point": [
+            4784.5155858268,
+            -5761.5574829108
+          ],
+          "modelArc": 209.19703439426894,
+          "sourceCorrectedArc": 209.19703439426897,
+          "officialSourceFraction": 0.9692257803563658,
+          "sourceProjectionResidualM": 3.898701133635612e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 65,
+          "point": [
+            4788.2103905512,
+            -5760.904988607201
+          ],
+          "modelArc": 212.94901130886763,
+          "sourceCorrectedArc": 212.94901130886765,
+          "officialSourceFraction": 0.9794838535709111,
+          "sourceProjectionResidualM": 3.898971753210463e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 66,
+          "point": [
+            4791.9051952756,
+            -5760.2524943036005
+          ],
+          "modelArc": 216.70098822346557,
+          "sourceCorrectedArc": 216.7009882234656,
+          "officialSourceFraction": 0.9897419267854543,
+          "sourceProjectionResidualM": 1.1600847832408828e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 67,
+          "point": [
+            4795.6,
+            -5759.6
+          ],
+          "modelArc": 220.4529651380644,
+          "sourceCorrectedArc": 220.45296513806443,
+          "officialSourceFraction": 1.0,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "endpoint",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        }
+      ],
+      "independentRailDiscrepancies": [],
+      "necessarySubsetFeasible": false,
+      "necessarySubsetDirectRows": [
+        {
+          "row": 820,
+          "constraint": {
+            "kind": "smoothness",
+            "control": 15
+          },
+          "minimum": 0.027210889438110453,
+          "bound": 0.024808734210999186
+        }
+      ],
+      "worstFullLPWitness": {
+        "row": 2991818,
+        "constraint": {
+          "category": "finite-apron-coelevation",
+          "roads": [
+            "28b00d08-4ff_1",
+            "28b00d08-4ff_1"
+          ],
+          "segments": [
+            2,
+            5
+          ],
+          "point": [
+            4595.14484868621,
+            -5822.258398626684
+          ],
+          "offset": 0,
+          "tolerance": 0.008
+        },
+        "inputValue": 0.03794110690950329,
+        "minimumFromBounds": 0.037941106909503475,
+        "bound": 0.008,
+        "controls": [
+          {
+            "road": "28b00d08-4ff_1",
+            "control": 2,
+            "modelArc": 3.880927384883841,
+            "sourceArc": 3.880927384883841,
+            "inputHeight": -3.9433196350392943,
+            "bounds": [
+              -3.9433196350392943,
+              -3.9433196350392943
+            ],
+            "coefficient": 0.0803186128474791,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "28b00d08-4ff_1",
+            "control": 3,
+            "modelArc": 7.513981016234796,
+            "sourceArc": 7.513981016234795,
+            "inputHeight": -4.1794681210771065,
+            "bounds": [
+              -4.1794681210771065,
+              -4.1794681210771065
+            ],
+            "coefficient": 0.9196813871525209,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "28b00d08-4ff_1",
+            "control": 5,
+            "modelArc": 7.7596065645670755,
+            "sourceArc": 7.759606564567075,
+            "inputHeight": -4.195433781718704,
+            "bounds": [
+              -4.195433781718704,
+              -4.195433781718704
+            ],
+            "coefficient": -0.9879520025349401,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "28b00d08-4ff_1",
+            "control": 6,
+            "modelArc": 11.601071571562851,
+            "sourceArc": 11.601071571562851,
+            "inputHeight": -4.4451290071734295,
+            "bounds": [
+              -4.4451290071734295,
+              -4.4451290071734295
+            ],
+            "coefficient": -0.012047997465059931,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          }
+        ]
+      },
+      "decision": "No15cm release is approved: a generated approach may be eligible for a separately held bounded repair, but the tested necessary subset is infeasible. Keep endpoints, actual rail corridor and existing negative floor unchanged."
+    },
+    {
+      "road": "01ceee91-29b_0",
+      "sourceSegmentID": "01ceee91-29b6-429e-8437-5d9797e17ea9",
+      "sourceArtifact": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+        "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63"
+      },
+      "sourceLevelRules": [
+        {
+          "value": -1,
+          "between": [
+            0.380260666,
+            0.630791969
+          ]
+        }
+      ],
+      "sourceRoadFlags": [
+        {
+          "values": [
+            "is_tunnel"
+          ],
+          "between": [
+            0.380260666,
+            0.630791969
+          ]
+        }
+      ],
+      "rawSourceProfile": null,
+      "currentProfileIsSurveyed": false,
+      "controlCounts": {
+        "endpoint": 2,
+        "generated-exterior-recovery": 40,
+        "tagged-known-underpass-generated-approach": 20,
+        "canonical-rail-finite-corridor": 8
+      },
+      "controls": [
+        {
+          "index": 0,
+          "point": [
+            4794.9,
+            -5749.9
+          ],
+          "modelArc": 0.0,
+          "sourceCorrectedArc": 0.0,
+          "officialSourceFraction": 0.0,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "endpoint",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        },
+        {
+          "index": 1,
+          "point": [
+            4791.829823778249,
+            -5750.487213417
+          ],
+          "modelArc": 3.125828151019678,
+          "sourceCorrectedArc": 3.1258281510196775,
+          "officialSourceFraction": 0.009244984335672996,
+          "sourceProjectionResidualM": 1.3787450253160307e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 2,
+          "point": [
+            4788.7596475565,
+            -5751.074426834
+          ],
+          "modelArc": 6.251656302038462,
+          "sourceCorrectedArc": 6.251656302038461,
+          "officialSourceFraction": 0.018489968671343348,
+          "sourceProjectionResidualM": 4.4663277401579893e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 3,
+          "point": [
+            4785.68947133475,
+            -5751.661640251
+          ],
+          "modelArc": 9.377484453057077,
+          "sourceCorrectedArc": 9.377484453057074,
+          "officialSourceFraction": 0.0277349530070132,
+          "sourceProjectionResidualM": 1.378253238760154e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 4,
+          "point": [
+            4782.619295113,
+            -5752.248853668
+          ],
+          "modelArc": 12.503312604076754,
+          "sourceCorrectedArc": 12.503312604076752,
+          "officialSourceFraction": 0.036979937342686196,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 5,
+          "point": [
+            4782.598355847,
+            -5752.25539737
+          ],
+          "modelArc": 12.525250536898048,
+          "sourceCorrectedArc": 12.525250536898046,
+          "officialSourceFraction": 0.03704498673320924,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 6,
+          "point": [
+            4778.984734179454,
+            -5753.384681419272
+          ],
+          "modelArc": 16.311217258898946,
+          "sourceCorrectedArc": 16.311217258898946,
+          "officialSourceFraction": 0.04827096576704802,
+          "sourceProjectionResidualM": 4.3900127688669303e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 7,
+          "point": [
+            4775.371112511909,
+            -5754.513965468545
+          ],
+          "modelArc": 20.09718398089925,
+          "sourceCorrectedArc": 20.09718398089925,
+          "officialSourceFraction": 0.05949694480088505,
+          "sourceProjectionResidualM": 2.6153046626958747e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 8,
+          "point": [
+            4771.757490844363,
+            -5755.643249517818
+          ],
+          "modelArc": 23.88315070290015,
+          "sourceCorrectedArc": 23.883150702900146,
+          "officialSourceFraction": 0.07072292383472382,
+          "sourceProjectionResidualM": 1.773918225975833e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 9,
+          "point": [
+            4768.143869176818,
+            -5756.77253356709
+          ],
+          "modelArc": 27.66911742490018,
+          "sourceCorrectedArc": 27.66911742490018,
+          "officialSourceFraction": 0.08194890286856005,
+          "sourceProjectionResidualM": 3.4556875413202035e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 10,
+          "point": [
+            4764.530247509272,
+            -5757.901817616364
+          ],
+          "modelArc": 31.45508414690135,
+          "sourceCorrectedArc": 31.45508414690135,
+          "officialSourceFraction": 0.09317488190239964,
+          "sourceProjectionResidualM": 8.371523327318313e-14,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 11,
+          "point": [
+            4760.916625841727,
+            -5759.031101665636
+          ],
+          "modelArc": 35.24105086890138,
+          "sourceCorrectedArc": 35.24105086890138,
+          "officialSourceFraction": 0.10440086093623585,
+          "sourceProjectionResidualM": 8.400214757493971e-14,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 12,
+          "point": [
+            4757.303004174181,
+            -5760.160385714909
+          ],
+          "modelArc": 39.02701759090255,
+          "sourceCorrectedArc": 39.02701759090255,
+          "officialSourceFraction": 0.11562683997007545,
+          "sourceProjectionResidualM": 3.4524558823564886e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 13,
+          "point": [
+            4753.689382506636,
+            -5761.289669764182
+          ],
+          "modelArc": 42.812984312902586,
+          "sourceCorrectedArc": 42.812984312902586,
+          "officialSourceFraction": 0.12685281900391165,
+          "sourceProjectionResidualM": 1.7696829641852285e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 14,
+          "point": [
+            4750.07576083909,
+            -5762.418953813454
+          ],
+          "modelArc": 46.598951034903486,
+          "sourceCorrectedArc": 46.59895103490348,
+          "officialSourceFraction": 0.13807879803775042,
+          "sourceProjectionResidualM": 2.606830140599093e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 15,
+          "point": [
+            4746.4621391715455,
+            -5763.548237862728
+          ],
+          "modelArc": 50.38491775690379,
+          "sourceCorrectedArc": 50.38491775690379,
+          "officialSourceFraction": 0.14930477707158746,
+          "sourceProjectionResidualM": 4.3829602740547493e-13,
+          "inputHeight": 0,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 16,
+          "point": [
+            4742.848517504,
+            -5764.677521912
+          ],
+          "modelArc": 54.17088447890469,
+          "sourceCorrectedArc": 54.17088447890468,
+          "officialSourceFraction": 0.16053075610542625,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -0.16266973268393373,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 17,
+          "point": [
+            4742.806740071,
+            -5764.695738208
+          ],
+          "modelArc": 54.2164606497401,
+          "sourceCorrectedArc": 54.21646064974009,
+          "officialSourceFraction": 0.16066589924870267,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -0.16563218378823555,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 18,
+          "point": [
+            4739.343128241333,
+            -5766.205978749584
+          ],
+          "modelArc": 57.9950097628323,
+          "sourceCorrectedArc": 57.99500976283229,
+          "officialSourceFraction": 0.1718701053422698,
+          "sourceProjectionResidualM": 3.474293553831347e-13,
+          "inputHeight": -0.4112378761392286,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 19,
+          "point": [
+            4735.879516411666,
+            -5767.716219291166
+          ],
+          "modelArc": 61.77355887592413,
+          "sourceCorrectedArc": 61.77355887592413,
+          "officialSourceFraction": 0.18307431143583586,
+          "sourceProjectionResidualM": 1.3889986018347998e-13,
+          "inputHeight": -0.656843568490198,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 20,
+          "point": [
+            4732.415904582,
+            -5769.22645983275
+          ],
+          "modelArc": 65.55210798901633,
+          "sourceCorrectedArc": 65.55210798901633,
+          "officialSourceFraction": 0.194278517529403,
+          "sourceProjectionResidualM": 2.0831902485855273e-13,
+          "inputHeight": -0.902449260841191,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 21,
+          "point": [
+            4728.952292752333,
+            -5770.736700374333
+          ],
+          "modelArc": 69.33065710210818,
+          "sourceCorrectedArc": 69.33065710210816,
+          "officialSourceFraction": 0.20548272362296904,
+          "sourceProjectionResidualM": 2.7779972036695996e-13,
+          "inputHeight": -1.1480549531921604,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 22,
+          "point": [
+            4725.488680922666,
+            -5772.246940915917
+          ],
+          "modelArc": 73.10920621520037,
+          "sourceCorrectedArc": 73.10920621520037,
+          "officialSourceFraction": 0.2166869297165362,
+          "sourceProjectionResidualM": 6.991267530819708e-14,
+          "inputHeight": -1.3936606455431535,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 23,
+          "point": [
+            4722.025069093,
+            -5773.7571814575
+          ],
+          "modelArc": 76.88775532829257,
+          "sourceCorrectedArc": 76.88775532829257,
+          "officialSourceFraction": 0.2278911358101033,
+          "sourceProjectionResidualM": 4.1663804971710546e-13,
+          "inputHeight": -1.6392663378941466,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 24,
+          "point": [
+            4718.561457263333,
+            -5775.267421999083
+          ],
+          "modelArc": 80.66630444138441,
+          "sourceCorrectedArc": 80.6663044413844,
+          "officialSourceFraction": 0.23909534190366935,
+          "sourceProjectionResidualM": 6.861429794408013e-14,
+          "inputHeight": -1.884872030245116,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 25,
+          "point": [
+            4715.097845433666,
+            -5776.777662540667
+          ],
+          "modelArc": 84.44485355447661,
+          "sourceCorrectedArc": 84.4448535544766,
+          "officialSourceFraction": 0.25029954799723647,
+          "sourceProjectionResidualM": 2.7829905439041457e-13,
+          "inputHeight": -2.130477722596109,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 26,
+          "point": [
+            4711.634233604,
+            -5778.28790308225
+          ],
+          "modelArc": 88.22340266756845,
+          "sourceCorrectedArc": 88.22340266756845,
+          "officialSourceFraction": 0.26150375409080256,
+          "sourceProjectionResidualM": 2.088031716946725e-13,
+          "inputHeight": -2.3760834149470784,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 27,
+          "point": [
+            4708.170621774333,
+            -5779.798143623833
+          ],
+          "modelArc": 92.00195178066065,
+          "sourceCorrectedArc": 92.00195178066065,
+          "officialSourceFraction": 0.2727079601843697,
+          "sourceProjectionResidualM": 1.3982535061639416e-13,
+          "inputHeight": -2.6216891072980713,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 28,
+          "point": [
+            4704.707009944666,
+            -5781.308384165416
+          ],
+          "modelArc": 95.78050089375249,
+          "sourceCorrectedArc": 95.78050089375247,
+          "officialSourceFraction": 0.2839121662779357,
+          "sourceProjectionResidualM": 3.470766711706066e-13,
+          "inputHeight": -2.8672947996490405,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 29,
+          "point": [
+            4701.243398115,
+            -5782.818624707
+          ],
+          "modelArc": 99.55905000684469,
+          "sourceCorrectedArc": 99.55905000684467,
+          "officialSourceFraction": 0.29511637237150284,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.1129004920000334,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 30,
+          "point": [
+            4701.069544073,
+            -5782.894430131
+          ],
+          "modelArc": 99.74871204898194,
+          "sourceCorrectedArc": 99.74871204898193,
+          "officialSourceFraction": 0.2956787606713159,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.125228524738955,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 31,
+          "point": [
+            4697.919839305499,
+            -5784.476674476
+          ],
+          "modelArc": 103.27350101992718,
+          "sourceCorrectedArc": 103.27350101992717,
+          "officialSourceFraction": 0.30613063341749136,
+          "sourceProjectionResidualM": 3.052534331977726e-13,
+          "inputHeight": -3.3543398078503954,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 32,
+          "point": [
+            4694.770134537999,
+            -5786.058918821
+          ],
+          "modelArc": 106.79828999087242,
+          "sourceCorrectedArc": 106.7982899908724,
+          "officialSourceFraction": 0.3165825061636668,
+          "sourceProjectionResidualM": 6.105068663955452e-13,
+          "inputHeight": -3.583451090961836,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 33,
+          "point": [
+            4691.6204297705,
+            -5787.641163166
+          ],
+          "modelArc": 110.32307896181726,
+          "sourceCorrectedArc": 110.32307896181725,
+          "officialSourceFraction": 0.32703437890984105,
+          "sourceProjectionResidualM": 3.058546557527508e-13,
+          "inputHeight": -3.8125623740732504,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 34,
+          "point": [
+            4688.470725003,
+            -5789.223407511
+          ],
+          "modelArc": 113.8478679327625,
+          "sourceCorrectedArc": 113.84786793276248,
+          "officialSourceFraction": 0.33748625165601653,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.041673657184691,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 35,
+          "point": [
+            4685.321020235499,
+            -5790.805651856
+          ],
+          "modelArc": 117.37265690370774,
+          "sourceCorrectedArc": 117.37265690370772,
+          "officialSourceFraction": 0.34793812440219196,
+          "sourceProjectionResidualM": 3.058546557527508e-13,
+          "inputHeight": -4.2707849402961315,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 36,
+          "point": [
+            4682.171315468,
+            -5792.387896201
+          ],
+          "modelArc": 120.89744587465258,
+          "sourceCorrectedArc": 120.89744587465256,
+          "officialSourceFraction": 0.3583899971483662,
+          "sourceProjectionResidualM": 6.117093115055016e-13,
+          "inputHeight": -4.4998962234075455,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 37,
+          "point": [
+            4679.0216107005,
+            -5793.970140546
+          ],
+          "modelArc": 124.42223484559781,
+          "sourceCorrectedArc": 124.4222348455978,
+          "officialSourceFraction": 0.3688418698945417,
+          "sourceProjectionResidualM": 3.0506310611205217e-13,
+          "inputHeight": -4.729007506518986,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 38,
+          "point": [
+            4675.871905933,
+            -5795.552384891
+          ],
+          "modelArc": 127.94702381654305,
+          "sourceCorrectedArc": 127.94702381654304,
+          "officialSourceFraction": 0.37929374264071714,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.958118789630427,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 39,
+          "point": [
+            4675.58052035,
+            -5795.698761252
+          ],
+          "modelArc": 128.27310907692663,
+          "sourceCorrectedArc": 128.2731090769266,
+          "officialSourceFraction": 0.380260666,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.979314331555359,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 40,
+          "point": [
+            4675.579270098,
+            -5795.699389311
+          ],
+          "modelArc": 128.2745082152945,
+          "sourceCorrectedArc": 128.27450821529447,
+          "officialSourceFraction": 0.38026481478872404,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -4.97940527554927,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 41,
+          "point": [
+            4671.831824407875,
+            -5796.775747229375
+          ],
+          "modelArc": 132.1734690472199,
+          "sourceCorrectedArc": 132.17346904721987,
+          "officialSourceFraction": 0.39182577455447404,
+          "sourceProjectionResidualM": 1.2566076849919785e-13,
+          "inputHeight": -5.23283772962442,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 42,
+          "point": [
+            4668.08437871775,
+            -5797.85210514775
+          ],
+          "modelArc": 136.0724298791444,
+          "sourceCorrectedArc": 136.07242987914435,
+          "officialSourceFraction": 0.4033867343202215,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.486270183699514,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 43,
+          "point": [
+            4664.3369330276255,
+            -5798.928463066125
+          ],
+          "modelArc": 139.97139071106892,
+          "sourceCorrectedArc": 139.97139071106886,
+          "officialSourceFraction": 0.41494769408596893,
+          "sourceProjectionResidualM": 1.2548251226142112e-13,
+          "inputHeight": -5.739702637774607,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 44,
+          "point": [
+            4660.5894873375,
+            -5800.0048209845
+          ],
+          "modelArc": 143.8703515429943,
+          "sourceCorrectedArc": 143.87035154299426,
+          "officialSourceFraction": 0.42650865385171893,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.993135091849757,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 45,
+          "point": [
+            4656.842041647375,
+            -5801.081178902875
+          ],
+          "modelArc": 147.7693123749197,
+          "sourceCorrectedArc": 147.76931237491965,
+          "officialSourceFraction": 0.438069613617469,
+          "sourceProjectionResidualM": 1.2581134314226044e-13,
+          "inputHeight": -6.246567545924907,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 46,
+          "point": [
+            4653.09459595725,
+            -5802.15753682125
+          ],
+          "modelArc": 151.66827320684422,
+          "sourceCorrectedArc": 151.66827320684416,
+          "officialSourceFraction": 0.4496305733832164,
+          "sourceProjectionResidualM": 3.66205343881779e-15,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 47,
+          "point": [
+            4649.3471502671255,
+            -5803.233894739625
+          ],
+          "modelArc": 155.56723403876873,
+          "sourceCorrectedArc": 155.56723403876865,
+          "officialSourceFraction": 0.4611915331489638,
+          "sourceProjectionResidualM": 1.2581134314226044e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 48,
+          "point": [
+            4645.599704577,
+            -5804.310252658
+          ],
+          "modelArc": 159.46619487069412,
+          "sourceCorrectedArc": 159.46619487069404,
+          "officialSourceFraction": 0.47275249291471383,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 49,
+          "point": [
+            4645.254450624,
+            -5804.409417724
+          ],
+          "modelArc": 159.82540790271966,
+          "sourceCorrectedArc": 159.82540790271958,
+          "officialSourceFraction": 0.4738176091741015,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 50,
+          "point": [
+            4641.423246368,
+            -5805.510219806625
+          ],
+          "modelArc": 163.81162055087384,
+          "sourceCorrectedArc": 163.81162055087376,
+          "officialSourceFraction": 0.4856372781156036,
+          "sourceProjectionResidualM": 1.4063629380332124e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 51,
+          "point": [
+            4637.592042112,
+            -5806.61102188925
+          ],
+          "modelArc": 167.79783319902802,
+          "sourceCorrectedArc": 167.7978331990279,
+          "officialSourceFraction": 0.49745694705710564,
+          "sourceProjectionResidualM": 2.812725876066425e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 52,
+          "point": [
+            4633.760837856,
+            -5807.711823971875
+          ],
+          "modelArc": 171.7840458471822,
+          "sourceCorrectedArc": 171.78404584718209,
+          "officialSourceFraction": 0.5092766159986077,
+          "sourceProjectionResidualM": 4.2206351582269504e-13,
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": false,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": null
+        },
+        {
+          "index": 53,
+          "point": [
+            4629.929633600001,
+            -5808.8126260545
+          ],
+          "modelArc": 175.7702584953355,
+          "sourceCorrectedArc": 175.77025849533538,
+          "officialSourceFraction": 0.5210962849401072,
+          "sourceProjectionResidualM": 3.117151973818211e-13,
+          "inputHeight": -6.240896177870035,
+          "classification": "canonical-rail-finite-corridor",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        },
+        {
+          "index": 54,
+          "point": [
+            4626.098429344001,
+            -5809.913428137125
+          ],
+          "modelArc": 179.75647114348993,
+          "sourceCorrectedArc": 179.75647114348982,
+          "officialSourceFraction": 0.5329159538816101,
+          "sourceProjectionResidualM": 4.2249014616565207e-13,
+          "inputHeight": -5.981792355739998,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 55,
+          "point": [
+            4622.2672250880005,
+            -5811.01423021975
+          ],
+          "modelArc": 183.7426837916441,
+          "sourceCorrectedArc": 183.74268379164397,
+          "officialSourceFraction": 0.5447356228231122,
+          "sourceProjectionResidualM": 2.810912810226183e-13,
+          "inputHeight": -5.722688533609976,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 56,
+          "point": [
+            4618.436020832,
+            -5812.115032302375
+          ],
+          "modelArc": 187.7288964397983,
+          "sourceCorrectedArc": 187.72889643979815,
+          "officialSourceFraction": 0.5565552917646142,
+          "sourceProjectionResidualM": 1.4054564051130914e-13,
+          "inputHeight": -5.463584711479955,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 57,
+          "point": [
+            4614.604816576,
+            -5813.215834385
+          ],
+          "modelArc": 191.71510908795247,
+          "sourceCorrectedArc": 191.71510908795233,
+          "officialSourceFraction": 0.5683749607061163,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.2044808893499335,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 58,
+          "point": [
+            4614.32398479,
+            -5813.296524225
+          ],
+          "modelArc": 192.0073031027906,
+          "sourceCorrectedArc": 192.00730310279044,
+          "officialSourceFraction": 0.5692413559877015,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -5.185488278385456,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 59,
+          "point": [
+            4610.930628057167,
+            -5813.612722706666
+          ],
+          "modelArc": 195.4153599385948,
+          "sourceCorrectedArc": 195.41535993859466,
+          "officialSourceFraction": 0.5793465119998473,
+          "sourceProjectionResidualM": 4.2468584853693536e-13,
+          "inputHeight": -4.963964584058182,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 60,
+          "point": [
+            4607.537271324333,
+            -5813.928921188333
+          ],
+          "modelArc": 198.82341677440002,
+          "sourceCorrectedArc": 198.82341677439987,
+          "officialSourceFraction": 0.589451668011996,
+          "sourceProjectionResidualM": 2.8218235277194477e-14,
+          "inputHeight": -4.742440889730844,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 61,
+          "point": [
+            4604.1439145915,
+            -5814.24511967
+          ],
+          "modelArc": 202.23147361020432,
+          "sourceCorrectedArc": 202.23147361020418,
+          "officialSourceFraction": 0.5995568240241421,
+          "sourceProjectionResidualM": 4.5281951035073925e-13,
+          "inputHeight": -4.520917195403564,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 62,
+          "point": [
+            4600.750557858667,
+            -5814.5613181516665
+          ],
+          "modelArc": 205.63953044600854,
+          "sourceCorrectedArc": 205.6395304460084,
+          "officialSourceFraction": 0.6096619800362879,
+          "sourceProjectionResidualM": 2.8199664825478976e-14,
+          "inputHeight": -4.29939350107629,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 63,
+          "point": [
+            4597.357201125833,
+            -5814.877516633333
+          ],
+          "modelArc": 209.04758728181366,
+          "sourceCorrectedArc": 209.04758728181352,
+          "officialSourceFraction": 0.6197671360484364,
+          "sourceProjectionResidualM": 4.809508695630263e-13,
+          "inputHeight": -4.077869806748957,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 64,
+          "point": [
+            4593.963844393,
+            -5815.193715115
+          ],
+          "modelArc": 212.45564411761796,
+          "sourceCorrectedArc": 212.45564411761782,
+          "officialSourceFraction": 0.6298722920605824,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.8563461124216776,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 65,
+          "point": [
+            4593.657630942,
+            -5815.222248423
+          ],
+          "modelArc": 212.76318407801142,
+          "sourceCorrectedArc": 212.76318407801128,
+          "officialSourceFraction": 0.630784172143553,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.8363560149961033,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 66,
+          "point": [
+            4593.655027983,
+            -5815.2218754
+          ],
+          "modelArc": 212.7658136296298,
+          "sourceCorrectedArc": 212.76581362962966,
+          "officialSourceFraction": 0.630791969,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.8361850941409092,
+          "classification": "tagged-known-underpass-generated-approach",
+          "officialNegativeIntervalActive": true,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 67,
+          "point": [
+            4590.6002738345,
+            -5814.7841069865
+          ],
+          "modelArc": 215.85177605513624,
+          "sourceCorrectedArc": 215.8517760551361,
+          "officialSourceFraction": 0.6399421202230237,
+          "sourceProjectionResidualM": 6.451542200996602e-14,
+          "inputHeight": -3.635597536482991,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 68,
+          "point": [
+            4587.545519686,
+            -5814.346338573
+          ],
+          "modelArc": 218.93773848064177,
+          "sourceCorrectedArc": 218.93773848064163,
+          "officialSourceFraction": 0.6490922714460445,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.435009978825131,
+          "classification": "generated-exterior-recovery",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": false,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": true,
+          "primarySubsetEligible": true
+        },
+        {
+          "index": 69,
+          "point": [
+            4587.324907604,
+            -5814.314723226
+          ],
+          "modelArc": 219.16060440645902,
+          "sourceCorrectedArc": 219.16060440645887,
+          "officialSourceFraction": 0.649753089,
+          "sourceProjectionResidualM": 0.0,
+          "inputHeight": -3.4205236936470107,
+          "classification": "endpoint",
+          "officialNegativeIntervalActive": false,
+          "canonicalFiniteRailIDs": [],
+          "immutableFacilityControl": true,
+          "inExistingFoldRecovery": true,
+          "potentialBoundedGeneratedApproach": false,
+          "primarySubsetEligible": false
+        }
+      ],
+      "independentRailDiscrepancies": [],
+      "necessarySubsetFeasible": false,
+      "necessarySubsetDirectRows": [
+        {
+          "row": 569,
+          "constraint": {
+            "kind": "true-grade",
+            "segment": 29,
+            "perpendicularRun": 0.032433735912515874
+          },
+          "minimum": 0.012328032738921468,
+          "bound": 0.0032271567232953296
+        }
+      ],
+      "worstFullLPWitness": {
+        "row": 2987905,
+        "constraint": {
+          "category": "finite-apron-coelevation",
+          "roads": [
+            "01ceee91-29b_0",
+            "01ceee91-29b_0"
+          ],
+          "segments": [
+            63,
+            66
+          ],
+          "point": [
+            4593.733521159367,
+            -5812.151964333962
+          ],
+          "offset": 0,
+          "tolerance": 0.008
+        },
+        "inputValue": 0.04685488300470859,
+        "minimumFromBounds": 0.046854883004708636,
+        "bound": 0.008,
+        "controls": [
+          {
+            "road": "01ceee91-29b_0",
+            "control": 63,
+            "modelArc": 209.04758728181366,
+            "sourceArc": 209.04758728181355,
+            "inputHeight": -4.077869806748957,
+            "bounds": [
+              -4.077869806748957,
+              -4.077869806748957
+            ],
+            "coefficient": -0.01551700010028112,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "01ceee91-29b_0",
+            "control": 64,
+            "modelArc": 212.45564411761796,
+            "sourceArc": 212.45564411761785,
+            "inputHeight": -3.8563461124216776,
+            "bounds": [
+              -3.8563461124216776,
+              -3.8563461124216776
+            ],
+            "coefficient": -0.9844829998997189,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "01ceee91-29b_0",
+            "control": 66,
+            "modelArc": 212.7658136296298,
+            "sourceArc": 212.7658136296297,
+            "inputHeight": -3.8361850941409092,
+            "bounds": [
+              -3.8361850941409092,
+              -3.8361850941409092
+            ],
+            "coefficient": 0.8840582047640704,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          },
+          {
+            "road": "01ceee91-29b_0",
+            "control": 67,
+            "modelArc": 215.85177605513624,
+            "sourceArc": 215.85177605513613,
+            "inputHeight": -3.635597536482991,
+            "bounds": [
+              -3.635597536482991,
+              -3.635597536482991
+            ],
+            "coefficient": 0.11594179523592966,
+            "authority": "protected mapped/conditioned/negative profile",
+            "node": null
+          }
+        ]
+      },
+      "decision": "No15cm release is approved: a generated approach may be eligible for a separately held bounded repair, but the tested necessary subset is infeasible. Keep endpoints, actual rail corridor and existing negative floor unchanged."
+    }
+  ],
+  "beforeAfterUnchangedInputs": {
+    "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/model-be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7.json": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7",
+    "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/footprints-5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a.json": "5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a",
+    "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/jointInputBaseline21-e866b9f8bf2217bd25c7a3d45f28cef541e5fc60dbd7deb353cacaea55ed4b5f.json": "e866b9f8bf2217bd25c7a3d45f28cef541e5fc60dbd7deb353cacaea55ed4b5f",
+    "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b",
+    "/tmp/anandbagh-own-fold-necessary-subset-v2.json": "6a3f9f6a3b2a0f10b7fd62e2548752cff0275dfe0ee67848e4a455500d711b6f",
+    "/tmp/source-9413-joint-v5-conflict-groups.json": "6741ab79a4bf42e28ef155f9866a1d1145cb79162636d2b01328ef1bd50339f0",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/classify-anandbagh-fold-controls-independent.py": "96c546154df0f6ba59fdd965c19bddebd91869e9d7377294534daf959a5acf40",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63"
+  },
+  "policy": "Source is_tunnel/-1 verifies the existing facility, not measured metric approach heights. This report grants no new freedom to canonical negative floor/rail/endpoints and does not enlarge the15cm budget or waive grade/headroom/own-fold gates."
+}

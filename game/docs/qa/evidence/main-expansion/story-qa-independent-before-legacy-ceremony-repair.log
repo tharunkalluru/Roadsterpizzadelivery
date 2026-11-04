@@ -1,0 +1,49 @@
+✔ a Next transaction cannot silently absorb multiple unobserved placements as one clean progression (1.120708ms)
+✔ a car that starts an old-scene departure under the loader cannot later acquire clean direct-Next proof (0.496125ms)
+✔ a vertical old-scene departure such as resurfacing under the loader cannot acquire clean direct-Next proof (0.197458ms)
+✔ a new order cannot inherit or finish an older attempt's pending Next transaction (0.248125ms)
+✔ one legitimate Next placement can finish asset warming before ready without being mislabeled assistance (0.572792ms)
+✔ an extra R placement during asset warming cannot be absorbed by a pending legitimate Next (0.167042ms)
+✔ the actual observer distinguishes front visible carton when certifying physical transfer (3.07825ms)
+✔ the actual observer distinguishes carton entirely behind the camera when certifying physical transfer (0.5235ms)
+✔ the actual observer distinguishes hidden carton material when certifying physical transfer (0.418709ms)
+✔ the actual observer distinguishes carton outside the camera layer when certifying physical transfer (0.350708ms)
+✔ the actual observer does not treat a hidden stale final-opening DOM node as a viewed ceremony (2.304375ms)
+✔ the actual observer accepts a continuously visible final ceremony only after completion and trusted Next (1.16675ms)
+✖ legacy non-NONE final ceremony keeps its visible-opening proof without an automatic-story Next button (0.994167ms)
+✔ the actual observer restarts final ceremony exposure after hidden-panel (1.185458ms)
+✔ the actual observer restarts final ceremony exposure after background (1.212625ms)
+✔ the actual observer restarts final ceremony exposure after paused (0.768667ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.04675
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-uPvTpP/0.test.mjs:17762:1
+✖ legacy non-NONE final ceremony keeps its visible-opening proof without an automatic-story Next button (0.994167ms)
+  AssertionError [ERR_ASSERTION]: the unchanged legacy requirement remains observable
+  
+  false !== true
+  
+      at file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-uPvTpP/0.test.mjs:17769:10
+      at withObserverDom (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-uPvTpP/0.test.mjs:17557:5)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-uPvTpP/0.test.mjs:17762:117)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

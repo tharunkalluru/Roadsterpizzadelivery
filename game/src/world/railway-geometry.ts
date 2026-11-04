@@ -2,14 +2,16 @@ import source from './railway-source.json';
 import type { OsmFeature } from './extras';
 import type { RoadEdge, XZ } from './types';
 import { roadStructureClearance } from './structure-clearance';
+import { prepareRailwayClearance, type RailwayClearanceOptions } from './railway-clearance';
 
 export interface RailProfile { id: string; pts: XZ[]; elev: number[]; bridge: boolean; service: boolean; source: OsmFeature; bounds: number[] }
+export interface RailElevationPatch { id: string; elev: number[] }
 export const RAIL_MAX_GRADE = .025, RAIL_HEADROOM = 6.4;
 const active = (s?: string) => !!s && !['no','false','0'].includes(s.toLowerCase());
 const key = (p: XZ) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`;
 export function prepareRailProfiles(features: readonly OsmFeature[]): RailProfile[] {
-  const nodes: {p:XZ; y:number; next:{id:number;len:number}[]}[] = [], ids=new Map<string,number>();
-  const node=(p:XZ)=>{const k=key(p);let id=ids.get(k);if(id===undefined){id=nodes.length;ids.set(k,id);nodes.push({p,y:0,next:[]});}return id;};
+  const nodes:XZ[] = [], ids=new Map<string,number>();
+  const node=(p:XZ)=>{const k=key(p);let id=ids.get(k);if(id===undefined){id=nodes.length;ids.set(k,id);nodes.push(p);}return id;};
   const ways: {f:OsmFeature; indices:number[]}[]=[];
   for(const f of features){
     if(f.k!=='rail'||f.t.railway!=='rail'||!f.l||f.l.length<2||active(f.t.tunnel))continue;
@@ -19,21 +21,20 @@ export function prepareRailProfiles(features: readonly OsmFeature[]): RailProfil
       for(let j=indices.length?1:0;j<=n;j++){const u=j/n,p: XZ=j===0?a:j===n?b:[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u],id=node(p);if(indices.at(-1)!==id)indices.push(id);}
     }
     if(indices.length<2)continue;
-    const bridge=active(f.t.bridge),layer=Number(f.t.layer)||1,height=bridge?6.2*Math.max(1,Math.min(4,layer)):0;
-    for(let i=0;i<indices.length;i++){const a=nodes[indices[i]];a.y=Math.max(a.y,height);if(i){const prev=indices[i-1],len=Math.hypot(a.p[0]-nodes[prev].p[0],a.p[1]-nodes[prev].p[1]);a.next.push({id:prev,len});nodes[prev].next.push({id:indices[i],len});}}
+    // A relative bridge/layer tag describes what passes underneath, not an
+    // absolute railway altitude. Flat city terrain uses the running datum;
+    // evidenced road underpasses descend below it instead of lifting the line.
     ways.push({f,indices});
   }
-  // Multi-source max-distance envelope: bridge heights extend gradually into
-  // connected approaches. Shared OSM vertices have exactly one height, across tiles.
-  const heap:{id:number;y:number}[]=[];
-  const push=(v:{id:number;y:number})=>{let i=heap.length;heap.push(v);while(i){const p=(i-1)>>1;if(heap[p].y>=v.y)break;heap[i]=heap[p];i=p;}heap[i]=v;};
-  const pop=()=>{const v=heap[0],last=heap.pop()!;if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1].y>heap[c].y)c++;if(heap[c].y<=last.y)break;heap[i]=heap[c];i=c;}heap[i]=last;}return v;};
-  nodes.forEach((n,id)=>{if(n.y>0)push({id,y:n.y});});
-  while(heap.length){const h=pop();if(h.y<nodes[h.id].y-1e-8)continue;for(const edge of nodes[h.id].next){const y=h.y-edge.len*RAIL_MAX_GRADE;if(y>nodes[edge.id].y+1e-8){nodes[edge.id].y=y;push({id:edge.id,y});}}}
-  return ways.map(({f,indices})=>{const pts=indices.map(i=>nodes[i].p);return{id:f.id,pts,elev:indices.map(i=>nodes[i].y),bridge:active(f.t.bridge),service:!!f.t.service,source:f,bounds:[Math.min(...pts.map(p=>p[0])),Math.max(...pts.map(p=>p[0])),Math.min(...pts.map(p=>p[1])),Math.max(...pts.map(p=>p[1]))]};});
+  return ways.map(({f,indices})=>{const pts=indices.map(i=>nodes[i]);return{id:f.id,pts,elev:indices.map(()=>0),bridge:active(f.t.bridge),service:!!f.t.service,source:f,bounds:[Math.min(...pts.map(p=>p[0])),Math.max(...pts.map(p=>p[0])),Math.min(...pts.map(p=>p[1])),Math.max(...pts.map(p=>p[1]))]};});
 }
-export function makeRailwayNetwork(features: readonly OsmFeature[]) {
-  const profiles=prepareRailProfiles(features),byId=new Map(profiles.map(r=>[r.id,r]));
+export function makeRailwayNetwork(features: readonly OsmFeature[], patches: readonly RailElevationPatch[] = []) {
+  const byPatch = new Map(patches.map(p => [p.id, p.elev]));
+  const profiles=prepareRailProfiles(features).map(r => {
+    const elev = byPatch.get(r.id); if (!elev) return r;
+    if (elev.length !== r.pts.length || elev.some(y => !Number.isFinite(y) || y < 0)) throw new Error('Invalid canonical railway elevation patch');
+    return { ...r, elev };
+  }),byId=new Map(profiles.map(r=>[r.id,r]));
   const roads: RoadEdge[]=profiles.map(r=>({id:`rail:${r.id}`,seg:r.id,name:null,cls:'railway',w:3.8,lanes:1,oneway:null,from:null,to:null,pts:r.pts,elev:r.elev,maxspeed:null}));
   const clearance=roadStructureClearance(roads,RAIL_HEADROOM,1.9);
   const grid=new Map<string,{r:RailProfile;i:number}[]>();
@@ -46,13 +47,27 @@ export function makeRailwayNetwork(features: readonly OsmFeature[]) {
   const stations:OsmFeature[]=[];
   const center=(f:OsmFeature):XZ=>f.p||((f.r?.[0]||f.l||[]).reduce((a,p,_,l)=>[a[0]+p[0]/l.length,a[1]+p[1]/l.length],[0,0]) as XZ);
   const name=(f:OsmFeature)=>(f.t['name:en']||f.t.name||'').toLowerCase().replace(/railway|station|junction|nampally|[^a-z0-9]/g,'');
-  for(const f of [...features].filter(f=>f.k==='station').sort((a,b)=>Number(!a.p)-Number(!b.p)||a.id.localeCompare(b.id))){
-    if(!name(f)||/subway|metro|light_rail/i.test(`${f.t.station||''} ${f.t.subway||''} ${f.t.network||''} ${f.t.name||''}`))continue;
+  const metro = (f: OsmFeature) => /subway|metro|light_rail/i.test(`${f.t.station||''} ${f.t.subway||''} ${f.t.network||''} ${f.t.name||''}`);
+  const stationPriority = (f: OsmFeature) => Number(!!f.p) * 4 + Number(/^[A-Z]{2,5}$/.test(f.t.ref || '')) * 3 + Number(/Indian Railways|^IR$|^SCR$|South Central Railway/i.test(`${f.t.network || ''} ${f.t.operator || ''}`));
+  for(const f of [...features].filter(f=>f.k==='station').sort((a,b)=>stationPriority(b)-stationPriority(a)||a.id.localeCompare(b.id))){
+    if(!name(f)||metro(f))continue;
     const p=center(f);if(!closest(...p,150))continue;
-    if(stations.some(s=>{const q=center(s);return name(s)===name(f)&&Math.hypot(p[0]-q[0],p[1]-q[1])<500;}))continue;
+    if(stations.some(s=>{const q=center(s);return name(s)===name(f)&&Math.hypot(p[0]-q[0],p[1]-q[1])<60;}))continue;
     stations.push(f);
   }
-  return {profiles,byId,stations,closest,clear:clearance.clear,conflicts:clearance.conflicts,center};
+  const platforms = features.filter(f => f.k === 'platform' && !metro(f) && !!closest(...center(f), 35));
+  const stationPlatforms = new Map<string, OsmFeature[]>();
+  for (const platform of platforms) {
+    const p = center(platform); let near: OsmFeature | undefined, distance = 650;
+    for (const station of stations) { const q = center(station), d = Math.hypot(p[0] - q[0], p[1] - q[1]); if (d < distance) { distance = d; near = station; } }
+    if (near) { const list = stationPlatforms.get(near.id) || []; list.push(platform); stationPlatforms.set(near.id, list); }
+  }
+  return {profiles,byId,stations,platforms,stationPlatforms,closest,clear:clearance.clear,conflicts:clearance.conflicts,center};
 }
 let cached:ReturnType<typeof makeRailwayNetwork>|undefined;
-export const railwayNetwork=()=>cached??=makeRailwayNetwork(source.features as unknown as OsmFeature[]);
+export const railwayNetwork=(patches?: readonly RailElevationPatch[])=>patches?.length ? makeRailwayNetwork(source.features as unknown as OsmFeature[], patches) : cached??=makeRailwayNetwork(source.features as unknown as OsmFeature[]);
+export function prepareRailwayTransport(roads: RoadEdge[], options: RailwayClearanceOptions = {}) {
+  const baseline = railwayNetwork(), repaired = prepareRailwayClearance(roads, baseline.profiles, options);
+  const patches = repaired.profiles.flatMap((r, i) => r === baseline.profiles[i] ? [] : [{ id: r.id, elev: r.elev }]);
+  return { roads: repaired.roads, railway: patches.length ? railwayNetwork(patches) : baseline, patches, report: repaired.report };
+}

@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The global reported-road model must be generated and physically reviewed before release.
++ actual - expected
+
++ undefined
+- 'reported-road-global-v1'
+
+    at file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/verify-road-profile-corrections.mjs:13:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'reported-road-global-v1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.1

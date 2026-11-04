@@ -43,13 +43,28 @@ export function expresswayOpening(own: RoadEdge, other: RoadEdge, x: number, z: 
   return false;
 }
 
+/** Derive the existing mapped-ramp rule once from the complete road inventory.
+ * No geometry, width or inferred connection is added to a streamed copy. */
+export function canonicalAuxiliaryLaneEnds(roads: RoadEdge[]) {
+  const ramps = new Map<string, RoadEdge[]>(), result = new Map<string, NonNullable<RoadEdge['auxiliaryLaneEnds']>>();
+  for (const e of roads) if (isRamp(e)) for (const node of new Set([e.from, e.to])) if (node)
+    (ramps.get(node) || ramps.set(node, []).get(node)!).push(e);
+  for (const e of roads) if (isORR(e)) {
+    const connected = (node: string | null) => !!node && (ramps.get(node) || []).some(other => other.id !== e.id && sharedNode(e, other) === node);
+    result.set(e.id, ((connected(e.from) ? 1 : 0) | (connected(e.to) ? 2 : 0)) as NonNullable<RoadEdge['auxiliaryLaneEnds']>);
+  }
+  return result;
+}
+
 export function auxiliaryLane(e: RoadEdge, roads: RoadEdge[]) {
   if (!isORR(e)) return e.pts.map(() => 0);
-  const joins = new Set(roads.filter(o => o.id !== e.id && isRamp(o)).map(o => sharedNode(e, o)).filter(Boolean));
+  const canonical = e.auxiliaryLaneEnds;
+  const joins = canonical === undefined ? new Set(roads.filter(o => o.id !== e.id && isRamp(o)).map(o => sharedNode(e, o)).filter(Boolean)) : undefined;
+  const fromRamp = canonical === undefined ? joins!.has(e.from) : !!(canonical & 1), toRamp = canonical === undefined ? joins!.has(e.to) : !!(canonical & 2);
   const total = roadLength(e); let s = 0;
   return e.pts.map((p, i) => {
     if (i) s += Math.hypot(p[0] - e.pts[i - 1][0], p[1] - e.pts[i - 1][1]);
-    const d = Math.min(joins.has(e.from) ? s : Infinity, joins.has(e.to) ? total - s : Infinity);
+    const d = Math.min(fromRamp ? s : Infinity, toRamp ? total - s : Infinity);
     const t = Math.max(0, Math.min(1, 1 - d / 220));
     return 3.5 * t * t * (3 - 2 * t);
   });

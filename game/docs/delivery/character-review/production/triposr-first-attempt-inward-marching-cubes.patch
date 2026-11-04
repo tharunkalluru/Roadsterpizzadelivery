@@ -1,0 +1,19 @@
+--- upstream/tsr/models/isosurface.py
++++ first-attempt/tsr/models/isosurface.py
+@@ -3,7 +3,15 @@
+ import numpy as np
+ import torch
+ import torch.nn as nn
+-from torchmcubes import marching_cubes
++# Local Apple-Silicon producer adaptation (2026-10-31). The upstream C++
++# torchmcubes build is replaced by scikit-image CPU marching cubes only;
++# neural inference is unchanged. This is an unapproved draft asset producer.
++def marching_cubes(level, threshold):
++    from skimage.measure import marching_cubes as sk_marching_cubes
++    volume = level.detach().cpu().numpy()
++    vertices, faces, _, _ = sk_marching_cubes(volume, level=threshold)
++    # Upstream torchmcubes returns x/y/z; helper reverses that below.
++    return torch.from_numpy(vertices[:, ::-1].copy()), torch.from_numpy(faces.copy().astype(np.int64))
+ 
+ 
+ class IsosurfaceHelper(nn.Module):

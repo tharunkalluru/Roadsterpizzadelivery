@@ -1,0 +1,26 @@
+{
+  "snapshot": "frozen27",
+  "scope": "Native production auto geometry only: three-quarter, rear and cabin views. Roof curved end and interior closure continuous, no driver head intersection observed. Open passenger entry remains. Simplified game model; not photoreal or measured physical-device performance.",
+  "observedModel": "auto",
+  "reportedSizeMeters": [
+    1.36,
+    1.85,
+    2.65
+  ],
+  "drawCalls": 7,
+  "triangles": 5872,
+  "images": [
+    {
+      "file": "auto-cabin.png",
+      "sha256": "1a3f5191472d2b2e1232e2dcf87357952bdfa73ed63a923ee59d4b094ea5c31d"
+    },
+    {
+      "file": "auto-rear.png",
+      "sha256": "9ec7635ca669334b769c0fa40fdcee357c12f40da9372d21f0b08c21d614550e"
+    },
+    {
+      "file": "auto-three-quarter.png",
+      "sha256": "283becd3b4a34025f2c786de27f75e45718894fa76dd3366dcbea0562d729ab2"
+    }
+  ]
+}

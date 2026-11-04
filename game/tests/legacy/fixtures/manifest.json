@@ -1,0 +1,55 @@
+{
+  "source": "Preserved read-only roadster-release evidence as of 2026-10-28; snapshots test shipped runtime identities, not live-world accuracy.",
+  "files": {
+    "landmark-source-decisions-2026-10-26.json": {
+      "source": "pipeline/evidence/landmark-source-decisions-2026-10-26.json",
+      "sha256": "fc80affa4ae55180bc406785019e3bbd4beb985a69eeaa2a5eea5bd95394cbce",
+      "bytes": 348162
+    },
+    "landmark-osm-source-2026-10-26.json": {
+      "source": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
+      "sha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+      "bytes": 7108127
+    },
+    "destination-inventory-2026-10-26.json": {
+      "source": "pipeline/evidence/destination-inventory-2026-10-26.json",
+      "sha256": "484be3f162a78ad3e705f924c27c97e1d17663f3d7315764b1a98676b08d01ee",
+      "bytes": 1934959
+    },
+    "destination-hero-source-2026-10-26.json": {
+      "source": "pipeline/evidence/destination-hero-source-2026-10-26.json",
+      "sha256": "2a7cadfeaf2521d53f5acf1f083d0d6949fa7855e2ced1eac6d64b4a74e7bc36",
+      "bytes": 28339
+    },
+    "ambedkar-feature-review-2026-10-26.json": {
+      "source": "pipeline/evidence/ambedkar-feature-review-2026-10-26.json",
+      "sha256": "2322719e4f750255969ca206b1fc9bfcf48b9412e05144ed59c54095ba6e7bf1",
+      "bytes": 1795
+    },
+    "landmark-audit.json": {
+      "source": "docs/landmark-audit.json",
+      "sha256": "06144f0d42b821d88b7c0cb6b52f2ce0fc8e726ce61300334137fd240b96aa43",
+      "bytes": 566159
+    },
+    "pipeline/destination_inventory.py": {
+      "source": "pipeline/destination_inventory.py",
+      "sha256": "f811e5cb87496b831ff81944fa96e35ce3061a7f9172119b6b4ac661b1bcd5d8",
+      "bytes": 13795
+    },
+    "pipeline/osm_path_kind.py": {
+      "source": "pipeline/osm_path_kind.py",
+      "sha256": "adb461e3d2b4e854ebf3f2db6d64403ab87171b70b37deef09bdfbd6e72d8a9e",
+      "bytes": 746
+    },
+    "pipeline/osm_extract.py": {
+      "source": "pipeline/osm_extract.py",
+      "sha256": "ff6f55c6c5481d5b9d472c059ccf062606bd0dd1072e744c3379ed6341691505",
+      "bytes": 6235
+    },
+    "pipeline/add_osm.py": {
+      "source": "pipeline/add_osm.py",
+      "sha256": "403490a29d5ad6ac0d19aa7168e13fe830c8d1ef14f04e7ef3d257c8bbb0f45a",
+      "bytes": 4173
+    }
+  }
+}

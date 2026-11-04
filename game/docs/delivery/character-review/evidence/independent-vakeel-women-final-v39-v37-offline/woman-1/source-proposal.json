@@ -1,0 +1,292 @@
+{
+  "status": "UNAPPROVED exact final exported actor, awaiting independent primary comparison and actual four-person metro scene",
+  "characterId": "vakeel-woman-1",
+  "candidate": {
+    "assetId": "vakeel-woman-1-final-v39",
+    "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02"
+  },
+  "glb": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.glb",
+  "glbSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+  "sourceRig": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.rig.json",
+  "sourceRigSha256": "4594aa011a5130231a4c2eed03bdedcfaa9d5ac37c53cda0404ccbdfa0b5492f",
+  "contract": {
+    "id": "vakeel-woman-1-authored-rig-v1-anatomical-hands-v1-calibrated-standing-hand-space-palm-owned-clean-uv-v2-fallback-scalp-v3-measured-native-posterior-material-v7-measured-retained-forearm-support-v8-measured-retained-forearms-v35-separated-semantic-recipient-v38",
+    "sceneName": "ReviewedCharacterScene",
+    "requireSkin": true,
+    "nodes": {
+      "leftArm": "LeftArm",
+      "rightArm": "RightArm",
+      "catchPoint": "PizzaCatch"
+    },
+    "pose": {
+      "mode": "handoff-clip",
+      "clipName": "TakePizza",
+      "upperBodyNodes": [
+        "Chest",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftWristTwist",
+        "LeftHand",
+        "LeftIndex1",
+        "LeftIndex2",
+        "LeftIndex3",
+        "LeftMiddle1",
+        "LeftMiddle2",
+        "LeftMiddle3",
+        "LeftRing1",
+        "LeftRing2",
+        "LeftRing3",
+        "LeftPinky1",
+        "LeftPinky2",
+        "LeftPinky3",
+        "LeftThumb1",
+        "LeftThumb2",
+        "LeftThumb3",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightWristTwist",
+        "RightHand",
+        "RightIndex1",
+        "RightIndex2",
+        "RightIndex3",
+        "RightMiddle1",
+        "RightMiddle2",
+        "RightMiddle3",
+        "RightRing1",
+        "RightRing2",
+        "RightRing3",
+        "RightPinky1",
+        "RightPinky2",
+        "RightPinky3",
+        "RightThumb1",
+        "RightThumb2",
+        "RightThumb3"
+      ]
+    },
+    "motions": {
+      "required": [
+        "idle",
+        "walk",
+        "dance",
+        "read"
+      ],
+      "clips": {
+        "idle": {
+          "clipName": "Idle"
+        },
+        "walk": {
+          "clipName": "Walk",
+          "metresPerCycle": 0.65
+        },
+        "dance": {
+          "clipName": "Dance"
+        },
+        "read": {
+          "clipName": "Read"
+        }
+      }
+    },
+    "height": {
+      "min": 1.5579999999999998,
+      "max": 1.722
+    },
+    "materialTreatment": "as-authored",
+    "catchPointSpace": "palm-contact",
+    "motionBounds": {
+      "schemaVersion": 1,
+      "glbSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+      "sceneName": "ReviewedCharacterScene",
+      "sampling": {
+        "framesPerSecond": 24,
+        "marginMetres": 0.025,
+        "poseCount": 7062,
+        "clips": [
+          {
+            "name": "Idle",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Read",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Walk",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          },
+          {
+            "name": "TakePizza",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          },
+          {
+            "name": "Dance",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          }
+        ],
+        "maskedHandoff": {
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ],
+          "fractions": [
+            0,
+            0.25,
+            0.5,
+            0.75,
+            1
+          ],
+          "baseFramesPerSecond": 12
+        }
+      },
+      "meshes": {
+        "LeftAuthoredAnatomicalHand": {
+          "vertexCount": 2115,
+          "center": [
+            0.21640580417842673,
+            0.9973256948504178,
+            0.19002561516725233
+          ],
+          "radius": 0.48874990049818107
+        },
+        "RightAuthoredAnatomicalHand": {
+          "vertexCount": 2112,
+          "center": [
+            -0.2162628562424118,
+            0.99698238635375,
+            0.19510100878858952
+          ],
+          "radius": 0.4857913407859361
+        },
+        "geometry_0": {
+          "vertexCount": 26696,
+          "center": [
+            -9.549290762198015e-05,
+            0.8018177304933872,
+            0.0330507619005867
+          ],
+          "radius": 0.9591594843357416
+        },
+        "geometry_0_1": {
+          "vertexCount": 80,
+          "center": [
+            0.23879682766174343,
+            1.0284861544545767,
+            0.06106079065855241
+          ],
+          "radius": 0.2330622238667199
+        },
+        "geometry_0_2": {
+          "vertexCount": 88,
+          "center": [
+            -0.23790465948116407,
+            1.0295974168805087,
+            0.0636343308130271
+          ],
+          "radius": 0.2315567362300862
+        },
+        "geometry_0_3": {
+          "vertexCount": 1876,
+          "center": [
+            0.010788217534860131,
+            1.3489189380786986,
+            -0.035799938567817866
+          ],
+          "radius": 0.3605529433786719
+        },
+        "geometry_0_4": {
+          "vertexCount": 1017,
+          "center": [
+            -0.00026974754378059074,
+            1.37137837888789,
+            -0.007951024650405869
+          ],
+          "radius": 0.25636431425150386
+        },
+        "MeasuredLeftWatchBand": {
+          "vertexCount": 508,
+          "center": [
+            0.21067544087869755,
+            1.0075717079653295,
+            0.1480816496197904
+          ],
+          "radius": 0.35423397089412323
+        }
+      }
+    }
+  },
+  "portrait": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/portrait.png",
+  "portraitSha256": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3",
+  "nativeBlend": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.blend",
+  "sourceProductionProof": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.production.json",
+  "nativeViews": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/native-15-v5",
+  "nativeInspection": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/native-15-v5/inspection.json",
+  "actualContinuingContact": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/continuing-walk-contact.json",
+  "nativePalmVertices": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/native-palms.json",
+  "actualMixerSnapshots": {
+    "idle": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/idle.glb",
+    "take0": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/take-00.glb",
+    "take05": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/take-05.glb",
+    "take1": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/take-10.glb",
+    "walk": [
+      "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/walk-00.glb",
+      "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/walk-01.glb",
+      "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/walk-02.glb",
+      "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/walk-03.glb",
+      "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/walk-04.glb"
+    ]
+  },
+  "sourceBounds": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.motion-bounds.json",
+  "authorId": "likeness-release-gate-vakeel-art-producer",
+  "reviewerApproved": false,
+  "primarySources": [
+    "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+    "docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png"
+  ],
+  "scope": "Actual exported models and gameplay Walk+maskedTake, exact .4x.4x.07 diagnostic carton; no actual runtime/phone performance evidence. Native studio portrait is not an identity approval."
+}

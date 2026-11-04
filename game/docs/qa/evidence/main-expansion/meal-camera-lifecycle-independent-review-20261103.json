@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "flyover_mesh_support",
+  "scope": "Independent read-only review of exact-source meal lifecycle v6 and actual TruckInterior/Game clearanceTarget consumer; no runtime/UI edits.",
+  "references": [
+    {
+      "path": "docs/qa/evidence/main-expansion/received-pizza-actual-lifecycle-native17-20261103-v6.json",
+      "sha256": "201505bc8a17a60c0835bad25d698be63756e9a3a4bbd4b972f45cc5893287c6",
+      "bytes": 6588865
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/truck-reader-camera-actual-lifecycle-20261103.json",
+      "sha256": "ab4fdc85d6e053e5484b1d64edb3e8d54db05d8a071a4369f6b5624eaf9af080",
+      "bytes": 23996
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/truck-native30/native-scene-evidence.json",
+      "sha256": "82c8ceb220d8975618a1cd7bc12d1bbc460eebf6034a8d42f6e58724e81a01a4",
+      "bytes": 131380
+    }
+  ],
+  "sourceAtAudit": {
+    "src/delivery/art/actor-performance.ts": "ae65fe2408f51b6e1c7b4802c00ee63d471db8918e8c94110722ecd78290f927",
+    "src/delivery/art/actor-meal-geometry.ts": "2f50b29f6bdc39a50ce49b8820022810e9ba3e839d61608012d7d63592b2ee5e",
+    "src/delivery/art/released-gltf.ts": "fbaefefe750ac0e9e51ddfdd2f5111075f1614339e60f856092a91875574b7c7",
+    "src/delivery/art/face-annotations.ts": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69",
+    "src/delivery/art/character-assets.json": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a",
+    "src/game/game.ts": "8dc443a94f2ff48e80e02abcd400a36919e6b87ad8fc9c25dc5ab3b5e74015a2",
+    "src/delivery/modules/types.ts": "e861a912f2d2cd8163b212f9795de00df461a659ad4396eee2ff211b919e69bc",
+    "src/delivery/modules/truck-interior.ts": "6272f76b758b4d4e6cba7deda3ce15701c48e3909d89d2077b652fadf61f5e1c",
+    "src/delivery/art/face-annotations.json": "40fe0e055d99e7486717318e93a845b40c037734c004d4db0f05d7bad87a43de",
+    "tests/v21-fixes/truck-reader-camera.test.ts": "6c29ee8379888a641c9bd978a5709f843afac7f82931823feeac6599dddf22f6"
+  },
+  "currentSourceHashes": {
+    "src/delivery/art/actor-performance.ts": "ae65fe2408f51b6e1c7b4802c00ee63d471db8918e8c94110722ecd78290f927",
+    "src/delivery/art/actor-meal-geometry.ts": "2f50b29f6bdc39a50ce49b8820022810e9ba3e839d61608012d7d63592b2ee5e",
+    "src/delivery/art/released-gltf.ts": "fbaefefe750ac0e9e51ddfdd2f5111075f1614339e60f856092a91875574b7c7",
+    "src/delivery/art/face-annotations.ts": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69",
+    "src/delivery/art/character-assets.json": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a",
+    "src/game/game.ts": "8dc443a94f2ff48e80e02abcd400a36919e6b87ad8fc9c25dc5ab3b5e74015a2",
+    "src/delivery/modules/types.ts": "e861a912f2d2cd8163b212f9795de00df461a659ad4396eee2ff211b919e69bc",
+    "src/delivery/modules/truck-interior.ts": "eb9fb4e1c61a0451d5a52aa376a48a99078017a7d55989f905ae95a899bf3c02",
+    "src/delivery/art/face-annotations.json": "40fe0e055d99e7486717318e93a845b40c037734c004d4db0f05d7bad87a43de",
+    "tests/v21-fixes/truck-reader-camera.test.ts": "6c29ee8379888a641c9bd978a5709f843afac7f82931823feeac6599dddf22f6"
+  },
+  "sourceMatchesAtReceipt": false,
+  "priorPreparationFaceRegistryBindings": [
+    {
+      "path": "src/delivery/art/actor-meal-geometry.ts",
+      "sha256": "2f50b29f6bdc39a50ce49b8820022810e9ba3e839d61608012d7d63592b2ee5e",
+      "unchanged": true
+    },
+    {
+      "path": "src/delivery/art/released-gltf.ts",
+      "sha256": "fbaefefe750ac0e9e51ddfdd2f5111075f1614339e60f856092a91875574b7c7",
+      "unchanged": true
+    },
+    {
+      "path": "src/delivery/art/face-annotations.ts",
+      "sha256": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69",
+      "unchanged": true
+    },
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "sha256": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a",
+      "unchanged": true
+    }
+  ],
+  "meal": {
+    "verdict": "pass in the tested authored lifecycle domain",
+    "sourceV6Summary": {
+      "characters": 44,
+      "receivers": 44,
+      "sampledFramesPerRecipient": 180,
+      "maximumLeftSupportGap": 0.0028392954864244757,
+      "minimumLeftSupportVertices": 5,
+      "maximumLeftTrayPenetration": 0,
+      "maximumLeftPizzaVertices": 0,
+      "maximumRightPizzaVertices": 0,
+      "maximumLidInteriorTriangles": 0,
+      "maximumLidFullTriangles": 0,
+      "maximumLidVolumeTriangles": 0,
+      "maximumSliceTipDistance": 0.022803583254474756,
+      "minimumSliceFaceClearance": 0.019724473540463805,
+      "minimumHandFaceClearance": 0.010469711779251156,
+      "maximumBoundFraction": 0.9543502022339697,
+      "nonFinite": 0
+    },
+    "freshRun": {
+      "path": "/tmp/meal-independent-actual-three-receivers.json",
+      "sha256": "a2fd636618130f58028c9fb0ea28a67474d7c2ac81e98db81fcf44166003eaf5",
+      "bytes": 1811577,
+      "recipients": [
+        "pushpa-raj",
+        "hasini",
+        "jessie"
+      ],
+      "lifecycles": [
+        "idle",
+        "read",
+        "walk",
+        "dance"
+      ],
+      "poses": 2160,
+      "passed": true,
+      "checks": {
+        "allReceived": true,
+        "positiveSkinSupport": true,
+        "noTrayPenetration": true,
+        "noPizzaIntrusion": true,
+        "noFiniteLidBodyOrPropIntersections": true,
+        "edibleTipAtLips": true,
+        "faceClearance": true,
+        "withinCullingBounds": true,
+        "finite": true
+      },
+      "summary": {
+        "characters": 12,
+        "receivers": 12,
+        "sampledFramesPerRecipient": 180,
+        "maximumLeftSupportGap": 0.0025000395915952822,
+        "minimumLeftSupportVertices": 6,
+        "maximumLeftTrayPenetration": 0,
+        "maximumLeftPizzaVertices": 0,
+        "maximumRightPizzaVertices": 0,
+        "maximumLidInteriorTriangles": 0,
+        "maximumLidFullTriangles": 0,
+        "maximumLidVolumeTriangles": 0,
+        "maximumSliceTipDistance": 0.022803583254474756,
+        "minimumSliceFaceClearance": 0.01972449037680235,
+        "minimumHandFaceClearance": 0.010469711779251156,
+        "maximumBoundFraction": 0.9415019549786274,
+        "nonFinite": 0
+      },
+      "reproduction": [
+        "Bundle scripts/qa/audit-received-pizza-contacts.ts with esbuild node22/esm production constants",
+        "node BUNDLE src/delivery/art/face-annotations.json NEW_OUTPUT pushpa-raj,hasini,jessie 180 all-handoffs"
+      ]
+    },
+    "sourceReview": [
+      "Catch is disabled before actual palm/torso measurement; completed host catch callbacks no longer change the received hands.",
+      "Dance-to-Idle pose sampling is two bounded authored advances of0.1+0.051 seconds; meal time begins at0 afterward and world/story clocks are untouched.",
+      "Eligibility, repeated receipt, disposal, source geometry ownership, optimized helper/preparation hook and face annotation bindings remain bounded."
+    ]
+  },
+  "checks": {
+    "actorPerformance": 7,
+    "originalActualCamera": 3,
+    "cameraLook": 10,
+    "drivingCamera": 8,
+    "containerExit": 3,
+    "allPassed": true
+  },
+  "camera": {
+    "verdict": "current source fails the extended supported+10% framing gate; narrow physical-parking prototype passes",
+    "finding": {
+      "severity": "P2",
+      "grade": 0.1,
+      "yaw": 3.141492653589793,
+      "seconds": 0.5,
+      "label": "hair/head",
+      "ndc": [
+        0.022607838786413998,
+        1.0767176965572065,
+        0.2430084887323865
+      ],
+      "literalCartonCornerAtOldNearPlane": {
+        "testedFov": 78,
+        "ndc": [
+          0.3369426351328789,
+          -1.471210554146641,
+          -1.141701022100519
+        ]
+      },
+      "negativeLog": {
+        "path": "/tmp/meal-camera-independent-steep-exact-margin.log",
+        "sha256": "ec138e92d2a4050dfd93a6100e8907aaaf6c5a5a07007a740dd5b4abaa78dc0e",
+        "bytes": 1314
+      }
+    },
+    "recommendation": {
+      "status": "read-only prototype; Root owns integration",
+      "parkZ": 1.2,
+      "priorParkZ": 2,
+      "storyPointAndLocalTargetBothUpdated": true,
+      "capturedCameraGate": {
+        "condition": "automaticStories && storyActive",
+        "distanceToParkLimitM": 0.18
+      },
+      "fov": 60,
+      "near": 0.3,
+      "ordinaryChaseAndSourceCameraPositionFormulaUnchanged": true,
+      "runner": {
+        "path": "/tmp/prototype-truck-shot-park-complete-independent.mjs",
+        "sha256": "0c1e41c37f74d9ae18d708ec8bf45ea7629765fd72556d6630c8ae9aa99536f5",
+        "bytes": 5639
+      },
+      "expandedTests": {
+        "path": "/tmp/truck-shot-park-independent-expanded.test.ts",
+        "sha256": "2d9f6aecd1bc6166d72aaed13618e8fe816d091785f70c6de9ea92b83f399d54",
+        "bytes": 18538
+      },
+      "cases": [
+        {
+          "path": "docs/qa/evidence/main-expansion/meal-camera-independent-20261103/truck-shot-park12-complete-native-aspect.json",
+          "sha256": "67cdb406ce751cec9d76fef912e02740febc181d994ccea1db60af23570242fb",
+          "bytes": 173197,
+          "passed": true,
+          "cases": 5,
+          "mealPoses": 65,
+          "maxCartonNDC": 0.8198794576554618,
+          "maxHeadNDC": 0.7228486327659169,
+          "literalHeadVerticesPerPose": 40423,
+          "cartonVerticesPerPose": 880,
+          "carPathVertexChecks": 1789920,
+          "capturedOldParkGated": true
+        },
+        {
+          "path": "docs/qa/evidence/main-expansion/meal-camera-independent-20261103/truck-shot-park12-complete-phone-aspect.json",
+          "sha256": "01964f98b426ca064c7b0d625a7020b3c501fdbef2814206ebc3f4f89ae6f44e",
+          "bytes": 173264,
+          "passed": true,
+          "cases": 5,
+          "mealPoses": 65,
+          "maxCartonNDC": 0.8198794576554618,
+          "maxHeadNDC": 0.7228486327659169,
+          "literalHeadVerticesPerPose": 40423,
+          "cartonVerticesPerPose": 880,
+          "carPathVertexChecks": 1789920,
+          "capturedOldParkGated": true
+        },
+        {
+          "path": "docs/qa/evidence/main-expansion/meal-camera-independent-20261103/truck-shot-park12-complete-169-aspect.json",
+          "sha256": "45200b0510d30460704b03369e36118d14047e438fd2cc6f6d86bf1904b09bf3",
+          "bytes": 173251,
+          "passed": true,
+          "cases": 5,
+          "mealPoses": 65,
+          "maxCartonNDC": 0.8198794576554618,
+          "maxHeadNDC": 0.7228486327659169,
+          "literalHeadVerticesPerPose": 40423,
+          "cartonVerticesPerPose": 880,
+          "carPathVertexChecks": 1789920,
+          "capturedOldParkGated": true
+        }
+      ],
+      "totalCases": 15,
+      "totalMealPoses": 195,
+      "totalCarPathVertexChecks": 5369760,
+      "carPathScope": "33 exact Roadster poses along the final0.8m parking correction; all actual mesh vertices checked against real non-floor container/reader solids. This is a bounded physical path check, not a substitute for dynamic driving/native acceptance."
+    },
+    "rejectedAlternatives": [
+      "Higher/back eye failed retained face-front gate.",
+      "Side/back eye hid actual support skin.",
+      "Local lens/near prototype could fit, but physical parking correction preserves existing lens and was preferred by Root."
+    ]
+  },
+  "visualReview": {
+    "images": [
+      {
+        "path": "docs/qa/evidence/main-expansion/truck-native30/held-actual-reader.png",
+        "sha256": "39b829965f2493c49c3e626a54ab687560101f4c235e6e67de4354baada603fb",
+        "bytes": 76309
+      },
+      {
+        "path": "docs/qa/evidence/main-expansion/truck-native30/resumed-held-reader.png",
+        "sha256": "556670d9538a8375fc97cb47b82940d2ba44658989e31dee46d04e2e2ea95c9b",
+        "bytes": 76288
+      },
+      {
+        "path": "docs/qa/evidence/main-expansion/truck-native30/next-transition.png",
+        "sha256": "a1dc8cd25386f17c172f11795b128f31207e95d017ba88a81b4c8cec92530086",
+        "bytes": 33028
+      },
+      {
+        "path": "docs/qa/evidence/main-expansion/truck-native30/next-road-empty-trunk.png",
+        "sha256": "613b4d81afd77cdf55eefbe36ece64b62bd705fe247bb1d865224ab783e6fc6e",
+        "bytes": 138853
+      }
+    ],
+    "observations": [
+      "Actual native30 face is frontal and unobstructed; carton/supporting hand are visible, but carton lower edge is partly outside the old frame.",
+      "Pause/Resume image retains the held scene.",
+      "Next transition is opaque and labels Wellington Road.",
+      "Next-road image restores controls and shows an empty trunk."
+    ],
+    "assistance": "Prepare order and Stage at scene approach, then actual manual blue-bay parking/automatic handoff. Desktop mouse/keyboard with touch-layout flag; not true-touch hardware."
+  },
+  "limits": [
+    "Prototype must be integrated and rechecked on production source by Root, then fresh native held/transition framing is required.",
+    "No physical-phone FPS/GPU, every character likeness, every scene or whole-campaign acceptance.",
+    "Source-contact geometry tests do not by themselves prove rendered appearance."
+  ],
+  "releaseApproved": false
+}

@@ -1,11 +1,16 @@
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
 import { DialogFocus } from './dialog';
-import { goFullscreen } from './title';
+import { goFullscreen, fullscreenFallbackMessage } from './title';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { installPaintSafety, guardWorldPaint } from './paint-safety';
-import { mobileHudLayout, hudStatusLayout, type HudRect } from './hud-layout';
+import { mobileHudLayout, minimapSpeedBadgeLayout, hudTransientLayout, type HudRect } from './hud-layout';
+import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
 
+const CONTROL_KEYS: Record<string, readonly string[]> = {
+  't-left':['KeyA','ArrowLeft'],'t-right':['KeyD','ArrowRight'],'t-gas':['KeyW','ArrowUp'],
+  't-brake':['Space','KeyS','ArrowDown'],'t-fly':['KeyQ'],'t-jump':['KeyE'],
+};
 export type ContextAction = 'collect' | 'handover';
 
 // A pointer must begin on the thumb and finish near the far end. A tap never accepts.
@@ -116,7 +121,12 @@ const CSS = `
 .opt{background:#2A2347;border:2px solid transparent;border-radius:12px;padding:10px;color:var(--cream);text-align:left;font-family:var(--body);cursor:pointer;display:flex;flex-direction:column;gap:2px}
 .opt[aria-pressed=true]{border-color:var(--saffron)}.opt:disabled{opacity:.45;cursor:not-allowed}
 .seg{display:flex;gap:6px;flex-wrap:wrap}.seg .opt{flex-direction:row;align-items:center;justify-content:center;min-width:64px;font-weight:800}
-.touch{display:none}.is-touch .touch{display:block}.is-touch .keys{display:none}
+.touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+.is-touch .touch{display:block}.is-touch .keys{display:none}
 /* the browser must not turn a thumb on the controls (or the scene) into a scroll / zoom / long-press menu */
 .touch,.touch *,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .tb.on,.tb:active{filter:brightness(1.15);transform:translateY(3px) scale(.97)}
@@ -179,6 +189,11 @@ const CSS = `
 .tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
 .has-offer .tip,.has-offer #order{display:none}
 .is-touch #hud.has-offer .touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+
 .has-offer .prompt{display:none}
 .tip[hidden]{display:none}.tip>b{font-family:var(--display);font-weight:400;font-size:12px;color:var(--teal)}.tip>span{flex:1}
 .tip>button{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;min-width:32px;min-height:32px}
@@ -303,6 +318,11 @@ const CSS = `
 }
 @media (max-width:600px) and (orientation:portrait){
   .is-touch #hud.has-offer .touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+
   #hud{--steer-size:72px;--brake-size:66px;--go-width:132px;--go-height:74px;--flight-height:44px;--jump-height:32px;--stack-gap:6px}
   .steering{gap:10px}.pedals{right:var(--touch-right);flex-direction:column;align-items:center;gap:12px}.touch-actions{left:auto;right:var(--touch-right);width:var(--go-width);bottom:calc(var(--touch-bottom) + var(--go-height) + var(--brake-size) + 30px)}
   .is-touch .speed{bottom:calc(var(--touch-bottom) + var(--steer-size) + 14px);left:calc(var(--touch-left) + var(--steer-size) + 5px);right:auto;transform:translateX(-50%);font-size:23px}
@@ -449,6 +469,80 @@ const CSS = `
   #hud.compact-map .h-tc{flex-direction:column;align-items:flex-start;gap:6px}
 }
 @media (prefers-reduced-motion:reduce){#hud .area-chip,#hud #t-fly:before{transition:none}}
+/* A single centered status row leaves compact availability and tools at the edges. */
+#hud .h-tl{width:142px}
+#hud .h-tc,#hud.compact-map .h-tc{position:fixed;left:50%;right:auto;top:max(10px,env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:6px;white-space:nowrap}
+#hud .orders-toggle{min-width:0;width:auto;min-height:44px;height:44px;padding:4px 8px;font-size:10px;gap:7px;border-radius:11px}
+#hud .orders-switch{min-width:30px;font-size:9px;padding:3px 5px}
+#hud .orders-switch:before{width:5px;height:5px}
+#hud .sheet-header{position:sticky;top:-1px;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#271936;padding:0 0 10px;border-bottom:1px solid #664982}
+#hud .sheet-header h2{font-size:22px;line-height:1.2}
+#hud .sheet-header .btn{flex:none;min-width:74px}
+#hud .pause-kicker{font:700 10px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#45E3D3}
+#hud .pause-heading{display:flex;flex-direction:column;gap:5px}
+#hud .pause-primary{width:100%;min-height:50px}
+#hud .pause-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#hud .pause-grid.campaign-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#hud .pause-card{box-sizing:border-box;min-height:88px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;text-align:left;padding:12px;border:1px solid #82629F;border-radius:14px;background:#372546;color:#F6EEDC;cursor:pointer;font:700 14px/1.2 var(--body)}
+#hud .pause-card small{font:500 12px/1.3 var(--body);color:#CFC6E4}
+#hud .pause-card:focus-visible{outline:3px solid #45E3D3;outline-offset:2px}
+#hud .pause-card:active{background:#4C355F}
+#hud .pause-footer{display:flex;align-items:center;justify-content:flex-end;border-top:1px solid #664982;padding-top:10px}
+#hud .pause-footer.campaign-restarts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#hud .pause-reset{min-height:44px;padding:8px 12px;border:1px solid #95677F;border-radius:11px;background:#372338;color:#FFB8CB;font:700 12px/1.2 var(--body);cursor:pointer}
+#hud .pause-reset:focus-visible{outline:3px solid #45E3D3;outline-offset:2px}
+#hud .fullscreen-guide{margin:0;padding-left:22px;color:#F6EEDC;font-size:14px;line-height:1.5}
+#hud .fullscreen-guide li+li{margin-top:8px}
+@media(max-width:600px){#hud .pause-grid{grid-template-columns:1fr}#hud .pause-card{min-height:64px}#hud .h-tc .pill{padding:0 7px;font-size:10px;gap:4px}}
+@media(max-height:520px){#hud .pause-grid{gap:8px}#hud .pause-card{min-height:72px;padding:10px}#hud .pause-primary{min-height:44px}#hud .sheet-header h2{font-size:20px}}
+/* Opaque, noninteractive flight guidance stays in the measured central lane. */
+#hud .flight-navigation{box-sizing:border-box;position:absolute;z-index:2;display:flex;align-items:center;gap:7px;padding:5px 10px;border:1px solid rgba(255,255,255,.38);border-radius:18px;background:rgba(28,24,44,.42);color:#FFF1D8;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);pointer-events:none}
+#hud .flight-navigation[hidden]{display:none!important}
+#hud .flight-navigation[data-kind=customer]{border-color:rgba(159,255,238,.45);color:#FFF1D8}
+#hud .flight-navigation *{pointer-events:none!important}
+#hud .flight-nav-arrow{flex:none;width:28px;height:28px;transform-origin:center;stroke:currentColor;fill:none}
+#hud .flight-nav-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+#hud .flight-nav-heading{display:flex;align-items:baseline;gap:5px;white-space:nowrap}
+#hud .flight-nav-target{display:none;font:800 12px/1.1 var(--body);color:var(--cream)}
+#hud .flight-nav-distance{font:800 12px/1.1 var(--body);color:inherit}
+#hud .flight-nav-hint{font:700 11px/1.1 var(--body);color:var(--muted);white-space:nowrap}
+#hud .flight-navigation[data-compact=true]{gap:6px;padding:4px 8px}
+#hud .flight-navigation[data-compact=true] .flight-nav-arrow{width:28px;height:28px}
+
+#hud #hud-navigation-slot,#hud #hud-notice-slot{position:fixed;pointer-events:none;visibility:hidden}
+#hud .area-chip{position:fixed;display:block;box-sizing:border-box;padding:0 10px;border-radius:12px;font-size:11px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform:none;transition:opacity 180ms ease-out}
+#hud .area-chip.show{transform:none}
+#hud .toast,#hud.compact-map .toast{position:fixed;box-sizing:border-box;min-height:0;max-height:none;padding:5px 8px;gap:5px;transform:none;white-space:normal;font-size:12px;line-height:1.15;overflow:hidden;pointer-events:none;box-shadow:0 2px 0 #130D20}
+#hud .toast.show,#hud.compact-map .toast.show{transform:none}
+#hud .toast>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#hud.has-delivery-notice .toast{visibility:hidden!important}
+#hud[data-notice-space=false] .toast,#hud[data-notice-space=false] .du-notice{display:none!important}
+#hud .rescue{position:fixed;box-sizing:border-box;bottom:auto;margin:0;padding:4px 8px;max-width:none;white-space:normal;transform:none;font-size:11px;line-height:1.15;overflow:hidden}
+
+
+/* The road view has one navigation row and one map-integrated speed display. */
+#hud .minimap-frame{position:absolute;pointer-events:none;z-index:1;--map-rim:3px}
+#hud .minimap-frame #minimap{position:absolute!important;box-sizing:border-box;inset:0!important;width:100%!important;height:100%!important;margin:0;border:var(--map-rim) solid var(--cream);box-shadow:none!important}
+#hud .minimap-frame .speed,.is-touch #hud .minimap-frame .speed{box-sizing:border-box;position:absolute!important;display:flex;align-items:center;justify-content:center;gap:3px;margin:0;padding:0 3px;transform:none!important;line-height:1;border:var(--map-rim) solid var(--cream);border-radius:var(--speed-radius,10px);background:#21172F;color:#FFF5DC;font-family:var(--display);font-size:18px;text-shadow:none;pointer-events:none;z-index:1;white-space:nowrap}
+#hud .minimap-frame .speed small{font:800 8px/1 var(--body)}
+.solid-ui #hud .minimap-frame .speed{background-color:#21172F!important}
+#hud #hud-call-slot{position:absolute;pointer-events:none}
+#hud .touch #t-left,#hud .touch #t-right,#hud .touch #t-gas,#hud .touch #t-brake,#hud .touch #t-fly,#hud .touch #t-jump{transition:transform 90ms ease-out,box-shadow 90ms ease-out;transform-origin:center}
+#hud .touch .on{transform:translateY(2px) scale(.96)!important;box-shadow:inset 0 0 0 3px rgba(255,249,220,.65),0 1px 0 #130D20!important}
+@media(prefers-reduced-motion:reduce){#hud .touch #t-left,#hud .touch #t-right,#hud .touch #t-gas,#hud .touch #t-brake,#hud .touch #t-fly,#hud .touch #t-jump{transition:none}}
+#hud .pause-menu{display:flex;flex-direction:column;gap:10px;min-width:0}
+#hud .pause-grid.campaign-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#hud .pause-progress{display:flex;flex-direction:column;gap:6px;width:100%;color:#F6EEDC}
+#hud .pause-progress-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font:800 12px/1.2 var(--body)}
+#hud .pause-segments{display:grid;grid-template-columns:repeat(var(--progress-columns),minmax(0,1fr));gap:4px}
+#hud .pause-segment{height:7px;border:1px solid #81698F;border-radius:3px;background:#493652}
+#hud .pause-segment[data-state=completed]{background:#21D8C1;border-color:#70F2E3}
+#hud .pause-segment[data-state=current]{background:#FFBF00;border-color:#FFF1BE}
+#hud .pause-progress .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#hud .pause-session{font:600 11px/1.2 var(--body);color:#CFC6E4;white-space:nowrap}
+#hud .pause-credits{align-self:flex-start;font:600 11px/1.2 var(--body);color:#CFC6E4}
+@media(max-height:520px){#hud .pause-menu{gap:7px}#hud .pause-menu .pause-card{min-height:50px;padding:8px;font-size:12px;gap:3px}#hud .pause-menu .pause-card small{font-size:10px}#hud .pause-menu .pause-primary{min-height:40px}#hud .pause-menu .pause-footer{padding-top:7px}#hud .pause-menu .sheet-header{padding-bottom:7px}#hud .pause-menu .pause-reset{font-size:11px}}
+@media(max-height:360px){#hud .pause-menu{gap:5px}#hud .pause-menu .pause-card{min-height:46px;padding:6px}#hud .pause-menu .pause-primary{min-height:36px}#hud .pause-menu .pause-footer{padding-top:5px}#hud .pause-menu .sheet-header h2{font-size:18px}#hud .pause-progress{gap:4px}#hud .pause-segment{height:6px}#hud .pause-session{font-size:10px}}
 `;
 
 export class Hud {
@@ -462,6 +556,8 @@ export class Hud {
   private updateLayout = () => {};
   private updateRotationGate = () => {};
   private controlReleases: (() => void)[] = [];
+  private feedbackHeld=new Set<string>();
+  private feedbackKeys=new Set<string>();
   private releaseAction = () => {};
   private contextAction: ContextAction | null = null;
   private jumpMode = "";
@@ -470,6 +566,10 @@ export class Hud {
   private ordersAccepting = true;
   private flightMode: 'ground' | 'air' | 'descending' = 'ground';
   private reserve = -1;
+  private flightNavHasRoom = false;
+  private flightNavAngle: number | null = null;
+  private flightNavTarget = '';
+  private flightNavRenderedAngle = '';
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
   rotationBlocked = false;
@@ -484,30 +584,26 @@ export class Hud {
     this.root.innerHTML = `
       <div class="hud-insets" id="hud-insets" aria-hidden="true"></div>
       <div class="h-tl">
-        <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
-        <div class="h-tasks"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div><section class="card" id="order" data-stage="idle" hidden><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state"></div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
-          <div class="row"><span class="order-distance" id="o-dist"></span><span class="order-time" id="o-time"></span></div>
-          <div class="order-steps" aria-label="Delivery progress"><span class="order-step step-pickup">Pickup</span><i class="order-step-line"></i><span class="order-step step-collect">Collect</span><i class="order-step-line"></i><span class="order-step step-deliver">Deliver</span></div>
-          <div class="order-next" id="o-next" hidden></div>
-          <div class="order-note" id="o-note" hidden>${controlIcon('info')}<span>Delivery timer starts after collection</span></div>
-          <div id="o-meters"><div class="row sm"><span id="o-heatl">Heat</span><span id="o-heatv"></span></div><div class="bar"><i id="o-heat" style="background:var(--heat)"></i></div>
-          <div class="slices" id="o-slices" style="margin-top:6px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-        </section></div>
+        <div class="h-tasks"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div></div>
       </div>
       <div class="dev" id="dev" hidden></div>
       <div class="h-tr">
-        <div class="btnrow pe"><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib toolbar-icon" id="b-report" type="button" aria-label="Report a bug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 3 2 3m6-3-2 3M8 9h8v8a4 4 0 0 1-8 0V9ZM9 9V7a3 3 0 0 1 6 0v2M3 10h5m8 0h5M3 15h5m8 0h5m-6 4 3 3M9 19l-3 3M12 10v10"/></svg></button><button class="ib toolbar-icon" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
+        <div class="btnrow pe"><button class="ib toolbar-icon" id="b-full" type="button" aria-label="Full screen options"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib toolbar-icon" id="b-report" type="button" aria-label="Report a bug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 3 2 3m6-3-2 3M8 9h8v8a4 4 0 0 1-8 0V9ZM9 9V7a3 3 0 0 1 6 0v2M3 10h5m8 0h5M3 15h5m8 0h5m-6 4 3 3M9 19l-3 3M12 10v10"/></svg></button><button class="ib toolbar-icon" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
         <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span><span class="wallet-unit">coins</span></div>
-        <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
+      <div class="minimap-frame" id="minimap-frame"><canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas><div class="speed" aria-label="Speed"><span id="spd">0</span><small>km/h</small></div></div>
+      <div id="hud-navigation-slot" aria-hidden="true"></div><div id="hud-notice-slot" aria-hidden="true"></div><div id="hud-call-slot" aria-hidden="true"></div>
       <div class="toast" id="toast" aria-live="polite"></div>
+      <div class="flight-navigation" id="flight-navigation" role="group" aria-label="Navigation guidance" hidden>
+        <svg class="flight-nav-arrow" id="flight-nav-arrow" viewBox="0 0 32 32" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 27V5M6 15 16 5l10 10"/></svg>
+        <div class="flight-nav-copy"><div class="flight-nav-heading"><span class="flight-nav-target" id="flight-nav-target"></span><span class="flight-nav-distance" id="flight-nav-distance"></span></div><span class="flight-nav-hint" id="flight-nav-hint"></span></div>
+      </div>
       <div class="prompt" id="prompt" hidden><div class="prompt-copy"><div class="ring" id="ring"></div><span id="prompt-t"></span></div><button class="context-action pe" id="t-act" type="button" aria-pressed="false" hidden><strong id="action-title"></strong><small id="action-hint"></small><span class="action-progress" aria-hidden="true"></span></button></div>
       <div class="guidance" id="guidance">
         <div class="offer pe" id="offer" role="dialog" aria-modal="true" aria-label="New delivery offer" hidden></div>
       </div>
       <div class="tip-overlay" id="tip-layer" role="dialog" aria-modal="true" aria-label="Driving tip" hidden><section class="tip pe" id="tip" hidden><div class="tip-heading">${controlIcon('info')}<span>Driving tip</span></div><span id="tip-t"></span><button type="button" class="btn go" id="tip-x">Got it</button></section></div>
-      <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>J</b> jump</span><span><b>E</b> collect / hand over / accept</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
-      <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
+      <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>Space</b> brake</span><span><b>S</b> reverse</span><span><b>Q</b> fly</span><span><b>E</b> jump</span><span><b>F</b> collect / hand over / accept</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
       <div class="touch pe">
         <div class="steering" id="steering" role="group" aria-label="Arrow steering">
           <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false">${controlIcon('left')}</button>
@@ -526,13 +622,13 @@ export class Hud {
       <div class="area-chip" id="area-chip" aria-live="polite"></div>
       <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Game menu" hidden><div class="sheet" id="sheet"></div></div>
       <div class="rotate" id="rotate" role="dialog" aria-modal="true" aria-labelledby="rotate-title"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b id="rotate-title">Turn your phone sideways</b><span id="rotate-status" aria-live="polite">Play in landscape. Enter fullscreen, then rotate your phone if needed.</span><button type="button" class="btn go" id="rot-ok">Enter Full Screen Mode</button></div></div>
-      <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
+      `;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
-    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true; this.el.order.hidden = true;
+    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true;
     this.flightReserve(1, true);
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
     this.offerFocus = new DialogFocus(this.el.offer, { initial: () => this.el.offer.querySelector('#offer-slide'), restore: () => this.el.minimap, captureKeys: true, key: (event) => {
-      if (event.code === 'KeyE' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
+      if (event.code === 'KeyF' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
       if (event.key === 'Escape' && !event.repeat) { event.preventDefault(); this.declinePendingOffer?.(); }
     } });
     this.tipFocus = new DialogFocus(this.el['tip-layer'], { initial: () => this.el['tip-x'], restore: () => this.el.minimap, captureKeys: true, key: (event) => {
@@ -547,38 +643,52 @@ export class Hud {
       const insetBottom = typeof getComputedStyle === 'function' ? Math.max(18, parseFloat(getComputedStyle(this.el['hud-insets']).paddingBottom) || 18) : 18;
       const position = (element: HTMLElement, box: HudRect) => Object.assign(element.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px`, right: 'auto', bottom: 'auto' });
       const toolbarEl = this.root.querySelector<HTMLElement>('.btnrow')!, walletEl = this.root.querySelector<HTMLElement>('.wallet')!;
-      const corner = mobileHudLayout(root.width, root.height, 0, 0, insetLeft, insetRight, insetBottom).map;
       if (compact) {
-        const toolbar = toolbarEl.getBoundingClientRect(), wallet = walletEl.getBoundingClientRect();
-        Object.assign(toolbarEl.style, { position: 'fixed', left: `${corner.left - 12 - toolbar.width}px`, top: '10px', right: 'auto' });
-        Object.assign(walletEl.style, { position: 'fixed', left: `${corner.left - 12 - wallet.width}px`, top: `${18 + toolbar.height}px`, right: 'auto' });
+        Object.assign(toolbarEl.style, { position: 'fixed', left: 'auto', right: `${insetRight}px`, top: '10px' });
+        Object.assign(walletEl.style, { position: 'fixed', left: `${insetLeft}px`, right: 'auto', top: '10px' });
       } else {
         for (const el of [toolbarEl, walletEl]) for (const key of ['position','left','top','width','height','right','bottom']) el.style.removeProperty(key);
       }
-      const clock = this.el.clock.getBoundingClientRect(), level = this.el.level.getBoundingClientRect(), toolbar = toolbarEl.getBoundingClientRect(), wallet = walletEl.getBoundingClientRect();
-      const portrait = root.width <= 600 && root.height > root.width;
-      const headerBottom = Math.max(clock.bottom, level.bottom, toolbar.bottom) - root.top;
-      const toggleWidth = this.el['orders-availability'].hidden ? 0 : this.el['orders-toggle'].getBoundingClientRect().width;
-      const obstacles = compact ? [corner, {left:wallet.left-root.left,top:wallet.top-root.top,width:wallet.width,height:wallet.height}] : [];
-      const { top: taskTop, mapTop, area } = hudStatusLayout(root.width, headerBottom, wallet.bottom - root.top, l.left - root.left, toggleWidth, obstacles);
-      this.root.style.setProperty('--area-top', `${area.top}px`);
-      this.root.style.setProperty('--area-left', `${area.left}px`);
-      this.root.style.setProperty('--area-width', `${area.width}px`);
-      this.el.order.style.marginTop = toggleWidth ? '0px' : '50px';
-      tasks.style.top = `${taskTop}px`; tasks.style.width = `${l.width}px`;
-      const controls = mobileHudLayout(root.width, root.height, mapTop, tasks.getBoundingClientRect().bottom - root.top, insetLeft, insetRight, insetBottom);
-      const taskLimit = portrait ? (root.height <= 650 ? controls.speed.top : controls.fly.top) - 88 : controls.leftSteer.top - 12;
-      tasks.style.maxHeight = `${Math.max(44, taskLimit - taskTop)}px`;
-      const map = touch ? controls.map : { left: root.width - insetRight - 168, top: mapTop, width: 168, height: 168 };
-      position(this.el.minimap, map);
-      if (touch) {
-        for (const [id, box] of Object.entries({ 't-left': controls.leftSteer, 't-right': controls.rightSteer, 't-brake': controls.brake, 't-gas': controls.gas, 't-fly': controls.fly, 't-jump': controls.jump, speed: controls.speed })) {
-          position(id === 'speed' ? this.root.querySelector<HTMLElement>('.speed')! : this.el[id], box);
-          if (id === 'speed') this.root.querySelector<HTMLElement>('.speed')!.style.fontSize = box.width < 90 ? '18px' : '22px';
-        }
-        position(this.el.prompt, controls.context);
+      const toolbar=toolbarEl.getBoundingClientRect(),wallet=walletEl.getBoundingClientRect();
+      const headerBottom=toolbar.bottom-root.top;
+      const taskTop=headerBottom+8,mapTop=Math.max(headerBottom+8,walletEl.hidden?0:wallet.bottom-root.top+8);
+      tasks.style.top=`${taskTop}px`;tasks.style.width=`${l.width}px`;
+      const controls=mobileHudLayout(root.width,root.height,mapTop,tasks.getBoundingClientRect().bottom-root.top,insetLeft,insetRight,insetBottom);
+      tasks.style.maxHeight=`${Math.max(44,controls.leftSteer.top-12-taskTop)}px`;
+      const map=touch?controls.map:{left:root.width-insetRight-168,top:mapTop,width:168,height:168};
+      position(this.el['minimap-frame'],map);
+      const speed=this.root.querySelector<HTMLElement>('.speed')!;
+      const badge=minimapSpeedBadgeLayout(map);
+      position(speed,{...badge,left:badge.left-map.left,top:badge.top-map.top});
+      speed.style.setProperty('--speed-radius',`${Math.max(6,Math.round(badge.height*.36))}px`);
+      this.el['minimap-frame'].style.setProperty('--map-rim',map.width<80?'2px':'3px');
+      speed.style.fontSize=`${Math.max(10,Math.min(24,Math.round(map.width*.14)))}px`;
+      speed.style.flexDirection=map.width<80?'column':'row';speed.style.gap=map.width<80?'0px':'2px';
+      speed.querySelector('small')!.style.fontSize=`${map.width<80?5:Math.max(6,Math.round(map.width*.065))}px`;
+      if(touch){
+        for(const[id,box]of Object.entries({'t-left':controls.leftSteer,'t-right':controls.rightSteer,'t-brake':controls.brake,'t-gas':controls.gas,'t-fly':controls.fly,'t-jump':controls.jump}))position(this.el[id],box);
+        position(this.el.prompt,controls.context);
       }
-      const taskBottom = tasks.getBoundingClientRect().bottom - root.top;
+      const call=controls.call;
+      if(call)position(this.el['hud-call-slot'],call);else Object.assign(this.el['hud-call-slot'].style,{width:'0px',height:'0px'});
+      const taskBottom=tasks.getBoundingClientRect().bottom-root.top;
+      const navLeft=walletEl.hidden?insetLeft:Math.max(insetLeft,wallet.right-root.left+8);
+      const navigation=this.positionFlightNavigation(root,headerBottom,{left:0,top:0,width:0,height:0},
+        {left:navLeft,top:10,width:0,height:0},{...map,left:toolbar.left-root.left},
+        touch?controls.leftSteer.top:root.height-76,root.height<=520);
+      const blockers:HudRect[]=[map,badge];
+      if(touch)blockers.push(controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump);
+      if(call)blockers.push(call);
+      for(const id of ['orders-availability','prompt']) {
+        const element=this.el[id];if(element.hidden)continue;
+        const box=element.getBoundingClientRect();if(box.width&&box.height)blockers.push({left:box.left-root.left,top:box.top-root.top,width:box.width,height:box.height});
+      }
+      const notices=hudTransientLayout(root.width,root.height,headerBottom,root.height<=520?28:32,navigation,blockers,insetLeft,insetRight,insetBottom);
+      const put=(element:HTMLElement,box:HudRect|null)=>{element.style.visibility=box?'':'hidden';if(box)position(element,box);else Object.assign(element.style,{width:'0px',height:'0px'});};
+      put(this.el['area-chip'],notices.area);if(notices.area)this.el['area-chip'].style.lineHeight=`${Math.max(1,notices.area.height-4)}px`;put(this.el.toast,notices.notice);put(this.el.rescue,notices.rescue);
+      put(this.el['hud-notice-slot'],notices.notice);
+      for(const key of ['left','top','width','height'] as const)this.root.style.setProperty(`--hud-notice-${key}`,`${notices.notice?.[key]||0}px`);
+      this.root.dataset.noticeSpace=String(!!notices.notice);
       this.root.style.setProperty('--task-bottom', `${Math.max(0, taskBottom)}px`);
       const offered = this.root.classList.contains('has-offer');
       const bounds = guidanceBounds(root.width, root.height, taskBottom, map.left, map.top + map.height, touch && !offered);
@@ -587,6 +697,7 @@ export class Hud {
         bounds.left = 12; bounds.top = 12; bounds.width = Math.max(0, root.width - 24); bounds.height = Math.max(0, root.height - 24);
       }
       Object.assign(this.el.guidance.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
+      this.root.dispatchEvent(new Event('hudlayoutchange'));
     };
     const resize = new ResizeObserver(layout);
     this.updateLayout = layout;
@@ -596,6 +707,7 @@ export class Hud {
     this.el['b-report'].addEventListener('click', () => { if (this.controlsAvailable) { this.resetInput(); this.onButton('report'); } });
     for (const type of ['keydown', 'keyup']) this.el['b-report'].addEventListener(type, event => event.stopPropagation());
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
+    for (const type of ['keydown', 'keyup']) this.el['b-full'].addEventListener(type, event => event.stopPropagation());
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
     this.el['tip-x'].addEventListener('click', () => this.acknowledgeTip());
     this.el['orders-toggle'].addEventListener('click', () => {
@@ -606,16 +718,16 @@ export class Hud {
     this.el['rot-ok'].addEventListener('click', async () => {
       // The gesture requests fullscreen and landscape; only real orientation
       // changes unlock play. Unsupported/denied APIs never bypass the gate.
-      await goFullscreen();
+      const granted = await goFullscreen();
       this.updateRotationGate();
-      if (this.rotationBlocked) this.el['rotate-status'].textContent = 'Rotate your phone sideways to play. Your browser may require you to turn it manually.';
+      if (this.rotationBlocked) this.el['rotate-status'].textContent = granted ? 'Rotate your phone sideways to play. Your browser may require you to turn it manually.' : fullscreenFallbackMessage();
     });
     // Each held control owns its pointer, so steering and pedals can be used together.
     const hold = (id: string, f: (v: boolean) => void, enabled = () => true) => {
       const b = this.el[id]; let pid = -1; const keys = new Set<string>();
       const paint = () => {
         const active = pid !== -1 || keys.size > 0;
-        f(active); b.classList.toggle('on', active); b.setAttribute('aria-pressed', String(active));
+        f(active); this.paintControl(id,active);
       };
       b.addEventListener('pointerdown', (e) => {
         e.preventDefault(); if (pid !== -1 || !enabled() || !this.controlsAvailable) return;
@@ -648,15 +760,25 @@ export class Hud {
     hold('t-gas', (v) => (this.touchGas = v));
     hold('t-brake', (v) => (this.touchBrake = v));
     const tap = (id: string, action: string) => {
-      const button = this.el[id] as HTMLButtonElement;
-      const activate = () => { if (!button.disabled && this.controlsAvailable) this.onButton(action); };
-      button.addEventListener('pointerdown', (e) => { e.preventDefault(); activate(); });
-      button.addEventListener('keydown', (e) => {
-        if (e.code !== 'Space' && e.code !== 'Enter') return;
-        e.preventDefault(); e.stopPropagation(); if (!e.repeat) activate();
+      const button=this.el[id] as HTMLButtonElement;let pointer=-1,key=false;
+      const activate=()=>{if(!button.disabled&&this.controlsAvailable)this.onButton(action);};
+      const paint=()=>this.paintControl(id,pointer!==-1||key);
+      const release=()=>{const old=pointer;pointer=-1;key=false;try{if(old!==-1&&button.hasPointerCapture(old))button.releasePointerCapture(old);}catch{/* ended */}paint();};
+      this.controlReleases.push(release);
+      button.addEventListener('pointerdown',e=>{
+        e.preventDefault();if(button.disabled||!this.controlsAvailable||pointer!==-1)return;
+        pointer=e.pointerId;try{button.setPointerCapture(pointer);}catch{/* already ended */}paint();activate();
       });
-      // Screen readers activate a button with a zero-detail click rather than a pointer.
-      button.addEventListener('click', (e) => { if (e.detail === 0) activate(); });
+      const up=(e:PointerEvent)=>{if(e.pointerId===pointer)release();};
+      for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,up as EventListener);
+      button.addEventListener('keydown',e=>{
+        if(e.code!=='Space'&&e.code!=='Enter')return;e.preventDefault();e.stopPropagation();
+        if(!e.repeat&&!button.disabled&&this.controlsAvailable){key=true;paint();activate();}
+      });
+      button.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();e.stopPropagation();key=false;paint();}});
+      button.addEventListener('blur',release);
+      // Screen readers activate without a pointer; provide the same brief press.
+      button.addEventListener('click',e=>{if(e.detail===0&&!button.disabled&&this.controlsAvailable){this.paintControl(id,true);activate();setTimeout(()=>this.paintControl(id,false),120);}});
     };
     tap('t-fly', 'fly'); tap('t-jump', 'jump');
     this.releaseAction = hold('t-act', (v) => (this.touchAct = v), () => this.contextAction !== null && !this.el.prompt.hidden && !this.modalOpen && !this.rotationBlocked);
@@ -701,10 +823,38 @@ export class Hud {
     this.updateRotationGate();
     guardWorldPaint(this.root);
   }
+  private positionFlightNavigation(root: HudRect, headerBottom: number, area: HudRect, tasks: HudRect, map: HudRect, controlsTop: number, narrow: boolean) {
+    const box = flightNavigationLayout(root.width, root.height, headerBottom, 0, tasks, map, controlsTop, narrow ? 44 : 48);
+    this.flightNavHasRoom = !!box;
+    if (box) {
+      Object.assign(this.el['flight-navigation'].style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px`, right: 'auto', bottom: 'auto' });
+      this.el['flight-navigation'].dataset.compact = String(box.width < 180 || box.height < 48);
+      const slot=this.el['hud-navigation-slot'];if(slot)Object.assign(slot.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});
+    } else {
+      const slot=this.el['hud-navigation-slot'];if(slot)Object.assign(slot.style,{width:'0px',height:'0px'});
+      this.flightNavigation(null);
+    }
+    return box;
+  }
+  private paintControl(id:string,held?:boolean) {
+    this.feedbackHeld??=new Set();this.feedbackKeys??=new Set();
+    if(held!==undefined){if(held)this.feedbackHeld.add(id);else this.feedbackHeld.delete(id);}
+    const button=this.el[id];if(!button)return;
+    const pressed=this.feedbackHeld.has(id)||(CONTROL_KEYS[id]||[]).some(code=>this.feedbackKeys.has(code));
+    button.classList.toggle('on',pressed);button.setAttribute('aria-pressed',String(pressed));
+  }
+  /** Presentation only; Game retains all keyboard timing and driving behavior. */
+  controlFeedback(code:string,down:boolean) {
+    this.feedbackKeys??=new Set();
+    const id=Object.keys(CONTROL_KEYS).find(id=>CONTROL_KEYS[id].includes(code));
+    if(down&&this.controlsAvailable&&id&&!(this.el[id] as HTMLButtonElement)?.disabled)this.feedbackKeys.add(code);else this.feedbackKeys.delete(code);
+    for(const[id,codes]of Object.entries(CONTROL_KEYS))if(codes.includes(code))this.paintControl(id);
+  }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     this.cancelOfferSwipe();
     for (const release of this.controlReleases) release();
+    this.feedbackKeys?.clear();this.feedbackHeld?.clear();for(const id of Object.keys(CONTROL_KEYS))this.paintControl(id,false);
     this.prompt(null);
     this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchLeft = false; this.touchRight = false; this.touchSteer = 0; this.tilt = 0;
   }
@@ -739,7 +889,29 @@ export class Hud {
   tiltBound = false;
   get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
   get activeAction() { return this.contextAction; }
-  private get controlsAvailable() { return !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
+  carrierPickupMode() {
+    if (this.root.dataset.deliveryMode === 'carrier') return;
+    this.root.dataset.deliveryMode = 'carrier';
+    const wallet = this.root.querySelector<HTMLElement>('.wallet');
+    if (wallet) { wallet.hidden = true; wallet.style.display = 'none'; }
+    this.orderAvailability({ unlocked: false, accepting: false });
+    this.offer(null); this.prompt(null, 0, null);
+    for (const key of this.root.querySelectorAll<HTMLElement>('.keys span')) {
+      if (key.querySelector('b')?.textContent === 'F') key.hidden = true;
+    }
+    const status = document.createElement('span'); status.id = 'pickup-status';
+    status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
+    Object.assign(status.style, { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clipPath: 'inset(50%)' });
+    this.root.appendChild(status); this.el['pickup-status'] = status;
+    this.pickupStatus(false); this.updateLayout();
+  }
+  pickupStatus(caught: boolean) {
+    this.root.dataset.pickupState = caught ? 'carrying' : 'searching';
+    this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing pizza slice above traffic');
+  }
+  pickupHintVisible(visible:boolean) { const hint=this.el['pickup-status'];if(hint)hint.hidden=!visible; }
+  storyBlocked = false;
+  private get controlsAvailable() { return !this.storyBlocked && !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
   orderAvailability({ unlocked, accepting, activeOrder = false }: { unlocked: boolean; accepting: boolean; activeOrder?: boolean }) {
     this.ordersUnlocked = unlocked; this.ordersAccepting = accepting;
     const button = this.el['orders-toggle'];
@@ -778,6 +950,25 @@ export class Hud {
     button.disabled = mode === 'descending' || this.jumping;
     button.setAttribute('aria-label', mode === 'ground' ? 'Take off' : mode === 'air' ? 'Land' : 'Landing in progress');
   }
+  flightNavigation(input: FlightNavigationInput | null, dt = 0) {
+    const readout = flightNavigationReadout(input), panel = this.el['flight-navigation'];
+    if (!readout || !this.flightNavHasRoom || !this.controlsAvailable || document.hidden ||
+      document.documentElement.classList.contains('ui-blocks-world')) {
+      if (!panel.hidden) panel.hidden = true;
+      this.flightNavAngle = null; this.flightNavTarget = ''; this.flightNavRenderedAngle = '';
+      return;
+    }
+    const target = `${input!.target.kind}:${input!.target.x}:${input!.target.z}`;
+    if (target !== this.flightNavTarget) { this.flightNavAngle = null; this.flightNavTarget = target; }
+    this.flightNavAngle = smoothFlightBearing(this.flightNavAngle, readout.bearing, dt);
+    const rotation = `rotate(${(this.flightNavAngle * 180 / Math.PI).toFixed(1)}deg)`;
+    if (rotation !== this.flightNavRenderedAngle) {
+      this.el['flight-nav-arrow'].style.transform = rotation; this.flightNavRenderedAngle = rotation;
+    }
+    if (panel.dataset.kind !== readout.kind) panel.dataset.kind = readout.kind;
+    this.set('flight-nav-target', ''); this.set('flight-nav-distance', readout.distance); this.set('flight-nav-hint', readout.hint);
+    if (panel.hidden) panel.hidden = false;
+  }
   flightReserve(fraction: number, unlimited = false) {
     const value = unlimited ? 1 : Math.max(0, Math.min(1, Number.isFinite(fraction) ? fraction : 0));
     if (value === this.reserve) return;
@@ -812,19 +1003,9 @@ export class Hud {
     this.set('prompt-t', text); this.el.ring.style.setProperty('--p', `${Math.round(progress * 100)}%`);
   }
   order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean; next?: string; stage?: 'pickup' | 'collect' | 'delivery' | 'idle'; orderId?: string }) {
-    this.set('o-state', o.state); this.set('o-title', o.title); this.set('o-sub', o.sub); this.set('o-dist', o.dist); this.set('o-time', o.time);
-    this.el.order.dataset.stage = o.stage ?? (o.meters ? 'delivery' : 'idle');
-    this.el.order.hidden = this.el.order.dataset.stage === 'idle' && !o.dist;
-    this.el['o-next'].hidden = !o.next; if (o.next) this.set('o-next', `Next: ${o.next}`);
-    this.el['o-note'].hidden = o.stage !== 'pickup' && o.stage !== 'collect';
-    this.el['o-id'].hidden = !o.orderId; if (o.orderId) this.set('o-id', `#${o.orderId.replace(/^#/, '')}`);
-    this.el['o-meters'].style.display = o.meters ? '' : 'none';
-    if (o.meters && o.heat !== undefined) {
-      this.el['o-heat'].style.width = `${Math.max(0, o.heat)}%`;
-      this.set('o-heatv', `${Math.round(o.heat)}°`);
-      this.set('o-heatl', `Heat · ${o.heat >= 70 ? 'GARAM' : o.heat >= 40 ? 'THEEK' : 'THANDA'}`);
-      [...this.el['o-slices'].children].forEach((c, i) => c.classList.toggle('off', i >= (o.slices ?? 8)));
-    }
+    // The active order is shown through the map, world target and contextual
+    // collection/handover action. Keep the caller compatible without a banner.
+    void o;
   }
   offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
     this.cancelOfferSwipe(); this.cancelOfferSwipe = () => {};
@@ -867,12 +1048,14 @@ export class Hud {
   rescue(show: boolean, text = '') {
     const b = this.el.rescue; if (b.hidden === !show && (!show || b.dataset.t === text)) return;
     b.hidden = !show; if (show) { b.dataset.t = text; b.textContent = text + (document.documentElement.classList.contains('is-touch') ? '' : ' (R)'); }
+    this.updateLayout();
   }
   areaT = 0;
-  areaChip(name: string, label = 'Entering') {
-    const c = this.el['area-chip']; c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small><span class="area-name">${name.replace(/[<>&]/g, '')}</span>`; c.classList.add('show');
-    clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
+  areaChip(name: string, _label?: string) {
+    const c = this.el['area-chip']; c.textContent=name;c.title=name;c.classList.add('show');
+    clearTimeout(this.areaT);this.areaT=window.setTimeout(()=>c.classList.remove('show'),4200);
   }
+
   get tipOpen() { return !this.el['tip-layer'].hidden; }
   private acknowledgeTip() { if (!this.tipOpen) return; this.tipAcknowledgement(null); this.onButton('tip-close'); }
   tipAcknowledgement(text: string | null) {

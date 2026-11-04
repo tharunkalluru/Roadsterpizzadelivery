@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "status": "rejected-defect-found",
+  "sourceExport": "campaign-qa-mvx3lng3-2.json",
+  "sha256": "60cd3f10430c99e90a2ae56a73e7027e377ddd7dc095ee0f9e8d7f44ca34fdb2",
+  "fingerprint": "734431db5999dc3291b5ae6d262ce401daf5b0c738b46ef92ce1e6bebceadc62",
+  "startedAt": "2026-11-01T00:34:55.347Z",
+  "activeWallMs": 333700,
+  "observations": [
+    "Assisted normal-descent landing on story train rear coach, followed by manual W/Space roof travel.",
+    "Reached rail1 coach12 through3 before encountering rail0 locomotive0 in same physical area.",
+    "At world(-11225.44,-6350.93), rail0 remained9502m from route end and rail1 remained34237m; both stopped for over100 advancing gameplay seconds.",
+    "Native orbit showed nose-to-side train conflict near mapped turnout; investigation required.",
+    "Run paused and rejected; not counted as the final40-active-minute acceptance soak."
+  ],
+  "notEstablished": [
+    "Full campaign playthrough",
+    "Final physical phone performance",
+    "Midrange FPS, heat or battery life"
+  ]
+}

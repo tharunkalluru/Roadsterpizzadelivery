@@ -1,0 +1,112 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.021560+00:00",
+  "scenario": 7,
+  "characterId": "hasini",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=7&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Fixed night entrance visible; F300 receiving/result portrait; Next retains actor, S380+space300.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery"
+    ]
+  },
+  "row": {
+    "level": 7,
+    "id": "hasini-college-gate",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "The entrance remains clear of real roads/buildings.",
+      "Bommarillu Hasini is recognizable and positioned behind the gate/pillar."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwpzd2c.json",
+    "sha256": "c6f17f06e1d2bebb895c6c46108a7b2b8937ea8b8ec0e92fc20bdf888f42220a"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "hasini-bommarillu-college-v1",
+      "sha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/hasini/college-v1.glb",
+        "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+      },
+      {
+        "path": "public/delivery/characters/hasini/college-v1.rig.json",
+        "sha256": "bb84c5a6eee447ccb64be86bdededc1a00fad445a40d6a5aa6031526b2ff49fe"
+      },
+      {
+        "path": "public/delivery/characters/hasini/portrait-v1.png",
+        "sha256": "e7b356b98ddaf797222876aa314ad9d273b027f05eb8e11bbf42fc2ea4b96184"
+      }
+    ],
+    "glbUrl": "/delivery/characters/hasini/college-v1.glb",
+    "contractPath": "public/delivery/characters/hasini/college-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/01-ready.png",
+      "sha256": "7bb6b78e31361725c075a522c2f89bcd733b240af26aeb4b410703bb0fde0d70"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "089f98075fd372c34e573dd88c69f721abcbf42f2f743b147b764ca5c3aac538"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "160fbed76be006573731c605f8b4d8396ed2cd6b88572944213b50a2ccb568f9"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "b11e79c17b9b9a8cc8d9d032bb0a19652a786ec7766b4f07457c0e8a29f3de93"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/hasini-approved-loader-2026-10-31/independent-native-v1/03-retained.png",
+      "sha256": "543e71df26a7a070fcddc1cb1830bd674b93c89125023e3eb2357e13d5fc5d30"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

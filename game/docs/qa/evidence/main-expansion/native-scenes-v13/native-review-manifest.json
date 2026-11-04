@@ -1,0 +1,620 @@
+{
+  "schemaVersion": 1,
+  "build": "frozen13",
+  "fingerprint": "c397debd653486039b27bdae55597c8c6785cd239960e72aca19468293156aa2",
+  "baseUrl": "http://127.0.0.1:4263",
+  "viewport": {
+    "width": 932,
+    "height": 430
+  },
+  "input": "Native Chrome mouse/keyboard, touch layout only; no physical touch/device verification",
+  "scenarioSetup": "Explicit assisted Prepare order plus Stage at scene approach, preserved in exports",
+  "acceptance": "Individual scene mechanics and viewed screenshots only; incomplete visual checks remain incomplete. No full campaign or FPS claim.",
+  "rows": [
+    {
+      "level": 3,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-03-campaign-evidence.json",
+      "sha256": "21173528e4f1de6e6253a179bf06f410009734e4ef8833b239d73d9253bdcce2",
+      "runId": "campaign-qa-mvzx3m44",
+      "row": {
+        "level": 3,
+        "id": "devara-depths",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "submerged-player",
+          "skeleton-scene",
+          "pizza-placement",
+          "automatic-dive",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": true
+      }
+    },
+    {
+      "level": 4,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-04-campaign-evidence.json",
+      "sha256": "bb4fa1fb0ccd9db4a952144313dfc82a28b1ae77416787145e7abedac70d44b0",
+      "runId": "campaign-qa-mvzxt695",
+      "row": {
+        "level": 4,
+        "id": "paradise-rope-bucket",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "bucket-lowered",
+          "pizza-in-bucket",
+          "bucket-raised",
+          "grounded-arrival",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "Existing restaurant facade is retained; roof cable is attached, basket is large and open.",
+          "Pizza remains visible throughout the lift; the released Odela model stands on the real roof and is clearly framed during the held view."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    },
+    {
+      "level": 5,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-05-campaign-evidence.json",
+      "sha256": "cbed694f4e64b88c31fd4557194e77b3de3ec360afcf2325b4abaff94229f269",
+      "runId": "campaign-qa-mvzx7qig",
+      "row": {
+        "level": 5,
+        "id": "arundhati-haunted-gate",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "grounded-arrival",
+          "haunted-gate",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": true
+      }
+    },
+    {
+      "level": 6,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-06-campaign-evidence.json",
+      "sha256": "4b65a39dd1748a6f3130bd2184ba7ba160ea13cdd5d8e98b643a6277a5a1c9ee",
+      "runId": "campaign-qa-mvzxb3gn",
+      "row": {
+        "level": 6,
+        "id": "jessie-walking-delivery",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "grounded-arrival",
+          "alongside-movement",
+          "authored-walk",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "pickup-not-observed",
+          "qa-scene-staging",
+          "player-relocated"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "Blue saree, loose hair and Ye Maaya Chesave resemblance.",
+          "Feet contact the street with natural gait; no sliding rigid body or teleport at path ends."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    },
+    {
+      "level": 7,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-07-campaign-evidence.json",
+      "sha256": "28231e913dc905397ce01f6f72466436a9a56237b9ed7c066db6d47aca5d0c83",
+      "runId": "campaign-qa-mvzxenfw",
+      "row": {
+        "level": 7,
+        "id": "hasini-college-gate",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "grounded-arrival",
+          "college-gate",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": true
+      }
+    },
+    {
+      "level": 8,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-08-campaign-evidence.json",
+      "sha256": "996a61d63397bbf8d7c29b7ca8da171cee3749e457649f50a5347064d18e468c",
+      "runId": "campaign-qa-mvzxh0bg",
+      "row": {
+        "level": 8,
+        "id": "bhanumathi-wedding-street",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "street-procession",
+          "crowd-animation",
+          "authored-dance",
+          "grounded-arrival",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "This is a wedding procession on a village street, not a static wedding venue.",
+          "Fidaa Bhanumathi dances with articulated limbs and remains recognizable during the handoff."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    },
+    {
+      "level": 9,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-09-campaign-evidence.json",
+      "sha256": "37dc0ed8b45ff10898c2818a6a20e61a11d1470b57be317d4895297e6a56c18d",
+      "runId": "campaign-qa-mvzxjk2g",
+      "row": {
+        "level": 9,
+        "id": "sukumar-angle-parking",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "bay-aligned",
+          "grounded-arrival",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "The angled bay, studio entrance and handoff point are readable."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    },
+    {
+      "level": 11,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-11-campaign-evidence.json",
+      "sha256": "ad943b54e261875626a6be79112c4f2bac715f836734fb2a8ff465a4dc5f53bd",
+      "runId": "campaign-qa-mvzxlu5x",
+      "row": {
+        "level": 11,
+        "id": "maruthi-villa-79",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "villa-identity",
+          "grounded-arrival",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "Villa number and frontage read clearly; scenery does not pretend to verify a private address."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    },
+    {
+      "level": 13,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-13-campaign-evidence.json",
+      "sha256": "83919d7fc776cc7580765a5332cb85493d00917365aced75cae0192ddb5942ec",
+      "runId": "campaign-qa-mvzxn38k",
+      "row": {
+        "level": 13,
+        "id": "arjun-classroom",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "classroom-doorway",
+          "grounded-arrival",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "next-requested",
+          "direct-next-transition",
+          "next-loading",
+          "next-road-ready"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": true
+      }
+    },
+    {
+      "level": 14,
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-campaign-evidence.json",
+      "sha256": "8c2bebddfd49235fe374f9d359c429de5ae255a4bde13e17038bae478c795351",
+      "runId": "campaign-qa-mvzxoipd",
+      "row": {
+        "level": 14,
+        "id": "between-overs",
+        "workflow": "automatic-story",
+        "requiredFacts": [
+          "real-stadium-surface",
+          "valid-timing-window",
+          "grounded-arrival",
+          "final-opening",
+          "story-captured",
+          "physical-pizza-transfer",
+          "automatic-handoff",
+          "story-viewing-hold",
+          "final-next-requested"
+        ],
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": false,
+        "automaticHandoff": true,
+        "storyViolations": [
+          "Gameplay controls were visible during a captured story."
+        ],
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      }
+    }
+  ],
+  "screenshotsAndUiStates": [
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-03-next-after-click.png",
+      "bytes": 66095,
+      "sha256": "e03d82a793ac1d46d15522a3c5b4ed60ec3ba70ea2cbb4f160122732c4d3388b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-03-next-road.png",
+      "bytes": 67116,
+      "sha256": "a6a049411c244dd0c0c190b76789bac40d7e7a299dc7ac3d4ac5baefa89feeeb"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-03-pause.png",
+      "bytes": 33962,
+      "sha256": "93b11d94736676326ccada7e8a432218868a3fe3c6621ff701ff55a0a5b2b97d"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-03-underwater-held.png",
+      "bytes": 20045,
+      "sha256": "e5b9c88a0048dee0b247ee2f43976b7b6bfa893926493f152b93ed899b9268b8"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-04-held.png",
+      "bytes": 30808,
+      "sha256": "27b3941683c74beaacd44f4fda5029376c5ea80667e53b6ef02b9996ce202bd2"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-04-next-ax.txt",
+      "bytes": 671,
+      "sha256": "dd6f37cccaa52ad1bed665640a34091f852f570f1929321252bbf193e7272cba"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-04-next-road.png",
+      "bytes": 64470,
+      "sha256": "8e8149ec0f62c09c6a1db55b069a4bde51996cd3c883f2229c73c7e60e29a6bb"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-05-entered.png",
+      "bytes": 32100,
+      "sha256": "6ffe2e70b74bdaa002494c1bb5cc42ab774fd8db582d1a3ebb6c840cdf39f610"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-05-held.png",
+      "bytes": 33630,
+      "sha256": "4e4853f274a649375ff24f1ed182c53af412327eb88aa6020149130f2fc7e762"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-05-next-ax.txt",
+      "bytes": 668,
+      "sha256": "9b71fa1ed52d0cbe737f742b009c05be80d71ea1a2d98e541279ca39cce06efa"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-05-next-road.png",
+      "bytes": 59890,
+      "sha256": "03de8121748f987ee3c230a461e95c84c6d16d3e87e06da640b5ec6136f3367b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-06-next-ax.txt",
+      "bytes": 680,
+      "sha256": "032a0792f63943e710646be502e9972b4e0e887dcaa93c1f582779aa272d621b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-06-walking-a.png",
+      "bytes": 43358,
+      "sha256": "98a58dd91ab174a5d38ddcf2934218719b03548654e7d16cd4b22626a0415210"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-06-walking-b.png",
+      "bytes": 42685,
+      "sha256": "16986f2143c23af3cdcf6310c2e31f5c6a9291080b3b72b059e222e0d45c9902"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-07-held.png",
+      "bytes": 41158,
+      "sha256": "1646c32a54f38d5ba495daf6b8eb5ebdb3135dd1d0adb78d8a6cacaa98e0f09b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-07-next-ax.txt",
+      "bytes": 689,
+      "sha256": "42bb71b887f6af4d02fe93fbc2401edc10785d444447753528f4d63f2d357725"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-07-next-road.png",
+      "bytes": 48980,
+      "sha256": "4bcdac9fb6e4cb804785b1bf4b38677976d6b9bab317665681a0eb6de2858dc2"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-08-held.png",
+      "bytes": 37479,
+      "sha256": "377fc929b997350d5dd9179f0fed2051e66ca0104e54c79dbe5ba2431a98e111"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-08-next-ax.txt",
+      "bytes": 674,
+      "sha256": "94e99b05e8f695d4d41ad28c39f38a386e9a2cc55de67bed8096903f6a94edcf"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-08-next-road.png",
+      "bytes": 63242,
+      "sha256": "42e1a9b3e0c4466c3e44a838c085a256b6f5d1f730c7847cb9d85db2d3aa2697"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-08-procession-a.png",
+      "bytes": 36115,
+      "sha256": "3ce3d227e497ee06d3341d22e89452d42923575d68a2f09660c214f3593a177a"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-09-held.png",
+      "bytes": 23672,
+      "sha256": "f4c043c3ec7174801cbbee08a8058ff2c34a91472814d42a5ad5dc81a4082a10"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-09-next-ax.txt",
+      "bytes": 672,
+      "sha256": "b4e8802eccd8a50217c7f6027b34a8d6efe1ce2718c0a7037899696e70c43d4e"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-09-next-road.png",
+      "bytes": 66538,
+      "sha256": "53802ffc68c33a6d02a3fc4401da9d80fd8c751f7b8961211edb9951285280f7"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-11-entered.png",
+      "bytes": 39543,
+      "sha256": "b727ab5b9286b813b42ccbfa5280125834480ba45a153fe8e033262892ee111a"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-11-held.png",
+      "bytes": 41191,
+      "sha256": "5a400cd3ad13b6e833e5e40108b1148ecd4fb42032bb1e804047392771612012"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-11-next-ax.txt",
+      "bytes": 677,
+      "sha256": "a6cb0ef9c601a5a346238df33c4f56366343fd780b1e51642ddd4979eb0274ca"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-11-next-road.png",
+      "bytes": 53492,
+      "sha256": "b7f9b8303652ec0be2bf4231de90699661e9796a84e03457101af8052e03f714"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-13-held.png",
+      "bytes": 37015,
+      "sha256": "696b655abf1135a373213afa7c763844a761d87d1a90c4821d9ec1faf4bcb415"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-13-next-ax.txt",
+      "bytes": 681,
+      "sha256": "07d5fcb08734f430fcf828f42050469d723d83af31267378b7a1bbfe5d851b26"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-13-next-road.png",
+      "bytes": 67128,
+      "sha256": "eb2824b467ce6225070ff43dba1fef322cd263d09b36f0a6a463bbc514554721"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-entered.png",
+      "bytes": 37946,
+      "sha256": "c545d0af444bec69e64f4bea043adf3c5f03436ba6ff4c14c2df4f76503f88f1"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-explore.png",
+      "bytes": 49987,
+      "sha256": "1b640c3cdb0909736b9bb6cff2d332a11cadb8591d66e44049dfe20904759c2b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-grand-opening.png",
+      "bytes": 27778,
+      "sha256": "ed9010eeeab16137355eef68784b25395c062e4fad0baf853b5436816732cfb8"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-held.png",
+      "bytes": 39585,
+      "sha256": "69eb52a3bb4ea74d1c9060489f2e210c297f0c221598229ed9d7de7a7032bc06"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/native-scenes-v13/level-14-next-ax.txt",
+      "bytes": 653,
+      "sha256": "dfdbdab8185c53f2a69e82863ee34312ce775e0e40cba84421f945b5522efe52"
+    }
+  ]
+}

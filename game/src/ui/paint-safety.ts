@@ -65,6 +65,9 @@ export const PAINT_SAFETY_CSS = `
   background-color:#20F2D5!important;background-image:none!important;color:#171125!important;
   border-color:#84FFF0;box-shadow:0 3px 0 #130D20!important;text-shadow:none;
 }
+/* Press feedback is an ordinary 2D transform, safe in the opaque Samsung path. */
+.solid-ui #hud .touch .on{transform:translateY(2px) scale(.96)!important;box-shadow:inset 0 0 0 3px #FFF4CF,0 1px 0 #130D20!important}
+
 `;
 
 export function installPaintSafety(touch: boolean) {

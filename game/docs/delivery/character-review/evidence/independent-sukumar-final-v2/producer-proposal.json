@@ -1,0 +1,73 @@
+{
+  "status": "UNREVIEWED final exact package; finite eye/beard, elbows and posterior repairs independently passed, actual native Q9 remains required",
+  "role": "Sukumar",
+  "updatedUtc": "2026-10-31T14:49:47.658270+00:00",
+  "files": {
+    "model": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.glb",
+      "sha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292",
+      "bytes": 7275556
+    },
+    "rig": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.rig.json",
+      "sha256": "61224be2ad5cf400ea5fb72a783348cc3f978ea4fb88a0d9b36ec29ffba64881",
+      "bytes": 1417
+    },
+    "motionBounds": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.motion-bounds.json",
+      "sha256": "c9882bc4fecd50efe15db901094c14cd9fdcce2a7f22164ef08d26e556a87cd3",
+      "bytes": 3482
+    },
+    "portrait": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2-portrait.png",
+      "sha256": "041fbdb2ed326c4937c37a4a9873c757154315362f31528aecc9c316014f7eac",
+      "bytes": 249771
+    },
+    "portraitEvidence": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2-portrait.portrait.json",
+      "sha256": "879724190cb708310a3effbd00e2dc180e16b60fc503c7966014de5384a40a1f",
+      "bytes": 665
+    },
+    "nativeViews": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2-final-exact-glb/review-index.json",
+      "sha256": "fd1c5dba6abe22c9033cc0f91aa8bf8d8a23a35e37c60684ff0cb11847bdd8bf",
+      "bytes": 10564
+    },
+    "nativeProduction": {
+      "path": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.production.json",
+      "sha256": "f045664b51ebd0b9b5d5f2c873df38f6b0a0ea4ac45c3fe6ae3c061483cae39a",
+      "bytes": 1706
+    }
+  },
+  "primaryReference": {
+    "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/sukumar-mythri-25s.png",
+    "sha256": "45a8f6ed35444414e0ac88b1c96db1a817ecd344e10e8fdd4d1e8ffe62d92fb0",
+    "evidence": "Actual Mythri frame25"
+  },
+  "independentFinitePasses": [
+    "Actual source skin lids and beard: eye position and upper coverage readable behind clear unchanged frames",
+    "31716 allfive and supported: duplicate elbow caps removed, source sleeves/forearms/palms coherent",
+    "posterior native v2 back/profile: no repeated face bars, accepted salt/pepper hair and short nape; no further posterior changes requested"
+  ],
+  "measuredMotionBounds": {
+    "input": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.glb",
+    "output": "/tmp/roadster-standing-production/sukumar-posterior-native-v2.motion-bounds.json",
+    "glbSha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292",
+    "seconds": 12.146465333,
+    "poseCount": 2040,
+    "verticesMeasured": 131449440,
+    "skinnedMeshes": 10,
+    "note": "Offline sampled deformation coverage plus margin. Includes rest, exact animation keyframes, 24 fps by default, clip endpoints and masked catch/base combinations. No GPU, visual acceptance or performance claim.",
+    "validation": {
+      "poses": 83,
+      "vertices": 5348188,
+      "maximumRadiusFraction": 0.9291460951884196,
+      "grid": "Half-frame offsets plus independent base/catch phases; no failed sphere is enlarged."
+    }
+  },
+  "contractCatchPointSpace": "palm-contact",
+  "sourceGuidesNote": "Original inferred rear artist guide is not actual film proof; actual primary frame drives identity acceptance",
+  "originalSourcesPreserved": true,
+  "runtimeOrPhysicalPhonePerformanceClaim": false,
+  "enabledAssets": []
+}

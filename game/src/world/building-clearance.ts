@@ -3,6 +3,7 @@ import type { Building, RoadEdge, XZ } from './types';
 import { auxiliaryLane, travelDirection } from './expressway';
 import { metroCorridors, metroPlatformAssemblies, metroDeckHeight, type MetroLineInput } from './metro-geometry';
 import type { RailProfile } from './railway-geometry';
+import { roadClearanceWidth, roadSceneryCorridors } from './road-pavement';
 
 // Source footprints are retained in the packs. Only the generated, solid model
 // is trimmed where conflicting source layers otherwise close a transport route.
@@ -37,8 +38,26 @@ function subtract(poly: XZ[], cut: XZ[]) {
 }
 function triangles(ring: XZ[]) { return ShapeUtils.triangulateShape(ring.map(p => new Vector2(...p)), []).map(t => t.map(i => ring[i])); }
 
+// This packed transportation footprint is the Paradise metro station itself,
+// already replaced by the station assembly. Cropping its solid extrusion to
+// the platform width left a 15.9m-high perimeter wall across every entrance.
+// Keep the source feature, but omit only this exact reviewed duplicate model.
+// ID, class, height, geometry and an actual matching station are all required;
+// a changed source feature falls back to ordinary transport clearance.
+const PARADISE_SOURCE_STATION = {
+  id: '18f6a0df-e72', stationId: 'st_paradise', height: 15.9,
+  ring: [[-1169.4,-4129.5],[-1169.6,-4115.7],[-1095.6,-4112.6],[-1038.3,-4112.8],[-1038.5,-4113.2],[-1031.1,-4115.2],[-1030.8,-4127]] as XZ[],
+};
+function isReviewedParadiseShell(building: Building) {
+  const source = PARADISE_SOURCE_STATION;
+  return building.id === source.id && building.cls === 'transportation' && Math.abs(building.h - source.height) < .025 &&
+    building.ring.length === source.ring.length && source.ring.every(expected =>
+      building.ring.some(point => Math.hypot(point[0] - expected[0], point[1] - expected[1]) < .025));
+}
+
 export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: Metro, extent?: number[], patches: readonly TransportPatch[] = [], rails: readonly RailProfile[] = []) {
   const grid = new Map<string, Cut[]>(), cuts: Cut[] = [];
+  let paradiseAssembly: string | null = null;
   const add = (id: string, ring: XZ[], floor: number, top: number) => {
     const original = ring;
     ring = ccw(ring);
@@ -60,12 +79,12 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
     const ax = a[0] - dx / len * endPadding, az = a[1] - dz / len * endPadding, bx = b[0] + dx / len * endPadding, bz = b[1] + dz / len * endPadding;
     add(id, [[ax + nx * left, az + nz * left], [bx + nx * left, bz + nz * left], [bx - nx * right, bz - nz * right], [ax - nx * right, az - nz * right]], floor, top);
   };
-  for (const road of roads) {
+  for (const model of roads) for (const road of roadSceneryCorridors(model)) {
     if (/^(footway|path|steps|pedestrian|cycleway|bridleway|track)$/.test(road.cls)) continue;
     const extra = auxiliaryLane(road, roads as RoadEdge[]), outer = -travelDirection(road);
-    // Match the renderer's whole-edge minimum width and shared corner vertices,
-    // rather than independent square-ended strips that leave a gap at a bend.
-    const elevated = !!road.elev?.some(y => y > 1.2), hw = Math.max(road.w / 2, elevated ? 4.2 : 0) + .2;
+    // Retain the former raised-road envelope and shared corner vertices for
+    // conservative facade exclusion, including locally corrected shoulders.
+    const elevated = !!road.elev?.some(y => y > 1.2), hw = Math.max(roadClearanceWidth(road) / 2, elevated ? 4.2 : 0) + .2;
     const boundary = (side: number) => road.pts.map((p, i): XZ => {
       const a = road.pts[Math.max(0, i - 1)], b = road.pts[Math.min(road.pts.length - 1, i + 1)], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz) || 1;
       const off = side * (hw + (side === outer ? extra[i] || 0 : 0));
@@ -91,6 +110,8 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
     }
     for (const assembly of metroPlatformAssemblies(metro.stations, corridors, dh)) {
       const f = assembly.frame, height = assembly.deckHeight;
+      if (assembly.stationId === PARADISE_SOURCE_STATION.stationId && assembly.lineId === 'blue' &&
+        Math.hypot(f.cx + 1100.3, f.cz + 4113.2) < 2 && Math.abs(f.hx) > .995) paradiseAssembly = assembly.key;
       span(`station:${assembly.key}`, [f.cx - f.hx * 69, f.cz - f.hz * 69], [f.cx + f.hx * 69, f.cz + f.hz * 69], 13.4, 13.4, height - 4.2, height + 12.5);
     }
   }
@@ -103,6 +124,10 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
   };
   const correct = (building: Building): { pieces: Building[]; correction: BuildingCorrection } | null => {
     if (building.ring.length < 3 || !(building.h > 0)) return null;
+    if (paradiseAssembly && isReviewedParadiseShell(building)) return { pieces: [], correction: {
+      sourceId: building.id, corridors: [`station:${paradiseAssembly}`], sourceArea: footprintArea(building.ring), retainedArea: 0, fragments: 0,
+      fallback: 'reviewed duplicate mapped metro station model replaced by station assembly',
+    } };
     const candidates = nearby(building.ring, 0, building.h + .9); if (!candidates.length) return null;
     const sourceArea = footprintArea(building.ring), original = triangles(building.ring);
     const intersecting = candidates.filter(c => original.some(t => footprintArea(intersection(t, c.ring)) > 1e-5));

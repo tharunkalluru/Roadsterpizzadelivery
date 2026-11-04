@@ -1,0 +1,76 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "identity": "Arjun Reddy",
+  "model": {
+    "path": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2.glb",
+    "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+  },
+  "frozenArtistProposal": {
+    "path": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2.proposal.json",
+    "sha256": "1153e4b57d15ff683aa0d54d1d49b01dbaa3644752fd21421b302ba1f1863c7e"
+  },
+  "offlineVerdict": "close-match pass after all eight actual exported-GLB views and native512portrait",
+  "images": [
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-authored/front.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/front.png",
+      "sha256": "0806b9aa5c275ee8079997f1cda2a735b802134149d554870011843af02bc7f1",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-authored/three-quarter.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/three-quarter.png",
+      "sha256": "a53080335aefecc10b23056ac7045a2103b1ff9ef8a508d0d1db70d0e28c72f4",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-authored/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/profile.png",
+      "sha256": "37959ec9e35514d85388636082f838f189727a08534a58840540a83c067e9c2c",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-authored/back.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/back.png",
+      "sha256": "45271f0bff23589b11efca3b317132911d7e271759cc5dff0e84db63499ca41a",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-authored/full-body.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/full-body.png",
+      "sha256": "4cf305c1a66d4881e8e2f284c154d0c8366aa9d1cca3976090fa65f43b94930d",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/idle-clay/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-clay/profile.png",
+      "sha256": "01f6b9bca02a77f851a3a52c9e1897330c32a91d6f42204277d744e136070c52",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/handoff-supported/full-body.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/handoff-supported/full-body.png",
+      "sha256": "3c491883b95c07b81c3b773988f31322ede74d4d8258a21e55e4b6a908beb251",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-final8-exact-glb/handoff-supported/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/handoff-supported/profile.png",
+      "sha256": "fb46fe6b6ea81ab30f510d1d1b211a6b8cf0b3260812f98d7b1bada16b445aeb",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/arjun-proximal-underlap-v2-portrait.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/portrait.png",
+      "sha256": "87ab8145f553a37e38a81f954abbce29fb6bd2f9f1a5985ac00053b768ebe11e",
+      "actuallyOpened": true
+    }
+  ],
+  "notClaimed": [
+    "Full scene/release approval before actual corrected runtime review",
+    "True touch/physical-phone/FPS proof"
+  ],
+  "actualRuntime": {
+    "state": "not yet tested with this exact final version"
+  }
+}

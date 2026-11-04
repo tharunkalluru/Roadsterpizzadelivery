@@ -1,11 +1,12 @@
 import type { TiledBatch } from '../core/util';
-import { metroLineColor, sampleMetroPath, type MetroPath } from './metro-geometry';
+import { metroLineColor, sampleMetroPath, METRO_PLATFORM_OUTER_EDGE, type MetroPath } from './metro-geometry';
 import type { SignEntry, Wall } from './city';
 import type { XZ } from './types';
 import type { StructureFootprint } from './structure-clearance';
+import { stationBoardContent } from './station-board';
 
 export interface StationVisualSource { id: string; name: string; te?: string | null; lines?: string[]; p: XZ }
-export interface StationVisualFrame { cx: number; cz: number; hx: number; hz: number; path?: MetroPath; s?: number }
+export interface StationVisualFrame { cx: number; cz: number; hx: number; hz: number; path?: MetroPath; s?: number; lineId?: string }
 interface StationVisualContext { B: { st: TiledBatch; lit?: TiledBatch }; signs: SignEntry[]; wall?: (wall: Wall) => void; clearance?: (footprint: StructureFootprint, bottom: number, top: number) => boolean; exterior?: boolean }
 
 // Exactly four physical nameboards: two exterior end faces and one inward-
@@ -25,7 +26,9 @@ export function drawMetroStationVisuals(station: StationVisualSource, frame: Sta
     }) ?? -5;
     const p = P(end * 68.8, offset);
     C.B.st.box(p[0], y, p[1], 16, 2.25, .16, '#f8fafb', { ry: angle });
-    C.signs.push({ id, text: name, bg: '#f8fafb', fg: '#17304d', c: [p[0] + fx * .1, y + .15, p[1] + fz * .1], right: [fz, 0, -fx], up: [0, 1, 0], w: 15.4, h: 1.3 });
+    // The bilingual face fits inside the existing physical backing. Its own
+    // aspect-aware station atlas prevents shop-board UVs stretching letters.
+    C.signs.push({ id, text: name, station: stationBoardContent(station.name, station.te, station.lines, 'exterior'), bg: '#f8fafb', fg: '#17304d', c: [p[0] + fx * .1, y, p[1] + fz * .1], right: [fz, 0, -fx], up: [0, 1, 0], w: 15.4, h: 1.95 });
     exterior.push(id);
     const lines = (station.lines || []).filter(id => ['red', 'blue', 'green'].includes(id));
     for (let i = 0; i < lines.length; i++) {
@@ -37,11 +40,11 @@ export function drawMetroStationVisuals(station: StationVisualSource, frame: Sta
       C.B.st.box(q[0], (bottom + top) / 2, q[1], .07, top - bottom, .07, '#a9a8b2', { ry: angle }); }
   }
   for (const side of [-1, 1]) {
-    const p = P(0, side * 7.24), y = deckHeight + 3.35, id = `mst_interior_${station.id}_${side}`;
+    const p = P(0, side * (METRO_PLATFORM_OUTER_EDGE-.16)), y = deckHeight + 3.35, id = `mst_interior_${station.id}_${side}`;
     // A compact railing board fits across the opposite train-window view;
     // a 7m backing forced long station names outside even a square viewport.
     C.B.st.box(p[0], y, p[1], .14, 1.35, 4.6, '#f8fafb', { ry: angle });
-    C.signs.push({ id, text: name, bg: '#f8fafb', fg: '#17304d', c: [p[0] - nx * side * .09, y, p[1] - nz * side * .09], right: [-hx * side, 0, -hz * side], up: [0, 1, 0], w: 4.2, h: 1.15 });
+    C.signs.push({ id, text: name, station: stationBoardContent(station.name, station.te, frame.lineId ? [frame.lineId] : station.lines, 'platform'), bg: '#f8fafb', fg: '#17304d', c: [p[0] - nx * side * .09, y, p[1] - nz * side * .09], right: [-hx * side, 0, -hz * side], up: [0, 1, 0], w: 4.2, h: 1.15 });
     interior.push(id);
     // Benches stay against the outer railing, leaving the platform edge clear.
     for (const u of [-32, 32]) {

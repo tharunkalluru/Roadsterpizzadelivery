@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "scope": "Assisted isolated desktop normal-approved-loader check; not natural campaign or physical phone",
+  "character": "sukumar",
+  "bundleSha256": "16c105800c3169f253b05d2b9e2bba8f8ca070c4948d3e12db66db040491641d",
+  "evidence": "campaign-qa-mvwjxhof.json",
+  "artOverride": false,
+  "graphics": "low; actual fixed23:00 review lighting",
+  "inputs": "Trusted desktop mouse/keyboard; visible touch layout",
+  "manualSequence": [
+    "Prepare and Stage (explicit assistance)",
+    "Mouse GO with A1150ms, Space600ms; yaw46.3deg",
+    "S900ms, Space550ms; real correct-bay readiness",
+    "F100ms, normal completion, Next",
+    "Mouse GO900ms, ordinary chase screenshot at7km/h; Space550ms"
+  ],
+  "observed": [
+    "Exact approved model readable under physical studio lamp, without headlight glare",
+    "No misleading recovery prompt at correct parked handoff or retained Idle",
+    "Normal native portrait completion; arms return naturally after Next",
+    "GO restores ordinary driving camera; actor remains present"
+  ],
+  "captureLimits": [
+    "Screenshot02 shows actual passing animation/arms and status, not the final palm-contact instant",
+    "Five-minute optional callback observation with ongoing background artist CPU activity; not a40-minute soak or GPU-presentation benchmark",
+    "No natural carrier pickup, full campaign, true touch, physical-device FPS, thermal or battery evidence"
+  ],
+  "performanceDiagnostic": {
+    "build": "45c6c331dc7fe3bb1a523c9e798d8cadfa199ec2b1a0d95037373d3f64470114",
+    "activeWallMs": 298299,
+    "simulatedMs": 297824.00000000204,
+    "observedCallbacksPerSecond": 59.76888960405499,
+    "intervalMs": {
+      "p50": 17.125,
+      "p95": 18.125,
+      "p99": 18.125,
+      "longest": 188,
+      "atLeast1000ms": 0
+    }
+  }
+}

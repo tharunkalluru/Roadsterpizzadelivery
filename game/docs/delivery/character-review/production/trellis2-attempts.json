@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "producer": "asset production agent (not an independent approver)",
+  "productionSource": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
+  "verifiedOfficialLink": "https://microsoft.github.io/TRELLIS.2/",
+  "attempts": [
+    {
+      "id": "pushpa-trellis2-portrait-head-v1",
+      "requestedAtUtc": "2026-10-31T08:22Z",
+      "purpose": "Improve head geometry and native PBR using large face pixels; supplementary identity component, not correct-film costume or finished scene",
+      "input": {
+        "file": "public/delivery/celebrities/allu-arjun.jpg",
+        "sha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0",
+        "kind": "unaltered existing credited press portrait",
+        "credits": "public/delivery/celebrities/credits.json",
+        "actualPreviewVerified": true
+      },
+      "settings": {
+        "resolution": 1536,
+        "seed": 42,
+        "randomizeSeed": false,
+        "decimationTarget": 300000,
+        "textureSize": 4096,
+        "sparseStructure": {
+          "guidanceStrength": 7.5,
+          "guidanceRescale": 0.7,
+          "samplingSteps": 12,
+          "rescaleT": 5
+        },
+        "shape": {
+          "guidanceStrength": 7.5,
+          "guidanceRescale": 0.5,
+          "samplingSteps": 12,
+          "rescaleT": 3
+        },
+        "material": {
+          "guidanceStrength": 1,
+          "guidanceRescale": 0,
+          "samplingSteps": 12,
+          "rescaleT": 3
+        }
+      },
+      "generation": "succeeded; Extract GLB succeeded after more than four minutes, no service error",
+      "releaseStatus": "unapproved",
+      "independentReview": "required after export and actual comparison",
+      "output": {
+        "file": "docs/delivery/character-review/candidates/pushpa-trellis2-portrait-head-v1.glb",
+        "sha256": "a97ed38066fc068620fc5daec7016cc97465058c2671eca718253d3829bb244c",
+        "bytes": 14823972,
+        "triangles": 282808,
+        "materials": [
+          {
+            "pbrMetallicRoughness": {
+              "baseColorTexture": {
+                "index": 0
+              },
+              "baseColorFactor": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "roughnessFactor": 1.0,
+              "metallicFactor": 1.0,
+              "metallicRoughnessTexture": {
+                "index": 1
+              }
+            },
+            "alphaMode": "OPAQUE",
+            "doubleSided": false
+          }
+        ],
+        "meshes": 1,
+        "skins": 0,
+        "animations": 0,
+        "primitiveAttributes": [
+          [
+            "POSITION",
+            "TEXCOORD_0",
+            "NORMAL"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "pushpa-trellis2-a-pose-v1",
+      "requestedAtUtc": "2026-10-31T08:32:49.997375+00:00",
+      "input": {
+        "file": "docs/delivery/character-review/production/pushpa-a-pose-guide-v1.png",
+        "sha256": "408ebdc0ec28176f8218b37ee7953b98062cb2bad2c3704909afde44ed77f38b",
+        "kind": "AI-generated A-pose scaffold, not film evidence"
+      },
+      "stage": "image upload preprocessing",
+      "generation": "not launched; preprocessing rejected before correct input preview became ready",
+      "error": "You have exceeded your free ZeroGPU quota (90s requested vs.0s left). Try again in23:11:02.",
+      "evidence": "docs/delivery/character-review/production/trellis2-free-quota-error.jpg",
+      "releaseStatus": "no asset produced",
+      "nextRamGuide": "ram-vvr-a-pose-guide-v2.png not attempted because same exhausted quota; never use quarantinedv1"
+    }
+  ]
+}

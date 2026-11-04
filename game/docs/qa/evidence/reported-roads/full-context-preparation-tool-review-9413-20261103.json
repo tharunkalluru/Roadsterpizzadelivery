@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "scope": "Root review of full-context preparation and offline-tool regression repairs. No height targets, geometry, physical acceptance or release approval.",
+  "releaseApproved": false,
+  "solver": {
+    "path": "scripts/solve-road-profiles.py",
+    "sha256": "fd283e48011727a38357a08af9525274227460d90e4ef6713b8e2d71c7e0e05b"
+  },
+  "prepared": {
+    "path": "/tmp/roadster-full-context-v7-prep-1.components.json",
+    "sha256": "e5ab44c79c25d6d24af8a08593c478d28c6c4e8fd14037697db26659ce146f3e",
+    "sourceSolverSHA256": "a3b2a219b640be03572416c11988e1564721aea0c9013727fba7697281d7d372"
+  },
+  "contextCoverage": {
+    "path": "/tmp/roadster-core-physical-context-coverage-9413-v2.json",
+    "sha256": "7fc3ab29f810c0bd23b71abf064cfc1d541dcb3582f5a1e1efaab59e8a177771",
+    "potentiallyMutableCoreRoads": 1122,
+    "conservativeCoreRoads": 1126,
+    "missingCoreIDs": []
+  },
+  "joint": {
+    "path": "/tmp/source-9413-joint-core-context-coverage-v1.json",
+    "sha256": "1a70c01f304781bb1ccbdfc4f171fe79e7130995ac13c179ec3e8387896a7fdb",
+    "selectedOwners": 490,
+    "fixedContexts": 2907
+  },
+  "repeatedPreparationDiagnosis": {
+    "outputRangesChanged": false,
+    "outputRoadRecordsChanged": false,
+    "duplicateFacilityRangesWereReaddedBeforeRawListComparison": true,
+    "repair": "Canonicalize the exact interval union at authority insertion; no interval expansion, numerical bound or road geometry changed.",
+    "regressionTest": "tests/road-headroom-order.test.py",
+    "groupsPassed": 6
+  },
+  "closureAlgorithmReview": {
+    "tests": 1003,
+    "success": true,
+    "scope": "Exact closure compared with independent iterative point propagation; protected-gap, disconnected, offset negatives and 1000 deterministic randomized graphs.",
+    "solverSHA256": "d603f44419157b0288f32599b2b15b0d57e37bf5be8d66d947c4368855134f7f"
+  },
+  "heldInputs": {
+    "/tmp/roadster-full-context-v7-prep-1.components.json": "e5ab44c79c25d6d24af8a08593c478d28c6c4e8fd14037697db26659ce146f3e",
+    "/tmp/roadster-core-physical-context-coverage-9413-v2.json": "7fc3ab29f810c0bd23b71abf064cfc1d541dcb3582f5a1e1efaab59e8a177771",
+    "/tmp/source-9413-joint-core-context-coverage-v1.json": "1a70c01f304781bb1ccbdfc4f171fe79e7130995ac13c179ec3e8387896a7fdb"
+  }
+}

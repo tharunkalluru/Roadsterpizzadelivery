@@ -1,0 +1,27 @@
+✔ independent flight review clears each high Green-line station from eight approach headings (735.168125ms)
+ℹ {"trials":64,"canopySamples":5086}
+✔ all shipped long ordinary tile-only roads have local copies wherever their finite pavement enters a playable tile (4259.066208ms)
+ℹ {"tileOnlyLongRoads":84,"checkedTiles":255}
+✔ actual far-end trunk boundary paint is clipped locally rather than retained by a distant segment midpoint (33.623833ms)
+✔ all actual metro assemblies, including elevated Green interchanges, contribute their full canopy to flight clearance (220.129625ms)
+ℹ {"assemblies":59,"canopySamples":885,"highGreenSamples":30}
+✔ flight anticipates high Green station canopy at 30/60/90/120Hz and bounded hitch cadence without changing speed cap (215.131209ms)
+✔ static deck flight clearance does not turn roofs/wires into invented landing surfaces (23.58925ms)
+✔ static elevated road triangles count for flight even without any building (54.783833ms)
+✔ an elevated support seam cannot accept a lower road through a matching ID or shared remote junction (125.189708ms)
+✔ continuous raised ramps traverse tile boundaries in both directions at 30/60/90/120Hz and hitch cadence (85.948875ms)
+✔ road direction boards remain entirely outside carriageways on curved approaches and across other road levels (41.54575ms)
+✔ long ground context roads retain finite local asphalt and tyre support with their owner tile absent (179.586292ms)
+✔ tile clipping preserves the original non-planar road triangles and exact area without gaps at a tile edge (9.534375ms)
+✔ shipped far-end context tile renders the real 4.2km trunk with its distant source-owner absent (118.387542ms)
+ℹ {"sourceId":"2acaa4cb-b1e_0","sourceVertices":18,"renderedLocalTriangles":9,"loadedTile":"-22_8","absentOwner":"-24_9"}
+✔ actual packed Rasoolpura flyover ribbon and tile seam support agree at centre and usable lane offsets (12083.219792ms)
+ℹ {"actualRasoolpuraRibbonSamples":5769,"maximumError":0.009851977901910391}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13524.035958

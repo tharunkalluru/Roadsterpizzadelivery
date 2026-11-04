@@ -1,0 +1,117 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.005802+00:00",
+  "scenario": 8,
+  "characterId": "bhanumathi",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=8&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Fixed night actual Dance, F300 transfer, real portrait, Next retains Dance, W380+space300.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate"
+    ]
+  },
+  "row": {
+    "level": 8,
+    "id": "bhanumathi-wedding-street",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "This is a wedding procession on a village street, not a static wedding venue.",
+      "Fidaa Bhanumathi dances with articulated limbs and remains recognizable during the handoff."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwpyay1.json",
+    "sha256": "0c3c5f5318d2bae571ecc6560eca4eb1d4f9e7581a53a28a8aee1a8b64a325d9"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "bhanumathi-fidaa-procession-v1",
+      "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+        "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+      },
+      {
+        "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+        "sha256": "17f4d47be12c0bc3757229b9fc3db48dcd77b60cb1978f2d00b2d0bb9a9b5557"
+      },
+      {
+        "path": "public/delivery/characters/bhanumathi/portrait-v1.png",
+        "sha256": "3de99ce89c12eef3c242ea740e68c9e3aefd763526bcfe3c7350e5ff72287ea8"
+      }
+    ],
+    "glbUrl": "/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+    "contractPath": "public/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/01-ready-dance.png",
+      "sha256": "f14f73f1aca093762977e339fc6597635865d6d34ebe5e5b01a0ba68c534aa05"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "3a7f3e3e821b88bd71203a235019f74f23db8b84f5d3bc768814bfd9b0c7c56a"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "c55291330e99db51418eb68034a568367bbdf347e0e021adadfd71ba30f19da0"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "2a1a0fd882449d39d649cc7ec3f96c1bd632172c6324139b107511f886d09ab6"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/03-complete.png",
+      "sha256": "ddbc604194defc5d63a7496e3835764d8f96c858bc7eb735b70241c7e91ef9e7"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/bhanumathi-approved-loader-2026-10-31/independent-native-v1/04-retained-dance.png",
+      "sha256": "2984a02d7c5e16ff1f6a8faa1abd01358ab76de62eb82ee324b4c54f91b55d8a"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

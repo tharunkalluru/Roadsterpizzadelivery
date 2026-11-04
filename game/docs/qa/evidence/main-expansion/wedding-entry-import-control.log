@@ -1,0 +1,18 @@
+vite v5.4.10 building for production...
+
+./fonts/fonts.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+transforming...
+✓ 224 modules transformed.
+rendering chunks...
+computing gzip size...
+../../../../../../tmp/roadster-diagnostic-omit-crowd-only-20261103/assets/map-worker-ilv8np6I.js      2.20 kB
+../../../../../../tmp/roadster-diagnostic-omit-crowd-only-20261103/index.html                         4.49 kB │ gzip:     1.96 kB
+../../../../../../tmp/roadster-diagnostic-omit-crowd-only-20261103/assets/tileworker-AlI8Po12.js  2,325.02 kB
+../../../../../../tmp/roadster-diagnostic-omit-crowd-only-20261103/assets/GLTFLoader-v9MJ234c.js     45.04 kB │ gzip:    13.33 kB
+../../../../../../tmp/roadster-diagnostic-omit-crowd-only-20261103/assets/index-D-HGGf6q.js       5,070.83 kB │ gzip: 1,858.96 kB
+
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.19s

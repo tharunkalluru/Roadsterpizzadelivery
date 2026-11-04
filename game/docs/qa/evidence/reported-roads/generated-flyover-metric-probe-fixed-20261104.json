@@ -1,0 +1,117 @@
+{
+  "scope": "Isolated metric-conditioning experiment on actual source-proved ramp joins.\n\nThis never modifies runtime data. Feasibility here omits the rest of the city\nand cannot approve independent crossing clearance, driving or a release.\n",
+  "releaseApproved": false,
+  "inputs": {
+    "model": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/model-be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7.json",
+      "sha256": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7"
+    },
+    "footprints": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/footprints-5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a.json",
+      "sha256": "5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a"
+    },
+    "source-data": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+      "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+    },
+    "source-reference": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/complete-crossing-source-reference-9413-v6-20261103.json",
+      "sha256": "6c7bf84daead74907d3c68b21186913a1168f7968e380baa3832d9b72b1864a6"
+    },
+    "solver": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/solve-road-profiles.py",
+      "sha256": "accded93a3f6bc9c440a7b53943f0a30a8346598ebb11a8210d025a0f8e52f44"
+    },
+    "mapped-levels": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/bridge-level-data.json",
+      "sha256": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5"
+    }
+  },
+  "generatorSHA256": "8bb5d9d687ead172758d5376b77748bc1450bbf62636b3b30457d0bda0bf6ad5",
+  "results": [
+    {
+      "roads": [
+        "1d72e933-8ce_0",
+        "664bfec3-f38_0"
+      ],
+      "success": false,
+      "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)",
+      "controls": 883,
+      "finiteJoinSamples": 574,
+      "existingHeightCeiling": 13.6,
+      "recoveryMeters": 272,
+      "domains": {
+        "1d72e933-8ce_0": [
+          0.0,
+          39.6464179971609
+        ],
+        "664bfec3-f38_0": [
+          0.0,
+          312.21509407971894
+        ]
+      },
+      "canonicalControls": [],
+      "endpointsFixedExactly": true,
+      "maximumGrade": 0.075,
+      "maximumTriangleGrade": 0.0995,
+      "gradeChangePerMetre": 0.00625,
+      "sameSurfaceTolerance": 0.008
+    },
+    {
+      "roads": [
+        "5b3d932d-c2d_0",
+        "ac6bc470-258_0"
+      ],
+      "success": false,
+      "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)",
+      "controls": 581,
+      "finiteJoinSamples": 369,
+      "existingHeightCeiling": 8.312452733115816,
+      "recoveryMeters": 167,
+      "domains": {
+        "5b3d932d-c2d_0": [
+          0.0,
+          47.36289750706833
+        ],
+        "ac6bc470-258_0": [
+          0.0,
+          187.92295390235358
+        ]
+      },
+      "canonicalControls": [],
+      "endpointsFixedExactly": true,
+      "maximumGrade": 0.075,
+      "maximumTriangleGrade": 0.0995,
+      "gradeChangePerMetre": 0.00625,
+      "sameSurfaceTolerance": 0.008
+    },
+    {
+      "roads": [
+        "ba9832c2-2ca_0",
+        "c898d540-669_0"
+      ],
+      "success": false,
+      "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)",
+      "controls": 601,
+      "finiteJoinSamples": 344,
+      "existingHeightCeiling": 7.787383167206405,
+      "recoveryMeters": 156,
+      "domains": {
+        "ba9832c2-2ca_0": [
+          0.0,
+          55.67183052628143
+        ],
+        "c898d540-669_0": [
+          0.0,
+          175.13765920900465
+        ]
+      },
+      "canonicalControls": [],
+      "endpointsFixedExactly": true,
+      "maximumGrade": 0.075,
+      "maximumTriangleGrade": 0.0995,
+      "gradeChangePerMetre": 0.00625,
+      "sameSurfaceTolerance": 0.008
+    }
+  ]
+}

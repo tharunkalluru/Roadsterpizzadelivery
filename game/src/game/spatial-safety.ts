@@ -1,14 +1,31 @@
-import type { CityData, Wall } from '../world/city';
+import type { CityData, Wall, Surface } from '../world/city';
 import { pointInRing } from '../world/city';
 import type { RoadGraph, GEdge } from './roadgraph';
 import { nearbyBuildings, supportAt } from './physics';
 import { isORR, isRamp, travelDirection } from '../world/expressway';
 import type { RoadEdge } from '../world/types';
+import { roadQuadHeight } from '../world/road-surface';
+import { waterHeightAt } from '../world/water';
 
 interface Point { x: number; y: number; z: number }
 export interface VehicleBounds extends Point { hx: number; hz: number; size: number[] }
 export interface StreetSpot extends Point { yaw: number }
-export interface StreetSpotOptions { allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
+export interface StreetSpotOptions { majorOnly?:boolean; forwardClearance?:number; allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
+/** Opt-in camera medium for the active lake delivery only. Placement never supplies this. */
+export interface CameraCollisionOptions {
+  underwater?: { x: number; z: number; radius: number };
+  deliverySolids?: readonly import('./moving-rail').MovingRailBody[];
+}
+
+function inUnderwaterCameraMedium(city: CityData, p: Point, options?: CameraCollisionOptions) {
+  const medium = options?.underwater;
+  if (!medium || ![medium.x, medium.z, medium.radius].every(Number.isFinite) || medium.radius <= 0 || medium.radius > 200 ||
+    Math.hypot(p.x - medium.x, p.z - medium.z) > medium.radius) return false;
+  const water = waterHeightAt(city.waterGrid, p.x, p.z);
+  // Real mapped water, a bounded local radius and a shallow camera depth are
+  // all required. A stale mission flag cannot make land/underground clear.
+  return water !== null && p.y < water && p.y >= water - 20;
+}
 
 function segmentDistance(x: number, z: number, ax: number, az: number, bx: number, bz: number) {
   const dx = bx - ax, dz = bz - az;
@@ -16,12 +33,31 @@ function segmentDistance(x: number, z: number, ax: number, az: number, bx: numbe
   return { d: Math.hypot(x - ax - dx * t, z - az - dz * t), t };
 }
 
+function finiteRoadHeight(s:Surface,p:Point,radius:number):number|null {
+  if(!s.roadQuad){const q=segmentDistance(p.x,p.z,s.ax,s.az,s.bx,s.bz);return q.d<s.hw+radius?s.ya+(s.yb-s.ya)*q.t:null;}
+  const inside=roadQuadHeight(s.roadQuad,p.x,p.z);if(inside!==null)return inside;
+  let distance=radius,y:number|null=null;
+  for(let i=0;i<4;i++){const a=s.roadQuad[i],b=s.roadQuad[(i+1)%4],q=segmentDistance(p.x,p.z,a[0],a[2],b[0],b[2]);if(q.d<distance){distance=q.d;y=a[1]+(b[1]-a[1])*q.t;}}
+  return y;
+}
+
 // Shared by camera clearance and placement: visible poles and barriers matter as
 // well as building footprints. Horizontal and vertical clearance are independent.
-export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeight = radius): boolean {
-  if (p.y - halfHeight < supportAt(city, p.x, p.z, p.y, true).y + 0.02) return true;
+export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeight = radius, options?: CameraCollisionOptions): boolean {
+  for(const body of options?.deliverySolids??[]){
+    const dx=p.x-body.x,dz=p.z-body.z,along=dx*body.hx+dz*body.hz,side=dx*body.hz-dz*body.hx;
+    const rise=(body.grade??0)*along;
+    if(Math.abs(along)<body.halfLength+radius&&Math.abs(side)<body.halfWidth+radius&&
+      p.y+halfHeight>body.bottom+rise&&p.y-halfHeight<body.roof+rise)return true;
+  }
+  // Below-grade pavement pads are real floors. Query only surfaces no higher
+  // than the camera center: the usual1.6m step allowance must not turn an
+  // overhead ground-level road into the floor of a depressed camera.
+  const floor = p.y < 0 ? supportAt(city,p.x,p.z,p.y-1.6,false) : supportAt(city,p.x,p.z,p.y,true);
+  const submergedWater = floor.kind === 'water' && inUnderwaterCameraMedium(city, p, options);
+  if (!submergedWater && p.y - halfHeight < floor.y + 0.02) return true;
   for (const b of nearbyBuildings(city, p.x, p.z)) {
-    if (b.h < p.y - halfHeight) continue;
+    if (b.h < p.y - halfHeight || p.y + halfHeight < 0) continue;
     if (pointInRing(p.x, p.z, b.ring)) return true;
     for (let i = 0, j = b.ring.length - 1; i < b.ring.length; j = i++) {
       if (segmentDistance(p.x, p.z, ...b.ring[j], ...b.ring[i]).d < radius) return true;
@@ -29,7 +65,7 @@ export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeigh
   }
   const cx = Math.floor(p.x / 50), cz = Math.floor(p.z / 50);
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const o of city.obstacles.get(`${cx + i},${cz + j}`) || []) {
-    if (p.y + halfHeight >= 0 && p.y - halfHeight <= o.top && Math.hypot(p.x - o.x, p.z - o.z) < o.r + radius) return true;
+    if (p.y + halfHeight >= (o.bottom ?? 0) && p.y - halfHeight <= o.top && Math.hypot(p.x - o.x, p.z - o.z) < o.r + radius) return true;
   }
   const seen = new Set<Wall>(), sx = Math.floor(p.x / 30), sz = Math.floor(p.z / 30);
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
@@ -40,7 +76,14 @@ export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeigh
       if (d < radius && p.y + halfHeight >= w.y0a + (w.y0b - w.y0a) * t && p.y - halfHeight <= w.y1a + (w.y1b - w.y1a) * t) return true;
     }
     for (const s of city.surfaceGrid.get(cell) || []) {
-      if (s.kind === 'road') continue;
+      if (s.kind === 'road') {
+        // Keep Version21's above-ground clearance path unchanged. In a road
+        // cut, the upper finite road face is a ceiling, not an infinite floor.
+        if(p.y<0){const y=finiteRoadHeight(s,p,radius),thickness=Math.max(s.ya,s.yb)>1.2?.9:.06;
+          if(y!==null&&p.y-halfHeight<y+(s.paintLift||0)+.02&&p.y+halfHeight>y-thickness)return true;
+        }
+        continue;
+      }
       const { d, t } = segmentDistance(p.x, p.z, s.ax, s.az, s.bx, s.bz);
       const y = s.ya + (s.yb - s.ya) * t;
       if (d < s.hw + radius && p.y - halfHeight < y + 0.05 && p.y + halfHeight > y - 0.3) return true;
@@ -70,7 +113,7 @@ export function segmentHitsVehicle(from: Point, to: Point, c: VehicleBounds, pad
   return true;
 }
 
-function cameraEscape(city: CityData, from: Point, wanted: Point): Point {
+function cameraEscape(city: CityData, from: Point, wanted: Point, options?: CameraCollisionOptions): Point {
   const dx = wanted.x - from.x, dy = wanted.y - from.y, dz = wanted.z - from.z;
   const length = Math.hypot(dx, dy, dz);
   const directions: Point[] = [{ x: 0, y: 1, z: 0 }, { x: 0, y: -1, z: 0 }];
@@ -83,11 +126,11 @@ function cameraEscape(city: CityData, from: Point, wanted: Point): Point {
   for (let radius = 0.5; radius <= 16; radius += 0.5) {
     let best: Point | null = null, bestDistance = Infinity;
     for (const dir of directions) {
-      if (staticSolidAt(city, at(dir, radius))) continue;
+      if (staticSolidAt(city, at(dir, radius), .35, .35, options)) continue;
       let lo = radius - 0.5, hi = radius;
       for (let i = 0; i < 7; i++) {
         const mid = (lo + hi) / 2;
-        if (staticSolidAt(city, at(dir, mid))) lo = mid; else hi = mid;
+        if (staticSolidAt(city, at(dir, mid), .35, .35, options)) lo = mid; else hi = mid;
       }
       if (hi < bestDistance) { bestDistance = hi; best = at(dir, hi); }
     }
@@ -108,17 +151,17 @@ function cameraEscape(city: CityData, from: Point, wanted: Point): Point {
   return { x: from.x, y: ceiling + 1, z: from.z };
 }
 
-export function clearCameraPosition(city: CityData, from: Point, wanted: Point): Point {
+export function clearCameraPosition(city: CityData, from: Point, wanted: Point, options?: CameraCollisionOptions): Point {
   // There is no unobstructed sightline to a target already inside a wall. Keep
   // the camera outside it while recovery/physics resolves the target position.
   // The normal branch below still checks the entire pivot-to-camera sightline.
-  if (staticSolidAt(city, from)) return cameraEscape(city, from, wanted);
+  if (staticSolidAt(city, from, .35, .35, options)) return cameraEscape(city, from, wanted, options);
   const distance = (p: Point) => Math.hypot(p.x - from.x, p.y - from.y, p.z - from.z);
   const trace = (to: Point): Point => {
     const steps = Math.max(1, Math.ceil(distance(to) / 0.25)); let clear = { ...from };
     for (let i = 1; i <= steps; i++) {
       const t = i / steps, p = { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t, z: from.z + (to.z - from.z) * t };
-      if (staticSolidAt(city, p)) break;
+      if (staticSolidAt(city, p, .35, .35, options)) break;
       clear = p;
     }
     return clear;
@@ -155,9 +198,11 @@ export function streetFootprintClear(city: CityData, p: Point, hx: number, hz: n
 export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number, z: number,
   options: StreetSpotOptions = {}): StreetSpot | null {
   const allowed = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link', 'living_street', 'service']);
+  if(options.majorOnly)allowed.add('motorway');
   if (options.allowElevated) for (const cls of ['motorway', 'motorway_link', 'trunk_link']) allowed.add(cls);
   const projections: { g: ReturnType<RoadGraph['nearestEdges']>[number]; s: number; d: number }[] = [];
   for (const g of graph.nearestEdges(x, z, 10)) {
+    if(options.majorOnly&&(!['primary','secondary','trunk','motorway'].includes(g.e.cls)||g.e.w<9||g.e.workZone))continue;
     if (!allowed.has(g.e.cls) || g.len < 12 || g.e.w < 3) continue;
     for (let i = 0; i < g.e.pts.length - 1; i++) {
       const a = g.e.pts[i], b = g.e.pts[i + 1], q = segmentDistance(x, z, ...a, ...b);
@@ -187,7 +232,8 @@ export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number,
         let clear = true;
         // A legal tangent at a bend may face an immediately adjacent facade.
         // Require a short forward exit as well as a free final footprint.
-        for (const ahead of [0, 2, 4, 6, 8]) {
+        const clearLength=Math.max(8,Math.min(60,options.forwardClearance??8));
+        for (let ahead=0;ahead<=clearLength;ahead+=2) {
           const at = { x: p.x + p.hx * ahead, y: p.y, z: p.z + p.hz * ahead };
           if (!roadClearAt(city, at.x, at.z, at.y, options.allowElevated) || !streetFootprintClear(city, at, p.hx, p.hz, options.vehicles)) { clear = false; break; }
         }

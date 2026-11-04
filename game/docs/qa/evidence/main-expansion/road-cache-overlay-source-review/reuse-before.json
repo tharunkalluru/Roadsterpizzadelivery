@@ -1,0 +1,42 @@
+{
+  "purpose": "Retained pre-correction actual bundled source negative control; not current production.",
+  "bundleSHA256": "d07d65c9a3aacf2cbce3ff38152c7c8a3bc349ef2598711bacf1ae9f37e1de0a",
+  "result": {
+    "first": {
+      "active": true,
+      "reused": false,
+      "available": 2,
+      "applied": [
+        "a",
+        "b"
+      ],
+      "mismatched": [],
+      "nodes": [
+        "join"
+      ],
+      "movedStops": 0,
+      "ambiguousStops": 0
+    },
+    "reused": {
+      "active": true,
+      "reused": true,
+      "available": 2,
+      "applied": [],
+      "mismatched": [],
+      "nodes": [
+        "join"
+      ],
+      "movedStops": 0,
+      "ambiguousStops": 0
+    },
+    "staleEndpoint": [
+      30,
+      10
+    ],
+    "node": [
+      30,
+      12
+    ],
+    "sourceUnchanged": true
+  }
+}

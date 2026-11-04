@@ -1,0 +1,310 @@
+{
+  "release": "2026-10-21.0",
+  "source": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+  "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin>=78.35 AND bbox.xmax<=78.53 AND bbox.ymin>=17.28 AND bbox.ymax<=17.48 AND substr(id,1,12) IN ('b4b63547-487','5ad84346-6af','10e508ba-f9d','626a3566-b84')",
+  "seconds": 28.411044625,
+  "rows": [
+    {
+      "id": "10e508ba-f9d3-4a24-bff7-ff2cb49f46d6",
+      "name": "Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": [
+            0.0,
+            0.73962168
+          ]
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_bridge",
+            "is_link"
+          ],
+          "between": [
+            0.0,
+            0.73962168
+          ]
+        },
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": [
+            0.73962168,
+            1.0
+          ]
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "f84f79b5-e02b-426e-a9bf-70073f31991a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "f7b9da75-8c14-476d-89d3-32004f76661d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203837189@4",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.73962168
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637993@8",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.73962168,
+            0.936583225
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203837190@4",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.936583225,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000F00000097B503649E9A53408EECA584BB583140A0D8AFE0A39A53409B3DD00A0C593140FF507AF0A49A5340B1BE26101B593140F29F2413A69A5340A3699AC12959314056E938C8B59A5340A3456C66E3593140C054D8B1B69A534050ACAE9EEE593140EF4806CAB79A534021318B9AF95931404E06EC0FB99A5340F259434E045A3140B20DDC81BA9A5340C92BC6AF0E5A3140F3DF281EBC9A534059ADA7B1185A3140461D67E4BD9A5340FAE1314D225A31402127A7D1BF9A53408B4FA6762B5A314002C3A85AC19A5340F806150B325A3140846D7A06C39A5340DD7E541E385A31401E882CD2C49A5340693B01A83D5A3140",
+      "bbox": {
+        "xmin": 78.4159164428711,
+        "xmax": 78.41826629638672,
+        "ymin": 17.34661102294922,
+        "ymax": 17.35250473022461
+      }
+    },
+    {
+      "id": "626a3566-b84f-423b-9c47-dce958bb2640",
+      "name": "Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": [
+            0.247670345,
+            1.0
+          ]
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": [
+            0.0,
+            0.247670345
+          ]
+        },
+        {
+          "values": [
+            "is_bridge",
+            "is_link"
+          ],
+          "between": [
+            0.247670345,
+            1.0
+          ]
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "8efd3060-85d2-40e0-89ef-8a17a0cdce23",
+          "at": 0.0
+        },
+        {
+          "connector_id": "978a5359-9308-41cb-a37d-03fddd4d199d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203837191@4",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.064483411
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637992@7",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.064483411,
+            0.247670345
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203837192@4",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.247670345,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000F000000E2975533C69A5340CB27D0CC385A3140893B832BC59A5340CFBBB1A0305A3140E3CE3B04C49A534074FFA215295A31403113FBBAC29A53408F17D2E1215A3140A9633A19C19A534047FAFE17195A314098E77750BF9A53406A0F20E80D5A31405D763EF2BD9A5340EC0C9DE8045A3140C32ADEC8BC9A53406D663E31FC5931400593D1B7BB9A5340B3D5404EF35931405938A4ACBA9A53404DD30C4EE95931408FADC2C1B99A534058E8DE1EDF59314008180225AA9A534064BAC61D255931401BA034D4A89A534006A117491659314027F56569A79A53402605717907593140AE9575A49F9A53404D3162FAB9583140",
+      "bbox": {
+        "xmin": 78.4159927368164,
+        "xmax": 78.41835021972656,
+        "ymin": 17.346586227416992,
+        "ymax": 17.35243034362793
+      }
+    },
+    {
+      "id": "5ad84346-6aff-43d3-820d-c9172d694350",
+      "name": "Sardar Patel Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "connectors": [
+        {
+          "connector_id": "2c6b3a0e-fabf-448b-aa99-19e36fcfd438",
+          "at": 0.0
+        },
+        {
+          "connector_id": "0c2057ca-bf63-4e94-831c-ae87f961bc3f",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w166507695@6",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000008516C8A21FA05340688302A5577131404CFC51D419A05340264CBD1358713140A388563813A05340B4B8B53B5A713140",
+      "bbox": {
+        "xmin": 78.50116729736328,
+        "xmax": 78.50193786621094,
+        "ymin": 17.4427433013916,
+        "ymax": 17.44278335571289
+      }
+    },
+    {
+      "id": "b4b63547-487b-4f5f-8118-488dc9362647",
+      "name": "Sardar Patel Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "connectors": [
+        {
+          "connector_id": "d60b33b7-4103-4245-bf7d-c1404457a4b7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "03849a9f-124c-4b92-9ccf-f5dedb693781",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28129855@14",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000E3546B6116A05340EE4E2D115E7131404703780B24A05340ADEF0DCF5C713140",
+      "bbox": {
+        "xmin": 78.5013656616211,
+        "xmax": 78.50221252441406,
+        "ymin": 17.442821502685547,
+        "ymax": 17.442842483520508
+      }
+    }
+  ]
+}

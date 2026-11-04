@@ -1,0 +1,171 @@
+{
+  "schema": "researched-generated-node-policy-preparation-receipt-v1",
+  "releaseApproved": false,
+  "scope": "Fresh bound offline modeling policy only. No elevations were fitted or published by this preparation, and no solver constraints were changed by this subtask.",
+  "artifacts": {
+    "model": {
+      "path": "/tmp/source-9413-researched-rail-facilities-world-v1.json",
+      "sha256": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f"
+    },
+    "joint": {
+      "path": "/tmp/source-9413-researched-rail-facilities-joint-input-v2.json",
+      "sha256": "3b9e495d8e0ec4ec2d33d2fdb9fb2f7bab11e0b9f756c548c0b83568d4aab823"
+    },
+    "sourceReference": {
+      "path": "/tmp/roadster-researched-joint-complete-source-reference-9413-v10.json",
+      "sha256": "7612c1eb77a3b21459e8d46e2e823a201b83912c810d986221571914d84e9a83"
+    },
+    "freshDiagnosis": {
+      "path": "/tmp/roadster-researched-generated-node-datum-diagnostic-9413-v1.json",
+      "sha256": "c14a0533db16dfd648ffe0326f27958535cbc48a3564d4f09726cc8140f72910"
+    },
+    "freshPackedIncidence": {
+      "path": "/tmp/roadster-researched-generated-node-datum-packed-incidence-9413-v1.json",
+      "sha256": "7264128313af43312e0e1403e906124120bcb117e1a48389b47b6b35bf9ab210"
+    },
+    "consistentSourceReview": {
+      "path": "/tmp/roadster-consistent-generated-source-node-field-diagnostic-9413-v2.json",
+      "sha256": "f4c1d184bf6a8596bdc3b1aca570f78707f3df84095a0e31f69ae386605726cf"
+    },
+    "policy": {
+      "path": "/tmp/roadster-researched-generated-node-datum-policy-9413-v1.json",
+      "sha256": "df5d47e48b3fb8f800521b9cb4f6ae036c1a86e1c19d879e694692185223a08b"
+    },
+    "priorPolicy": {
+      "path": "/tmp/roadster-complete-generated-node-datum-policy-9413-v5.json",
+      "sha256": "e31683216ff2bc87408b99f5d5edc0cd3fd74a009e66fd6b36f5801d92a07db2"
+    },
+    "generator": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/prepare-generated-node-datums.py",
+      "sha256": "0a9f920c2d5dd5e9e35cbbcbbbd1f5dbc83d1662a1ee4eb494e6ebca8befa3e4"
+    },
+    "tests": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/generated-node-datum-policy.test.py",
+      "sha256": "efdd1faf93332fdedd1ae9f6e669358ab8b329dd5160124f93c0cce87dec6424"
+    },
+    "diagnosisGenerator": {
+      "path": "/tmp/prepare-researched-generated-node-diagnosis-9413-v1.py",
+      "sha256": "a5f2a3be8ba7e69951a31b6a79680fec165432bd9791e07d8adcb587e1573c23"
+    },
+    "consistentReviewGenerator": {
+      "path": "/tmp/audit-consistent-generated-source-nodes-9413-v2.py",
+      "sha256": "170079447915699ffb996dd4dec5db89dc63c14d18bce979f689d987d5e9bc02"
+    },
+    "solver": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/solve-road-profiles.py",
+      "sha256": "9ecc54c5555b2453872d6918bb7b2131910cd94293bb8a76542b3d2950bf797f"
+    }
+  },
+  "freshInventory": {
+    "nodes": 354,
+    "oldSelectors": 315,
+    "reviewedConsistentSelectors": 6,
+    "additionalDiagnosticSelectors": 33,
+    "endpointClasses": {
+      "consistent": 37,
+      "inconsistent": 305,
+      "negative": 12
+    }
+  },
+  "incidence": {
+    "packs": 304,
+    "nodes": 354,
+    "detailedOwners": 337,
+    "ownerVariants": 0,
+    "missingOwners": 0
+  },
+  "policy": {
+    "authorizedNodes": 301,
+    "authorizedClasses": {
+      "reviewed-consistent-generated-node": 5,
+      "inconsistent-generated-node": 296
+    },
+    "excludedNodes": 53,
+    "exclusionReasons": {
+      "Existing negative facility remains under its separate verified authority": 14,
+      "Existing explicit node datum policy remains authoritative": 8,
+      "Consistent generated endpoint has no explicit full-source review in the selected six-node inventory": 30,
+      "Consistent-node source review does not authorize redistribution": 1
+    },
+    "newConsistentNodes": [
+      "0426e97e-b60",
+      "18274ac7-eb4",
+      "2e5b5d4b-efd",
+      "3391cfff-21e",
+      "7d0a1ece-cdc"
+    ],
+    "priorAuthorizedNowExcluded": [
+      "170c5a23-475",
+      "81c8ff27-7ba",
+      "9b81558a-297",
+      "fa81ff83-0ad"
+    ]
+  },
+  "specificUnresolvedCases": [
+    {
+      "node": "abfb9180-891",
+      "reason": "Consistent-node source review does not authorize redistribution",
+      "sourceEvidence": [
+        {
+          "road": "a806047d-4aa_0",
+          "reason": "Active nonzero source level retains its separate source order",
+          "rules": [
+            {
+              "value": 1,
+              "between": [
+                0.0,
+                0.366426258
+              ]
+            }
+          ]
+        },
+        {
+          "road": "a806047d-4aa_0",
+          "reason": "Active nonzero source level retains its separate source order",
+          "rules": [
+            {
+              "value": 1,
+              "between": [
+                0.0,
+                0.366426258
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node": "bc6a8094-0ed",
+      "reason": "Existing negative facility remains under its separate verified authority"
+    },
+    {
+      "node": "bdea4d61-1bf",
+      "reason": "Existing negative facility remains under its separate verified authority"
+    },
+    {
+      "node": "edf315e3-928",
+      "reason": "Existing negative facility remains under its separate verified authority"
+    }
+  ],
+  "checks": {
+    "freshTupleAndAllPolicyInputHashesVerified": true,
+    "everyAuthorizedActualArmAndInputHeightVerified": true,
+    "everyAuthorizedExistingEnvelopeFixedAnchorAndRecoveryVerified": true,
+    "all304PackedOwnerFilesRehashed": true,
+    "canonicalRailControlsRemainExact": true,
+    "sourceXYWidthsAndLaneCapacityRemainExact": true,
+    "noImplicitConsistentNodeAuthority": true,
+    "noNewSurveyedGroundDatum": true
+  },
+  "tests": {
+    "command": "python3 tests/generated-node-datum-policy.test.py",
+    "passed": 9,
+    "failures": 0
+  },
+  "remaining": [
+    "abfb9180-891 includes a806047d-4aa_0 active source level+1 and requires separate source-order authority before redistribution.",
+    "Additional consistent candidates remain excluded; the existing read-only classifications are not height authority.",
+    "Both fresh negative endpoint nodes and the positive-endpoint/negative-interior facility arm retain separate authority.",
+    "Actual solver feasibility, literal mesh, full-car driving and native/browser acceptance remain separate."
+  ]
+}

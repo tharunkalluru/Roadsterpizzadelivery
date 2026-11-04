@@ -1,0 +1,13 @@
+# Final Paradise native integration
+
+Frozen20 runtime fingerprint `7ad22d508e9bd5236dfe8a004f3a49b7e96d0364cc9a602b46c9d479da4792c7`, desktop Chrome932×430 with touch layout, Low graphics. Ordinary released Odela asset; no private art substitution.
+
+Root used only the visible **Prepare order** diagnostic to skip pickup, then hid both QA panels. No Stage, road recovery, injected pose or additional driving input was used. The ordinary road spawn at(-1020,.55,-3932.4),yaw90° entered the automatic story. An additional independent real-geometry test checks this exact initial pose and its entire car/carton path, including the observed final(-1021.3374,.57,-3922.5854),yaw179.46° bay. All four physical cases pass; the original three representative entry cases remain.
+
+The evidence folder `evidence/main-expansion/native-paradise-final20/` contains80 timestamped native samples over6.7seconds. Root inspected frames020/040/055/070, and a separate reviewer actually opened020/040/055/070/079/080. They show the real PARADISE fascia and cable, high/lowering basket, basket near the ground with the Roadster beside it, red carton in flight, and the carton inside the rising basket. The next saved frame080 is the completed held actor14.4seconds after079; this gap is explicit in `observation-sequence.json`. These are native observations and sampled images, not an uninterrupted full-lift video or proof that every possible ray is unobstructed. Thin A-frame foreground is retained naturally; the box and basket remain recognizable.
+
+The approved full-body actor close-up remained stable until Next. `held-night.png` confirms the original rooftop light and clear actor at night. Pause hid Next and disabled road recovery; Resume restored the held scene. Trusted Next immediately showed **Loading allapur road…**, followed by ordinary controls, pickup status and Vivekananda on the new road.
+
+Exact downloaded `campaign-evidence.json` is schema3, observer healthy/zero failures, level4 completed with all12 required facts, empty missing physical/general/art facts and no story violations. It records pickup-not-observed assistance; natural pickup/true touch/full-campaign acceptance are false. The two visual checkboxes remain unselected; their still-image and source review is recorded separately rather than pretending this sampled run is continuous full-campaign acceptance.
+
+This closes the previously offscreen basket and actual car-floor intersection findings in frozen19. Original failed frames, physical triangle evidence and intermediate camera/path test failures remain preserved. It does not establish phone GPU FPS, thermal/battery results, or a complete unassisted fourteen-level run.

@@ -1,5 +1,12 @@
+import { overlayBlockLayout } from '../delivery/ui/call-button-layout';
 export interface HudRect { left: number; top: number; width: number; height: number }
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
+/** The opaque badge replaces the circle's lower rim rather than floating inside it. */
+export function minimapSpeedBadgeLayout(map:HudRect):HudRect {
+  const width=Math.min(map.width,Math.max(40,Math.round(map.width*.6))),height=Math.max(20,Math.round(map.width*.24));
+  const overhang=Math.round(height*.4);
+  return{left:Math.round(map.left+(map.width-width)/2),top:map.top+map.height+overhang-height,width,height};
+}
 // Keep the area notice centered on the availability row, below the measured
 // header. The map starts below that row even while the notice is fading out.
 export function hudStatusLayout(width: number, headerBottom: number, walletBottom: number, left: number, toggleWidth: number, obstacles: HudRect[] = []) {
@@ -16,30 +23,72 @@ export function hudStatusLayout(width: number, headerBottom: number, walletBotto
 // Portrait is covered by the mandatory orientation gate. This is the landscape
 // thumb layout, with measured lanes rather than independent CSS breakpoints.
 export function mobileHudLayout(width: number, height: number, mapTop: number, _taskBottom: number, left = 18, right = 18, bottom = 18) {
-  const portrait = height > width, short = height <= 520;
-  const steer = short ? width < 700 ? 66 : 76 : clamp(width * .104, 78, 108);
+  const portrait = height > width, short = height <= 520, shallow = height < 280;
+  const steer = short ? width < 600 ? 60 : width < 700 ? 66 : 76 : clamp(width * .104, 78, 108);
   const oldBrake = short ? 66 : clamp(width * .09, 72, 96);
   const brakeWidth = oldBrake * 1.5;
   const goWidth = short ? clamp(width * .19, 118, 152) : clamp(width * .19, 148, 222);
-  const goHeight = short ? 72 : clamp(width * .094, 78, 108);
-  const flightHeight = short ? 44 : 52, jumpHeight = short ? 32 : 38, gap = short ? 12 : 18;
+  const goHeight = shallow ? clamp(44+(height-240)*.7,44,72) : short ? 72 : clamp(width * .094, 78, 108);
+  const flightHeight = short ? 44 : 52, jumpHeight = flightHeight, gap = short ? 24 : 28;
   const R = (x: number, y: number, w: number, h: number): HudRect => ({ left: Math.round(x), top: Math.round(y), width: Math.round(w), height: Math.round(h) });
-  const leftSteer = R(left, height - bottom - steer, steer, steer), rightSteer = R(left + steer + gap, leftSteer.top, steer, steer);
   const gas = R(width - right - goWidth, height - bottom - goHeight, goWidth, goHeight);
   const brake = R(gas.left - 10 - brakeWidth, gas.top, brakeWidth, gas.height);
-  const jump = R(gas.left, gas.top - 12 - jumpHeight, gas.width, jumpHeight);
-  const fly = R(gas.left, jump.top - 6 - flightHeight, gas.width, flightHeight);
+  const rowGap=shallow?8:12;
+  const jump = R(brake.left, brake.top - rowGap - jumpHeight, brake.width, jumpHeight);
+  const fly = R(gas.left, gas.top - rowGap - flightHeight, gas.width, flightHeight);
+  const steerTop = fly.top + (fly.height - steer) / 2;
+  const leftSteer = R(left + (width < 600 ? 12 : short ? 20 : 28), steerTop, steer, steer), rightSteer = R(leftSteer.left + steer + gap, steerTop, steer, steer);
   const steerEnd = rightSteer.left + rightSteer.width;
-  const speedWidth = Math.floor(Math.min(140, 2 * (Math.min(width / 2 - steerEnd, brake.left - width / 2) - 8)));
-  const speed = R((width - speedWidth) / 2, height - bottom - 30, speedWidth, 30);
   const compactMap = height <= 520;
-  const mapSize = Math.round(Math.min(clamp(height * .34, 112, 152), compactMap ? Math.max(80, fly.top - 22) : Infinity));
-  // The map always stays against the right safe edge. Short phones move the
-  // toolbar and wallet to its left, freeing the top corner above FLY/JUMP.
-  const map = R(width - right - mapSize, compactMap ? 10 : mapTop, mapSize, mapSize);
-  const contextTop = speed.top - 12 - 64;
-  const contextEnd = contextTop < map.top + map.height && contextTop + 64 > map.top ? Math.min(brake.left, map.left) : brake.left;
+  const mapSize = Math.round(Math.min(clamp(height * .34, 112, 152), compactMap ? Math.max(shallow?44:60, fly.top - (shallow?4:12) - mapTop) : Infinity));
+  // The map stays below the top toolbar and above FLY, including short phones.
+  const map = R(width - right - mapSize, mapTop, mapSize, mapSize);
+  let speed=minimapSpeedBadgeLayout(map);
+  // Reserve the badge's full outer edge as well as the circle above FLY. Very
+  // short landscape screens may use the 8px gap below the toolbar for the rim.
+  if(compactMap&&speed.top+speed.height>fly.top-4){
+    map.top-=Math.ceil(speed.top+speed.height-fly.top+4);speed=minimapSpeedBadgeLayout(map);
+  }
+  const contextHeight=shallow?44:64,contextTop = height - bottom - contextHeight;
+  const contextEnd = contextTop < map.top + map.height && contextTop + contextHeight > map.top ? Math.min(brake.left, map.left) : brake.left;
   const contextWidth = Math.min(220, contextEnd - steerEnd - 24);
-  const context = R((steerEnd + contextEnd - contextWidth) / 2, contextTop, contextWidth, 64);
-  return { portrait, compactMap, oldBrake, leftSteer, rightSteer, brake, gas, fly, jump, speed, map, context };
+  const context = R((steerEnd + contextEnd - contextWidth) / 2, contextTop, contextWidth, contextHeight);
+  const call=hudCallSlotLayout(width,{leftSteer,rightSteer,jump,fly});
+  return { portrait, compactMap, oldBrake, leftSteer, rightSteer, brake, gas, fly, jump, speed, map, context, call };
+}
+
+/** A fixed centered call lane shares the steering row, never a direction button. */
+export function hudCallSlotLayout(width:number,controls:{leftSteer:HudRect;rightSteer:HudRect;jump:HudRect;fly:HudRect}):HudRect|null {
+  const left=controls.rightSteer.left+controls.rightSteer.width+8,right=controls.jump.left-8;
+  const height=Math.min(48,controls.fly.height),top=Math.round(controls.leftSteer.top+(controls.leftSteer.height-height)/2);
+  for(const w of [176,156,136,128,112,96,80,60]){
+    const x=Math.round((width-w)/2);
+    if(x>=left&&x+w<=right)return{left:x,top,width:w,height};
+  }
+  const w=Math.min(176,right-left);return w>=60?{left:Math.round((left+right-w)/2),top,width:Math.floor(w),height}:null;
+}
+
+/** Lower-priority overlays move around the reserved navigation, never vice versa. */
+export function hudTransientLayout(width:number,height:number,headerBottom:number,badgeHeight:number,navigation:HudRect|null,blockers:readonly HudRect[],left=18,right=18,bottom=18) {
+  const bounds={left,top:headerBottom+8,width:Math.max(0,width-left-right),height:Math.max(0,height-bottom-headerBottom-8)};
+  const obstacles=[...blockers,...(navigation?[navigation]:[])];
+  const place=(w:number,h:number,x:number,y:number,avoid:readonly HudRect[])=>overlayBlockLayout(bounds,avoid,{width:w,height:h},{left:x,top:y+h+8,width:w,height:0});
+  const available=navigation?Math.max(100,navigation.left-left-8):180;
+  const areaWidth=Math.min(180,available,bounds.width),chipHeight=badgeHeight>0?badgeHeight:28;
+  const area=place(areaWidth,chipHeight,left,headerBottom+8,obstacles);
+  if(area)obstacles.push(area);
+  let notice:HudRect|null=null;
+  for(const w of [areaWidth,140,120]) {
+    if(w>bounds.width)continue;
+    notice=place(w,48,left,(area?area.top+area.height:headerBottom)+8,obstacles);
+    if(notice)break;
+  }
+  if(notice)obstacles.push(notice);
+  let rescue:HudRect|null=null;
+  for(const w of [320,240,180,140]) {
+    if(w>bounds.width)continue;
+    rescue=place(w,48,(width-w)/2,navigation?navigation.top+navigation.height+8:headerBottom+8,obstacles);
+    if(rescue)break;
+  }
+  return {area,notice,rescue};
 }

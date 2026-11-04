@@ -79,7 +79,7 @@ export class AreaPicker {
     const last = opts.last;
     this.root.innerHTML = `<div class="in">
       <h1>${opts.first ? 'Where do you want to deliver?' : 'Deliver somewhere else'}</h1>
-      <p class="lead">${opts.first ? 'Pick your part of Hyderabad. Pizza orders come from kitchens around you. You can move after any delivery: open the map and choose “Deliver from here”.' : `You're in ${esc(opts.current || 'Hyderabad')}. Choose a new area; your coins and delivery progress stay with you.`}</p>
+      <p class="lead">${opts.first ? 'Choose where to start exploring Hyderabad.' : `You're in ${esc(opts.current || 'Hyderabad')}. Completed levels stay with you when you change areas.`}</p>
       ${last ? `<div class="acts"><button type="button" class="btn go" id="ap-last">Continue in ${esc(last.name)}</button></div>` : ''}
       <div class="search"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg><input id="ap-q" type="search" placeholder="Search an area or metro station: Uppal, Nagaram, Tarnaka…" autocomplete="off" aria-label="Search an area"><div class="res" id="ap-res"></div></div>
       <div class="k">Popular areas</div>

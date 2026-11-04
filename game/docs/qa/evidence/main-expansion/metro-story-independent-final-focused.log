@@ -1,0 +1,223 @@
+SUITE metro-story-camera
+✔ the exact native Ameerpet Blue held shot avoids the actual upper interchange pier and preserves the real Game camera (762.483209ms)
+✔ real curved and interchange platforms retain clear four-person framing in both travel directions without per-frame probing (6046.509416ms)
+ℹ {"shots":32,"choices":[{"station":"st_ameerpet:blue","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":25.221294000000853,"maxSliceMs":1.9447909999998956,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_ameerpet:blue","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":85,"planningMs":21.785582999996222,"maxSliceMs":1.5607920000002196,"planningFrames":26,"maxChecksPerFrame":4},{"station":"st_ameerpet:blue","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":18.064250999999786,"maxSliceMs":1.6864999999997963,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_ameerpet:blue","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":18.705081999999493,"maxSliceMs":1.7264580000000933,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_ameerpet","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":57,"planningMs":19.340876000000208,"maxSliceMs":1.9174579999998969,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_ameerpet","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":15.808459999997467,"maxSliceMs":1.703667000000678,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_ameerpet","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":60,"poseReads":99,"planningMs":56.56374700000288,"maxSliceMs":3.5849170000001322,"planningFrames":44,"maxChecksPerFrame":4},{"station":"st_ameerpet","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":57,"planningMs":28.970459999999548,"maxSliceMs":5.202874999999949,"planningFrames":20,"maxChecksPerFrame":4},{"station":"st_hitec_city","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":35.35624800000005,"maxSliceMs":2.394749999999476,"planningFrames":23,"maxChecksPerFrame":4},{"station":"st_hitec_city","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":14.93999999999869,"maxSliceMs":1.5090419999996811,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_hitec_city","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":65,"poseReads":99,"planningMs":53.98900099999446,"maxSliceMs":2.35924999999952,"planningFrames":45,"maxChecksPerFrame":4},{"station":"st_hitec_city","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":17.913041999996494,"maxSliceMs":1.6270839999997406,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_madhapur","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":33.366210000003775,"maxSliceMs":9.957125000000815,"planningFrames":20,"maxChecksPerFrame":4},{"station":"st_madhapur","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":12.05791500000123,"maxSliceMs":1.1728339999990567,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_madhapur","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":14.449080999993384,"maxSliceMs":1.7232499999990978,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_madhapur","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":13.71020900000076,"maxSliceMs":1.4344170000003942,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station:green","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":7.759874999999738,"maxSliceMs":0.7181249999994179,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station:green","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":12.703749999996944,"maxSliceMs":1.4475000000002183,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station:green","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":60,"poseReads":99,"planningMs":21.45758100000603,"maxSliceMs":1.1653339999993477,"planningFrames":41,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station:green","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":13.984500999995362,"maxSliceMs":1.612833999999566,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":8.042625000001863,"maxSliceMs":1.2387500000004366,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":8.574916999994457,"maxSliceMs":0.8989169999986188,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":65,"poseReads":99,"planningMs":21.856248999994932,"maxSliceMs":0.9210839999996097,"planningFrames":42,"maxChecksPerFrame":4},{"station":"st_mahatma_gandhi_bus_station","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":7.494002999996155,"maxSliceMs":0.8549590000002354,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_parade_grounds:blue","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":55.31324699999277,"maxSliceMs":8.383165999999619,"planningFrames":27,"maxChecksPerFrame":4},{"station":"st_parade_grounds:blue","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":65,"poseReads":99,"planningMs":57.35608400000092,"maxSliceMs":2.6153749999994034,"planningFrames":45,"maxChecksPerFrame":4},{"station":"st_parade_grounds:blue","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":18.82183299999997,"maxSliceMs":1.7440420000002632,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_parade_grounds:blue","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":19.845585000000938,"maxSliceMs":1.956291999998939,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_parade_grounds","direction":-1,"coach":-22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":14.718418000002202,"maxSliceMs":1.6868330000015703,"planningFrames":19,"maxChecksPerFrame":4},{"station":"st_parade_grounds","direction":-1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":50,"planningMs":15.307418000000325,"maxSliceMs":2.0293750000000728,"planningFrames":17,"maxChecksPerFrame":4},{"station":"st_parade_grounds","direction":1,"coach":-22.1,"along":3.3,"across":1.4,"reads":60,"poseReads":99,"planningMs":42.03332899999987,"maxSliceMs":2.006333999999697,"planningFrames":42,"maxChecksPerFrame":4},{"station":"st_parade_grounds","direction":1,"coach":22.1,"along":3.3,"across":1.4,"reads":14,"poseReads":58,"planningMs":14.507832000001144,"maxSliceMs":1.8292079999991984,"planningFrames":19,"maxChecksPerFrame":4}]}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12677.860125
+
+SUITE metro-story-physical-independent
+✔ the real camera-selected Ameerpet bay cannot place actual Roadster body vertices inside an existing interchange lift (193.589834ms)
+✔ the automatic real-roof-to-bay movement clears existing interchange shafts throughout its actual StoryDirector poses (174.255167ms)
+✔ real Ameerpet placement preparation bounds each update and keeps the chosen physical route cached during held frames (67.27775ms)
+ℹ {"geometryQueries":190,"preparationUpdates":50,"maximumQueriesPerUpdate":4,"measuredMaximumUpdateMs":2.1705830000009882,"measuredTotalPlanningMs":61.27500100000907,"limitations":"Desktop Node timing; not phone FPS or a strict upper bound for one OS-scheduled query."}
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10953.61225
+
+SUITE metro-ride
+✔ metro delivery requires actual roof boarding, departure and travel to a different station door frame (4.92675ms)
+✔ rear-coach boarding does not count the distance from that coach to the head as actual travel (2.49425ms)
+✔ flying directly to a platform cannot bypass the train ride or arrival gate (2.844083ms)
+✔ falling before the next station clears ride progress and requires a fresh complete ride (3.004042ms)
+✔ four gated actors exit in sequence, remain at the platform after train departure and complete only one grounded handoff (6.943584ms)
+✔ metro exit choreography starts at real door coordinates and delays each passenger without manufacturing visible stand-ins (1.034417ms)
+✔ a station more than850m from boarding retains its nearby handoff scene and marker (3.739583ms)
+✔ completed platform passengers persist near their live station without revived navigation, ride events or delivery marker (6.3485ms)
+✔ the retained metro receiver releases the real catch state after its handoff and keeps all four passengers in place (2.66875ms)
+✔ an unavailable real platform is checked once per dwell and waits for a different actual station (1.831042ms)
+✔ pending camera geometry waits for streaming and retries the same actual station instead of rejecting its dwell (1.083625ms)
+✔ bounded platform preparation keeps the marked roof, cancels on departure or player movement, and releases on teardown (0.47175ms)
+✔ platform framing stays inside the guard, requires visible actors and a deliberate parked stop, and releases for normal driving or flight (3.213583ms)
+✔ the real door exit is framed from a stationary roof ride, starts at that door, and releases when the player moves or flies (1.174791ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 163.917375
+
+SUITE story-physical-independent
+✔ the real camera-selected Ameerpet bay cannot place actual Roadster body vertices inside an existing interchange lift (122.577375ms)
+✔ the automatic real-roof-to-bay movement clears existing interchange shafts throughout its actual StoryDirector poses (93.228542ms)
+✔ real Ameerpet placement preparation bounds each update and keeps the chosen physical route cached during held frames (70.805458ms)
+ℹ {"geometryQueries":190,"preparationUpdates":53,"maximumQueriesPerUpdate":4,"measuredMaximumUpdateMs":2.253666999999041,"measuredTotalPlanningMs":62.06120899999041,"limitations":"Desktop Node timing; not phone FPS or a strict upper bound for one OS-scheduled query."}
+✔ Railway story waits for physical roof contact during an ordinary nonflight fall (13.699375ms)
+✔ Metro story waits for physical roof contact during an ordinary nonflight fall (1.357917ms)
+✔ Railway story rejects an unsupported same-height car until the actual solver establishes contact (2.801208ms)
+✔ Railway story rejects real support from a different rake at the same roof coordinates (1.408291ms)
+✔ Railway story rejects nonzero falling velocity even when a previous supported roof id remains (0.788875ms)
+✔ Railway story accepts actual rear-coach support on the graded coupling surface (3.511167ms)
+✔ Metro story rejects an unsupported same-height car until the actual solver establishes contact (0.853167ms)
+✔ Metro story rejects real support from a different rake at the same roof coordinates (0.711583ms)
+✔ Metro story rejects nonzero falling velocity even when a previous supported roof id remains (0.631875ms)
+✔ Metro story accepts actual rear-coach support on the graded coupling surface (0.912791ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14593.075833
+
+SUITE story-runtime-independent
+✔ Restart current level from held completion replays that scene via relocation without deleting earned progress (10.441458ms)
+✔ ordinary relocation retry still assigns the next unfinished level after completion (1.971167ms)
+✔ Restart current level during captured motion loads a safe road for the same unfinished delivery (2.35775ms)
+✔ Restart current level can replay the final held scene even though all campaign unlocks are complete (1.532042ms)
+✔ Restart after the final restaurant Explore action replays the last level without reopening ordinary free-roam pickups (1.540666ms)
+✔ a repeated Restart click cannot start a second relocation while the first loading transition is pending (3.182291ms)
+✔ Restart with no safe main road preserves the held scene and completed progress for a later retry (1.456292ms)
+✔ the actual runtime player closure forwards null, exact live roof support, and falling velocity without caching (2.193292ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 172.525542
+
+SUITE delivery-runtime
+✔ static scene camera queries use the current module solids immediately and reject a released module context (5.760042ms)
+✔ story volume queries retain tyre-floor contact, cover body corners and current solids, and fail closed for pending or released geometry (1.89025ms)
+✔ runtime connects anonymous pickup, mandatory call, module gate and completion without identity leak (2.424708ms)
+✔ automatic story keeps the real scene and simulation alive until Next, then relocates once near the next delivery without losing progress (3.362792ms)
+✔ a real marked-rake landing can satisfy arrival beyond the customer distance radius, while proximity alone cannot (2.392167ms)
+✔ a pending story shuttle waits for its designated coach and retries without adopting nearby ordinary trains (161.758625ms)
+✔ train deliveries without a story shuttle retain ordinary nearest-train selection (0.419416ms)
+✔ a completed walk-in truck keeps its physical scene until the entire car exits and cannot revive old GPS (1.671083ms)
+✔ completed ground scenes can retain their gate and walls for a physical exit without admitting another pickup (1.153208ms)
+✔ safe-to-leave scenery remains visible and physical in the background without locking the next pickup (2.144667ms)
+✔ restart/disposal releases completed background scenery once and a successful throw clears the old failure notice (1.945792ms)
+✔ a completed open platform retains nearby actors immediately without imposing a physical-exit pickup lock (1.369084ms)
+✔ a retained stopped-scene focus remains after Next but cannot take the view from a new delivery (0.790334ms)
+✔ ground-accessible scene approaches never inherit the old off-road fly-to-marker fallback (1.27875ms)
+✔ mapped one-way route retains the legal direction and gives the oversized interior truck central clearance (1.133417ms)
+✔ a nearby phase change invalidates the cached street approach while ordinary motion still reuses it (1.59525ms)
+✔ moving target stays frame-exact while route invalidation is bounded (3.5915ms)
+✔ delivery truck uses the full mapped segment with junction margins instead of stopping after 180m (2.698ms)
+✔ invalid targets and stale module callbacks cannot restore a completed map marker (1.081042ms)
+✔ phone timers use active time, not background/map time, and module physics stays frozen under phone (1.655083ms)
+✔ missing roads retry preparation at most once per second instead of scanning the graph every frame (0.7815ms)
+✔ retry removes scene and dive override while retaining completed story data (1.714416ms)
+✔ start from level 1 clears earned campaign progress and active interactions while preserving unrelated saves (0.869833ms)
+✔ dispose is idempotent and disconnects pickup callbacks and HUD blocking (0.286583ms)
+✔ static scene support includes real roof/deck heights but excludes temporary trains (0.406583ms)
+✔ stationary scene setup raises its full footprint above an off-center building (0.450959ms)
+✔ truck and lake identity reveals require their own scene event after the mandatory anonymous call (0.404375ms)
+✔ late scene reveal callbacks cannot expose the next customer after a previous module completes (0.47875ms)
+✔ truck arrival enables Call only behind its current rear entrance, not simply near the moving target (0.274666ms)
+✔ real truck permits calling at its approach marker and close behind the door, never beside or ahead of it (16.305166ms)
+✔ local navigation uses the live rear approach marker instead of a distant road-graph detour (0.990375ms)
+✔ local truck navigation follows the open ramp and aligns only within its rear approach (1.108375ms)
+✔ ramp heading and side clearance rotate with the actual truck instead of a fixed world axis (0.562167ms)
+✔ other scenes use actual nearby marker distance and clear local guidance on completion (0.748125ms)
+✔ pause restaurant entry restores UI visibility and blocks simulation immediately without changing delivery progress (0.406708ms)
+✔ restaurant entry cannot replace a live phone call or completion card (1.300666ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 399.470666
+
+SUITE story-actor-camera
+✔ unprepared story modules cannot request a character camera (0.765375ms)
+✔ walking cinematic follows a front/side full-body shot at street yaw 0 (14.547042ms)
+✔ walking cinematic follows a front/side full-body shot at street yaw 1.5707963267948966 (7.039791ms)
+✔ walking cinematic follows a front/side full-body shot at street yaw -1.1 (7.665791ms)
+✔ wedding cinematic follows a front/side full-body shot at street yaw 0 (645.436166ms)
+✔ wedding cinematic follows a front/side full-body shot at street yaw 1.5707963267948966 (59.957083ms)
+✔ wedding cinematic follows a front/side full-body shot at street yaw -1.1 (45.91725ms)
+✔ Jessie story camera survives physical handoff and the indefinite moving character hold, and releases outside story (4.690083ms)
+✔ wedding story parks beside the dancer, clears the camera ray and preserves target and dance timing through handoff (80.917167ms)
+✔ actual Game camera uses the captured actor shot despite a previously dragged sideways orbit, then preserves ordinary orbit behavior (37.982917ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1142.871667
+
+SUITE story-mode
+✔ story capture has separate indefinite viewing, single Next and explicit reset; invalid paths cannot move the player (4.963875ms)
+✔ level 1 uses its actual module geometry/gates and physical handoff before indefinite character viewing (38.053167ms)
+✔ level 2 uses its actual module geometry/gates and physical handoff before indefinite character viewing (11.493083ms)
+✔ level 3 uses its actual module geometry/gates and physical handoff before indefinite character viewing (25.750375ms)
+✔ level 4 uses its actual module geometry/gates and physical handoff before indefinite character viewing (12.042375ms)
+✔ level 5 uses its actual module geometry/gates and physical handoff before indefinite character viewing (13.117625ms)
+✔ level 6 uses its actual module geometry/gates and physical handoff before indefinite character viewing (11.777333ms)
+✔ level 7 uses its actual module geometry/gates and physical handoff before indefinite character viewing (7.865041ms)
+✔ level 8 uses its actual module geometry/gates and physical handoff before indefinite character viewing (534.788166ms)
+✔ level 9 uses its actual module geometry/gates and physical handoff before indefinite character viewing (8.406625ms)
+✔ level 11 uses its actual module geometry/gates and physical handoff before indefinite character viewing (2.38225ms)
+✔ level 12 uses its actual module geometry/gates and physical handoff before indefinite character viewing (4.630792ms)
+✔ level 13 uses its actual module geometry/gates and physical handoff before indefinite character viewing (5.214292ms)
+✔ level 14 uses its actual module geometry/gates and physical handoff before indefinite character viewing (30.850084ms)
+✔ automatic gate and bucket approaches never pull the car through their property from behind (8.69725ms)
+✔ train proximity and flight do not grant story capture; a genuine landing on any marked coach does (1.728458ms)
+✔ metro story waits for a manual marked-rake landing and actual next stop, clears the coach side before descending, and retains all four passengers (5.459292ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 871.654167
+
+SUITE train-story-lighting
+✔ train-roof light requests use real visible face-height lenses and a clear front-face ray above the Roadster (8.783583ms)
+✔ the existing pooled light follows the exact moving-coach fixture and releases without changing identities or handoff gates (3.016833ms)
+✔ the physical train handoff and held customer keep the same fixture-aligned face lighting through a coach turn (3.811375ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.191584
+
+SUITE delivery-module-immersive
+✔ truck drives a finite mapped route, opens its folded tailgate only after the call, and exposes separate NPC envelope (75.629167ms)
+✔ truck interior cannot be delivered from above or through a side; actual rear entry reveals once and handoff visibly completes (10.832959ms)
+✔ truck clear aisle is physically open while visible logs and walls reject the complete car envelope (5.430458ms)
+✔ production support selection carries grounded wheels from the ramp tip up to the truck floor (8.154583ms)
+✔ surface scene never requests diving, waits for call and emergence, and catches the thrown pizza before completion (13.503792ms)
+✔ new immersive scenes release merged costume, tailgate and water-scene resources exactly once (4.215458ms)
+✔ opt-in rooftop, stadium and IMAX handoffs reach physical hands before completing and ignore repeat taps (47.71875ms)
+✔ each chain take waits for its director catch and teardown cancels an in-flight pizza (11.610667ms)
+✔ train catch follows its actual moving coach every frame and is cancelled if that coach disappears (12.950208ms)
+✔ train customer turns toward a visitor on his coach and gives roof directions without changing airborne approaches (2.1695ms)
+✔ a matched train-roof handoff is readable, then its exact customer keeps riding without changing the next navigation (2.71125ms)
+✔ Eega variant retains its insect geometry and timing while the pizza visibly reaches its receiver (1.180083ms)
+✔ both seated truck identities rest on the crate with their shoes at the actual bed (6.498166ms)
+✔ IMAX customer rests on the hero seat with shoes at the hall floor; scene gates and background seats stay unchanged (2.572083ms)
+✔ moving rotated truck handoff ends at the lowered reader actual hands before the original settle time (4.41725ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 334.86675

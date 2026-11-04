@@ -7,6 +7,13 @@ export interface MetroPath { pts: XZ[]; cum: number[]; len: number }
 export interface MetroTrack { id: string; dir: 1 | -1; path: MetroPath }
 export interface MetroCorridor { id: string; lineId: string; color: string; center: MetroPath; tracks: [MetroTrack, MetroTrack]; sourceParts: number }
 export const METRO_TRACK_OFFSET = 1.95;
+// Existing inner strip remains the conservative driving/handoff area. The
+// outer architectural wing completes L&T's typical6m side platform.
+export const METRO_PLATFORM_OFFSET = 5.6;
+export const METRO_PLATFORM_HALF_WIDTH = 1.7;
+export const METRO_PLATFORM_OUTER_EDGE = METRO_PLATFORM_OFFSET - METRO_PLATFORM_HALF_WIDTH + 6;
+export const METRO_PLATFORM_HALF_LENGTH = 65;
+export const METRO_DOOR_SIDE_OFFSET = 1.5;
 // HMRL corridor identities: Red=Miyapur–LB Nagar, Blue=Nagole–Raidurg, Green=JBS–MGBS.
 // https://hmrl.co.in/about-hmrl/  These display colors are shared by map and world signage.
 export const METRO_LINE_COLORS: Readonly<Record<string, string>> = { red: '#d71920', blue: '#1f5fbf', green: '#1a9850' };

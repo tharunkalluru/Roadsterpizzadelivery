@@ -1,0 +1,1116 @@
+{
+  "schema": "read-only-hypothetical-shoulder-production-traffic-probe-v1",
+  "releaseApproved": false,
+  "heightAuthorityGranted": false,
+  "geometryApplied": false,
+  "modelSHA256": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f",
+  "proposal": {
+    "path": "/tmp/roadster-v34-finite-parallel-bridge-shoulder-proposal-9413-v1.json",
+    "sha256": "da9a27adda26c12d0dd53236284286c993c0d5c351ddfd1966f1dd0a38d47348"
+  },
+  "sourceFiles": {
+    "src/game/traffic.ts": "6eebe7cd9639c0147aa1caba49195beb526994036032aa338e6d52c8858d4ae0",
+    "src/game/traffic-road-posture.ts": "7c1a0fdb9d5e078924069197f638cb898aedeb61dd728c9855560b57c9483030",
+    "src/game/roadgraph.ts": "9d135d91c9c2f5a9e752ed3ac3a5de02d784220ec7447625f33c11a52d02fd38",
+    "src/game/traffic-path.ts": "04bdcbd13e2a7b2fb58a8398feea19246281af22b696638d5bee0e393a8dd685",
+    "src/game/traffic-approach.ts": "6aa7e68ebfec782f28a7664a328fc4d9a3796296663b937d287cf5ac07b4e2dc",
+    "src/game/bus-path.ts": "a170afc2454b3e8870fb9f6e4130c97fee886a1d1e477ad199ea8ecf9d3ecce3",
+    "src/world/bridge-clearance.ts": "e06ac76fdcdf894b36ee13cd1572579f3f901c62983514d87eabfbd0516dd961",
+    "src/world/road-pavement.ts": "11587a950c52e3b2f9930a8e29810edf24035061e631973b8e6208572f60aefc",
+    "src/world/city.ts": "a5803ceedfbfd66b6cb4b8bfaeb503e3951ab06286fb6658669547c078979557",
+    "src/world/traffic_models.ts": "408b239ec2902193985e1da4b406326932694fff3e027d3331aad58d95426e0d",
+    "src/world/traffic-vehicle-specs.ts": "85370990961a72456c66fbb0f53894915b730cfcccc50ad2328b0d63a1a45322"
+  },
+  "currentRuntimeRibbonParity": [
+    {
+      "road": "01537ac6-791_0",
+      "LExact": true,
+      "RExact": true
+    },
+    {
+      "road": "af5d4b8b-2e5_0",
+      "LExact": true,
+      "RExact": true
+    }
+  ],
+  "paint": {
+    "roadA": {
+      "packedLanes": 2,
+      "roadPavementLanes": 2,
+      "actualCityDashedLaneCount": 3,
+      "motorwayYellowEdgePaint": false
+    },
+    "roadB": {
+      "packedLanes": 2,
+      "usableLanes": 2,
+      "actualCityDashedLaneCount": 2
+    }
+  },
+  "laneSummary": [
+    {
+      "kind": "bus",
+      "group": "bus",
+      "size": [
+        2.5,
+        3.3,
+        11
+      ],
+      "ordinaryLanes": [
+        2.8
+      ],
+      "productionLaneRange": [
+        -3.1500000000000004,
+        3.1500000000000004
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 60824,
+      "hullVertices": 111
+    },
+    {
+      "kind": "auto",
+      "group": "auto",
+      "size": [
+        1.36,
+        1.85,
+        2.65
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.7200000000000006,
+        3.7200000000000006
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 41996,
+      "hullVertices": 144
+    },
+    {
+      "kind": "car",
+      "group": "car",
+      "size": [
+        1.735,
+        1.525,
+        3.995
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.5325,
+        3.5325
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 27146,
+      "hullVertices": 234
+    },
+    {
+      "kind": "hatch",
+      "group": "car",
+      "size": [
+        1.735,
+        1.52,
+        3.86
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.5325,
+        3.5325
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 34946,
+      "hullVertices": 252
+    },
+    {
+      "kind": "suv",
+      "group": "car",
+      "size": [
+        1.79,
+        1.635,
+        4.33
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.5050000000000003,
+        3.5050000000000003
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 28034,
+      "hullVertices": 202
+    },
+    {
+      "kind": "cab",
+      "group": "car",
+      "size": [
+        1.735,
+        1.525,
+        3.995
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.5325,
+        3.5325
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 26078,
+      "hullVertices": 234
+    },
+    {
+      "kind": "van",
+      "group": "car",
+      "size": [
+        1.925,
+        2.615,
+        5.1
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.4375000000000004,
+        3.4375000000000004
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 40733,
+      "hullVertices": 106
+    },
+    {
+      "kind": "lorry",
+      "group": "truck",
+      "size": [
+        2.5,
+        3.1,
+        8.4
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.1500000000000004,
+        3.1500000000000004
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 25648,
+      "hullVertices": 226
+    },
+    {
+      "kind": "tanker",
+      "group": "truck",
+      "size": [
+        2.3,
+        3.22,
+        8.2
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.2500000000000004,
+        3.2500000000000004
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 29462,
+      "hullVertices": 241
+    },
+    {
+      "kind": "miniTruck",
+      "group": "truck",
+      "size": [
+        1.5,
+        1.84,
+        3.8
+      ],
+      "ordinaryLanes": [
+        3,
+        -0.39999999999999947
+      ],
+      "productionLaneRange": [
+        -3.6500000000000004,
+        3.6500000000000004
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 22976,
+      "hullVertices": 238
+    },
+    {
+      "kind": "bike",
+      "group": "bike",
+      "size": [
+        0.75,
+        1.9,
+        2
+      ],
+      "ordinaryLanes": [
+        2.4000012,
+        2.808,
+        -0.19599999999999942,
+        0.19999880000000048
+      ],
+      "productionLaneRange": [
+        -4.025,
+        4.025
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 33012,
+      "hullVertices": 121
+    },
+    {
+      "kind": "scooter",
+      "group": "bike",
+      "size": [
+        0.75,
+        1.85,
+        1.8
+      ],
+      "ordinaryLanes": [
+        2.4000012,
+        2.808,
+        -0.19599999999999942,
+        0.19999880000000048
+      ],
+      "productionLaneRange": [
+        -4.025,
+        4.025
+      ],
+      "busLane": 2.8,
+      "actualFloat32Vertices": 23910,
+      "hullVertices": 106
+    }
+  ],
+  "scans": [
+    {
+      "kind": "bus",
+      "ordinaryPoses": 159,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 1776
+    },
+    {
+      "kind": "auto",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2098
+    },
+    {
+      "kind": "car",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2415
+    },
+    {
+      "kind": "hatch",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2522
+    },
+    {
+      "kind": "suv",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2864
+    },
+    {
+      "kind": "cab",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2415
+    },
+    {
+      "kind": "van",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 2216
+    },
+    {
+      "kind": "lorry",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 4236
+    },
+    {
+      "kind": "tanker",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 6093
+    },
+    {
+      "kind": "miniTruck",
+      "ordinaryPoses": 318,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 6857
+    },
+    {
+      "kind": "bike",
+      "ordinaryPoses": 636,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 606
+    },
+    {
+      "kind": "scooter",
+      "ordinaryPoses": 636,
+      "baselineUnsupportedOrdinaryHullVertices": 0,
+      "hypotheticalUnsupportedOrdinaryHullVertices": 0,
+      "baselineUnsupportedAllowedRangeHullVertices": 0,
+      "hypotheticalUnsupportedAllowedRangeHullVertices": 560
+    }
+  ],
+  "curves": [
+    {
+      "vertex": 203,
+      "modelArc": 369.0854518617565,
+      "angle": 0.010017343171293555,
+      "trim": 0.2,
+      "factor": 1,
+      "curveLength": 0.42804521567222475,
+      "minRadius": 42.72934146283685,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 203,
+      "modelArc": 369.0854518617565,
+      "angle": 0.010017343171293555,
+      "trim": 0.29,
+      "factor": 1.45,
+      "curveLength": 0.6080437103344234,
+      "minRadius": 60.69757673716685,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 203,
+      "modelArc": 369.0854518617565,
+      "angle": 0.010017343171293555,
+      "trim": 0.13999999999999999,
+      "factor": 0.7,
+      "curveLength": 0.3080462192282584,
+      "minRadius": 30.75051794277093,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 210,
+      "modelArc": 382.1399530012089,
+      "angle": 0.002895801848215694,
+      "trim": 0.2,
+      "factor": 1,
+      "curveLength": 0.39189147528885765,
+      "minRadius": 135.33061685935937,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 210,
+      "modelArc": 382.1399530012089,
+      "angle": 0.002895801848215694,
+      "trim": 0.29,
+      "factor": 1.45,
+      "curveLength": 0.5718913494925444,
+      "minRadius": 197.48939330760933,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 210,
+      "modelArc": 382.1399530012089,
+      "angle": 0.002895801848215694,
+      "trim": 0.13999999999999999,
+      "factor": 0.7,
+      "curveLength": 0.2718915591503612,
+      "minRadius": 93.89143301401779,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 224,
+      "modelArc": 408.06368730010996,
+      "angle": 0.005624740936831214,
+      "trim": 0.2,
+      "factor": 1,
+      "curveLength": 0.41574821994550365,
+      "minRadius": 73.9136136101917,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 224,
+      "modelArc": 408.06368730010996,
+      "angle": 0.005624740936831214,
+      "trim": 0.29,
+      "factor": 1.45,
+      "curveLength": 0.595747745342976,
+      "minRadius": 105.91475016929805,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 224,
+      "modelArc": 408.06368730010996,
+      "angle": 0.005624740936831214,
+      "trim": 0.13999999999999999,
+      "factor": 0.7,
+      "curveLength": 0.29574853634764103,
+      "minRadius": 52.57952318294476,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 231,
+      "modelArc": 420.1338985658673,
+      "angle": 0.007711221429976021,
+      "trim": 0.2,
+      "factor": 1,
+      "curveLength": 0.4215894377313706,
+      "minRadius": 54.67138681718263,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 231,
+      "modelArc": 420.1338985658673,
+      "angle": 0.007711221429976021,
+      "trim": 0.29,
+      "factor": 1.45,
+      "curveLength": 0.6015885457194078,
+      "minRadius": 78.01352977665961,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 231,
+      "modelArc": 420.1338985658673,
+      "angle": 0.007711221429976021,
+      "trim": 0.13999999999999999,
+      "factor": 0.7,
+      "curveLength": 0.30159003241186616,
+      "minRadius": 39.10995833110294,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 238,
+      "modelArc": 432.16718573106084,
+      "angle": 0.010823890356074383,
+      "trim": 0.2,
+      "factor": 1,
+      "curveLength": 0.3696892014677374,
+      "minRadius": 34.15392820906568,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 238,
+      "modelArc": 432.16718573106084,
+      "angle": 0.010823890356074383,
+      "trim": 0.29,
+      "factor": 1.45,
+      "curveLength": 0.5496874439712447,
+      "minRadius": 50.783159040354654,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    },
+    {
+      "vertex": 238,
+      "modelArc": 432.16718573106084,
+      "angle": 0.010823890356074383,
+      "trim": 0.13999999999999999,
+      "factor": 0.7,
+      "curveLength": 0.24969037313477066,
+      "minRadius": 23.067774271973246,
+      "productionCurveOKBefore": true,
+      "productionCurveOKAfter": true,
+      "oldUnsupportedHullVertices": 0,
+      "newUnsupportedHullVertices": 0
+    }
+  ],
+  "summary": {
+    "shapes": 12,
+    "defaultNewOwnHullFailurePoses": 0,
+    "allowedRangeAndCurveNewOwnHullFailurePoses": 1011,
+    "productionClearButOwnHullNewFailurePoses": 973,
+    "busBendCurves": 15,
+    "busCurveGuardRegressions": 0
+  },
+  "witnesses": [
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 369.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12253.642127302264,
+        "y": 8.548122210518532,
+        "z": 16668.46501654149,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 369.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12253.829802034055,
+        "y": 8.515207599252605,
+        "z": 16668.001574856866,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 370.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.017476765846,
+        "y": 8.482292987986678,
+        "z": 16667.538133172242,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 370.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.205151497636,
+        "y": 8.449560393475362,
+        "z": 16667.074691487618,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 371.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.392826229425,
+        "y": 8.417222316614929,
+        "z": 16666.611249802998,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 371.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.580500961216,
+        "y": 8.384722316614724,
+        "z": 16666.14780811837,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 372.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.768175693005,
+        "y": 8.352222316614782,
+        "z": 16665.684366433747,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 372.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12254.955850424794,
+        "y": 8.31972231661484,
+        "z": 16665.220924749123,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 373.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12255.143525156585,
+        "y": 8.287222316614644,
+        "z": 16664.757483064495,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 373.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12255.331199888375,
+        "y": 8.254722316614714,
+        "z": 16664.29404137987,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 374.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12255.518874620166,
+        "y": 8.222222316614738,
+        "z": 16663.830599695248,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 374.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12255.706549351955,
+        "y": 8.18972231661458,
+        "z": 16663.36715801062,
+        "hx": -0.3753494635802386,
+        "hz": -0.9268833692488221
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 375.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12255.894224083746,
+        "y": 8.157222316614535,
+        "z": 16662.903716325996,
+        "hx": -0.3753494635802386,
+        "hz": -0.9268833692488221
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 375.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12256.081898815535,
+        "y": 8.124722316614534,
+        "z": 16662.440274641373,
+        "hx": -0.3753494635802386,
+        "hz": -0.9268833692488221
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 376.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12256.269573547326,
+        "y": 8.092222316614489,
+        "z": 16661.97683295675,
+        "hx": -0.3753494635802386,
+        "hz": -0.9268833692488221
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 376.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 4,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12256.457248279115,
+        "y": 8.059722316614517,
+        "z": 16661.513391272125,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 377.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 8,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12256.644923010906,
+        "y": 8.027222316614543,
+        "z": 16661.0499495875,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 377.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 8,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12256.832597742696,
+        "y": 7.994722316614612,
+        "z": 16660.586507902877,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 378.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 8,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12257.020272474487,
+        "y": 7.962222316614419,
+        "z": 16660.12306621825,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 378.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 10,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12257.207947206276,
+        "y": 7.9297223166147,
+        "z": 16659.65962453363,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 379.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 11,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": false,
+      "pose": {
+        "x": -12257.395621938067,
+        "y": 7.897222316614713,
+        "z": 16659.196182849006,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 379.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 12,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12257.583296669856,
+        "y": 7.864722316614771,
+        "z": 16658.732741164382,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 380.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 13,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12257.770971401646,
+        "y": 7.832222316614829,
+        "z": 16658.269299479758,
+        "hx": -0.3753494635795521,
+        "hz": -0.9268833692490778
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 380.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 14,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12257.958646133437,
+        "y": 7.799834195434885,
+        "z": 16657.805857795127,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 381.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12258.146320865226,
+        "y": 7.767451937683629,
+        "z": 16657.342416110503,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 381.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12258.333995597017,
+        "y": 7.7350696799323275,
+        "z": 16656.87897442588,
+        "hx": -0.3753494635803902,
+        "hz": -0.9268833692487387
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 382.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12258.525401954617,
+        "y": 7.7011760667022156,
+        "z": 16656.407203066086,
+        "hx": -0.37803195662369476,
+        "hz": -0.9257925468328565
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 382.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12258.71441793293,
+        "y": 7.665413569443666,
+        "z": 16655.94430679267,
+        "hx": -0.37803195662369476,
+        "hz": -0.9257925468328565
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 383.250124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12258.903433911242,
+        "y": 7.6296510721851165,
+        "z": 16655.481410519253,
+        "hx": -0.37803195662369476,
+        "hz": -0.9257925468328565
+      }
+    },
+    {
+      "kind": "bus",
+      "lane": -3.1500000000000004,
+      "s": 383.750124843594,
+      "mode": "allowed-range",
+      "oldUnsupported": 0,
+      "newUnsupported": 15,
+      "productionTrafficPoseClearBefore": true,
+      "productionTrafficPoseClearAfter": true,
+      "pose": {
+        "x": -12259.092449889553,
+        "y": 7.593855381250564,
+        "z": 16655.018514245836,
+        "hx": -0.37803195662369476,
+        "hz": -0.9257925468328565
+      }
+    }
+  ],
+  "limits": [
+    "This is a private hypothetical pavement mask; no production schema consumes the one-sided profile yet.",
+    "Actual Float32 vehicle hulls and production RoadGraph/Traffic lane, pose, visual posture and bend-curve methods are called. Shadow cities contain the exact two road ribbons and empty obstacle/building/wall maps, so this does not approve actual props, rail, water, parapets or native gameplay.",
+    "Production laneRange still offers positions relative to globalw9.4; its range and filtering consumers must be reconciled with a one-sided trim before activation.",
+    "City currently paints3lanes while ordinary Traffic chooses2on01537; lane paint and barrier/edge emission must be explicitly regenerated consistently with a reviewed capacity/mask contract.",
+    "The current primary roads do not receive motorway yellow edge paint; inferred parapets still follow current roadRibbon and have not been regenerated for this candidate."
+  ]
+}

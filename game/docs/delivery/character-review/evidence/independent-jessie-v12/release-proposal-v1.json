@@ -1,0 +1,276 @@
+{
+  "status": "proposal-only-unregistered",
+  "candidate": {
+    "assetId": "jessie-blue-saree-walking-v1",
+    "sha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/jessie/walking-v1.glb",
+      "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+    },
+    {
+      "path": "public/delivery/characters/jessie/walking-v1.rig.json",
+      "sha256": "e3b2edcf05dc10cab3b34e8067bc8bfcae45514ece26129a92c777cf351ea438"
+    },
+    {
+      "path": "public/delivery/characters/jessie/portrait-v1.png",
+      "sha256": "9e036c5b96abc06e6fee57a35be090258c4aa717cea59e1d8afa136d50b1215c"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "contract": {
+    "id": "jessie-walking-in-city-v1",
+    "sceneName": "ReviewedCharacterScene",
+    "requireSkin": true,
+    "nodes": {
+      "leftArm": "LeftArm",
+      "rightArm": "RightArm",
+      "catchPoint": "PizzaCatch"
+    },
+    "pose": {
+      "mode": "handoff-clip",
+      "clipName": "TakePizza",
+      "upperBodyNodes": [
+        "Chest",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftWristTwist",
+        "LeftHand",
+        "LeftIndex1",
+        "LeftIndex2",
+        "LeftIndex3",
+        "LeftMiddle1",
+        "LeftMiddle2",
+        "LeftMiddle3",
+        "LeftRing1",
+        "LeftRing2",
+        "LeftRing3",
+        "LeftPinky1",
+        "LeftPinky2",
+        "LeftPinky3",
+        "LeftThumb1",
+        "LeftThumb2",
+        "LeftThumb3",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightWristTwist",
+        "RightHand",
+        "RightIndex1",
+        "RightIndex2",
+        "RightIndex3",
+        "RightMiddle1",
+        "RightMiddle2",
+        "RightMiddle3",
+        "RightRing1",
+        "RightRing2",
+        "RightRing3",
+        "RightPinky1",
+        "RightPinky2",
+        "RightPinky3",
+        "RightThumb1",
+        "RightThumb2",
+        "RightThumb3"
+      ]
+    },
+    "motions": {
+      "required": [
+        "idle",
+        "walk",
+        "dance",
+        "read"
+      ],
+      "clips": {
+        "idle": {
+          "clipName": "Idle"
+        },
+        "walk": {
+          "clipName": "Walk",
+          "metresPerCycle": 0.6
+        },
+        "dance": {
+          "clipName": "Dance"
+        },
+        "read": {
+          "clipName": "Read"
+        }
+      }
+    },
+    "height": {
+      "min": 1.5959999999999999,
+      "max": 1.764
+    },
+    "materialTreatment": "as-authored",
+    "catchPointSpace": "palm-contact",
+    "motionBounds": {
+      "schemaVersion": 1,
+      "glbSha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64",
+      "sceneName": "ReviewedCharacterScene",
+      "sampling": {
+        "framesPerSecond": 24,
+        "marginMetres": 0.02,
+        "poseCount": 7062,
+        "clips": [
+          {
+            "name": "Idle",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Read",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Walk",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          },
+          {
+            "name": "TakePizza",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          },
+          {
+            "name": "Dance",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          }
+        ],
+        "maskedHandoff": {
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ],
+          "fractions": [
+            0,
+            0.25,
+            0.5,
+            0.75,
+            1
+          ],
+          "baseFramesPerSecond": 12
+        }
+      },
+      "meshes": {
+        "geometry_0001": {
+          "vertexCount": 1443,
+          "center": [
+            0.002103285723542153,
+            0.061574190207511634,
+            0.05085647441656574
+          ],
+          "radius": 0.36573622629936414
+        },
+        "geometry_0001_1": {
+          "vertexCount": 248,
+          "center": [
+            0.0009961126583465374,
+            0.15284265098385638,
+            0.056970872481903134
+          ],
+          "radius": 0.348636589318077
+        },
+        "geometry_0": {
+          "vertexCount": 33604,
+          "center": [
+            0.04468731479935631,
+            0.8635971348646159,
+            -0.010884586010074637
+          ],
+          "radius": 0.9110411003460641
+        },
+        "geometry_0_1": {
+          "vertexCount": 149,
+          "center": [
+            0.003055731886134491,
+            1.170329534367637,
+            -0.00009140208601066124
+          ],
+          "radius": 0.311213491472463
+        },
+        "LeftAuthoredAnatomicalHand": {
+          "vertexCount": 2502,
+          "center": [
+            0.21897791798357907,
+            1.0334441809889077,
+            0.20034608184661906
+          ],
+          "radius": 0.47831518778531834
+        },
+        "LeftAuthoredUpperArmSkin": {
+          "vertexCount": 160,
+          "center": [
+            0.22947961624897661,
+            1.1563489651611238,
+            0.06603301146055543
+          ],
+          "radius": 0.2460172432134649
+        },
+        "RightAuthoredAnatomicalHand": {
+          "vertexCount": 2502,
+          "center": [
+            -0.21595978566980106,
+            1.036219938213251,
+            0.19829266448277733
+          ],
+          "radius": 0.4766043602193873
+        },
+        "RightAuthoredUpperArmSkin": {
+          "vertexCount": 160,
+          "center": [
+            -0.22498993795135466,
+            1.1607251874616917,
+            0.06366967538766546
+          ],
+          "radius": 0.24981576149128967
+        }
+      }
+    }
+  },
+  "glbSource": "docs/delivery/character-review/candidates/jessie-walking-in-city-v1.glb",
+  "rigSource": "docs/delivery/character-review/candidates/jessie-walking-in-city-v1.rig.json",
+  "portraitSource": "/tmp/roadster-jessie-portrait-v1.png"
+}

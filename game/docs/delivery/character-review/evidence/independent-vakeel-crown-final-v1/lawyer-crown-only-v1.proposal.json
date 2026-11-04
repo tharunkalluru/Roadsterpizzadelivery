@@ -1,0 +1,415 @@
+{
+  "status": "UNAPPROVED frozen source packet; independent exact top/whole-art/native Q10 scene acceptance required",
+  "characterId": "vakeel-saab",
+  "authorId": "likeness-release-gate-vakeel-crown-art-producer",
+  "reviewerApproved": false,
+  "candidate": {
+    "assetId": "vakeel-saab-bounded-native-crown-only-v1",
+    "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+  },
+  "glb": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.glb",
+  "glbSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+  "sourceRig": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.rig.json",
+  "sourceRigSha256": "707b798e75b03adf45df0ea23f6b3b86dec792837ccd82af51678a78e35f663c",
+  "sourceBounds": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.fresh-motion-bounds.json",
+  "contract": {
+    "id": "vakeel-saab-authored-rig-v1-anatomical-hands-v1-calibrated-standing-hand-space-palm-owned-clean-uv-v2-fallback-scalp-v3-measured-coat-support-v4-bounded-native-side-atlas-v2-bounded-native-crown-only-v1",
+    "sceneName": "ReviewedCharacterScene",
+    "requireSkin": true,
+    "nodes": {
+      "leftArm": "LeftArm",
+      "rightArm": "RightArm",
+      "catchPoint": "PizzaCatch"
+    },
+    "pose": {
+      "mode": "handoff-clip",
+      "clipName": "TakePizza",
+      "upperBodyNodes": [
+        "Chest",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftWristTwist",
+        "LeftHand",
+        "LeftIndex1",
+        "LeftIndex2",
+        "LeftIndex3",
+        "LeftMiddle1",
+        "LeftMiddle2",
+        "LeftMiddle3",
+        "LeftRing1",
+        "LeftRing2",
+        "LeftRing3",
+        "LeftPinky1",
+        "LeftPinky2",
+        "LeftPinky3",
+        "LeftThumb1",
+        "LeftThumb2",
+        "LeftThumb3",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightWristTwist",
+        "RightHand",
+        "RightIndex1",
+        "RightIndex2",
+        "RightIndex3",
+        "RightMiddle1",
+        "RightMiddle2",
+        "RightMiddle3",
+        "RightRing1",
+        "RightRing2",
+        "RightRing3",
+        "RightPinky1",
+        "RightPinky2",
+        "RightPinky3",
+        "RightThumb1",
+        "RightThumb2",
+        "RightThumb3"
+      ]
+    },
+    "motions": {
+      "required": [
+        "idle",
+        "walk",
+        "dance",
+        "read"
+      ],
+      "clips": {
+        "idle": {
+          "clipName": "Idle"
+        },
+        "walk": {
+          "clipName": "Walk",
+          "metresPerCycle": 0.8333333333333334
+        },
+        "dance": {
+          "clipName": "Dance"
+        },
+        "read": {
+          "clipName": "Read"
+        }
+      }
+    },
+    "height": {
+      "min": 1.7289999999999999,
+      "max": 1.9110000000000003
+    },
+    "materialTreatment": "as-authored",
+    "catchPointSpace": "palm-contact",
+    "motionBounds": {
+      "schemaVersion": 1,
+      "glbSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+      "sceneName": "ReviewedCharacterScene",
+      "sampling": {
+        "framesPerSecond": 24,
+        "marginMetres": 0.02,
+        "poseCount": 7062,
+        "clips": [
+          {
+            "name": "Dance",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Idle",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Read",
+            "duration": 2.0416667461395264,
+            "samples": 83
+          },
+          {
+            "name": "Walk",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          },
+          {
+            "name": "TakePizza",
+            "duration": 1.0416666269302368,
+            "samples": 42
+          }
+        ],
+        "maskedHandoff": {
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ],
+          "fractions": [
+            0,
+            0.25,
+            0.5,
+            0.75,
+            1
+          ],
+          "baseFramesPerSecond": 12
+        }
+      },
+      "meshes": {
+        "LeftAuthoredAnatomicalHand": {
+          "vertexCount": 1752,
+          "center": [
+            0.22489282967068425,
+            0.9223840451094387,
+            0.23375988225258734
+          ],
+          "radius": 0.40185964331893836
+        },
+        "RightAuthoredAnatomicalHand": {
+          "vertexCount": 1752,
+          "center": [
+            -0.22423302972505918,
+            0.9214017759836808,
+            0.22822496164863176
+          ],
+          "radius": 0.4057950624146536
+        },
+        "vakeel-saab-review-mesh": {
+          "vertexCount": 26897,
+          "center": [
+            0.0017362891154766025,
+            0.9026287824865558,
+            0.05320754002860731
+          ],
+          "radius": 1.0972949952329178
+        }
+      }
+    }
+  },
+  "portrait": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1-portrait.png",
+  "portraitSha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+  "nativeViews": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/final-native-15-v1",
+  "nativeInspection": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/final-native-15-v1/inspection.json",
+  "crownBeforeAfterViews": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/crown-before-after-top-v1",
+  "actualContinuingContact": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.continuing-contact.json",
+  "nativePalmVertices": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.native-palms.json",
+  "actualMixerSnapshots": {
+    "idle": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/idle-crown-v1.glb",
+    "take0": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/take-00-crown-v1.glb",
+    "take05": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/take-05-crown-v1.glb",
+    "take1": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/take-10-crown-v1.glb",
+    "walk": [
+      "/tmp/roadster-vakeel-lawyer-crown-finite-v1/walk-00-crown-v1.glb",
+      "/tmp/roadster-vakeel-lawyer-crown-finite-v1/walk-01-crown-v1.glb",
+      "/tmp/roadster-vakeel-lawyer-crown-finite-v1/walk-02-crown-v1.glb",
+      "/tmp/roadster-vakeel-lawyer-crown-finite-v1/walk-03-crown-v1.glb",
+      "/tmp/roadster-vakeel-lawyer-crown-finite-v1/walk-04-crown-v1.glb"
+    ]
+  },
+  "files": {
+    "model": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.glb",
+      "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+      "bytes": 4589496
+    },
+    "rig": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.rig.json",
+      "sha256": "707b798e75b03adf45df0ea23f6b3b86dec792837ccd82af51678a78e35f663c",
+      "bytes": 1858
+    },
+    "motionBounds": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.fresh-motion-bounds.json",
+      "sha256": "ab2cf3b7f2d6acdd7d3bc14ef61eb11b43130e6c111fb8766390b1b8a122bec4",
+      "bytes": 2599
+    },
+    "portrait": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1-portrait.png",
+      "sha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+      "bytes": 224626
+    },
+    "portraitEvidence": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1-portrait.portrait.json",
+      "sha256": "72147fdc4d9a6bd4bd1bb583c2bd34543e3b4fb5cbac796d1a7cec86ca985ec2",
+      "bytes": 665
+    },
+    "nativeInspection": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/final-native-15-v1/inspection.json",
+      "sha256": "21c200dbd882bac4ad69186af047823647e6c0b153de4caca67ed30381a02d49",
+      "bytes": 313542
+    },
+    "crownBeforeAfterInspection": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/crown-before-after-top-v1/inspection.json",
+      "sha256": "1d853adfb9ca6e8749cda89eccce17e08304e367e71e648ba8552af7ee7890ac",
+      "bytes": 125541
+    },
+    "nonImageIdentityProof": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.identity-proof.json",
+      "sha256": "f7ad783b0fbc832d252f6e94e978d552c4b26336da9b3558d6a09b6638ac8a62",
+      "bytes": 81964
+    },
+    "nativeAtlasBrushProof": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.atlas-proof.json",
+      "sha256": "96201945a2cf356a776cfce8235c4c96c144fc2209ece14f2ff2122514f74d6c",
+      "bytes": 1869
+    },
+    "nativePalmEvidence": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.native-palms.json",
+      "sha256": "78d703d31e91e98e57bca847436d424bbe2aa9b9bddac3d3f43572c930de2459",
+      "bytes": 16912
+    },
+    "actualContinuingContact": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.continuing-contact.json",
+      "sha256": "d49446fb304f370defb0f86e529242e2110bcb8bfba9bcb4369e6eb9161510b3",
+      "bytes": 48506
+    },
+    "finiteAccessorProof": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.finite-accessor-proof.json",
+      "sha256": "f326b42542ecfd70f061b7642a5bf2593cb050110cfa0ac7079bf39019e49a5a",
+      "bytes": 399
+    }
+  },
+  "primaryReferences": [
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-52.5s.png",
+      "sha256": "b23489a18ddf5f5d51a0fc70208126b90a4d899873b0424c3f3bf77b2c8bc08a",
+      "evidence": "Actual DilRaju movie frame, not synthetic artist guide"
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-82.5s.png",
+      "sha256": "264b3eab6f9bddd303d0090eecc1fc355c260b2682e2c5d52c82af77f1990886",
+      "evidence": "Actual DilRaju movie frame, not synthetic artist guide"
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-85.5s.png",
+      "sha256": "d6a2987fb1d7b46d9aa75ce432ce2235093b262e34ec75aece68834bb9e8a006",
+      "evidence": "Actual DilRaju movie frame, not synthetic artist guide"
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-105s.png",
+      "sha256": "1a34e46773f511cbc2da4091a1fe78e17849f39eab0d9269bf31a1374af5326f",
+      "evidence": "Actual DilRaju movie frame, not synthetic artist guide"
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+      "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+      "evidence": "Actual DilRaju movie frame, not synthetic artist guide"
+    }
+  ],
+  "sourceKnownGoodModel": {
+    "path": "/tmp/roadster-vakeel-lawyer-finite/lawyer-native-side-v2.glb",
+    "sha256": "88952bee6c41f09de08db1c7844d27b1ce7a52333e0ceb3fd49e1c6c8669afd2"
+  },
+  "exactScope": "Only2306 existing2048x2048 PNG texels in actual high crown are replaced with nearest existing same-actor dark hair pigment. No global projection/head regen/sculpt/UV/material/geometry/skin/clip changes. Original front/ear/accepted laterals are protected. Hair neutral-gray variation remains.",
+  "nativeBrush": {
+    "status": "UNAPPROVED bounded same-actor crown-only native atlas repair; exact top/oblique visual required",
+    "authorId": "likeness-release-gate-crown-atlas-producer",
+    "sourceGlb": "/tmp/roadster-vakeel-lawyer-finite/lawyer-native-side-v2.glb",
+    "sourceGlbSha256": "88952bee6c41f09de08db1c7844d27b1ce7a52333e0ceb3fd49e1c6c8669afd2",
+    "sourcePng": "/tmp/roadster-vakeel-lawyer-finite/lawyer-native-side-v2.png",
+    "sourcePngSha256": "03b5253e68d110815b049fed97d81c98557fea0f28c99a651fed710a798032a9",
+    "actualChangedTexels": 2306,
+    "atlasPixels": 4194304,
+    "nativeCrownTargetCount": 2306,
+    "nativeTargetBoundsMetres": [
+      [
+        -0.12451290339231491,
+        -0.0849761962890625,
+        1.7351754903793335
+      ],
+      [
+        0.03532153740525246,
+        0.02489868737757206,
+        1.819775104522705
+      ]
+    ],
+    "sourceTargetRgbRange": [
+      [
+        0.2823529541492462,
+        0.1725490242242813,
+        0.125490203499794
+      ],
+      [
+        0.6784313917160034,
+        0.5176470875740051,
+        0.4117647409439087
+      ]
+    ],
+    "changedUvPixelBounds": [
+      [
+        1,
+        430
+      ],
+      [
+        2047,
+        2045
+      ]
+    ],
+    "nativeDarkHairDonors": 46184,
+    "nativeDonorDistanceRangeMetres": [
+      0.00019697294919751585,
+      0.017320377752184868
+    ],
+    "outsideMeasuredBrush8BitPixelsExact": true,
+    "protectedFaceEarAndAcceptedLateralTexelsExact": true,
+    "method": "Raster actual existing crown triangles to same original atlas. Replace only warm fallback pigment in high crown with five nearest neutral-dark actual same-actor native hair texels. No source guide/image projection, no flat whole-head paint. Original neutral-gray highlights retained.",
+    "geometryWeightsUvPbrSkinClipsEdited": false,
+    "sourceArtifactEdited": false,
+    "newMaterialOrTextureCount": 0,
+    "outputAtlasSha256": "e9fe97be2db245605efd6b31db1a910d0c74a65a00470dd2661e724aef124715"
+  },
+  "numericalProof": {
+    "unchangedNonImageBufferViews": 489,
+    "sourceAndFinalActualJointCount": 51,
+    "all373825FloatComponentsFinite": true,
+    "sourceRigUvSkinTransformsFiveClipsBitIdentical": true,
+    "fresh24fpsMaskedBoundsPoses": 7062,
+    "freshIndependentValidationPoses": 233,
+    "freshBoundsExactlyEqualPriorNumericSpheres": true,
+    "maximumContinuingWalkingPalmErrorMetres": 8.110322674066867e-08
+  },
+  "producerActuallyOpenedFinal15AndNative512": true,
+  "producerActuallyOpenedAll6BeforeAfterTopViews": true,
+  "runtimeCostDelta": {
+    "newDraws": 0,
+    "newTextures": 0,
+    "newMaterials": 0,
+    "newUncompressedTextureBytes": 0,
+    "binaryImageSizeDeltaBytes": 504,
+    "noNewPerFrameWork": true
+  },
+  "noRuntimeRegistryPublicCatalogOrUiEdits": true,
+  "physicalPhonePerformanceClaim": false,
+  "createdUtc": "2026-10-31T23:24:50.706823+00:00"
+}

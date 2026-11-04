@@ -1,0 +1,57 @@
+{
+  "status": "UNAPPROVED bounded same-actor crown-only native atlas repair; exact top/oblique visual required",
+  "authorId": "likeness-release-gate-crown-atlas-producer",
+  "sourceGlb": "/tmp/roadster-vakeel-lawyer-finite/lawyer-native-side-v2.glb",
+  "sourceGlbSha256": "88952bee6c41f09de08db1c7844d27b1ce7a52333e0ceb3fd49e1c6c8669afd2",
+  "sourcePng": "/tmp/roadster-vakeel-lawyer-finite/lawyer-native-side-v2.png",
+  "sourcePngSha256": "03b5253e68d110815b049fed97d81c98557fea0f28c99a651fed710a798032a9",
+  "actualChangedTexels": 2306,
+  "atlasPixels": 4194304,
+  "nativeCrownTargetCount": 2306,
+  "nativeTargetBoundsMetres": [
+    [
+      -0.12451290339231491,
+      -0.0849761962890625,
+      1.7351754903793335
+    ],
+    [
+      0.03532153740525246,
+      0.02489868737757206,
+      1.819775104522705
+    ]
+  ],
+  "sourceTargetRgbRange": [
+    [
+      0.2823529541492462,
+      0.1725490242242813,
+      0.125490203499794
+    ],
+    [
+      0.6784313917160034,
+      0.5176470875740051,
+      0.4117647409439087
+    ]
+  ],
+  "changedUvPixelBounds": [
+    [
+      1,
+      430
+    ],
+    [
+      2047,
+      2045
+    ]
+  ],
+  "nativeDarkHairDonors": 46184,
+  "nativeDonorDistanceRangeMetres": [
+    0.00019697294919751585,
+    0.017320377752184868
+  ],
+  "outsideMeasuredBrush8BitPixelsExact": true,
+  "protectedFaceEarAndAcceptedLateralTexelsExact": true,
+  "method": "Raster actual existing crown triangles to same original atlas. Replace only warm fallback pigment in high crown with five nearest neutral-dark actual same-actor native hair texels. No source guide/image projection, no flat whole-head paint. Original neutral-gray highlights retained.",
+  "geometryWeightsUvPbrSkinClipsEdited": false,
+  "sourceArtifactEdited": false,
+  "newMaterialOrTextureCount": 0,
+  "outputAtlasSha256": "e9fe97be2db245605efd6b31db1a910d0c74a65a00470dd2661e724aef124715"
+}

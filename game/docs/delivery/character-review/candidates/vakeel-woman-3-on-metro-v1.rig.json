@@ -1,0 +1,224 @@
+{
+  "id": "vakeel-woman-3-on-metro-v1",
+  "sceneName": "ReviewedCharacterScene",
+  "requireSkin": true,
+  "nodes": {
+    "leftArm": "LeftArm",
+    "rightArm": "RightArm",
+    "catchPoint": "PizzaCatch"
+  },
+  "pose": {
+    "mode": "handoff-clip",
+    "clipName": "TakePizza",
+    "upperBodyNodes": [
+      "Chest",
+      "LeftShoulder",
+      "LeftArm",
+      "LeftForeArm",
+      "LeftWristTwist",
+      "LeftHand",
+      "LeftIndex1",
+      "LeftIndex2",
+      "LeftIndex3",
+      "LeftMiddle1",
+      "LeftMiddle2",
+      "LeftMiddle3",
+      "LeftRing1",
+      "LeftRing2",
+      "LeftRing3",
+      "LeftPinky1",
+      "LeftPinky2",
+      "LeftPinky3",
+      "LeftThumb1",
+      "LeftThumb2",
+      "LeftThumb3",
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightWristTwist",
+      "RightHand",
+      "RightIndex1",
+      "RightIndex2",
+      "RightIndex3",
+      "RightMiddle1",
+      "RightMiddle2",
+      "RightMiddle3",
+      "RightRing1",
+      "RightRing2",
+      "RightRing3",
+      "RightPinky1",
+      "RightPinky2",
+      "RightPinky3",
+      "RightThumb1",
+      "RightThumb2",
+      "RightThumb3"
+    ]
+  },
+  "motions": {
+    "required": [
+      "idle",
+      "walk",
+      "dance",
+      "read"
+    ],
+    "clips": {
+      "idle": {
+        "clipName": "Idle"
+      },
+      "walk": {
+        "clipName": "Walk",
+        "metresPerCycle": 0.7333333333333334
+      },
+      "dance": {
+        "clipName": "Dance"
+      },
+      "read": {
+        "clipName": "Read"
+      }
+    }
+  },
+  "height": {
+    "min": 1.5579999999999998,
+    "max": 1.722
+  },
+  "materialTreatment": "as-authored",
+  "catchPointSpace": "palm-contact",
+  "motionBounds": {
+    "schemaVersion": 1,
+    "glbSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+    "sceneName": "ReviewedCharacterScene",
+    "sampling": {
+      "framesPerSecond": 24,
+      "marginMetres": 0.025,
+      "poseCount": 7062,
+      "clips": [
+        {
+          "name": "Idle",
+          "duration": 2.0416667461395264,
+          "samples": 83
+        },
+        {
+          "name": "Read",
+          "duration": 2.0416667461395264,
+          "samples": 83
+        },
+        {
+          "name": "Walk",
+          "duration": 1.0416666269302368,
+          "samples": 42
+        },
+        {
+          "name": "TakePizza",
+          "duration": 1.0416666269302368,
+          "samples": 42
+        },
+        {
+          "name": "Dance",
+          "duration": 2.0416667461395264,
+          "samples": 83
+        }
+      ],
+      "maskedHandoff": {
+        "clipName": "TakePizza",
+        "upperBodyNodes": [
+          "Chest",
+          "LeftShoulder",
+          "LeftArm",
+          "LeftForeArm",
+          "LeftWristTwist",
+          "LeftHand",
+          "LeftIndex1",
+          "LeftIndex2",
+          "LeftIndex3",
+          "LeftMiddle1",
+          "LeftMiddle2",
+          "LeftMiddle3",
+          "LeftRing1",
+          "LeftRing2",
+          "LeftRing3",
+          "LeftPinky1",
+          "LeftPinky2",
+          "LeftPinky3",
+          "LeftThumb1",
+          "LeftThumb2",
+          "LeftThumb3",
+          "RightShoulder",
+          "RightArm",
+          "RightForeArm",
+          "RightWristTwist",
+          "RightHand",
+          "RightIndex1",
+          "RightIndex2",
+          "RightIndex3",
+          "RightMiddle1",
+          "RightMiddle2",
+          "RightMiddle3",
+          "RightRing1",
+          "RightRing2",
+          "RightRing3",
+          "RightPinky1",
+          "RightPinky2",
+          "RightPinky3",
+          "RightThumb1",
+          "RightThumb2",
+          "RightThumb3"
+        ],
+        "fractions": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          1
+        ],
+        "baseFramesPerSecond": 12
+      }
+    },
+    "meshes": {
+      "LeftAuthoredAnatomicalHand": {
+        "vertexCount": 1752,
+        "center": [
+          0.20418186426661103,
+          0.9938755826761589,
+          0.2104202992065864
+        ],
+        "radius": 0.4749671088124864
+      },
+      "RightAuthoredAnatomicalHand": {
+        "vertexCount": 1752,
+        "center": [
+          -0.2055744487208243,
+          0.9953760037212622,
+          0.20144121266244908
+        ],
+        "radius": 0.47971278048840615
+      },
+      "geometry_0": {
+        "vertexCount": 25873,
+        "center": [
+          -0.0020605601950211827,
+          0.8016554261335184,
+          0.042039352461693796
+        ],
+        "radius": 0.9815055749340263
+      },
+      "geometry_0_1": {
+        "vertexCount": 1132,
+        "center": [
+          0.0034418126173289265,
+          1.515669257053498,
+          -0.018218404060717855
+        ],
+        "radius": 0.21797809076243416
+      },
+      "geometry_0_2": {
+        "vertexCount": 1204,
+        "center": [
+          0.001016673776423227,
+          1.3659122890249022,
+          -0.015652263690760358
+        ],
+        "radius": 0.2667754845076563
+      }
+    }
+  }
+}

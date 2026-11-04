@@ -1,0 +1,379 @@
+--- a/src/game/rail.ts
++++ b/src/game/rail.ts
+@@ -3,6 +3,7 @@
+ import { buildRailwayRun, railwayPoint, projectRailwayRun, parallelRailwayRuns, sharedRailwayWay, RailwayFlow, railwaySweepsConflict, railwayContinuations, type RailwayTrack, type RailwayRun, type RailDirection } from './railway-flow';
+ import { MovingRailFrames, type MovingRailShape } from './moving-rail';
+ import type { RailwayCrossings, RailwayApproach } from './railway-crossings';
++import { RailConflictReservations } from './rail-conflict-reservations';
+ 
+ // Suburban and express trains on the railway lines around the player: a locomotive and a rake of coaches that
+ // follow the curves of the track, spawned a little way off and running through.
+@@ -47,6 +48,7 @@
+   group = new THREE.Group(); trains: Train[] = []; t = 0; geos: Record<string, THREE.BufferGeometry> = {};
+   private nextTrain = 0; private frames = new MovingRailFrames();
+   private requestedStoryRun:Run|null=null;
++  private conflictReservations=new RailConflictReservations();
+   get bodies() { return this.frames.bodies; }
+   private crossings?: RailwayCrossings;
+   setCrossings(crossings: RailwayCrossings) { this.crossings = crossings; }
+@@ -213,6 +215,7 @@
+     if(rails.size)this.runsFor(rails);
+     if (this.trains.length < MAXT && this.t > 6 && rails.size) { this.t = 0; this.spawn(px, pz, rails); }
+     for(const train of this.trains)this.onward(train,rails);
++    this.conflictReservations.update(dt,this.trains);
+     const travelled=new Map(this.trains.map(train=>[train,0]));
+     // At turnouts or genuinely crossing mapped lines, reserve the swept whole
+     // rake before moving. Substeps bound rotation while priority lets one pass.
+@@ -220,8 +223,9 @@
+     for (let i = 0; i < steps; i++) {
+       const current = this.trains.map(t => this.shapes(t, t.s));
+       const distances = this.trains.map(t => {
+-        const limits=this.limits(t),remaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
+-        if(t.story&&remaining<.04&&t.v<.3){
++        const limits=this.limits(t),terminalRemaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
++        const remaining=Math.min(terminalRemaining,this.conflictReservations.stopDistance(t));
++        if(t.story&&terminalRemaining<.04&&t.v<.3){
+           t.v=0;t.story.dwell+=step;
+           if(t.story.dwell>=2.5){t.dir=-t.dir as RailDirection;t.story.dwell=0;t.cruise=16;}
+           return 0;
+--- /dev/null
++++ b/src/game/rail-conflict-reservations.ts
+@@ -0,0 +1,99 @@
++import { projectRailwayRun, type RailwayRun } from './railway-flow';
++import { createRailWindowJob, clusterRailConflictWindows, type RailConflictWindow, type RailWindowJob } from './rail-conflict-windows';
++export interface Train {id:string;run:RailwayRun;s:number;dir:1|-1;formationDir?:1|-1;v:number;cars:readonly unknown[]}
++const length=(t:Train)=>Math.max(0,t.cars.length-1)*23.4+22.5;
++const head=(t:Train)=>t.dir===(t.formationDir??t.dir)?t.s:t.s-(t.formationDir??t.dir)*length(t);
++const STOP_MARGIN=3,CLEAR_MARGIN=3;
++function state(t:Train,range:[number,number]){
++ const h=head(t),tail=h-t.dir*length(t),entry=t.dir>0?range[0]:range[1];
++ const occupied=Math.min(h,tail)<=range[1]+CLEAR_MARGIN&&Math.max(h,tail)>=range[0]-CLEAR_MARGIN;
++ const ahead=t.dir*(entry-h);return{occupied,ahead,passed:!occupied&&ahead<0};
++}
++interface Pair {
++ a:Train;b:Train;aRun:RailwayRun;bRun:RailwayRun;reach:number;windows:RailConflictWindow[];owners:Map<number,string>;
++ job:RailWindowJob;prepared:boolean;prepStops:Map<string,{s:number;dir:1|-1}>;
++}
++function transform(old:RailwayRun,next:RailwayRun){
++ if(old===next)return{sign:1,offset:0};
++ // Actual route appends, prepends and story adoption retain shared source
++ // segments, sometimes in reverse. Resolve their affine scalar mapping once.
++ const key=(p:number[])=>p.map(n=>n.toFixed(6)).join(','),indices=new Map<string,number[]>();
++ next.pts.forEach((p,i)=>{const k=key(p),list=indices.get(k)||[];list.push(i);indices.set(k,list);});
++ for(let i=0;i<old.pts.length-1;i++)for(const j of indices.get(key(old.pts[i]))||[])for(const sign of[1,-1]){
++  if(next.pts[j+sign]&&key(next.pts[j+sign])===key(old.pts[i+1]))return{sign,offset:next.cum[j]-sign*old.cum[i]};
++ }
++ const p=old.pts[0];return{sign:1,offset:p?projectRailwayRun(next,p[0],p[2]).s:0};
++}
++function mappedWindows(prior:Pair,a:RailwayRun,b:RailwayRun){
++ const ta=transform(prior.aRun,a),tb=transform(prior.bRun,b),range=(r:[number,number],t:typeof ta)=>{
++  const lo=r[0]*t.sign+t.offset,hi=r[1]*t.sign+t.offset;return[Math.min(lo,hi),Math.max(lo,hi)] as [number,number];
++ };
++ return prior.windows.map(w=>({a:range(w.a,ta),b:range(w.b,tb)}));
++}
++function preserveOwners(prior:Pair,next:Pair){
++ const old=mappedWindows(prior,next.aRun,next.bRun);
++ for(const [index,owner]of prior.owners)next.windows.forEach((w,k)=>{
++  const v=old[index];if(v.a[0]<=w.a[1]&&w.a[0]<=v.a[1]&&v.b[0]<=w.b[1]&&w.b[0]<=v.b[1]){
++   const existing=next.owners.get(k);if(!existing||owner<existing)next.owners.set(k,owner);
++  }
++ });
++}
++/** Cached finite coach-envelope windows; reservations are reconsidered at2Hz,
++ * remain owned until the whole rake clears, and never replace the live SAT.
++ */
++export class RailConflictReservations {
++ private prepared=new WeakMap<RailwayRun,WeakMap<RailwayRun,RailWindowJob>>();
++ private pairs=new Map<string,Pair>();private clock=0;private nextScan=0;
++ readonly diagnostics={bothCommitted:0};
++ private job(a:RailwayRun,b:RailwayRun){
++  let map=this.prepared.get(a);if(!map){map=new WeakMap();this.prepared.set(a,map);}
++  let job=map.get(b);if(!job){job=createRailWindowJob(a,b);map.set(b,job);}return job;
++ }
++ private prepStop(pair:Pair,t:Train){
++  let stop=pair.prepStops.get(t.id);
++  if(!stop||stop.dir!==t.dir){stop={s:head(t)+t.dir*(t.v*t.v/(2*1.5)+4),dir:t.dir};pair.prepStops.set(t.id,stop);}
++  return Math.max(0,(stop.s-head(t))*t.dir);
++ }
++ update(dt:number,trains:readonly Train[]){
++  this.clock+=Math.max(0,dt);const live=new Set<string>();let changed=false;
++  for(let i=0;i<trains.length;i++)for(let j=i+1;j<trains.length;j++){
++   const [a,b]=[trains[i],trains[j]].sort((x,y)=>x.id.localeCompare(y.id)),key=a.id+'|'+b.id;live.add(key);
++   const reach=Math.max(length(a),length(b))+20;let pair=this.pairs.get(key);
++   if(!pair||pair.aRun!==a.run||pair.bRun!==b.run||pair.reach!==reach){
++    const prior=pair;pair={a,b,aRun:a.run,bRun:b.run,reach,windows:prior?mappedWindows(prior,a.run,b.run):[],owners:prior?new Map(prior.owners):new Map(),
++     job:this.job(a.run,b.run),prepared:false,prepStops:new Map()};this.pairs.set(key,pair);changed=true;
++   }else{pair.a=a;pair.b=b;}
++   // Only cold preparation advances here, with a1ms/2048-operation chunk.
++   // While unknown, use the existing1.5m/s² braking curve to a fixed upstream
++   // signal, retaining current geometry, pose and any prior approach ownership.
++   if(!pair.job.ready){this.prepStop(pair,a);this.prepStop(pair,b);pair.job.step();}
++   if(pair.job.ready&&!pair.prepared){
++    const prior={...pair,windows:pair.windows,owners:pair.owners};pair.windows=clusterRailConflictWindows(pair.job.windows,reach);pair.owners=new Map();
++    preserveOwners(prior,pair);pair.prepared=true;changed=true;
++   }
++  }
++  for(const key of this.pairs.keys())if(!live.has(key)){this.pairs.delete(key);changed=true;}
++  if(!changed&&this.clock<this.nextScan)return;this.nextScan=this.clock+.5;
++  for(const pair of this.pairs.values())pair.windows.forEach((window,k)=>{
++   const {a,b}=pair,aa=state(a,window.a),bb=state(b,window.b);let owner=pair.owners.get(k);
++   if(owner&&(owner===a.id?aa:bb).passed){pair.owners.delete(k);owner=undefined;}
++   if(owner||aa.passed||bb.passed)return;
++   const horizon=Math.max(length(a),length(b))+Math.max(a.v*a.v,b.v*b.v)/(2*1.5)+40;
++   if(Math.min(aa.ahead,bb.ahead)>horizon)return;
++   if(aa.occupied&&bb.occupied)this.diagnostics.bothCommitted++;
++   owner=aa.occupied&&!bb.occupied?a.id:bb.occupied&&!aa.occupied?b.id:aa.ahead/Math.max(1,a.v)<=bb.ahead/Math.max(1,b.v)?a.id:b.id;
++   pair.owners.set(k,owner);
++  });
++ }
++ stopDistance(t:Train){
++  let distance=Infinity;
++  for(const pair of this.pairs.values())if(pair.a.id===t.id||pair.b.id===t.id){
++   if(!pair.job.ready)distance=Math.min(distance,this.prepStop(pair,t));
++   const isA=pair.a.id===t.id;
++   pair.windows.forEach((w,k)=>{const owner=pair.owners.get(k);if(!owner||owner===t.id)return;const s=state(t,isA?w.a:w.b);
++    if(!s.passed)distance=Math.min(distance,Math.max(0,s.ahead-STOP_MARGIN));
++   });
++  }return distance;
++ }
++ debug(){return[...this.pairs.values()].map(p=>({a:p.a.id,b:p.b.id,ready:p.job.ready,stats:p.job.stats,windows:p.windows,owners:[...p.owners]}));}
++}
+--- /dev/null
++++ b/src/game/rail-conflict-windows.ts
+@@ -0,0 +1,103 @@
++import { railwayPoint, type RailwayRun } from './railway-flow';
++export interface RailConflictWindow {a:[number,number];b:[number,number]}
++type Point=[number,number];
++interface Pose{x:number;y:number;z:number;hx:number;hz:number;grade:number;dx:number;dz:number;dy:number}
++interface Span{s0:number;s1:number;poly:Point[];loX:number;hiX:number;loZ:number;hiZ:number;bottom:number;roof:number}
++const CELL=24,HALF_LENGTH=11.25,HALF_WIDTH=1.57,PAD=.08;
++const shapes=new WeakMap<RailwayRun,Span[]>();
++function pose(run:RailwayRun,s:number):Pose{
++ const p=railwayPoint(run,s),a=railwayPoint(run,s-7),b=railwayPoint(run,s+7),l=Math.hypot(b.x-a.x,b.z-a.z);
++ return{x:p.x,y:p.y,z:p.z,hx:l>.01?(b.x-a.x)/l:p.hx,hz:l>.01?(b.z-a.z)/l:p.hz,grade:l>.01?(b.y-a.y)/l:Math.tan(p.pitch),dx:b.x-a.x,dz:b.z-a.z,dy:b.y-a.y};
++}
++function corners(p:Pose,h:Pose,pad:number):Point[]{
++ const out:Point[]=[];for(const along of[-HALF_LENGTH-pad,HALF_LENGTH+pad])for(const side of[-HALF_WIDTH-pad,HALF_WIDTH+pad])
++  out.push([p.x+h.hx*along-h.hz*side,p.z+h.hz*along+h.hx*side]);return out;
++}
++function hull(points:Point[]){
++ points.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
++ const cross=(a:Point,b:Point,c:Point)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
++ const half=(ps:Point[])=>{const h:Point[]=[];for(const p of ps){while(h.length>=2&&cross(h[h.length-2],h[h.length-1],p)<=0)h.pop();h.push(p);}return h;};
++ const a=half(points),b=half(points.slice().reverse());return a.slice(0,-1).concat(b.slice(0,-1));
++}
++function overlaps(a:Point[],b:Point[]){
++ for(const poly of[a,b])for(let i=0;i<poly.length;i++){
++  const p=poly[i],q=poly[(i+1)%poly.length],nx=q[1]-p[1],nz=p[0]-q[0];let amin=Infinity,amax=-Infinity,bmin=Infinity,bmax=-Infinity;
++  for(const r of a){const d=r[0]*nx+r[1]*nz;amin=Math.min(amin,d);amax=Math.max(amax,d);}
++  for(const r of b){const d=r[0]*nx+r[1]*nz;bmin=Math.min(bmin,d);bmax=Math.max(bmax,d);}
++  if(amax<=bmin||bmax<=amin)return false;
++ }return true;
++}
++function* spans(run:RailwayRun):Generator<void,Span[]>{
++ const cached=shapes.get(run);if(cached)return cached;
++ // Centre position and the two +/-7m heading samples are piecewise linear
++ // between these breakpoints. Heading turns monotonically inside each span.
++ const breaks=new Set([0,run.len]);for(const s of run.cum){breaks.add(s);breaks.add(Math.max(0,s-7));breaks.add(Math.min(run.len,s+7));yield;}
++ const points=[...breaks].sort((a,b)=>a-b),out:Span[]=[];let p0=pose(run,0);
++ for(let i=1;i<points.length;i++){
++  const count=Math.max(1,Math.ceil((points[i]-points[i-1])/5));
++  for(let k=0;k<count;k++){
++   const s0=points[i-1]+(points[i]-points[i-1])*k/count,s1=points[i-1]+(points[i]-points[i-1])*(k+1)/count,p1=pose(run,s1);
++   const angle=Math.acos(Math.max(-1,Math.min(1,p0.hx*p1.hx+p0.hz*p1.hz)));
++   // Independent endpoint translations/headings enclose their Minkowski sum.
++   // The corner-arc bow allowance encloses intermediate rotation as well.
++   const pad=PAD+Math.hypot(HALF_LENGTH,HALF_WIDTH)*(1-Math.cos(angle/2));
++   const poly=hull([...corners(p0,p0,pad),...corners(p0,p1,pad),...corners(p1,p0,pad),...corners(p1,p1,pad)]);
++   let loX=Infinity,hiX=-Infinity,loZ=Infinity,hiZ=-Infinity;
++   for(const p of poly){loX=Math.min(loX,p[0]);hiX=Math.max(hiX,p[0]);loZ=Math.min(loZ,p[1]);hiZ=Math.max(hiZ,p[1]);}
++   // The +/-7m chord is affine between heading breakpoints. Its minimum
++   // horizontal length and maximum endpoint |dy| conservatively bound grade,
++   // including an interior bend maximum, rather than assuming a flat coach.
++   const vx=p1.dx-p0.dx,vz=p1.dz-p0.dz,den=vx*vx+vz*vz;
++   const u=den?Math.max(0,Math.min(1,-(p0.dx*vx+p0.dz*vz)/den)):0;
++   const minChord=Math.hypot(p0.dx+u*vx,p0.dz+u*vz);
++   const grade=Math.max(Math.abs(p0.grade),Math.abs(p1.grade),Math.max(Math.abs(p0.dy),Math.abs(p1.dy))/Math.max(.01,minChord));
++   out.push({s0,s1,poly,loX,hiX,loZ,hiZ,bottom:Math.min(p0.y,p1.y)+.2-grade*HALF_LENGTH-.02,roof:Math.max(p0.y,p1.y)+4.175+grade*HALF_LENGTH+.02});
++   p0=p1;yield;
++  }
++ }
++ shapes.set(run,out);return out;
++}
++function cells(s:Span){const out:string[]=[];for(let x=Math.floor(s.loX/CELL);x<=Math.floor(s.hiX/CELL);x++)for(let z=Math.floor(s.loZ/CELL);z<=Math.floor(s.hiZ/CELL);z++)out.push(x+','+z);return out;}
++export function clusterRailConflictWindows(raw:readonly RailConflictWindow[],reach:number){
++ const windows:RailConflictWindow[]=[];
++ for(const w of raw){let m={a:[...w.a] as [number,number],b:[...w.b] as [number,number]},changed=true;
++  while(changed){changed=false;for(let i=windows.length-1;i>=0;i--){const v=windows[i];
++   if(m.a[0]<=v.a[1]+reach&&v.a[0]<=m.a[1]+reach&&m.b[0]<=v.b[1]+reach&&v.b[0]<=m.b[1]+reach){
++    m={a:[Math.min(m.a[0],v.a[0]),Math.max(m.a[1],v.a[1])],b:[Math.min(m.b[0],v.b[0]),Math.max(m.b[1],v.b[1])]};windows.splice(i,1);changed=true;
++   }
++  }}windows.push(m);
++ }return windows.sort((x,y)=>x.a[0]-y.a[0]||x.b[0]-y.b[0]);
++}
++export interface RailWindowJob {
++ ready:boolean;windows:RailConflictWindow[];
++ stats:{cpuMs:number;maxChunkMs:number;chunks:number;aSpans:number;bSpans:number;candidates:number;satCalls:number;rawConflicts:number};
++ step():void;
++}
++/** Prepare once in bounded chunks; no route forecast runs in an ordinary frame. */
++export function createRailWindowJob(a:RailwayRun,b:RailwayRun):RailWindowJob{
++ const stats={cpuMs:0,maxChunkMs:0,chunks:0,aSpans:0,bSpans:0,candidates:0,satCalls:0,rawConflicts:0};
++ const job:RailWindowJob={ready:false,windows:[],stats,step(){
++  if(job.ready)return;const start=performance.now();let n=0;
++  do{if(work.next().done){job.ready=true;break;}}while(++n<2048&&performance.now()-start<1);
++  const ms=performance.now()-start;stats.cpuMs+=ms;stats.maxChunkMs=Math.max(stats.maxChunkMs,ms);stats.chunks++;
++ }};
++ function* prepare():Generator<void>{
++  const aa=yield* spans(a),bb=yield* spans(b);stats.aSpans=aa.length;stats.bSpans=bb.length;
++  const grid=new Map<string,number[]>();
++  for(let i=0;i<aa.length;i++){for(const key of cells(aa[i])){const values=grid.get(key)||[];values.push(i);grid.set(key,values);}yield;}
++  const raw:RailConflictWindow[]=[];
++  for(const y of bb){
++   const seen=new Set<number>();for(const key of cells(y))for(const i of grid.get(key)||[])seen.add(i);
++   for(const i of seen){stats.candidates++;const x=aa[i];
++    if(x.hiX>y.loX&&y.hiX>x.loX&&x.hiZ>y.loZ&&y.hiZ>x.loZ&&x.bottom<y.roof&&y.bottom<x.roof){
++     stats.satCalls++;if(overlaps(x.poly,y.poly))raw.push({a:[x.s0,x.s1],b:[y.s0,y.s1]});
++    }yield;
++   }
++  }
++  stats.rawConflicts=raw.length;
++  // Source windows are few, but coalesce raw samples cooperatively too.
++  let merged:RailConflictWindow[]=[];for(const w of raw){merged=clusterRailConflictWindows([...merged,w],2);yield;}
++  job.windows=merged;
++ }
++ const work=prepare();return job;
++}
+--- /dev/null
++++ b/tests/v21-fixes/railway-turnout-interlock.test.ts
+@@ -0,0 +1,130 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import { initTemplates } from '../../src/core/util';
++import { RailTrains } from '../../src/game/rail';
++import { buildRailwayRun, projectRailwayRun, railwayPoint, railwaySweepsConflict, type RailwayRun, type RailwayTrack } from '../../src/game/railway-flow';
++import { buildRailwayStoryRoute } from '../../src/game/railway-story-route';
++import { railwayNetwork } from '../../src/world/railway-geometry';
++import { RailConflictReservations } from '../../src/game/rail-conflict-reservations';
++import { createRailWindowJob } from '../../src/game/rail-conflict-windows';
++
++initTemplates({rbox:new THREE.BoxGeometry(1,1,1)});
++const cars=(n:number)=>Array.from({length:n},()=>new THREE.Mesh());
++function line(id:string,z=0,y=0){const track:RailwayTrack={pts:[[0,z],[2000,z]],elev:[y,y]};return buildRailwayRun(new Map([[id,track]]),track);}
++
++/** Native stalled readout: rail0 9502m remaining/35ways, rail1 34237m
++ * remaining/49ways, adopted13-coach formation travelling in reverse. Start
++ * both500m upstream, rather than asking a new lease to untangle a committed
++ * state. The old one-substep interlock strands both after only~497m.
++ */
++for(const redCount of[8,13])test(`actual Khaitalpur narrow curve clears both ${redCount}/13-coach rakes without overlap`,()=>{
++ const network=railwayNetwork(),tracks=new Map(network.profiles.filter(r=>!r.service).map(r=>[r.id,r]));
++ const rail=new RailTrains(new THREE.MeshBasicMaterial()),story=buildRailwayStoryRoute()!;
++ const ordinary:RailwayRun=(rail as any).runsFor(tracks).find((r:RailwayRun)=>r.ways.length===35&&projectRailwayRun(r,-11225.44,-6350.93).d<2);
++ assert.ok(ordinary);assert.equal(story.ways.length,49);
++ const red={id:'rail:0',run:ordinary,s:ordinary.len-9502-500,dir:1 as const,v:16,cars:cars(redCount)};
++ const white={id:'rail:1',run:story,s:34237+500,dir:-1 as const,formationDir:1 as const,v:16,cars:cars(13),story:{active:true,dwell:0},
++  coachRoofs:[3.9,...Array(12).fill(4.175)],coachHalfLengths:[10.05,...Array(12).fill(11.25)]};
++ rail.trains.push(red,white);rail.group.add(...red.cars,...white.cars);
++ const initial=[red.s,white.s];let held=0,resumed=false;
++ for(let i=0;i<3000;i++){
++  const before=[red.s,white.s];rail.update(.05,-11225.44,-6350.93,new Map());
++  const a=rail.bodies.filter(b=>b.id.startsWith('rail:0:')),b=rail.bodies.filter(b=>b.id.startsWith('rail:1:'));
++  assert.equal(a.length,redCount);assert.equal(b.length,13);assert.ok(rail.trains.every(t=>t.cars.every(c=>c.visible)));
++  assert.equal(railwaySweepsConflict(a,a,b,b),false,`physical coach envelopes frame${i}`);
++  assert.ok(red.s-before[0]>=0&&red.s-before[0]<=.801,'no teleport or speed jump');
++  assert.ok(before[1]-white.s>=0&&before[1]-white.s<=.801,'reverse preserves formation');
++  if(red.v<.01)held++;else if(held)resumed=true;
++ }
++ assert.ok(red.s-initial[0]>1800,'loser resumes after the whole other rake clears');
++ assert.ok(initial[1]-white.s>2300,'owner traverses the complete narrow cluster');
++ assert.ok(held>20&&held<1800&&resumed,'bounded upstream wait, then actual progress');
++ assert.equal(white.formationDir,1);assert.equal(white.dir,-1);
++ assert.equal((rail as any).conflictReservations.diagnostics.bothCommitted,0,'lease acquired before both whole rakes commit');
++});
++
++for(const redCount of[8,13])test(`native HITEC startup adopts13 coaches, reverses at the terminal and clears the ordinary${redCount}-coach train`,()=>{
++ const tracks=new Map(railwayNetwork().profiles.filter(r=>!r.service).map(r=>[r.id,r]));
++ const rail=new RailTrains(new THREE.MeshBasicMaterial()),story=buildRailwayStoryRoute()!,runs:RailwayRun[]=(rail as any).runsFor(tracks);
++ const ordinary=runs.find(r=>r.ways.length===35&&projectRailwayRun(r,-11225.44,-6350.93).d<2)!;
++ const adopted=runs.find(r=>r.ways.length===53&&projectRailwayRun(r,-11225.44,-6350.93).d<4)!;
++ const initialHead=railwayPoint(story,story.len-446-11.25);
++ const red={id:'rail:0',run:ordinary,s:ordinary.len-11006,dir:1 as const,v:20,cars:cars(redCount)};
++ const sourceWhite={id:'rail:1',run:adopted,s:projectRailwayRun(adopted,initialHead.x,initialHead.z).s-11.25,dir:-1 as const,v:16,cars:cars(13)};
++ rail.trains.push(red,sourceWhite);rail.group.add(...red.cars,...sourceWhite.cars);rail.update(0,initialHead.x,initialHead.z,new Map());
++ const old=rail.bodies.filter(b=>b.id.startsWith('rail:1:')).map(b=>[b.id,b.x,b.y,b.z,b.hx,b.hz,b.roof,b.halfLength]);
++ assert.equal(rail.ensureStoryShuttle(story,initialHead),'rail:1');
++ rail.bodies.filter(b=>b.id.startsWith('rail:1:')).forEach((b,k)=>{
++  assert.equal(b.id,old[k][0]);for(const [j,value]of[b.x,b.y,b.z,b.hx,b.hz,b.roof,b.halfLength].entries())
++   assert.ok(Math.abs(value-Number(old[k][j+1]))<1e-7,'adoption preserves every actual rider roof/pose');
++ });
++ const white=rail.trains[1],startRed=red.s;assert.equal(white.formationDir,1);assert.equal(white.dir,1);
++ let reversed=false,held=0,minSpeed=20;
++ for(let i=0;i<4000;i++){
++  const rider=rail.storyCoach('rail:1')!;rail.update(.05,rider.x,rider.z,new Map());
++  const a=rail.bodies.filter(b=>b.id.startsWith('rail:0:')),b=rail.bodies.filter(b=>b.id.startsWith('rail:1:'));
++  assert.equal(a.length,redCount);assert.equal(b.length,13);assert.ok(rail.trains.every(t=>t.cars.every(c=>c.visible)));
++  assert.equal(railwaySweepsConflict(a,a,b,b),false,`startup coach envelopes frame${i}`);
++  reversed ||= white.dir===-1;minSpeed=Math.min(minSpeed,red.v);if(red.v<.01)held++;
++ }
++ assert.ok(reversed);assert.equal(white.dir,-1);assert.equal(white.formationDir,1);
++ assert.ok(red.s-startRed>2500,'ordinary rake clears the former native stop');
++ assert.ok(white.s<33300,'whole adopted reverse rake clears the complete turnout cluster');
++ assert.ok(minSpeed<20&&held<2000);assert.equal((rail as any).conflictReservations.diagnostics.bothCommitted,0);
++});
++
++for(const [name,z,y]of[['clear parallel',4,0],['grade separated',0,6.2]] as const)test(`${name} routes keep both trains moving without a false reservation`,()=>{
++ const rail=new RailTrains(new THREE.MeshBasicMaterial());
++ const a={id:'rail:a',run:line('a'),s:600,dir:1 as const,v:20,cars:cars(8)};
++ const b={id:'rail:b',run:line('b',z,y),s:1400,dir:-1 as const,v:20,cars:cars(13)};
++ rail.trains.push(a,b);for(let i=0;i<1000;i++){rail.update(0,1000,0,new Map());if((rail as any).conflictReservations.debug().every((p:any)=>p.ready))break;}
++ for(let i=0;i<100;i++)rail.update(.05,1000,0,new Map());
++ assert.ok(Math.abs(a.s-700)<1e-7);assert.ok(Math.abs(b.s-1300)<1e-7);
++ assert.ok((rail as any).conflictReservations.debug().every((p:any)=>p.windows.length===0));
++});
++
++test('a live reservation survives a route prepend without changing the winning train or stop distance',()=>{
++ const aTrack:RailwayTrack={pts:[[-500,0],[500,0]]},bTrack:RailwayTrack={pts:[[0,-500],[0,500]]};
++ const a={id:'a',run:buildRailwayRun(new Map([['a',aTrack]]),aTrack),s:400,dir:1 as const,v:16,cars:cars(8)};
++ const b={id:'b',run:buildRailwayRun(new Map([['b',bTrack]]),bTrack),s:300,dir:1 as const,v:16,cars:cars(8)};
++ const reservations=new RailConflictReservations();for(let i=0;i<1000;i++){reservations.update(0,[a,b]);if(reservations.debug().every(p=>p.ready))break;}
++ const stop=reservations.stopDistance(b);assert.ok(Number.isFinite(stop));assert.equal(reservations.stopDistance(a),Infinity);
++ const before:RailwayTrack={pts:[[-1000,0],[-500,0]]};a.run=buildRailwayRun(new Map([['before',before],['a',aTrack]]),aTrack);a.s+=500;
++ for(let i=0;i<1000;i++){reservations.update(.01,[a,b]);if(reservations.debug().every(p=>p.ready))break;}
++ assert.equal(reservations.stopDistance(a),Infinity);assert.ok(Math.abs(reservations.stopDistance(b)-stop)<1e-7,'same owner despite new run object/scalar origin');
++});
++
++test('yielding a story train at an interlock does not trigger its terminal reversal',()=>{
++ const aTrack:RailwayTrack={pts:[[-500,0],[500,0]]},bTrack:RailwayTrack={pts:[[0,-500],[0,500]]};
++ const rail=new RailTrains(new THREE.MeshBasicMaterial());
++ const a={id:'a',run:buildRailwayRun(new Map([['a',aTrack]]),aTrack),s:490,dir:1 as const,v:16,cars:cars(13)};
++ const b={id:'b',run:buildRailwayRun(new Map([['b',bTrack]]),bTrack),s:400,dir:1 as const,v:16,cars:cars(8),story:{active:true,dwell:0}};
++ rail.trains.push(a,b);let held=false,resumed=false;
++ for(let i=0;i<600;i++){rail.update(.05,0,0,new Map());if(b.v<.01)held=true;else if(held)resumed=true;assert.equal(b.dir,1);}
++ assert.ok(held&&resumed,'story train brakes and resumes through the genuine crossing');assert.equal(b.story.dwell,0);
++});
++
++test('cached coach envelopes include a shipped curved conflict whose source centrelines remain over3.5m apart',()=>{
++ const rail=new RailTrains(new THREE.MeshBasicMaterial()),tracks=new Map(railwayNetwork().profiles.filter(r=>!r.service).map(r=>[r.id,r]));
++ const story=buildRailwayStoryRoute()!,ordinary:RailwayRun=(rail as any).runsFor(tracks).find((r:RailwayRun)=>r.ways.length===35&&projectRailwayRun(r,-11225.44,-6350.93).d<2);
++ const p=railwayPoint(ordinary,31194),q=railwayPoint(story,29886);
++ assert.ok(projectRailwayRun(story,p.x,p.z).d>3.5);assert.ok(projectRailwayRun(ordinary,q.x,q.z).d>3.5);
++ const coach=(id:string,run:RailwayRun,s:number)=>({id,run,s:s+11.25,dir:1 as const,v:0,cars:cars(1),story:{active:true,dwell:0}});
++ const a=(rail as any).shapes(coach('a',ordinary,31194),31205.25),b=(rail as any).shapes(coach('b',story,29886),29897.25);
++ assert.equal(railwaySweepsConflict(a,a,b,b),true,'full coach corners conflict despite clear source centres');
++ const job=createRailWindowJob(ordinary,story);job.step();assert.equal(job.ready,false,'cold pair preparation yields instead of forecasting a whole route in one frame');
++ while(!job.ready)job.step();
++ assert.ok(job.windows.some(w=>w.a[0]<=31194&&w.a[1]>=31194&&w.b[0]<=29886&&w.b[1]>=29886));
++});
++
++test('prepared windows include the full sloped coach height rather than only its centre roof',()=>{
++ const aTrack:RailwayTrack={pts:[[0,0],[2000,0]],elev:[0,160]},bTrack:RailwayTrack={pts:[[0,0],[2000,0]],elev:[5,165]};
++ const aRun=buildRailwayRun(new Map([['a',aTrack]]),aTrack),bRun=buildRailwayRun(new Map([['b',bTrack]]),bTrack);
++ const rail=new RailTrains(new THREE.MeshBasicMaterial());
++ const coach=(id:string,run:RailwayRun)=>({id,run,s:1011.25,dir:1 as const,v:0,cars:cars(1),story:{active:true,dwell:0}});
++ const a=(rail as any).shapes(coach('a',aRun),1011.25),b=(rail as any).shapes(coach('b',bRun),1011.25);
++ assert.equal(railwaySweepsConflict(a,a,b,b),true,'grade makes the full coach envelopes overlap despite5m centre-level separation');
++ const job=createRailWindowJob(aRun,bRun);while(!job.ready)job.step();
++ assert.ok(job.windows.some(w=>w.a[0]<=1000&&w.a[1]>=1000&&w.b[0]<=1000&&w.b[1]>=1000));
++});

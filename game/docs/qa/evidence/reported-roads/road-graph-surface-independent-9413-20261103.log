@@ -1,0 +1,39 @@
+{"args":["scripts/test-v21-fixes.mjs","road-graph-surface"],"started":"2026-11-03T13:53:43.553Z"}
+✔ independent actual Float32 own-road support stays selected beneath foreign crossing sheets at city coordinates (102.691625ms)
+✔ warmed Y lookup does not iterate arrays, rescan raw points, or inspect the city/neighbor inventory (0.165125ms)
+✔ LRU residency and exact accounting survive eviction, removed objects and same-ID replacement (1.637167ms)
+✔ lane roots match actual emitted triangles on a changing-grade curve with exact old XZ/heading (97.130834ms)
+✔ flat and overhead layers stay exact; off-own-road and remote loop sheets cannot supply another height (3.31325ms)
+✔ only attached ramps invalidate ORR cached ribbons when added, removed or replaced (0.459208ms)
+✔ ribbon residency stays inside both edge and point budgets during a long drive (21.875875ms)
+✔ allocation-free shared quad sampler retains exact triangle order, tolerance and numerical results (1.734584ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.644375
+
+{"args":["scripts/test-v21-fixes.mjs","traffic-road-posture"],"started":"2026-11-03T13:53:43.919Z"}
+✔ actual bus mesh follows emitted rising/falling road planes at spawn and during normal traffic (1585.284166ms)
+ℹ {"group":"bus","minimumBody":0.12939069409496895,"worstContactChange":0.00006282139820257271,"baselineTyres":[0.032536354064941264,0.032536354064941264,0.032536354064941264,0.032536354064941264]}
+✔ actual auto mesh follows emitted rising/falling road planes at spawn and during normal traffic (971.849583ms)
+ℹ {"group":"auto","minimumBody":0.12458302627848994,"worstContactChange":0.000030299392058452668,"baselineTyres":[0.02601760873571024,0.02601760873571024,0.02601760873571024,0.02601760873571024]}
+✔ actual car mesh follows emitted rising/falling road planes at spawn and during normal traffic (618.0895ms)
+ℹ {"group":"car","minimumBody":0.08782226094614032,"worstContactChange":0.00003905969490602956,"baselineTyres":[0.027772655393928147,0.027772655393928147,0.027772655393928147,0.027772655393928147]}
+✔ visual road pitch rejects missing finite pavement, unavailable city and another overhead layer (2.026375ms)
+✔ paired normal traffic runs retain exact clocks, kinematics and headings with the visual correction (75.296ms)
+✔ player and jump overlap follows the actual pitched bus locally at its nose, middle and tail (10.525208ms)
+✔ flat traffic player bounds retain their exact prior vertical interval (1.502458ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3542.204292
+
+{"args":["node_modules/typescript/bin/tsc","--noEmit"],"started":"2026-11-03T13:53:47.580Z"}

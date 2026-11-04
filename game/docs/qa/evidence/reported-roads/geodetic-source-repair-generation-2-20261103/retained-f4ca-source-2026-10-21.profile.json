@@ -1,0 +1,84 @@
+{
+    "total_bytes_written": 0,
+    "total_bytes_read": 277556758,
+    "rows_returned": 1,
+    "latency": 27.347224667,
+    "result_set_size": 1206060,
+    "cumulative_rows_scanned": 1441349632,
+    "cpu_time": 104.972011543,
+    "extra_info": {},
+    "system_peak_buffer_memory": 346501376,
+    "blocked_thread_time": 0.0,
+    "cumulative_cardinality": 2,
+    "system_peak_temp_dir_size": 0,
+    "query_name": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,access_restrictions,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18 AND substring(id,1,12) IN ('f4ca0bc7-9b6')",
+    "children": [
+        {
+            "total_bytes_written": 0,
+            "result_set_size": 1206060,
+            "operator_timing": 0.000241959,
+            "operator_rows_scanned": 0,
+            "cumulative_rows_scanned": 1441349632,
+            "operator_cardinality": 1,
+            "operator_type": "PROJECTION",
+            "total_bytes_read": 0,
+            "operator_name": "PROJECTION",
+            "cpu_time": 104.972011543,
+            "extra_info": {
+                "Projections": [
+                    "id",
+                    "name",
+                    "class",
+                    "width_rules",
+                    "level_rules",
+                    "road_flags",
+                    "access_restrictions",
+                    "connectors",
+                    "sources",
+                    "geometryWKB",
+                    "bbox"
+                ],
+                "Estimated Cardinality": "72067481"
+            },
+            "cumulative_cardinality": 2,
+            "children": [
+                {
+                    "cumulative_cardinality": 1,
+                    "extra_info": {
+                        "Function": "READ_PARQUET",
+                        "Projections": [
+                            "bbox",
+                            "id",
+                            "names.primary",
+                            "class",
+                            "width_rules",
+                            "level_rules",
+                            "road_flags",
+                            "access_restrictions",
+                            "connectors",
+                            "sources",
+                            "geometry"
+                        ],
+                        "Filters": [
+                            "bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18",
+                            "(\"substring\"(id, 1, 12) IN ('f4ca0bc7-9b6'))"
+                        ],
+                        "Estimated Cardinality": "72067481",
+                        "Total Files Read": "128"
+                    },
+                    "operator_name": "READ_PARQUET ",
+                    "cpu_time": 104.971769584,
+                    "cumulative_rows_scanned": 1441349632,
+                    "operator_rows_scanned": 1441349632,
+                    "operator_timing": 104.971769584,
+                    "result_set_size": 7350092,
+                    "total_bytes_read": 0,
+                    "operator_type": "TABLE_SCAN",
+                    "total_bytes_written": 0,
+                    "operator_cardinality": 1,
+                    "children": []
+                }
+            ]
+        }
+    ]
+}

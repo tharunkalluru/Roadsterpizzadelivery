@@ -1,0 +1,28 @@
+{
+  "observer": "container-underwater-independent-review",
+  "url": "http://127.0.0.1:4201/?qaDelivery=1&qaCampaign=1&qaCampaignMode=full",
+  "artPreview": false,
+  "observations": [
+    {
+      "path": "docs/delivery/gameplay-review/normal-start-independent-2026-10-31/02-normal-driving.png",
+      "sha256": "f14efefe83b903d728725023cf83baf0a3d19386f83c30896e62580898cbd30b",
+      "capturedAt": "2026-10-31T15:06:16.124355+00:00"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/normal-start-independent-2026-10-31/01-normal-start-ready.png",
+      "sha256": "796c0afe9896782d25458b147e4716b8cfc9ce8a06bce92ca89301e06f77916b",
+      "capturedAt": "2026-10-31T15:06:14.463032+00:00"
+    }
+  ],
+  "actualFlow": [
+    "Intro visible",
+    "Play clicked",
+    "Normal area placement finishes at Inner Ring Road",
+    "City/player/traffic visible",
+    "Full campaign staging disabled",
+    "Native W1200ms reaches13kmh AX/11kmh screenshot",
+    "Space650ms stops0kmh"
+  ],
+  "relocationFailureObserved": false,
+  "limits": "Desktop Safari startup/control check only. No pickup, full campaign, phone transport recovery, actual physical phone, FPS, thermal or battery claim."
+}

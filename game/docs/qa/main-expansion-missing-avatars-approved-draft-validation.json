@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "scope": "Structural validation of independently reached verdicts plus exact evidence hashes; not an automated likeness judgment. Proposed public model/rig files remain Root copy-and-test responsibility.",
+  "draftPath": "docs/delivery/character-review/production/final-avatars-20261102/independent-approved-records-draft.json",
+  "draftSha256": "f093c531a9ec80be711d45aac62231f874e18aa04f147461f1080afc2f4dbe1c",
+  "decisions": [
+    {
+      "characterId": "srikanth-odela",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "structuralReleaseDecision": {
+        "allowed": true,
+        "status": "approved",
+        "reasons": [
+          "Exact candidate passed the recorded independent film-reference review."
+        ]
+      },
+      "allReferenceEvidenceSceneImageBytesMatch": true,
+      "publicCandidateFilesCopiedOrTested": false
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "structuralReleaseDecision": {
+        "allowed": true,
+        "status": "approved",
+        "reasons": [
+          "Exact candidate passed the recorded independent film-reference review."
+        ]
+      },
+      "allReferenceEvidenceSceneImageBytesMatch": true,
+      "publicCandidateFilesCopiedOrTested": false
+    }
+  ],
+  "registryEdited": false
+}

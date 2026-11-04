@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-31T22:58:28.725139+00:00",
+  "auditType": "Read-only static source audit; this new audit record is the only repository file written by this auditor.",
+  "auditor": "release_readiness_audit subagent",
+  "sourceRoot": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes",
+  "sourceCommitAtAudit": "2c58b8e3d96ff44b1981c4b23814803bf9a3f766",
+  "sourceDirtyAtAudit": true,
+  "scope": [
+    "Build identity and shipped-input coverage",
+    "Character release-gate completeness",
+    "Selected source inventory and protected hosting bindings",
+    "Actor and GPU-borrow retention/disposal",
+    "Metro parking geometry and repeated-dwell work",
+    "Fourteen-scene configuration and active UI/reward guards"
+  ],
+  "boundaries": {
+    "sourceProjectMustRemainUntouched": "appgprj_6adaefe0993481918802134463afcaab",
+    "isolatedReleaseProjectObserved": "appgprj_6ae38c10537881919bc51535241d4207",
+    "isolatedCheckout": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+    "browserOrUIUsed": false,
+    "pushOrDeploymentPerformed": false,
+    "artVerdictGranted": false,
+    "physicalDeviceTestPerformed": false,
+    "fpsThermalBatteryClaim": false
+  },
+  "findings": [
+    {
+      "id": "STATIC-01",
+      "severity": "release-provenance",
+      "state": "Bounded parent fix inspected in current source; final release build pending.",
+      "before": [
+        {
+          "path": "scripts/build.mjs",
+          "lines": [
+            16,
+            25
+          ],
+          "problem": "Previously emitted only git HEAD, which did not identify dirty or untracked source and asset changes."
+        },
+        {
+          "path": "vite.config.ts",
+          "lines": [
+            5,
+            8
+          ],
+          "problem": "Previous inline fingerprint covered public/city but omitted other shipped public assets, including character models, portraits and scenes."
+        }
+      ],
+      "fixInspected": [
+        {
+          "path": "scripts/build-fingerprint.mjs",
+          "lines": [
+            7,
+            20
+          ],
+          "result": "Shared helper hashes all src, worker and public files plus executable build/configuration inputs; rejects linked entries in traversed directories."
+        },
+        {
+          "path": "vite.config.ts",
+          "lines": [
+            2,
+            4
+          ],
+          "result": "Runtime build identity uses the shared helper."
+        },
+        {
+          "path": "scripts/build.mjs",
+          "lines": [
+            18,
+            25
+          ],
+          "result": "build-info records sourceDirty and exact buildFingerprint alongside HEAD and campaign release name."
+        },
+        {
+          "path": "tests/v21-fixes/build-fingerprint.test.ts",
+          "result": "Existing fixture now checks model, portrait, scene, font and executable invalidation, stable identity after restoration, documentation exclusion and linked-public-input rejection."
+        }
+      ],
+      "validationAttribution": "Parent reported both new fingerprint regressions passing; auditor independently read the resulting helper, build code and tests. Auditor did not rerun the full suite."
+    },
+    {
+      "id": "STATIC-02",
+      "severity": "visible-delivery-behaviour",
+      "state": "Bounded parent fix inspected in current source; native final-scene confirmation remains separate.",
+      "before": [
+        {
+          "path": "src/delivery/content/levels.json",
+          "lines": [
+            294,
+            299
+          ],
+          "problem": "Production metroRide moduleParams omitted immersiveHandoff, so ModuleBase.beginHandoff completed immediately without the physical carton pass."
+        },
+        {
+          "path": "src/delivery/modules/base.ts",
+          "lines": [
+            115,
+            118
+          ],
+          "problem": "The immediate-completion fallback applies when immersiveHandoff is absent."
+        },
+        {
+          "path": "tests/v21-fixes/metro-ride.test.ts",
+          "lines": [
+            17,
+            19
+          ],
+          "problem": "Previous fixture hardcoded immersiveHandoff:true and therefore did not exercise the production omission."
+        }
+      ],
+      "fixInspected": [
+        {
+          "path": "src/delivery/content/levels.json",
+          "lines": [
+            294,
+            299
+          ],
+          "result": "Production Level10 now explicitly enables immersiveHandoff."
+        },
+        {
+          "path": "tests/v21-fixes/metro-ride.test.ts",
+          "lines": [
+            18,
+            19
+          ],
+          "result": "Existing metro fixture now supplies the real production moduleParams."
+        }
+      ],
+      "validationAttribution": "Parent reported18/18 metro regressions passing. Auditor independently read production configuration and revised fixture; no visual or likeness verdict is inferred."
+    }
+  ],
+  "otherStaticObservations": [
+    {
+      "path": "tests/v21-fixes/character-runtime-gate.test.ts",
+      "lines": [
+        21,
+        28
+      ],
+      "result": "Full check:release already asserts exactly15 appearance decisions, the four distinct Level10 identities and actor-free Level4/12. No redundant completeness test proposed."
+    },
+    {
+      "path": "src/delivery/art/released-gltf.ts",
+      "lines": [
+        169,
+        225,
+        231,
+        303
+      ],
+      "result": "Warm jobs are deduplicated and limited to2; stale/cancelled work cannot install templates. Live instances and GPU borrows defer shared resource disposal until release."
+    },
+    {
+      "path": "src/delivery/runtime.ts",
+      "lines": [
+        145,
+        151,
+        275,
+        278,
+        560,
+        589
+      ],
+      "result": "Preparation changes on story selection/retry, completed scenery is capped at2 and removed after leaving its bounded area, and runtime disposal releases scenes and retained assets."
+    },
+    {
+      "path": "src/delivery/metro-platform.ts",
+      "lines": [
+        49,
+        93
+      ],
+      "result": "Parking follows the same finite10m platform chords as City surfaces, checks the whole car polygon and excludes guards, benches and passenger row. It does not add station geometry."
+    },
+    {
+      "path": "src/delivery/modules/metro-ride.ts",
+      "lines": [
+        73,
+        80,
+        106,
+        129
+      ],
+      "result": "An unavailable station is cached during a dwell, preventing repeated polygon-placement work each frame; retry resumes at a different actual station."
+    },
+    {
+      "path": "src/world/city.ts",
+      "lines": [
+        1409,
+        1417
+      ],
+      "result": "Rendered/collision platform chord geometry matches the new source-based handoff helper."
+    },
+    {
+      "path": "src/delivery/content/levels.json",
+      "result": "Inspected14 ordered scenes with callMode NONE and empty scripts. Active names/destinations omit Mahesh/IMAX and Rajamouli/Film City. Two anonymous scenes intentionally have no named visible actor requirement."
+    },
+    {
+      "path": "src/game/game.ts",
+      "lines": [
+        74,
+        263,
+        288,
+        387,
+        1312
+      ],
+      "result": "Active carrier campaign bypasses legacy coin reward/save/order-offer paths and hides coin updates; no money reward is introduced by these scene changes."
+    },
+    {
+      "path": "src/main.ts",
+      "lines": [
+        52,
+        87,
+        88
+      ],
+      "result": "QA/candidate review entry remains DEV-gated. Build imports through this guarded path can be tree-shaken; final built-output exclusion still requires release-build inspection."
+    }
+  ],
+  "inventoryObservedBeforeParentFinalEdits": {
+    "command": "python3 /tmp/roadster-inventory-final-source.py --output-prefix /tmp/roadster-auditor-source-inventory",
+    "selectedFiles": 1761,
+    "selectedBytes": 553624646,
+    "missingOrHashMismatches": [],
+    "blockedRequiredSensitivePaths": [],
+    "changedDuringHashing": [],
+    "excludedTrackedProtectedFiles": [
+      ".openai/deployment-source.json",
+      ".openai/hosting.json"
+    ],
+    "rawModelSourcesOrWeightsSelected": false,
+    "selectedFileAbove20MB": false,
+    "note": "This inventory predates the parent fingerprint/metro fixes and this record. Re-run the final manifest after final registration and source changes; preserve the isolated checkout hosting binding."
+  },
+  "currentArtSnapshotForReleaseGateOnly": {
+    "configuredScenes": 14,
+    "requiredVisibleAppearances": 15,
+    "registeredAssets": 11,
+    "recordedApprovedIdentities": 11,
+    "note": "Observed11/15 public registration while final metro work remains in progress. This static audit neither creates nor extends a visual approval."
+  },
+  "remainingRequiredVerification": [
+    "Finish exact final-metro independent registration and update final written status.",
+    "Run npm run check:release after final source integration; this auditor did not claim the complete gate passed.",
+    "Re-run final source inventory with --require-complete, copy only the selected source into the isolated checkout and preserve its own hosting binding.",
+    "Build from the final source snapshot and verify build-info identity plus DEV/candidate/raw-asset exclusion in the produced deployment artifact.",
+    "Keep manual pickup/travel/handoff and physical-device acceptance separate from static tests and assisted scene evidence."
+  ],
+  "conclusion": "The two concrete omissions above received bounded parent fixes that this auditor read. No additional concrete unbounded frame-loop or actor/GPU lease leak was identified by this static review. This is not measured performance, full-campaign acceptance or deployment authorization.",
+  "packagingMigrationNote": {
+    "finding": "Source .gitignore is minimal, while the isolated checkout has additional credential/private-evidence safeguards. The source manifest currently selects .gitignore, so a naive overwrite would discard those destination safeguards.",
+    "paths": [
+      ".gitignore",
+      "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release/.gitignore",
+      "/tmp/roadster-inventory-final-source.py"
+    ],
+    "requiredHandling": "Preserve the isolated checkout .gitignore and merge unique needed source patterns without removing destination safeguards. Preserve the isolated .openai hosting binding separately as already required.",
+    "manifestDeviation": "The .gitignore bytes may intentionally differ from the source inventory; record the preserved/merged destination file as an explicit packaging deviation and inspect its final diff.",
+    "verificationAttribution": "Parent identified the migration detail; auditor independently read the isolated checkout .gitignore. Final copy/diff verification remains parent work."
+  }
+}

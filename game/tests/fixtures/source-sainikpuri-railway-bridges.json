@@ -1,0 +1,525 @@
+{
+  "scope": "Literal source-bound Sainikpuri example for real producer tests; variant tests must fail closed. No delivery runtime data.",
+  "model": {
+    "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+    "roads": [
+      {
+        "id": "1f1fb6e4-96b_0",
+        "name": "Sainikpuri Road",
+        "cls": "secondary",
+        "w": 7.6,
+        "lanes": 2,
+        "oneway": "backward",
+        "from": "844ec581-989",
+        "to": "d5fc454d-144",
+        "pts": [
+          [
+            3989.2,
+            -8223.3
+          ],
+          [
+            3943.1,
+            -8194.9
+          ],
+          [
+            3908.5,
+            -8168
+          ],
+          [
+            3886.1,
+            -8147.4
+          ],
+          [
+            3862.7,
+            -8124.3
+          ],
+          [
+            3829.3,
+            -8098.8
+          ]
+        ],
+        "elev": null,
+        "maxspeed": 60
+      },
+      {
+        "id": "099d0989-5fe_0",
+        "name": "Sainikpuri Road",
+        "cls": "secondary",
+        "w": 7.6,
+        "lanes": 2,
+        "oneway": "backward",
+        "from": "2fb828ad-1eb",
+        "to": "53824e84-242",
+        "pts": [
+          [
+            3822.3,
+            -8098.7
+          ],
+          [
+            3823.7833333333333,
+            -8099.9625
+          ],
+          [
+            3825.266666666667,
+            -8101.224999999999
+          ],
+          [
+            3826.75,
+            -8102.4875
+          ],
+          [
+            3828.2333333333336,
+            -8103.75
+          ],
+          [
+            3829.7166666666667,
+            -8105.0125
+          ],
+          [
+            3831.2000000000003,
+            -8106.275
+          ],
+          [
+            3832.6833333333334,
+            -8107.537499999999
+          ],
+          [
+            3834.166666666667,
+            -8108.8
+          ],
+          [
+            3835.65,
+            -8110.0625
+          ],
+          [
+            3837.1333333333337,
+            -8111.325
+          ],
+          [
+            3838.616666666667,
+            -8112.5875
+          ],
+          [
+            3840.1000000000004,
+            -8113.85
+          ],
+          [
+            3841.5833333333335,
+            -8115.1125
+          ],
+          [
+            3843.0666666666666,
+            -8116.375
+          ],
+          [
+            3844.55,
+            -8117.6375
+          ],
+          [
+            3846.0333333333333,
+            -8118.9
+          ],
+          [
+            3847.516666666667,
+            -8120.1625
+          ],
+          [
+            3849,
+            -8121.425
+          ],
+          [
+            3850.4833333333336,
+            -8122.6875
+          ],
+          [
+            3851.9666666666667,
+            -8123.95
+          ],
+          [
+            3853.4500000000003,
+            -8125.2125
+          ],
+          [
+            3854.9333333333334,
+            -8126.475
+          ],
+          [
+            3856.416666666667,
+            -8127.7375
+          ],
+          [
+            3857.9,
+            -8129
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.0007232036461095295,
+          0.0006077400256363837,
+          0.0005023042137512939,
+          0.0004068985942395168,
+          0.0003215255508863097,
+          0.0002461874674769291,
+          0.00018088672779663248,
+          0.0001256257156306769,
+          8.040681476431853e-05,
+          4.5232408982814374e-05,
+          2.010488207142207e-05,
+          5.026617815397859e-06,
+          0
+        ],
+        "maxspeed": 60
+      }
+    ],
+    "profiles": [
+      {
+        "id": "w1308294352",
+        "pts": [
+          [
+            3801.5,
+            -8114.2
+          ],
+          [
+            3819.0666666666666,
+            -8110
+          ],
+          [
+            3836.633333333333,
+            -8105.8
+          ],
+          [
+            3854.2,
+            -8101.6
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bridge": true,
+        "service": false,
+        "source": {
+          "id": "w1308294352",
+          "k": "rail",
+          "t": {
+            "bridge": "yes",
+            "layer": "1",
+            "railway": "rail",
+            "usage": "main"
+          },
+          "l": [
+            [
+              3801.5,
+              -8114.2
+            ],
+            [
+              3854.2,
+              -8101.6
+            ]
+          ]
+        },
+        "bounds": [
+          3801.5,
+          3854.2,
+          -8114.2,
+          -8101.6
+        ]
+      },
+      {
+        "id": "w363962863",
+        "pts": [
+          [
+            3852.2,
+            -8094
+          ],
+          [
+            3834.8666666666663,
+            -8098.433333333333
+          ],
+          [
+            3817.5333333333333,
+            -8102.866666666667
+          ],
+          [
+            3800.2,
+            -8107.3
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bridge": true,
+        "service": false,
+        "source": {
+          "id": "w363962863",
+          "k": "rail",
+          "t": {
+            "bridge": "yes",
+            "layer": "1",
+            "railway": "rail",
+            "usage": "main"
+          },
+          "l": [
+            [
+              3852.2,
+              -8094
+            ],
+            [
+              3800.2,
+              -8107.3
+            ]
+          ]
+        },
+        "bounds": [
+          3800.2,
+          3852.2,
+          -8107.3,
+          -8094
+        ]
+      }
+    ]
+  },
+  "source-data": {
+    "generationID": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+    "origin": {
+      "lat": 17.4063,
+      "lon": 78.4966,
+      "NR": 6380050.094,
+      "MR": 6341141.9
+    }
+  },
+  "source-reference": {
+    "complete": true,
+    "missingPrefixes": [],
+    "requestedPrefixes": [
+      "099d0989-5fe",
+      "1f1fb6e4-96b"
+    ],
+    "rows": [
+      {
+        "id": "099d0989-5fe5-46a4-9fc7-3884a0bb59aa",
+        "name": "Sainikpuri Road",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "access_restrictions": [
+          {
+            "access_type": "denied",
+            "when": {
+              "during": null,
+              "heading": "backward",
+              "using": null,
+              "recognized": null,
+              "mode": null,
+              "vehicle": null
+            },
+            "between": null
+          }
+        ],
+        "connectors": [
+          {
+            "connector_id": "2fb828ad-1eb9-40a3-9926-eed47cbcc61b",
+            "at": 0.0
+          },
+          {
+            "connector_id": "53824e84-2423-44f1-b9fb-180703c42c2d",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w22839714@20",
+            "update_time": "2026-09-30T12:53:21Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "010200000002000000E36E10AD15A253405DB8BDEEBE7A3140B7F1272A1BA2534006BF68EAD07A3140",
+        "bbox": {
+          "xmin": 78.5325698852539,
+          "xmax": 78.53292083740234,
+          "ymin": 17.479475021362305,
+          "ymax": 17.479751586914062
+        }
+      },
+      {
+        "id": "1f1fb6e4-96b1-4e6e-a068-e0a6c43bfc47",
+        "name": "Sainikpuri Road",
+        "class": "secondary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "access_restrictions": [
+          {
+            "access_type": "denied",
+            "when": {
+              "during": null,
+              "heading": "backward",
+              "using": null,
+              "recognized": null,
+              "mode": null,
+              "vehicle": null
+            },
+            "between": null
+          }
+        ],
+        "connectors": [
+          {
+            "connector_id": "844ec581-989a-4696-b258-66435b706c43",
+            "at": 0.0
+          },
+          {
+            "connector_id": "d5fc454d-144b-409a-b7fa-657b31e6518b",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w314538639@12",
+            "update_time": "2026-09-30T12:53:21Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "0102000000060000007D36BC6A2FA253403DE5E2B9087B3140D421815028A253400AC7E2EDF77A3140CA2CE7F722A25340A738B302E87A3140972595841FA2534013D2BFC9DB7A3140A4B1ACEA1BA2534031A6AA1ACE7A3140B343FCC316A25340CE2BE807BF7A3140",
+        "bbox": {
+          "xmin": 78.53263854980469,
+          "xmax": 78.5341567993164,
+          "ymin": 17.479476928710938,
+          "ymax": 17.480602264404297
+        }
+      }
+    ]
+  },
+  "current-rail-source": {
+    "wayIDs": [
+      363962863,
+      1308294352
+    ],
+    "ways": [
+      {
+        "type": "way",
+        "id": 363962863,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 4,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179,
+        "nodes": [
+          3680705143,
+          3680705144
+        ],
+        "tags": {
+          "bridge": "yes",
+          "bridge:structure": "beam",
+          "electrified": "contact_line",
+          "frequency": "50",
+          "gauge": "1676",
+          "layer": "1",
+          "railway": "rail",
+          "usage": "main",
+          "voltage": "25000"
+        }
+      },
+      {
+        "type": "way",
+        "id": 1308294352,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 1,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179,
+        "nodes": [
+          12115419914,
+          12115419913
+        ],
+        "tags": {
+          "bridge": "yes",
+          "bridge:structure": "beam",
+          "electrified": "contact_line",
+          "frequency": "50",
+          "gauge": "1676",
+          "layer": "1",
+          "railway": "rail",
+          "usage": "main",
+          "voltage": "25000"
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": 3680705143,
+        "lat": 17.479434,
+        "lon": 78.532855,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 2,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179
+      },
+      {
+        "type": "node",
+        "id": 3680705144,
+        "lat": 17.4795536,
+        "lon": 78.5323651,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 2,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179
+      },
+      {
+        "type": "node",
+        "id": 12115419913,
+        "lat": 17.4795026,
+        "lon": 78.5328738,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 1,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179
+      },
+      {
+        "type": "node",
+        "id": 12115419914,
+        "lat": 17.4796162,
+        "lon": 78.5323779,
+        "timestamp": "2024-08-16T16:50:20Z",
+        "version": 1,
+        "changeset": 155337529,
+        "user": "ika-chan!",
+        "uid": 4763179
+      }
+    ]
+  }
+}

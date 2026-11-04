@@ -1,0 +1,51 @@
+{
+  "schema": "held-v34-solve-state-replay-audit-v1",
+  "releaseApproved": false,
+  "contextSHA256": "0e48c25e734365244b6933029bbc2514d4b9469cadc53043b3d94d59c8f6de91",
+  "solverSHA256": "46219d8cb566ff117895507fd4e43219bc5a498a7e225cb2617a59392a0fad6e",
+  "summaries": [
+    {
+      "grade": 0.075,
+      "constraints": 4017026,
+      "directConflicts": 22796,
+      "status": 2,
+      "success": false,
+      "allStateFieldsBitExactAfterSolve": true
+    },
+    {
+      "grade": 0.1,
+      "constraints": 4017026,
+      "directConflicts": 22778,
+      "status": 2,
+      "success": false,
+      "allStateFieldsBitExactAfterSolve": true
+    }
+  ],
+  "allStateFieldSHA256": {
+    "args": "e4f663255341bc71d866264eb830d3a740728e9a60322f47de88f6ff1fc38ce6",
+    "N": "caf158f06883df6b6cd186f618d8933a0487921010d105537198754d7524f412",
+    "O": "ab4bf8283fce0d54814bcd9195ace7e3636d1e5d3b38e6797ee867851fd23dc0",
+    "varIds": "26e292d1f73263383c696cdea3f01ca77e9653fe07764a943d1c02cf94f46ee1",
+    "arcs": "daf58a650a89ccb746e563186355b989d90decd64150f8b331cc5c3b4cf3a554",
+    "bounds": "0ec618b3457d474ecd2c91546e1ba458939d0b14ce415ff0a69475731ef49b9f",
+    "base": "79737761e2ffd45e68be2286aed6c6780476475dc922762e9d07c2d9c4db6a8c",
+    "tileIds": "33a1b384a78722321d689b4950b79f3f8f7f2a7983f7e7d775cd57fff1011621",
+    "protected": "de6bc769d404852f3638f2f2258996368682060c0ef20fc9a4d88ef1df6ae77f",
+    "underpassIds": "9347a3872a907f8579e7aea7c69999486109d74a752bf26879428e82e173d58c",
+    "head_expressions": "18cac4f35e009f289a294a3445cee987cfecc478850fd0fa870ae97b024f3231",
+    "coupling_expressions": "8e8fc083b639a50a50d78a27565c33632d5bf79f08ddaaf9bc0fd714cf33f91d",
+    "variableNodeRows": "8208de85ef01cbb9f5b36146fe5a0ace420cf53c1237fe4ed5b9c9a5887a4450",
+    "jointNodeCouplings": "bd8651a166725b3546624dad4aacedf3a1259f59e45547776751f46310e4c39e",
+    "jointTileIds": "33a1b384a78722321d689b4950b79f3f8f7f2a7983f7e7d775cd57fff1011621",
+    "canonicalRailControls": "e5df8159399acaa3f92a58a2640724c5987d186e36b64dc6857f18003d74696e",
+    "sourceDistanceAtControls": "3da5bcb52222d86d8eb4bae9a5018c5d45d2dace89a943854db36f7e9bae97eb",
+    "generatedFacilityPolicies": "8a65a56c4ea75a8f08bac49679ca5263bc6eca2e647fc6213c75edcda858412b",
+    "roads": "61de693df749bdcc742ffd5aac40de981ac2651864a9cd4066e8b6f417714c8c",
+    "footprints": "0ffeceb6f04439da1ee0bce5e1caa3dcf654c58d38aa5d6a377e461a822f337c",
+    "joint": "5280fce43ea9afbd61ec2c2a16c35118af29eafa08aa2f5f714e54dc9cceb5ae",
+    "stage": "d6543972ae26d0e8c34be41a9a444f7098e270e2d5db32080e3ed5af5ee41da7"
+  },
+  "fallbackDirectConflictRowsExactlyEqualBaseline": true,
+  "generatorSHA256": "567ce2d61397e8e946457ffb355ccc83c45e0dc5afa619b40d6d1dc59d20029f",
+  "scope": "Actual held solve(.075) then solve(.1), no bound/height/geometry/state mutations; no profile output or approval."
+}

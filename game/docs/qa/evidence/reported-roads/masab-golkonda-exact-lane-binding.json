@@ -1,0 +1,101 @@
+{
+  "inputArtifact": "/tmp/reported-road-conservative-coherent-masab-narrow-preconditioning.json",
+  "inputSHA256": "667d8f530e90381a5e3f01aa850fd50c578286768ae9b1551ada459f3eca48f5",
+  "scope": "Exact retained connector/source-way fractions mapped from immutable raw source arclength to final modeled arclength via each road sourceArc array. This changes evidence bounds only, not XYZ, width, height, or graph.",
+  "roads": [
+    {
+      "id": "51b5e834-d21_0",
+      "previous": [
+        {
+          "from": 0,
+          "to": 201.16164602960455,
+          "lanes": 3,
+          "oneway": true,
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/313512532/20.json"
+        }
+      ],
+      "exactModelIntervals": [
+        {
+          "from": 0.03544854022677072,
+          "to": 201.16164602960458,
+          "lanes": 3,
+          "oneway": true,
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/313512532/20.json"
+        }
+      ],
+      "rawSourceIntervals": [
+        {
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/313512532/20.json",
+          "wayVersion": "313512532@20",
+          "segmentBetween": [
+            0.0,
+            1.0
+          ],
+          "edgeMetres": [
+            0.03544854022677072,
+            201.17447157637616
+          ],
+          "projectionMaximumErrorMetres": 0.04139497449040518,
+          "lanesTag": "3",
+          "lanes": 3,
+          "onewayTag": "yes",
+          "onewaySupported": true,
+          "lanesForward": null,
+          "lanesBackward": null,
+          "bridge": null,
+          "layer": null,
+          "sourceName": "Golkonda Road",
+          "sourceError": null
+        }
+      ],
+      "endpointMaximumErrorMetres": 0.05449901758078101
+    },
+    {
+      "id": "d345a3dd-52a_0",
+      "previous": [
+        {
+          "from": 0,
+          "to": 22.80338230657272,
+          "lanes": 3,
+          "oneway": true,
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/28197086/37.json"
+        }
+      ],
+      "exactModelIntervals": [
+        {
+          "from": 0.01519444196136267,
+          "to": 22.80338230657271,
+          "lanes": 3,
+          "oneway": true,
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/28197086/37.json"
+        }
+      ],
+      "rawSourceIntervals": [
+        {
+          "sourceURL": "https://api.openstreetmap.org/api/0.6/way/28197086/37.json",
+          "wayVersion": "28197086@37",
+          "segmentBetween": [
+            0.0,
+            1.0
+          ],
+          "edgeMetres": [
+            0.015219958708269971,
+            22.70352395554508
+          ],
+          "projectionMaximumErrorMetres": 0.0471705264822276,
+          "lanesTag": "3",
+          "lanes": 3,
+          "onewayTag": "yes",
+          "onewaySupported": true,
+          "lanesForward": null,
+          "lanesBackward": null,
+          "bridge": null,
+          "layer": null,
+          "sourceName": "Golkonda Road",
+          "sourceError": null
+        }
+      ],
+      "endpointMaximumErrorMetres": 0.0471705264822276
+    }
+  ]
+}

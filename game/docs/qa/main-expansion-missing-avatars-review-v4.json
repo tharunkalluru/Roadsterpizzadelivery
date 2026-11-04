@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-11-02T22:57:29.641356+00:00",
+  "reviewScope": "Round4 Salaar final v9 only from independent-review-handoff-v4.json; immutable Odela v7 isolated PASS remains unchanged",
+  "overallVerdict": "Salaar v9 isolated PASS pending actual story-scene acceptance; no production approval",
+  "previousReviewsPreserved": [
+    {
+      "path": "docs/qa/main-expansion-missing-avatars-review.md",
+      "sha256": "c3407823223ff18e2feddca17c056699187e1438e1e38555c26081b7cc75496a"
+    },
+    {
+      "path": "docs/qa/main-expansion-missing-avatars-review-v2.md",
+      "sha256": "c420f8776c6071a0de2d83463fae8e44f32e304464063b3828f5147d7cfcd5dd"
+    },
+    {
+      "path": "docs/qa/main-expansion-missing-avatars-review-v3.md",
+      "sha256": "a878aa5f58470d91046694365871270f2f65c008a64496ccd9187cc84406a3f9"
+    }
+  ],
+  "primaryPhotographs": [
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/salaar-official-hombale-poster.png",
+      "sourceUrl": "https://www.hombalefilms.com/movies/salaar-part-1-ceasefire",
+      "sha256": "9f01427d3d23b2d676354926e02c0be7f953e18aa2f9fbc3c1456f70b9cfa1b5",
+      "hashMatchesManifest": true,
+      "actuallyViewedByIndependentReviewer": true,
+      "generated": false
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/salaar-official-hombale-trailer-thumbnail.jpg",
+      "sourceUrl": "https://www.youtube.com/watch?v=4GPvYMKtrtI",
+      "sha256": "fe42adb2b3b57463b4c7bb0bf4f9043d7cb4ab01d1d278d71826ef2657647108",
+      "hashMatchesManifest": true,
+      "actuallyViewedByIndependentReviewer": true,
+      "generated": false
+    }
+  ],
+  "entries": [
+    {
+      "characterId": "prabhas-salaar",
+      "isolatedVisualVerdict": "PASS",
+      "status": "isolated_pass_pending_actual_story_scene",
+      "independentReviewRound": 4,
+      "producerArtifactRevision": 9,
+      "reviewer": "/root/missing_avatars_independent_review",
+      "independentOfProducer": true,
+      "model": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-review-candidate-v9.glb",
+      "modelSha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab",
+      "modelHashMatchesHandoff": true,
+      "canonicalContract": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-review-candidate-v9.canonical.rig.json",
+      "canonicalContractSha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444",
+      "canonicalContractHashMatchesHandoff": true,
+      "candidateIdentity": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "candidateBundleFingerprintIndependentlyRecomputed": true,
+      "views": [
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-views/back.png",
+          "sha256": "503ef83d957b5ca1982dc24a763978af80ec2d62ae475d20737efae68304abee",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-views/front.png",
+          "sha256": "49ae1de9772304c0a0d55fead3aae97e4b74cd84ab330eca393c492803b49e22",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-views/full-body.png",
+          "sha256": "299571c44ebf80513d6c54f43fa80fa347408bce9250b83d23ba20386901476f",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-views/profile.png",
+          "sha256": "77ceaabf29aba76587ee883454712d961c7779ec0671fc292e432a40ccbe0eae",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-views/three-quarter.png",
+          "sha256": "d9fde44b07a5b65f1c0b0c2e52de47dafecbffa4bac807ca18f957a483db852b",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-handoff/front.png",
+          "sha256": "740d12f7e68568a061f3d56c525b811188f2576c04fff5ceb7feefabc6e500a5",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-exact-glb-handoff/full-body.png",
+          "sha256": "e2322cc04f4f44ef816f5fd6de03fc4bbba98e4c53226d07d0c70432d63f56a3",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round4-final-opposite-profile/opposite-profile.png",
+          "sha256": "5e950ecca492179515e3adfdeb7320e1f97ed61e2ac35e8fbb41768d6cb0ca48",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        }
+      ],
+      "observations": [
+        "The frontal face, brow, beard, swept dark hair and charcoal crewneck costume remain recognizable as an authored Prabhas/Salaar interpretation against the actual official Hombale photos; not a scanned or pixel-identical likeness.",
+        "The v8 hood/cape blocker is resolved. Both profiles and the back show a distinct posterior hair ending, exposed skin at the anatomical nape and a separate garment collar/material boundary. Hair no longer extends as a dark shoulder garment.",
+        "No previous repeated black scalp slots, large back gouges or detached jaw/neck shelf appear in the eight supplied exact-GLB views.",
+        "Head/neck, shoulders, arms and wrists remain joined; visible TakePizza palms support the rigid review carton. No new visible handoff discontinuity was found in these stills.",
+        "Rear hair is simplified and the close collar edge has small irregularities. These are secondary polish observations at this render scale, not the former cape defect and not material isolated-review blockers."
+      ],
+      "materialBlockers": [],
+      "secondaryPolishObservations": [
+        "At close profile scale the rear hair surface remains smoother and more voluminous than the photographic nape; retain the clear hair/skin/cloth boundaries when making any further polish.",
+        "The rear collar edge has minor angular folds; actual runtime close camera must not exaggerate them."
+      ],
+      "numericalPalmProbe": {
+        "verdict": "PASS",
+        "path": "docs/qa/prabhas-salaar-round4-reviewer-walk-contact.json",
+        "sha256": "e582371629c3ef80271cf1c534e9acfbdbd0c24f3dbb611826a43f0aa0007681",
+        "actualMixer": "createAuthoredMotionPlayer from gameplay source",
+        "renderer": "none; CPU evaluation of exact exported skin",
+        "sourceGlbSha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab",
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          1
+        ],
+        "motion": "walk",
+        "speedMetresPerSecond": 0.7,
+        "maximumAnchorPalmErrorMetres": 5.4251592160117266e-05,
+        "maximumAbsoluteUndersideGapMetres": 0.0004598616303670422,
+        "bothPalmsInsideCartonFootprintAllPhases": true,
+        "continuingMotionClockPreservedAllPhases": true,
+        "limits": "CPU skin and marker numerical check only; not continuous visual gait, Three.js material, gameplay or device-performance acceptance."
+      },
+      "mayProceedToLocalActualSceneAcceptance": true,
+      "productionReleaseApproved": false,
+      "actualStorySceneApproved": false,
+      "requiredActualSceneEvidence": [
+        "Exact v9 and canonical contract/fingerprint loaded by the actual Three.js renderer",
+        "Fortress courtyard placement with feet contacting actual ground and actor facing the approach",
+        "Day, night and mobile-sized production camera readability",
+        "Continuous motion and production-carton physical handoff/contact",
+        "Indefinite post-delivery character view until explicit Next action; no occlusion hiding face or repaired nape"
+      ]
+    }
+  ],
+  "isolation": {
+    "browserUsed": false,
+    "gpuUsed": false,
+    "publicAssetEdited": false,
+    "runtimeSourceEdited": false,
+    "registryEdited": false,
+    "productionApprovalRecorded": false,
+    "producerClaimsUsedAsGroundTruth": false
+  }
+}

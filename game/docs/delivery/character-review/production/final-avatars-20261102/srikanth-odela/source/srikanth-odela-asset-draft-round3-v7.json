@@ -1,0 +1,99 @@
+{
+  "status": "UNAPPROVED DRAFT ONLY; no registration, no public copy, independent review round3 required",
+  "independentReviewRound": 3,
+  "producerArtifactRevision": 7,
+  "stagedGlb": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-review-candidate-v7.glb",
+  "stagedCanonicalContract": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-review-candidate-v7.canonical.rig.json",
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/srikanth-odela/actor-v3.glb",
+      "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+    },
+    {
+      "path": "public/delivery/characters/srikanth-odela/actor-v3.rig.json",
+      "sha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda"
+    }
+  ],
+  "assetEntryDraft": {
+    "characterId": "srikanth-odela",
+    "candidate": {
+      "assetId": "srikanth-odela-visible-scene-v3",
+      "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+    },
+    "glb": {
+      "url": "/delivery/characters/srikanth-odela/actor-v3.glb",
+      "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+    },
+    "contractPath": "public/delivery/characters/srikanth-odela/actor-v3.rig.json",
+    "contract": {
+      "id": "srikanth-odela-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-navy-shirt-uv-v3",
+      "sceneName": "ReviewedCharacterScene",
+      "requireSkin": true,
+      "nodes": {
+        "leftArm": "LeftArm",
+        "rightArm": "RightArm",
+        "catchPoint": "PizzaCatch"
+      },
+      "catchPointSpace": "palm-contact",
+      "pose": {
+        "mode": "handoff-clip",
+        "clipName": "TakePizza",
+        "upperBodyNodes": [
+          "Chest",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm",
+          "LeftForeArm",
+          "RightForeArm",
+          "LeftHand",
+          "RightHand",
+          "RightIndex1",
+          "RightIndex2",
+          "RightIndex3",
+          "RightMiddle1",
+          "RightMiddle2",
+          "RightMiddle3",
+          "RightRing1",
+          "RightRing2",
+          "RightRing3",
+          "RightPinky1",
+          "RightPinky2",
+          "RightPinky3",
+          "RightThumb1",
+          "RightThumb2",
+          "RightThumb3",
+          "RightWristTwist"
+        ]
+      },
+      "motions": {
+        "required": [
+          "idle",
+          "walk",
+          "dance",
+          "read"
+        ],
+        "clips": {
+          "idle": {
+            "clipName": "Idle"
+          },
+          "walk": {
+            "clipName": "Walk",
+            "metresPerCycle": 0.8380952380952382
+          },
+          "dance": {
+            "clipName": "Dance"
+          },
+          "read": {
+            "clipName": "Read"
+          }
+        }
+      },
+      "height": {
+        "min": 1.672,
+        "max": 1.848
+      },
+      "materialTreatment": "as-authored"
+    }
+  }
+}

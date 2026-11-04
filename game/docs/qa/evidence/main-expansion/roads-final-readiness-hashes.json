@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-11-03T00:10:02.365859+00:00",
+  "review": "Final focused road/physics integration readiness; no production edits by reviewer",
+  "checks": {
+    "main": 14,
+    "driving": 4,
+    "rail-clearance": 11,
+    "lamps": 7
+  },
+  "sha256": {
+    "src/game/player.ts": "6e69d1c6f6b1bae6b6a87cb2633ba12fc638f126e324d00cf0424826662d7bfe",
+    "src/game/physics.ts": "6a49738df819075324ecdc3cb74b4ad1895594906a765fedf3fb56fa1bec3ab1",
+    "src/game/moving-rail.ts": "28e4b2723461e5d98385cf88520b26b50ad0377d28e5eae3a0c2d2beba4bf061",
+    "src/game/game.ts": "bb702b9764e056cb4407eb68ff95fc71b1ba9d41b8d967f4a07a11e6dcfb9ce7",
+    "src/world/world.ts": "77f538a2f90b32ea960a52eaa7a7ebc223a15a439a61710e58b52d0a5be9b843",
+    "src/world/road-surface.ts": "f78eb899c6fe067f62121a16a22f22b9a7589cee820b7776f2a465bd82fb084f",
+    "src/world/metro-flight-clearance.ts": "c94124d1fac49f43682236f4ee3e585a008db4c873b9cdb4dc0de5ca226e34ab",
+    "src/world/city.ts": "bc6adedd9116534fb2ee32a74fc17ebe705d5ab454cba91ecf3629c50ec64a86",
+    "src/world/building-clearance.ts": "950afe1798f146048f72784858c08af54b8eeea6ec47de36a66ef52b30dd88b5",
+    "src/world/street-lamps.ts": "13698684ce71333c9fb7b4c852fb6aaa84a7bed07d15223d3714f1b738550b15",
+    "src/world/metro-street-lamp-clearance.ts": "86bb5929f92b48c12cf016e8d45e997cf7b91bc8079f0ecf4da403e8a63b831a",
+    "src/world/metro-station-access.ts": "724bd6f25e4c73709fb533ba3bc470053d3656fe4767c003f8798481e34a6ef0",
+    "src/world/metro-geometry.ts": "1cf28b5f8d25d3800f9f58022747c80399ef6e9f9cff9ca45c9e7176de941c14"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "scope": "READ-ONLY SOURCE PLANNING AID. No UI interaction, tests, scene acceptance or visual approval.",
+  "sourceRoot": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+  "expectedFrozenBuild": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+  "commonProcedure": [
+    "Open normal URL withoutqaArt. Prepare only ifbuttonenabled.",
+    "Wait for actual module/currentresolvedtarget andgraphicsready.",
+    "Use Stage once; let actualsupportsettle; use nativecontrols formanualinteraction.",
+    "Capture actual phases/failedattempt/result/retainedscene; exportevidence with honest assisted flags."
+  ],
+  "scenes": [
+    {
+      "level": 14,
+      "id": "between-overs",
+      "url": "http://127.0.0.1:4206/?qaDelivery=14&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+      "rawLevelParams": {
+        "theme": "jersey",
+        "characterId": "nani-jersey",
+        "windowStart": 0.35,
+        "windowEnd": 0.65,
+        "period": 5,
+        "immersiveHandoff": true
+      },
+      "stage": "After real stadium surface streaming/resolution, currenttarget on actual existing turf,yaw0,speed0. Previously observed targetx5730.556092,z5.933292,floor.035 gives car y.585. JSONy7 is replaced at runtime.",
+      "manual": "Wait for green ring and QAreadytrue/Break in play \u2014 drop now!;freshF once. Groundedwithin6m,targety+.55\u00b1.8m,abs speed<3.",
+      "pitfall": "No distinct bowling phase/button/clip in BeatDrop: Idle receiver plus break-between-overs timing. Windowperiod5s,phase.35\u2013.65=1.75\u20133.25sactivecycle. WrongbeatF returns retry with no progress loss;autorepeatignored;mustreleaseandpressagain. Errorhintmaymaskgreenhint2.5s. Handoffflight.55s,complete.75s,catch rise.4s/return.45s.",
+      "finale": "Leave completion visible\u22653.3s for closed\u2192lights.7\u2192doors1.5\u2192open3 plus observer250ms tick; then Explore Hyderabad returnsfree roam/retainedIdle. Too-earlyExplorecanmissfinal-opening observerfact.",
+      "requiredFacts": [
+        "real-stadium-surface",
+        "valid-timing-window",
+        "grounded-arrival",
+        "manual-handoff",
+        "final-opening"
+      ]
+    },
+    {
+      "level": 1,
+      "id": "sandalwood-special",
+      "url": "http://127.0.0.1:4206/?qaDelivery=1&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+      "rawLevelParams": {
+        "scene": "truckInterior",
+        "speed": 8,
+        "immersiveHandoff": true,
+        "characterId": "pushpa-raj"
+      },
+      "stage": "Dynamic truck rear arrival minus12m along truck heading; heading points forward along truck. Current source local truck z\u2248-20m before entry; place ground from traffic body.",
+      "manual": "Follow rear while moving, wait1.6s ramp open, drive through actual rear seam (localx\u00b11.5), then forward until localz>-3 and<5,localx>-.9 and<1.6,relative motion<3.5m/s for>.35s. FreshF when Inside! Hand the pizza to the reader.",
+      "pitfall": "Stage car speed0 while truck moves\u22488m/s; do not spend long thinking there. No roof/side teleport enters. Continue then reverse down retained ramp."
+    },
+    {
+      "level": 5,
+      "id": "arundhati-haunted-gate",
+      "url": "http://127.0.0.1:4206/?qaDelivery=5&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+      "rawLevelParams": {
+        "theme": "haunted",
+        "characterId": "arundhati"
+      },
+      "stage": "Current relocated module target on ground, yaw0; GateDelivery target=resolved destination z+2 outside gate.",
+      "manual": "Grounded, within7m/3mheight, speed\u22642m/s, DELIVER/Deliver the pizza here;F leaves carton on paving, no collection animation required.",
+      "pitfall": "Raw JSON map coordinates may differ from validated ground placement. Stage is an assisted placement, not arrival evidence."
+    },
+    {
+      "level": 8,
+      "id": "bhanumathi-wedding-street",
+      "url": "http://127.0.0.1:4206/?qaDelivery=8&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+      "rawLevelParams": {
+        "characterId": "bhanumathi"
+      },
+      "stage": "Current moving procession target, yaw0; target is transformed local(0,0,-4-sin(time*.085)*9).",
+      "manual": "Grounded, within7m/3mheight,speed\u22643m/s,HAND OVER/Hand over beside the procession;F transfers to dancing Bhanu.",
+      "pitfall": "Target is actor center, so Stage may overlap actor/car; reposition a few metres clear before judging. Procession target keeps drifting after staging."
+    },
+    {
+      "level": 13,
+      "id": "arjun-classroom",
+      "url": "http://127.0.0.1:4206/?qaDelivery=13&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+      "rawLevelParams": {
+        "characterId": "arjun-reddy"
+      },
+      "stage": "Current validated classroom courtyard target, yaw0,ground floor. Existing-facade actor local(-3,0,-3.2), clear courtyard approach.",
+      "manual": "Grounded,within7m/3mheight,speed\u22642m/s,HAND OVER/Hand over outside the classroom;F then Next;receiver retainedIdle.",
+      "pitfall": "Use resolved current target, not raw JSON college point, and wait until instance preparation completes."
+    }
+  ],
+  "priorEvidenceLimits": "Earlier stadium wicket-correction run has realfieldmanualcompletion but Nani withheld. Later independentNani private-preview approval exercised actual actor but was assisted and no per-asset public runtime SHA observation. Wrong-beat intent is not proof if key actually arrived during green.",
+  "sourceFiles": [
+    {
+      "path": "src/delivery/modules/beat-drop.ts",
+      "sha256": "ea1cd603432bc9e39c0581cf555c7475396efea4ea5ff60efcf55d9c88a4541e"
+    },
+    {
+      "path": "src/delivery/stadium-delivery.ts",
+      "sha256": "56056e5fee58d4136452b7117228f596954db64dd3cdc7523d63812893721855"
+    },
+    {
+      "path": "src/delivery/modules/base.ts",
+      "sha256": "5560a850556da38360ea24c40c0f921fe463f2853a458188bb1be70210221258"
+    },
+    {
+      "path": "src/delivery/modules/truck-interior.ts",
+      "sha256": "b12ef1c15112cd92539102d4f46a57449c1d93dd036326e4007de86c6a98a7d6"
+    },
+    {
+      "path": "src/delivery/modules/street-scenes.ts",
+      "sha256": "d338e1d7d8f03af063ac765c08bd2870343e2df88965eee0461204cc04bc62e4"
+    },
+    {
+      "path": "src/delivery/qa.ts",
+      "sha256": "591416ce744df0bb8a88a63a01a2358255a4dfe3617b2352ca5bcbc3735f5882"
+    },
+    {
+      "path": "src/delivery/qa/campaign-observer.ts",
+      "sha256": "34a327bd9340645834ce738a6edf711d7a6730f7c3d2a4deb2f23483ff28a6c3"
+    },
+    {
+      "path": "src/delivery/qa/campaign-scenarios.ts",
+      "sha256": "9d1c19042f44b69d098cb16d9a18a96b3fdfcc24e408029789d29bd02e43734a"
+    },
+    {
+      "path": "src/delivery/ui/restaurant.ts",
+      "sha256": "79d3ce7ed2cadb7783e0772bdd46662bde11932ed55df7ea3f0ef11ee6ab002a"
+    }
+  ]
+}

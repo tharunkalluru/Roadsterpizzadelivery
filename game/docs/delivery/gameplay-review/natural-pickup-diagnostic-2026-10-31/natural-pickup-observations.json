@@ -1,0 +1,46 @@
+{
+  "runId": "campaign-qa-mvwo44rm",
+  "buildManifest": "/tmp/roadster-nine-approved-frozen-qa-20261031.manifest.json",
+  "source": "http://127.0.0.1:4204/?qaDelivery=1&qaCampaign=1&qaCampaignMode=full&qaPerf=1&qaPickup=1&q=low&qaTouch=1",
+  "input": "Native Safari physical pointer and ordinary keyboard controls; touch layout is not phone hardware or true touch",
+  "naturalPickup": {
+    "carrierId": "6e567fc6-aeeb-4620-944b-04201c59772c",
+    "jumping": true,
+    "at": 41287.999999999665
+  },
+  "assistance": [],
+  "observed": [
+    "Ordinary campaign spawn, normal road and flight controls",
+    "Moving kickflip overlapping an auto, accepted by real PickupDetector",
+    "Other traffic remains visible while airborne",
+    "On landing, cyan road ribbon and minimap route both present",
+    "Normal flight guidance followed about1.4km to moving container-truck area"
+  ],
+  "currentStatus": "Paused before delivery completion; no QA Prepare/Stage/relocation or art override",
+  "notEstablished": [
+    "Level1 handover in this run",
+    "Fourteen-level uninterrupted campaign",
+    "40minute current-final-build active soak",
+    "Midrange physical device sustained FPS",
+    "Thermal or battery endurance"
+  ],
+  "artNote": "Frozen nine-approved build; other appearances still unavailable, no unreviewed actor displayed",
+  "evidence": [
+    {
+      "file": "campaign-qa-mvwo44rm.json",
+      "sha256": "c962b428c7c5261fac4586a022eac726551e596c9d6e349a951fc7f92a3250c1"
+    },
+    {
+      "file": "01-natural-jump-pickup-nine.png",
+      "sha256": "86dee18032c65a6ad2ca82ab02b87ba888299fde8b00ee0e330b3579057bb022"
+    },
+    {
+      "file": "02-ground-road-and-map-guidance.png",
+      "sha256": "1bf6fb31e6d4b535733a5f35dbd58bce46c2bee74f09713a9a80fb3d4ffe9768"
+    },
+    {
+      "file": "03-natural-flight-approach.png",
+      "sha256": "a763af26c649400fe6f2eb8c890600782acc9c3734d1827e0a7b99d10ead3347"
+    }
+  ]
+}

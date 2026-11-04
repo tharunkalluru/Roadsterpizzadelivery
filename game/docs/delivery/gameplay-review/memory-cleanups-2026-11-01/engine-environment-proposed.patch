@@ -1,0 +1,131 @@
+--- a/src/core/engine.ts
++++ b/src/core/engine.ts
+@@ -105,12 +105,18 @@
+     // refresh the image-based light only when the sky changed noticeably
+     const k = m.skyTop + m.skyHor;
+     if (k !== this.envKey) {
+-      this.envKey = k;
+       const env = new THREE.Scene(); const s2 = makeSky();
+       (s2.material as THREE.ShaderMaterial).uniforms = THREE.UniformsUtils.clone(u); s2.scale.setScalar(0.03); env.add(s2);
+-      const rt = this.pmrem.fromScene(env, 0.02);
+-      this.envRT?.dispose(); this.envRT = rt;
+-      this.scene.environment = rt.texture;
++      let rt: THREE.WebGLRenderTarget;
++      try { rt = this.pmrem.fromScene(env, 0.02); }
++      finally {
++        // PMREM renders this private sky synchronously. It never owns the
++        // source mesh, so release its uploaded geometry/material on either path.
++        s2.geometry.dispose(); s2.material.dispose(); env.remove(s2);
++      }
++      const previous = this.envRT;
++      this.envRT = rt; this.scene.environment = rt.texture; this.envKey = k;
++      previous?.dispose();
+     }
+     (this.scene as any).environmentIntensity = m.env;
+   }
+--- /dev/null
++++ b/tests/v21-fixes/engine-environment-ownership.test.ts
+@@ -0,0 +1,103 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import * as THREE from 'three';
++import { Engine } from '../../src/core/engine';
++import { makeSky, MOODS } from '../../src/core/sky';
++
++interface TempSky {
++  mesh: ReturnType<typeof makeSky>;
++  scene: THREE.Scene;
++  geometryDisposals: number;
++  materialDisposals: number;
++}
++
++// Exercise the real applyMood method and real Three disposal events without a
++// WebGL context. The only substituted service is the synchronous PMREM render.
++function fixture() {
++  const engine = Object.create(Engine.prototype) as Engine;
++  const mainSky = makeSky(), previous = new THREE.WebGLRenderTarget(1, 1);
++  const temporary: TempSky[] = [], replacements: THREE.WebGLRenderTarget[] = [];
++  let previousDisposals = 0, mainGeometryDisposals = 0, mainMaterialDisposals = 0;
++  let render: (scene: THREE.Scene, sigma: number) => THREE.WebGLRenderTarget;
++  previous.addEventListener('dispose', () => previousDisposals++);
++  mainSky.geometry.addEventListener('dispose', () => mainGeometryDisposals++);
++  mainSky.material.addEventListener('dispose', () => mainMaterialDisposals++);
++  Object.assign(engine, {
++    sky: mainSky, hemi: new THREE.HemisphereLight(), sun: new THREE.DirectionalLight(),
++    scene: new THREE.Scene(), renderer: { toneMappingExposure: 1 },
++    mats: { lit: { color: new THREE.Color() }, wall: {}, shop: {}, glow: {}, vLight: { color: new THREE.Color() } },
++    lampLights: [], bloom: null, envRT: previous, envKey: 'previous-environment',
++    pmrem: {
++      fromScene(scene: THREE.Scene, sigma: number) {
++        const mesh = scene.children[0] as ReturnType<typeof makeSky>;
++        const record: TempSky = { mesh, scene, geometryDisposals: 0, materialDisposals: 0 };
++        mesh.geometry.addEventListener('dispose', () => record.geometryDisposals++);
++        mesh.material.addEventListener('dispose', () => record.materialDisposals++);
++        temporary.push(record);
++        return render(scene, sigma);
++      },
++    },
++  });
++  engine.scene.fog = new THREE.FogExp2(0xffffff); engine.scene.environment = previous.texture;
++  const replacement = () => { const target = new THREE.WebGLRenderTarget(1, 1); replacements.push(target); return target; };
++  render = replacement;
++  return {
++    engine, mainSky, previous, temporary, replacements, replacement,
++    setRender(next: typeof render) { render = next; },
++    counts: () => ({ previousDisposals, mainGeometryDisposals, mainMaterialDisposals }),
++  };
++}
++
++test('environment refresh releases only the private PMREM sky after rendering and retains the replacement', () => {
++  const f = fixture(), next = f.replacement(); let nextDisposals = 0;
++  next.addEventListener('dispose', () => nextDisposals++);
++  f.setRender((scene, sigma) => {
++    const temporary = scene.children[0] as ReturnType<typeof makeSky>;
++    assert.notEqual(temporary, f.mainSky); assert.notEqual(temporary.geometry, f.mainSky.geometry);
++    assert.equal(f.engine.envRT, f.previous); assert.equal(f.engine.scene.environment, f.previous.texture);
++    assert.equal(f.counts().previousDisposals, 0); assert.equal(sigma, .02);
++    assert.deepEqual(temporary.scale.toArray(), [.03, .03, .03]);
++    assert.notEqual(temporary.material.uniforms, f.mainSky.material.uniforms);
++    for (const name of ['top', 'hor', 'bot', 'sunDir', 'sunCol']) {
++      assert.notEqual(temporary.material.uniforms[name].value, f.mainSky.material.uniforms[name].value);
++      assert.ok(temporary.material.uniforms[name].value.equals(f.mainSky.material.uniforms[name].value));
++    }
++    assert.deepEqual([f.temporary[0].geometryDisposals, f.temporary[0].materialDisposals], [0, 0]);
++    return next;
++  });
++  f.engine.applyMood(MOODS.day);
++  assert.deepEqual([f.temporary[0].geometryDisposals, f.temporary[0].materialDisposals], [1, 1]);
++  assert.equal(f.engine.envRT, next); assert.equal(f.engine.scene.environment, next.texture);
++  assert.equal(f.engine.envKey, MOODS.day.skyTop + MOODS.day.skyHor); assert.equal(nextDisposals, 0);
++  assert.deepEqual(f.counts(), { previousDisposals: 1, mainGeometryDisposals: 0, mainMaterialDisposals: 0 });
++  f.engine.applyMood(MOODS.day);
++  assert.equal(f.temporary.length, 1, 'unchanged sky must not prepare or dispose another environment');
++  assert.equal(nextDisposals, 0);
++});
++
++test('failed PMREM refresh releases the temporary sky, preserves the old environment, and allows the same sky to retry', () => {
++  const f = fixture(), failure = new Error('PMREM failed');
++  f.setRender(() => { throw failure; });
++  assert.throws(() => f.engine.applyMood(MOODS.dusk), error => error === failure);
++  assert.deepEqual([f.temporary[0].geometryDisposals, f.temporary[0].materialDisposals], [1, 1]);
++  assert.equal(f.engine.envRT, f.previous); assert.equal(f.engine.scene.environment, f.previous.texture);
++  assert.equal(f.engine.envKey, 'previous-environment');
++  assert.deepEqual(f.counts(), { previousDisposals: 0, mainGeometryDisposals: 0, mainMaterialDisposals: 0 });
++  const next = f.replacement(); f.setRender(() => next); f.engine.applyMood(MOODS.dusk);
++  assert.equal(f.temporary.length, 2, 'the failed colour key must not suppress the next refresh');
++  assert.deepEqual([f.temporary[1].geometryDisposals, f.temporary[1].materialDisposals], [1, 1]);
++  assert.equal(f.engine.envRT, next); assert.equal(f.engine.scene.environment, next.texture);
++  assert.equal(f.counts().previousDisposals, 1);
++});
++
++test('repeated sky changes balance every temporary geometry/material and retire only superseded environment targets', () => {
++  const f = fixture(); const disposals: number[] = [];
++  f.setRender(() => { const next = f.replacement(), index = disposals.push(0) - 1; next.addEventListener('dispose', () => disposals[index]++); return next; });
++  for (let index = 0; index < 32; index++) f.engine.applyMood(index % 2 ? MOODS.night : MOODS.dawn);
++  assert.equal(f.temporary.length, 32);
++  assert.ok(f.temporary.every(sky => sky.geometryDisposals === 1 && sky.materialDisposals === 1));
++  assert.deepEqual(disposals, [...Array(31).fill(1), 0]);
++  assert.equal(f.engine.envRT, f.replacements.at(-1));
++  assert.equal(f.engine.scene.environment, f.replacements.at(-1)!.texture);
++  assert.deepEqual(f.counts(), { previousDisposals: 1, mainGeometryDisposals: 0, mainMaterialDisposals: 0 });
++});

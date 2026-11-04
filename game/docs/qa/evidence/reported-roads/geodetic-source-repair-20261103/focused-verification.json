@@ -1,0 +1,29 @@
+{
+  "scope": "Focused source-stage verification. No activation, finalLP rebase, rendered/physical acceptance or claim of solving300height gaps.",
+  "commands": [
+    {
+      "command": "node scripts/test-v21-fixes.mjs road-source-geodesic",
+      "exitCode": 0,
+      "tests": 8,
+      "pass": 8,
+      "fail": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "PYTHONPATH=/tmp/tile-boundary-geodesic-deps python3 scripts/generate-road-source-geodesic.py --preflight docs/qa/evidence/reported-roads/geodetic-source-repair-20261103/preflight.json --output NEW_FILE --audit NEW_FILE",
+      "exitCode": 0,
+      "datasetByteIdentical": true
+    }
+  ],
+  "files": {
+    "src/world/road-source-geodesic.ts": "2974a8e48821ad9efa24a7d5c28e9d2d0cb6ad2a097626dd1a8fa3bb69e28575",
+    "src/world/road-source-geodesic-data.json": "1719fcb3c08b5a7d15e3c23ad7805b8cee320349a5cc883897ba2d1fb9f85347",
+    "scripts/preflight-road-source-geodesic.py": "0b7198d9cc5150a4604dd0314f2aa042f39993faf1262d2670c3030419aaf416",
+    "scripts/generate-road-source-geodesic.py": "99473c3e4d27d292e82578d0156147e6fa66b8ade7a69d44c4ef24bf94b76d67",
+    "scripts/audit-road-source-geodesic-known-nodes.py": "a561a1f023961465e9d696922dfaee0f0569c47c9a191ce051ca04fee2977a7c",
+    "tests/v21-fixes/road-source-geodesic.test.ts": "4a4d912408109a7c45af2ab83288628e97c63959fdd8b57f93a6322d2d2f5fe5"
+  }
+}

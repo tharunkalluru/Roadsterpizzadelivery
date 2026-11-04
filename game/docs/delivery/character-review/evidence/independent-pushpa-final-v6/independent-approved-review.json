@@ -1,0 +1,121 @@
+{
+  "characterId": "pushpa-raj",
+  "name": "Pushpa Raj",
+  "film": "Pushpa 2",
+  "status": "approved",
+  "candidate": {
+    "assetId": "pushpa-raj-seated-reader-v1",
+    "sha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/pushpa-raj/reader-v1.glb",
+      "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb"
+    },
+    {
+      "path": "public/delivery/characters/pushpa-raj/reader-v1.rig.json",
+      "sha256": "a7a5da8b660b39a519b72ea6aab73e5621c901a4c05e04319c594c5575b53f7d"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T12:57:46.246074+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "pushpa-mythri-primary-native-139s",
+      "characterId": "pushpa-raj",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=g3JUbgOHgdw",
+      "publisher": "Mythri Movie Makers",
+      "path": "docs/delivery/character-review/production/references/pushpa-mythri-profile-139s.png",
+      "sha256": "5178461aafd6a29c7aecd185a8f2093eb5ba245de84d9fc2f3ce3eb8cf746e9d",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually reopened native139s official film profile: face, beard, nose/brow, swept hair and film identity. Teal-shirt scene is not claimed as the brown-costume reference."
+    },
+    {
+      "id": "pushpa2-brown-suit-promotional-poster",
+      "characterId": "pushpa-raj",
+      "kind": "film-still",
+      "sourceUrl": "https://image.tmdb.org/t/p/original/gpNcQfQ4YGtFwEcrjcK9HxVM2KF.jpg",
+      "publisher": "The Movie Database hosting Pushpa2 promotional artwork; production marks visible",
+      "path": "docs/delivery/character-review/candidate-inputs/pushpa-promotional-poster-large.jpg",
+      "sha256": "de2f31cadba09b24f7877784cce68e89fc7b494c2ec094402bf1ef53df6daea3",
+      "primarySource": false,
+      "visuallyVerified": true,
+      "note": "Actually compared brown four-pocket suit, red glasses, jewellery, shoes and film-role styling. Secondary promotional reference, not mislabelled primary publisher; provenance preserved in candidate-attempts.json."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-pushpa-final-v6/actual-layered/front.png",
+      "sha256": "2f2263e657d4bcc3ce1e2025e8526ee5f57dc140d63c4ac8e38304cd4c378ea0",
+      "assetSha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835",
+      "comparedReferenceIds": [
+        "pushpa-mythri-primary-native-139s",
+        "pushpa2-brown-suit-promotional-poster"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-pushpa-final-v6/actual-layered/three-quarter.png",
+      "sha256": "6f037d13da32d1ee6482eabddf3cb1d7565359baab943b5ee505eb2420ea8f2b",
+      "assetSha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835",
+      "comparedReferenceIds": [
+        "pushpa-mythri-primary-native-139s",
+        "pushpa2-brown-suit-promotional-poster"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-pushpa-final-v6/actual-layered/profile.png",
+      "sha256": "63257cc63be89653960a1484e2cfee722136f64a5b600fe1827afe4a2aa502cf",
+      "assetSha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835",
+      "comparedReferenceIds": [
+        "pushpa-mythri-primary-native-139s",
+        "pushpa2-brown-suit-promotional-poster"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-pushpa-final-v6/actual-layered/full-body.png",
+      "sha256": "4f815e163dfcc8aabaf091a52a378a175bc6f1b45c83614a3d22f04f5e562f7e",
+      "assetSha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835",
+      "comparedReferenceIds": [
+        "pushpa-mythri-primary-native-139s",
+        "pushpa2-brown-suit-promotional-poster"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-pushpa-final-v6/native/02-final-night-catch.png",
+      "sha256": "eb5d85f4fb0b1b5e3c524e799304c4e395b8a3d436f585881e60dc8cd745de06",
+      "assetSha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835",
+      "comparedReferenceIds": [
+        "pushpa-mythri-primary-native-139s",
+        "pushpa2-brown-suit-promotional-poster"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent exact-candidate actor/scene visual approval: close recognizable stylized Pushpa/Allu likeness; coherent actual seated Read plus masked TakePizza, separate hands/palm support, readable brown four-pocket costume, no printed donor hand/watch on left thigh. Hair grooves and simplified beard surface are accepted game stylization, not a different identity.",
+    "All five actual Three gameplay-mixer diagnostic views independently opened; snapshot source SHA links exacteda3 geometry/material/pose. Palm underside/front prove true palm centered beneath .4m box, correcting prior wrist/corner inference. Diagnostic chair/floor/box are not passed off as gameplay.",
+    "Actually played native Safari MAIN4201 exact privateeda3/2f650: assisted Prepare/Stage only, then normal W ramp entry, Space parking, F redlid/creamcarton handoff with visible face lookup, completion→Next retained Read, manual camera orbit and normal S reverse clear exit with truck support retained and road beams restored; fixed23:00 did not bleach actor. Export exact hashes verified before leaving.",
+    "Canonical public rig a7a5 differs from observed private2f650 by serialization only; parsed JSON was independently checked equal. Bundle7d11 and intended public artifact list are approved as a proposal; this record does not itself install or publish them.",
+    "Approval is limited to this exact actor bundle and observed bounded visual interaction. It is not full-campaign acceptance, natural jump-pickup proof, trusted-touch/physical-phone compatibility or performance certification. Unreviewed private-preview badge and assisted observer flags remain honestly recorded."
+  ]
+}

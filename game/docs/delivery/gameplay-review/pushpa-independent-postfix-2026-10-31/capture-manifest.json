@@ -1,0 +1,57 @@
+{
+  "assetSha256": "fa7e75946bfbe675561660e22a14997f80ce147d52f8445cac86f7a512ad121d",
+  "rigSha256": "872545e260e144a621d40c685cec82050b009b49598b38d017fd1fcdbf5dd5b8",
+  "nativeCapture": "Safari app window screenshots through CUA",
+  "input": "manual keyboard and mouse, including coordinate holds on on-screen buttons; no trusted touch",
+  "scope": "isolated assisted pickup/staging, actual manual scene approach and delivery; not full-campaign or physical-phone proof",
+  "frames": [
+    {
+      "file": "01-compact-night-ready-normal.png",
+      "sha256": "705af213262c713e5c27650e805525a1a384fd2513ed5483e9fedec1dafc3b82"
+    },
+    {
+      "file": "02-compact-night-manual-orbit-left.png",
+      "sha256": "ee2147a99fa86c36c07b86953df7679489a3b14754bda1a656fce0fb72db4619"
+    },
+    {
+      "file": "03-compact-night-ready-centered.png",
+      "sha256": "57c68f7cbaf94fd9f7ef8e642007b0e0c82261b0984a03e784f151fa262a78d2"
+    },
+    {
+      "file": "04-compact-night-transfer-early.png",
+      "sha256": "036e695dcd53b31551bc774c90467000cc90e936c716fd24edffa4924c86f7ab"
+    },
+    {
+      "file": "05-compact-night-transfer-result.png",
+      "sha256": "562593c28b41e8285dca9c30bfb649945fdcd454fb2840db25a50de3c023582d"
+    },
+    {
+      "file": "06-compact-night-button-entry-ready.png",
+      "sha256": "c54b233a8d8e52a52f8beb33364347efe8fc7e2d3479c62a10fc49d15b042f10"
+    },
+    {
+      "file": "07-compact-night-button-handoff-moving.png",
+      "sha256": "d62d77f12a8f956db1e531fd9e4c1f89798f411e0515133ddebfb5a5c5cfa1f9"
+    },
+    {
+      "file": "08-compact-night-button-handoff-contact.png",
+      "sha256": "f068345ba6f422c2633ae46abc60a0080356b948da046635e13c524c5b9238db"
+    },
+    {
+      "file": "09-compact-night-complete.png",
+      "sha256": "4ae147cebb04f9d4f9e9e18442dcdf3feeb772b6ae8076d5373f69a4694a9158"
+    },
+    {
+      "file": "10-compact-night-retained-reader-after-next.png",
+      "sha256": "c768a4b36cc812a3b976e501e6566780e6507fcd6e09e7052d59dad307507ee1"
+    },
+    {
+      "file": "11-compact-on-screen-reverse-clear-ramp.png",
+      "sha256": "4bf8dd5b671b512f01ee6bdbd873b136207d76b254d53fd33ddb5802b46cc001"
+    }
+  ],
+  "phaseLimits": {
+    "01\u201305": "First actual post-fix run: valid ready/transfer/completion observations, then parent-confirmed Vite reload interrupted Next/exit; not continuous retention proof.",
+    "06\u201311": "Fresh frozen run: ordinary manual re-approach, coordinate on-screen GO/Brake, action-button handoff, Next, retained scene and full on-screen reverse exit."
+  }
+}

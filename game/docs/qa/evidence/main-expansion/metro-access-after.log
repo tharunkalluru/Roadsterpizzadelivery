@@ -1,0 +1,27 @@
+✔ every retained production platform stair has a usable lower connection to its real concourse floor (14874.357958ms)
+ℹ {"assemblies":59,"retainedPlatformFlights":227,"gaps":[]}
+✔ moving a street stair past an adjacent building cannot route its upper landing through that same building (0.703417ms)
+✔ a clear lift shaft cannot leave its concourse/platform links inside a visible neighboring building (0.277667ms)
+✔ all59 source assemblies have continuous stair/rest/landing topology at their actual deck heights (8.966333ms)
+ℹ {"assemblies":59,"arms":236,"lifts":121,"platformFlights":236}
+✔ clearance-fitted access against the whole mapped road and train network has no unchecked stair/canopy section (1128.993084ms)
+ℹ {"keptStreetArms":212,"omittedUnsafeArms":24,"keptLifts":116,"zeroArms":[],"zeroPlatformAccess":[]}
+✔ shared Ameerpet/MGBS concourses have a real bounded transfer path instead of duplicate secondary street arms (771.290208ms)
+ℹ [object Object],[object Object]
+✔ a raised road through the old lower concourse cannot acquire an opaque window across its carriageway (517.692291ms)
+✔ the actual station tile retains continuous platform pads and creates physical support for both street flights and landings (55.470542ms)
+✔ stair and lift portal gaps are finite and only cut their requested wall intervals (0.1365ms)
+✔ every actual access/lift roof vertex stays below the shared static flight envelope, including high Green/interchange reaches (620.213625ms)
+ℹ {"accessVertices":1354692}
+✔ station skywalk occupancy uses corrected polygon pieces and actual height instead of a ground AABB (0.363833ms)
+✔ actual packed Ameerpet/MGBS buildings and runtime road grades retain the shared transfer bank without a duplicate solid stair building (9850.750458ms)
+ℹ {"station":"st_ameerpet","ownerTile":"-6_-4","bank":{"x":-5494.630559448629,"z":-3224.0766000088533,"r":1.7},"bottom":7.950000000000001,"top":27.200000000000003}
+ℹ {"station":"st_mahatma_gandhi_bus_station","ownerTile":"-2_2","bank":{"x":-1105.508624096127,"z":2947.7621393281456,"r":1.7},"bottom":7.950000000000001,"top":20.060000000000002}
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23845.481209

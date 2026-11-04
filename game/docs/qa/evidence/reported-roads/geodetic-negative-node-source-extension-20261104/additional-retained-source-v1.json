@@ -1,0 +1,128 @@
+{
+  "schema": "retained-geodetic-connector-source-addition-v1",
+  "release": "2026-10-21.0",
+  "complete": true,
+  "missingPrefixes": [],
+  "researchOnly": true,
+  "releaseApproved": false,
+  "sourceReference": {
+    "path": "/tmp/roadster-negative-component-complete-source-reference-9413-v13.json",
+    "sha256": "ef4732ac3409cf33f068c0093582ed449308a8536b5c1f60ae103fa760312779"
+  },
+  "requestedPrefixes": [
+    "09c1bfe9-5f2",
+    "fe98bd3f-31c"
+  ],
+  "rows": [
+    {
+      "id": "09c1bfe9-5f25-447b-8163-6865be80b359",
+      "name": "Hyderabad Janagam Highway",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "ce3ed502-36ff-4109-8ffe-1c24c718dff4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "169a3d25-212f-46a0-a21c-fc323370e3ab",
+          "at": 0.077607532
+        },
+        {
+          "connector_id": "ccacb9aa-61b2-4190-bf1c-1de0c0e71956",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r3249370@248",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1240103684@4",
+          "update_time": "2025-08-26T04:16:03Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000006000000ECDF5053A69F5340D526A9A7EA613140C3633F8BA59F53407ED3AA4CE76131405294F029A59F53401F1329CDE66131405C412ECC9D9F534030E53224DD613140D7D4C3E1969F53406F1BFCB3D5613140EA4EC12B939F5340527E52EDD3613140",
+      "bbox": {
+        "xmin": 78.49335479736328,
+        "xmax": 78.4945297241211,
+        "ymin": 17.382139205932617,
+        "ymax": 17.382488250732422
+      }
+    },
+    {
+      "id": "fe98bd3f-31c2-4e2a-a430-031cd0537734",
+      "name": null,
+      "class": "unknown",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "af5af074-7357-40f6-a51c-cc4b1d9240c0",
+          "at": 0.0
+        },
+        {
+          "connector_id": "169a3d25-212f-46a0-a21c-fc323370e3ab",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "TomTom",
+          "license": "ODbL-1.0",
+          "record_id": null,
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "tomtom",
+          "resource": "orbis",
+          "version": "2641"
+        }
+      ],
+      "geometryWKB": "010200000002000000BDBD1017A59F5340CF35278AEB6131405294F029A59F53401F1329CDE6613140",
+      "bbox": {
+        "xmin": 78.49443817138672,
+        "xmax": 78.49446868896484,
+        "ymin": 17.382427215576172,
+        "ymax": 17.38250160217285
+      }
+    }
+  ],
+  "scope": "Exact retained immutable-release rows for the newly inventoried connector; no source height, geometry install or runtime approval."
+}

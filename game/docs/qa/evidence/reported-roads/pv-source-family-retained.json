@@ -1,0 +1,522 @@
+{
+  "release": "2026-10-21.0",
+  "source": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+  "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin>=78.38 AND bbox.xmax<=78.47 AND bbox.ymin>=17.28 AND bbox.ymax<=17.40 AND substr(id,1,12) IN ('0288cfc8-f54','6ec707b8-fc6','8bedd321-3cb','d66f230d-e52')",
+  "seconds": 28.477557667000003,
+  "rows": [
+    {
+      "id": "d66f230d-e520-4a7b-b943-3ac680d02129",
+      "name": "P.V. Narasimha Rao Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": null
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_bridge"
+          ],
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "761ec5f8-6ec3-435c-ad38-12b6ba1cd885",
+          "at": 0.0
+        },
+        {
+          "connector_id": "978a5359-9308-41cb-a37d-03fddd4d199d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r13028264@9",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638048@13",
+          "update_time": "2025-11-18T06:56:09Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.358405344
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203886573@5",
+          "update_time": "2025-11-18T06:56:09Z",
+          "confidence": null,
+          "between": [
+            0.358405344,
+            0.625041547
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637990@10",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.625041547,
+            0.731355135
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203837181@6",
+          "update_time": "2025-11-18T07:00:44Z",
+          "confidence": null,
+          "between": [
+            0.731355135,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000180000000BBB8333539B5340F926F2C92F5C3140B5487FD44B9B53409AF8591B195C3140BE175FB4479B5340AC7AAF100C5C31407832EEBC439B53401F4DF564FE5B31405CCC2AC73F9B53406DED331DF05B314058D647F13B9B5340AA2281ABE15B3140A486DB46289B53407DFCEFD2975B31400FB56D18059B534061681AB9135B314095D97B4CFF9A5340CCB0F61CFD5A31401D80C3FAF59A5340E4816D69DA5A3140A52B7D8DC99A5340C467A153465A3140235399BDC79A53408C95E2F43F5A314059B44AFAC59A534018D9846A395A314090E7E912C49A53407CD1C375315A3140BA10AB3FC29A5340C1F80E23295A31403E82D19BC09A53404E14D7E7205A314039831A19BF9A5340534C9473185A314099D6A6B1BD9A53409F1CAACE0F5A3140B17AD168BC9A5340C111EEDF065A31406511D43ABB9A5340CC9651D1FD593140C4D78D2DBA9A534095D00259F45931406676CC2FB99A5340ED9689C7EA593140E3C85E4AB89A53406376BB03E1593140AE9575A49F9A53404D3162FAB9583140",
+      "bbox": {
+        "xmin": 78.4159927368164,
+        "xmax": 78.42695617675781,
+        "ymin": 17.346586227416992,
+        "ymax": 17.360105514526367
+      }
+    },
+    {
+      "id": "0288cfc8-f544-451a-b425-18099e333c66",
+      "name": "P.V. Narasimha Rao Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": null
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_bridge"
+          ],
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "978a5359-9308-41cb-a37d-03fddd4d199d",
+          "at": 0.0
+        },
+        {
+          "connector_id": "469d613e-ad18-49a5-8df0-b275d89ac747",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r13028264@9",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638009@10",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.162100683
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638044@11",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.162100683,
+            0.327626245
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637988@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.327626245,
+            0.399104357
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638024@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.399104357,
+            0.557626349
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637987@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.557626349,
+            0.622880205
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638001@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.622880205,
+            0.723001517
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638022@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.723001517,
+            0.75467652
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638011@9",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.75467652,
+            0.871628275
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637996@10",
+          "update_time": "2025-11-18T07:05:30Z",
+          "confidence": null,
+          "between": [
+            0.871628275,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000051000000AE9575A49F9A53404D3162FAB9583140386513059F9A53404CF49E6FB05831403EC9C27C9E9A5340E0A4C409A758314020F8CE1E9E9A5340BBED42739D583140A34CB4F59D9A5340FC43E9C193583140504E59F29D9A534036BD7ACB8B5831402C30BF2E9E9A534046EBA86A825831404A01B38C9E9A5340159ADA087A5831406D1CB1169F9A53401FEBF36272583140B4DF7FD09F9A5340117008556A583140FBB9579CA09A534045888620625831409CC58B85A19A53409C76E73F5A58314077BB5E9AA29A5340006F264B525831403B6F63B3A39A5340986082644B58314029154328A59A5340964B998A43583140B168DF81A69A5340F9B369B63C5831400A8CAB80B19A53406F7B270B045831408676A96CB39A5340FD265EAFFA5731406280E959B59A534060C37872F2573140C6111038B79A5340F810F9D3EB57314072C5C551B99A53406D9C03BAE557314023C38597BB9A5340C96F7610E057314075CF1500BE9A534060E5D022DB5731408BEE6A03C19A534015D0FA4AD65731406F01B221C99A53407A7885F4CA5731404A61DEE3CC9A534071F618F6C557314019D1D105D09A534055D57036C2573140178046E9D29A5340452E3883BF573140AAD4EC81D69A5340C9BC9F64BC573140EFE8DA72099B53401A1B1593925731403B1E8E090C9B53404BBF8E4990573140B18A37320F9B534029F51BDC8C57314068A15346129B5340CC88C1B288573140BAC4ECC0149B53406F1C6789845731400CE8853B179B53405477C0D07E5731409438865B199B534039D2191879573140E059CC191B9B53401E2D735F735731402D7B12D81C9B53408D576A076D573140BB46CB811E9B53404F6C4FDA65573140B4DF7FD01F9B5340B8D90EFC5E57314060F2F56B219B53407B6AF5D555573140B3A5FDC5229B53406D93E57F4D573140EC0AC73D279B5340ED7200B331573140BB1E96172A9B534097B2672A1F573140DDD49BAC2C9B53408385387B0C5731403F688709349B53405721E527D5563140CBA0DAE0449B5340EFF8403C5C5631409A722ABE469B53400E15E3FC4D5631400B9B012E489B53405BA9B1CE425631408D316601499B5340E277D32D3B5631405DC136E2499B5340B16EBC3B3256314051F9D7F24A9B53401146A28625563140A4DD8DAA4B9B5340C9EC87331A563140D91E62284C9B5340FD4CBD6E11563140D9A898944C9B5340BBC4477A0756314002846ADE4C9B5340A8C06E7DFD553140A9C53B1B4D9B5340029365D2F055314084B5D6BC4F9B534019FCA2A9435531406CA11AE54F9B5340258D76813755314072BD12ED4F9B5340DDA3ED4E2D553140666E19CB4F9B53400101C68E2155314054BE0C6B4F9B5340A05FA5CC175531409CB525BC4E9B53406424D63D0D5531401ABDBFE6419B53404908FB1B59543140092758D2409B5340342B80CE4954314021F6F873409B5340DDF75E3244543140FDF49F353F9B5340E2B611AA2F543140FEE0325D3E9B53404BF37D271C543140D068064C3B9B5340690D94CACA533140D66DF5413B9B5340216CC207C05331406511D43A3B9B534072C5C551B95331405907F64E3B9B53407B2A4C84B25331400B81B79B3B9B53406CD73A27AC53314088B608313C9B53406AD6BE25A553314058EAB4C93C9B53406D020CCB9F53314004E9BD8C3D9B5340E7A6727F9A533140FE3C57A53E9B53405589B2B7945331402788BA0F409B5340E7898CB38E53314002AC9F48419B53402A15F99A8A5331408BE83290429B5340F1225D7D86533140B38982CF459B5340E4DBBB067D533140",
+      "bbox": {
+        "xmin": 78.41587829589844,
+        "xmax": 78.42676544189453,
+        "ymin": 17.326126098632812,
+        "ymax": 17.346588134765625
+      }
+    },
+    {
+      "id": "8bedd321-3cb2-4186-a5bf-ec4e7d29d813",
+      "name": "Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": [
+            0.0,
+            0.583044931
+          ]
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_bridge",
+            "is_link"
+          ],
+          "between": [
+            0.0,
+            0.583044931
+          ]
+        },
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": [
+            0.583044931,
+            1.0
+          ]
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "469d613e-ad18-49a5-8df0-b275d89ac747",
+          "at": 0.0
+        },
+        {
+          "connector_id": "eb1e5522-3781-4d55-8506-c2b84d86c726",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638023@9",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.583044931
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203294919@4",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.583044931,
+            0.965460571
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1203294926@4",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.965460571,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000B000000B38982CF459B5340E4DBBB067D53314090662C9A4E9B53409013268C6653314044DB3175579B53407E6E68CA4E5331403C6876DD5B9B5340DEFD96A54253314081C0142F609B53406DB53D303653314096D05D12679B5340AD026B8B215331405A9E0777679B53400D9B125A205331409BFD26B9689B53409E7B0F971C5331408F4A56EA7E9B5340D86322A5D952314053A236BB7F9B5340EB36A8FDD6523140EEED96E4809B53408278B878D3523140",
+      "bbox": {
+        "xmin": 78.42613220214844,
+        "xmax": 78.42974853515625,
+        "ymin": 17.323537826538086,
+        "ymax": 17.326128005981445
+      }
+    },
+    {
+      "id": "6ec707b8-fc60-43bd-acb7-93a9adb995a8",
+      "name": "P.V. Narasimha Rao Flyover",
+      "class": "motorway",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": [
+            0.0,
+            0.955167597
+          ]
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_bridge"
+          ],
+          "between": [
+            0.0,
+            0.955167597
+          ]
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "469d613e-ad18-49a5-8df0-b275d89ac747",
+          "at": 0.0
+        },
+        {
+          "connector_id": "bc4a17a8-2446-41c6-a5c9-fbad5ed46863",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r13028264@9",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638019@10",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.560738141
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375637997@10",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.560738141,
+            0.770734719
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638021@9",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.770734719,
+            0.955167597
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375638016@9",
+          "update_time": "2025-11-18T07:10:59Z",
+          "confidence": null,
+          "between": [
+            0.955167597,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000024000000B38982CF459B5340E4DBBB067D533140D593F9475F9B53402258B0E83153314094D0A79F819B5340EBE5779ACC523140B06A5A73919B5340E0F76F5E9C52314073D6A71C939B53404E36D4DE96523140EF6481C0949B5340681AB91391523140CB129D65969B534019C4ACBC8952314018C1B5C9979B5340C454449781523140410FB56D989B534067D47C957C5231401D4D3FF2989B5340286D6061775231406AB9D859999B53409C0CD81F72523140F3B3ECA4999B53405744A8AD6C52314040C461C4999B534006860728685231404CFC51D4999B53408C48B9A0635231408EBDCDD1999B53406A0EB5125F5231407C69E5B9999B5340CC56A87F5A52314029266F80999B534099558E7F55523140E1ECD632999B534083C94395505231400BE24DC8989B5340749E0CE94B5231402383DC45989B5340B871304047523140C4AB51B4979B53407E7F94224352314077FA9C16979B5340867C86263F5231404274AD62969B5340A6E9584A3B5231404277499C959B53404F3A36A73752314019B61C9E949B5340FD33DEB133523140E4BCFF8F939B53405386600B305231403E50B868929B5340FB3262B02C5231407A85AA3D919B534044334FAE29523140AAA4A9F9859B534075E5B33C0F523140353B9C0A829B5340A9E9C42F06523140600E71627E9B534008B53A94FC51314086AE44A07A9B53401312C4D4F15131409F895528779B534019B2158FE65131408953F712749B53408AAC3594DA513140FA25E2AD739B53409E6B4E14D75131404206F2EC729B5340A8041FDECE513140",
+      "bbox": {
+        "xmin": 78.42613220214844,
+        "xmax": 78.43126678466797,
+        "ymin": 17.319561004638672,
+        "ymax": 17.326128005981445
+      }
+    }
+  ]
+}

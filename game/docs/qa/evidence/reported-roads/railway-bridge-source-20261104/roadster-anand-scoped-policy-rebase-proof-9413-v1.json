@@ -1,0 +1,846 @@
+{
+  "version": 1,
+  "kind": "scoped-generated-facility-policy-rebase-proof",
+  "releaseApproved": false,
+  "heightAuthorityGranted": false,
+  "fullModelApproved": false,
+  "scope": "Unchanged scoped input proof for the original two local comfort policies only. No fitted profiles, new height/facility authority, runtime activation or full-model approval. Solver and consumer global model guards remain unchanged.",
+  "inputs": {
+    "old_model": {
+      "path": "/private/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/model-be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7.json",
+      "sha256": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7"
+    },
+    "old_footprints": {
+      "path": "/private/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/footprints-5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a.json",
+      "sha256": "5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a"
+    },
+    "new_model": {
+      "path": "/private/tmp/source-9413-researched-rail-facilities-world-v1.json",
+      "sha256": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f"
+    },
+    "new_footprints": {
+      "path": "/private/tmp/source-9413-researched-rail-facilities-world-footprints-v1.json",
+      "sha256": "be92dcc01938888de2f947965e006d4c20162e9f462b793ad4d6c4eac99acd33"
+    },
+    "policy": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/anandbagh-generated-approach-policy-9413.json",
+      "sha256": "ae74b4f9e2ba131fd4290af445e3969489849dfa59dfcfb487571061514aaf2c"
+    },
+    "classification": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/anandbagh-fold-controls-independent-9413-20261103.json",
+      "sha256": "43c22f6f8fbb084e0f5a735bfb427ec1621f1deadcabdc3276221f9a03a3718f"
+    }
+  },
+  "roadIDs": [
+    "28b00d08-4ff_1",
+    "01ceee91-29b_0"
+  ],
+  "records": [
+    {
+      "id": "28b00d08-4ff_1",
+      "inputControlCount": 68,
+      "fullRoadRecordSHA256": "d07247c04c6539470fdbfa2603a0e413a4da455216291ccffbe652ddff4b386f",
+      "literalFootprintRecordSHA256": "143e5adcaf050f758741b3e062e04b666d434a4d07ddb513cf17a2561ebe4726",
+      "fullRoadRecordUnchanged": true,
+      "literalFootprintUnchanged": true,
+      "classificationPointsAndHeightsUnchanged": true,
+      "protectedControlIndices": [
+        0,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        67
+      ],
+      "generatedControlIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "protectedTargets": [
+        {
+          "index": 0,
+          "point": [
+            4587.526789724,
+            -5824.109354924
+          ],
+          "inputHeight": -3.691059355021845,
+          "classification": "endpoint",
+          "canonicalFiniteRailIDs": []
+        },
+        {
+          "index": 15,
+          "point": [
+            4630.247804554111,
+            -5821.213042369889
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ]
+        },
+        {
+          "index": 16,
+          "point": [
+            4634.122539570889,
+            -5820.351331946112
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ]
+        },
+        {
+          "index": 17,
+          "point": [
+            4637.997274587667,
+            -5819.489621522333
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 18,
+          "point": [
+            4641.872009604444,
+            -5818.627911098556
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 19,
+          "point": [
+            4645.746744621222,
+            -5817.766200674778
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 20,
+          "point": [
+            4649.621479638,
+            -5816.904490251
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 21,
+          "point": [
+            4649.969731098,
+            -5816.775986339
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 22,
+          "point": [
+            4653.560192259555,
+            -5815.451111517111
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 67,
+          "point": [
+            4795.6,
+            -5759.6
+          ],
+          "inputHeight": 0,
+          "classification": "endpoint",
+          "canonicalFiniteRailIDs": []
+        }
+      ],
+      "preservedParentRoadPolicy": {
+        "id": "28b00d08-4ff_1",
+        "inputControlCount": 68,
+        "inputHeights": [
+          -3.691059355021845,
+          -3.707171149001492,
+          -3.9433196350392943,
+          -4.1794681210771065,
+          -4.179514541384073,
+          -4.195433781718704,
+          -4.4451290071734295,
+          -4.694824232628216,
+          -4.944519458082941,
+          -5.194214683537727,
+          -5.4439099089924525,
+          -5.467956656822434,
+          -5.725967492616819,
+          -5.983978328411217,
+          -6.241989164205602,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.251238413072503,
+          -6.002476826145041,
+          -5.753715239217544,
+          -5.504953652290082,
+          -5.256192065362585,
+          -5.007430478435123,
+          -4.758668891507626,
+          -4.509907304580164,
+          -4.509757605464993,
+          -4.4884700599295835,
+          -4.246910159607297,
+          -4.0053502592849854,
+          -3.7637903589626993,
+          -3.5222304586404403,
+          -3.280670558318154,
+          -3.0391106579958427,
+          -2.7975507576735565,
+          -2.7857940634322667,
+          -2.5353776401982278,
+          -2.284961216964189,
+          -2.034544793730096,
+          -1.7841283704960567,
+          -1.5337119472620175,
+          -1.2832955240279784,
+          -1.0328791007939393,
+          -0.7824626775599002,
+          -0.532046254325807,
+          -0.2816298310917679,
+          -0.03121340785772886,
+          -0.027323216933775856,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "protectedControlIndices": [
+          0,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          67
+        ],
+        "generatedControlIndices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66
+        ],
+        "existingHeightEnvelope": [
+          -6.5,
+          0.0
+        ],
+        "maximumGradeChangePerMetre": 0.0149969,
+        "minimumRequiredGradeChangePerMetre": 0.014996862453485582,
+        "curvatureIntervals": [
+          [
+            0.0,
+            15.442536578559563
+          ],
+          [
+            19.28400158555534,
+            47.18386893496218
+          ],
+          [
+            63.43266272921545,
+            71.08686540390713
+          ],
+          [
+            82.56816941594437,
+            109.35529700559637
+          ],
+          [
+            113.07160316440036,
+            135.9590749322518
+          ],
+          [
+            162.9269974343799,
+            170.7040042304047
+          ]
+        ],
+        "actualChangedSupport": [
+          0.24787375353303207,
+          166.8394068829644
+        ],
+        "oldActualMaximumGradeChangePerMetre": 0.02952256731507827,
+        "candidateMaximumGradeChangePerMetre": 0.014996862454663976,
+        "oldGeneratedMaximumGradeChangePerMetre": 0.02952256731507827,
+        "candidateGeneratedMaximumGradeChangePerMetre": 0.014996862454663976,
+        "fixedTripletCurvaturesUnchanged": true,
+        "maximumHeightCorrection": 0.3291100618857099,
+        "sourceClassificationSHA256": "43c22f6f8fbb084e0f5a735bfb427ec1621f1deadcabdc3276221f9a03a3718f",
+        "reason": "Root conditionally authorized only independently classified generated approach recovery; canonical10controls/floor/endpoints exact, localowncoeq andtruegrade retained; actualfullbody/tyre/headroom gates pending"
+      }
+    },
+    {
+      "id": "01ceee91-29b_0",
+      "inputControlCount": 70,
+      "fullRoadRecordSHA256": "4985091f55d9b9330cec15a7c66cf8cfbcfa172eee389c585bce217cda283915",
+      "literalFootprintRecordSHA256": "9571c59f9b18bd3cfd008f79088c5319fa27a4fa194df0d67b05b4cdb09f28ca",
+      "fullRoadRecordUnchanged": true,
+      "literalFootprintUnchanged": true,
+      "classificationPointsAndHeightsUnchanged": true,
+      "protectedControlIndices": [
+        0,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        69
+      ],
+      "generatedControlIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "protectedTargets": [
+        {
+          "index": 0,
+          "point": [
+            4794.9,
+            -5749.9
+          ],
+          "inputHeight": 0,
+          "classification": "endpoint",
+          "canonicalFiniteRailIDs": []
+        },
+        {
+          "index": 46,
+          "point": [
+            4653.09459595725,
+            -5802.15753682125
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 47,
+          "point": [
+            4649.3471502671255,
+            -5803.233894739625
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 48,
+          "point": [
+            4645.599704577,
+            -5804.310252658
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359"
+          ]
+        },
+        {
+          "index": 49,
+          "point": [
+            4645.254450624,
+            -5804.409417724
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 50,
+          "point": [
+            4641.423246368,
+            -5805.510219806625
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 51,
+          "point": [
+            4637.592042112,
+            -5806.61102188925
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w1308294359",
+            "w923054875"
+          ]
+        },
+        {
+          "index": 52,
+          "point": [
+            4633.760837856,
+            -5807.711823971875
+          ],
+          "inputHeight": -6.5,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ]
+        },
+        {
+          "index": 53,
+          "point": [
+            4629.929633600001,
+            -5808.8126260545
+          ],
+          "inputHeight": -6.240896177870035,
+          "classification": "canonical-rail-finite-corridor",
+          "canonicalFiniteRailIDs": [
+            "w923054875"
+          ]
+        },
+        {
+          "index": 69,
+          "point": [
+            4587.324907604,
+            -5814.314723226
+          ],
+          "inputHeight": -3.4205236936470107,
+          "classification": "endpoint",
+          "canonicalFiniteRailIDs": []
+        }
+      ],
+      "preservedParentRoadPolicy": {
+        "id": "01ceee91-29b_0",
+        "inputControlCount": 70,
+        "inputHeights": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          -0.16266973268393373,
+          -0.16563218378823555,
+          -0.4112378761392286,
+          -0.656843568490198,
+          -0.902449260841191,
+          -1.1480549531921604,
+          -1.3936606455431535,
+          -1.6392663378941466,
+          -1.884872030245116,
+          -2.130477722596109,
+          -2.3760834149470784,
+          -2.6216891072980713,
+          -2.8672947996490405,
+          -3.1129004920000334,
+          -3.125228524738955,
+          -3.3543398078503954,
+          -3.583451090961836,
+          -3.8125623740732504,
+          -4.041673657184691,
+          -4.2707849402961315,
+          -4.4998962234075455,
+          -4.729007506518986,
+          -4.958118789630427,
+          -4.979314331555359,
+          -4.97940527554927,
+          -5.23283772962442,
+          -5.486270183699514,
+          -5.739702637774607,
+          -5.993135091849757,
+          -6.246567545924907,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.5,
+          -6.240896177870035,
+          -5.981792355739998,
+          -5.722688533609976,
+          -5.463584711479955,
+          -5.2044808893499335,
+          -5.185488278385456,
+          -4.963964584058182,
+          -4.742440889730844,
+          -4.520917195403564,
+          -4.29939350107629,
+          -4.077869806748957,
+          -3.8563461124216776,
+          -3.8363560149961033,
+          -3.8361850941409092,
+          -3.635597536482991,
+          -3.435009978825131,
+          -3.4205236936470107
+        ],
+        "protectedControlIndices": [
+          0,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          69
+        ],
+        "generatedControlIndices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68
+        ],
+        "existingHeightEnvelope": [
+          -6.5,
+          0.0
+        ],
+        "maximumGradeChangePerMetre": 0.0137167,
+        "minimumRequiredGradeChangePerMetre": 0.013716673684745308,
+        "curvatureIntervals": [
+          [
+            50.38491775690379,
+            61.77355887592413
+          ],
+          [
+            92.00195178066065,
+            110.32307896181726
+          ],
+          [
+            113.8478679327625,
+            139.97139071106892
+          ],
+          [
+            147.7693123749197,
+            155.56723403876873
+          ],
+          [
+            171.7840458471822,
+            179.75647114348993
+          ],
+          [
+            183.7426837916441,
+            219.16060440645902
+          ]
+        ],
+        "actualChangedSupport": [
+          50.38491775690379,
+          218.93773848064177
+        ],
+        "oldActualMaximumGradeChangePerMetre": 0.016671108739483343,
+        "candidateMaximumGradeChangePerMetre": 0.016306204845871825,
+        "oldGeneratedMaximumGradeChangePerMetre": 0.016671108739483343,
+        "candidateGeneratedMaximumGradeChangePerMetre": 0.013716673686361069,
+        "fixedTripletCurvaturesUnchanged": true,
+        "maximumHeightCorrection": 0.36398014183988225,
+        "sourceClassificationSHA256": "43c22f6f8fbb084e0f5a735bfb427ec1621f1deadcabdc3276221f9a03a3718f",
+        "reason": "Root conditionally authorized only independently classified generated approach recovery; canonical10controls/floor/endpoints exact, localowncoeq andtruegrade retained; actualfullbody/tyre/headroom gates pending"
+      }
+    }
+  ],
+  "referencedCanonicalRails": [
+    {
+      "id": "w1308294359",
+      "recordSHA256": "49000f8e59a94255bba44a4d2c5c30020cf389ef4fa4ff6e8340acb63b831ec1"
+    },
+    {
+      "id": "w923054875",
+      "recordSHA256": "078a13c803ad6eee8e2495d1243e3bdffbefa0f1d7e27aa6c5c1fa6896898c32"
+    }
+  ],
+  "preservedGlobalGradeChangePerMetre": 0.00625,
+  "preservedMaximumPermittedLocalGradeChangePerMetre": 0.015,
+  "originalClassificationDecisionsRemainUnchanged": true,
+  "requiresExplicitFutureConsumption": true,
+  "solverOrConsumerGuardChanged": false,
+  "generatorSHA256": "842c17ff4cfca2b5bdb60b5e3d7931a538f6016a14b40d0ed4efa14e57ef867b"
+}

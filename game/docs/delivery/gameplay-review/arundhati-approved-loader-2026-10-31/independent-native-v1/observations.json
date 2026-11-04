@@ -1,0 +1,114 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:02.983114+00:00",
+  "scenario": 5,
+  "characterId": "arundhati",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=5&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Fixed night F300 outside-gate placement; static actor stays behind bars, real reveal portrait and Next retention, manual orbit/S380+space300.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket"
+    ]
+  },
+  "row": {
+    "level": 5,
+    "id": "arundhati-haunted-gate",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "Haunted property, webs, gate and aged scenery are legible from the driving camera.",
+      "Arundhati appears behind the gate in the correct film appearance."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwpwyf6.json",
+    "sha256": "0e5a58a958908e23180db2e377ddc09ba2d8f97202e608f1d7e9cd9861dae945"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "arundhati-haunted-gate-v1",
+      "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/arundhati/gate-presence-v1.glb",
+        "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+      },
+      {
+        "path": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+        "sha256": "fa7eb4430f8565b224dedd7a453d7c6ae3886f48d998790a75ec6fc18b4a65f3"
+      },
+      {
+        "path": "public/delivery/characters/arundhati/portrait-v1.png",
+        "sha256": "e41d21c03141f40bc7e89e420ee8747d036451bf985b5ec594fb05040159ef08"
+      }
+    ],
+    "glbUrl": "/delivery/characters/arundhati/gate-presence-v1.glb",
+    "contractPath": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/01-ready.png",
+      "sha256": "5295b9793771dcbf353f0b79e0f618700d70534f045fad3ef43679614ad5af3f"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "98c7c5b452b75d81642cde0868beb74120a2e4446a2b4d65408fa42a7b664a5a"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "c780a238bb8bfce78a040adc8f2474c9e347346f28fe1375e2f7a03df9b7d755"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "d89971276e88697342e5a9c6196c5ecc3fd2b197e48d9931913d19df80426697"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/03-complete-portrait.png",
+      "sha256": "8dda65e724275a159584295cdbda988e4e43279f465d6fe7a270009ff3982890"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-approved-loader-2026-10-31/independent-native-v1/04-retained-orbit.png",
+      "sha256": "75678df3b62ac29886b4d2ea897f729d235a06a1f39267735c52133ad4fba9e6"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

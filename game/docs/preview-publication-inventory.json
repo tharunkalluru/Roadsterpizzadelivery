@@ -1,0 +1,3627 @@
+{
+  "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
+  "source_commit": "727d56e519339b9b39e051ddd9c03e9184ef7d41",
+  "source_branch": "codex/mystery-immersion-v2",
+  "excluded_private_evidence": [
+    "docs/performance/evidence/browserstack-access-original.png",
+    "docs/performance/evidence/samsung-rtl-access-original.png"
+  ],
+  "copied_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "29d6c8d81da1933213d2570d671ac78c784638435411620b6e6b6479a6839310"
+    },
+    {
+      "path": "db/schema.ts",
+      "sha256": "a1c3289283333f46e898f8940d6779029f82584f6a75430507b076686be161f7"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/game-flight.png",
+      "sha256": "70bf43c3beca0c28d038bab71204a91b2ed3ab08ea0d9b33a3e84a7f0808a990"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-1280x720.json",
+      "sha256": "535add03e9006bb513c9c6e0352d1cdec2b7a1a9c703b49e9eb87b49a5f27ddb"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-568x320.json",
+      "sha256": "e8bc89d167d0bd9fe6361b2afe242e2a45e2c30d52ef9f498f3b692f90f6f7fa"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-568x320.png",
+      "sha256": "caee33d8e0ef8d71ee3c98dfea15a1b8e06099e9b4ae01212fc2a5cdf0d2530c"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-600x320.json",
+      "sha256": "a8cbce1783cf5e98574b70e2aca37a844ccaae2cca43f5e2e5f83a2a026ad9cc"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-600x320.png",
+      "sha256": "87c3c93f1985b154c8c78d11e06266960dcdf51070d1473bcc80cd48c003cec6"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-618x320.json",
+      "sha256": "6e12da56fb4231ab0c70c2adfe74434d3f4cb12ca56719a6c02ad8187175774b"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-667x375.json",
+      "sha256": "a97e6bb3f0bf50e8e8d01257ede572c8de84392673fca9d428f19965f1d098a0"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-667x375.png",
+      "sha256": "1472605b01ca421d3db6fe01e1bdc1d1b2c6f13d18b68409585b5a9c0c346afe"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-800x360.json",
+      "sha256": "dc81cc54c49f7e8425a6829147cb5431bf2e96bc76f4e723d9cf76980891761a"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-800x360.png",
+      "sha256": "6a2e2a5db14ba99b73c69f847721b0771c9544a4549c5ab8bff9af3cf29ce3e8"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/imax-road-after.png",
+      "sha256": "17fca8d87edfe7f0c4b6054b52ba038130069931d5ee5eae8f323d6e002e0f18"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/road-approach-world-check.json",
+      "sha256": "8963d69ac2a8555f284bee8eb8047b64a92bbc41f91ca38860147c2d71592281"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/rooftop-road-after.png",
+      "sha256": "0a3bb206bcb158bb7f8f6fe7455066bcc9f03199fbda761e1e54d49b82ed2b2e"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/rooftop-road-before.png",
+      "sha256": "5d020ebe0a8dc24bc63d8dc972e798066f086cf70bc7b266b3d270a693a3b797"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/character-build-metrics.json",
+      "sha256": "94cd9608b3d1f12f46c3b28070972c086d2e85f1effe38bf6b28a3cb9462ca1e"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/characters-pushpa-comparison.png",
+      "sha256": "b3606fc8874bd63eae604a7bd9bbb90415e1a81e2f77e70f250a00397bd13975"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/characters-simhadri-comparison.png",
+      "sha256": "3bbd25e1a3ece52c2afb623d22d4bd6017d99453161cebd0459dda9750844393"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/driving-tuning-comparison.json",
+      "sha256": "0ebfaa13e447f048e26203fe84bed71e15e46ebbc9eb237390f7912dd5ca0f45"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/ikea-south-after-road.png",
+      "sha256": "5bf7c9a924deae9631c588e98e51ebe03ad79225e1f5ccf9eb25e18322b25fc7"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/ikea-south-after.png",
+      "sha256": "be23baa023a405823c34e82edf05a3f65684d3612b52c6eadf9e80d6a9c06ab1"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/ikea-south-before.png",
+      "sha256": "8199bd33cb50c810baa01c04b10655ab62937f9db6b918f7f9ebd9dc863ae0ce"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/level6-touch-complete.png",
+      "sha256": "a886a075d8bcd9e48134b89f7256d81897cc820a461234f69ce64f1289436f12"
+    },
+    {
+      "path": "docs/delivery/evidence/handling-access/touch-brake-stop.png",
+      "sha256": "eb1d677e52ec95e3070620fde8f3f5e5351dce8c19526b869c09e1dc1fc39c73"
+    },
+    {
+      "path": "docs/delivery/evidence/immersion-v2/map-districts.png",
+      "sha256": "e7bf4c0818549b40dbb0a005ef91fae013fe720e5a498cbae3a87d728d3fec0a"
+    },
+    {
+      "path": "docs/delivery/evidence/immersion-v2/map-neighborhood.png",
+      "sha256": "3caba6b6071f6b6bea368fbdd32f7404e4cb1468c5480af766ba2d1154c2f7db"
+    },
+    {
+      "path": "docs/delivery/evidence/immersion-v2/map-streets.png",
+      "sha256": "bcc8e5d92f5e9bed60ff4608fce89cf1098cef9916cb1419ab35030605b228fa"
+    },
+    {
+      "path": "docs/delivery/evidence/immersion-v2/touch-complete.png",
+      "sha256": "29dab9d8d348abf55f63efecc769c80f582e8757b8923be3fa3e4a4fdb16c386"
+    },
+    {
+      "path": "docs/delivery/evidence/immersion-v2/touch-throw.png",
+      "sha256": "7216b37bb938fd4985316d451a83214698b04187118874537f8b2b2059db6137"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-empty-collection.png",
+      "sha256": "1597c3421219be66eecb1f46e4a776378019083786c659af0e09cb916949502c"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-level-one-start.png",
+      "sha256": "c56bc7607e7ec5c65f3468f10e47726b08ddbdc5f2e794f71ea781452c968bbb"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-restart-menu.png",
+      "sha256": "8639b0e66278b83146772069c57209c9af70a6bda0ea98e48ec50bd9a7ea7100"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-selected-location.png",
+      "sha256": "9f213f1f364a93a8722e9ac70924d3490b3a57ce0d8165b55e8a691c2422d8d5"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-failed-pin.png",
+      "sha256": "2bf304b8deb7d05c4e49e135c96b8d0bd9a0d0bd66049ec390b975047cd7b0f3"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-isolated-pin.png",
+      "sha256": "b72cb4a6ebc0cae35a4cb370dde59183d0558bb42f744f64ef5dfde6c7eed7ed"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-lake-pin.png",
+      "sha256": "e6efdfa0ac6e9e3125a14fda6d01d634a3c8d1eca9ff0e92b2b2824e4b1984c5"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-retry-retained-pin.png",
+      "sha256": "3489e2f807125a4963a78354fa45c513d26e2aff3c336cd59a4b14e8518536d8"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-stay-loading.png",
+      "sha256": "6b558548f1aa0e779b9790bc9f858bc4618c946bb0e367953f4af0b327c3a1bd"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-stay-restored.png",
+      "sha256": "84e2985c93a17726c33735f18443a6f0b0201d8ce4aff249f338af13646a78ad"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-abdullapur-arrived.png",
+      "sha256": "024b6681f4f670ab74e2fac9929e89ed4fdb71d2501442b0c027840f852cff66"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-colony-arrived.png",
+      "sha256": "48e5a5b76cdc7148ee7091ec1405bf765e7909ead078559a4d527224a5c71b7a"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-direct-pin.png",
+      "sha256": "75ecc447b9815f2931c93d338344413ae7b25545ef737f4a5344fa433c898edf"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-narsingi-arrived.png",
+      "sha256": "f2b6f785e559dde75a7baff9aaf72eca14fc4b29aa5efa5ac79583c687afd385"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-restart-menu.png",
+      "sha256": "ff4d0cc098ae50adc813e82b60526ac6e515b92b289c3f6b42777467361bbdc8"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-tap-abdullapur.png",
+      "sha256": "f65a93b84df627082f235edd0d8443101b02e4ef7b330485bf49285e65f6db98"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-tap-narsingi.png",
+      "sha256": "1b8cbb726f49e2ddd8499b3cd0a3365f2eecad7e1d286aa5411731068cda3137"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/README.md",
+      "sha256": "f1e4a9c74f8eb0dbf624bfd11cd705e70f7cb40dc1aabe57ec057876bf5e72d9"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/intact-train-and-visible-track.png",
+      "sha256": "ec5c04d3dba72b37918b3f617eab55d340b97302b23828b370fc092b7e6eb045"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-later.png",
+      "sha256": "66b53a3556e032891951ef5064eae02ce8e842282c9e0c1a696628ea10744cdd"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-middle.png",
+      "sha256": "bd21002a21746b953695d59904cc505cef3c4d3edf0d44936845d22e1182ab48"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-observations.json",
+      "sha256": "99b6d4c226becab21a3c441197875da6649f6552f8676e7d54a5d0ab1e147806"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-start.png",
+      "sha256": "88b7ccaa24d28d150658d81c24deb8e4a576208e1621caeca5f006024e9755f4"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-terminal.png",
+      "sha256": "8857b1ed0e7cd76d3b6cdd1947647e36b9fb1e1cf551fc7c10857ce81f9cf21e"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-after.png",
+      "sha256": "5b3593a9016171a1269429c424369d6415c3d613d2bd0fd52834f5d17cb2376b"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-before.png",
+      "sha256": "12914918c526948952e8ac29ab533229500bb4aea81f4dab51b72372754136d1"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-full-orbit.png",
+      "sha256": "2985e12b00383f3bbf336a35d4bb79b43988b6599adda9d082c80c26446f0e61"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-landed-after.png",
+      "sha256": "158ef8a3afdbb151c0f7595c2b6ba0ba0d305ce35a2b142b8f2c0d8ea2c8f692"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-side-after.png",
+      "sha256": "c8bb1a3fb847d45b44c585a1133870d2762fb62cb8a8db1af9d8e421b696a846"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/README.md",
+      "sha256": "0115e2f5a479cf8669c4d795a35daf5dc59abe8a51ddd6c7c9d6fd3b891177d8"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-1280.json",
+      "sha256": "1e7d652640b9f02729350b40f9b397e85a190d259e69c5cd2bc4d64b1c7f1f71"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-568x240.json",
+      "sha256": "5832b0a931c4901b56cff4d447fd8ef654583f879536d7f701433e5e88d0e2f1"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-568x320.json",
+      "sha256": "2b3f5d367a5cc3c31c899d0c08cda308d7b23ff77ff47d51b98f5425eb9f7832"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-800.json",
+      "sha256": "94aadb6eb372a97657461679958d36319451265b63b60aedbf951bec49afcb08"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/normal-train-hud.png",
+      "sha256": "c89e31d79e51cc8b05cf05249ec8df364caaa4f7c42848477aaf18f63edc3043"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-568x240.png",
+      "sha256": "2c3890e3297defe1865a31d3def7cb6e1e34a33b7a2f532d5cfdc74bb509f8a8"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-568x320.png",
+      "sha256": "0a2d46c8a5e3c441a314addcbb8b41ab104047fb1776678a3dde19b6f71e6695"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-800.png",
+      "sha256": "b10b4dac57d35f262b1d95688c4293846fba754d96e3e5dc3cf0ca974a6da184"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-desktop.png",
+      "sha256": "e862ed3880bb270e70d22f9dc7a76254508fa1b9030a788e2ad1b16a237c208e"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/rear-to-front-and-return.png",
+      "sha256": "9fb21bfcabc3c2e1537ebf07ace7bb6c7250685198838c6a3706e840c380d1bc"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/train-delivery-complete.png",
+      "sha256": "6f00c08d40af0cf6ff3c46bd694fe074002af87ae0e11e6789eafe732755f7be"
+    },
+    {
+      "path": "docs/mystery-deliveries-v1.md",
+      "sha256": "4dfeac4815a37eb2f757b3dd44a897798e1d88a4cb92fc1433aefd7257e9e8d5"
+    },
+    {
+      "path": "docs/mystery-immersion-epics.md",
+      "sha256": "7486951b4bfddd7340bffa9fd2c9c1614354ddf45444a52833ba7ffbd3df3b9a"
+    },
+    {
+      "path": "docs/performance/acceptance-thresholds.json",
+      "sha256": "d0eefccc13e81289fc2a1886c466ddbaecd2787200ac03c4c842c0d6a98e04f0"
+    },
+    {
+      "path": "docs/performance/android-compatibility.md",
+      "sha256": "de6f8b2f148a5873dee238db3cdead42c79d000551cba24c8b1cc838604554db"
+    },
+    {
+      "path": "docs/performance/baseline.json",
+      "sha256": "7e0e0da7eeac343d280ba577ca290b96db1898d6ad108e2017e44e5042dafa56"
+    },
+    {
+      "path": "docs/performance/coverage-verdict.json",
+      "sha256": "53ab3098f7e50d28852612ac4c11d739f72a78437790c2bfee0650461c92c892"
+    },
+    {
+      "path": "docs/performance/device-access.md",
+      "sha256": "9e1eb862f0764b77ba1c31e54f21b22571d14a307f323e6c9ae9d799aed592cf"
+    },
+    {
+      "path": "docs/performance/evidence/android-high-world-original.png",
+      "sha256": "5ef58685cb3fe319898b25587b373915c23c6a252a068df2ba2a1df0247599cb"
+    },
+    {
+      "path": "docs/performance/evidence/baseline-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/baseline-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-1-baseline.json.gz",
+      "sha256": "9806e2645612db85848711e43ea682f64f90a6eed22aea6a1557100447cbecb8"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-1-baseline.png",
+      "sha256": "e09cbe3afea38a327257c540e1755683cab564238702ba31019e1b03998e0ea8"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-1-candidate.json.gz",
+      "sha256": "b23fae6f1dde6ecbbb2861e77d0e9fe4cb73476efde2501716408f3f23d1226a"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-1-candidate.png",
+      "sha256": "923d4a570081da71297852e17b64147be5355d8a395bf40f12a4c999dbf758d8"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-2-baseline.json.gz",
+      "sha256": "43225ce8988a8f7cd12b203dad7ffb436a3ab8d2d14e93838701748e7d90b0af"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-2-baseline.png",
+      "sha256": "19d7648793532a9ac5718baffef1bff6d3bbc72e440830a5cbb304f06f503018"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-2-candidate.json.gz",
+      "sha256": "7f354e9f0af7aae57f30b423b92fb20c9d37993e9c6e080b12795d34db22b15d"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-2-candidate.png",
+      "sha256": "d99fc861d0eadad9a2dafe46e8b9779de94d25db91cccbe7870e372914762547"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-3-baseline.json.gz",
+      "sha256": "84ae9c429ded72201a7f719fadf0de68ad57f8ae763b289415f2b1544eddcd12"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-3-baseline.png",
+      "sha256": "74c270961b06f016f0dd066641bf5da13709b467b643d926758bf9d6ae4a9d4f"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-3-candidate.json.gz",
+      "sha256": "bd9b484ab1838bba5fa33f650bda62e53d8b71001db7e006f19a82a3a90000fc"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/idle-game-3-candidate.png",
+      "sha256": "93867ed0d027de2483284d3ea544b513e58a750b663e58767c41f17ec60f176d"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/integrity.json",
+      "sha256": "9220785ce9057a3157601eab1c4b99af89fdf6abcc8f499c81dfc8b10834f32d"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/manifest.json",
+      "sha256": "92ed0c51d7bec8a332cfab359f018f71281240f5d0f9e9c6414098fd77429c59"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-1-baseline.json.gz",
+      "sha256": "2878d88453196f56ebc63e66f7ea0b4491a8779ad39230f6ec716d04764092bc"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-1-baseline.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-1-candidate.json.gz",
+      "sha256": "9a2a93c6f8da5f39d3d773f394b4d8e188761701722376211d487f7b6d8d7f38"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-1-candidate.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-2-baseline.json.gz",
+      "sha256": "772743b7d4252ef3b5e060ed598e5ee423824a5a7faa247db997d6e25e596d36"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-2-baseline.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-2-candidate.json.gz",
+      "sha256": "51075103a523a791508c08dae7a058b631c7e30aad04336506118374f4c876ce"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-2-candidate.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-3-baseline.json.gz",
+      "sha256": "c65662a15884fefcf01617389a529b6fd40ca799866c0ab2e1cb175a9b49fb61"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-3-baseline.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-3-candidate.json.gz",
+      "sha256": "bf2f57aa99103697609f12b988fa96f87bd47f908cb8635864b17b91b7c6e2f8"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/static-3-candidate.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/browser-ab-20261028/summary.json",
+      "sha256": "c24583d6310acce963454f0c7ead3a7019ebfe16bbdf08038ea42b63b8a8430d"
+    },
+    {
+      "path": "docs/performance/evidence/bus-landing-original.png",
+      "sha256": "82e1852436e75cde40a7c8fe8856a5b1a412154de1f942943fe546f76082812c"
+    },
+    {
+      "path": "docs/performance/evidence/bus-overjump-original.png",
+      "sha256": "af070aa904e62c0755fae1b9d95afed480afc5f48c2413c6be31768ad3432c97"
+    },
+    {
+      "path": "docs/performance/evidence/bus-overjump-result.json",
+      "sha256": "5c703169bd23c0ceca141ad2f24fdf63f06c822c34639405321519ac7851c88e"
+    },
+    {
+      "path": "docs/performance/evidence/candidate-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "path": "docs/performance/evidence/candidate-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969"
+    },
+    {
+      "path": "docs/performance/evidence/check-88-tests-build.txt",
+      "sha256": "c64aacc8cc9e3d35ceb94fba339b8bf5a0eff151b8abad305b93cbca625c7020"
+    },
+    {
+      "path": "docs/performance/evidence/check-98-tests-build.txt",
+      "sha256": "9bb440cdc89a8345e472d423f081613d9646c63207bcbda4dbb023636d1df91a"
+    },
+    {
+      "path": "docs/performance/evidence/check-98-tests-final-build.txt",
+      "sha256": "8cca0b2e7087b69ea46f91e0a02edb09671e01331c26544c16a68b2b6a344f07"
+    },
+    {
+      "path": "docs/performance/evidence/final-build-equivalence.json",
+      "sha256": "15a9e2a85e7c1d0ea9acbd1058d384934bdfa2e5004832bc34c08311c32be63b"
+    },
+    {
+      "path": "docs/performance/evidence/final-synthetic-replay.json",
+      "sha256": "73acf1599eff320579eaa6390424027bb5ac217a8689b7eff2ccb560d4f8ec92"
+    },
+    {
+      "path": "docs/performance/evidence/index.json",
+      "sha256": "f3a085899daecf1550629e4eee872d542ca6b0314c523c50628e1bee07e56cfe"
+    },
+    {
+      "path": "docs/performance/evidence/latest-context-recovery.json",
+      "sha256": "92d174bb1f57f1a8850ead74248dac92ec6ad49c731da5fadb1880d595d4e927"
+    },
+    {
+      "path": "docs/performance/evidence/latest-context-restored-original.png",
+      "sha256": "73298cd086a0d5e227c965d81c35e21a9e2a20040c57fc09b5130d8f4e7f5607"
+    },
+    {
+      "path": "docs/performance/evidence/latest-high-native.json",
+      "sha256": "98ce3b451b910d93cbdd5d223c255a3e671d2fba625c9e1d3641381754ae6a4a"
+    },
+    {
+      "path": "docs/performance/evidence/latest-mid-cpu.json",
+      "sha256": "41479629087d0a3fddfb9b43339af249160b268c075a4ac64b35a0fe786a8f8e"
+    },
+    {
+      "path": "docs/performance/evidence/metro-carry-result.json",
+      "sha256": "df1a89f478ef2cce12b09d5301ea1bdbf712cfd9ee23a3e207548e77bc5a2f19"
+    },
+    {
+      "path": "docs/performance/evidence/offline-boundary-result.json",
+      "sha256": "521bb04c7eb962e270c8f1560e67394fea8829005629075cfd9933596246b88e"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/contact-sheet.png",
+      "sha256": "fdd4b2de53d3a947f8b2dbc1d7b58d6ec62dfa9d7be6fc6973e331483c1ab50b"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/front-day-ground-baseline.png",
+      "sha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/front-day-ground-candidate.png",
+      "sha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/front-night-ground-baseline.png",
+      "sha256": "1e5ad75581f55c50aff45bf6d487828118e842edb8d49988e8a4726a6999a1af"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/front-night-ground-candidate.png",
+      "sha256": "36228e27f7320f3c549cd8a92f3278dd490b65b3932c8114c39f40ca20f16de7"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/rear-night-flight-baseline.png",
+      "sha256": "c17943b8d93ee7703385811ab7280accc3533c71538421fc5b85c2b8ff7d879f"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/rear-night-flight-candidate.png",
+      "sha256": "de9b2ea595bd052debe5ec3444fa6e60d0ef12b9f262e1478a5f59694bfe1879"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/sha256-index.json",
+      "sha256": "9db42b52c13de1d5cbb56de68f796ca2fb30ab1fcbdec62e62bfdf9e0f7d4aaf"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/side-day-kickflip-baseline.png",
+      "sha256": "e93bfbcd783bdfbaa81fdf4cbba7581a84e8fb93f316b5f773a5e817ab3c0ab6"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/side-day-kickflip-candidate.png",
+      "sha256": "307bed1798111723cd8a12d2014b55126a4a61a5c38f628433266666cff84a44"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/wheel-day-steer-baseline.png",
+      "sha256": "c6acd25dcb316fad5b22e4d483dd466985ae184184c3c6695c2a272f698135a7"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/wheel-day-steer-candidate.png",
+      "sha256": "60ce2db116a1686e3d5151998105d1f6bb7b00e6df395e69f356d4177241387a"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/wheel-night-steer-baseline.png",
+      "sha256": "455faf7010ae1eae8052d0283fc1264923f9fe38e04977b410125abe7c57152f"
+    },
+    {
+      "path": "docs/performance/evidence/roadster-batching/wheel-night-steer-candidate.png",
+      "sha256": "5573ffd52b56bbfda43db9e9c7093dfdd159e2bbd5f9be7cf58eb809f451c29e"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/after.json.gz",
+      "sha256": "56609f7aa434a779101b13a2246e7f7245e82845802b3c00366b503136d4c36e"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/after.png",
+      "sha256": "b86e7df67ceab3de56d5a23710b1fdccadcffc2f9d5406fa94f6fe3f8e59101a"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/before.json.gz",
+      "sha256": "0266e8d8bd0b4ce016945706dce512bb25b647c8ca9f5084d9e783ff11d51bcb"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/before.png",
+      "sha256": "7ee8bfd4365f4a8e8c1a345f6db895667afe0a050554a9815eb7b57126d7f960"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/check.log",
+      "sha256": "f77f0f05367536b5fcd6f43a522079fc0ee458f2e149bd728dfb2c62ed5bdf04"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/comparison.json",
+      "sha256": "a4dd3f7308c207e7ece51de32882095c8df784642f1f94e7b3dd64973ea43bf3"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/regression-after.log",
+      "sha256": "880a567d50c16cdd5b4adfa7298cdb027108f77db5b19926ae1df4e5ff8bf8f1"
+    },
+    {
+      "path": "docs/performance/evidence/traffic-shaking-fix/regression-before.log",
+      "sha256": "a56e5d17f98d8aeb8c3375229048099f0bbdef84693384c1335b24cb28f7c508"
+    },
+    {
+      "path": "docs/performance/final-report.md",
+      "sha256": "f7341db349cc580d9110c4562a4a9765f7a2e7eb7109b5488c819fba992464d6"
+    },
+    {
+      "path": "docs/performance/gameplay-results.json",
+      "sha256": "4f658cdc4a1409f831ce4848a995e84cda7ab8900f92c055904d5b95ddacaed2"
+    },
+    {
+      "path": "docs/performance/implementation-plan.md",
+      "sha256": "4891dd64143a022bf3d4439c6bf9baa50646ab529479d7b61a53230468c46b6c"
+    },
+    {
+      "path": "docs/performance/implementation-status.json",
+      "sha256": "5ba1b58ff43598220b5d06ae36d293feea932e46ef938320936d7343d373de55"
+    },
+    {
+      "path": "docs/performance/physical-device-followup.md",
+      "sha256": "8a1f3f95bc7fd8cbc9e043e4ecee969c76e7f26cfee015b09840966da4628bba"
+    },
+    {
+      "path": "docs/performance/resource-cycles.json",
+      "sha256": "7fcb1c604f264ff86245c77a2e395b1c7fbd89fa33320fe38c9a1380c2ef3937"
+    },
+    {
+      "path": "docs/performance/roadster-batching-handoff.md",
+      "sha256": "b880b37fed43fcf58eec40ae1079c02a70e4fd4e3793c2a0fcc3f250e6b0a29b"
+    },
+    {
+      "path": "docs/performance/roadster-batching-prototype.json",
+      "sha256": "38a1f9ac48b8b5b95a572aeec496ee8440f898109b94b468bb92f0c94041d4a2"
+    },
+    {
+      "path": "docs/performance/roadster-visual-comparison.json",
+      "sha256": "007609a05bcf3d618c36bb25e59e6b076abde1755806a16ed0bfbfaf8e05eefe"
+    },
+    {
+      "path": "docs/performance/route-search-handoff.md",
+      "sha256": "f6261a8e48f508b377cc627b688f87b0b74aabadcce0b7d0d154e55a743b04cf"
+    },
+    {
+      "path": "docs/performance/route-search-probe-after.json",
+      "sha256": "febc45bb147eaa7fd046ba24ea60cfd667a34207dac6697428578aaa69b54c56"
+    },
+    {
+      "path": "docs/performance/route-search-probe-before.json",
+      "sha256": "914c2ee6bc717bacb613cf655a66f494712e1055e998664142881b9f052d414f"
+    },
+    {
+      "path": "docs/performance/run-manifest.json",
+      "sha256": "fd6249950272ca576c6fd5be812753fa36056d6741fd0998e07558eccd557496"
+    },
+    {
+      "path": "docs/performance/scenarios.json",
+      "sha256": "abeced812c0a3da4bd7ca636a9e1a1fd54f9bba9f5ca0392bd456021a68a799a"
+    },
+    {
+      "path": "docs/performance/simulation-handoff.md",
+      "sha256": "23a0431d568bfde90874bcdb81199ffab0e913e6169a5e3ccea1fa0ef7408650"
+    },
+    {
+      "path": "docs/performance/static-query-benchmark.json",
+      "sha256": "60b20feaa4adc803438f7cab9734d2bc389434087a954230127c4688cbefe528"
+    },
+    {
+      "path": "docs/performance/static-visual-fixtures.md",
+      "sha256": "2eaac5695b14a565b1a2f23eeef0074085f3ab5b59d52ac91d61016c5fb73636"
+    },
+    {
+      "path": "docs/performance/test-duration-ledger.json",
+      "sha256": "443c2e3658677c26ac50f89222a4a1d8e60a26c2c31dacad3b112407489366cd"
+    },
+    {
+      "path": "docs/performance/test-duration-ledger.md",
+      "sha256": "91c53904f1d7de8a9a68b014b7291fcb9d44785d3f3da3b0f3238118828e340f"
+    },
+    {
+      "path": "docs/performance/traffic-shaking-fix.md",
+      "sha256": "a9cba385832e1a18ec628c41ceb9c70f373559ffb4b648a2117135a1c72dffbe"
+    },
+    {
+      "path": "docs/performance/ui-handoff.md",
+      "sha256": "d57c31f2835aa0e237c20d5ea43b5c7976be4dcd1d8776179ed5dddc9dbc67cd"
+    },
+    {
+      "path": "docs/performance/version-comparison.md",
+      "sha256": "10421ca13f124b70da8a5ee4051f0ba988cba248f31b5080052907dfeeffa3ea"
+    },
+    {
+      "path": "docs/performance/whole-game-replay-feasibility.json",
+      "sha256": "4345506c86d450b2f555838e770b8b32809939cfdfe8fdc83392eb0eaa4f86f9"
+    },
+    {
+      "path": "docs/performance/whole-game-replay-feasibility.md",
+      "sha256": "b963fc5b9bd7a46f7e27e7ee8e2f196034ebaee8ce6f5a4edd313feafde6cab6"
+    },
+    {
+      "path": "docs/performance/world-handoff.md",
+      "sha256": "aeb01833313567b19740bb766b961e3c6fb0fd109c0187d22e09dfe3be216ede"
+    },
+    {
+      "path": "docs/performance/world-real-tile-comparison.json",
+      "sha256": "495267503fe6fb58a342cedd68b1b30348a8cc35661ea65bd811bc6c3442bff8"
+    },
+    {
+      "path": "docs/playtests/2026-10-29-carrier-pickup-step1.md",
+      "sha256": "223e80d4c8aba390d8f0eca0c772ed84eef5133e2a07c62c8b29c7691dfa2453"
+    },
+    {
+      "path": "docs/playtests/2026-10-29-ikea-road-joins.md",
+      "sha256": "72345d7cdc2b45fb75e20b3ca960fcee46cf566bdbaeffd199fd0d2f74f5635a"
+    },
+    {
+      "path": "docs/playtests/2026-10-29-researched-railway-underpasses.md",
+      "sha256": "c7ad9a0d5fc30208526fa83fa70328eb99b73e054ccc38a01073c24914952c7a"
+    },
+    {
+      "path": "docs/playtests/2026-10-29-v21-map-rail-flight-fixes.md",
+      "sha256": "df5f6fe2b243805d882a9365c1cd0660330efec7db7ac3befa452658a8361baf"
+    },
+    {
+      "path": "docs/playtests/2026-10-29-v21-water-rail-mobile.md",
+      "sha256": "e8f7a5bfe83f7423b9c15cf0dd1db7f6d622a36b399b41399f03df8e9080ec58"
+    },
+    {
+      "path": "docs/playtests/2026-10-30-handling-characters.md",
+      "sha256": "49096f38278bf3012e77aca4e94ed76e5fff6d8f2f8374150724200da73d1eb1"
+    },
+    {
+      "path": "docs/playtests/2026-10-30-map-relocation-restarts.md",
+      "sha256": "280920cf87cff4dd9520616300f05716aebe2dbbe6d207676e9d88bc502d11b5"
+    },
+    {
+      "path": "docs/playtests/2026-10-30-traffic-camera-visibility.md",
+      "sha256": "db5c03d1c1938829430cb2583307b418e8d97d82e44d41a2f248098f8f6e9e06"
+    },
+    {
+      "path": "docs/railway-research-2026-10-29.md",
+      "sha256": "518ba2dffd1515eb62e13ed88222908f99fc3ffe04ccc1887acf3e03263b8d51"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/README.md",
+      "sha256": "d47597d7f5e0f3d6ffb43cebd9ded22fb53003bab5e094a021b50da9815c4b6a"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/call-and-navigation-800.png",
+      "sha256": "e481bba78ba560cbefc23d6fc6c463c922c055c7eaf2465e2d47f0a4ef55b2b0"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/control-presses.json",
+      "sha256": "89f9391b31edff9323c9d27017a573db9442908dbc0c112ee3a7a605603e71cf"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/desktop-driving.png",
+      "sha256": "1b97c58c6a6d4e85e64d7b8a3a1504ca07969bfa798a7c4b6406e49f269d67e2"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/desktop-pause.png",
+      "sha256": "1a14ba85a947f93aa7901ad7154bb6d3eabed91add9a659745a732a936e87c9d"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/go-pressed.png",
+      "sha256": "a9d2c4042c7082bfa7580e593b174942b1477dccdff93f0482ce233f66b778ae"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-1024.json",
+      "sha256": "30ae02a0e29a229d86fa83e6059b0bd925c3aacbd2867a34a7a7b03bd9f533d5"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-1280.json",
+      "sha256": "7f5b3cd4dba13cf61bbc0f1f8e4797d83408cd1a3d1efb7317cf38e8838f15e9"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-568.json",
+      "sha256": "9ed100303e196e289becbc505093e104f4af1a62746348abf0aa0f6974a2a8f8"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-568x240.json",
+      "sha256": "e500474a8ff688fade3c2f7cfed92ba913bae63dacab93953d41307d4bb9e0ed"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-667.json",
+      "sha256": "eef7412582a9b20cf840399a32ea325f5f58352ca8c2de10a1bd720cd10ba2d9"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-667x260.json",
+      "sha256": "2592e0fdfd19fe080b9bcf6f8420215a6f6cdb916ec97f936ba086898f356601"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-800.json",
+      "sha256": "8cac18e9a0f91528d772940b777984b3fa61e77a8586e265221ec36fe724c285"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/overlays-568.png",
+      "sha256": "b4df18b3393617a3830c5e5112d6d21cd98a723d01cfb4b580c0f024152a3b19"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/overlays-568x240.png",
+      "sha256": "b3c0c2b9916570a69ec3c7a206ad3507af1fb863f40cda44354291c6c0bc8ca4"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/pause-progress-800.png",
+      "sha256": "d7624581a478ea8b8b760b9067df1a4d7fa90acb3b6abe3c444e7b7b32d394a4"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/restaurant-from-pause.png",
+      "sha256": "b5e9dae85b1710554dc746430464e04d7efa87faa3a733e748ad1619ee33a9d6"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/README.md",
+      "sha256": "ac8d81706731ba928632a28e0f2445870e4ad8d74c7dda54be4ed10847a8ab96"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/driving-route.png",
+      "sha256": "db0931aefc9b33d3c3f5d7295b79e7b671e9300fda75ca6b0852cfd96e21e9a2"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/full-map-route.png",
+      "sha256": "c5a1c7bda902929f9020ba653312248a809ced55f9ba977d0271a6c98ce6fa8d"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/pickup-route.png",
+      "sha256": "df7b3fd1edf4c7a1c46d8e2f81561d86997798ffd571a32d5c3f70717cc5a69c"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/README.md",
+      "sha256": "f1b9ef88bfe613928d452810a34047cf7deec8a3e19272be01288a06681b7ebb"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/brake-red-lights.png",
+      "sha256": "5e06a072ad4320190a5058a9e127a7c47b0b9f8e8eca338ec8a5b3a60637effa"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/camera-orbit-headlights.png",
+      "sha256": "0fec0f936a8886cc3f8ac65a8b1384f33d7d8ddac97420416a94bf5bd78b3da1"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/daylight-no-road-beams.png",
+      "sha256": "8cf5c13c37499ea1ea8f9bd8fba83efb896211581af4297c7c3ae29690bb8db8"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/desktop-keyboard-stop.png",
+      "sha256": "7d0947090dc42c503bc9b458c8488940b043f75d92ddc7201c5ff45b507c7b24"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/high-graphics-night.png",
+      "sha256": "741ca1a1a0edb15357ac1b4ccbe65057e02d35f2cbdebe4a8718a6e17e1c30d6"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/night-tail-lights.png",
+      "sha256": "8ce65d390968ddab0373eace4cd0b9660584eb92cd3cf51ce55e19818f979528"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/reverse-white-lights.png",
+      "sha256": "e3795535feb9602306a8cdbe5a86fe4bbc73698ceb0e382c900b382f1719298e"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/README.md",
+      "sha256": "86d1cad6092bc655114e65a1ad3a61664ecc106c8bcb1111bdfae20d20c7f09c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/rear.png",
+      "sha256": "e63908371b7ee7f255ba3704b0750c4c2ddad904668e8861db6f12ea94f8d08c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/side-left.png",
+      "sha256": "12baa06b6cd48ca6f57492512a0a9ceda825940d167207a49ca6c7521ba8ed7c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/side-right.png",
+      "sha256": "e2de5563cb3070c0e1164fb94885885de8a3cafd1747b8526e727638e24f091d"
+    },
+    {
+      "path": "drizzle.config.ts",
+      "sha256": "1b23f85e803c4445cef92769769b1e6dd34ad9e9f1ce25fb83ac9db101d00259"
+    },
+    {
+      "path": "drizzle/0000_busy_rictor.sql",
+      "sha256": "d0b63cd74599356bbad7cfec85d2ef3d1cd41d24e2bdef1217ead995cbe59e15"
+    },
+    {
+      "path": "drizzle/meta/0000_snapshot.json",
+      "sha256": "84b63eea3e97a9b4f3a27980210f99d9aa56d2309bc77888ab5652fa976441c8"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "sha256": "2bac82c93547c07dda1a593d0e3c4d2b8085cd0bcc6ea82ef785a378bc5157a9"
+    },
+    {
+      "path": "index.html",
+      "sha256": "31f2380f16fbee0a547e5976054aaa60bee7a6e6df9ce94a7b7593d6d3f35836"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "4f6553d1e85caadbf5b6af31cfb426b3a608ca842789f594bbef5be0be31b09a"
+    },
+    {
+      "path": "package.json",
+      "sha256": "b13374983c9cf8796fb10a98dcb268c18051f69ac72a803e0acf6047b593678b"
+    },
+    {
+      "path": "public/city/core.pack.wasm",
+      "sha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458"
+    },
+    {
+      "path": "public/city/map.pack.wasm",
+      "sha256": "ca4fc9f8422e8fae20d1fd0f2f8aecd35e9040040c66afe3317121f1106d1b65"
+    },
+    {
+      "path": "public/city/packs/p-10_-1.pack.wasm",
+      "sha256": "b833c51745cd5f9a33c1f5b54a15f40477300d48e627367c23815ebb9af4336e"
+    },
+    {
+      "path": "public/city/packs/p-10_-2.pack.wasm",
+      "sha256": "e5def162bc807639a123686ae3e9dbf7ace050ab33ffd21b4bdf70b20db7fb06"
+    },
+    {
+      "path": "public/city/packs/p-10_-3.pack.wasm",
+      "sha256": "a4e9d70ff688afadd0fc9e3e8ed93119f578692900d72e0221554804056fa59c"
+    },
+    {
+      "path": "public/city/packs/p-10_-4.pack.wasm",
+      "sha256": "99e7f61913d277c329de635f06fae9e79a0d4739501a136da2f898760a72114c"
+    },
+    {
+      "path": "public/city/packs/p-10_-5.pack.wasm",
+      "sha256": "7edb2adf2536cb0694c13de7eec3185176713fdf95798465c60f938d21ac4ff5"
+    },
+    {
+      "path": "public/city/packs/p-10_-6.pack.wasm",
+      "sha256": "24266860b2079ac6d4a2e709afb24a280b99015ea18146c465b4d49dee748462"
+    },
+    {
+      "path": "public/city/packs/p-10_-7.pack.wasm",
+      "sha256": "70ed4b7214637c520c00987efe375d4aad5f3bc12a0b2493125a2480f8670c05"
+    },
+    {
+      "path": "public/city/packs/p-10_-8.pack.wasm",
+      "sha256": "6aad1281e775a4f00dcd6a9fd0a12ba47ea7d272b28be891e4fb71fc6d7ca3df"
+    },
+    {
+      "path": "public/city/packs/p-10_0.pack.wasm",
+      "sha256": "9f0d053193012c48cc4a49ca103411a1778a3db9c64ebafe20e50b1d98abcdd9"
+    },
+    {
+      "path": "public/city/packs/p-10_1.pack.wasm",
+      "sha256": "e1830e7f5a6f8cd9ffe5756efcbd23b836efb537793258a0847176a0e3cfc2bb"
+    },
+    {
+      "path": "public/city/packs/p-10_2.pack.wasm",
+      "sha256": "c4c0ccda5d15f32838a8c67b5477316011d54673afe9a641609dbf10c1d286a9"
+    },
+    {
+      "path": "public/city/packs/p-10_3.pack.wasm",
+      "sha256": "97947355d5e7cad9940bd9ed9f40f851fa250e321a3da2678027de247879f588"
+    },
+    {
+      "path": "public/city/packs/p-10_4.pack.wasm",
+      "sha256": "b922978e7b56abdc031bfe45e6aacc6c98b8cfe1d6b38851c7ed6c81190b000c"
+    },
+    {
+      "path": "public/city/packs/p-10_5.pack.wasm",
+      "sha256": "0ea6ff8cdd335869c625080adf1f993fdccc3ed0bd5b9ea03acd008c820717dd"
+    },
+    {
+      "path": "public/city/packs/p-10_6.pack.wasm",
+      "sha256": "0cee33f9c8290bbeaecfd31ea8842de97a95ca57f1e5a76fce3453ffe6b50ca0"
+    },
+    {
+      "path": "public/city/packs/p-10_7.pack.wasm",
+      "sha256": "a0a5d3c68196d60708c564319cc540dbab7f32f5c8b0e96f76990264b96cbf05"
+    },
+    {
+      "path": "public/city/packs/p-11_-1.pack.wasm",
+      "sha256": "d93a3cbac7daed52c368ab001963ae6fa0ca4c04d6b5fa7e847845248d09bd39"
+    },
+    {
+      "path": "public/city/packs/p-11_-2.pack.wasm",
+      "sha256": "965b71dc637b289c7dc9b4ba0cfe5a498419ba28c49efe04a2d71fcdb5fb61f6"
+    },
+    {
+      "path": "public/city/packs/p-11_-3.pack.wasm",
+      "sha256": "2c0b78fe9773a99ecfb6559e681dc13625a15f2c5641c98b7a8b56bc8dee2765"
+    },
+    {
+      "path": "public/city/packs/p-11_-4.pack.wasm",
+      "sha256": "631d2c2ce76724f31190b1ddd9d74df79c2bc99e2b48bb9a098eed3ccce4767f"
+    },
+    {
+      "path": "public/city/packs/p-11_-5.pack.wasm",
+      "sha256": "4927ca08396e6677537adf440012b9ef5121b30b79dc156f8abf0da7c013e13c"
+    },
+    {
+      "path": "public/city/packs/p-11_-6.pack.wasm",
+      "sha256": "926f27399d40db6544d4e6f04179f1c195b04af550a0d777ecdc59d22eb9ad38"
+    },
+    {
+      "path": "public/city/packs/p-11_-7.pack.wasm",
+      "sha256": "5dd5e668888bf0bc51f6be8df3f76c0b69c401dac02eafaf6b54c83af6d535b2"
+    },
+    {
+      "path": "public/city/packs/p-11_-8.pack.wasm",
+      "sha256": "93d2e34702b808d13d2ed97d16e3c643a5c623208e6f024d555eeddaeb565365"
+    },
+    {
+      "path": "public/city/packs/p-11_0.pack.wasm",
+      "sha256": "887eff12d00e7f4e20d72740f593fda237da0a9cbd731c29466768abb6b61c72"
+    },
+    {
+      "path": "public/city/packs/p-11_1.pack.wasm",
+      "sha256": "511fdb4dcef26f8217a7f9f313f9c13d714f29c30655ed05015d7c812d56e52c"
+    },
+    {
+      "path": "public/city/packs/p-11_2.pack.wasm",
+      "sha256": "dbbc556f231962b7db08a54b990d6d258580b21d359b4578a06692afef9bbefd"
+    },
+    {
+      "path": "public/city/packs/p-11_3.pack.wasm",
+      "sha256": "1b4cf1559feb497ead7ad2011b540d49c8a531141e28b9f662c2b49bce22873f"
+    },
+    {
+      "path": "public/city/packs/p-11_4.pack.wasm",
+      "sha256": "e33d36f4390653f848a068a7a523adb672d87a8097137d95bdcc007d5bb873e0"
+    },
+    {
+      "path": "public/city/packs/p-11_5.pack.wasm",
+      "sha256": "b5cdd84494afdb712b7daa04966632685f6acbdd3f1734b07c26b300c4a7805f"
+    },
+    {
+      "path": "public/city/packs/p-11_6.pack.wasm",
+      "sha256": "95feb1839f8d127e0565ff8507afcb192e70c4e6459e97b14d318765ef71fa2e"
+    },
+    {
+      "path": "public/city/packs/p-11_7.pack.wasm",
+      "sha256": "5d2a9a5c6e71b5cd8cb70ad66d1b86814c0d71ba9d2ac27cef73436aeb1b9625"
+    },
+    {
+      "path": "public/city/packs/p-1_-1.pack.wasm",
+      "sha256": "f1c48a7ba20754120193e919ea53db935278cf4e0069c949494f20f17da52665"
+    },
+    {
+      "path": "public/city/packs/p-1_-2.pack.wasm",
+      "sha256": "0680a3fec0cf1b6c1395afa1e1e242083897ef4e5104cda61627b58f48bc2ffe"
+    },
+    {
+      "path": "public/city/packs/p-1_-3.pack.wasm",
+      "sha256": "64753144228874d4170ab31a77a00852896de63685f07116eb71916fc8bced7f"
+    },
+    {
+      "path": "public/city/packs/p-1_-4.pack.wasm",
+      "sha256": "2a05f13aeaf68f0723fd568a8869b4850f59aa96831c9c3a10b9b3c18371bdb0"
+    },
+    {
+      "path": "public/city/packs/p-1_-5.pack.wasm",
+      "sha256": "3c358de30f4deb95fc52e2de009528a71e625b79d483cfdc0a23d1c7f49c5944"
+    },
+    {
+      "path": "public/city/packs/p-1_-6.pack.wasm",
+      "sha256": "791170b5a85c29e8d00099057c2bbc2eb8983c8c83b81b9ee72bb24de965511b"
+    },
+    {
+      "path": "public/city/packs/p-1_-7.pack.wasm",
+      "sha256": "70bed4171916d47fb7d2bd2c2b9f6fcad72770b70f980657c9cb1f13c185bc12"
+    },
+    {
+      "path": "public/city/packs/p-1_-8.pack.wasm",
+      "sha256": "398b55f66370bcaf2c2c8eab96d0bc73e0f5dfd83698d97a88b3ad1c30c4147c"
+    },
+    {
+      "path": "public/city/packs/p-1_0.pack.wasm",
+      "sha256": "4453d15dbb3af7980604a77459f243ac1e74f20b85a1ffcdc05e74f392616ef7"
+    },
+    {
+      "path": "public/city/packs/p-1_1.pack.wasm",
+      "sha256": "921854f67005942354ab025cb27b4af8e6879b24dccc14108fce60c8b350f57e"
+    },
+    {
+      "path": "public/city/packs/p-1_2.pack.wasm",
+      "sha256": "bea46fc9b308b6aa1088f66f217c4ce45f04b21b87ae85b488f5120cfa0ee948"
+    },
+    {
+      "path": "public/city/packs/p-1_3.pack.wasm",
+      "sha256": "a24c6c5840e1940a36bad2f8be056e21b18862c8a8999a0271b008be44bc40ae"
+    },
+    {
+      "path": "public/city/packs/p-1_4.pack.wasm",
+      "sha256": "2fda8cd11221010a887822bc91f97e30bd59a46ab04dafffd61058cdf7c3625c"
+    },
+    {
+      "path": "public/city/packs/p-1_5.pack.wasm",
+      "sha256": "5746cf1f583608f28a84db52f4d4771bffcc6f4f5b3d4aabf11383a1d002be4c"
+    },
+    {
+      "path": "public/city/packs/p-1_6.pack.wasm",
+      "sha256": "3f4bd253d2c6fb01e3d5f0daaf582983ee4b3ddab040acee25f86b06db7670e8"
+    },
+    {
+      "path": "public/city/packs/p-1_7.pack.wasm",
+      "sha256": "6d0fadb2cb18a8cfb875c2121e8a25004ad3cba34d1ebaf1d51109dcce6e3e09"
+    },
+    {
+      "path": "public/city/packs/p-2_-1.pack.wasm",
+      "sha256": "6544a36703ccef7851913ed689b1cb1b0b1dc8a7ec62e673ba756c07a3ed3c53"
+    },
+    {
+      "path": "public/city/packs/p-2_-2.pack.wasm",
+      "sha256": "ef177e667964698c121f9f6c09260aa5634b3022a685f1d47938d10cf4360dc0"
+    },
+    {
+      "path": "public/city/packs/p-2_-3.pack.wasm",
+      "sha256": "0630eff8f4f7d47d4b422516a99e868663e43e577e1c1f7fd3c3daa6f3f22d6a"
+    },
+    {
+      "path": "public/city/packs/p-2_-4.pack.wasm",
+      "sha256": "8658cc238258b52cecf64f48bae383de2860fa63d2cccdca109ce33d3de057a1"
+    },
+    {
+      "path": "public/city/packs/p-2_-5.pack.wasm",
+      "sha256": "55fbe621a7431fe6e1553f905e37a44f5633260d0c4120ef8bc087f76fd7427a"
+    },
+    {
+      "path": "public/city/packs/p-2_-6.pack.wasm",
+      "sha256": "46cf78b678969b4a36d920fa8f68b581967a15f4f1b28a25eb40d1d4c3b86d04"
+    },
+    {
+      "path": "public/city/packs/p-2_-7.pack.wasm",
+      "sha256": "f83d366fbe4e091eeabef06cbbdc2586645473ebf4bcd9128351a8afd09ff2b9"
+    },
+    {
+      "path": "public/city/packs/p-2_-8.pack.wasm",
+      "sha256": "ecaf5a19e3c536eac7c98fd66587911d7136886147aaa20672bc69c18c8d07ca"
+    },
+    {
+      "path": "public/city/packs/p-2_0.pack.wasm",
+      "sha256": "31c36ff63090e26e49e193c149424f0074376b21c57af5b94dcca67fef20db96"
+    },
+    {
+      "path": "public/city/packs/p-2_1.pack.wasm",
+      "sha256": "52002c229f4dc54c147f94fe27da09c73382de87e2b2480f867787f25d5d9a51"
+    },
+    {
+      "path": "public/city/packs/p-2_2.pack.wasm",
+      "sha256": "a265b6ec488a3c155b22da70421596e176f7b9f7c4e95c5ee1af981dfa3a267c"
+    },
+    {
+      "path": "public/city/packs/p-2_3.pack.wasm",
+      "sha256": "6c216e10e4dfd24c6ea9a30ef90e9cc33858a9e11bef28506ee630c729f3faa3"
+    },
+    {
+      "path": "public/city/packs/p-2_4.pack.wasm",
+      "sha256": "98391fa1226f576f6f76a2f9c89c66307a3e75c63b3618e0ff7486d08e2a8967"
+    },
+    {
+      "path": "public/city/packs/p-2_5.pack.wasm",
+      "sha256": "99a493d4d10ac165cbe1e7f98735da2bfd32ab8420a468884e3e5ec872eaa3c0"
+    },
+    {
+      "path": "public/city/packs/p-2_6.pack.wasm",
+      "sha256": "d0041cf3a24b7c6e5b0112a135e9a569fbb009ae39d63906838719164d5164ca"
+    },
+    {
+      "path": "public/city/packs/p-2_7.pack.wasm",
+      "sha256": "0c61726758335afed4d1d4a7996dfd1c03d4676ad57ba117e3a39293d18340e9"
+    },
+    {
+      "path": "public/city/packs/p-3_-1.pack.wasm",
+      "sha256": "b13cc585fce9db693a039c95ad3de405469cf20828ea4dfb99f29e10c03d8cb1"
+    },
+    {
+      "path": "public/city/packs/p-3_-2.pack.wasm",
+      "sha256": "fe42c9deaa5ce4abe12d2579f46184a716ae13ab05fe66bfde75af61283b0670"
+    },
+    {
+      "path": "public/city/packs/p-3_-3.pack.wasm",
+      "sha256": "990be23daa762e1ce47d8c8a9f106dfe8f54169264c59f23800106b1fc96de83"
+    },
+    {
+      "path": "public/city/packs/p-3_-4.pack.wasm",
+      "sha256": "0b60af33f626aaba5310c009bd46d2679642320a76285c7574e0efac4226d913"
+    },
+    {
+      "path": "public/city/packs/p-3_-5.pack.wasm",
+      "sha256": "555eb843b4eb3acd35b8b591376b3f9687679e4efa654bd05c65d2179a37a1f6"
+    },
+    {
+      "path": "public/city/packs/p-3_-6.pack.wasm",
+      "sha256": "ce5d3731be017d3bcd92fa3732f8544f04bf2a43092917d485cd09438fd47aec"
+    },
+    {
+      "path": "public/city/packs/p-3_-7.pack.wasm",
+      "sha256": "c5e638a320b65bbf1e922786ce57cbbb4e24ec97f8b337077daa8f8c0cabd679"
+    },
+    {
+      "path": "public/city/packs/p-3_-8.pack.wasm",
+      "sha256": "d6b322d307fa1332e36641fce2af4df9c531e245eff3eb2996351b3cc6bc8449"
+    },
+    {
+      "path": "public/city/packs/p-3_0.pack.wasm",
+      "sha256": "f6296abb619aaefc9091f758205c140b57da1dc3dc9b2f582363fc24f7e71894"
+    },
+    {
+      "path": "public/city/packs/p-3_1.pack.wasm",
+      "sha256": "9c9a8a32adc2db975ef79834a9fd9948bd37ae145facc5f6046f18ea8797dde0"
+    },
+    {
+      "path": "public/city/packs/p-3_2.pack.wasm",
+      "sha256": "39781ce3bbb8b2a232e4090d81aec3bfbc2f5171f1b80637e52ada42ad013329"
+    },
+    {
+      "path": "public/city/packs/p-3_3.pack.wasm",
+      "sha256": "f703c66c90ad758d5504b20b2943366cd34e635a9ae8bd823ce7aa06d862bd94"
+    },
+    {
+      "path": "public/city/packs/p-3_4.pack.wasm",
+      "sha256": "289dc470847609f72e3d0f53e5c95868612fe7c6f0a0b4ecf0c6d237ad8cf53d"
+    },
+    {
+      "path": "public/city/packs/p-3_5.pack.wasm",
+      "sha256": "0c13a0654f1feef3259d7829a7fb7049a6dc5a0b381220358f80db1293c88fc6"
+    },
+    {
+      "path": "public/city/packs/p-3_6.pack.wasm",
+      "sha256": "40358680015062dccad9633d6790cf6ea25fbe87646e3f8b35d6a0689baa427d"
+    },
+    {
+      "path": "public/city/packs/p-3_7.pack.wasm",
+      "sha256": "4545ed9bfb0881a5964f716303ba632cd913048f7382ea6fd40d226baf1fd816"
+    },
+    {
+      "path": "public/city/packs/p-4_-1.pack.wasm",
+      "sha256": "3f22cc7d673d34cd9dc005edcf133c4b62816de247ead34adc4808212c9f9ae0"
+    },
+    {
+      "path": "public/city/packs/p-4_-2.pack.wasm",
+      "sha256": "80c3c456a176256ac22b5423ce8614215cfea1585cb825894f4c56a83bd2e495"
+    },
+    {
+      "path": "public/city/packs/p-4_-3.pack.wasm",
+      "sha256": "21c6c8efe6a4643f1890030d4574ea5fe630c381ef193e2722ceecc18e68560c"
+    },
+    {
+      "path": "public/city/packs/p-4_-4.pack.wasm",
+      "sha256": "e35b990fa31312987afa25095503d0c52af84fe922bad423eb1930d6de6503f4"
+    },
+    {
+      "path": "public/city/packs/p-4_-5.pack.wasm",
+      "sha256": "5006250cb523ee2cc8b91b7981ab500ca22d41d334580485bf1d5352373cbb91"
+    },
+    {
+      "path": "public/city/packs/p-4_-6.pack.wasm",
+      "sha256": "250f8767e2d00a14111d9b445df2812ada5767f8557b2ab0d3e54b37fb1b4e3e"
+    },
+    {
+      "path": "public/city/packs/p-4_-7.pack.wasm",
+      "sha256": "1d971e1c8b7f3d9de26125e143c50ba8ea829bc7c15e48bbecf83b89622b936c"
+    },
+    {
+      "path": "public/city/packs/p-4_-8.pack.wasm",
+      "sha256": "a9f73213d4c300fb41292842b3ef1097d819ef15adc379e562e1dbcb87502949"
+    },
+    {
+      "path": "public/city/packs/p-4_0.pack.wasm",
+      "sha256": "b02de5d2b0bc53eda871c961ce660d2f1ab5978e39a83be72e66bbfcb551cb17"
+    },
+    {
+      "path": "public/city/packs/p-4_1.pack.wasm",
+      "sha256": "494bef8c37195bd0a65e1800885b7189b412c89d5cb6b5a15235c38dcd56b3e7"
+    },
+    {
+      "path": "public/city/packs/p-4_2.pack.wasm",
+      "sha256": "f271858505cc0c5a9a241926b9ce01b5fd505ddd83933b53242178451f63715f"
+    },
+    {
+      "path": "public/city/packs/p-4_3.pack.wasm",
+      "sha256": "442739954695b02bea1a5d47496c1ca8695c94074159dbeafe85afaeec6401dd"
+    },
+    {
+      "path": "public/city/packs/p-4_4.pack.wasm",
+      "sha256": "2521fffbff5200496d4ceb4b937b148348cdfb5c7df3a29908bb70d91c181f50"
+    },
+    {
+      "path": "public/city/packs/p-4_5.pack.wasm",
+      "sha256": "15e2a7ad50b92a1dba5db6f481e2fb5bc41f3ee29298d44fb316ad04f19b9fea"
+    },
+    {
+      "path": "public/city/packs/p-4_6.pack.wasm",
+      "sha256": "a7acefa5f74c59be07480613299f2d685d01a1af726a3fb8a977be83231d070c"
+    },
+    {
+      "path": "public/city/packs/p-4_7.pack.wasm",
+      "sha256": "ac85e2fc072d577a93eae5f7d386d00daf042f7babe045beed13de7331479afb"
+    },
+    {
+      "path": "public/city/packs/p-5_-1.pack.wasm",
+      "sha256": "8335ea23f484321baa225158c2ee6afef205d429eedac2d3f7a99b48275c1c0d"
+    },
+    {
+      "path": "public/city/packs/p-5_-2.pack.wasm",
+      "sha256": "5e4d35c80bd77adce9dd4aebd23edb001f4e3af286165ffe80f0853fd048bb45"
+    },
+    {
+      "path": "public/city/packs/p-5_-3.pack.wasm",
+      "sha256": "f5e5c54faef133971e450e4b297e44ffad7b9049de827b720bb83db63959b71f"
+    },
+    {
+      "path": "public/city/packs/p-5_-4.pack.wasm",
+      "sha256": "57cb6544953c5090146f2e6ce84efef3d76eac4f2029868f840f5ca20f90a3f8"
+    },
+    {
+      "path": "public/city/packs/p-5_-5.pack.wasm",
+      "sha256": "d0f18ab243b7581f0c05cb6e25c6360a0a1e04317eecb44852e6094bdfb1b312"
+    },
+    {
+      "path": "public/city/packs/p-5_-6.pack.wasm",
+      "sha256": "70bceeb5ec3acaf4d4d82cd3bafade7ca1be5a6fad8e9223068b2440614890a2"
+    },
+    {
+      "path": "public/city/packs/p-5_-7.pack.wasm",
+      "sha256": "61273c9ac39e2ead8f7922a1e1f3e9573340da96165a8681d59efc1560a071f7"
+    },
+    {
+      "path": "public/city/packs/p-5_-8.pack.wasm",
+      "sha256": "d323a30c7214c58144e8df7a33380d9c47368d7ad501f2e339950495e6c4180a"
+    },
+    {
+      "path": "public/city/packs/p-5_0.pack.wasm",
+      "sha256": "d6ad0991977d4728b14f9b5a3df64b481ca51db5b04b1a68fce7e3c1d723a8fc"
+    },
+    {
+      "path": "public/city/packs/p-5_1.pack.wasm",
+      "sha256": "feb88a9daa1276065c585184365b2a7c0fde93aaafbbc6151718310929f91892"
+    },
+    {
+      "path": "public/city/packs/p-5_2.pack.wasm",
+      "sha256": "e9ad279fbd2eba319a5ed962bf2c7dbf2e4468c02ef2fcbd4a7a14cf70019e82"
+    },
+    {
+      "path": "public/city/packs/p-5_3.pack.wasm",
+      "sha256": "966edaaf929a42387c3c6b311933bf9cd49b6fb8fc999a0f49b1292d5d533de4"
+    },
+    {
+      "path": "public/city/packs/p-5_4.pack.wasm",
+      "sha256": "afaec309f6f548a154d9087ac6fcbddffcbfdd331fa6f10f60e086e86877132e"
+    },
+    {
+      "path": "public/city/packs/p-5_5.pack.wasm",
+      "sha256": "1623681f39ec6072bc6a2ac98b7b8bd4fb7973ff2f7cf44d039d2496e73494df"
+    },
+    {
+      "path": "public/city/packs/p-5_6.pack.wasm",
+      "sha256": "a4fd3832d5709a1245f3295195b52ccd776392cb9588820f18d38d826a2260bb"
+    },
+    {
+      "path": "public/city/packs/p-5_7.pack.wasm",
+      "sha256": "5c4dfb3fc46bc7b5f7d35c30728ef8a4d5277939c18685ec2ea0874e8386c1f7"
+    },
+    {
+      "path": "public/city/packs/p-6_-1.pack.wasm",
+      "sha256": "4353e67c4ee18c1b56d6cae5659e8e486c5a771a5c95defd1416ee63384579fc"
+    },
+    {
+      "path": "public/city/packs/p-6_-2.pack.wasm",
+      "sha256": "8539fa95e932e1683db57a2ac5394faea0629433b75cb7ce44888c4399339184"
+    },
+    {
+      "path": "public/city/packs/p-6_-3.pack.wasm",
+      "sha256": "6ffa57e7e3dbaefc1f9fcfb75a22a2dd33328d0eb7018a648caea56699f800b4"
+    },
+    {
+      "path": "public/city/packs/p-6_-4.pack.wasm",
+      "sha256": "a12ad161ad1c7b4aea11007a08324bed340d2762c6b6f4924ca6800320cda0c1"
+    },
+    {
+      "path": "public/city/packs/p-6_-5.pack.wasm",
+      "sha256": "819d2505397bc8f4c1c3292587c0e0008974ba52e341a91cf80af48e48010987"
+    },
+    {
+      "path": "public/city/packs/p-6_-6.pack.wasm",
+      "sha256": "65d3d41f8a64afad05b0f91de8e2792b629c06f0349324847ca68a4db9af8563"
+    },
+    {
+      "path": "public/city/packs/p-6_-7.pack.wasm",
+      "sha256": "6ab828f81f0cfe3dfe8b088261290c6a9779abebb44f2cb1beecf01c583dd48b"
+    },
+    {
+      "path": "public/city/packs/p-6_-8.pack.wasm",
+      "sha256": "c11f2330cc799cfffe43115782be955268d862ae8659cddb00c43ffcebe5c692"
+    },
+    {
+      "path": "public/city/packs/p-6_0.pack.wasm",
+      "sha256": "64bc94f6dafe0371c2df36f2d55b8e1ea8a4bef2065810b367745125bf58f724"
+    },
+    {
+      "path": "public/city/packs/p-6_1.pack.wasm",
+      "sha256": "0096c26dde0bd795ebdba38fa511648faef1263e5fb9a10244e9f3968594cc09"
+    },
+    {
+      "path": "public/city/packs/p-6_2.pack.wasm",
+      "sha256": "90d2d9f09ca196433bdc3139672567f8340965bdef6ced139cdd012d88297336"
+    },
+    {
+      "path": "public/city/packs/p-6_3.pack.wasm",
+      "sha256": "04966f1654696889d220088adaf25cdf741371c3523e5b018ca6a1f3ca75c12f"
+    },
+    {
+      "path": "public/city/packs/p-6_4.pack.wasm",
+      "sha256": "d06d7f8386e7a292e9fffa0eba22729b58eb8f4e55fdcbba3d1b01de059bc423"
+    },
+    {
+      "path": "public/city/packs/p-6_5.pack.wasm",
+      "sha256": "e70d4531b7be983696bb4cf5f13a0cbb319af6f9ccfec47137dcc632e5823035"
+    },
+    {
+      "path": "public/city/packs/p-6_6.pack.wasm",
+      "sha256": "e07321460a587c2d3cdeb1213b5ee5275d5fd5e08801c6a16058cd9e7bed5207"
+    },
+    {
+      "path": "public/city/packs/p-6_7.pack.wasm",
+      "sha256": "65ffb8a50be82b0c195abe26e04a0c903f3b621b0d39b12fc02bc2a745ee50a5"
+    },
+    {
+      "path": "public/city/packs/p-7_-1.pack.wasm",
+      "sha256": "10199fbbd7a523d9781b8d02e77df87741bd74dbf846d742b1227c78681d381c"
+    },
+    {
+      "path": "public/city/packs/p-7_-2.pack.wasm",
+      "sha256": "6484993ae7a81efc21b13029d1ff431b924499d92948131055070cd079d4cf3e"
+    },
+    {
+      "path": "public/city/packs/p-7_-3.pack.wasm",
+      "sha256": "e18cbd41e4213e770dd96f4c324f9a0214cf04a373d0c9804358efad13e7a12d"
+    },
+    {
+      "path": "public/city/packs/p-7_-4.pack.wasm",
+      "sha256": "a9b326ba385a6d7d60be0de359cd42920e9d78ba426f56c62a4a7b031156474d"
+    },
+    {
+      "path": "public/city/packs/p-7_-5.pack.wasm",
+      "sha256": "b6ac4c8f83ff67593a4710226b7f91aca20df56a8e5eb40ad590958375086ffc"
+    },
+    {
+      "path": "public/city/packs/p-7_-6.pack.wasm",
+      "sha256": "918f5c240b42328b1dc7c183a1045d414fa4b3ac257da8dfa30735fdc1b3596a"
+    },
+    {
+      "path": "public/city/packs/p-7_-7.pack.wasm",
+      "sha256": "986d65ff3cdec7eca5fba0678253bc14dda1bf6476a24b5438df85db1f80ded2"
+    },
+    {
+      "path": "public/city/packs/p-7_-8.pack.wasm",
+      "sha256": "d7f466970337f23f4cd2a5a46dd3e50d71897d90d7834f7b19bf9c9f3734b8cf"
+    },
+    {
+      "path": "public/city/packs/p-7_0.pack.wasm",
+      "sha256": "a8a57aceaffdbf6c1ad73ae4c9875474c89203183195b8d0716a6695f79e16ef"
+    },
+    {
+      "path": "public/city/packs/p-7_1.pack.wasm",
+      "sha256": "fdc3b4ca67eafc94acf585c692b3159a35833483442bed028fa593c8bdadd269"
+    },
+    {
+      "path": "public/city/packs/p-7_2.pack.wasm",
+      "sha256": "0beed3b5ec727c6d576ddefb30130fdac5a23a8e0077813163b16a5b37158d8c"
+    },
+    {
+      "path": "public/city/packs/p-7_3.pack.wasm",
+      "sha256": "451932de8e76bc7dcb09daae88ee3f0aa672597d138c5710df1d8ad7667c3a57"
+    },
+    {
+      "path": "public/city/packs/p-7_4.pack.wasm",
+      "sha256": "3a52f88d594a414a86a122c252128a325a9ba31aab7664703ca47fa56069ba38"
+    },
+    {
+      "path": "public/city/packs/p-7_5.pack.wasm",
+      "sha256": "b12ece262395eece3dd8ba577395e431d1bfb21f7ee1d98a7f3a44c2f873271b"
+    },
+    {
+      "path": "public/city/packs/p-7_6.pack.wasm",
+      "sha256": "0aaecc5844ee70df49ca87d5f52e2a522425652c529afad43336bef7832ec6fa"
+    },
+    {
+      "path": "public/city/packs/p-7_7.pack.wasm",
+      "sha256": "550c1b5c22bf3c7f6d3cfa5d66a735fd1c1018bd9ae1e45c1ba752262b54d1d6"
+    },
+    {
+      "path": "public/city/packs/p-8_-1.pack.wasm",
+      "sha256": "0ddaf27e0a81b12e547a8441152e4c968069196ab4a35127e73bed70baaab7bf"
+    },
+    {
+      "path": "public/city/packs/p-8_-2.pack.wasm",
+      "sha256": "f7e6e63a26a6da9c56d3f1f68327aba50cabd45f148da4d02084441c69192333"
+    },
+    {
+      "path": "public/city/packs/p-8_-3.pack.wasm",
+      "sha256": "9c86d0d8d4d6a7d6d071bc7d3d331360e6cf644620392f8ddc9c3e4925c713f1"
+    },
+    {
+      "path": "public/city/packs/p-8_-4.pack.wasm",
+      "sha256": "708ba3c3b79c38c14039ff64d2d79fd525f071fdb745c743e3245e0a6a5f671a"
+    },
+    {
+      "path": "public/city/packs/p-8_-5.pack.wasm",
+      "sha256": "4e01f9478682e648bac7589357a17bfc34f4cd6115c5a9e2d1faa018d2023b0f"
+    },
+    {
+      "path": "public/city/packs/p-8_-6.pack.wasm",
+      "sha256": "b9d4887cc427dc452ab67442ecebaf3d5afbb83e20a17826701802fb8db311ab"
+    },
+    {
+      "path": "public/city/packs/p-8_-7.pack.wasm",
+      "sha256": "98aa681858ce4f0012fc850670d71a35f0c805696a6220155892ba79f2fac347"
+    },
+    {
+      "path": "public/city/packs/p-8_-8.pack.wasm",
+      "sha256": "6cb388c935927506211626f273f3b151f909cf31e33c35406bf5edacac7a8d90"
+    },
+    {
+      "path": "public/city/packs/p-8_0.pack.wasm",
+      "sha256": "83d9eb74cf7c3dc1aab5786562c251b7e4676d8369c7a6a9e5a4011a54eb3bf4"
+    },
+    {
+      "path": "public/city/packs/p-8_1.pack.wasm",
+      "sha256": "4fa4f64824de6bc4d273a42440867bbd7a5a74a8a0c0ca3edbf9ba64a708e9ea"
+    },
+    {
+      "path": "public/city/packs/p-8_2.pack.wasm",
+      "sha256": "9dfadd4f5a37711a9f1d01a2f80ef913ba04d1c8401e59ccf523a9b7b742ea11"
+    },
+    {
+      "path": "public/city/packs/p-8_3.pack.wasm",
+      "sha256": "eda7ea0a01df424974c90b556909c78315805334067b0f5e255733d0a262ef07"
+    },
+    {
+      "path": "public/city/packs/p-8_4.pack.wasm",
+      "sha256": "ff3913b2ee4bd7ad663b4e779e531a177e3b57939e00d5790337c5aa988df2eb"
+    },
+    {
+      "path": "public/city/packs/p-8_5.pack.wasm",
+      "sha256": "6779e142a30b2f3e76b51afd675e960b8d99f71cbbf504115432ecc58a08b6f1"
+    },
+    {
+      "path": "public/city/packs/p-8_6.pack.wasm",
+      "sha256": "d617dedccba1b13dad66c136a5ef158b15a3636f776f72f67e51b7a36b332dec"
+    },
+    {
+      "path": "public/city/packs/p-8_7.pack.wasm",
+      "sha256": "d4c8bab88d539e04d564a839be124e05b00837332569d5299125c660da1d815b"
+    },
+    {
+      "path": "public/city/packs/p-9_-1.pack.wasm",
+      "sha256": "f981cb2228e3158d9e2bb7fff09b90a34c4ed68c29571d0f483b23dffe862768"
+    },
+    {
+      "path": "public/city/packs/p-9_-2.pack.wasm",
+      "sha256": "0d4d981b0e28933e854bdb09fd08ce7cce998a44ea656cbd0a57ad736a7ecafa"
+    },
+    {
+      "path": "public/city/packs/p-9_-3.pack.wasm",
+      "sha256": "7b007dd0e06e07e5c098fe12ce53ab432c615803b5d3556b306fe951b15fc39b"
+    },
+    {
+      "path": "public/city/packs/p-9_-4.pack.wasm",
+      "sha256": "3bc7513c68b14d74bcad5c01948dfe5916e4264ec28cf59ea83510a90d502863"
+    },
+    {
+      "path": "public/city/packs/p-9_-5.pack.wasm",
+      "sha256": "ee586bfdb618079aff8914ef6627695e14e2592e710fe7f3ff61ae1370991e07"
+    },
+    {
+      "path": "public/city/packs/p-9_-6.pack.wasm",
+      "sha256": "eb71e2f249565a7234c358c4f1fdcde2b8fd59cf0ad8cfd4936cbca09dcf80c5"
+    },
+    {
+      "path": "public/city/packs/p-9_-7.pack.wasm",
+      "sha256": "7e9d6f94146bf060dcfe59fbd1920ad2d6c38c4713e5dbd2e662fa7c0334ebcd"
+    },
+    {
+      "path": "public/city/packs/p-9_-8.pack.wasm",
+      "sha256": "a2738a37d68aca012283e121a06228de38efded184e611f154938d2120ca97c1"
+    },
+    {
+      "path": "public/city/packs/p-9_0.pack.wasm",
+      "sha256": "9403cb706e546b6e158261ab2bb60ceece3cfa26101f55d5db56ba9845211def"
+    },
+    {
+      "path": "public/city/packs/p-9_1.pack.wasm",
+      "sha256": "e02072e697df4c5fb9cff63288812da3e6718342abb1088e85f54a0b2da755d5"
+    },
+    {
+      "path": "public/city/packs/p-9_2.pack.wasm",
+      "sha256": "b611fad7be2a6987b483cd5125a2b74ff4b456bcabae2e0ebe6b2e2ca220989f"
+    },
+    {
+      "path": "public/city/packs/p-9_3.pack.wasm",
+      "sha256": "c7a483d7f73424767c2923702be731aef67c95ad2d082899c435c7f8fc046537"
+    },
+    {
+      "path": "public/city/packs/p-9_4.pack.wasm",
+      "sha256": "6345cb9f71effb0674d14998df1b0e36d193c4362f9706c43e98d3dcce398146"
+    },
+    {
+      "path": "public/city/packs/p-9_5.pack.wasm",
+      "sha256": "486ef6cc00fbfec0e42b77a205ef5b53f51f9483e78839e42fd05dc9e26cc197"
+    },
+    {
+      "path": "public/city/packs/p-9_6.pack.wasm",
+      "sha256": "1e63fe0da96fa7ec8db21e089740286f2aa34b06ac8ed5c354845d42bc5e3eb4"
+    },
+    {
+      "path": "public/city/packs/p-9_7.pack.wasm",
+      "sha256": "bb085ccd2af894f7be8630939e697ddd9417a1bd8a40e6afe02a9af13151a4f7"
+    },
+    {
+      "path": "public/city/packs/p0_-1.pack.wasm",
+      "sha256": "4413c8308be5c45561eda6244815dfec44f73a6f8d62df88b67c01656aae09a8"
+    },
+    {
+      "path": "public/city/packs/p0_-2.pack.wasm",
+      "sha256": "9f6630a5fb0f5f52cc4ae048a90d99ef5f219c028141369aa42b10debb3d4ba4"
+    },
+    {
+      "path": "public/city/packs/p0_-3.pack.wasm",
+      "sha256": "4a4db23a2a73aa69b44ff59d993df3b3c457013fa5412ade84323fcd1205c425"
+    },
+    {
+      "path": "public/city/packs/p0_-4.pack.wasm",
+      "sha256": "1a425bf4d0babff9bc332307a8efa9bd668086eb875bfb7818154a0bec9b4da8"
+    },
+    {
+      "path": "public/city/packs/p0_-5.pack.wasm",
+      "sha256": "9d121e1a19b7778a4460b5982ee66763a4a06de762ab590ba2ddf24f8acd2ac5"
+    },
+    {
+      "path": "public/city/packs/p0_-6.pack.wasm",
+      "sha256": "aa5fe38be6764d7d2a0a2362a85f59c95f6be5589d32872063b4f709d5c4e4b2"
+    },
+    {
+      "path": "public/city/packs/p0_-7.pack.wasm",
+      "sha256": "3c1ddb412ab1fd25a2de18ea88a2352dc309afa514a9a969cba7e865cfaa8275"
+    },
+    {
+      "path": "public/city/packs/p0_-8.pack.wasm",
+      "sha256": "24d288f918c4d348814f32997b459775594ace0a7f60be446f9f6ea64c3db265"
+    },
+    {
+      "path": "public/city/packs/p0_0.pack.wasm",
+      "sha256": "1d1c89054aa00998e5e3d86831306fabe97e24b9baffad71a93fe258f84ede42"
+    },
+    {
+      "path": "public/city/packs/p0_1.pack.wasm",
+      "sha256": "50fbb05a09a345a3ee644e1789ab247644e47f22a137bc131bb41c1fcb01c2b5"
+    },
+    {
+      "path": "public/city/packs/p0_2.pack.wasm",
+      "sha256": "f301010142133d48ffb799af9aff6153eab0e4969664b6ee560c60bab3e19017"
+    },
+    {
+      "path": "public/city/packs/p0_3.pack.wasm",
+      "sha256": "0336c5d739683280b6fa07c998a0ebdf89412b5afe4ab0d757e6689b8c09c00a"
+    },
+    {
+      "path": "public/city/packs/p0_4.pack.wasm",
+      "sha256": "1d60e4eb20ea308239e963b9b2fd747e81d2b68b8a827a2611489558e02a13c6"
+    },
+    {
+      "path": "public/city/packs/p0_5.pack.wasm",
+      "sha256": "aef7127460525d761a051b2280f80aa43fdff0d616db8f04550665da0fb697f6"
+    },
+    {
+      "path": "public/city/packs/p0_6.pack.wasm",
+      "sha256": "6bf62069b060b8914c1423ddac75034dd39505072d80d8fd68cbb9f311e3c3e4"
+    },
+    {
+      "path": "public/city/packs/p0_7.pack.wasm",
+      "sha256": "10f0746e8b7ae9aa31294e6fce2c9979054f3246caf10e131205eccf06a54ee0"
+    },
+    {
+      "path": "public/city/packs/p1_-1.pack.wasm",
+      "sha256": "0b32b79ceb5866fb57481ec750150bbb16551608500dd421072f3277aba0a7e6"
+    },
+    {
+      "path": "public/city/packs/p1_-2.pack.wasm",
+      "sha256": "85b4e3f61ed8b77edd2cb9170bcaf107425e126a3d99284bf927cc41991b140f"
+    },
+    {
+      "path": "public/city/packs/p1_-3.pack.wasm",
+      "sha256": "62e25d14c514897e789c67c6bd5c5f6d73968a277e6f8d0444b0fe70afe8c770"
+    },
+    {
+      "path": "public/city/packs/p1_-4.pack.wasm",
+      "sha256": "17dc6eae59fe0b50504b205bbb2692926fbd66c83d09b053a9d96b2c2c99c5d1"
+    },
+    {
+      "path": "public/city/packs/p1_-5.pack.wasm",
+      "sha256": "89ef3c27cd2b8756c8c9b9b8ed177e530e677fceecd70c84fb3411dfa0dab10a"
+    },
+    {
+      "path": "public/city/packs/p1_-6.pack.wasm",
+      "sha256": "b54e82600182a3411cca36c20372d13993a5b19396320a581adddfe95448c800"
+    },
+    {
+      "path": "public/city/packs/p1_-7.pack.wasm",
+      "sha256": "8e4e1d01df1e24cd1ba5a091aa29bdecd7053fa53bfe444ff5f167e7ca098a2b"
+    },
+    {
+      "path": "public/city/packs/p1_-8.pack.wasm",
+      "sha256": "6003cd727711bb8757ba68f73bed1e85a950b9b0aca3b25430f5a0f732708ef5"
+    },
+    {
+      "path": "public/city/packs/p1_0.pack.wasm",
+      "sha256": "bfb6514f4c8ec594f67c1e91b4d9949d3c8a65f1aac16e19f085cac874a10af9"
+    },
+    {
+      "path": "public/city/packs/p1_1.pack.wasm",
+      "sha256": "015654e89f631ffb0b98a1b3329473c402d8ac03beced1d429d2d51a27d36b4a"
+    },
+    {
+      "path": "public/city/packs/p1_2.pack.wasm",
+      "sha256": "f295a45f024dae75d04ad46b433ac3a814ec751a74d8df8eff59bb8dcd08c19b"
+    },
+    {
+      "path": "public/city/packs/p1_3.pack.wasm",
+      "sha256": "b32b22b39bf8e9ee41540234d434c82cd9111e23cafc119906fe723b5afc67cb"
+    },
+    {
+      "path": "public/city/packs/p1_4.pack.wasm",
+      "sha256": "04afaa9051b6a1396be0ffbeb64218fa95f0b153dd9a671740153e4847e798aa"
+    },
+    {
+      "path": "public/city/packs/p1_5.pack.wasm",
+      "sha256": "9e7e486af4675f50f6d7825d0a11fd083bc3af8d5057fa4396c508429d4bfe72"
+    },
+    {
+      "path": "public/city/packs/p1_6.pack.wasm",
+      "sha256": "3a562ac5c8063a83a090fe859554c312d3a4e3fd49512a3a154a19260ae866e4"
+    },
+    {
+      "path": "public/city/packs/p1_7.pack.wasm",
+      "sha256": "f3d2eab775e11d607daeed3083bb9f547f036e25d31681692d662271ffe3485c"
+    },
+    {
+      "path": "public/city/packs/p2_-1.pack.wasm",
+      "sha256": "716879444c96602ff24ae0b0f495a0520e99655cf2848702d41919700bcd52b7"
+    },
+    {
+      "path": "public/city/packs/p2_-2.pack.wasm",
+      "sha256": "d46a55c3af2a00e16d1da6c2e7e46dd03a35f8d12d7064128eedc53ae9f33a9f"
+    },
+    {
+      "path": "public/city/packs/p2_-3.pack.wasm",
+      "sha256": "01be2aa2bbae467eccbf8113a4f5217ab0c152f5958d308b93dcb1bf89b66331"
+    },
+    {
+      "path": "public/city/packs/p2_-4.pack.wasm",
+      "sha256": "b6c79130f841a98683d62b14fefe8cfa590370cc54c5934b1b9508d90a8a17bf"
+    },
+    {
+      "path": "public/city/packs/p2_-5.pack.wasm",
+      "sha256": "19afbda016c61ea97732e77327dd9a14aded7a8ec4e8f38ee62ac2b6f156528f"
+    },
+    {
+      "path": "public/city/packs/p2_-6.pack.wasm",
+      "sha256": "8f65d72d7b082ba57eed98e1605ef80f21ec4115fc38245eeae3813548f359b6"
+    },
+    {
+      "path": "public/city/packs/p2_-7.pack.wasm",
+      "sha256": "bd601c8ed77aabfd63972abd2fc814a5690f76bf74a6b59235ee7a7e5d7bc339"
+    },
+    {
+      "path": "public/city/packs/p2_-8.pack.wasm",
+      "sha256": "247c85bb06aef3c2a3ad2167379c777c250f3964a46a79a21c3e2e85a653ace1"
+    },
+    {
+      "path": "public/city/packs/p2_0.pack.wasm",
+      "sha256": "2869ad7a1f1ec0afc7634d9aed5fdf8142a932e9af86d7b37fbf6d4d53165125"
+    },
+    {
+      "path": "public/city/packs/p2_1.pack.wasm",
+      "sha256": "585d21a9d504c9463d1085ac66f48d8dc3d78bd9cb173292e6c2944a2741d985"
+    },
+    {
+      "path": "public/city/packs/p2_2.pack.wasm",
+      "sha256": "7502785095d31f9d6eb5ea102d6d195b730eb3a4b29ada9f0d4a2bd2b38a0d57"
+    },
+    {
+      "path": "public/city/packs/p2_3.pack.wasm",
+      "sha256": "b2945c07ec58f6abfa538c93d98d4dbaef7377ba28507dcd5e6e4f90409342e9"
+    },
+    {
+      "path": "public/city/packs/p2_4.pack.wasm",
+      "sha256": "3535347539cfb07e9d74f76c0d726f374d9dcb855ee4af36fcf5055ba6f6eec9"
+    },
+    {
+      "path": "public/city/packs/p2_5.pack.wasm",
+      "sha256": "b0e2e207dd2a770d30ffcd7718d9f332b00706150e82732c19770658e1ed3225"
+    },
+    {
+      "path": "public/city/packs/p2_6.pack.wasm",
+      "sha256": "2d7a6e1d7d43ac5cf819660157e4ca0e842057a24cda7a04973fb2eee7741f3f"
+    },
+    {
+      "path": "public/city/packs/p2_7.pack.wasm",
+      "sha256": "a84ec97f94e6cfc46d8595d80fbc947f973bad5ec5768e7e6e2f33ae9f6fbb63"
+    },
+    {
+      "path": "public/city/packs/p3_-1.pack.wasm",
+      "sha256": "68fc7153e323ba6c4c6e1928cb7b57ace6e93c0a6b574b54ec3321e35ad85b60"
+    },
+    {
+      "path": "public/city/packs/p3_-2.pack.wasm",
+      "sha256": "744bc39a21975ee765505cfb0db99ce90ebfe7771f93487b2614adf244a4dbf8"
+    },
+    {
+      "path": "public/city/packs/p3_-3.pack.wasm",
+      "sha256": "181e3957e7e9091b45228bdb5203f097e2f29e40ead3d97eaeadf43c688084a0"
+    },
+    {
+      "path": "public/city/packs/p3_-4.pack.wasm",
+      "sha256": "829fd9a69775bbba4f02941a76d8fd6114243f25f10c46c9d208eebb3abdbb98"
+    },
+    {
+      "path": "public/city/packs/p3_-5.pack.wasm",
+      "sha256": "fe3cccba0658ea2e809d7db3ad9dbc4fe79e5941d71e14081475efe71136875e"
+    },
+    {
+      "path": "public/city/packs/p3_-6.pack.wasm",
+      "sha256": "4b087f3a6c4bd2cfd8f0beb8e40228467ff45f9b478dc33a057b6b5ab2476483"
+    },
+    {
+      "path": "public/city/packs/p3_-7.pack.wasm",
+      "sha256": "24f54987b53905fff8663b50494514dbf1bfe712aad111b3068f1a2a0ebdb44e"
+    },
+    {
+      "path": "public/city/packs/p3_-8.pack.wasm",
+      "sha256": "9f5587d5aa6e8295c9492a183d0e33f82a68066afac863ef664cc685f52cc33a"
+    },
+    {
+      "path": "public/city/packs/p3_0.pack.wasm",
+      "sha256": "07562130fb6203e0ff8e8bbbdba5d3548c6fce7e01b95891338491ea9446513c"
+    },
+    {
+      "path": "public/city/packs/p3_1.pack.wasm",
+      "sha256": "ae62d3f620ecefababdcfeb1242013da092b6dad94a22af6d198424a88a80df8"
+    },
+    {
+      "path": "public/city/packs/p3_2.pack.wasm",
+      "sha256": "619de31c68bf0d30fa3862c376c103b6bcf06a57411b5c379b716330aa7a1465"
+    },
+    {
+      "path": "public/city/packs/p3_3.pack.wasm",
+      "sha256": "bf1d22045defa23960cd51ab2072b45bb3c5d36ddf1ef6f795d4a33c9445dd8d"
+    },
+    {
+      "path": "public/city/packs/p3_4.pack.wasm",
+      "sha256": "d2b0f81490a54316c50526846c4c4343972be77d33ea6b6addd568940e600229"
+    },
+    {
+      "path": "public/city/packs/p3_5.pack.wasm",
+      "sha256": "eb8d257898399e947d8381cd3d1109f7fdd878a107b3d7be31196ae1e58c2113"
+    },
+    {
+      "path": "public/city/packs/p3_6.pack.wasm",
+      "sha256": "e791570ad81d0a3e4ccba277a7d82cab7440ca590883ab587c6f1d64a5f3a19c"
+    },
+    {
+      "path": "public/city/packs/p3_7.pack.wasm",
+      "sha256": "f0d6c45e477ac87f06ddd40a0e99ac5ac5028a881216cba8d55fa278277a5470"
+    },
+    {
+      "path": "public/city/packs/p4_-1.pack.wasm",
+      "sha256": "c18dac48a41b3a1b9e445e54dc5182706a5e151823c0b3c3b7a1b2976f059df2"
+    },
+    {
+      "path": "public/city/packs/p4_-2.pack.wasm",
+      "sha256": "f3afef37950f596517a2f1a139d3cb8be788fbc974d4f7fd536b2e8b06f97548"
+    },
+    {
+      "path": "public/city/packs/p4_-3.pack.wasm",
+      "sha256": "88c1a65c73125f816391bd7bfa4558ab6c7ddf473c5611fc2b29ba1b564c2ab8"
+    },
+    {
+      "path": "public/city/packs/p4_-4.pack.wasm",
+      "sha256": "27b87abe38267ecf2c06df0ec3408a86ec54b8587a29e762545adb4e9d2d796e"
+    },
+    {
+      "path": "public/city/packs/p4_-5.pack.wasm",
+      "sha256": "42dc73ee1a47bf9fa54ae2d8bdc240b6ed7954395d99b61d15d5933b755304f7"
+    },
+    {
+      "path": "public/city/packs/p4_-6.pack.wasm",
+      "sha256": "3bc83a93d69c383d0b30c66806df1b868efd96775166eb9360458bdac67e3f0a"
+    },
+    {
+      "path": "public/city/packs/p4_-7.pack.wasm",
+      "sha256": "d1f537e9d6119dcd0d351e38eb66ce81e080fd9c3be45c3b0f080fd6fca78920"
+    },
+    {
+      "path": "public/city/packs/p4_-8.pack.wasm",
+      "sha256": "2c9a0e7f6e76a2d5d546c394b79df36f4c55cda9cab1cf5c67688532284d5bef"
+    },
+    {
+      "path": "public/city/packs/p4_0.pack.wasm",
+      "sha256": "a73f2efe861c8369a5e06f7ebcdba7f6cb25255678485865d25a790653d48935"
+    },
+    {
+      "path": "public/city/packs/p4_1.pack.wasm",
+      "sha256": "657e3227d585c25f22a7a427bec0860488e0a47e586d171265b84ed4b6ad648b"
+    },
+    {
+      "path": "public/city/packs/p4_2.pack.wasm",
+      "sha256": "eb0f482dccbdad9833645354aff3f7670ffccea8bede8589768a54648ba83cfa"
+    },
+    {
+      "path": "public/city/packs/p4_3.pack.wasm",
+      "sha256": "74009ae729dd11f3e416afd853d70045c890b3adbc838f8f1c02237926e66633"
+    },
+    {
+      "path": "public/city/packs/p4_4.pack.wasm",
+      "sha256": "aa57c38609bfe184e7b93bf7d9dcb7ea5b4bbc0f0f6de0a9cd3c2aede501c0ef"
+    },
+    {
+      "path": "public/city/packs/p4_5.pack.wasm",
+      "sha256": "190ed17df79edeb86507c85954631b091829ec3aa018706a0c203ee47ebc76b0"
+    },
+    {
+      "path": "public/city/packs/p4_6.pack.wasm",
+      "sha256": "4e395a55ca309bf5c3ee0cf4d8a71e042c06077298a1e56f62ff8c5e633a5fc1"
+    },
+    {
+      "path": "public/city/packs/p4_7.pack.wasm",
+      "sha256": "4bebc5946ecdbe5459bd3908fc78245c4bf7fb00e21eaffcb7c40219a31d8034"
+    },
+    {
+      "path": "public/city/packs/p5_-1.pack.wasm",
+      "sha256": "f5728d1b55e677b228a68a1f912ea98f39ff5f63b6694233f8ae3dd68f14b1ed"
+    },
+    {
+      "path": "public/city/packs/p5_-2.pack.wasm",
+      "sha256": "43df0db9a110ba086fca1b78d7cff2a5db7820b7b87737a0412c0a902d00ad35"
+    },
+    {
+      "path": "public/city/packs/p5_-3.pack.wasm",
+      "sha256": "88a66e101720fac7dee9974d2bd81ee26851e0a410ed9c476db8abd7a24285a1"
+    },
+    {
+      "path": "public/city/packs/p5_-4.pack.wasm",
+      "sha256": "2c1530ba5fc05f0be1f0c201b9688362734fb95e45d63d4c09b3c0b047c4dca0"
+    },
+    {
+      "path": "public/city/packs/p5_-5.pack.wasm",
+      "sha256": "6798da7bd94052480894164512c30de3ad663a44255c82234e23fc9996087ebf"
+    },
+    {
+      "path": "public/city/packs/p5_-6.pack.wasm",
+      "sha256": "a004d2dee905c61f089d70d5aeddc5742fb282885f3815277567d8fe9dba79cd"
+    },
+    {
+      "path": "public/city/packs/p5_-7.pack.wasm",
+      "sha256": "1a717988a619caf6920fdfaee7bbdca6aa3901ab9500fbd6e5ca00c2ee3d6e23"
+    },
+    {
+      "path": "public/city/packs/p5_-8.pack.wasm",
+      "sha256": "b3f99d69982a2db815ebf9c1cc659fa6acda297b08ef670e278128d3a5005f2f"
+    },
+    {
+      "path": "public/city/packs/p5_0.pack.wasm",
+      "sha256": "ad2033627e8d1ecca55de1d9fabcf7af2807b0e08dd482812bc90d6652eae534"
+    },
+    {
+      "path": "public/city/packs/p5_1.pack.wasm",
+      "sha256": "3a3281ddc783284a2a23a69982e8f0c91491eef99527abefe86d7726290fd97c"
+    },
+    {
+      "path": "public/city/packs/p5_2.pack.wasm",
+      "sha256": "40c46a20bbb1b99d31d997f015394d0989975b8e2c147d17ceec8f03173a3db8"
+    },
+    {
+      "path": "public/city/packs/p5_3.pack.wasm",
+      "sha256": "71746824d296bd4c1218f41b54aed04e6b525087a09517ce44b89833a2bdb845"
+    },
+    {
+      "path": "public/city/packs/p5_4.pack.wasm",
+      "sha256": "a670537fc4bf6f4f5159e3bf64d7f57cf8529453395807e46ea36208d42f1126"
+    },
+    {
+      "path": "public/city/packs/p5_5.pack.wasm",
+      "sha256": "f8d2d9384518cdd73ef97ca5b68dccb76ae70542812d0b0814d089113b72aadc"
+    },
+    {
+      "path": "public/city/packs/p5_6.pack.wasm",
+      "sha256": "bd7318eca68cc851f966901d421d65c0836d77155da5eea2c5355c09e89da460"
+    },
+    {
+      "path": "public/city/packs/p5_7.pack.wasm",
+      "sha256": "f650c1cc9d6a7fe67f53e8cba06731e6f65214126ee4b1d1509324f4b892851f"
+    },
+    {
+      "path": "public/city/packs/p6_-1.pack.wasm",
+      "sha256": "52aaa61cd5df95f2a1ae9a2725965bfe035aa7b126e921b9930e53620f18420f"
+    },
+    {
+      "path": "public/city/packs/p6_-2.pack.wasm",
+      "sha256": "2fe15bb7c785152d2e3ae580eeb1041500b738bce0784685a1f835d721c21d0a"
+    },
+    {
+      "path": "public/city/packs/p6_-3.pack.wasm",
+      "sha256": "c575356a1e788aeea08ee9ee02f62e4569cf6a92ff64667a1f65c54e327a6b89"
+    },
+    {
+      "path": "public/city/packs/p6_-4.pack.wasm",
+      "sha256": "5c96049f289138139ac35acb8c251e88a7fb27a2217ded97f3c2389f9cef1b53"
+    },
+    {
+      "path": "public/city/packs/p6_-5.pack.wasm",
+      "sha256": "e3c31ea7cd93a511a0452a225631be3f6d471d731e11edf4962647bab4c65cc6"
+    },
+    {
+      "path": "public/city/packs/p6_-6.pack.wasm",
+      "sha256": "502a990280654b9165837abb4c8d73458743ab3bac2544d4df84fceb917d113a"
+    },
+    {
+      "path": "public/city/packs/p6_-7.pack.wasm",
+      "sha256": "a1468d67654e672776fe90dcb82b42f7244fa614999aa1d9deea81d8f53242d5"
+    },
+    {
+      "path": "public/city/packs/p6_-8.pack.wasm",
+      "sha256": "8439a0515bdc51a157c76b1c07f497d460ab65699a9021acf8c56f756f7a6df8"
+    },
+    {
+      "path": "public/city/packs/p6_0.pack.wasm",
+      "sha256": "a0758f60744f51b257b1c9e3151efabf64f60714258586d52dac00e9a7144ec0"
+    },
+    {
+      "path": "public/city/packs/p6_1.pack.wasm",
+      "sha256": "32ee77a9f007ab712c78b2b995919836acb0b613d50daac4fb7294eb1e523a17"
+    },
+    {
+      "path": "public/city/packs/p6_2.pack.wasm",
+      "sha256": "cf8dbf52b53aba61d5b6f10365c4fda18bdfe0ffa3e714dc52a498a7f9346b90"
+    },
+    {
+      "path": "public/city/packs/p6_3.pack.wasm",
+      "sha256": "a737516e9b131000ba41c79b516056e9f6b62ca542bfa6e1507a2d76f9f92189"
+    },
+    {
+      "path": "public/city/packs/p6_4.pack.wasm",
+      "sha256": "ca44afcc3dabfb97c050e37fa2aabd55a663b786f109a397b7f8d45c5d9449ac"
+    },
+    {
+      "path": "public/city/packs/p6_5.pack.wasm",
+      "sha256": "c5488babe22b3a309d6b6296e6c91d77b73a0416d42e653512de0996d2541280"
+    },
+    {
+      "path": "public/city/packs/p6_6.pack.wasm",
+      "sha256": "ff6c558ee63b2edd1c13f70fd512da63668d9b4b776b7ded2a5b26f8c8d23676"
+    },
+    {
+      "path": "public/city/packs/p6_7.pack.wasm",
+      "sha256": "1749c1b13f968a3446c0f07327645f082f6fd44b7ac20deb71246b6aba2315be"
+    },
+    {
+      "path": "public/city/packs/p7_-1.pack.wasm",
+      "sha256": "7648981c8a34f831d20a7aad950d79a3e5af53443d8743a65d7ef703d523fed5"
+    },
+    {
+      "path": "public/city/packs/p7_-2.pack.wasm",
+      "sha256": "46154ed2d992202dc187591bb9db1ffde5349d6d1f55f3508964a370d209c5c6"
+    },
+    {
+      "path": "public/city/packs/p7_-3.pack.wasm",
+      "sha256": "db7ec06f135c77bcfce88267c32d68002260b33536da5a478171e8084c814230"
+    },
+    {
+      "path": "public/city/packs/p7_-4.pack.wasm",
+      "sha256": "cc3c8d92b4e1177c685f875a15e72a6ba23fd8307b04ebcab588900a33f4248b"
+    },
+    {
+      "path": "public/city/packs/p7_-5.pack.wasm",
+      "sha256": "aa512258369e2be417fb00b62ecffdb934cfa02161d268979de1c6b0482d6896"
+    },
+    {
+      "path": "public/city/packs/p7_-6.pack.wasm",
+      "sha256": "b05aae66d3383839cb01709d938355004863826578c32498614de5e286ced0b9"
+    },
+    {
+      "path": "public/city/packs/p7_-7.pack.wasm",
+      "sha256": "3d8e811aa4bc02bfb2c4481e02e35aeb667ef1e64a7fdd70f63f1f637554477f"
+    },
+    {
+      "path": "public/city/packs/p7_-8.pack.wasm",
+      "sha256": "d01365920d0c7633fb14e1381cf75dccef218e1d549a34522e663ad68078842a"
+    },
+    {
+      "path": "public/city/packs/p7_0.pack.wasm",
+      "sha256": "dcbc4851dfc842930a67ba8483b5ef7eea998c256a2ad6ae559c5b3a1096d0f7"
+    },
+    {
+      "path": "public/city/packs/p7_1.pack.wasm",
+      "sha256": "318bdc29e115befe75d04cae98cb6aecff2716e5dc177813c944324ddf93f847"
+    },
+    {
+      "path": "public/city/packs/p7_2.pack.wasm",
+      "sha256": "2cfb1f7ff5e0a5d2b7b2239809e264ca0327621fe0ff3fb17862d39b98090c77"
+    },
+    {
+      "path": "public/city/packs/p7_3.pack.wasm",
+      "sha256": "479454e5281667170fe3abf56ea06c65a4603c0cbeee81747c525fb91ce1ad5e"
+    },
+    {
+      "path": "public/city/packs/p7_4.pack.wasm",
+      "sha256": "8a3b862e5d296c58880bb68a8f0a8965007652fc29a71e524c38a150291c0790"
+    },
+    {
+      "path": "public/city/packs/p7_5.pack.wasm",
+      "sha256": "e3fad918f677f7490d2a974c272ca0d6fa69dec93949bf52a5325ab979b91f24"
+    },
+    {
+      "path": "public/city/packs/p7_6.pack.wasm",
+      "sha256": "479f47c951c0f8d06e2afb1720ebd0d4f9971984dbd0b4b17906417a1789ba4b"
+    },
+    {
+      "path": "public/city/packs/p7_7.pack.wasm",
+      "sha256": "e040a24b4fe5885d9888aab853c3598bf6a5c32c37f94c6a7b6e13869349a0db"
+    },
+    {
+      "path": "public/credits.html",
+      "sha256": "237f50f07f551fc2c0ea614dceb51db58ff8ff79ec48a3a347dbdcbbcf8f487e"
+    },
+    {
+      "path": "public/delivery/celebrities/allu-arjun.jpg",
+      "sha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0"
+    },
+    {
+      "path": "public/delivery/celebrities/credits.html",
+      "sha256": "b6b9a9bcb2939843737fc046db490c8bfd5928097d6d1e7e1b385fe6faa2f9d9"
+    },
+    {
+      "path": "public/delivery/celebrities/credits.json",
+      "sha256": "88a3755b86f9c99e8a1383c3373676b1adbba3574e024b363f0ed5dd14483b3f"
+    },
+    {
+      "path": "public/delivery/celebrities/jr-ntr.jpg",
+      "sha256": "b165d9358faf3dddc1553c353b3fd4e0735ecad2bc09ace4ec1161f90a70a35a"
+    },
+    {
+      "path": "public/delivery/celebrities/mahesh-babu.jpg",
+      "sha256": "e5136d0d3a0d8eb9e64af474297de298c769b22ec9498da3fd9e3fe4127b1e0b"
+    },
+    {
+      "path": "public/delivery/celebrities/nani.png",
+      "sha256": "5a0fae62e0144101ab1727e488860a35c99750768e862d46d2f5fa9651aea67b"
+    },
+    {
+      "path": "public/delivery/celebrities/pawan-kalyan.jpg",
+      "sha256": "6442e4a4d0eab9c316726ae5d00d4692a7c448363c34a42068d96ec6c31b2c87"
+    },
+    {
+      "path": "public/delivery/celebrities/rajamouli.jpg",
+      "sha256": "4eaac4f59942992d5647ce27374031787679a85168d3c0f2cab15c931c4cc9cc"
+    },
+    {
+      "path": "public/delivery/celebrities/ram-charan.jpg",
+      "sha256": "02f618659b2b8297940cfee4bba736771f7d7c8a52da9a8a4afe02a38132bb5c"
+    },
+    {
+      "path": "public/fonts/Baloo2-Bold.ttf",
+      "sha256": "99a6754d6cc35c0dd6935077d20e569cfd73c7ecd210765c43fd67819eb6f62a"
+    },
+    {
+      "path": "public/fonts/Baloo2-ExtraBold.ttf",
+      "sha256": "db932b3668b6188413fcde58993f7667371033579f131d524cfed3f83c62d7e2"
+    },
+    {
+      "path": "public/fonts/Baloo2-Medium.ttf",
+      "sha256": "d873207e29bca5901fcb00ff3cac1ff5f5cef7b0349e631b76351a73054e3182"
+    },
+    {
+      "path": "public/fonts/Bungee-Regular.ttf",
+      "sha256": "ff0ad5d7496a911460625f9052ea50b05e289065be71a1cb21c71896585224d2"
+    },
+    {
+      "path": "public/fonts/NotoSansTelugu-Bold.ttf",
+      "sha256": "d9acc5b5312c3edc860d1f736894f0bab8fcf29205daabf7e66fe445476b57bb"
+    },
+    {
+      "path": "public/fonts/fonts.css",
+      "sha256": "3147c298b229b7ab034666887164e6d5e38aaf6f51c98ec3b30f7d799a6a65aa"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "sha256": "d94c1a8c80db5334c769fea04a8532cc1774e99805b6517eb9cd7d89a09855ee"
+    },
+    {
+      "path": "public/transit/tgsrtc.pack.wasm",
+      "sha256": "47a9cea81007e14f05297d6b16131e358752a1e6e592b1b093533dd983b12724"
+    },
+    {
+      "path": "public/zones/rtc/zone.json",
+      "sha256": "420dc7e40c283d1fa8d32bf79057615a3395f7ea18a5fd5e3145f2cfdaf7a275"
+    },
+    {
+      "path": "scripts/browser-ab.mjs",
+      "sha256": "518f78951eb38029694300c00e8465038b8bd255c4c10caf2867f3d9f338aad5"
+    },
+    {
+      "path": "scripts/build-roadster-visual-fixture.mjs",
+      "sha256": "c05750ff93bf517d2f7560b740c776fa693820683a484d44712d311aba3c6146"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "ff6f508beb11d5cb3c176ed714f58fc0cb70cd14f20187f4c86669e3c4a5d66a"
+    },
+    {
+      "path": "scripts/buildtile.ts",
+      "sha256": "68bc71421132be02001b26d304b4c72067fe7c8147842bc77c4b23951217e55e"
+    },
+    {
+      "path": "scripts/qa/README.md",
+      "sha256": "539ebe5f6fd67b0e860b99915afd2ab6bc1cdbc26ed6c768efabca3e2f89b2a5"
+    },
+    {
+      "path": "scripts/qa/area-cycles.js",
+      "sha256": "ee37093f109700a1247938b981c8617e5b39b280be775ddc3b51310ae2716eea"
+    },
+    {
+      "path": "scripts/qa/bus-jump-controls.js",
+      "sha256": "3ad1418df2998a620156e77dcc11dbd86b483d274ebf9c7b13902840f0d67967"
+    },
+    {
+      "path": "scripts/qa/context-recovery.js",
+      "sha256": "b6aa3d910fc96d5b1f5f974206653752dd7bf9a95cf265f790374686a09e58a4"
+    },
+    {
+      "path": "scripts/qa/delivery-controls.js",
+      "sha256": "eac2056149c8a08bcf228fcab723811f04f7443d25223fd43333f5662c471284"
+    },
+    {
+      "path": "scripts/qa/delivery-endurance-low-controls.js",
+      "sha256": "221a19fb461a647213118157377f3b76d546207e32465b21943e1259042a7612"
+    },
+    {
+      "path": "scripts/qa/delivery-endurance-mid-controls.js",
+      "sha256": "f51921d8705b7f0408a0d7a38ff1b63622de71cfb3ccfd6d2c1534dc667bb3b5"
+    },
+    {
+      "path": "scripts/qa/delivery-endurance-native-controls.js",
+      "sha256": "9936b7788b4d9db554b5aab43a762c7c4a90ce3424923f211ded8f67e463b9ac"
+    },
+    {
+      "path": "scripts/qa/free-roam-controls.js",
+      "sha256": "abd4e2fa019d88e5cc8537e9bcd7417a32eb0f2878edf0ddc5313a03c0d0fd9b"
+    },
+    {
+      "path": "scripts/qa/offline-relocation.js",
+      "sha256": "863a90219c8d0ff13ff631404b10b64daf1119eeae49325be0d036e9a7078d13"
+    },
+    {
+      "path": "scripts/qa/orr-drive-controls.js",
+      "sha256": "8dd50e2e64c58be1b5d977267ebd1781ef157336fff98c105918649b93b6a359"
+    },
+    {
+      "path": "scripts/qa/post-gc-area-cycles.js",
+      "sha256": "aca525205243acb0fa664e8a92c4963b7588412db88c02c0d213f135c6547038"
+    },
+    {
+      "path": "scripts/qa/roadster-fixture-entry.ts",
+      "sha256": "edef1ccf9bdbaa435b1bde0da6f5aecc3f5cd56303e170724797a6463e622410"
+    },
+    {
+      "path": "scripts/qa/streaming-boundary-controls.js",
+      "sha256": "849f0a462ac7bf8026f33ac22152b531f2657b9fe9c51b84ec0961765474101e"
+    },
+    {
+      "path": "scripts/qa/traffic-heading-controls.js",
+      "sha256": "e1ef3d19cb16f95e2914281c8c241cda2e97ee7e7395183dcbdbda1393bff8a6"
+    },
+    {
+      "path": "scripts/qa/train-ride-controls.js",
+      "sha256": "6a1ed8743ebd221c1f437e0a36e786017823043b3db5039cf40bafa13047efaa"
+    },
+    {
+      "path": "scripts/route-search-benchmark.mjs",
+      "sha256": "649538d1484889f59977010a4ab71116f863572ec06930980a72999bc4b652d2"
+    },
+    {
+      "path": "scripts/sim-replay-runner.ts",
+      "sha256": "e6b7286e208d2109c13be8f897dd9a992d66d453cdeda4cf1af8712927eb28ca"
+    },
+    {
+      "path": "scripts/sim-replay.mjs",
+      "sha256": "19ef8b49d1e5a71051e8b8b5c0c9d4be69bc7cc8a2c15b03c7e6e1a1dc9fb648"
+    },
+    {
+      "path": "scripts/static-query-benchmark.mjs",
+      "sha256": "d787b65bcaab98c64289bbf0b9686b2a35936bef15cea0d03e7cd5338e07946f"
+    },
+    {
+      "path": "scripts/summarize-browser-ab.mjs",
+      "sha256": "b5f41380317e1b96d0651debe0e45d3c2fb3ffa4da796a18d5bf56ed2fc00366"
+    },
+    {
+      "path": "scripts/test-legacy.mjs",
+      "sha256": "a3ba5d3381d7e5dcdbb945ecdec76fa9c8bc0bb063926b88b36b06787e169421"
+    },
+    {
+      "path": "scripts/test-v21-fixes.mjs",
+      "sha256": "e8adf72001b155e275aca7664ae7d56a8ce02938fe6e23b04acfcaa92fffc8e2"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "sha256": "362db52b66418f3e5d88205e44b9eec6797f47ed22829c9bc1bb6c252deee777"
+    },
+    {
+      "path": "scripts/whole-game-replay-preflight.mjs",
+      "sha256": "1626caab6a291e2698e79c60961bb6589afc6435dd9236c9a44c4b1f36490d2d"
+    },
+    {
+      "path": "src/core/engine.ts",
+      "sha256": "c4ff651a7bde88906583b1bce91ccb25f60f75abfcdff96205ac5e5ffb48f203"
+    },
+    {
+      "path": "src/core/sky.ts",
+      "sha256": "d10421013fbfb5eecb45690b9b9cd53f220ab93e711aac6ba5c0dabc03050d93"
+    },
+    {
+      "path": "src/core/util.ts",
+      "sha256": "e31b629c78c6b8211ce23d6d4a91f6a6940d2bac374e25929dda699c23b1ebc0"
+    },
+    {
+      "path": "src/delivery/campaign.ts",
+      "sha256": "758d32e46007ecf63220fd6ad51e77da43f49518684abdda715f1a55153da6e8"
+    },
+    {
+      "path": "src/delivery/characters/LICENSE-MAKEHUMAN-HEAD.md",
+      "sha256": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c"
+    },
+    {
+      "path": "src/delivery/characters/README.md",
+      "sha256": "823d5c34cecaa6b514325beab305c2082d2451f96e7a6a721a7d4f3bf8e6a59d"
+    },
+    {
+      "path": "src/delivery/characters/anatomical-head.json",
+      "sha256": "28e6ed2473c362b96516ef1d143cfdacd5ca6795c1b9ca7cd04e97aac46ff595"
+    },
+    {
+      "path": "src/delivery/content/levels.json",
+      "sha256": "71f56e024cb1ca8ad13b1930a76835dd130db5eca3a31ee1d4c3da1566ccffe8"
+    },
+    {
+      "path": "src/delivery/content/levels.ts",
+      "sha256": "f7a797ea37414465ec234be2fa7c6e739aa13a40073a0d10f7525090c14be9a0"
+    },
+    {
+      "path": "src/delivery/content/pickup.json",
+      "sha256": "47ea3df073c98ab9272bcd035dedf8112cdbe82ce447096ca38020baa0f5da49"
+    },
+    {
+      "path": "src/delivery/core/events.ts",
+      "sha256": "78bffb60697d4b79eb7c1ddeffa790e33383bfdc6de942a4e15793953ace8e38"
+    },
+    {
+      "path": "src/delivery/core/pickup-config.ts",
+      "sha256": "b1658e8663109c9890f7218f5b45e6752f612d3246d2087212b61add77d508f0"
+    },
+    {
+      "path": "src/delivery/core/types.ts",
+      "sha256": "e33a352c3c0f4e04fc304d519e0324bc2ee9eafbed790fcfdfd4412be7b13b41"
+    },
+    {
+      "path": "src/delivery/modules/base.ts",
+      "sha256": "6d64a92512812c0b29a207d674fe2d3494c92c077a5a9220888937455c7e4f99"
+    },
+    {
+      "path": "src/delivery/modules/beat-drop.ts",
+      "sha256": "ae75765d441e4868a345ad596feea19ac2abb37bf01fb74bb54160f8cf638099"
+    },
+    {
+      "path": "src/delivery/modules/chain-drop.ts",
+      "sha256": "5cc40e77781f32dbb5e2bed97dc4dd014f1e5f88f2524bdb4a86f24999ebb64d"
+    },
+    {
+      "path": "src/delivery/modules/character-head.ts",
+      "sha256": "352234a436810bd81dc0240cb104208e8e35e79404ded100ce19be75ffc619ac"
+    },
+    {
+      "path": "src/delivery/modules/character-sculpt.ts",
+      "sha256": "518c0ffe9f96d707cb344101c9319982450456654380d4b8b67603068f8a47a3"
+    },
+    {
+      "path": "src/delivery/modules/character.ts",
+      "sha256": "46e64e5539f41fdcae2a388c1f0fc6df1ce090bea3728e778d0686d3fe2d9d03"
+    },
+    {
+      "path": "src/delivery/modules/index.ts",
+      "sha256": "beeae162993f7f4825b57a687c9302a9b74d07d514f8d1826913ce6343f24e68"
+    },
+    {
+      "path": "src/delivery/modules/match-and-land.ts",
+      "sha256": "3624b697f65bab9f34dd5dc928cf98bd0bbb34f8a3558e5ef4aa6b52c156eda2"
+    },
+    {
+      "path": "src/delivery/modules/thread-gap.ts",
+      "sha256": "dda08ff786c1c6bff56a1a9629ad1afa3f765366b8d46cb4523de42e0db75e10"
+    },
+    {
+      "path": "src/delivery/modules/truck-interior.ts",
+      "sha256": "26d5f6aa914663bcc5ac959cf5f303ed0e7df4b3c3ecfaf4dc73b3537c138dce"
+    },
+    {
+      "path": "src/delivery/modules/types.ts",
+      "sha256": "fdd6347a5a59a0365e94fc74e3c8595fbcd5b5c313a3ec2cd5591d60e48401ce"
+    },
+    {
+      "path": "src/delivery/modules/underwater.ts",
+      "sha256": "bce44d3fb4f7ffe536fe94e766cbbdb1ffba573ff69771bea1ac5982cf32b676"
+    },
+    {
+      "path": "src/delivery/qa.ts",
+      "sha256": "b53942923d405962aeb1b0f9cc380e4a9597e7424178370f982281c40364ff91"
+    },
+    {
+      "path": "src/delivery/rail-passages.ts",
+      "sha256": "d8f6e0e17e8762e9a8a4006626b8d4704e570cb5a441d4a781651c86bba1534a"
+    },
+    {
+      "path": "src/delivery/road-navigation-target.ts",
+      "sha256": "539852d7294f9b04a27e3c278cf2c27e35cb89a4a5d73779c3107d1b8aa08204"
+    },
+    {
+      "path": "src/delivery/runtime.ts",
+      "sha256": "ab37840eb7acb92630f456b9c538e5bda898adbe5dfda1271d0ba98eb57b7a8a"
+    },
+    {
+      "path": "src/delivery/systems/call-system.ts",
+      "sha256": "49b18a954b3b864976a50c5303ea08c5bd05fbb13372070236da0e8e4ad0fb90"
+    },
+    {
+      "path": "src/delivery/systems/carrier-marker.ts",
+      "sha256": "98252fdcbb1d7e6a7f3fb1f5ba5777b98f5761f4f89c11ff1d90be8d776c7c8a"
+    },
+    {
+      "path": "src/delivery/systems/delivery-controller.ts",
+      "sha256": "10de48a24ab8f89fc9c5a532e3317171eda99c079966d4e6c7abe8c8e892b0f1"
+    },
+    {
+      "path": "src/delivery/systems/nav-system.ts",
+      "sha256": "259c54ebe48128bb048b8f9e826b297afb61dcc5215f206c8c7c5fd699038622"
+    },
+    {
+      "path": "src/delivery/systems/order-system.ts",
+      "sha256": "601f11d151d557ffa375fe99a85bee805ee50817be60bb9496efd8d1b8d57105"
+    },
+    {
+      "path": "src/delivery/systems/pickup-clearance.ts",
+      "sha256": "024d17a9461400952e97da90739bb006f1da4da1a1e9d9a265675e45118c1203"
+    },
+    {
+      "path": "src/delivery/systems/pickup-detector.ts",
+      "sha256": "def8700f4cd727b3f9abad02cae154eb26c6c26a14697b832ca31ce7763f80ff"
+    },
+    {
+      "path": "src/delivery/systems/progress-system.ts",
+      "sha256": "99e55405d9bc3bda4895a813fc6a0a563d8db9c0d0fc6da2a0f0822bbdfa9aa5"
+    },
+    {
+      "path": "src/delivery/systems/reveal-system.ts",
+      "sha256": "0a8899c3d166acb98987065e93e8f4ecb7bac6f3c48c7a05bdf7e398fdad7c7c"
+    },
+    {
+      "path": "src/delivery/truck-route.ts",
+      "sha256": "592625d710064bffa62826dd13fee2b67f6fb30651ed873c1dd64351b6ec7c2c"
+    },
+    {
+      "path": "src/delivery/ui/call-button-layout.ts",
+      "sha256": "9d1c718eec7940b4722d8bc4bad803bb0bc26a16e6c694c30642afc7a2f0ff21"
+    },
+    {
+      "path": "src/delivery/ui/delivery-ui.ts",
+      "sha256": "0ba7b900b5aef2f6faf4f0ffa10aa95926dffdfee0f444213690dfa891aff10d"
+    },
+    {
+      "path": "src/delivery/ui/restaurant.ts",
+      "sha256": "ed13c130dec65f504e67b7b80aad6d642e029fbbe90ef273f36a6b50e695019f"
+    },
+    {
+      "path": "src/delivery/ui/view-model.ts",
+      "sha256": "78614a07335d2eb09fd008da06042466125b87977a1f9c22883263972bf62101"
+    },
+    {
+      "path": "src/game/audio.ts",
+      "sha256": "28e2c690071cc623057c2647385e70c3893db06eee3644076f1b2f2b5f3722c5"
+    },
+    {
+      "path": "src/game/bug-report.ts",
+      "sha256": "682b9f2081d10ebaba806b2785055b2720521ec065c2106f1b3f27e60b0a8f28"
+    },
+    {
+      "path": "src/game/bus-passengers.ts",
+      "sha256": "29a1bdc1f159147a2253c7212ffe70e0abab503bd92468c502a38c51722a9973"
+    },
+    {
+      "path": "src/game/bus-path.ts",
+      "sha256": "e0bb71c891807f7e7d0511448ef3fdaf539f1e721e0694f1b9f884e37c7a0d5d"
+    },
+    {
+      "path": "src/game/bus-services.ts",
+      "sha256": "336c6ac05552688c284d27036d2a7c572f0114969892ed26522005924bfe8b05"
+    },
+    {
+      "path": "src/game/camera-look.ts",
+      "sha256": "6ffe2adfb869ba75e357b0bcb307591b623203479b87e331190f5197acd616a5"
+    },
+    {
+      "path": "src/game/camera.ts",
+      "sha256": "2a301ea7d81f2f6d8f3e6dc98c7e6b86e3b77489015fd71969b5bb2464be0af7"
+    },
+    {
+      "path": "src/game/game.ts",
+      "sha256": "735ba7c1b16e404dc3f8e62efd6215cb2736f6b0e1db1888faa12e10802f0846"
+    },
+    {
+      "path": "src/game/jump-motion.ts",
+      "sha256": "5ceaadd612716934fd0609b29cfb9ef4870162669f321463545d94d73b444670"
+    },
+    {
+      "path": "src/game/kickflip-camera.ts",
+      "sha256": "9965f8e56bdbc737950288cafeb83206eeb597d0c82d0b207c40d1d21d6bc7db"
+    },
+    {
+      "path": "src/game/landmark-contact.ts",
+      "sha256": "125e1f2ed0194a0adad84e482b3c8a655a8d917dbea82e93676945e260acd395"
+    },
+    {
+      "path": "src/game/metro-display.ts",
+      "sha256": "19cc6cfdf25bc593e246482c44b827039a5a907368852febd797101436905550"
+    },
+    {
+      "path": "src/game/metro.ts",
+      "sha256": "81cd79ee30ff0c37f03c7949f68faea5f8a71b0ae1f596d82c2671430c1cc166"
+    },
+    {
+      "path": "src/game/moving-rail.ts",
+      "sha256": "b0f34187fb047c497e5d730a68fb0826db913b318b1cd67bf34bff2557cd5fca"
+    },
+    {
+      "path": "src/game/physics.ts",
+      "sha256": "bf9e91d51ea4cf18570becdf6fe42a50e0e6b9f92fb02efef3264a57d6086391"
+    },
+    {
+      "path": "src/game/pickup-policy.json",
+      "sha256": "64d7ae8fc84b6782e496f108fef79ae146efbea8d95bbf17db98ac96dca6e21e"
+    },
+    {
+      "path": "src/game/pickups.ts",
+      "sha256": "af1f9bab85900a2345c99091bd12a77914428a98855d528566f8354b213b5aff"
+    },
+    {
+      "path": "src/game/player-lights.ts",
+      "sha256": "3d909a349258cb4394efb5131226c526bdb835c34ad1a5009e965ee951c8ed53"
+    },
+    {
+      "path": "src/game/player.ts",
+      "sha256": "a63e5d406e39404db945b67f9f18d415b6fca03811932acd55a22685d7bdc860"
+    },
+    {
+      "path": "src/game/rail.ts",
+      "sha256": "a2fc196ab27349132ccc997e8f3f59e71bbe317e083010da78828f49ea3bfb90"
+    },
+    {
+      "path": "src/game/railway-crossings.ts",
+      "sha256": "bd5470ece5d099e2fd0cae149fa95d71fb2cb584ae5ececb5e143b186f994a6c"
+    },
+    {
+      "path": "src/game/railway-flow.ts",
+      "sha256": "286a69acd30ee9d8ed403dd6e1622fb18fb87cff446d90219237f9ece77d448c"
+    },
+    {
+      "path": "src/game/roadgraph.ts",
+      "sha256": "b665f2c05a8379ed292a7db8fb430782003e96de72bd44f2b9313a5bdfeb5050"
+    },
+    {
+      "path": "src/game/route-guidance.ts",
+      "sha256": "36d5f6e5a35204e365be84995ac8a87ed170206616aa279a86ce149045a449d6"
+    },
+    {
+      "path": "src/game/running-railway-tracks.ts",
+      "sha256": "e1c2dc2ec21c71969d3e97c155bb54500ffb4ba4e4c772385231c6bd81ed1e23"
+    },
+    {
+      "path": "src/game/spatial-safety.ts",
+      "sha256": "5c31dc38b45504e01a623b8a217fc4e1f74016eb4601aa5ffdb7f6ebef39556c"
+    },
+    {
+      "path": "src/game/station-life.ts",
+      "sha256": "72ef826d7ccf13f7bc87aef02bb77d5d4430bb6dedad3401619e582aa7317982"
+    },
+    {
+      "path": "src/game/takeoff-kickflip.ts",
+      "sha256": "14ae5a6d3f9438842ee3c038e24428a874a33b9179912127e7baa30a1d8c326c"
+    },
+    {
+      "path": "src/game/traffic-headlights.ts",
+      "sha256": "734d92ea6e7049d8333e9dacbbaf5760aa9e5203098982596de89cede614d145"
+    },
+    {
+      "path": "src/game/traffic-path.ts",
+      "sha256": "04906734c66c59badc4d4219173be5fcfb83869e72848f5f43e06f40c3b48520"
+    },
+    {
+      "path": "src/game/traffic.ts",
+      "sha256": "2cf81cd7d4d3df333035a27e734cd30272b340540224f82a3478eb5d422a48b7"
+    },
+    {
+      "path": "src/game/walkers.ts",
+      "sha256": "886f17a249a356da4aba152a8efcc7420b213d19e0392b544953fae5e63b2bc9"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "f444c2b17486bf3646af6c39d417d9526126aae8a63f09f14ceb8c9a8a914077"
+    },
+    {
+      "path": "src/ui/areapicker.ts",
+      "sha256": "a9ce66d895559227a8c8b891db21ac651373c12df191749eb4bee79ffa98628d"
+    },
+    {
+      "path": "src/ui/control-icons.ts",
+      "sha256": "8e51bf72ce23aad90c157a13b92f6389a1654aa598ea5a55b84f2a8778b3d0ec"
+    },
+    {
+      "path": "src/ui/dialog.ts",
+      "sha256": "71bedd7f5adb25abc91259f9fb580846ce3f0ab141d6705069fd87a0ff22be37"
+    },
+    {
+      "path": "src/ui/flight-navigation.ts",
+      "sha256": "68bf3f6e74579a59d0d2845f052c81217f16cd586ea7b9a7324263d36a185120"
+    },
+    {
+      "path": "src/ui/hud-layout.ts",
+      "sha256": "82b1ac2949edff7ca5c6a880cc41c4796b1bbb35d2ae9088e8b11783169c3a5d"
+    },
+    {
+      "path": "src/ui/hud.ts",
+      "sha256": "c511a3df51e936e787832d67c357e6165725f8b794f2cc80edd63840ebf22aa1"
+    },
+    {
+      "path": "src/ui/landmark-icons.ts",
+      "sha256": "7946749c40c64c5d196a6600d64e946a3a348f9e54b289fda8c3faaceed038e0"
+    },
+    {
+      "path": "src/ui/loading.ts",
+      "sha256": "d74ebba050c5534ab4b2feec4a82e91cb8b5b2037e756a8dc909e3460666762a"
+    },
+    {
+      "path": "src/ui/map-data.ts",
+      "sha256": "6234b30d2d6f31432443d3a49bdfbca7ca1b1e78b45e4334024e2b7d41ce05c9"
+    },
+    {
+      "path": "src/ui/map-download.ts",
+      "sha256": "3769e2ddf6a47eba3c6fca71f72dfd2bb1905c3eb4b8c3f518a8529dee9661ce"
+    },
+    {
+      "path": "src/ui/map-labels.ts",
+      "sha256": "a8ad2df9cce40981de7ad0ee8494ed7bc70fa2d1f21a478b9aec1b9a05d6aa61"
+    },
+    {
+      "path": "src/ui/map-loader.ts",
+      "sha256": "8dab13ae537ee4aeff9832d6217053f760aa83e4b48dfe192ebf1a145d03863a"
+    },
+    {
+      "path": "src/ui/map-stadium.ts",
+      "sha256": "e97f7cc4e38a3bedc57c43f431e3b0bcb48ad8d395571b5784671f2ff8a79c7b"
+    },
+    {
+      "path": "src/ui/map-worker.ts",
+      "sha256": "eb92d27cc00274930cec3d5bc343dbb2ef36c9eee0980b24325b5587907fbaa7"
+    },
+    {
+      "path": "src/ui/map.ts",
+      "sha256": "87deeb888f866b473bfc57926dd0387d21fe9680dcc1e90a36da819fdfc24856"
+    },
+    {
+      "path": "src/ui/minimap-navigation.ts",
+      "sha256": "a60aad62dd9129f3012e470f92dccf7385260b7768739ae4046c30bca0e844ed"
+    },
+    {
+      "path": "src/ui/paint-safety.ts",
+      "sha256": "936793e127d2a874deab8eb97ffc3282fc2f40fd7478f4dc52133d31250e8bf3"
+    },
+    {
+      "path": "src/ui/pause-progress.ts",
+      "sha256": "d03296fd368cf6dc3db7cc9d9d19df55d9b9b9617cb3721ae2e1eb074b94a933"
+    },
+    {
+      "path": "src/ui/railway-map.ts",
+      "sha256": "2914828e02fa11f188f036e2307f887d58a01f9ba2787d859bc545aaed828d2c"
+    },
+    {
+      "path": "src/ui/settings.ts",
+      "sha256": "949f222cba66b1c211cfbd7f952dd28f215c47033050e9905241fc154d947de4"
+    },
+    {
+      "path": "src/ui/theme.ts",
+      "sha256": "752d0ace55f80cf1d4c05537f236fc33788dc2612c37a7393a8e39ae0f029bbd"
+    },
+    {
+      "path": "src/ui/title.ts",
+      "sha256": "e25fb21693eefc3f6f3c71364a54d3f0c8e713e8a3ac0297481034b7335aacdf"
+    },
+    {
+      "path": "src/world/airfield-data.ts",
+      "sha256": "9237c55685983349612bb0044c8abc42fb852e4ed42f671865e8bf9a26a67d75"
+    },
+    {
+      "path": "src/world/airfields.ts",
+      "sha256": "745eead44a2db7731a3770937857fdce1e9631783e950174d30ce9eb3748cb48"
+    },
+    {
+      "path": "src/world/airport-aircraft.ts",
+      "sha256": "d56fc76907eea6478fadcf7c7238edfe5400233e8165cdd9da1b16642a46deb8"
+    },
+    {
+      "path": "src/world/ambedkar-monument.ts",
+      "sha256": "eafeeead046f62f925efcf685f765bfacbd839c77d22674afba08229f2e66d67"
+    },
+    {
+      "path": "src/world/auto-quotes.ts",
+      "sha256": "36d7b8508409339c39a71c0ecd2e17bdc134ee5b853fcc2b6f5998f580431624"
+    },
+    {
+      "path": "src/world/bridge-clearance.ts",
+      "sha256": "de28bebacf7c208fd9006926e9b35dc97e6d6d3a8e5edc1bfc83213099432564"
+    },
+    {
+      "path": "src/world/bridge-level-data.json",
+      "sha256": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5"
+    },
+    {
+      "path": "src/world/building-clearance.ts",
+      "sha256": "3f31044b221a053f1b611bb370d50c4e0acd2b3f03236816460f3f45eba2d23e"
+    },
+    {
+      "path": "src/world/city.ts",
+      "sha256": "4140c47b0b2acd524c7ddf520656e2d28f70c33cc868db8d402d31bf2a56353c"
+    },
+    {
+      "path": "src/world/construction-data.ts",
+      "sha256": "534547f28c6a86df648132acfc31c6d9c37db18e6ff2582258e73f5babd30bda"
+    },
+    {
+      "path": "src/world/construction.ts",
+      "sha256": "386f02ddfd63065e8ab2096f35291b0f9dd14c86e7b04cc6545ed07b3a668a70"
+    },
+    {
+      "path": "src/world/destination-data.ts",
+      "sha256": "971568d5df2e387cdf64ea4426156f071334930725a03ce3de755a2f1da36755"
+    },
+    {
+      "path": "src/world/destination-hero-data.ts",
+      "sha256": "ea0e4eb00efbd8408a614557e2892da51f0366961b073cc788462c7f88a6e7ba"
+    },
+    {
+      "path": "src/world/destination-hero-models.ts",
+      "sha256": "e517e89cec0d09c0f1ec59087c1a744147e08203a9bc1fa0d9eb3e2858b4d035"
+    },
+    {
+      "path": "src/world/destination-identity.ts",
+      "sha256": "20041b4917a01779a009c3361fcdc3e8d93d79a9214d789f89fc332e23c8f3a7"
+    },
+    {
+      "path": "src/world/destination-proximity.ts",
+      "sha256": "4d4f8942395bfac98b6977c344bc6516c03750d79dea9781b235b6c12f0f5e08"
+    },
+    {
+      "path": "src/world/destination-recognition.ts",
+      "sha256": "5d2437401636eb4d71c6d20c9958d04532fec46f5a68578607fdd31ab2b6cda5"
+    },
+    {
+      "path": "src/world/durgam-bridge.ts",
+      "sha256": "a33d5b1210044bcbdd814f026d2142af9d3376e3cf867fd3a48c9ee83c1813a3"
+    },
+    {
+      "path": "src/world/expressway-signs.ts",
+      "sha256": "24589ff5e6ce7f5155bbf7264f808517c8f16b4f89b5f23f5343878c3a4da084"
+    },
+    {
+      "path": "src/world/expressway.ts",
+      "sha256": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025"
+    },
+    {
+      "path": "src/world/extras.ts",
+      "sha256": "9c6901e9d5bd88d396309d2ed3b389e55e6904e2e7769ff4c0db8cfb4c23d3dc"
+    },
+    {
+      "path": "src/world/golconda-summit.ts",
+      "sha256": "4bd40122e9571f9cdb56079cb64f6cd0f7c8155b1897289a8f1a48cd01993160"
+    },
+    {
+      "path": "src/world/indian_flag.ts",
+      "sha256": "edd5dc69c12259ca5d608051995ff35cefa2e5a06d04b2a8852692ae6c9863dd"
+    },
+    {
+      "path": "src/world/landmark-corrections.ts",
+      "sha256": "f575eb043f507588d287e980c835bad0d61ca5e790dc90a63b6b558b709abbe7"
+    },
+    {
+      "path": "src/world/landmark-source-plans.ts",
+      "sha256": "be62e84d72f10374573efe269503121ad2e31a7416d7316b58d529f63de53199"
+    },
+    {
+      "path": "src/world/landmark-support-capture.ts",
+      "sha256": "a8214c73fc7cc906b220d23b1936a2bde01332a30a773aca116380ae3c1f74ca"
+    },
+    {
+      "path": "src/world/landmark-support.ts",
+      "sha256": "71f79b3cec16525104ba70cec1338fc3c6ae28b1e931726028ac867f4dbcb5a5"
+    },
+    {
+      "path": "src/world/landmark_catalog.ts",
+      "sha256": "fb22a6aa1da682eaeb8a706bc1dbea28ecd120069ce76658369c7b58c53bc0d2"
+    },
+    {
+      "path": "src/world/landmark_symbols.ts",
+      "sha256": "80ed2c2c31672b4a946f8b5e3d371018763850cfb5b9f2ab9f47123e6b63a2e9"
+    },
+    {
+      "path": "src/world/landmarks.ts",
+      "sha256": "78ed25fe3cba5e65db19a7eeb08955748692bd416f5d1b39cdb3e5c78dc2a4c1"
+    },
+    {
+      "path": "src/world/landmarks2.ts",
+      "sha256": "d6fdc6cedcba2fe875efca590f00717136ef6a29170b23cdd38c2b51e2f04a46"
+    },
+    {
+      "path": "src/world/landmarks_data.ts",
+      "sha256": "b338702e930ce61b54a09304add3a13c2f96b9a605c445ffbb9dcc113cc88c65"
+    },
+    {
+      "path": "src/world/metro-clearance.ts",
+      "sha256": "71a313851043bc3c3906ff573adef498154f8a5a362db6273c97081c0e58d5ae"
+    },
+    {
+      "path": "src/world/metro-geometry.ts",
+      "sha256": "1a03e5e1dbdc64cb487a56a904462b6fbd75a7e04301bef51cd3bb147106302f"
+    },
+    {
+      "path": "src/world/metro-interchanges.ts",
+      "sha256": "112062092bb774c0d548855875cd48afb67e83e04f191c1771ef0f77544b1fff"
+    },
+    {
+      "path": "src/world/metro-service.ts",
+      "sha256": "a3d3f0626bc9ab14062923416b1a909239926ce01f99c28b043225235ef21a5c"
+    },
+    {
+      "path": "src/world/metro-station-visuals.ts",
+      "sha256": "303a8a6068954a188f777b66d51a3b78d92e4a6eea6525f1c88709c09fc2341a"
+    },
+    {
+      "path": "src/world/packs.ts",
+      "sha256": "aecfda5b39559c089915a9d476c242aa3b6031c92c60e84218aa7705ec9da8a1"
+    },
+    {
+      "path": "src/world/people.ts",
+      "sha256": "80564a9cb775e5417fcc8c3dc98a1a8ad630458a0a0ec9317623693de2a3e68e"
+    },
+    {
+      "path": "src/world/rail-track-fallback.ts",
+      "sha256": "1467325f81fb059859a8870ef2c98a819ea2e5a23c3bfaa3f1c18376d77569fa"
+    },
+    {
+      "path": "src/world/railway-clearance.ts",
+      "sha256": "0db1e710dc744338f899b2bca8f5ec622fafc91e3d108d3f434049f4b3dfa3bc"
+    },
+    {
+      "path": "src/world/railway-crossing-gates.ts",
+      "sha256": "59b017fc557bd542b77a8e3efc4dc6ea6cbfab6d2ae415b98a13791512c2e05e"
+    },
+    {
+      "path": "src/world/railway-evidence.ts",
+      "sha256": "bcf79d05349ceb4954d1716884b0ec7f8aa8a88a550960eb56998b91aceadeb5"
+    },
+    {
+      "path": "src/world/railway-geometry.ts",
+      "sha256": "bdaaaf576cabe3acec647128a2e40a5f4e536cc35826b50b06543fe265b38185"
+    },
+    {
+      "path": "src/world/railway-road-clearance.ts",
+      "sha256": "6f80da567f80374f773af58ec85187c540603b09f08fdcb8994c786637932012"
+    },
+    {
+      "path": "src/world/railway-source.json",
+      "sha256": "55dda4425b8029630a30fa57e6c452d3281cdee327a035cda17eaf7393b21e9c"
+    },
+    {
+      "path": "src/world/railway-stations.ts",
+      "sha256": "c4e413151c0dac06370c2228279fef0c400d4bbd3e04bdf960e8d4911e6a0dcf"
+    },
+    {
+      "path": "src/world/road-crossing-levels.ts",
+      "sha256": "0fac3f4995fabe8ee5b094e5bb9a41014929f46be85df42c0a65857f49564d01"
+    },
+    {
+      "path": "src/world/road-grades.ts",
+      "sha256": "5b67e2124fcbe3e6621870770832fa801f747345fe5734b99310074a38751f4d"
+    },
+    {
+      "path": "src/world/road-openings.ts",
+      "sha256": "eef1650a8fd6725e790e96504ae163a1d82de5825da1a208bb018c7a9dce5d30"
+    },
+    {
+      "path": "src/world/road-surface.ts",
+      "sha256": "c1635f81070f8efa968497aa044a057a51ad1124db15eacdac4296e6c3d9faa3"
+    },
+    {
+      "path": "src/world/road-underpasses.ts",
+      "sha256": "5e09a2f574d37bbc7da825f58b34740bb71465a559018a131ab32f7dde2552d1"
+    },
+    {
+      "path": "src/world/roadster-decals.ts",
+      "sha256": "f082bd092216dfddc64a1f3ad6fbf696dd75824c86bbf39f48877068a121051e"
+    },
+    {
+      "path": "src/world/signal-lights.ts",
+      "sha256": "9d75b69d8b1a29f23b1d281e8acd1b006f886d8b9dafcf2b1febe6ac1de9ce0e"
+    },
+    {
+      "path": "src/world/signals.ts",
+      "sha256": "e39946522bfcf2135153556bba32d6c06b3faec39ccb47e2d41a01f9640fe71b"
+    },
+    {
+      "path": "src/world/signs.ts",
+      "sha256": "3201e51e710b782f789039e507ba041dd155fa00a5534b4a0bb9e52a8421998a"
+    },
+    {
+      "path": "src/world/stadium-roads.ts",
+      "sha256": "c10b1393ac654866be29710a937fd0363223538b70702f9a91f9ac5f9acf8e2d"
+    },
+    {
+      "path": "src/world/street-lamps.ts",
+      "sha256": "93c3c94a12c2584902733cff40d53f24c6be88b5d6cfa649899386b44fd85f9f"
+    },
+    {
+      "path": "src/world/structure-clearance.ts",
+      "sha256": "df006978ddede383bf25700b91a0e54896a879b61b3746f11f1c79e83c62bf90"
+    },
+    {
+      "path": "src/world/tileworker.ts",
+      "sha256": "087af90ee204d7c824b9bae5d6b6563401c383f61c56910724cd88dcf223152e"
+    },
+    {
+      "path": "src/world/traffic_models.ts",
+      "sha256": "d2fdd7ff4a7e1eece59ddb85fffd98f121750a9d3d370fd18067caddaa047660"
+    },
+    {
+      "path": "src/world/types.ts",
+      "sha256": "c5b69b3c7a3f3f04f91cce34a66fa682995a2c18130c3546d3e67da065f8b255"
+    },
+    {
+      "path": "src/world/underpass-terrain.ts",
+      "sha256": "be8cc78bbf33fa47e88066ca8704d688cb1161a9641cbb766931370123a6a897"
+    },
+    {
+      "path": "src/world/vehicles.ts",
+      "sha256": "093061b04ffc7c16d3d0cd6a565e48a255edd83878bb9cca21b4d3cb84558e4b"
+    },
+    {
+      "path": "src/world/water.ts",
+      "sha256": "b1034eba03cf613d1bcc6414b70a1138cf819688897141408eed5112f8c28c34"
+    },
+    {
+      "path": "src/world/world.ts",
+      "sha256": "37bdb1d9a3fc6f570366adceca174e6888f346a5342852976cf1fd04e6e9bbb6"
+    },
+    {
+      "path": "tests/adaptive-context-reset.test.ts",
+      "sha256": "ee699b2e69beb84bd8221ddf0496fff04a04e990f47d73d4bdbaca2c19072e94"
+    },
+    {
+      "path": "tests/browser/character-art.browser.ts",
+      "sha256": "14ce69cc0bc6ab83ac6ee94c0183e658fd2f20caa895774c8b427f25909741f4"
+    },
+    {
+      "path": "tests/browser/character-art.html",
+      "sha256": "63c901d50e1f6afb84284f61cf75574384c2347e9e5552fe5b547bf8e3623e81"
+    },
+    {
+      "path": "tests/browser/hud-notices.browser.ts",
+      "sha256": "91cd49d63ab311d5a10fcbfe88efaad4570cef07bca3fcd5702feea559b452ce"
+    },
+    {
+      "path": "tests/browser/hud-notices.html",
+      "sha256": "267fa59a73bc689088d84a170f3903f4a952908d7f0da35f02cc76ad00067fea"
+    },
+    {
+      "path": "tests/browser/title-layout.browser.ts",
+      "sha256": "7d1256c79257a48ff01d007b1775dd0fa4f131dc9da6c63574b9957fdbf2d3fb"
+    },
+    {
+      "path": "tests/core-performance.test.ts",
+      "sha256": "e10f53cc895c74ce70da8c5b3ff6f4c1cce2ee058d81bc89e007e77859d7be0c"
+    },
+    {
+      "path": "tests/engine-timing.test.ts",
+      "sha256": "2af6fec8f601c6491b08832c5e180019cd566bdc0650fe8c55bc804a2c9a8211"
+    },
+    {
+      "path": "tests/fixtures/packed-drive-world.ts",
+      "sha256": "7e73e1013bc5723472ddacfc8df6368d26cca0d19cc396e12524fb71c9243726"
+    },
+    {
+      "path": "tests/fixtures/sim-route-legacy.ts",
+      "sha256": "0cee147a86a81a50a62bce735fa60f0f23d341b7e98439a24855ba2182763012"
+    },
+    {
+      "path": "tests/game-lifecycle.test.ts",
+      "sha256": "315b008c9964dfb6a9986ffcc610c163a230d3679fa7ab333eab804f355befcb"
+    },
+    {
+      "path": "tests/game-streaming-boundary.test.ts",
+      "sha256": "39e67ad421019298ec9a9e1769b26ac226f7a3970171768e9e597dc9c9e9feb2"
+    },
+    {
+      "path": "tests/legacy/README.md",
+      "sha256": "e5581ad652154218f10f9748da1afcc9bc3004f3f9eef8e84a56df07894cdf39"
+    },
+    {
+      "path": "tests/legacy/airport-landmark-regressions.mjs",
+      "sha256": "6d1b565f27a1ee0d767e01a0a1c732eb9ea4a14e3d775c52279143759dffa439"
+    },
+    {
+      "path": "tests/legacy/ambedkar-model-regressions.mjs",
+      "sha256": "35454cbbb78b994198b885d5184b8f2c7015b0c2cad7a9dd98f8011ba929fd49"
+    },
+    {
+      "path": "tests/legacy/audio-flight-regressions.mjs",
+      "sha256": "dcaed2d0b154007faa929ab1344d8c70ff0acac2622c05d38783be2a60d86cc1"
+    },
+    {
+      "path": "tests/legacy/audit-obb-regressions.mjs",
+      "sha256": "0b70331e028bf3a26511725ea425e4e7636b38223c1008f1dde1d91790dbf33c"
+    },
+    {
+      "path": "tests/legacy/audit-obb-utils.mjs",
+      "sha256": "2da336e3d76e9d269a71c4fcea6a8ce974922f0c75a79b21b0dc9cdc062cbeb8"
+    },
+    {
+      "path": "tests/legacy/bridge-deck-regressions.mjs",
+      "sha256": "957c40f7d05f6aec78b37d175952c99129cfbab5e0cedb0116c2e166064331e4"
+    },
+    {
+      "path": "tests/legacy/bridge-grade-classification-regressions.mjs",
+      "sha256": "0bd8e5b5d0730eb71b3789436a367f9a9dc9ecf435497b90eba0737f761fe044"
+    },
+    {
+      "path": "tests/legacy/bug-report-regressions.mjs",
+      "sha256": "4474c190d4e18af7346f305ead00511a55c1ce2ff7953af2e4106b9dda98fc10"
+    },
+    {
+      "path": "tests/legacy/building-clearance-regressions.mjs",
+      "sha256": "3fb4d34f6c229bd72cf6ae0d656fe753149890858de6acfb92af896429705dac"
+    },
+    {
+      "path": "tests/legacy/bus-execution-regressions.mjs",
+      "sha256": "f2e519c72d44c09c5673f45b8396d0723191cdb88c43ab32590fd2a3d0bcb3b7"
+    },
+    {
+      "path": "tests/legacy/bus-service-regressions.mjs",
+      "sha256": "a8931e1301107eb8eb205cda7c87ab8545b7dcfd8161e40b52ae5b360d9d81f1"
+    },
+    {
+      "path": "tests/legacy/construction-guidance-regressions.mjs",
+      "sha256": "f1865cdee05ad52b35fb1d9bc5b0b00d97f64bbc3df9b998d2580c2dcfaaf6ec"
+    },
+    {
+      "path": "tests/legacy/construction-regressions.mjs",
+      "sha256": "8d12aade087bb9c052fee5593d47d4fb0b3650cfe420c3e5bcec88e7c8d0e32d"
+    },
+    {
+      "path": "tests/legacy/covered-path-regressions.mjs",
+      "sha256": "4026c03fef0009b530a0d4ed7d89bc3275e5383be16c52752fce83bfcc1912b3"
+    },
+    {
+      "path": "tests/legacy/current-fixture-state.mjs",
+      "sha256": "6d30b8f1a1aa6fdae188601c9e725fc998a6d94a01828c8fdac7ccc269d3c632"
+    },
+    {
+      "path": "tests/legacy/delivery-regressions.mjs",
+      "sha256": "0b808cdc0fbc59e963eaabc3191645c9d12a9afcf1cb4aec670209329bd83aa5"
+    },
+    {
+      "path": "tests/legacy/destination-regressions.mjs",
+      "sha256": "98b8048aaf5ec05bd706b3699f318b861548b41ca3f297579bf63f9ace05671d"
+    },
+    {
+      "path": "tests/legacy/expressway-regressions.mjs",
+      "sha256": "40319ef9d94c6d229dda744b033ace5832fe991f6884b3815dd194ceb7c40b24"
+    },
+    {
+      "path": "tests/legacy/fixtures/ambedkar-feature-review-2026-10-26.json.gz",
+      "sha256": "fa4cb832888c744d938c9ade19deb0e99c7b649b65f81fe51a18538189601e8e"
+    },
+    {
+      "path": "tests/legacy/fixtures/destination-hero-source-2026-10-26.json.gz",
+      "sha256": "24d8de779bb9304b1df755eaf9862ab63b5df695619c4957aef37981f9cd8078"
+    },
+    {
+      "path": "tests/legacy/fixtures/destination-inventory-2026-10-26.json.gz",
+      "sha256": "d3ed4dddf25af3fc819214d10a8da0bfba25d1c9b02e919e286f8e103113af6c"
+    },
+    {
+      "path": "tests/legacy/fixtures/landmark-audit.json.gz",
+      "sha256": "d82c08d31e6ad2193b8541b41b4805f01b7262d19b230ccfcb7a6d9e61b2c1f9"
+    },
+    {
+      "path": "tests/legacy/fixtures/landmark-osm-source-2026-10-26.json.gz",
+      "sha256": "dedb1f597c1b91dfa4d9331970966db15697884254111ca7b81941717701c5c3"
+    },
+    {
+      "path": "tests/legacy/fixtures/landmark-source-decisions-2026-10-26.json.gz",
+      "sha256": "5e719ed2e6b3bb53cd3f83780d1fde1a9e35b9d62db6faeda6d9463255de278b"
+    },
+    {
+      "path": "tests/legacy/fixtures/legacy-module-inventory.json",
+      "sha256": "75679bd019a6cf29da556166fc1786c1114550db607c7c8bdcd0a0ea5577a964"
+    },
+    {
+      "path": "tests/legacy/fixtures/manifest.json",
+      "sha256": "3c772810c32522e7493dd32108e2a30a6cb90fedac2d5446555da9ec66ecb736"
+    },
+    {
+      "path": "tests/legacy/fixtures/pipeline/add_osm.py",
+      "sha256": "403490a29d5ad6ac0d19aa7168e13fe830c8d1ef14f04e7ef3d257c8bbb0f45a"
+    },
+    {
+      "path": "tests/legacy/fixtures/pipeline/destination_inventory.py",
+      "sha256": "f811e5cb87496b831ff81944fa96e35ce3061a7f9172119b6b4ac661b1bcd5d8"
+    },
+    {
+      "path": "tests/legacy/fixtures/pipeline/osm_extract.py",
+      "sha256": "ff6f55c6c5481d5b9d472c059ccf062606bd0dd1072e744c3379ed6341691505"
+    },
+    {
+      "path": "tests/legacy/fixtures/pipeline/osm_path_kind.py",
+      "sha256": "adb461e3d2b4e854ebf3f2db6d64403ab87171b70b37deef09bdfbd6e72d8a9e"
+    },
+    {
+      "path": "tests/legacy/fixtures/retired-v2-groups.json",
+      "sha256": "91ccd3e9443891ecb99829d3e26438a75081f056f76324b095292fdbb7aa8feb"
+    },
+    {
+      "path": "tests/legacy/fixtures/v2-game-pre-delivery-only.mjs.gz",
+      "sha256": "45ae8b5dbb72dc63ecae771dae0141d120d39128f650f2a335ee2c079e952186"
+    },
+    {
+      "path": "tests/legacy/flyover-regressions.mjs",
+      "sha256": "5fdc66eda6b669314bd79b3931087ea50785ceb96e673b3fa7571d6dfa2fd349"
+    },
+    {
+      "path": "tests/legacy/gameplay-regressions.mjs",
+      "sha256": "d98f3e443e6e7e5f573a09d1340e2a6ad0bf8681df934282e77598253027d36e"
+    },
+    {
+      "path": "tests/legacy/jump-kickflip-regressions.mjs",
+      "sha256": "e6ea3682739a8c79afc886ba0fad5d2281c3a6cd5a2c5104ca8be4ea512b6abb"
+    },
+    {
+      "path": "tests/legacy/landmark-contact-regressions.mjs",
+      "sha256": "f80598cc31889631d6396371420b809a788e7b40aef2632687c978845ec5ca6f"
+    },
+    {
+      "path": "tests/legacy/landmark-cultural-regressions.mjs",
+      "sha256": "8dddb2e26033ff2551f7124f1030b69dd1aba8bbd0f45703c2df5d9b7ce50b09"
+    },
+    {
+      "path": "tests/legacy/landmark-regressions.mjs",
+      "sha256": "fdbb62c6f5943224fd808b5194ff524fce90f304d1a9e4a41ad87acd8cb24289"
+    },
+    {
+      "path": "tests/legacy/landmark-source-regressions.mjs",
+      "sha256": "dde419a2b873b037f85d6e1e725303c23e6d4cba919c824c94e1a2cacd7482a1"
+    },
+    {
+      "path": "tests/legacy/map-regressions.mjs",
+      "sha256": "01f2a424936e24c914c8731331471ebc2ecb1fd1d1e499ff4f7829f917a79416"
+    },
+    {
+      "path": "tests/legacy/metro-clearance-regressions.mjs",
+      "sha256": "24682e15b0a94f16f55c8389b299225c70c2ca61beac9cbc243621e2705484be"
+    },
+    {
+      "path": "tests/legacy/metro-interchange-regressions.mjs",
+      "sha256": "ea67e6e6bf12ec6fb170b146250baeb9012bd40deffcf6b4811e8211582c8857"
+    },
+    {
+      "path": "tests/legacy/metro-regressions.mjs",
+      "sha256": "b4760b7fdf5c2fc2b723ef8620ce46614e7158b736aaf3a7331d9d629a0ec5b4"
+    },
+    {
+      "path": "tests/legacy/metro-station-life-regressions.mjs",
+      "sha256": "69434ab5addbe2ea199f31a48f73eec753f5729ea15c6be5ccaab27dbf562d1b"
+    },
+    {
+      "path": "tests/legacy/mobile-hud-layout-regressions.mjs",
+      "sha256": "e6ce7963c73876faab1522f86f7499b621453e73991421e46e7d41e86802b96f"
+    },
+    {
+      "path": "tests/legacy/moving-rail-regressions.mjs",
+      "sha256": "091b4131cb56fa6cf97b026d527ccd201ae2a3767c7477020943d6bed3804246"
+    },
+    {
+      "path": "tests/legacy/navigation-regressions.mjs",
+      "sha256": "c169270cc4ce27d353685b9921c4f18a734a2d07ca1b0eda9c6b1bc4d74e6c75"
+    },
+    {
+      "path": "tests/legacy/orr-airport-bridge-regressions.mjs",
+      "sha256": "b0f11852a094bd60fd8c6ac6b241c61669a65cf149af842ed290c31de2a087fe"
+    },
+    {
+      "path": "tests/legacy/orr-exit-regressions.mjs",
+      "sha256": "af968ecae7d203a151aa5e6dd89a66185642b7ad6e43e9857d0630b585aecbd9"
+    },
+    {
+      "path": "tests/legacy/orr-recovery-regressions.mjs",
+      "sha256": "c8450057b67307f9323f6877b8497272b6d6d9e0e3037b5a58fa17c936dde4e7"
+    },
+    {
+      "path": "tests/legacy/paint-loading-regressions.mjs",
+      "sha256": "09fc6c746ae807c5af136aeb3c7f5d3e8b38fc150a4398375595b2dcd2074c62"
+    },
+    {
+      "path": "tests/legacy/read-fixtures.mjs",
+      "sha256": "5715c73e0c4155e179c5f6247a851fda92531b2f61055dbc6fc6a767d7ebcd89"
+    },
+    {
+      "path": "tests/legacy/roadside-clearance-regressions.mjs",
+      "sha256": "bc45c59585a5e07aaa869b49e676ad0fa728198507f3baf9a86ddc29cc03c630"
+    },
+    {
+      "path": "tests/legacy/route-motion-regressions.mjs",
+      "sha256": "21621c0adb812b0925a967d562f7b96d24a3482447d0bfdfef8b520f3e41bca0"
+    },
+    {
+      "path": "tests/legacy/signal-regressions.mjs",
+      "sha256": "b4a9c3da54307656199d16777e9cf787f6527a222f500a3a589bce9c75b1a633"
+    },
+    {
+      "path": "tests/legacy/spatial-safety-regressions.mjs",
+      "sha256": "2182cf9dadacbae4f1ae2946e5423522fec2f88f8d8c8b296e02806e14a4b7d1"
+    },
+    {
+      "path": "tests/legacy/street-lighting-regressions.mjs",
+      "sha256": "f678916deea4b6c0470333c6d1fe73ce01473b0b498c89af5b3df8b0496fba6d"
+    },
+    {
+      "path": "tests/legacy/suites.json",
+      "sha256": "a98d9013f1c41abe09e484377886f3535ed573dd3c1af5fb37ead8e84816cee4"
+    },
+    {
+      "path": "tests/legacy/traffic-regressions.mjs",
+      "sha256": "dfd25324bf764bfe281ebad6ea62ed599ebd68cf31e3a7312619bb4503f0211f"
+    },
+    {
+      "path": "tests/legacy/ui-regressions.mjs",
+      "sha256": "2d1c59bac6a084859fb7ad2c44b406e459367fc786ae3b5e61389281e65834bd"
+    },
+    {
+      "path": "tests/legacy/v2-game-regressions.mjs",
+      "sha256": "10016033fb7492a4716c57e55fb9446a4794fc048f4f54c936979a5b9439e1af"
+    },
+    {
+      "path": "tests/legacy/v2-loading-regressions.mjs",
+      "sha256": "ed23eb581208950d00bed81f0925519dbd87ffa294f020e6fc2b2e839d446b6b"
+    },
+    {
+      "path": "tests/legacy/v2-ui-regressions.mjs",
+      "sha256": "d7b2a854a0bab300b4862af3d517111b582ae57e7531582d08c8e5dbf0013801"
+    },
+    {
+      "path": "tests/person-geometry-lifetime.test.ts",
+      "sha256": "76e14f0f1725dfb7f5fbf81ce61c342fb075c52bb960885615454c64280e2aad"
+    },
+    {
+      "path": "tests/quality-profile.test.ts",
+      "sha256": "637659d448ddaa1a012e5a6c13bc4b51f02ffebca90b896021a6e71699605a7a"
+    },
+    {
+      "path": "tests/refresh-policy.test.ts",
+      "sha256": "aa661555ed29d1279603e9e5cd174f50e924d30bcf7c1d58a6fff34179fea39d"
+    },
+    {
+      "path": "tests/roadster-batching.test.ts",
+      "sha256": "81afa3ea0c167931df9f1c8de720e47ee4d0911031f0387f24f0ad8be0e64d1d"
+    },
+    {
+      "path": "tests/sim-optimization.test.ts",
+      "sha256": "e2fc02db8015a788a21701f12ba72e688c04005fcd895c2f166c5e6da25bfa74"
+    },
+    {
+      "path": "tests/sim-rail-random.test.ts",
+      "sha256": "d086e4903c06ae43181b71f7269b3eac0e60526bf609c79f24f450e432a196bb"
+    },
+    {
+      "path": "tests/sim-replay.test.ts",
+      "sha256": "d90fe369d4b67998b6bfdc70922bdda22754563562a1be0a57c3d45796142146"
+    },
+    {
+      "path": "tests/sim-route-job.test.ts",
+      "sha256": "6056a61e7a1ab802b29ca0f91fe163ccd7cc387f79f0b41d613675786d4b2ab7"
+    },
+    {
+      "path": "tests/sim-static-cache.test.ts",
+      "sha256": "cfddcd869240f767a361ed7c3e4aa88256ba45768e2965137dc75c729770d743"
+    },
+    {
+      "path": "tests/sim-traffic-presentation.test.ts",
+      "sha256": "54607aeacdec399b18d254e36d2ea183f753a7b464c57548f57e6bc5df542ca0"
+    },
+    {
+      "path": "tests/spatial-safety.test.ts",
+      "sha256": "8de0599aee85ec0193a37522792504194846dd0fc0ecfbaa5a0030f001d5e626"
+    },
+    {
+      "path": "tests/ui-reuse.test.ts",
+      "sha256": "b6fbfb6f3dc760d446ae477cc8ed4aba4c2cd9bdae872d596c59f76e602cbdad"
+    },
+    {
+      "path": "tests/v21-fixes/camera-look.test.ts",
+      "sha256": "a5e5c1d46a9c99391e43b171a1e4bab3638f6c075697021695ce3f5933273d44"
+    },
+    {
+      "path": "tests/v21-fixes/camera-speed.test.ts",
+      "sha256": "ed8915998167c8b425eb78a2614e8dcfe49bfe80ef932eca9fee04df65937b3e"
+    },
+    {
+      "path": "tests/v21-fixes/camera-underpass.test.ts",
+      "sha256": "7ff128781a885e705278d20726f98ea440ae80636abd138989e9876418825d35"
+    },
+    {
+      "path": "tests/v21-fixes/camera-underwater.test.ts",
+      "sha256": "3761679ae80b605935b94f9cd8147c3a45aa54e560af4916491c34071e7dfab4"
+    },
+    {
+      "path": "tests/v21-fixes/campaign-restart-menu.test.ts",
+      "sha256": "f14faabaa89602f6498bf2c83634df99baa1b9a19e2a665ace801e93b5761877"
+    },
+    {
+      "path": "tests/v21-fixes/campaign-spawn-world.test.ts",
+      "sha256": "30594a8ac395bd84e67d751cabce2cac8400c847bab4065a69f1ce3463a089ad"
+    },
+    {
+      "path": "tests/v21-fixes/city-road-openings.test.ts",
+      "sha256": "31bd355b96063596ae8aaa1eb5486620edb5b3123648a9c5cee83a21e7c9b2ae"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-campaign.test.ts",
+      "sha256": "1bb0c86e704715f62f3cf74f4300b258b940e555538d6855de70f227c29b4446"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-carrier.test.ts",
+      "sha256": "a7c335d7625de513a04e194b517e1eceb5eb7a0f76a2b8ac7a1e7f6d56bcf198"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-character-art.test.ts",
+      "sha256": "359ea4aa55034dab0ac45dc00ec381b25204bf49fe961cba2b9fdacf14e41403"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-focus.test.ts",
+      "sha256": "15da40c83fcb24abd61177f5b416adbf3f82cda28c7da0ebe74a401e1c384e32"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-integration.test.ts",
+      "sha256": "74d8b23dfd440ca44a58c3e4ad1b2a5c3ae97baa3034d61159a3622671079b0d"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-module-immersive.test.ts",
+      "sha256": "3c3d1ef9490f2d6d837f06358aac739a4bb4fe3a095a6710e85e9b0a509668aa"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-module-story.test.ts",
+      "sha256": "ff8e3ee7fc856180d480ee98c8b4a27067fc6809184539571bbeb2c665f06144"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-modules.test.ts",
+      "sha256": "3165ec5e3f1017b1fd0069c5c54838a28abf19e601cbfcd809ddd636c8a1a819"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-movement.test.ts",
+      "sha256": "71fb3a0a9b2e96aa9a0ff1e4dbb81553f493e0ecdc4553508432cef8be4bb2bc"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-opening.test.ts",
+      "sha256": "6b4db7c01a5d732af830a4c4ed7024d7e31da93cdb5bc01710a2d24c2cfc7856"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-pickup-clearance.test.ts",
+      "sha256": "398aaa25c81fc2f40a721e46d4c72247bd055e87a5ee73dbb9d7cb8bc102eec0"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-pickup.test.ts",
+      "sha256": "adab29d35d446fc05751f246324aa31ee9a9a079a74c2280d4bb8723043cc375"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-qa.test.ts",
+      "sha256": "8aed7e8491c7ac9dcbf2295f51198d131ef16d2b4bd4886859f3650ac0de8681"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-rail-passages.test.ts",
+      "sha256": "884af442396e04a65fef69e0a20332d85e45602dccf680f69560120eb6da4c38"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-ramp-driving.test.ts",
+      "sha256": "80b9c5beb4186daff3cd25e3b79f153ee625ab74de078709ce0d1cd8e43c7cd4"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-road-cue.test.ts",
+      "sha256": "6a309ee94f4e184b8bfdc4a6e0d4d6e1bc9a86aa709272a14da7ab08fa831863"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-road-target.test.ts",
+      "sha256": "b843a359c1461ff029ba84bfad2588c92b432532d8501c19ee6869496d52a65a"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-runtime.test.ts",
+      "sha256": "5fda47e035fe071f5092d8976b2c96f29e3ba5971bb6c56e6e2ae99b788be66a"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-story.test.ts",
+      "sha256": "93a206f95ea14f1dbdf77ada9298118fb7a0355d930e235be55a7b1b74867d8d"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-traffic.test.ts",
+      "sha256": "1306750a214b92487d01aee359c5ef5ba3edd8b53617ec0ed3ee9049663cc557"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-truck-lights.test.ts",
+      "sha256": "c74092eaadeea112332dbefb449919d2fe76ec4efc4e614dbe9b6f11afed8f15"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-truck-route.test.ts",
+      "sha256": "cfe39dde9fbfd9813d5de1c7fd03f05087ecc68a05f38db6a74dfa3c9fa075f2"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-ui.test.ts",
+      "sha256": "6c6d8e7300832952f2933ca5f340e5bb1b36ceb4dafd2f95b8227cfc1bd4df1c"
+    },
+    {
+      "path": "tests/v21-fixes/delivery-world.test.ts",
+      "sha256": "13ac388fa129dd62ea409d24e761a8fe94785700a5f28e3764ef606ac975e8a4"
+    },
+    {
+      "path": "tests/v21-fixes/driving-tuning.test.ts",
+      "sha256": "2a19ac8f587bf16c97017798abb9967a10a96484ec80fe011ba29ecfe5115976"
+    },
+    {
+      "path": "tests/v21-fixes/flight-navigation.test.ts",
+      "sha256": "d94f7c389b09e17ed5efdff1147241e310b6b3283b610a36c11e10469efb5e6d"
+    },
+    {
+      "path": "tests/v21-fixes/hud-control-feedback.test.ts",
+      "sha256": "1b831b9076a08cf2c69115ac29496229e17e938c34b40e8522ce4e8f8d8483dc"
+    },
+    {
+      "path": "tests/v21-fixes/hud-notice-layout.test.ts",
+      "sha256": "3bc692f45e85245c684cf810f43bb20145172de7b5370800127995105f9c1968"
+    },
+    {
+      "path": "tests/v21-fixes/map-labels.test.ts",
+      "sha256": "a85a340c93f5117acbb6d0944d5423d3da4d43b40155cf9330f203d2d0367b43"
+    },
+    {
+      "path": "tests/v21-fixes/map-loading.test.ts",
+      "sha256": "44e6eec7dfbb820b4121ac5654e0586d64c272961cca00077de1ce18178e5e9f"
+    },
+    {
+      "path": "tests/v21-fixes/map-relocation-game.test.ts",
+      "sha256": "5eb8307b15318518f35a1da8ed5c03488a9fbf72b27264136aa4543ef08e45bf"
+    },
+    {
+      "path": "tests/v21-fixes/map-relocation.test.ts",
+      "sha256": "6562687dcc48e8a5d8a2334a89399f6c92bfcb866976fde594f6efba117e1ffe"
+    },
+    {
+      "path": "tests/v21-fixes/map-stadium.test.ts",
+      "sha256": "644034139b8396ca493f204ded3735843a233efe0b4bb9c4daddf81225509a34"
+    },
+    {
+      "path": "tests/v21-fixes/minimap-navigation.test.ts",
+      "sha256": "d96315c4a1187af80a58cc977ad820bb3fbf98290cf4146f6fd6954e9da6b686"
+    },
+    {
+      "path": "tests/v21-fixes/mobile-ui.test.ts",
+      "sha256": "0899af9a8ff7afa7c98ad8c036e3e49dd8ab3ad9482781225cd29624f04a3aab"
+    },
+    {
+      "path": "tests/v21-fixes/navigation-route-source.test.ts",
+      "sha256": "157f1a95a63318c517f367267c60104b8bf96637bf810f17343150bc96e60043"
+    },
+    {
+      "path": "tests/v21-fixes/pause-progress-hub.test.ts",
+      "sha256": "0cee27847104e0e8218b792c2d400ac94b389dc3474c10895f727a4dcfb2bfeb"
+    },
+    {
+      "path": "tests/v21-fixes/player-lights.test.ts",
+      "sha256": "a6d6447d4f0921f902785c08d68587cea239d9b39cc7ab62be726ec68e9de31f"
+    },
+    {
+      "path": "tests/v21-fixes/rail-track-fallback.test.ts",
+      "sha256": "b46e010cfc2cd88dab8aa0940b842d523f714b4cb2459884a4f6329f04f8bb03"
+    },
+    {
+      "path": "tests/v21-fixes/railway-coach-continuity.test.ts",
+      "sha256": "e1ab5e476d817ba19d41b38e04988cf895266a21a3aeda72dba4c73ec1696d47"
+    },
+    {
+      "path": "tests/v21-fixes/railway-crossings.test.ts",
+      "sha256": "a6f62c534a3f8d578c66622881d6b8af80ace89eb2a80b45a3ac47c6edd0fa56"
+    },
+    {
+      "path": "tests/v21-fixes/railway-drive-surfaces.test.ts",
+      "sha256": "ddea5e21e480d09c417203ad589ac93bb01a2da1322361b864290198073aee2a"
+    },
+    {
+      "path": "tests/v21-fixes/railway-flow.test.ts",
+      "sha256": "0dd4e465e3e8ce830359b0593eed70404948ec557e0ecddbe2846cc5d2f00be2"
+    },
+    {
+      "path": "tests/v21-fixes/railway-horn.test.ts",
+      "sha256": "f4d711204cfcf8fd718fa4d745ef6e45fa87be9482428160d93a96c1d9c464a8"
+    },
+    {
+      "path": "tests/v21-fixes/railway-lifecycle.test.ts",
+      "sha256": "5b944c0d03c2c034f5493d4fa90bc46c072e804c6551122784f151f7c837a5ae"
+    },
+    {
+      "path": "tests/v21-fixes/railway-map.test.ts",
+      "sha256": "d122b750b52dd82b1879cde0757208ad8b4e55f51a2c70a342f1cdbf7075a99f"
+    },
+    {
+      "path": "tests/v21-fixes/railway-physical.test.ts",
+      "sha256": "0bb18c3043d33fa40f2c79a975474051085f59997d64bacd802d116b7008890b"
+    },
+    {
+      "path": "tests/v21-fixes/railway-road-clearance.test.ts",
+      "sha256": "7006187381fe9a72c361766ae82e2448306ca0f2609692b47c22d147b5c590e2"
+    },
+    {
+      "path": "tests/v21-fixes/railway-run-cache.test.ts",
+      "sha256": "5f305c73c191f670532b7973c83571e0047e13d22a2965270b4740e4ced07ad8"
+    },
+    {
+      "path": "tests/v21-fixes/road-join-driving.test.ts",
+      "sha256": "391ed65c8146692cd3f9100233ae10a81ed299501ab518d32d06a99602ec4430"
+    },
+    {
+      "path": "tests/v21-fixes/road-openings.test.ts",
+      "sha256": "9a4b162ed4e371751710aec4d0bdab61caf8b24d4c05bb675eff44f7d52e11cb"
+    },
+    {
+      "path": "tests/v21-fixes/road-underpasses.test.ts",
+      "sha256": "0e87c4ee8c0c2cf94315fe4a9cc8488360169d68db20d430b403d46ac7978e03"
+    },
+    {
+      "path": "tests/v21-fixes/running-railway-tracks.test.ts",
+      "sha256": "1bfa2232a7e353eebd708259fcf42f11c98757d2e0e64900b353fbebb7c8a389"
+    },
+    {
+      "path": "tests/v21-fixes/stadium-roads.test.ts",
+      "sha256": "de4a61d4149ea1b67197b0d63f0eaa6a34237b6f4e1cc3f3e0e0d7bdd6f5dd45"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-camera-visibility.test.ts",
+      "sha256": "4180b68a65cb4f7ffdec2af79077d9ce9ad2c6328278c9ca83b5e7736f891bcf"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-headlights.test.ts",
+      "sha256": "069e1afdebd98562cc0741e989e90aa964164a08e1442ea5390ae74051dbf47b"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-night-lamps.test.ts",
+      "sha256": "fe041bfa32fa408c1a350bbdc72a652d326c42c7ad773daf92b7da11c442e52c"
+    },
+    {
+      "path": "tests/v21-fixes/underpass-evidence.test.ts",
+      "sha256": "d9b476f43b7b068a3103786fd72a1c774b578a1de43df4adaf26d3ec4f55ff41"
+    },
+    {
+      "path": "tests/v21-fixes/underpass-source-policy.test.ts",
+      "sha256": "fcb125e6dad8181f4aa2fc2dad619387f45e85c08514245f5f32709204fd7f14"
+    },
+    {
+      "path": "tests/v21-fixes/underpass-terrain.test.ts",
+      "sha256": "b5c387fd6c7f47bec9b4067be9570fbb545c0d3018b2b13e178ee3043c4fc0d7"
+    },
+    {
+      "path": "tests/v21-fixes/water.test.ts",
+      "sha256": "31ee32904f29ff0185ec5db1dde22458e3b2643dcc3b14a5bd0e2271e3b821f5"
+    },
+    {
+      "path": "tests/world-streaming.test.ts",
+      "sha256": "422f207391cb37db234e9f05af3617ebabccdab14d2a1cba4e65438eb68cf53a"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "057e01dda9bffa358be66d4f3a558af5b7ec1037a7cbc5ec6f38f381711b02d6"
+    },
+    {
+      "path": "tsconfig.worker.json",
+      "sha256": "b4792ed4d4472493a521770de155828e62d6808495a3fd3166ba3f379b9d2b56"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "fa0a5660138bd55052856095b73d67c197e1a6487d9907ac51015ca5fe20c011"
+    },
+    {
+      "path": "worker-env.d.ts",
+      "sha256": "d7ddf1c5ba25178b9b198d3714f01fa45e121701c071e3e490cf39e466eb33ba"
+    },
+    {
+      "path": "worker/index.ts",
+      "sha256": "40b145fb825e8fe97c138dc80e8f07908d7cc4893eac805f0a1f28ea70be7f6b"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "sha256": "c81a7eab40e574a36725902046d21f357941a8f5ef7224cab40834036f16a9cf"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-01T01:06:48.930300+00:00",
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "status": "source-model-fix-ready-for-root-review-and-fresh-native-soak",
+  "scope": "Bounded conventional railway conflict reservation fix; no native UI operated by this reviewer during this work. Root retains publication, full check and final source freeze.",
+  "observedFailure": {
+    "operator": "/root native Safari High7344 session",
+    "description": "Two intact trains near Khaitalpur stopped >100 active seconds while player physics continued; native driver crossed white rail1 coaches12 through3 onto red rail0 locomotive near(-11225.44,-6350.93). Root reported35ways/9502mremaining vs49ways/34237mremaining.",
+    "notOrdinaryDwell": "Only route-end remaining<.04 and speed<.3 triggers the2.5-second story terminal dwell. The reported34237m remaining rules that out.",
+    "notRoofPlayerCrossingOccupancy": "Game passes feetY; crossing inside rejects abs(feetY-siteY)>2. Roof feet around4.2m above rail datum exceed this threshold.",
+    "coachCount": "Ordinary train spawn intentionally selects8\u201313 coaches. Story adoption retains the existing count, IDs and rider roof heights; count13 alone was not a defect.",
+    "priorRunNotAccepted": "The abandoned00:32 run and stalled00:34:55 run are not40-minute moving-train acceptance."
+  },
+  "sourceReproduction": {
+    "network": "Unchanged shipped railwayNetwork profiles and buildRailwayStoryRoute",
+    "storyWays": 49,
+    "storyLength": 35027.79390738613,
+    "ordinaryWays": 35,
+    "ordinaryLength": 36440.17125745789,
+    "stalledState": {
+      "white": {
+        "s": 34237,
+        "dir": -1,
+        "formationDir": 1,
+        "coaches": 13
+      },
+      "red": {
+        "s": "ordinaryLength-9502",
+        "dir": 1,
+        "coaches": [
+          8,
+          13
+        ]
+      }
+    },
+    "beforeResult": "Current envelopes do not overlap. Either individual next0.8m swept envelope conflicts with the other stationary rake.100 production updates of0.05s move both exactly0m. The prior greedy one-step guard has no valid escape.",
+    "upstreamBefore": "500m upstream fixture advances red497.6m and white496m then remains stationary without overlap."
+  },
+  "fix": {
+    "ownedFiles": [
+      {
+        "path": "src/game/rail.ts",
+        "sha256": "2334c92c8ff1fca01c6303b7d2eede6c24dba04ab5039815febbc0204432d98a",
+        "bytes": 17793
+      },
+      {
+        "path": "src/game/rail-conflict-reservations.ts",
+        "sha256": "b1c7319f434ca9cae10578417413bdfa7d91faf9ba882261a97f572ec2f2d48e",
+        "bytes": 6123
+      },
+      {
+        "path": "src/game/rail-conflict-windows.ts",
+        "sha256": "bb0d3727a8c6687734a62b3e2c44b723cefae5a44f61ed4b50233a8aeda87a40",
+        "bytes": 6721
+      },
+      {
+        "path": "tests/v21-fixes/railway-turnout-interlock.test.ts",
+        "sha256": "5862e96870024efedf62a01d04644adc1ca1678b6c0610333b829e7b0b738a71",
+        "bytes": 10726
+      }
+    ],
+    "mechanics": [
+      "Prepare immutable run-pair finite full-coach-envelope windows once, in cooperative1ms/2048-operation chunks.",
+      "Split source spans at centre and +/-7m heading breakpoints, with at most5m spans; translation/headings and corner rotation-bow bounds conservatively enclose curved coach footprints.",
+      "Bound full sloped-coach vertical extents using affine chord minimum length and maximum|dy| plus endpointgrades; preserve overpass separation.",
+      "Merge nearby conflict windows by actual whole-rake length before granting deterministic approach ownership. Reconsider reservations at2Hz and retain owner until entire tail clears.",
+      "Unknown pair preparation uses the existing1.5m/s\u00b2 brake profile to a fixed signal distance, preserving poses and prior leases; no direct velocity/position reset.",
+      "Reproject live leases across exact source prepend/append/adoption, including reversed scalar orientation.",
+      "Existing per-substep full-rake SAT remains the final collision guard. Keep terminal dwell condition separate from interlock braking."
+    ],
+    "unchanged": [
+      "No track/road geometry edits, coach shrinking, collision disable, train teleport/despawn bypass, actor assets, global timing, rendering, lighting or camera changes.",
+      "Already interleaved frozen sessions are not forcibly untangled. Prevention is verified from clean upstream/startup states; fresh native replay remains required."
+    ]
+  },
+  "validation": {
+    "finalFocused": "10/10 focused regressions PASS after final grade-bound correction; includes8/13 and13/13 actual upstream states, source-aligned13-coach adoption\u2192terminal reversal\u2192same turnout, clear4m parallel and6.2m grade separation, lease prepend, no false terminal reversal, real curved coach conflict with source centreline distances3.698m/3.679m, and sloped full-coach overlap.",
+    "clientTypecheck": "npx tsc --noEmit PASS after final correction.",
+    "relatedSuite": "106/106 railway-related tests PASS on immediately preceding full-envelope revision; final vertical-bound correction then rechecked with10 focused tests and client TS. Root full check required before final freeze.",
+    "nativeFinalSoak": "Pending root fresh replay; this record makes no new40-minute/phone/GPU/thermal/battery acceptance."
+  },
+  "preparationCost": {
+    "measurement": "isolated Node CPU; not browser GPU/FPS/phone timing",
+    "runs": {
+      "aWays": 35,
+      "aLength": 36440.17125745789,
+      "bWays": 49,
+      "bLength": 35027.79390738613
+    },
+    "cold": {
+      "cpuMs": 88.73937600000005,
+      "maxChunkMs": 8.348874999999992,
+      "chunks": 95,
+      "aSpans": 10901,
+      "bSpans": 10625,
+      "candidates": 69867,
+      "satCalls": 36034,
+      "rawConflicts": 519
+    },
+    "baseWindowCount": 13,
+    "clusteredWindowCount": 5,
+    "warm": {
+      "ordinaryUpdateMs": 0.0004159374999999983,
+      "twoHzScanMs": 0.0008240417000000007
+    },
+    "interpretation": "Cold CPU work is spread over95 observed chunks;1ms is a cooperative target, not a hard scheduler guarantee. Observed max8.35ms includes scheduling/GC; this isolated Node measurement is not browser GPU presentation or phone FPS."
+  },
+  "evidence": [
+    {
+      "path": "docs/delivery/gameplay-review/train-turnout-interlock-fix-2026-11-01/reviewed-working-tree.patch",
+      "sha256": "56ffdd898c0d90425419ce95b15d2135bbf8f938442f0c3ee8c12d228cf250d4",
+      "bytes": 26560
+    },
+    {
+      "path": "docs/delivery/gameplay-review/train-turnout-interlock-fix-2026-11-01/roadster-rail-interlock-cost.json",
+      "sha256": "a21da96f4396e7486c8a160a54ee20a7a01cd7304e12104ce4814cd6116b3e2c",
+      "bytes": 4118
+    },
+    {
+      "path": "docs/delivery/gameplay-review/train-turnout-interlock-fix-2026-11-01/roadster-rail-interlock-focused-tests.txt",
+      "sha256": "a1f48f06fe2a335bafe1740f1249b33cfcfa5aae909edecf6bcb3a986df28273",
+      "bytes": 1168
+    },
+    {
+      "path": "docs/delivery/gameplay-review/train-turnout-interlock-fix-2026-11-01/roadster-rail-interlock-related-tests.txt",
+      "sha256": "53640385544da50cc3cae391871797100fd4a6d55d5a9170c222497651518767",
+      "bytes": 13110
+    },
+    {
+      "path": "docs/delivery/gameplay-review/train-turnout-interlock-fix-2026-11-01/roadster-train-turnout-diagnostic.txt",
+      "sha256": "658ce5a3afa143c85fda368487674672f0758134106b26b503618301c6be583c",
+      "bytes": 6023
+    }
+  ],
+  "diffArtifact": {
+    "path": "/tmp/roadster-rail-interlock-proposed.patch",
+    "sha256": "56ffdd898c0d90425419ce95b15d2135bbf8f938442f0c3ee8c12d228cf250d4",
+    "bytes": 26560
+  },
+  "workTreeState": "Source changes are already present in Root working tree for review. The patch is a review artifact, not an instruction to apply twice. No commit/push/deploy performed by this reviewer."
+}

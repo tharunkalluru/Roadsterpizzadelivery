@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-02T23:42:29.896312+00:00",
+  "reviewer": "/root/missing_avatars_independent_review",
+  "verdict": "Both exact candidates pass independent isolated and actual native appearance review; unregistered approved-record draft ready.",
+  "approvedRecordDraft": {
+    "path": "docs/delivery/character-review/production/final-avatars-20261102/independent-approved-records-draft.json",
+    "sha256": "f093c531a9ec80be711d45aac62231f874e18aa04f147461f1080afc2f4dbe1c"
+  },
+  "entries": [
+    {
+      "characterId": "srikanth-odela",
+      "verdict": "PASS",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "modelSha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b",
+      "canonicalRigSha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda",
+      "actualSceneEvidence": [
+        {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/srikanth-odela/actual-held-day.png",
+          "sha256": "2b159ecaadcc07d864800197e3c8f16afee6a8fc68c3dcd1fd02e354986a27bd",
+          "sourceScreenshot": "docs/qa/evidence/main-expansion/odela-actual-held-day-key-clear-v7.png",
+          "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5",
+          "frozenBuild": 11,
+          "lighting": "day",
+          "viewportCssPixels": {
+            "width": 932,
+            "height": 430
+          },
+          "actuallyViewedByIndependentReviewer": true,
+          "observedBy": "/root/missing_avatars_independent_review",
+          "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+        },
+        {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/srikanth-odela/actual-held-night.png",
+          "sha256": "0265218540e4f80cd16362db0aec9c872bda1dfa4705d87fe39252713c072098",
+          "sourceScreenshot": "docs/qa/evidence/main-expansion/odela-actual-held-night-key-v7.png",
+          "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5",
+          "frozenBuild": 11,
+          "lighting": "night",
+          "viewportCssPixels": {
+            "width": 932,
+            "height": 430
+          },
+          "actuallyViewedByIndependentReviewer": true,
+          "observedBy": "/root/missing_avatars_independent_review",
+          "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+        }
+      ],
+      "mechanic": "RopeBucket: actual pizza carried by bucket, not TakePizza",
+      "rootContinuousObservations": [
+        "bucket lowers",
+        "physical pizza transferred to bucket",
+        "bucket raises",
+        "held Next persists for many minutes without auto-advance"
+      ]
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "verdict": "PASS",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "modelSha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab",
+      "canonicalRigSha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444",
+      "actualSceneEvidence": [
+        {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-day.png",
+          "sha256": "b8013207d89d6bc6e267cf2eda5cde2322a81e355b3c6ba6a2a668e92d24a825",
+          "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-actual-held-day-porch-v9.png",
+          "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+          "frozenBuild": 12,
+          "lighting": "day",
+          "viewportCssPixels": {
+            "width": 932,
+            "height": 430
+          },
+          "actuallyViewedByIndependentReviewer": true,
+          "observedBy": "/root/missing_avatars_independent_review",
+          "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+        },
+        {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-night.png",
+          "sha256": "dcb9db33e2c1fbb206d0fbe9c37282081542a9e248e8996b57a9377a551549c3",
+          "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-actual-held-night-porch-v9.png",
+          "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+          "frozenBuild": 12,
+          "lighting": "night",
+          "viewportCssPixels": {
+            "width": 932,
+            "height": 430
+          },
+          "actuallyViewedByIndependentReviewer": true,
+          "observedBy": "/root/missing_avatars_independent_review",
+          "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+        },
+        {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-after-pause-resume.png",
+          "sha256": "a98d887b330782da6bd1875b46f116e7dde1881ae3f530d248896215e058aaf6",
+          "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-held-after-pause-resume-v9.png",
+          "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+          "frozenBuild": 12,
+          "lighting": "day-resumed",
+          "viewportCssPixels": {
+            "width": 932,
+            "height": 430
+          },
+          "actuallyViewedByIndependentReviewer": true,
+          "observedBy": "/root/missing_avatars_independent_review",
+          "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+        }
+      ],
+      "mechanic": "GateDelivery: leave actual pizza on courtyard paving, not TakePizza",
+      "rootContinuousObservations": [
+        "physical pizza transfers to courtyard paving",
+        "held Next remains without auto-advance",
+        "Pause shows opaque menu and hides Next",
+        "Resume restores same actor/floor pizza/Pause/Next"
+      ]
+    }
+  ],
+  "curatedArchiveOriginal41FilesHashAndSizeVerified": true,
+  "acceptedNativeScreenshotCopies": 5,
+  "limits": [
+    "Actual native screenshot appearances were personally inspected, not continuous video playback.",
+    "Root directly observed actual mechanics and long hold; attribution preserved in each record.",
+    "No physical-phone FPS/touch/thermal/battery claim.",
+    "Approval is an authored close-match judgment, not photoreal or pixel-identical recognition.",
+    "No runtime registry, public asset or existing approved identity was edited by this reviewer."
+  ]
+}

@@ -11,6 +11,7 @@ export class Sound {
   private resumePending = false;
   private cueTimes = new Map<SoundCue, number>();
   private vehicleTargets = { frequency: -1, filter: -1, motor: -1, thrust: -1 };
+  private trainHornAt = -Infinity;
 
   constructor() {
     // Capture runs before Play/settings handlers. touchend/click also cover mobile browsers
@@ -37,6 +38,7 @@ export class Sound {
         const c: AudioContext = new AC();
         this.ctx = c; this.master = c.createGain();
         this.resumePending = false; this.last = -Infinity; this.cueTimes.clear();
+        this.trainHornAt = -Infinity;
         this.vehicleTargets = { frequency: -1, filter: -1, motor: -1, thrust: -1 };
         this.master.gain.value = this.muted || !this.foreground ? 0 : 0.5;
         this.master.connect(c.destination);
@@ -164,6 +166,32 @@ export class Sound {
       }
       out.gain.setValueAtTime(0, now + t0); out.gain.linearRampToValueAtTime(vol, now + t0 + 0.015);
       out.gain.setValueAtTime(vol, now + t1 - 0.02); out.gain.linearRampToValueAtTime(0, now + t1);
+    }
+  }
+
+  // A long, low railway chord carries farther than the short city horns.
+  // It shares the gesture/mute/background protections of all existing sound.
+  trainHorn(dist: number, pan = 0) {
+    const c = this.ctx, master = this.master;
+    if (!c || !master || this.muted || !this.foreground || document.hidden || c.state !== 'running') return;
+    const now = c.currentTime;
+    if (now - (this.trainHornAt ?? -Infinity) < 1.5) return;
+    const volume = Math.max(0, 1 - Math.max(0, dist) / 650) * .26;
+    if (volume < .008) return;
+    this.trainHornAt = now;
+    const gain = c.createGain(); gain.gain.value = 0;
+    let destination: AudioNode = gain;
+    if (c.createStereoPanner) {
+      const panner = c.createStereoPanner(); panner.pan.value = Math.max(-1, Math.min(1, pan)); gain.connect(panner); destination = panner;
+    }
+    destination.connect(master);
+    gain.gain.setValueAtTime(0, now); gain.gain.linearRampToValueAtTime(volume, now + .08);
+    gain.gain.setValueAtTime(volume, now + 1.05); gain.gain.linearRampToValueAtTime(0, now + 1.3);
+    let remaining = 3;
+    for (const frequency of [174, 220, 261]) {
+      const oscillator = c.createOscillator(); oscillator.type = 'sawtooth'; oscillator.frequency.value = frequency;
+      oscillator.connect(gain); oscillator.start(now); oscillator.stop(now + 1.35);
+      oscillator.onended = () => { oscillator.disconnect(); if (--remaining === 0) { gain.disconnect(); if (destination !== gain) destination.disconnect(); } };
     }
   }
 }

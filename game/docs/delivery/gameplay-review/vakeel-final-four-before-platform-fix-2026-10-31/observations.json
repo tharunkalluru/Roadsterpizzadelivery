@@ -1,0 +1,111 @@
+{
+  "status": "partial-native-metro-pass-ride-and-exit-only-platform-target-defect",
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:41:48.145981+00:00",
+  "url": "http://127.0.0.1:4201/?qaDelivery=10&qaScene=1&qaCampaign=1&qaArt=scene-candidates-v1&q=low&qaTouch=1&qaNight=1&qaPerf=1",
+  "export": {
+    "path": "docs/delivery/gameplay-review/vakeel-final-four-before-platform-fix-2026-10-31/campaign-qa-mvwqlu4z.json",
+    "sha256": "1c2c5a315f6e07ba2475865806b3deced574182858791dc07772313816760e43"
+  },
+  "observedAssets": [
+    {
+      "id": "vakeel-saab-on-metro-v1",
+      "characterId": "vakeel-saab",
+      "descriptor": "/docs/delivery/character-review/candidates/vakeel-saab-on-metro-v1.json",
+      "glbSha256": "88952bee6c41f09de08db1c7844d27b1ce7a52333e0ceb3fd49e1c6c8669afd2",
+      "rigSha256": "89276c597a9b5fd29077f14d8de55cd7fd923935f81ad3310f40edbc601d7524"
+    },
+    {
+      "id": "vakeel-woman-1-on-metro-v1",
+      "characterId": "vakeel-woman-1",
+      "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-1-on-metro-v1.json",
+      "glbSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+      "rigSha256": "3e9c54a8b762d36735ee5af6ecae9812384b0c55da91be801aebca40db42e9c9"
+    },
+    {
+      "id": "vakeel-woman-2-on-metro-v1",
+      "characterId": "vakeel-woman-2",
+      "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-2-on-metro-v1.json",
+      "glbSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+      "rigSha256": "f425a9e216a0ee711cc65f607f26c2e506795242f6b8c3d1b6c8d2fd77f859f8"
+    },
+    {
+      "id": "vakeel-woman-3-on-metro-v1",
+      "characterId": "vakeel-woman-3",
+      "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.json",
+      "glbSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+      "rigSha256": "7b1af2669db4181953dc858ef37dade1454f86dfe911af0c1c23a9acea630586"
+    }
+  ],
+  "row": {
+    "level": 10,
+    "id": "vakeel-next-station",
+    "configuredScenario": true,
+    "completed": false,
+    "naturalJumpPickup": false,
+    "manualHandoff": false,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated"
+    ],
+    "missingPhysicalFacts": [
+      "grounded-arrival",
+      "manual-handoff"
+    ],
+    "missingFacts": [
+      "grounded-arrival",
+      "manual-handoff"
+    ],
+    "missingArt": [
+      "vakeel-saab",
+      "vakeel-woman-1",
+      "vakeel-woman-2",
+      "vakeel-woman-3"
+    ],
+    "missingVisualChecks": [
+      "Four visible correct-film people exit the proper door onto the physical platform.",
+      "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved."
+    ],
+    "observedSceneMechanics": false,
+    "allScenarioEvidence": false
+  },
+  "actualFacts": [
+    "metro-roof-contact",
+    "metro-next-station",
+    "authored-metro-exit",
+    "four-exit-anchors"
+  ],
+  "lastSample": {
+    "x": -4228.886468139878,
+    "y": 0.55,
+    "z": -3443.8099463585313,
+    "yaw": 3.2236457148185487,
+    "speed": 0,
+    "flying": false,
+    "descending": false,
+    "jumping": false,
+    "placementRevision": 2,
+    "support": null,
+    "action": "HAND OVER",
+    "ready": false,
+    "instruction": "Land beside the marked platform handoff",
+    "at": 479284.9999999907
+  },
+  "observations": [
+    "All4 final exact private candidates booted without error. Initial assisted roof descent, then actual metro carry/next-station/group exit observed.",
+    "Normal flight circle and landing attempts ended4m horizontally from marker but on ground below physical platform; handoff correctly remained locked. No extraStage/teleport/reset was used after boarding.",
+    "Root static geometry verification confirms real target defect: platformcentres\u00b15.6m and halfwidth1.7\u2192outer7.3m, guard7.4m. Target door+5.8\u2192trackoffset1.95+door1.5+5.8=9.25m outside; actor door+2.8\u21926.25m on platform. This is not an art/model failure.",
+    "Current actual ride/exit partial evidence is preserved; source/UI returned and scene paused before root fix. No final handoff/readability/retention approval or complete campaign claimed.",
+    "Passive cadence/resource export is desktop-only and includes manual navigation/waiting; not phone/GPU/FPS benchmark acceptance."
+  ],
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/vakeel-final-four-before-platform-fix-2026-10-31/01-actual-metro-roof.png",
+      "sha256": "5b718c9cff43c6d9cf80fd37ad4904f1daa9208c07c0df6dd4d5f7e4ff338b5c"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/vakeel-final-four-before-platform-fix-2026-10-31/02-arrived-group-on-platform.png",
+      "sha256": "7ee3ee325fba9e7b58e1de8eafd12dd24095d52e62b5b8b6a4a013317a8339c9"
+    }
+  ]
+}

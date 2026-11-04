@@ -1,0 +1,805 @@
+{
+  "measuredAt": "2026-11-03T08:17:14.547Z",
+  "sourceHashes": {
+    "player": "b0aac02d843a7ca57c7e1b166c4453c4dd583bda420506424dd528ef8690869d",
+    "helper": "7c3f19118c2c0a907fea987116762131cc9aaebbd96b667f324dab6478e48f81",
+    "exactDisabledPlayer": "6e69d1c6f6b1bae6b6a87cb2633ba12fc638f126e324d00cf0424826662d7bfe"
+  },
+  "negativeControls": [
+    {
+      "name": "ordinary-flat",
+      "accepted": true,
+      "expected": true,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 4
+    },
+    {
+      "name": "ordinary-10percent-grade",
+      "accepted": true,
+      "expected": true,
+      "pass": true,
+      "travel": [
+        -0.13999999999999968,
+        -0.13999999999999968,
+        0.14000000000000012,
+        0.14000000000000012
+      ],
+      "supportQueries": 4
+    },
+    {
+      "name": "missing-front-left-finite-road",
+      "accepted": false,
+      "expected": false,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 1
+    },
+    {
+      "name": "other-lower-road-layer",
+      "accepted": false,
+      "expected": false,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 2
+    },
+    {
+      "name": "other-upper-road-layer",
+      "accepted": false,
+      "expected": false,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 2
+    },
+    {
+      "name": "real-20cm-step-exceeds-travel",
+      "accepted": false,
+      "expected": false,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 2
+    },
+    {
+      "name": "14percent-grade-exceeds-travel-at-flat-pose",
+      "accepted": false,
+      "expected": false,
+      "pass": true,
+      "travel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "supportQueries": 1
+    },
+    {
+      "name": "finite-seam-requery",
+      "accepted": true,
+      "expected": true,
+      "pass": true,
+      "travel": [
+        -0.020033736934885544,
+        -0.020033736934885544,
+        0.022225140092144692,
+        0.022225140092144692
+      ],
+      "supportQueries": 6
+    }
+  ],
+  "firstFrameRamp": {
+    "placed": {
+      "slab": false,
+      "badWheel": true,
+      "missingWheel": false,
+      "wheels": [
+        {
+          "index": 0,
+          "point": [
+            -0.945,
+            3,
+            -1.4
+          ],
+          "support": 2.9089999365806585,
+          "asphalt": 2.9789999365806583,
+          "gap": 0.09100006341934153,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 1,
+          "point": [
+            0.945,
+            3,
+            -1.4
+          ],
+          "support": 2.9089999365806585,
+          "asphalt": 2.9789999365806583,
+          "gap": 0.09100006341934153,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 2,
+          "point": [
+            -0.945,
+            3,
+            1.4
+          ],
+          "support": 3.0909999299049375,
+          "asphalt": 3.1609999299049374,
+          "gap": -0.09099992990493755,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 3,
+          "point": [
+            0.945,
+            3,
+            1.4
+          ],
+          "support": 3.0909999299049375,
+          "asphalt": 3.1609999299049374,
+          "gap": -0.09099992990493755,
+          "roadId": "review-road-0"
+        }
+      ]
+    },
+    "placedPose": {
+      "position": [
+        0,
+        3.55,
+        0
+      ],
+      "speed": 0,
+      "yaw": 0,
+      "vy": 0,
+      "rootMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        3.55,
+        0,
+        1
+      ],
+      "onRoad": true,
+      "lastSupport": 3,
+      "flying": false,
+      "descending": false,
+      "jumping": false,
+      "glide": null,
+      "placementRevision": 1
+    },
+    "afterFirstUpdate": {
+      "slab": false,
+      "badWheel": false,
+      "missingWheel": false,
+      "wheels": [
+        {
+          "index": 0,
+          "point": [
+            -0.945,
+            2.9095327964420936,
+            -1.3918031316600954
+          ],
+          "support": 2.9095327330032092,
+          "asphalt": 2.979532733003209,
+          "gap": 6.343888436788347e-8,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 1,
+          "point": [
+            0.945,
+            2.9095327964420936,
+            -1.3918031316600954
+          ],
+          "support": 2.9095327330032092,
+          "asphalt": 2.979532733003209,
+          "gap": 6.343888436788347e-8,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 2,
+          "point": [
+            -0.945,
+            3.0913946673156,
+            1.4060718048553955
+          ],
+          "support": 3.091394597206062,
+          "asphalt": 3.161394597206062,
+          "gap": 7.010953773090023e-8,
+          "roadId": "review-road-0"
+        },
+        {
+          "index": 3,
+          "point": [
+            0.945,
+            3.0913946673156,
+            1.4060718048553955
+          ],
+          "support": 3.091394597206062,
+          "asphalt": 3.161394597206062,
+          "gap": 7.010953773090023e-8,
+          "roadId": "review-road-0"
+        }
+      ]
+    },
+    "updatedPose": {
+      "position": [
+        0,
+        3.55,
+        0
+      ],
+      "speed": 0,
+      "yaw": 0,
+      "vy": 0,
+      "rootMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0.9999157384234078,
+        -0.012981373316069862,
+        0,
+        0,
+        0.012981373316069862,
+        0.9999157384234078,
+        0,
+        0,
+        3.55,
+        0,
+        1
+      ],
+      "onRoad": true,
+      "lastSupport": 3,
+      "flying": false,
+      "descending": false,
+      "jumping": false,
+      "glide": null,
+      "placementRevision": 1
+    },
+    "contact": {
+      "measuredFrames": 2,
+      "visibleVertexEvaluations": 22032,
+      "slabFrames": 0,
+      "slabVertexHits": 0,
+      "wheelFramesOutside1cm": 1,
+      "missingWheelFrames": 0,
+      "minBodySupport": -0.02699993371963494,
+      "minTyreSupport": -0.09099994421005242,
+      "minWheelGap": -0.09099992990493755,
+      "maxWheelGap": 0.09100006341934153,
+      "witnesses": [],
+      "wheelWitnesses": [
+        {
+          "frame": 0,
+          "wheels": [
+            {
+              "index": 0,
+              "point": [
+                -0.945,
+                3,
+                -1.4
+              ],
+              "support": 2.9089999365806585,
+              "asphalt": 2.9789999365806583,
+              "gap": 0.09100006341934153,
+              "roadId": "review-road-0"
+            },
+            {
+              "index": 1,
+              "point": [
+                0.945,
+                3,
+                -1.4
+              ],
+              "support": 2.9089999365806585,
+              "asphalt": 2.9789999365806583,
+              "gap": 0.09100006341934153,
+              "roadId": "review-road-0"
+            },
+            {
+              "index": 2,
+              "point": [
+                -0.945,
+                3,
+                1.4
+              ],
+              "support": 3.0909999299049375,
+              "asphalt": 3.1609999299049374,
+              "gap": -0.09099992990493755,
+              "roadId": "review-road-0"
+            },
+            {
+              "index": 3,
+              "point": [
+                0.945,
+                3,
+                1.4
+              ],
+              "support": 3.0909999299049375,
+              "asphalt": 3.1609999299049374,
+              "gap": -0.09099992990493755,
+              "roadId": "review-road-0"
+            }
+          ],
+          "playerMatrixWorld": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            3.55,
+            0,
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "rootParity": [
+    {
+      "hz": 30,
+      "frames": 180,
+      "bitIdenticalRootMotion": true,
+      "mismatch": null
+    },
+    {
+      "hz": 60,
+      "frames": 360,
+      "bitIdenticalRootMotion": true,
+      "mismatch": null
+    }
+  ],
+  "cpu": {
+    "scope": "paired warmed local Node CPU per actual Player.update; no oracle inside timed loops; not FPS/device evidence",
+    "samples": [
+      {
+        "mode": "stationary",
+        "sample": 0,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 164.45262500000172,
+          "microsecondsPerUpdate": 82.22631250000086
+        },
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 97.94704200000342,
+          "microsecondsPerUpdate": 48.97352100000171
+        },
+        "deltaMicroseconds": 33.25279149999915
+      },
+      {
+        "mode": "stationary",
+        "sample": 1,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 98.00862500000221,
+          "microsecondsPerUpdate": 49.004312500001106
+        },
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 164.4584590000013,
+          "microsecondsPerUpdate": 82.22922950000066
+        },
+        "deltaMicroseconds": 33.22491699999955
+      },
+      {
+        "mode": "stationary",
+        "sample": 2,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 190.38241599999674,
+          "microsecondsPerUpdate": 95.19120799999837
+        },
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 103.62350000000151,
+          "microsecondsPerUpdate": 51.81175000000076
+        },
+        "deltaMicroseconds": 43.37945799999761
+      },
+      {
+        "mode": "stationary",
+        "sample": 3,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 100.53837500000009,
+          "microsecondsPerUpdate": 50.269187500000044
+        },
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 161.98812499999985,
+          "microsecondsPerUpdate": 80.99406249999993
+        },
+        "deltaMicroseconds": 30.724874999999884
+      },
+      {
+        "mode": "stationary",
+        "sample": 4,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 167.0110829999976,
+          "microsecondsPerUpdate": 83.5055414999988
+        },
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 93.90229199999885,
+          "microsecondsPerUpdate": 46.951145999999426
+        },
+        "deltaMicroseconds": 36.55439549999937
+      },
+      {
+        "mode": "stationary",
+        "sample": 5,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 98.61770799999795,
+          "microsecondsPerUpdate": 49.30885399999897
+        },
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 161.21712500000285,
+          "microsecondsPerUpdate": 80.60856250000143
+        },
+        "deltaMicroseconds": 31.299708500002453
+      },
+      {
+        "mode": "stationary",
+        "sample": 6,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 161.6676660000012,
+          "microsecondsPerUpdate": 80.8338330000006
+        },
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 98.86158299999806,
+          "microsecondsPerUpdate": 49.43079149999903
+        },
+        "deltaMicroseconds": 31.403041500001564
+      },
+      {
+        "mode": "stationary",
+        "sample": 7,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 99.79416599999968,
+          "microsecondsPerUpdate": 49.89708299999984
+        },
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 166.62712499999907,
+          "microsecondsPerUpdate": 83.31356249999953
+        },
+        "deltaMicroseconds": 33.416479499999696
+      },
+      {
+        "mode": "stationary",
+        "sample": 8,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 162.6012499999997,
+          "microsecondsPerUpdate": 81.30062499999985
+        },
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 97.25858299999891,
+          "microsecondsPerUpdate": 48.629291499999454
+        },
+        "deltaMicroseconds": 32.6713335000004
+      },
+      {
+        "mode": "stationary",
+        "sample": 9,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 2000,
+          "elapsedMs": 98.07195799999681,
+          "microsecondsPerUpdate": 49.035978999998406
+        },
+        "on": {
+          "updates": 2000,
+          "elapsedMs": 163.6716669999987,
+          "microsecondsPerUpdate": 81.83583349999935
+        },
+        "deltaMicroseconds": 32.79985450000095
+      },
+      {
+        "mode": "forward",
+        "sample": 0,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 84.62191699999676,
+          "microsecondsPerUpdate": 84.62191699999676
+        },
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.02741600000081,
+          "microsecondsPerUpdate": 49.02741600000081
+        },
+        "deltaMicroseconds": 35.594500999995944
+      },
+      {
+        "mode": "forward",
+        "sample": 1,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 48.88141800000085,
+          "microsecondsPerUpdate": 48.88141800000085
+        },
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 82.88516700000764,
+          "microsecondsPerUpdate": 82.88516700000764
+        },
+        "deltaMicroseconds": 34.00374900000679
+      },
+      {
+        "mode": "forward",
+        "sample": 2,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 82.7074990000001,
+          "microsecondsPerUpdate": 82.7074990000001
+        },
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.28487600000153,
+          "microsecondsPerUpdate": 49.28487600000153
+        },
+        "deltaMicroseconds": 33.422622999998566
+      },
+      {
+        "mode": "forward",
+        "sample": 3,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.07274899999538,
+          "microsecondsPerUpdate": 49.07274899999538
+        },
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 83.85412499999802,
+          "microsecondsPerUpdate": 83.85412499999802
+        },
+        "deltaMicroseconds": 34.78137600000264
+      },
+      {
+        "mode": "forward",
+        "sample": 4,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 81.38475099999778,
+          "microsecondsPerUpdate": 81.38475099999778
+        },
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.263708999998926,
+          "microsecondsPerUpdate": 49.263708999998926
+        },
+        "deltaMicroseconds": 32.12104199999885
+      },
+      {
+        "mode": "forward",
+        "sample": 5,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 48.64112500000192,
+          "microsecondsPerUpdate": 48.64112500000192
+        },
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 83.21508200000972,
+          "microsecondsPerUpdate": 83.21508200000972
+        },
+        "deltaMicroseconds": 34.573957000007795
+      },
+      {
+        "mode": "forward",
+        "sample": 6,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 82.71362299999964,
+          "microsecondsPerUpdate": 82.71362299999964
+        },
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.379414999999426,
+          "microsecondsPerUpdate": 49.379414999999426
+        },
+        "deltaMicroseconds": 33.33420800000022
+      },
+      {
+        "mode": "forward",
+        "sample": 7,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 50.429918000001635,
+          "microsecondsPerUpdate": 50.429918000001635
+        },
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 81.93287600000258,
+          "microsecondsPerUpdate": 81.93287600000258
+        },
+        "deltaMicroseconds": 31.502958000000945
+      },
+      {
+        "mode": "forward",
+        "sample": 8,
+        "order": [
+          "on",
+          "off"
+        ],
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 82.96670700000686,
+          "microsecondsPerUpdate": 82.96670700000686
+        },
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.50841800000126,
+          "microsecondsPerUpdate": 49.50841800000126
+        },
+        "deltaMicroseconds": 33.45828900000561
+      },
+      {
+        "mode": "forward",
+        "sample": 9,
+        "order": [
+          "off",
+          "on"
+        ],
+        "off": {
+          "updates": 1000,
+          "elapsedMs": 49.18958399998883,
+          "microsecondsPerUpdate": 49.18958399998883
+        },
+        "on": {
+          "updates": 1000,
+          "elapsedMs": 81.89412600000287,
+          "microsecondsPerUpdate": 81.89412600000287
+        },
+        "deltaMicroseconds": 32.704542000014044
+      }
+    ],
+    "summary": [
+      {
+        "mode": "stationary",
+        "pairedSamples": 10,
+        "onMedianMicroseconds": 82.0310730000001,
+        "offMedianMicroseconds": 49.17241649999869,
+        "pairedDeltaMedianMicroseconds": 33.01238575000025,
+        "pairedDeltaRangeMicroseconds": [
+          30.724874999999884,
+          43.37945799999761
+        ]
+      },
+      {
+        "mode": "forward",
+        "pairedSamples": 10,
+        "onMedianMicroseconds": 82.79939500000364,
+        "offMedianMicroseconds": 49.226646499993876,
+        "pairedDeltaMedianMicroseconds": 33.44045600000209,
+        "pairedDeltaRangeMicroseconds": [
+          31.502958000000945,
+          35.594500999995944
+        ]
+      }
+    ]
+  }
+}

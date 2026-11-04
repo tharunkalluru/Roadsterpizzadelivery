@@ -1,6 +1,7 @@
 import type { RoadEdge, XZ } from './types';
 import { auxiliaryLane, travelDirection } from './expressway';
 import type { RoadQuad } from './road-surface';
+import { roadPavementWidth } from './road-pavement';
 
 export interface BridgeBoundary { ax: number; az: number; bx: number; bz: number; ya: number; yb: number; segment: number }
 interface Triangle { e: RoadEdge; i: number; p: RoadQuad[number][] }
@@ -9,16 +10,18 @@ interface Triangle { e: RoadEdge; i: number; p: RoadQuad[number][] }
 // decks and auxiliary lanes. The clipper uses their finite triangles instead of
 // source centrelines or an arbitrary distance from a connector.
 export function roadRibbon(e: RoadEdge, roads: RoadEdge[]) {
-  const hw = e.elev?.some(y => y > 1.2) ? Math.max(e.w / 2, 4.2) : e.w / 2;
+  const hw = e.joinedPavement ? e.w / 2 : roadPavementWidth(e,0)/2;
+  let distance = 0;
+  const widths = e.pts.map((p, i) => { if (i) distance += Math.hypot(p[0] - e.pts[i - 1][0], p[1] - e.pts[i - 1][1]); return e.joinedPavement ? roadPavementWidth(e, distance) / 2 : hw; });
   const extra = auxiliaryLane(e, roads), outer = -travelDirection(e);
   const boundary = (side: number) => e.pts.map((p, i): XZ => {
     const a = e.pts[Math.max(0, i - 1)], b = e.pts[Math.min(e.pts.length - 1, i + 1)], len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-    const off = side * (hw + (side === outer ? extra[i] : 0));
+    const off = side * (widths[i] + (side === outer ? extra[i] : 0));
     return [p[0] - (b[1] - a[1]) / len * off, p[1] + (b[0] - a[0]) / len * off];
   });
   const L = boundary(1), R = boundary(-1);
   const quads: RoadQuad[] = e.pts.slice(1).map((_, i) => [[R[i][0], e.elev?.[i] || 0, R[i][1]], [R[i + 1][0], e.elev?.[i + 1] || 0, R[i + 1][1]], [L[i + 1][0], e.elev?.[i + 1] || 0, L[i + 1][1]], [L[i][0], e.elev?.[i] || 0, L[i][1]]]);
-  return { hw, extra, outer, L, R, quads };
+  return { hw, widths, extra, outer, L, R, quads };
 }
 
 const constrain = (range: number[], value: number, delta: number, low: number, high: number) => {

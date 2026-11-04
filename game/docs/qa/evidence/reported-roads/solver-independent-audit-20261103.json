@@ -1,0 +1,736 @@
+{
+  "scope": "Independent numerical/model implementation audit only. No runtime activation, no final city/vehicle acceptance. Final feasible heights and regenerated actual footprints still require the separate physical review.",
+  "results": {
+    "controls-20-geographic": {
+      "originalReceiptSHA256": "79251452a2d04565ada98f54b5fb30391d4aa94972989544c0fb023198aceb5a",
+      "receipt": {
+        "scope": "Independent exact-function synthetic solver controls; not city or vehicle acceptance.",
+        "solverSHA256": "01989e36df7ff544357c04488f078076a8a732322f822cea45a44806764b8e42",
+        "fixtureSHA256": "96f62ed002ff00ee20176ae9ca190f8a914af3fbc346d987ad109e4578e920f1",
+        "cellFixtureSHA256": "235c1b3ea3bdb56003cdeb7b9e787851cb99aeaaf171cb0e921c7c0c9dd60c36",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "sourceUnchanged": true,
+        "detail": "test_actual_disconnected_fragment_cells_are_fail_closed (__main__.SolverControls.test_actual_disconnected_fragment_cells_are_fail_closed) ... ok\ntest_constant_upper_forces_free_lower_downward (__main__.SolverControls.test_constant_upper_forces_free_lower_downward) ... ok\ntest_fixed_invalid_changed_triangle_is_rejected (__main__.SolverControls.test_fixed_invalid_changed_triangle_is_rejected) ... ok\ntest_free_upper_road_stays_above_constant_lower (__main__.SolverControls.test_free_upper_road_stays_above_constant_lower) ... ok\ntest_historical_sibling_reference_cannot_cross_a_geometric_gap (__main__.SolverControls.test_historical_sibling_reference_cannot_cross_a_geometric_gap) ... ok\ntest_historical_sibling_reference_cannot_cross_a_missing_piece (__main__.SolverControls.test_historical_sibling_reference_cannot_cross_a_missing_piece) ... ok\ntest_historical_sibling_reference_rejects_different_node_authority (__main__.SolverControls.test_historical_sibling_reference_rejects_different_node_authority) ... ok\ntest_historical_sibling_reference_retains_matching_chain (__main__.SolverControls.test_historical_sibling_reference_retains_matching_chain) ... ok\ntest_l1_objective_preserves_feasible_input (__main__.SolverControls.test_l1_objective_preserves_feasible_input) ... ok\ntest_literal_contiguous_component_is_retained (__main__.SolverControls.test_literal_contiguous_component_is_retained) ... ok\ntest_permitted_node_target_only_changes_its_own_endpoint (__main__.SolverControls.test_permitted_node_target_only_changes_its_own_endpoint) ... ok\ntest_post_rail_target_cannot_override_any_protected_authority (__main__.SolverControls.test_post_rail_target_cannot_override_any_protected_authority) ... ok\ntest_remote_polygon_contact_is_not_same_source_cut_contact (__main__.SolverControls.test_remote_polygon_contact_is_not_same_source_cut_contact) ... ok\ntest_same_source_cut_cannot_seed_remote_re_crossing (__main__.SolverControls.test_same_source_cut_cannot_seed_remote_re_crossing) ... ok\ntest_shared_node_cannot_waive_disconnected_member_of_same_cell (__main__.SolverControls.test_shared_node_cannot_waive_disconnected_member_of_same_cell) ... ok\ntest_shared_node_seed_must_contain_actual_node_point (__main__.SolverControls.test_shared_node_seed_must_contain_actual_node_point) ... ok\ntest_shared_origin_re_crossing_is_not_one_component (__main__.SolverControls.test_shared_origin_re_crossing_is_not_one_component) ... ok\ntest_signed_coupling_offsets_preserve_constant_part (__main__.SolverControls.test_signed_coupling_offsets_preserve_constant_part) ... ok\ntest_spatial_grade_change_has_correct_distance_scaling (__main__.SolverControls.test_spatial_grade_change_has_correct_distance_scaling) ... ok\ntest_true_triangle_slope_is_not_only_centreline_grade (__main__.SolverControls.test_true_triangle_slope_is_not_only_centreline_grade) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.115s\n\nOK\n"
+      }
+    },
+    "source-frame-fixed": {
+      "originalReceiptSHA256": "f0dbb7470932016bee3a3d2d235a575d8cd0c57c02b9d0f0688bb0fdf8fbae66",
+      "receipt": {
+        "scope": "Compare exact solver historical sampling with the independent WGS84 receipt.\n\nThis is a reference-frame audit, not a substitute for city/vehicle acceptance.\nThe negative control deliberately reinstates inherited-fraction interpolation.\n",
+        "inputs": {
+          "model": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/model-db6d8f698e9603e6e134e28392c824cb7de8257646349caa8547386e7e169248.json",
+            "sha256": "db6d8f698e9603e6e134e28392c824cb7de8257646349caa8547386e7e169248"
+          },
+          "historical-model": {
+            "path": "/private/tmp/roadster-road-freezes/a679-world-reference-v1/model-f6c08923a167644655daf166a84849bad68ae0b2d487fd3d8da6e88d1262fc64.json",
+            "sha256": "f6c08923a167644655daf166a84849bad68ae0b2d487fd3d8da6e88d1262fc64"
+          },
+          "source-data": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+            "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+          },
+          "reference": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/geodetic-historical-reference-9413-20261103.json",
+            "sha256": "651cc769bbc83ace4eedcca9ca8e92654b774330f3d7ad682dc4749b6ec6da97"
+          },
+          "tile-transports": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/tileSupplement-c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50.json",
+            "sha256": "c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50"
+          },
+          "fixed-tile-constraints": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/fixedTileConstraints-5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f.json",
+            "sha256": "5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f"
+          },
+          "solver": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/solve-road-profiles.py",
+            "sha256": "01989e36df7ff544357c04488f078076a8a732322f822cea45a44806764b8e42"
+          },
+          "core": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/public/city/core.pack.wasm",
+            "sha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458"
+          }
+        },
+        "summary": {
+          "roads": 136,
+          "currentModelRoads": 90,
+          "roadsWithExtensions": 52,
+          "maximumInheritedFractionLegacyErrorM": 14.82172921635106,
+          "maximumExplicitLegacyReferenceErrorM": 0.01048029780595705,
+          "maximumInheritedHeightErrorM": 0.5853944738858665,
+          "maximumSolverVsGeographicHeightDifferenceM": 1.837419105754634e-14,
+          "solverUnresolvedSamples": 0,
+          "independentUnresolvedSamples": 0
+        },
+        "worstHistoricalRows": [
+          {
+            "id": "06c8e567-ffb_1",
+            "sourceSegmentID": "06c8e567-ffb2-4224-83d5-6ced74d48c44",
+            "samples": 1004,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.0,
+            "legacyExtensionAfterM": 0.0,
+            "maxInheritedFractionLegacyErrorM": 0.9261367455617185,
+            "maxExplicitLegacyReferenceErrorM": 0.0020164742036143934,
+            "maxHistoricalHeightDifferenceM": 1.837419105754634e-14,
+            "maxInheritedHeightErrorM": 0.07859007215005898,
+            "resolvedSamples": 1004,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 6.10746831829056,
+              "actualSourceArc": 6.107468318290559,
+              "modelArc": 6.107468318290559,
+              "officialMetres": 1100.9329039006407,
+              "geographicSibling": "06c8e567-ffb_1",
+              "geographicLocalLegacyArc": 7.032841958944919,
+              "actualHeight": 0.35065229180435786,
+              "geographicHeight": 0.3506522918043395
+            }
+          },
+          {
+            "id": "01ceee91-29b_1",
+            "sourceSegmentID": "01ceee91-29b6-429e-8437-5d9797e17ea9",
+            "samples": 1001,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.24916834803080248,
+            "legacyExtensionAfterM": 0.0,
+            "maxInheritedFractionLegacyErrorM": 0.24842084298671208,
+            "maxExplicitLegacyReferenceErrorM": 4.263256414560601e-14,
+            "maxHistoricalHeightDifferenceM": 2.220446049250313e-15,
+            "maxInheritedHeightErrorM": 0.007496650386304982,
+            "resolvedSamples": 1001,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 62.83642052949218,
+              "actualSourceArc": 62.83642052949219,
+              "modelArc": 62.83642052949217,
+              "officialMetres": 281.8971208187552,
+              "geographicSibling": "01ceee91-29b_1",
+              "geographicLocalLegacyArc": 62.60025525982422,
+              "actualHeight": -1.6684559547859248,
+              "geographicHeight": -1.668455954785927
+            }
+          },
+          {
+            "id": "840f1b5c-8a1_0",
+            "sourceSegmentID": "840f1b5c-8a1b-42c3-b112-8d5855ae2adb",
+            "samples": 1007,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.0,
+            "legacyExtensionAfterM": 0.0448687025161405,
+            "maxInheritedFractionLegacyErrorM": 0.07006379141594721,
+            "maxExplicitLegacyReferenceErrorM": 6.401134797329178e-06,
+            "maxHistoricalHeightDifferenceM": 1.7763568394002505e-15,
+            "maxInheritedHeightErrorM": 0.004554146442036,
+            "resolvedSamples": 1007,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 111.02217520313943,
+              "actualSourceArc": 111.02217520313941,
+              "modelArc": 111.0221752031394,
+              "officialMetres": 111.01866244865862,
+              "geographicSibling": "840f1b5c-8a1_0",
+              "geographicLocalLegacyArc": 111.03069751513725,
+              "actualHeight": -5.419455625498521,
+              "geographicHeight": -5.419455625498519
+            }
+          }
+        ],
+        "solverUnresolved": [],
+        "independentCoverageUnresolvedCount": 0,
+        "sourceUnchanged": true
+      }
+    },
+    "source-frame-defect": {
+      "originalReceiptSHA256": "8d1e4d12d6ce635071e92a2c3cc70ea335e8014528d2af150e3339f592714724",
+      "receipt": {
+        "scope": "Compare exact solver historical sampling with the independent WGS84 receipt.\n\nThis is a reference-frame audit, not a substitute for city/vehicle acceptance.\nThe negative control deliberately reinstates inherited-fraction interpolation.\n",
+        "inputs": {
+          "model": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/model-db6d8f698e9603e6e134e28392c824cb7de8257646349caa8547386e7e169248.json",
+            "sha256": "db6d8f698e9603e6e134e28392c824cb7de8257646349caa8547386e7e169248"
+          },
+          "historical-model": {
+            "path": "/private/tmp/roadster-road-freezes/a679-world-reference-v1/model-f6c08923a167644655daf166a84849bad68ae0b2d487fd3d8da6e88d1262fc64.json",
+            "sha256": "f6c08923a167644655daf166a84849bad68ae0b2d487fd3d8da6e88d1262fc64"
+          },
+          "source-data": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+            "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+          },
+          "reference": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/geodetic-historical-reference-9413-20261103.json",
+            "sha256": "651cc769bbc83ace4eedcca9ca8e92654b774330f3d7ad682dc4749b6ec6da97"
+          },
+          "tile-transports": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/tileSupplement-c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50.json",
+            "sha256": "c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50"
+          },
+          "fixed-tile-constraints": {
+            "path": "/private/tmp/roadster-road-freezes/source-9413-coherent-core-v1/fixedTileConstraints-5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f.json",
+            "sha256": "5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f"
+          },
+          "solver": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/solve-road-profiles.py",
+            "sha256": "3543bedd10522d065a2d67e05f9571fc83e64275e7aee96ec2fc91a056297683"
+          },
+          "core": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/public/city/core.pack.wasm",
+            "sha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458"
+          }
+        },
+        "summary": {
+          "roads": 136,
+          "currentModelRoads": 90,
+          "roadsWithExtensions": 52,
+          "maximumInheritedFractionLegacyErrorM": 14.82172921635106,
+          "maximumExplicitLegacyReferenceErrorM": 0.01048029780595705,
+          "maximumInheritedHeightErrorM": 0.5853944738858665,
+          "maximumSolverVsGeographicHeightDifferenceM": 0.0041409093736364255,
+          "solverUnresolvedSamples": 0,
+          "independentUnresolvedSamples": 0
+        },
+        "worstHistoricalRows": [
+          {
+            "id": "3c9a786c-a82_2",
+            "sourceSegmentID": "3c9a786c-a82d-4b90-8505-cb6cd88a63bc",
+            "samples": 1033,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.0,
+            "legacyExtensionAfterM": 2.0279398529481227,
+            "maxInheritedFractionLegacyErrorM": 5.711913875464557,
+            "maxExplicitLegacyReferenceErrorM": 0.007341479045692267,
+            "maxHistoricalHeightDifferenceM": 0.0041409093736364255,
+            "maxInheritedHeightErrorM": 0.16428112994772337,
+            "resolvedSamples": 1033,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 306.13928549098915,
+              "actualSourceArc": 306.13928549098915,
+              "modelArc": 306.1392854909892,
+              "officialMetres": 609.6380575705531,
+              "geographicSibling": "3c9a786c-a82_3",
+              "geographicLocalLegacyArc": 2.091646151004081,
+              "actualHeight": 1.245791794139679,
+              "geographicHeight": 1.2499327035133154
+            }
+          },
+          {
+            "id": "8e73b948-e6a_4",
+            "sourceSegmentID": "8e73b948-e6a1-48c7-997b-b614f5d82433",
+            "samples": 1038,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.9126564908399453,
+            "legacyExtensionAfterM": 0.0,
+            "maxInheritedFractionLegacyErrorM": 1.052232701825524,
+            "maxExplicitLegacyReferenceErrorM": 7.432991198896843e-05,
+            "maxHistoricalHeightDifferenceM": 0.003436336097848991,
+            "maxInheritedHeightErrorM": 0.09058884899800024,
+            "resolvedSamples": 1038,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 0.0,
+              "actualSourceArc": 0.0,
+              "modelArc": 0.0,
+              "officialMetres": 295.58936270997907,
+              "geographicSibling": "8e73b948-e6a_3",
+              "geographicLocalLegacyArc": 39.499528090029315,
+              "actualHeight": 0.7778513901771024,
+              "geographicHeight": 0.7812877262749514
+            }
+          },
+          {
+            "id": "1cfc7e24-b04_0",
+            "sourceSegmentID": "1cfc7e24-b044-4973-9b93-97cb059e6081",
+            "samples": 1004,
+            "currentModelPresent": true,
+            "legacyExtensionBeforeM": 0.0,
+            "legacyExtensionAfterM": 0.11228453146173933,
+            "maxInheritedFractionLegacyErrorM": 0.11180764670250554,
+            "maxExplicitLegacyReferenceErrorM": 0.00010912571668164617,
+            "maxHistoricalHeightDifferenceM": 0.0033966232207900404,
+            "maxInheritedHeightErrorM": 0.007267497035662984,
+            "resolvedSamples": 1004,
+            "unresolvedSamples": 0,
+            "worstHistoricalComparison": {
+              "requestedCorrectedArc": 29.333163530764388,
+              "actualSourceArc": 29.333163530764388,
+              "modelArc": 29.333163530764388,
+              "officialMetres": 29.292872288287292,
+              "geographicSibling": "1cfc7e24-b04_1",
+              "geographicLocalLegacyArc": 0.16226094346681255,
+              "actualHeight": 4.826747404425114,
+              "geographicHeight": 4.830144027645904
+            }
+          }
+        ],
+        "solverUnresolved": [],
+        "independentCoverageUnresolvedCount": 0,
+        "sourceUnchanged": true
+      }
+    },
+    "producer-source-frame": {
+      "originalReceiptSHA256": "7bade7e509c9390ee129f6364ce9eaf30393d2e85e719769a42a276706175467",
+      "receipt": {
+        "scope": "Read-only producer transport inspection; no inherited fraction interpolation exists in producer; these explicit sourceArc extensions do exercise endpoint-clamping interpolation of reviewed displacement/lowering fields, not historical exact correspondence.",
+        "producerSourceSHA256": "5994f15fdbbb1c1133caf5a24fc7cf6ee1999c81cbbc773cdc191379ed38aa65",
+        "boundProducerSHA256": "817b9ee9eced8a96c2c79c7e8da458ae9da917eb5279b9d10bfa5cc15068a64c",
+        "inputs": {
+          "generic": {
+            "path": "/private/tmp/source-9413-bound-generic.json",
+            "sha256": "2a399b58881e7c7707777cbaf7e15f0f31cab120cba50b511cf914097a63cd69"
+          },
+          "source-view": {
+            "path": "/private/tmp/source-9413-bound-raw-view.json",
+            "sha256": "239d36ea2ab6a492fb641ffe03dd5af0bceae3f6e8e05a56175c89fbffc60615"
+          },
+          "source-data": {
+            "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/road-source-geodesic-data.json",
+            "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+          },
+          "previous-generic": {
+            "path": "/private/tmp/reported-road-conservative-capacity-grades.json",
+            "sha256": "0c45f640fc7b883b86a2f44fafd8e66d8efee4e3b375b051b07b1d48eb78fcb7"
+          },
+          "previous-model": {
+            "path": "/private/tmp/opposing-body-capacity-prototype-preconditioning.json",
+            "sha256": "9993c78d9d5db836717dd5e0e0bb9309567d745b92707df84c2269797943d1af"
+          }
+        },
+        "rows": [
+          {
+            "id": "167dac75-961_2",
+            "historicalLowering": true,
+            "clampedBeforeM": 0.0,
+            "clampedAfterM": 0.25760393959048145,
+            "oldSourceRange": [
+              0.0,
+              42.9131886088664
+            ],
+            "oldDisplacementEndpoints": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "oldHeightEndpoints": [
+              0,
+              1.9722803309924128
+            ],
+            "boundSiblingDifferential": [
+              {
+                "oldReference": 43.17079254845688,
+                "officialMetres": 154.78545902879745,
+                "sibling": "167dac75-961_3",
+                "siblingLegacyLocal": 0.2734973862189208,
+                "clampedDisplacement": [
+                  0.0,
+                  0.0
+                ],
+                "siblingDisplacement": [
+                  0.0,
+                  0.0
+                ],
+                "displacementDeltaM": 0.0,
+                "clampedHeight": 1.9722803309924128,
+                "siblingHeight": 1.9900576610966443,
+                "heightDeltaM": -0.017777330104231437,
+                "ownWidth": 7,
+                "siblingWidth": 7,
+                "ownJoinedPavement": {
+                  "sourceWidth": 9.4,
+                  "originalWidth": 9.4,
+                  "intervals": [
+                    [
+                      -113.74662160791482,
+                      53.82422642509123
+                    ]
+                  ],
+                  "taper": 30,
+                  "release": "2026-10-21.0"
+                },
+                "siblingJoinedPavement": {
+                  "sourceWidth": 9.4,
+                  "originalWidth": 9.4,
+                  "intervals": [
+                    [
+                      -156.65981021678124,
+                      10.911037816224827
+                    ]
+                  ],
+                  "taper": 30,
+                  "release": "2026-10-21.0"
+                },
+                "ownLaneIntervals": null,
+                "siblingLaneIntervals": null
+              }
+            ]
+          },
+          {
+            "id": "554f3714-afe_0",
+            "historicalLowering": true,
+            "clampedBeforeM": 0.0,
+            "clampedAfterM": 1.025798435247296,
+            "oldSourceRange": [
+              0.0,
+              42.400805622206775
+            ],
+            "oldDisplacementEndpoints": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ],
+            "oldHeightEndpoints": [
+              0,
+              0.875622105126599
+            ],
+            "boundSiblingDifferential": [
+              {
+                "oldReference": 43.42660405745407,
+                "officialMetres": 43.404888285933886,
+                "sibling": "554f3714-afe_1",
+                "siblingLegacyLocal": 0.9807505495858344,
+                "clampedDisplacement": [
+                  0.0,
+                  0.0
+                ],
+                "siblingDisplacement": [
+                  0.0,
+                  0.0
+                ],
+                "displacementDeltaM": 0.0,
+                "clampedHeight": 0.875622105126599,
+                "siblingHeight": 0.9413391626608933,
+                "heightDeltaM": -0.06571705753429435,
+                "ownWidth": 9.4,
+                "siblingWidth": 7,
+                "ownJoinedPavement": null,
+                "siblingJoinedPavement": {
+                  "sourceWidth": 9.4,
+                  "originalWidth": 9.4,
+                  "intervals": [
+                    [
+                      503.05487732376923,
+                      578.8287726868422
+                    ]
+                  ],
+                  "taper": 30,
+                  "release": "2026-10-21.0"
+                },
+                "ownLaneIntervals": null,
+                "siblingLaneIntervals": null
+              }
+            ]
+          },
+          {
+            "id": "5a23ce42-637_0",
+            "historicalLowering": false,
+            "clampedBeforeM": 0.0,
+            "clampedAfterM": 0.3151047522945305,
+            "oldSourceRange": [
+              0.0,
+              346.44497141958504
+            ],
+            "oldDisplacementEndpoints": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                -2.4896251657792163,
+                4.103872139080522
+              ]
+            ],
+            "oldHeightEndpoints": [
+              0,
+              0
+            ],
+            "boundSiblingDifferential": [
+              {
+                "oldReference": 346.7600761718796,
+                "officialMetres": 346.7030069876648,
+                "sibling": "5a23ce42-637_1",
+                "siblingLegacyLocal": 0.31559131037907173,
+                "clampedDisplacement": [
+                  -2.4896251657792163,
+                  4.103872139080522
+                ],
+                "siblingDisplacement": [
+                  -2.4893900368420137,
+                  4.10348455499438
+                ],
+                "displacementDeltaM": 0.00045332884415247245,
+                "clampedHeight": 0.0,
+                "siblingHeight": 0.0,
+                "heightDeltaM": 0.0,
+                "ownWidth": 7.6,
+                "siblingWidth": 7.6,
+                "ownJoinedPavement": null,
+                "siblingJoinedPavement": null,
+                "ownLaneIntervals": null,
+                "siblingLaneIntervals": null
+              }
+            ]
+          }
+        ],
+        "summary": {
+          "editedRepairedWithFieldExtensions": 3,
+          "historicalLoweringWithFieldExtensions": 2,
+          "largestExtensionM": 1.025798435247296,
+          "maxBoundSiblingDisplacementDeltaM": 0.00045332884415247245,
+          "maxBoundSiblingHeightDeltaM": 0.06571705753429435
+        }
+      }
+    },
+    "within-cell-classification": {
+      "originalReceiptSHA256": "fc330383fcfbe29d6e49bcaec66469647a01e2cd5993e268b4c60c26182da615",
+      "receipt": {
+        "scope": "Read-only overlap-cache scan for disconnected fragment unions inside one segment cell; not final city acceptance",
+        "binding": {
+          "version": 1,
+          "minimumPolygonArea": 1e-06,
+          "inputs": {
+            "footprints": "469ba28e19ee3bebf6c96745bf3495a5ffcd82227c0384c2dad5dbfe2040315a",
+            "tiles": "c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50",
+            "fixed": "5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f"
+          }
+        },
+        "cacheSHA256": "4612d65ba5319790ea852c91132aaabfd2e24a53e6c2c261e3beae4731e61959",
+        "solverSHA256": "065dc357fb9536f37669b4206c961f1389a1eafc12acc9c83e41eebc2e60b3a8",
+        "cells": 120244,
+        "fragments": 293023,
+        "disconnectedCells": 3,
+        "examples": [
+          {
+            "cell": [
+              "0b2d0722-c94_1",
+              "370065ed-0cb_0",
+              1,
+              165
+            ],
+            "components": 2,
+            "polygons": [
+              [
+                [
+                  -7554.181785211836,
+                  8626.93940492939
+                ],
+                [
+                  -7554.005208913655,
+                  8626.99826369545
+                ],
+                [
+                  -7554.189993281815,
+                  8626.997844272068
+                ]
+              ],
+              [
+                [
+                  -7554.005208913658,
+                  8626.99826369545
+                ],
+                [
+                  -7553.872823314908,
+                  8627.042392228368
+                ],
+                [
+                  -7554.189993281814,
+                  8626.997844272068
+                ]
+              ],
+              [
+                [
+                  -7550.6402779643795,
+                  8627.496417842505
+                ],
+                [
+                  -7550.632192159683,
+                  8627.449153863567
+                ],
+                [
+                  -7552.754289871027,
+                  8627.19949530929
+                ]
+              ]
+            ]
+          },
+          {
+            "cell": [
+              "53e6ab65-d79_0",
+              "53e6ab65-d79_1",
+              128,
+              0
+            ],
+            "components": 2,
+            "polygons": [
+              [
+                [
+                  -11400.158511576648,
+                  -8502.661809531059
+                ],
+                [
+                  -11400.1038077977,
+                  -8502.801903898851
+                ],
+                [
+                  -11400.063015132779,
+                  -8502.781507566391
+                ]
+              ],
+              [
+                [
+                  -11400.174891399383,
+                  -8502.61986140691
+                ],
+                [
+                  -11400.158511576648,
+                  -8502.661809531059
+                ],
+                [
+                  -11400.063015132779,
+                  -8502.781507566391
+                ],
+                [
+                  -11395.9,
+                  -8500.7
+                ]
+              ],
+              [
+                [
+                  -11391.634033697557,
+                  -8498.78414687016
+                ],
+                [
+                  -11391.43660926322,
+                  -8499.375071120701
+                ],
+                [
+                  -11394.791105306569,
+                  -8500.201993401155
+                ]
+              ]
+            ]
+          },
+          {
+            "cell": [
+              "94e0641e-d78_0",
+              "a4ead2a6-a8f_1",
+              596,
+              0
+            ],
+            "components": 2,
+            "polygons": [
+              [
+                [
+                  -8064.907907980925,
+                  5717.81995737792
+                ],
+                [
+                  -8064.896838312105,
+                  5717.810207082252
+                ],
+                [
+                  -8064.423058424755,
+                  5718.348097073034
+                ]
+              ],
+              [
+                [
+                  -8064.2,
+                  5718.601338920651
+                ],
+                [
+                  -8061.028063868375,
+                  5722.202489459453
+                ],
+                [
+                  -8061.993663286951,
+                  5722.567035097734
+                ],
+                [
+                  -8064.2,
+                  5720.62863769449
+                ]
+              ],
+              [
+                [
+                  -8064.2,
+                  5720.62863769449
+                ],
+                [
+                  -8061.993663286951,
+                  5722.567035097734
+                ],
+                [
+                  -8062.699205430861,
+                  5722.833400534828
+                ],
+                [
+                  -8064.2,
+                  5721.1295241177095
+                ]
+              ]
+            ]
+          }
+        ],
+        "classificationCheck": {
+          "scope": "Zero-level permissive upper bound on source-node reach; literal full-pair fragment graph checks whether apparently disconnected local fragments reconnect through other cells. Not final source classification.",
+          "results": [
+            {
+              "cell": [
+                "0b2d0722-c94_1",
+                "370065ed-0cb_0",
+                1,
+                165
+              ],
+              "commonNodes": [],
+              "acceptedByPermissiveLevelSharedNode": false,
+              "sharedNodeAcceptedCells": 0
+            },
+            {
+              "cell": [
+                "53e6ab65-d79_0",
+                "53e6ab65-d79_1",
+                128,
+                0
+              ],
+              "commonNodes": [
+                "4e4048e9-b9a"
+              ],
+              "acceptedByPermissiveLevelSharedNode": true,
+              "sharedNodeAcceptedCells": 2,
+              "fragmentConnectedInEntirePair": [
+                true,
+                true,
+                false
+              ],
+              "orphanFragments": 1
+            },
+            {
+              "cell": [
+                "94e0641e-d78_0",
+                "a4ead2a6-a8f_1",
+                596,
+                0
+              ],
+              "commonNodes": [],
+              "acceptedByPermissiveLevelSharedNode": false,
+              "sharedNodeAcceptedCells": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,672 @@
+{
+  "researchOnly": true,
+  "releaseApproved": false,
+  "unionPath": "/tmp/roadster-researched-joint-historical-union-9413-v1.json",
+  "unionSHA256": "dfccc814e522359add059509b693d2b9f880d7d89102941265c436e52a7af12e",
+  "method": "For every finite-area same-road literal triangle overlap, clip exact Float32 XZ triangles and evaluate all affine structural-height differences at every clipped polygon vertex for every actualSurfaceBindings combination, subtracting each literal paintLift. Vertex maxima bound the affine difference over the whole overlap. Finite area threshold 1e-7 m2; no waiver or source-seam classification applied.",
+  "results": [
+    {
+      "id": "aa2e2270-ebc_0",
+      "literalTriangles": 30,
+      "degenerateTrianglesExcluded": 0,
+      "spatialCandidatePairs": 166,
+      "finiteOverlapPairs": 1,
+      "bindingPairsChecked": 1,
+      "incompatibleOver1cmPairs": 0,
+      "maximumStructuralGapM": 2.8751927647618913e-06,
+      "worst": {
+        "triangleIndices": [
+          299534,
+          303469
+        ],
+        "tiles": [
+          "-15_-3",
+          "-15_-4"
+        ],
+        "caps": [
+          false,
+          false
+        ],
+        "arcs": [
+          [
+            44.89660708557051,
+            53.875875863149204
+          ],
+          [
+            53.875875863149204,
+            63.749356758962925
+          ]
+        ],
+        "overlapAreaM2": 0.0011530295014381409,
+        "maximumStructuralGapM": 2.8751927647618913e-06,
+        "witness": {
+          "pointXZ": [
+            -14497.7529296875,
+            -3006.64794921875
+          ],
+          "structuralHeights": [
+            0.5789999794960022,
+            0.579002854688767
+          ],
+          "bindingIndices": [
+            0,
+            0
+          ],
+          "paintLift": [
+            0.08,
+            0.08
+          ]
+        }
+      },
+      "worstIncompatibleWitnesses": []
+    },
+    {
+      "id": "ad427c5d-668_0",
+      "literalTriangles": 362,
+      "degenerateTrianglesExcluded": 0,
+      "spatialCandidatePairs": 2950,
+      "finiteOverlapPairs": 5,
+      "bindingPairsChecked": 5,
+      "incompatibleOver1cmPairs": 0,
+      "maximumStructuralGapM": 0.00374103749382515,
+      "worst": {
+        "triangleIndices": [
+          472257,
+          472287
+        ],
+        "tiles": [
+          "-15_-3",
+          "-15_-3"
+        ],
+        "caps": [
+          false,
+          true
+        ],
+        "arcs": [
+          [
+            1103.659587336649,
+            1109.726299790689
+          ],
+          [
+            1103.659587336649,
+            1109.726299790689
+          ]
+        ],
+        "overlapAreaM2": 1.101206623017788,
+        "maximumStructuralGapM": 0.00374103749382515,
+        "witness": {
+          "pointXZ": [
+            -14507.095703125,
+            -2948.6430664062495
+          ],
+          "structuralHeights": [
+            0.003741035705685805,
+            -1.7881393449270533e-09
+          ],
+          "bindingIndices": [
+            0,
+            0
+          ],
+          "paintLift": [
+            0.08,
+            0.08
+          ]
+        }
+      },
+      "worstIncompatibleWitnesses": []
+    },
+    {
+      "id": "c32df37f-b8f_0",
+      "literalTriangles": 1390,
+      "degenerateTrianglesExcluded": 0,
+      "spatialCandidatePairs": 43228,
+      "finiteOverlapPairs": 10,
+      "bindingPairsChecked": 10,
+      "incompatibleOver1cmPairs": 10,
+      "maximumStructuralGapM": 0.16812333060936346,
+      "worst": {
+        "triangleIndices": [
+          471505,
+          471568
+        ],
+        "tiles": [
+          "-15_-3",
+          "-15_-3"
+        ],
+        "caps": [
+          false,
+          true
+        ],
+        "arcs": [
+          [
+            1.8711627401164799,
+            3.7423254802333785
+          ],
+          [
+            0,
+            1.8711627401164799
+          ]
+        ],
+        "overlapAreaM2": 0.09203526750206947,
+        "maximumStructuralGapM": 0.16812333060936346,
+        "witness": {
+          "pointXZ": [
+            -14495.3984375,
+            -2946.45458984375
+          ],
+          "structuralHeights": [
+            7.543909864886242,
+            7.712033195495605
+          ],
+          "bindingIndices": [
+            0,
+            0
+          ],
+          "paintLift": [
+            0.08,
+            0.08
+          ]
+        }
+      },
+      "worstIncompatibleWitnesses": [
+        {
+          "triangleIndices": [
+            471505,
+            471568
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              1.8711627401164799,
+              3.7423254802333785
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 0.09203526750206947,
+          "maximumStructuralGapM": 0.16812333060936346,
+          "witness": {
+            "pointXZ": [
+              -14495.3984375,
+              -2946.45458984375
+            ],
+            "structuralHeights": [
+              7.543909864886242,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471505,
+            471569
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              1.8711627401164799,
+              3.7423254802333785
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 0.028361160308122635,
+          "maximumStructuralGapM": 0.16812333060936346,
+          "witness": {
+            "pointXZ": [
+              -14495.3984375,
+              -2946.45458984375
+            ],
+            "structuralHeights": [
+              7.543909864886242,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471506,
+            471569
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              1.8711627401164799,
+              3.7423254802333785
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 3.3976713195443153,
+          "maximumStructuralGapM": 0.15901336705555646,
+          "witness": {
+            "pointXZ": [
+              -14495.460679813177,
+              -2946.623843019134
+            ],
+            "structuralHeights": [
+              7.553019828440049,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471506,
+            471568
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              1.8711627401164799,
+              3.7423254802333785
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 4.648345496505499,
+          "maximumStructuralGapM": 0.15612599328604393,
+          "witness": {
+            "pointXZ": [
+              -14495.084005924231,
+              -2946.5108823099245
+            ],
+            "structuralHeights": [
+              7.555907202209562,
+              7.712033195495606
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471503,
+            471568
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 9.360997542738914,
+          "maximumStructuralGapM": 0.05321121215821023,
+          "witness": {
+            "pointXZ": [
+              -14487.133930612279,
+              -2944.785975826535
+            ],
+            "structuralHeights": [
+              7.658821983337395,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471503,
+            471569
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 2.0527061074972153,
+          "maximumStructuralGapM": 0.05321121215821023,
+          "witness": {
+            "pointXZ": [
+              -14496.183490341096,
+              -2948.5893544341884
+            ],
+            "structuralHeights": [
+              7.658821983337395,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471504,
+            471569
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 9.986623745411634,
+          "maximumStructuralGapM": 0.0483868411845263,
+          "witness": {
+            "pointXZ": [
+              -14496.263532962728,
+              -2948.8070113171957
+            ],
+            "structuralHeights": [
+              7.663646354311079,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471504,
+            471568
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 3.17555383592844,
+          "maximumStructuralGapM": 0.031862252274335034,
+          "witness": {
+            "pointXZ": [
+              -14491.028205809575,
+              -2947.2369893817336
+            ],
+            "structuralHeights": [
+              7.68017094322127,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471503,
+            471567
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 1.2514571733772755,
+          "maximumStructuralGapM": 0.01936156135861289,
+          "witness": {
+            "pointXZ": [
+              -14481.2216796875,
+              -2943.59228515625
+            ],
+            "structuralHeights": [
+              7.6926716341369925,
+              7.712033195495605
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        },
+        {
+          "triangleIndices": [
+            471504,
+            471567
+          ],
+          "tiles": [
+            "-15_-3",
+            "-15_-3"
+          ],
+          "caps": [
+            false,
+            true
+          ],
+          "arcs": [
+            [
+              0,
+              1.8711627401164799
+            ],
+            [
+              0,
+              1.8711627401164799
+            ]
+          ],
+          "overlapAreaM2": 1.7266383171081543,
+          "maximumStructuralGapM": 0.011224517898470232,
+          "witness": {
+            "pointXZ": [
+              -14484.489750193847,
+              -2945.2761723324015
+            ],
+            "structuralHeights": [
+              7.700808677597134,
+              7.7120331954956045
+            ],
+            "bindingIndices": [
+              0,
+              0
+            ],
+            "paintLift": [
+              0.08,
+              0.08
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "d6572402-4e2_0",
+      "literalTriangles": 260,
+      "degenerateTrianglesExcluded": 0,
+      "spatialCandidatePairs": 8540,
+      "finiteOverlapPairs": 2,
+      "bindingPairsChecked": 2,
+      "incompatibleOver1cmPairs": 0,
+      "maximumStructuralGapM": 1.566739419711638e-05,
+      "worst": {
+        "triangleIndices": [
+          299477,
+          303446
+        ],
+        "tiles": [
+          "-15_-3",
+          "-15_-4"
+        ],
+        "caps": [
+          false,
+          false
+        ],
+        "arcs": [
+          [
+            185.40882811199288,
+            187.30516224257227
+          ],
+          [
+            183.51249398141348,
+            185.40882811199288
+          ]
+        ],
+        "overlapAreaM2": 2.682209014892578e-07,
+        "maximumStructuralGapM": 1.566739419711638e-05,
+        "witness": {
+          "pointXZ": [
+            -14454.297986141224,
+            -2995.850169799071
+          ],
+          "structuralHeights": [
+            3.8909560188803707,
+            3.8909403514861736
+          ],
+          "bindingIndices": [
+            0,
+            0
+          ],
+          "paintLift": [
+            0.08,
+            0.08
+          ]
+        }
+      },
+      "worstIncompatibleWitnesses": []
+    }
+  ],
+  "allFourRoadsWithin1cmAtEveryFiniteOverlap": false,
+  "scope": "Planar historical triangle overlap audit only. Does not resolve edge-only contacts, degenerate emissions, cross-road/source authority, current solver fallback behavior or release acceptance."
+}

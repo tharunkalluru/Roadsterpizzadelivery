@@ -1,0 +1,14 @@
+{
+  "scope": "Traffic visual pitch source hold; no global road geometry acceptance. Final changing-grade prepared-road/curve physical sweep is still required after final geometry integration.",
+  "sourceSHA256": {
+    "src/game/traffic.ts": "e1156568f1e1343a387d70658c11efc921f75c918639be37cee73aa2e74b4765",
+    "src/game/traffic-road-posture.ts": "7c1a0fdb9d5e078924069197f638cb898aedeb61dd728c9855560b57c9483030",
+    "tests/v21-fixes/traffic-road-posture.test.ts": "10d2eba87e114604a8b13243a0a14cc52420852568021f505c4b4f52614eb474"
+  },
+  "focusedNegative": "traffic-road-posture-before.log",
+  "focusedAfter": "traffic-road-posture-after.log",
+  "cpu": "traffic-road-posture-cpu.json",
+  "collisionNegative": "traffic-road-posture-collision-before.log",
+  "collisionAfter": "traffic-road-posture-collision-after.log",
+  "collisionPolicy": "Local clipped section of the existing nominal body box follows mesh pitch. Flat bounds/datum are exact legacy behavior; no global roof inflation. Body-box allowance above lower noncentral bus roof panels remains the original allowance."
+}

@@ -1,5 +1,6 @@
 import type { RoadEdge } from './types';
 import { auxiliaryLane } from './expressway';
+import { roadClearanceWidth, roadSceneryCorridors } from './road-pavement';
 
 // Solid structures must leave room for the road's full carriageway and tall
 // traffic at its actual height, including ramps and roads between two decks.
@@ -49,13 +50,12 @@ function boxInterval(s: Span, p: Exclude<StructureFootprint, { r: number }>, pad
 
 export function roadStructureClearance(roads: RoadEdge[], headroom = ROAD_STRUCTURE_HEADROOM, minimumRaisedWidth = 4.2) {
   const grid = new Map<string, Span[]>();
-  for (const e of roads) {
+  for (const road of roads) for (const e of roadSceneryCorridors(road)) {
     if (/^(footway|path|steps|pedestrian|cycleway|bridleway)$/.test(e.cls)) continue;
     const extra = auxiliaryLane(e, roads);
-    // city.ts widens the entire bridge edge, including its ground-level ends.
-    // The minimum cannot depend on only this span's height: a support can hit
-    // a widened approach while remaining outside the narrower source width.
-    const width = Math.max(e.w / 2, e.elev?.some(y => y > 1.2) ? minimumRaisedWidth : 0);
+    // Preserve the former whole-edge raised-road envelope for scenery. A local
+    // pavement correction must not re-emit a pier beside a flattened approach.
+    const width = Math.max(roadClearanceWidth(e) / 2, e.elev?.some(y => y > 1.2) ? minimumRaisedWidth : 0);
     for (let i = 1; i < e.pts.length; i++) {
       const a = e.pts[i - 1], b = e.pts[i], ya = e.elev?.[i - 1] || 0, yb = e.elev?.[i] || 0;
       const s: Span = { id: e.id, ax: a[0], az: a[1], dx: b[0] - a[0], dz: b[1] - a[1], ya, yb,

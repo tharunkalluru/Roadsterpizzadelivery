@@ -1,0 +1,33 @@
+✔ independent flight review clears each high Green-line station from eight approach headings (226.903083ms)
+ℹ {"trials":64,"canopySamples":5086}
+✔ all shipped long ordinary tile-only roads have local copies wherever their finite pavement enters a playable tile (2702.797125ms)
+ℹ {"tileOnlyLongRoads":84,"checkedTiles":255}
+✖ actual far-end trunk boundary paint is clipped locally rather than retained by a distant segment midpoint (24.979125ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3148.568708
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-4ANAab/0.test.mjs:22757:1
+✖ actual far-end trunk boundary paint is clipped locally rather than retained by a distant segment midpoint (24.979125ms)
+  AssertionError [ERR_ASSERTION]: paint extends beyond its loaded tile: -22061.79296875,9121.181640625; clip the actual strip triangles, not its centre
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-4ANAab/0.test.mjs:22769:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
