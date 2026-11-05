@@ -1,0 +1,125 @@
+{
+  "schema": "observed-android-emulator-compatibility-v1",
+  "workingTreeCommit": "7d801009a4a8141728e7818e169bb7e14061b815",
+  "source": "http://127.0.0.1:4304/?qaDelivery=1&q=low",
+  "device": {
+    "kind": "Android Studio emulator; not a physical phone",
+    "avd": "Roadster_Android15_Compat",
+    "androidAPI": 35,
+    "browser": "Chrome 124",
+    "graphics": "SwiftShader software renderer",
+    "viewportCSS": [
+      915,
+      412
+    ],
+    "devicePixelRatio": 2.625,
+    "fullscreen": true
+  },
+  "method": "Native adb taps and held-touch gestures; CDP used only to read state and capture pictures. QA level 1 startup; helper panel hidden.",
+  "observed": {
+    "portraitGateAndFullscreenEntry": true,
+    "sceneAndOpaquePanelsRendered": true,
+    "goChangesSpeedAndPosition": true,
+    "brakeStopsVehicle": true,
+    "jumpBeginsShortJump": true,
+    "flyEntersFlightAndLandLabel": true,
+    "heldGoAndSteeringMoveVehicle": true,
+    "mapLoadsAndCloses": true,
+    "pauseSettingsAndTopRightDoneUsable": true,
+    "appSwitchPausesAndResumeReturnsToGame": true,
+    "contextLostObserved": false
+  },
+  "limitations": [
+    "Software emulator rendering cannot measure real mobile FPS, heating or battery life.",
+    "This is a bounded compatibility check, not a complete campaign playthrough, physical Samsung validation or release acceptance.",
+    "Initial host GPU mode failed an independent standalone WebGL presentation test; unchanged game renders with SwiftShader. No product CSS workaround was introduced for the emulator driver.",
+    "Development server build label is stale (8816890c); working-tree source commit and saved observations are provided separately."
+  ],
+  "hostGraphicsIndependentDiagnosis": {
+    "path": "/tmp/roadster-android-webgl-presentation-independent-diagnostic-20261105-v1.json",
+    "sha256": "cb8c1b3baef9f03cd6e36cf73d6ef39ef6d33f9e3826dcd0e1c9289168ef9fe6"
+  },
+  "files": [
+    {
+      "file": "software-landscape-ready.json",
+      "sha256": "138a82c6994500df665d1b0eb1952ff11f7754e818488c45a4d060de8cf739cb"
+    },
+    {
+      "file": "software-landscape-ready.png",
+      "sha256": "49d8d9ad6daa756f9193ae844da9f172bb091ef04217c947843a787b199a840d"
+    },
+    {
+      "file": "touch-go.json",
+      "sha256": "940108269e6e40dfd581c713f25fd6e99e35030f31af00aa599850e7f3877743"
+    },
+    {
+      "file": "touch-go.png",
+      "sha256": "917145bd61ce52dc97bc05117c0672f7a4017f9c6fcc51b069aaa7a11025e621"
+    },
+    {
+      "file": "touch-brake.json",
+      "sha256": "f0559b288edbca3b950f67a57956fa6444803e8f51b4380ac06c09f2e1fe5a03"
+    },
+    {
+      "file": "touch-jump.json",
+      "sha256": "8ff1e6b989236984c4c80b80f97ec0432d0d29ece0f60804fe2b2bb1360c61d0"
+    },
+    {
+      "file": "touch-jump.png",
+      "sha256": "841a36449ae49f271ddbcb5ecc1709a87a233fc77aca7e5040ca0935efd02d5d"
+    },
+    {
+      "file": "background.json",
+      "sha256": "e260603e87d29e34700f173cc9e0358fe7186575a439eff595576d3d7e5eda2f"
+    },
+    {
+      "file": "resumed.json",
+      "sha256": "1f7ca90070998964c525fcd4897753e17cced3206cc2e8fb73f15d20fb2d85ce"
+    },
+    {
+      "file": "resumed.png",
+      "sha256": "ebcbf7afdee6f4206d266962312948305b167df799897c8e5f279ef11ded71ef"
+    },
+    {
+      "file": "after-resume-ready.json",
+      "sha256": "d3412f5338e7f952eeb59f10093ce2a59d6c355916e6d36e1758f499e9589bb0"
+    },
+    {
+      "file": "after-resume-ready.png",
+      "sha256": "4d2d1f5242fb8d0443f9783572e7285bb5f0c39ac5db4b7268d0e8012e78f1b2"
+    },
+    {
+      "file": "steering-ready.json",
+      "sha256": "d14e778b776cf641f29c62c1fd0653ed32d0e522ccd1d8231a463746c837e071"
+    },
+    {
+      "file": "steering-ready.png",
+      "sha256": "6b59edd8ba47c8b83a245a57a5a0353d214e2359d9cbdeb3708b1d29596e30b5"
+    },
+    {
+      "file": "touch-map-ready.json",
+      "sha256": "4047656a1c6c1b0f2d9243a004a89374d11b397de449f0e49cf65d4838f9ddd2"
+    },
+    {
+      "file": "touch-map-ready.png",
+      "sha256": "5a92701663058f5005b31d599168a409ac01d495cfc51d9c93bba2eec9e4a7c3"
+    },
+    {
+      "file": "touch-settings.json",
+      "sha256": "c56696fa73fbf6e3500d2e1a49a524d7fefab093885ca00671492e19c3049925"
+    },
+    {
+      "file": "touch-settings.png",
+      "sha256": "c9a1294e1d98ce6370b0449c376515e2f3c93b6cf67ee1d9718c4acf2c40e3d2"
+    },
+    {
+      "file": "touch-pause.json",
+      "sha256": "a8eb73fef603e4b6a127685baec5a387f374bd04557ec412bf7726877cf1d2f1"
+    },
+    {
+      "file": "touch-pause.png",
+      "sha256": "048caba1aa1b2ba9e4d6bb4f7fc533ac8c8821aa9b9a3915951301080c401131"
+    }
+  ],
+  "releaseApproved": false
+}
