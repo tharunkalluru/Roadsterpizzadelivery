@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {mkdtemp,rm,readFile}from'node:fs/promises';import{tmpdir}from'node:os';import{join}from'node:path';import{pathToFileURL}from'node:url';import{build}from'esbuild';
 const temp=await mkdtemp(join(tmpdir(),'actual-roof-rider-'));
-let count=0;async function test(name,run){await run();count++;console.log('PASS '+name);}
+let count=0,productionEnvelopeEvidence;async function test(name,run){await run();count++;console.log('PASS '+name);}
 try{
  const outfile=join(temp,'api.mjs');await build({stdin:{contents:"export*from'./src/game/rail-rider-clearance';export*from'./src/game/rail-rider-native-soffits';export*from'./src/game/rail-rider-car-envelope';export{buildRailwayRun}from'./src/game/railway-flow';export{MovingRailInteraction}from'./src/game/moving-rail';export{Game}from'./src/game/Game';export{actualPlayer}from'./tests/fixtures/actual-player';export{buildTile}from'./src/world/city';export{roadster}from'./src/world/vehicles';export{RailTrains}from'./src/game/rail';export{TakeoffKickflip}from'./src/game/takeoff-kickflip';export{initTemplates}from'./src/core/util';export*as THREE from'three';",resolveDir:process.cwd(),loader:'ts'},outfile,bundle:true,platform:'node',format:'esm',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'},logLevel:'error'});
  const A=await import(pathToFileURL(outfile));A.initTemplates();
@@ -74,11 +74,32 @@ try{
   for(const child of[...car.group.children]){child.position.y-=rollCenter;pivot.add(child);}car.group.add(pivot);car.group.updateMatrixWorld(true);
   const transforms=()=>{const rows=[];car.group.traverse(n=>rows.push([n.position.toArray(),n.quaternion.toArray(),n.scale.toArray()]));return rows;};const before=transforms();
   const measured=A.measureRailRiderEnvelope({...car,thrusterDeployment:0});assert.deepEqual(transforms(),before);
+  // Include actual road support max atan(1/3.2), landmark max atan(2),
+  // independent residual pitch/roll plus steering lean, and arbitrary angles
+  // beyond those extrema to verify the angle-independent sphere argument.
+  for(const pitch of[-Math.PI,-Math.atan(2),-Math.atan(1/3.2),-.06,0,.06,Math.atan(1/3.2),Math.atan(2),Math.PI])for(const bank of[-Math.PI,-Math.atan(2)-.06,-.06,0,.06,Math.atan(2)+.06,Math.PI]){
+   car.group.rotation.set(pitch,.71,bank,'YXZ');car.group.updateMatrixWorld(true);
+   car.group.traverse(node=>{if(!node.isMesh||node.userData.roadsterDecal)return;const p=node.geometry.getAttribute('position');for(let i=0;i<p.count;i++){const v=new A.THREE.Vector3(p.getX(i),p.getY(i),p.getZ(i)).applyMatrix4(node.matrixWorld);assert.ok(Math.hypot(v.x,v.z)<=measured.radius);assert.ok(v.y>=measured.bottom&&v.y<=measured.top);}});
+  }
+  for(const pitch of[-Math.atan(2),-Math.atan(1/3.2),0,Math.atan(1/3.2),Math.atan(2)])for(const residualRoll of[-Math.atan(2),0,Math.atan(2)]){
+   const current=A.railRiderEnvelopeAtPose(measured,{roadPitch:pitch,landmarkRoll:residualRoll,airborne:false},true);
+   for(const decay of[0,.5,1])for(const lean of[-.06,.06]){
+    car.group.rotation.set(pitch*decay,.71,residualRoll*decay+lean,'YXZ');car.group.updateMatrixWorld(true);
+    car.group.traverse(node=>{if(!node.isMesh||node.userData.roadsterDecal)return;const p=node.geometry.getAttribute('position');for(let i=0;i<p.count;i++){const v=new A.THREE.Vector3(p.getX(i),p.getY(i),p.getZ(i)).applyMatrix4(node.matrixWorld);assert.ok(Math.hypot(v.x,v.z)<=current.radius+1e-7);assert.ok(v.y>=current.bottom-1e-7&&v.y<=current.top+1e-7);}});
+   }
+  }
+  const upright=A.railRiderEnvelopeAtPose(measured,{roadPitch:0,landmarkRoll:0,airborne:false},true);
+  const normalBridge=new A.LoadedNativeSoffits(revision,[A.prepareNativeSoffitTile(tile(6.8),revision)]);
+  assert.equal(A.limitRiderSweep(normalBridge,{x:500,y:4.835,z:200},{x:500,y:4.835,z:700},upright).reason,'clear','An actual upright ordinary rider must not inherit the worst landmark-transition stop at a6.8m bridge');
+  assert.equal(A.railRiderEnvelopeAtPose(measured,{roadPitch:0,landmarkRoll:0,airborne:false},false),measured);
+  assert.throws(()=>A.railRiderEnvelopeAtPose({...measured},{roadPitch:0,landmarkRoll:0,airborne:false},true),/Unmeasured/);
+  productionEnvelopeEvidence={fallback:measured,confirmedUprightRoof:upright,normal6_8MetreBridgePassed:true,rootPoseCases:63,decayingResidualPoseCases:90};
+  car.group.rotation.x=-.06;car.group.rotation.z=.06;
   for(let step=0;step<=40;step++){
    car.setDeployment(step/40);pivot.rotation.z=step/40*Math.PI*2;pivot.position.y=rollCenter+.8;car.group.updateMatrixWorld(true);
    car.group.traverse(node=>{if(!node.isMesh||node.userData.roadsterDecal)return;const p=node.geometry.getAttribute('position');for(let i=0;i<p.count;i++){const v=new A.THREE.Vector3(p.getX(i),p.getY(i),p.getZ(i)).applyMatrix4(node.matrixWorld);assert.ok(Math.hypot(v.x,v.z)<=measured.launchRadius+1e-7);assert.ok(v.y>=measured.launchBottom&&v.y<=measured.launchTop);}});
   }
-  pivot.rotation.z=0;pivot.position.y=rollCenter;
+  pivot.rotation.z=0;pivot.position.y=rollCenter;car.group.rotation.set(0,0,0);
  });
  await test('actual RailTrains brakes before the rider stop and resumes its saved cruise; null stop retains identical motion',()=>{
   function fleet(){const r=new A.RailTrains(material),cars=Array.from({length:8},()=>new A.THREE.Mesh(r.geo('#2277bb'),material));r.trains.push({id:train.id,run,s:400,dir:1,v:20,cars});return r;}
@@ -99,7 +120,7 @@ try{
   const city={...actual,movingRail:[]},live=new A.RailTrains(material),cars=Array.from({length:8},()=>new A.THREE.Mesh(live.geo('#2277bb'),material));live.trains.push({id:train.id,run,s:275.05,dir:1,v:20,cars});live.update(0,500,200,new Map());city.movingRail=live.bodies;
   const fixture=A.actualPlayer(city),p=fixture.player;try{
    p.setCarryingPizza(true);const measured=A.measureRailRiderEnvelope(p),contacts=new A.MovingRailInteraction(),guard=new A.RailRiderClearance(),body=live.bodies[7];p.pos.set(body.x,body.roof+.55,body.z);p.yaw=Math.PI;p.group.position.copy(p.pos);contacts.beforePlayer(p,city.movingRail,false,0);assert.equal(contacts.afterPlayer(p,0).carried,true);
-   const game={player:p,railRiderClearance:guard,railRiderEnvelope:measured,riderGeometry:()=>geometry};let elapsed=0;
+   const game={player:p,railRiderClearance:guard,railRiderEnvelope:measured,riderGeometry:()=>geometry,riderEnvelope:()=>A.railRiderEnvelopeAtPose(measured,p,!!contacts.supportId?.startsWith('rail:'))};let elapsed=0;
    const tick=inp=>{
     const start={x:p.pos.x,y:p.pos.y,z:p.pos.z};const stop=guard.prepare({pos:p.pos,placementRevision:p.placementRevision,supportId:contacts.supportId,flying:p.flying,descending:p.descending,jumping:p.jumping},live.roofRiderTrains,geometry,measured,p.speed);live.setRiderStop(stop);live.update(.02,p.pos.x,p.pos.z,new Map());city.movingRail=live.bodies;contacts.beforePlayer(p,city.movingRail,!!inp.flyPressed,.02);p.update(.02,inp,elapsed);A.Game.prototype.guardRoofRiderPose.call(game,start);contacts.afterPlayer(p,.02);A.Game.prototype.guardRoofRiderPose.call(game,start);elapsed+=.02;
     p.group.updateMatrixWorld(true);const bounds=new A.THREE.Box3().setFromObject(p.group);if(bounds.max.z>=345.4&&bounds.min.z<=354.6&&bounds.max.x>=200&&bounds.min.x<=800)assert.ok(bounds.max.y<4.8||bounds.min.y>5.7,'Actual full car box penetrated native slab volume');
@@ -113,5 +134,5 @@ try{
   assert.throws(()=>A.limitRiderSweep(geometry,rider().pos,rider().pos,{...envelope,top:NaN}),/Invalid measured/);
   const bad={...geometry,revision:'other',known:()=>true,near:()=>prepared.slabs};assert.throws(()=>A.limitRiderSweep(bad,rider().pos,{...rider().pos,z:700},envelope),/Stale/);
  });
- console.log(JSON.stringify({groups:count,actualCitySlabs:prepared.slabs.length,structureTrianglesInspected:prepared.structureTrianglesInspected,measuredEnvelope:envelope,gameMovementGuardWired:true}));
+ console.log(JSON.stringify({groups:count,actualCitySlabs:prepared.slabs.length,structureTrianglesInspected:prepared.structureTrianglesInspected,syntheticTestEnvelope:envelope,productionEnvelopeEvidence,gameMovementGuardWired:true}));
 }finally{await rm(temp,{recursive:true,force:true});}

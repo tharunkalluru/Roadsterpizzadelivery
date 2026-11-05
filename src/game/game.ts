@@ -40,7 +40,7 @@ import { RailTrains } from './rail';
 import { MovingRailInteraction } from './moving-rail';
 import { RailRiderClearance,type RiderEnvelope,type RiderPoint } from './rail-rider-clearance';
 import { prepareNativeSoffitTileSteps,LoadedNativeSoffits,type NativeSoffitTile } from './rail-rider-native-soffits';
-import { measureRailRiderEnvelope } from './rail-rider-car-envelope';
+import { measureRailRiderEnvelope, railRiderEnvelopeAtPose } from './rail-rider-car-envelope';
 import { RailwayCrossings, buildRailwayCrossingSites, type RailwayCrossingSite, type RailwayRoadUser } from './railway-crossings';
 import { RailwayCrossingGates } from '../world/railway-crossing-gates';
 import { railwayNetwork } from '../world/railway-geometry';
@@ -244,19 +244,21 @@ export class Game {
   private guardRoofRiderPose(start:RiderPoint){
     if(!this.railRiderClearance.active)return;
     const p=this.player,end={x:p.pos.x,y:p.pos.y,z:p.pos.z};
-    const limit=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),start,end,this.railRiderEnvelope,p.airborne||p.takeoffAnimating);
+    const envelope=this.riderEnvelope();
+    const limit=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),start,end,envelope,p.airborne||p.takeoffAnimating);
     if(limit.fraction>=1)return;
     const x=start.x+(end.x-start.x)*limit.fraction,z=start.z+(end.z-start.z)*limit.fraction;
     // Horizontal GO may be stopped at the launch boundary while a deliberate
     // takeoff still climbs in the clear space behind it. Validate that entire
     // vertical sweep separately; freezing Y together with GO would deadlock
     // the very manual escape this safety stop is intended to provide.
-    const vertical=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),{x,y:start.y,z},{x,y:end.y,z},this.railRiderEnvelope,p.airborne||p.takeoffAnimating);
+    const vertical=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),{x,y:start.y,z},{x,y:end.y,z},envelope,p.airborne||p.takeoffAnimating);
     p.pos.set(x,start.y+(end.y-start.y)*vertical.fraction,z);
     const dx=p.pos.x-end.x,dy=p.pos.y-end.y,dz=p.pos.z-end.z;
     for(const visual of[p.group,p.glow,p.light]){visual.position.x+=dx;visual.position.y+=dy;visual.position.z+=dz;}
     p.speed=0;p.vy=0;
   }
+  private riderEnvelope(){return railRiderEnvelopeAtPose(this.railRiderEnvelope,this.player,!!this.railContacts.supportId?.startsWith('rail:'));}
   private addRailwayCrossings(roads: import('../world/types').RoadEdge[]) {
     if(!this.railwayCrossings)return;
     const fresh=roads.filter(r=>this.graph.byId.has(r.id)&&!this.crossingRoadIds.has(r.id));
@@ -1082,7 +1084,7 @@ export class Game {
     const riderFrameStart={x:this.player.pos.x,y:this.player.pos.y,z:this.player.pos.z};
     if(this.railRiderClearance.active||this.railContacts.supportId?.startsWith('rail:')){
       const stop=this.railRiderClearance.prepare({pos:this.player.pos,placementRevision:this.player.placementRevision,supportId:this.railContacts.supportId,
-        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.railRiderEnvelope,this.player.speed);
+        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.riderEnvelope(),this.player.speed);
       this.rail.setRiderStop(stop);
       if(stop&&!this.railRiderWarned)this.hud.toast(stop.reason==='unknown'?'Preparing safe train clearance…':'Low bridge ahead · Use FLY to continue','teal');
       this.railRiderWarned=!!stop;
@@ -1094,7 +1096,7 @@ export class Game {
     if(this.story?.cinematic)Object.assign(inp,{throttle:0,brake:0,steer:0,flyPressed:false,jumpPressed:false,boost:false});
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies, ...(this.story?.supports ?? [])];
     if(this.railRiderClearance.active&&(inp.flyPressed||inp.jumpPressed)){
-      const launch=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),this.player.pos,this.player.pos,this.railRiderEnvelope,true);
+      const launch=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),this.player.pos,this.player.pos,this.riderEnvelope(),true);
       if(launch.reason!=='clear'){
         inp.flyPressed=false;inp.jumpPressed=false;
         this.hud.toast('Move back from the bridge for room to take off','teal');
@@ -1111,7 +1113,7 @@ export class Game {
     // same-frame sweep as well, rather than waiting one train step to latch.
     if(railContact.carried&&!this.railRiderClearance.active&&this.railContacts.supportId?.startsWith('rail:')){
       this.railRiderClearance.prepare({pos:this.player.pos,placementRevision:this.player.placementRevision,supportId:this.railContacts.supportId,
-        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.railRiderEnvelope,this.player.speed);
+        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.riderEnvelope(),this.player.speed);
     }
     this.guardRoofRiderPose(riderFrameStart);
     this.story?.afterPlayer(dt);

@@ -1,6 +1,25 @@
 import * as THREE from 'three';
 import type { RiderEnvelope } from './rail-rider-clearance';
 
+const measuredModels=new WeakMap<RiderEnvelope,{radius:number;bottom:number;top:number;rotationRadius:number}>();
+
+/** One cheap bound for the actual smoothed posture. On a confirmed ordinary
+ * flat train roof, roadPitch/landmarkRoll target zero, so their absolute values
+ * cannot grow before the next check. Steering may still add either .06 lean.
+ * A missing/foreign support receives the angle-independent hard envelope. */
+export function railRiderEnvelopeAtPose(measured:RiderEnvelope,pose:{roadPitch:number;landmarkRoll:number;airborne:boolean},confirmedFlatRoof:boolean):RiderEnvelope {
+  const model=measuredModels.get(measured);if(!model)throw Error('Unmeasured rider model');
+  if(!confirmedFlatRoof)return measured;
+  if(!Number.isFinite(pose.roadPitch+pose.landmarkRoll))throw Error('Invalid rider posture');
+  const angle=pose.airborne?.12:Math.abs(pose.roadPitch)+Math.abs(pose.landmarkRoll)+.06;
+  // Rotation through total angular distance theta moves every vertex at most
+  // 2R*sin(theta/2). Clamp at pi for a global diameter bound, never at a smaller
+  // expected road slope; inherited landmark transitions remain covered.
+  const delta=2*model.rotationRadius*Math.sin(Math.min(Math.PI,angle)/2);
+  return{radius:Math.min(measured.radius,model.radius+delta),bottom:Math.max(measured.bottom,model.bottom-delta),top:Math.min(measured.top,model.top+delta),
+    launchRadius:measured.launchRadius,launchBottom:measured.launchBottom,launchTop:measured.launchTop};
+}
+
 /** Actual immutable car vertices, including hidden pizza cargo, at the two
  * equipment endpoints. vehicles.ts moves equipment linearly in eased amount;
  * its only equipment rotation is the spoiler's 0.1 radian X rotation. The
@@ -41,9 +60,27 @@ export function measureRailRiderEnvelope(player:{group:THREE.Group;setDeployment
   const reserve=(rootRadius+pivotRadius)*(.1*.1/8),center=pivot.position.y;
   let launch=0;for(const[x,y,z]of points)launch=Math.max(launch,Math.hypot(x,y-center,z));
   const sphere=launch+reserve;
-  // Takeoff lift is <= max(width,height)-height + .45. The sphere is also
-  // >= width, so sphere+.45 is a conservative lift bound. Include the actual
-  // flight bob amplitude (.06) without shrinking the collision envelope.
-  return Object.freeze({radius:radius+reserve,launchRadius:Math.max(radius,launch)+reserve,bottom:bottom-reserve,top:top+reserve,
-    launchBottom:Math.min(bottom-reserve,center-sphere)-.06,launchTop:Math.max(top+reserve,center+2*sphere+.45)+.06});
+  // max(|sin|*halfWidth+|cos|*halfHeight)-halfHeight <= halfWidth.
+  // Include Player's .04 bound padding, the .45 takeoff accent, the separate
+  // <=.45 jump accent and the actual .06 flight bob below.
+  let maximumHalfWidth=0;for(const p of points)maximumHalfWidth=Math.max(maximumHalfWidth,Math.abs(p[0]));maximumHalfWidth+=reserve+.04;
+  const maximumLift=maximumHalfWidth+.9;
+  // Player also pitches by .06 and banks by at most .06. Those root rotations
+  // rotate the lifted pivot itself about the physical origin. A sphere about
+  // the pivot alone misses this horizontal translation; bound its displacement
+  // by the summed angular excursion without changing any actual animation.
+  const rootAngle=.12,pivotShift=(Math.abs(center)+maximumLift)*Math.sin(rootAngle);
+  // Ordinary support can retain a smoothed landmark pose while landing onto a
+  // train. The landmark contact gradient bound is 2 (far beyond .06 airborne
+  // pitch/bank), and independent pitch/roll smoothing can retain a combination
+  // that does not describe a single current ground plane. Use the measured
+  // origin-centred sphere: it covers EVERY root rotation, including this real
+  // transition, without assuming the car is already upright on its first roof
+  // frame. This is deliberately a conservative rider stop, never a clearance
+  // permission or an alteration to the player's visual pose.
+  const ordinaryRadius=rootRadius+reserve;
+  const measured=Object.freeze({radius:ordinaryRadius,launchRadius:Math.max(ordinaryRadius,Math.max(radius,launch)+reserve+pivotShift),bottom:-ordinaryRadius,top:ordinaryRadius,
+    launchBottom:Math.min(-ordinaryRadius,center-sphere-Math.abs(center)*(1-Math.cos(rootAngle))-.06),
+    launchTop:Math.max(ordinaryRadius,center+sphere+maximumLift+.06)});
+  measuredModels.set(measured,{radius:radius+reserve,bottom:bottom-reserve,top:top+reserve,rotationRadius:ordinaryRadius});return measured;
 }
