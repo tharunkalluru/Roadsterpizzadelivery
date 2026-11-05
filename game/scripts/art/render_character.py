@@ -17,6 +17,8 @@ parser.add_argument('--clip',default='Idle')
 parser.add_argument('--frame',type=int,default=12)
 parser.add_argument('--material',choices=['authored','clay','unlit'],default='authored')
 parser.add_argument('--views',default='front,three-quarter,profile,back,full-body')
+parser.add_argument('--fit-visible-vertices',action='store_true',help='Imported GLB review: frame evaluated nonempty visible mesh vertices, with distance fitted to actual full-body span')
+parser.add_argument('--angle-offset',type=float,default=0,help='Explicit orbit offset in radians for supplementary head-facing views of a turned seated pose')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:])
 if args.output.exists(): raise RuntimeError('Use a NEW review directory; old evidence is immutable.')
 args.output.mkdir(parents=True)
@@ -48,7 +50,18 @@ elif args.material=='unlit':
         links.new(emission.outputs[0],output.inputs['Surface'])
 deps=bpy.context.evaluated_depsgraph_get()
 corners=[obj.evaluated_get(deps).matrix_world@Vector(corner) for obj in scene.objects if obj.type=='MESH' for corner in obj.evaluated_get(deps).bound_box]
+if args.fit_visible_vertices:
+    corners=[obj.evaluated_get(deps).matrix_world@v.co for obj in scene.objects if obj.type=='MESH' and not obj.hide_render for v in obj.evaluated_get(deps).data.vertices]
 bottom=min(point.z for point in corners);top=max(point.z for point in corners)
+face_center=Vector((0,0,top-.17))
+if args.fit_visible_vertices:
+    detail=next((obj for obj in scene.objects if obj.type=='MESH' and obj.name=='AuthoredDetailedHead'),None)
+    if detail:
+        evaluated=detail.evaluated_get(deps)
+        upper=[evaluated.matrix_world@v.co for v in evaluated.data.vertices if (evaluated.matrix_world@v.co).z>top-.28]
+        if upper:
+            center=sum(upper,Vector())/len(upper)
+            face_center=Vector((center.x,center.y,top-.17))
 scene.render.engine='CYCLES'
 scene.cycles.samples=24
 scene.cycles.use_denoising=True
@@ -67,8 +80,9 @@ camera_data=bpy.data.cameras.new('ReviewCamera');camera=bpy.data.objects.new('Re
 camera_data.lens=65
 for name,angle,face in [('front',0,False),('three-quarter',.6,True),('profile',math.pi/2,True),('back',math.pi,False),('full-body',.6,False)]:
     if name not in args.views.split(','):continue
-    target=Vector((0,0,top-.17 if face else (top+bottom)/2))
-    distance=1.5 if face else 3.9
+    angle+=args.angle_offset
+    target=face_center.copy() if face else Vector((0,0,(top+bottom)/2))
+    distance=1.5 if face else max(3.9,(top-bottom)*2.6) if args.fit_visible_vertices else 3.9
     camera.location=target+Vector((math.sin(angle)*distance,-math.cos(angle)*distance,.04))
     camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
     scene.render.filepath=str((args.output/(name+'.png')).resolve())

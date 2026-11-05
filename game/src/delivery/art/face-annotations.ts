@@ -10,6 +10,8 @@ export interface FaceAnnotation {
   nodePath:number[];
   positionCount:number;
   headNode:string;
+  /** Absent retains the original actor-local mask; explicit for turned heads. */
+  coordinateSpace?:'head-local';
   anchorHeadLocal:[number,number,number];
   sourceTriangle:{indices:[number,number,number];barycentric:[number,number,number]};
   displacementUp:[number,number,number];
@@ -27,6 +29,8 @@ export function validFaceAnnotation(root:THREE.Group,annotation:FaceAnnotation,i
   const bound=root.userData.releasedCharacter?.glbSha256;
   const triple=(v:unknown):v is [number,number,number]=>Array.isArray(v)&&v.length===3&&v.every(Number.isFinite);
   if(annotation?.schemaVersion!==1||annotation.characterId!==identity||!expected||annotation.glbSha256!==expected||bound!==expected||
+    (annotation.coordinateSpace!==undefined&&annotation.coordinateSpace!=='head-local')||
+    (annotation.coordinateSpace==='head-local'&&annotation.headNode!=='Head')||
     !Array.isArray(annotation.nodePath)||annotation.nodePath.length>32||!triple(annotation.anchorHeadLocal)||!triple(annotation.displacementUp)||
     !triple(annotation.sourceTriangle?.indices)||!triple(annotation.sourceTriangle?.barycentric)||!Array.isArray(annotation.mask)||
     !['picked','approved'].includes(annotation.review?.status)||(!allowPicked&&annotation.review?.status!=='approved')||annotation.review?.method!=='native-visible-face-pick'||
@@ -49,7 +53,8 @@ export function validFaceAnnotation(root:THREE.Group,annotation:FaceAnnotation,i
   for(let i=0;i<3;i++){mesh.getVertexPosition(annotation.sourceTriangle.indices[i],point).applyMatrix4(mesh.matrixWorld);reconstructed.addScaledVector(point,bary[i]);}
   const picked=head.localToWorld(new THREE.Vector3(...annotation.anchorHeadLocal));
   if(reconstructed.distanceTo(picked)>.002)return false;
-  const inverse=root.matrixWorld.clone().invert(),local=picked.clone().applyMatrix4(inverse),headAt=head.getWorldPosition(new THREE.Vector3()).applyMatrix4(inverse);
+  const frame=annotation.coordinateSpace==='head-local'?head:root;
+  const inverse=frame.matrixWorld.clone().invert(),local=picked.clone().applyMatrix4(inverse),headAt=head.getWorldPosition(new THREE.Vector3()).applyMatrix4(inverse);
   if(Math.abs(local.x-headAt.x)>.16||Math.abs(local.y-headAt.y)>.24)return false;
   const byIndex=new Map(annotation.mask.map(entry=>[entry.index,entry]));let expectedCount=0;
   for(let i=0;i<annotation.positionCount;i++){
@@ -59,8 +64,8 @@ export function validFaceAnnotation(root:THREE.Group,annotation:FaceAnnotation,i
     const entry=byIndex.get(i);if(!entry||Math.abs(entry.weight-(1-radius)**2)>.01||entry.lower!==(y<=0))return false;expectedCount++;
   }
   if(expectedCount!==annotation.mask.length)return false;
-  const inverseMesh=mesh.matrixWorld.clone().invert(),base=new THREE.Vector3().applyMatrix4(root.matrixWorld).applyMatrix4(inverseMesh);
-  const up=new THREE.Vector3(0,1,0).applyMatrix4(root.matrixWorld).applyMatrix4(inverseMesh).sub(base);
+  const inverseMesh=mesh.matrixWorld.clone().invert(),base=new THREE.Vector3().applyMatrix4(frame.matrixWorld).applyMatrix4(inverseMesh);
+  const up=new THREE.Vector3(0,1,0).applyMatrix4(frame.matrixWorld).applyMatrix4(inverseMesh).sub(base);
   if(up.distanceTo(new THREE.Vector3(...annotation.displacementUp))>.0001)return false;
   return true;
 }
@@ -70,13 +75,14 @@ export function reviewedFaceAnnotation(identity:string):FaceAnnotation|undefined
 
 /** Development viewer only: the native click supplies the anatomical point.
  * No head proportions, URLs or caller-selected model bytes are inferred. */
-export function pickFaceAnnotation(root:THREE.Group,identity:string,hit:THREE.Intersection):FaceAnnotation {
+export function pickFaceAnnotation(root:THREE.Group,identity:string,hit:THREE.Intersection,coordinateSpace?:'head-local'):FaceAnnotation {
   const mesh=hit.object,head=root.getObjectByName('Head'),asset=assets.assets.find(entry=>entry.characterId===identity);
   if(!(mesh instanceof THREE.Mesh)||!hit.face||!head||!asset)throw Error('Pick the visible lip surface on this exact approved actor.');
   const path:number[]=[];for(let node:THREE.Object3D=mesh;node!==root;){const parent=node.parent;if(!parent)throw Error('Picked surface is outside the actor.');path.unshift(parent.children.indexOf(node));node=parent;}
   const source=mesh.geometry.getAttribute('position');
   root.updateWorldMatrix(true,true);if(mesh instanceof THREE.SkinnedMesh)mesh.skeleton.update();
-  const inverse=root.matrixWorld.clone().invert();
+  if(coordinateSpace!==undefined&&coordinateSpace!=='head-local')throw Error('Unsupported native face coordinate space.');
+  const frame=coordinateSpace==='head-local'?head:root,inverse=frame.matrixWorld.clone().invert();
   const local=hit.point.clone().applyMatrix4(inverse),headAt=head.getWorldPosition(new THREE.Vector3()).applyMatrix4(inverse);
   if(Math.abs(local.x-headAt.x)>.16||Math.abs(local.y-headAt.y)>.24)throw Error('The click must be on the face, not a hand, box or costume.');
   const point=new THREE.Vector3(),a=new THREE.Vector3(),b=new THREE.Vector3(),c=new THREE.Vector3();
@@ -91,9 +97,9 @@ export function pickFaceAnnotation(root:THREE.Group,identity:string,hit:THREE.In
     mask.push({index,weight:(1-radius)**2,lower:y<=0});
   }
   if(mask.length<4||mask.length>2000)throw Error('This pick has no bounded usable lip region. Reframe and pick again.');
-  const meshInverse=mesh.matrixWorld.clone().invert(),base=new THREE.Vector3().applyMatrix4(root.matrixWorld).applyMatrix4(meshInverse);
-  const up=new THREE.Vector3(0,1,0).applyMatrix4(root.matrixWorld).applyMatrix4(meshInverse).sub(base);
-  return {schemaVersion:1,characterId:identity,glbSha256:asset.glb.sha256,meshName:mesh.name,nodePath:path,positionCount:source.count,headNode:'Head',
+  const meshInverse=mesh.matrixWorld.clone().invert(),base=new THREE.Vector3().applyMatrix4(frame.matrixWorld).applyMatrix4(meshInverse);
+  const up=new THREE.Vector3(0,1,0).applyMatrix4(frame.matrixWorld).applyMatrix4(meshInverse).sub(base);
+  return {schemaVersion:1,characterId:identity,glbSha256:asset.glb.sha256,meshName:mesh.name,nodePath:path,positionCount:source.count,headNode:'Head',...(coordinateSpace?{coordinateSpace}:{}),
     anchorHeadLocal:head.worldToLocal(hit.point.clone()).toArray()as[number,number,number],
     sourceTriangle:{indices:[hit.face.a,hit.face.b,hit.face.c],barycentric:bary.toArray()as[number,number,number]},
     displacementUp:up.toArray()as[number,number,number],mask,review:{status:'picked',method:'native-visible-face-pick',pickedAt:new Date().toISOString()}};

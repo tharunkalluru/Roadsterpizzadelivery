@@ -1,3 +1,5 @@
+import type { Car } from '../game/traffic';
+import { StoryDialogue } from './systems/story-dialogue';
 import type { Group } from 'three';
 import { prepareCharacterGpu } from './art/gpu-preparation';
 import { campaignSession, campaignSpawn } from './campaign';
@@ -7,9 +9,9 @@ import { loadLevels } from './content/levels';
 import { NavSystem } from './systems/nav-system';
 import { DeliveryUI, type DeliveryView, type DeliveryUIActions } from './ui/delivery-ui';
 import { createDeliveryModule } from './modules';
-import type { DeliveryModule, DeliveryPoint } from './modules/types';
+import type { DeliveryModule, DeliveryPoint, DeliveryRoadVehicle } from './modules/types';
 import type { MovingRailBody } from '../game/moving-rail';
-import { roofUnder, supportAt } from '../game/physics';
+import { roofUnder, supportAt, collideBuildings } from '../game/physics';
 import type { LevelConfig, StorageLike } from './core/types';
 import { projectRailwayRun, type RailwayRun } from '../game/railway-flow';
 import { verifiedRailPassages, type VerifiedRailPassage } from './rail-passages';
@@ -65,7 +67,7 @@ export function deliveryStoryPoseClear(city:CityData&{tiles?:Map<string,unknown>
   return true;
 }
 
-type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'>>;
+type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'|'setStorySubtitle'>>;
 /** Content/adapters are injectable without changing the state machine or gameplay timing. */
 export interface DeliveryRuntimeOptions {
   levels?: LevelConfig[];
@@ -111,10 +113,16 @@ export class DeliveryRuntime {
   private trafficReservations:MovingRailBody[]=[];
   private passageCache: { coach: string; run: RailwayRun; revision: number; offset: number; center: number; candidates: VerifiedRailPassage[]; chosen: VerifiedRailPassage | null } | null = null;
   readonly director = new StoryDirector();
+  readonly storyDialogue=new StoryDialogue();
   private showFinale=false;
   private storyPoseReady=false;
   private storyLanding = new StoryLandingGate();
   private storyLandingReady=false;
+  private roadCarrierLost=false;
+  private roadVehicleSearchAfter=0;
+  private roadVehicleWaitSince:number|null=null;
+  private roadVehicleView?:{car:Car;view:DeliveryRoadVehicle};
+  private roadCarryFrame?:{x:number;y:number;z:number;yaw:number};
 
   constructor(private game: Game, options: DeliveryRuntimeOptions = {}) {
     let storage: StorageLike | undefined = options.storage;
@@ -146,6 +154,7 @@ export class DeliveryRuntime {
         game.player.setCarryingPizza?.(true);
         const level = this.controller.activeLevel;
         let destination = { ...event.destination, y: event.destination.y ?? 0 };
+        if(level&&['rajaAutoDelivery','induBusDelivery'].includes(level.module)){const p=this.game.player.pos;destination={...destination,x:p.x,y:p.y-.55,z:p.z};}
         if (level?.moduleParams.nearestMetro) {
           const p=this.game.player.pos;
           const station=[...this.game.zone.metro.stations].sort((a,b)=>Math.hypot(a.p[0]-p.x,a.p[1]-p.z)-Math.hypot(b.p[0]-p.x,b.p[1]-p.z))[0];
@@ -163,7 +172,7 @@ export class DeliveryRuntime {
       events.on('callEnded', () => { game.resetInput(); game.clock.getDelta(); }),
       events.on('setpieceFailed', event => { this.notice = event.reason; this.noticeUntil = this.elapsed + 3; }),
       events.on('levelComplete', () => {
-        game.carriers.clear(); game.player.setCarryingPizza?.(false); game.hud.pickupStatus(false); game.resetInput();
+        game.carriers.clear(); game.player.setCarryingPizza?.(this.controller.activeLevel?.moduleParams.keepPizzaOnCompletion===true); game.hud.pickupStatus(false); game.resetInput();
         this.director.complete();
         this.retainedCompletedScene=this.cinematic||!!this.module?.exitPending;
         this.retainedSceneLevelId=this.retainedCompletedScene?this.controller.activeLevel?.id??null:null;
@@ -238,9 +247,10 @@ export class DeliveryRuntime {
   get roadNavigationTarget(): DeliveryPoint | null {
     const target = this.target, level = this.controller.activeLevel;
     if (!this.activeOrder || !target || !level || ![target.x, target.y, target.z].every(Number.isFinite)) return null;
-    const movingRoadVehicle = level.module === 'matchAndLand' && level.moduleParams.vehicle !== 'train' && Number(level.moduleParams.speed) > 0;
+    const movingTrafficStory=['rajaAutoDelivery','induBusDelivery'].includes(level.module);
+    const movingRoadVehicle = movingTrafficStory || level.module === 'matchAndLand' && level.moduleParams.vehicle !== 'train' && Number(level.moduleParams.speed) > 0;
     const vehicle = movingRoadVehicle ? (this.module?.trafficBodies ?? this.module?.supports ?? []).find(body => body.id === 'delivery-log-truck') : undefined;
-    const offRoad = !movingRoadVehicle, roadHeight = offRoad ? 0 : vehicle?.y ?? level.destination.y ?? 0;
+    const offRoad = !movingRoadVehicle, roadHeight = movingTrafficStory ? target.y : offRoad ? 0 : vehicle?.y ?? level.destination.y ?? 0;
     const cache = this.roadTargetCache, revision = this.game.graph.revision;
     if (cache && cache.revision === revision && cache.label === target.label && cache.offRoad === offRoad && Math.abs(cache.roadHeight - roadHeight) < .25 &&
       (offRoad || Math.abs(cache.y - target.y) < .25) && Math.hypot(cache.x - target.x, cache.z - target.z) < 8) return cache.point;
@@ -338,7 +348,7 @@ export class DeliveryRuntime {
       if(coach&&!this.module){c.activeLevel.destination={...c.activeLevel.destination,x:coach.x,y:coach.roof,z:coach.z};this.setTarget(c.activeLevel.destination as DeliveryPoint);}
     }
     if (c.activeLevel && !this.module && !c.complete && c.state !== 'REVEAL' && c.destination &&
-      this.elapsed >= this.prepareAfter && (c.activeLevel.module==='metroRide'||Math.hypot(c.destination.x - p.pos.x, c.destination.z - p.pos.z) < 380)) {
+      this.elapsed >= this.prepareAfter && (['metroRide','rajaAutoDelivery','induBusDelivery'].includes(c.activeLevel.module)||Math.hypot(c.destination.x - p.pos.x, c.destination.z - p.pos.z) < 380)) {
       this.prepareAfter = this.elapsed + 1;
       try { this.prepareModule(); }
       catch (error) {
@@ -349,6 +359,12 @@ export class DeliveryRuntime {
       }
     }
     this.module?.update(dt);
+    if(this.roadCarrierLost){
+      this.roadCarrierLost=false;this.removeModule();this.director.reset();this.storyDialogue.reset();this.ui.setStorySubtitle?.(null);this.storyLanding.reset();
+      this.storyPoseReady=false;this.storyLandingReady=false;this.prepareAfter=this.elapsed+.5;
+      const p=this.game.player.pos;if(c.activeLevel){c.activeLevel.destination={...c.activeLevel.destination,x:p.x,z:p.z,y:p.y-.55};this.setTarget({...c.activeLevel.destination,y:p.y-.55});}
+      this.game.resetInput();this.notice='Finding another nearby delivery vehicle…';this.noticeUntil=this.elapsed+3;this.syncView();return;
+    }
     const frame=this.module?.story;
     // Boarding stays manual. Metro establishes its authored frame on the next
     // update, only after a real, settled marked-rake roof contact qualifies.
@@ -370,11 +386,17 @@ export class DeliveryRuntime {
     }else{this.storyLanding.reset();this.storyLandingReady=false;}
     if(this.director.tryStart(frame,c.canDrop&&this.storyLandingReady)){
       this.storyPoseReady=false;
+      this.storyDialogue.start(c.activeLevel?.storyScript);
       this.game.resetInput();this.game.orbitYaw=0;this.game.orbitDist=0;this.game.orbitPitch=.38;
+      // Capture happens after the frame's regular UI tick. Hide controls in
+      // this same frame, before any cinematic can be rendered or observed.
+      this.syncBlocking();
       this.syncView();
     }
     this.module?.setStoryPresentation?.(this.cinematic,landing);
-    if(this.director.actionReady(dt,this.storyPoseReady&&!!this.module?.status.canDrop&&c.canDrop))this.module?.onDrop();
+    this.storyDialogue.update(dt,this.cinematic&&!this.director.viewing&&this.module?.storyDialogueReady!==false);
+    this.ui.setStorySubtitle?.(this.cinematic&&!this.director.viewing?this.storyDialogue.line:null);
+    if(this.director.actionReady(dt,this.storyDialogue.done&&this.storyPoseReady&&!!this.module?.status.canDrop&&c.canDrop))this.module?.onDrop();
     if(this.retainedCompletedScene&&!this.cinematic&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
     this.trafficBodies.length = 0;
     for (const body of this.module?.trafficBodies ?? this.module?.supports ?? []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
@@ -396,6 +418,7 @@ export class DeliveryRuntime {
   /** Apply only authored, local cinematic waypoints after ordinary supports
    * have moved. Ordinary driving/flight/jump and manual boarding stay intact. */
   afterPlayer(dt:number){
+    this.roadCarryFrame=undefined;
     if(!this.cinematic||this.director.phase==='transition')return;
     const frame=this.module?.story;if(!frame)return;
     const p=this.game.player,next=stepStoryPose({...p.pos,yaw:p.yaw},frame,dt);if(!next)return;
@@ -407,8 +430,27 @@ export class DeliveryRuntime {
     p.wheelRollers?.forEach(w=>{w.rotation.x-=direction*travel/.35;});
     p.wheels?.forEach((w,i)=>{w.rotation.y=i<2?-p.steerVis*.38:0;});
     p.group.position.copy(p.pos);p.group.rotation.set(frame.water?-.06:pitch,p.yaw,0,'YXZ');
+    if(frame.allowMovingEntry)this.roadCarryFrame={...frame.point,yaw:frame.yaw??p.yaw};
     this.storyPoseReady=Math.hypot(next.x-frame.point.x,next.z-frame.point.z)<.25&&Math.abs(next.y-frame.point.y)<.25&&
       (frame.yaw===undefined||Math.abs(Math.atan2(Math.sin(next.yaw-frame.yaw),Math.cos(next.yaw-frame.yaw)))<.14);
+  }
+  /** New road cinematics inherit this frame's actual traffic transform after
+   * its normal tick. Existing driving, railway stories and NPC timing stay in
+   * their original order; no second simulation/animation update is performed. */
+  afterTraffic(dt:number){
+    const before=this.roadCarryFrame;this.roadCarryFrame=undefined;
+    if(!before||!this.cinematic||this.director.phase==='transition'||!Number.isFinite(dt)||dt<=0)return;
+    const frame=this.module?.story;if(!frame?.allowMovingEntry)return;
+    const yaw=frame.yaw??before.yaw;
+    if(![frame.point.x,frame.point.y,frame.point.z,yaw].every(Number.isFinite))return;
+    const turn=Math.atan2(Math.sin(yaw-before.yaw),Math.cos(yaw-before.yaw)),c=Math.cos(turn),s=Math.sin(turn),p=this.game.player;
+    const dx=p.pos.x-before.x,dz=p.pos.z-before.z,oldX=p.pos.x,oldZ=p.pos.z;
+    p.pos.set(frame.point.x+dx*c+dz*s,frame.point.y+p.pos.y-before.y,frame.point.z-dx*s+dz*c);
+    p.yaw+=turn;p.speed=frame.speed??p.speed;p.lastSupport=p.pos.y-.55;
+    const travel=Math.hypot(p.pos.x-oldX,p.pos.z-oldZ),direction=(p.pos.x-oldX)*-Math.sin(p.yaw)+(p.pos.z-oldZ)*-Math.cos(p.yaw)>=0?1:-1;
+    p.wheelRollers?.forEach(w=>{w.rotation.x-=direction*travel/.35;});
+    if(Math.abs(turn)>1e-6){p.steerVis=Math.max(-1,Math.min(1,turn/(dt*3)));p.wheels?.forEach((w,i)=>{w.rotation.y=i<2?-p.steerVis*.38:0;});}
+    p.group.position.copy(p.pos);p.group.rotation.y=p.yaw;
   }
   private async continueStory(){
     const c=this.controller;
@@ -528,6 +570,18 @@ export class DeliveryRuntime {
         }
         Object.assign(destination, placement.destination);
         level.moduleParams = { ...level.moduleParams, ...placement.moduleParams };
+      } else if(level.module==='cinematicVenue'){
+        // Real venue car aprons remain at their researched floor. A portico
+        // roof above the entrance cannot lift the whole story onto the roof.
+        const city=this.game.city,tiles=city.tiles;
+        for(const dx of [-1.4,0,1.4])for(const dz of [-2.6,0,2.6]){
+          const x=destination.x+dx,z=destination.z+dz;
+          if(tiles&&!tiles.has(`${Math.floor(x/1000)}_${Math.floor(z/1000)}`)||Math.abs(supportAt(city,x,z,destination.y+.12).y-destination.y)>.3||collideBuildings(city,{x,z},.25,destination.y+.15,destination.y+2.7)>0){
+            this.notice='Preparing the venue entrance…';this.noticeUntil=this.elapsed+1.5;return;
+          }
+        }
+      } else if(['rajaAutoDelivery','induBusDelivery'].includes(level.module)){
+        // Actual traffic supplies its own road height, never a rooftop set.
       } else {
       // Build the fictional delivery set above existing physical roof geometry,
       // never inside a streaming building. Named destinations remain unchanged.
@@ -556,6 +610,7 @@ export class DeliveryRuntime {
       if(c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel);
     }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop&&(level.callMode!=='NONE'||this.cinematic||this.storyLandingReady), automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
+      storyDialogueComplete:()=>this.storyDialogue.done,storySpeechEnvelope:()=>this.storyDialogue.speechEnvelope,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       cameraPathClear: (from, to) => {
@@ -571,10 +626,39 @@ export class DeliveryRuntime {
       storyPoseClear: pose => this.module===module?deliveryStoryPoseClear(this.game.city,pose,this.supports):false,
       vehicleSpeedLimit: body => this.game.traffic.kinematicSpeedLimit?.(body, Number(level.moduleParams.speed) || 8) ?? Infinity,
       vehiclePoseClear: body => this.game.traffic.kinematicPoseClear?.(body) !== false,
+      playerObject:()=>this.game.player.group,
       player: () => ({ x: this.game.player.pos.x, y: this.game.player.pos.y, z: this.game.player.pos.z,
         yaw: this.game.player.yaw, speed: this.game.player.speed, flying: this.game.player.flying,
         descending: this.game.player.descending, jumping: this.game.player.jumping,
         railSupportId: this.game.railContacts?.supportId, verticalSpeed: this.game.player.vy }),
+      storyCarrierLost:()=>{if(this.module===module)this.roadCarrierLost=true;},
+      releaseRoadVehicle:(id)=>{if(this.game.traffic.storyVehicleLeaseStatus?.(id)!=='none')this.game.traffic.leaseStoryVehicle?.(null);},
+      waitingRoadTarget:()=>this.game.traffic.getStoryVehicleCorridor?.()??null,
+      existingRoadVehicle:(kind,currentId)=>{
+        if(!currentId&&this.elapsed<this.roadVehicleSearchAfter)return null;
+        const cars=this.game.traffic.cars;
+        let car=currentId?cars.find(c=>c.g.uuid===currentId):undefined;
+        if(!currentId){this.roadVehicleSearchAfter=this.elapsed+.5;const p=this.game.player.pos;
+          // Check only the nearest two viable mapped carriers per search.
+          // Full scene-footprint validation must not scan all city traffic in
+          // one frame or capture a vehicle whose earlier runway has expired.
+          const nearest=cars.filter(c=>c.group===kind&&c.g.parent&&Math.hypot(c.x-p.x,c.z-p.z)<260&&this.game.traffic.canHostStoryVehicle?.(c)!==false)
+            .sort((a,b)=>Math.hypot(a.x-p.x,a.z-p.z)-Math.hypot(b.x-p.x,b.z-p.z));
+          car=nearest.slice(0,2).find(c=>this.game.traffic.canEnterStoryVehicle?.(c)!==false);
+          if(!car){this.roadVehicleWaitSince??=this.elapsed;if(this.elapsed-this.roadVehicleWaitSince>=8)car=this.game.traffic.ensureStoryVehicle?.(kind,p.x,p.z)??undefined;}
+        }
+        if(car)this.roadVehicleWaitSince=null;
+        if(!car||car.group!==kind||!car.g.parent)return null;
+        this.game.traffic.leaseStoryVehicle?.(car.g.uuid);
+        if(this.roadVehicleView?.car!==car){
+          const selected=car,traffic=this.game.traffic;
+          this.roadVehicleView={car,view:{id:car.g.uuid,group:car.g,size:car.size,
+            get x(){return selected.x;},get y(){return selected.y;},get z(){return selected.z;},
+            get hx(){return selected.hx;},get hz(){return selected.hz;},get speed(){return selected.speed;},
+            get approachValid(){return traffic.canEnterStoryVehicle?.(selected)??traffic.storyApproachLaneClear?.(selected)??true;}}};
+        }
+        return this.roadVehicleView.view;
+      },
       existingTrain: exactBodyId => exactBodyId ? this.game.rail?.bodies?.find(body=>body.id===exactBodyId)??null : this.deliveryTrain(destination),
       trainBodies:()=>this.game.rail?.bodies??[],
       metroService: () => ({ bodies: this.game.metro?.bodies ?? [], dwells: this.game.metro?.stationDwells ?? [] }),
@@ -689,6 +773,7 @@ export class DeliveryRuntime {
   private removeModule(preserveScenery=false) {
     this.groundPlacement?.job.cancel(); this.groundPlacement = undefined;
     const module = this.module;
+    this.game.traffic.leaseStoryVehicle?.(null);this.roadVehicleWaitSince=null;this.roadVehicleSearchAfter=0;this.roadVehicleView=undefined;this.roadCarryFrame=undefined;
     this.module = null; this.retainedCompletedScene=false; this.retainedSceneLevelId=null; this.selectedTrain = ''; this.wasDiving = false; this.passageCache = null;
     if(preserveScenery&&module?.sceneryPending){
       this.completedScenery.push(module);
@@ -703,7 +788,7 @@ export class DeliveryRuntime {
   }
   private releaseStoryTrain(){this.game.rail?.clearStoryShuttle?.();this.storyShuttle='';this.storyRun=null;}
   private clearDelivery(preserveExit=false) {
-    this.director.reset();this.storyLanding.reset();this.storyLandingReady=false;this.showFinale=false;this.storyPoseReady=false;
+    this.director.reset();this.storyDialogue.reset();this.ui.setStorySubtitle?.(null);this.storyLanding.reset();this.storyLandingReady=false;this.showFinale=false;this.storyPoseReady=false;
     if(!preserveExit||!this.retainedCompletedScene||!this.module?.exitPending)this.removeModule(preserveExit);
     if(!preserveExit){for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[];}
     this.releaseStoryTrain(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;

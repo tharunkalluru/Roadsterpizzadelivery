@@ -1,5 +1,5 @@
 import type { LevelConfig } from '../core/types';
-import { campaignRequiredFacts, campaignScenario } from './campaign-scenarios';
+import { campaignRequiredFacts, campaignScenario, campaignCompletionKind, campaignAutomaticCompletionFact } from './campaign-scenarios';
 
 export type CampaignQAInput = 'drive' | 'steer' | 'brake' | 'reverse' | 'fly' | 'jump' | 'handoff' | 'map' | 'pause';
 export interface CampaignQASnapshot {
@@ -30,6 +30,7 @@ export interface CampaignQAStoryObservation {
   /** Attached render-enabled carton bounds intersect the actual camera;
    * human review is still required for pixel visibility and occlusion. */
   visiblePizzaTransfer: boolean; paused: boolean;
+  actorInView?:boolean;visiblePizzaPlacement?:boolean;overtakeCompleted?:boolean;pizzaRetained?:boolean;
   pauseVisible: boolean; nextVisible: boolean; gameplayVisible: boolean;
   /** The ordinary lake surface must be seen before automatic descent. */
   atDiveSurface?: boolean; submerged?: boolean;
@@ -110,10 +111,14 @@ export class CampaignQARecorder {
   observeStory(observation:CampaignQAStoryObservation){
     if(!this.automaticAttempt(observation.levelId))return;
     this.lastStory={...observation};
-    const scene=observation.captured&&observation.modulePresent&&observation.charactersReady&&observation.sceneVisible;
+    const scene=observation.captured&&observation.modulePresent&&observation.charactersReady&&observation.sceneVisible&&
+      (!campaignScenario(observation.levelId??'')?.requiresVisibleActor||observation.actorInView===true);
     if(scene&&observation.phase==='playing'&&['SETPIECE','REVEAL'].includes(observation.controllerState)){
       this.fact('story-captured');
-      if(observation.visiblePizzaTransfer)this.fact('physical-pizza-transfer');
+      if(observation.visiblePizzaTransfer&&campaignCompletionKind(observation.levelId!)==='handoff')this.fact('physical-pizza-transfer');
+      if(observation.visiblePizzaPlacement&&campaignCompletionKind(observation.levelId!)==='placement')this.fact('physical-pizza-placement');
+      if(observation.overtakeCompleted&&campaignCompletionKind(observation.levelId!)==='overtake')this.fact('player-overtook-bus');
+      if(observation.pizzaRetained&&campaignCompletionKind(observation.levelId!)==='overtake')this.fact('pizza-retained');
       if(observation.atDiveSurface)this.sawDiveSurface=true;
       if(this.sawDiveSurface&&observation.submerged)this.fact('automatic-dive');
     }
@@ -121,7 +126,7 @@ export class CampaignQARecorder {
     if(scene&&!observation.paused&&observation.phase==='playing'&&observation.nextVisible)this.fact('story-next-before-completion');
     if(observation.phase==='viewing'&&this.current!.completedAt!==null&&!observation.paused&&!scene)this.fact('story-scene-lost');
     const held=scene&&observation.phase==='viewing'&&observation.controllerState==='LEVEL_COMPLETE'&&
-      this.current!.completedAt!==null&&this.current!.facts.includes('automatic-handoff')&&!observation.paused&&
+      this.current!.completedAt!==null&&this.current!.facts.includes(campaignAutomaticCompletionFact(observation.levelId!))&&!observation.paused&&
       observation.pauseVisible&&observation.nextVisible&&!observation.gameplayVisible;
     if(!held){this.viewingSince=null;return;}
     this.viewingSince??=this.now();
@@ -133,8 +138,10 @@ export class CampaignQARecorder {
     if(!this.automaticAttempt(levelId)||observation.levelId!==levelId||observation.phase!=='playing'||
       !observation.captured||observation.controllerState!=='REVEAL'||!observation.modulePresent||
       !observation.charactersReady||!observation.sceneVisible||!this.current!.facts.includes('story-captured')||
-      !this.current!.facts.includes('physical-pizza-transfer'))return false;
-    this.fact('automatic-handoff');return true;
+      (campaignScenario(levelId)?.requiresVisibleActor&&observation.actorInView!==true))return false;
+    const kind=campaignCompletionKind(levelId),facts=this.current!.facts;
+    if(kind==='handoff'&&!facts.includes('physical-pizza-transfer')||kind==='placement'&&!facts.includes('physical-pizza-placement')||kind==='overtake'&&(!facts.includes('player-overtook-bus')||!facts.includes('pizza-retained')))return false;
+    this.fact(campaignAutomaticCompletionFact(levelId));return true;
   }
   /** Called only by a trusted click on the actual visible Next button. The
    * intended next identity comes from the controller, so explicit replays work. */
@@ -266,7 +273,7 @@ export class CampaignQARecorder {
         ...(facts.has('next-transition-invalid')?['Next included interrupted preparation, unexpected motion or extra placements.']:[])]:[];
       return { level: level.level, id: level.id, workflow:level.callMode==='NONE'?'automatic-story':'manual-call',requiredFacts:required,
         configuredScenario: !!scenario, completed: attempt?.completedAt !== null && !!attempt,observerFailures:observerFailures.map(failure=>({...failure})),
-        naturalJumpPickup: !!attempt?.pickup?.jumping, manualHandoff: facts.has('manual-handoff'),automaticHandoff:facts.has('automatic-handoff'),storyViolations,
+        naturalJumpPickup: !!attempt?.pickup?.jumping, manualHandoff: facts.has('manual-handoff'),automaticHandoff:facts.has('automatic-handoff'),automaticPlacement:facts.has('automatic-placement'),automaticOvertake:facts.has('automatic-overtake'),storyViolations,
         assistance: attempt?.assistance.map(event => event.kind) ?? [], missingPhysicalFacts, missingFacts, missingArt, missingVisualChecks,
         observedSceneMechanics: !observerFailures.length&&!!attempt && attempt.completedAt !== null && !missingPhysicalFacts.length && !!scenario,
         allScenarioEvidence: !observerFailures.length&&!this.metadata.artPreview && !!attempt && attempt.completedAt !== null && !missingFacts.length && !missingArt.length && !missingVisualChecks.length && !storyViolations.length && !!scenario };
@@ -275,7 +282,7 @@ export class CampaignQARecorder {
     const observerHealthy=this.observerFailureCount===0;
     const allScenarioEvidence = observerHealthy&&rows.every(row => row.allScenarioEvidence);
     return { schemaVersion: 3, runId: this.runId, metadata: { ...this.metadata, initialCompletedIds: [...this.initial] },
-      observationLimits:{carton:'Attached scene, enabled material/layer and gameplay-camera frustum bounds only; pixel visibility and occlusion require explicit human visual review.'},
+      observationLimits:{carton:'Attached scene, enabled material/layer and gameplay-camera frustum bounds only; pixel visibility and occlusion require explicit human visual review.',actor:'Actor mesh attachment/render branch and geometry-frustum telemetry only; pose deformation, pixel visibility, occlusion and film likeness require independent visual review.'},
       inputEvidence: { pointerTypes: [...this.pointerTypes], trustedTouchObserved: this.pointerTypes.has('touch'),
         physicalHardwareVerified: false, note: 'Pointer type and layout do not establish physical hardware or mobile performance.' },
       expectedLevelIds: this.levels.map(level => level.id), rows, attempts: structuredClone(this.attempts), assistance: [...this.assistance],

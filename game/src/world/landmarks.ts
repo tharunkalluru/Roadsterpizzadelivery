@@ -1,3 +1,6 @@
+import {filmnagarWineClearAt} from './filmnagar-wine-mart';
+import {prasadsSourceClearAt} from './prasads-source-model';
+import {drawOsmaniaArts,osmaniaArtsClearAt,osmaniaLibraryClearAt} from './osmania-university';
 import { collegeCampusClearAt } from './college-campus-data';
 import { TPL, TiledBatch, rng } from '../core/util';
 import type { LmData } from './landmarks_data';
@@ -32,6 +35,10 @@ export function placeLandmarks(origin: { lat: number; lon: number }, availableTi
 // does a landmark's clear zone cover (x, z)? (plain map buildings there are replaced by the model)
 export function inClear(l: Landmark, x: number, z: number) {
   if (l.modelAliasOf) return false;
+  const wine = filmnagarWineClearAt(l,x,z); if(wine!==null)return wine;
+  const prasads = prasadsSourceClearAt(l,x,z); if(prasads!==null)return prasads;
+  const library = osmaniaLibraryClearAt(l,x,z); if(library!==null)return library;
+  const ou = osmaniaArtsClearAt(l,x,z); if(ou!==null)return ou;
   const college = collegeCampusClearAt(l,x,z); if(college!==null)return college;
   const destination = destinationHeroClearAt(l, x, z); if (destination != null) return destination;
   const mapped = mappedLandmarkClearAt(l, x, z);
@@ -556,21 +563,7 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
   },
   // OU Arts College: pink-grey granite quadrangle, tall central gateway with one giant pointed-arch recess, arcaded
   // wings over a columned verandah (front = SSE)
-  ouarts(K) {
-    const P = '#C4A597', Pm = '#A98D81', Sh = '#5E4C45';
-    const hs = 54, H = 17, dW = 16;
-    for (const [u, v, w, d] of [[0, hs - dW / 2, 2 * hs, dW], [0, -hs + dW / 2, 2 * hs, dW], [hs - dW / 2, 0, dW, 2 * hs - 2 * dW], [-hs + dW / 2, 0, dW, 2 * hs - 2 * dW]]) { K.box(u, v, 0, w, H, d, P); K.solidRect(u, v, w, d, H); }
-    K.arcade('archSlim', -hs, hs + 0.05, -10, hs + 0.05, 13, 8.8, 7.2, 0.6, Pm); K.arcade('archSlim', 10, hs + 0.05, hs, hs + 0.05, 13, 8.8, 7.2, 0.6, Pm);
-    for (let i = -hs + 3; i < hs - 2; i += 6.5) if (Math.abs(i) > 11) K.box(i, hs + 0.3, 3, 0.9, 5.6, 0.9, Pm);
-    K.box(0, hs + 0.1, 8.4, 2 * hs, 0.5, 1.4, Pm); K.box(0, 0, H, 2 * hs + 1, 0.6, 2 * hs + 1, Pm);
-    for (let i = -hs; i <= hs; i += 2.4) K.box(i, hs, H + 0.6, 1.0, 0.9, 0.7, P);
-    // central gateway
-    K.box(0, hs + 1, 0, 20, 28, 12, P); K.shape('archSlim', 0, hs + 7.05, 1.5, 15, 23, 0.4, Sh); K.shape('archSlim', 0, hs + 7.15, 1.5, 13, 21, 0.3, Pm);
-    for (const s of [-1, 1]) K.box(s * 9.4, hs + 7.2, 0, 1.2, 28.6, 1.2, Pm);
-    for (let i = -9; i <= 9; i += 2) K.box(i, hs + 7, 28, 1.0, 1.0, 0.8, P);
-    K.box(0, hs + 10, 0, 22, 1.2, 8, Pm); K.box(0, hs - 6, 0, 26, 24, 14, P);
-    K.solidRect(0, hs + 1, 20, 12, 28); K.solidRect(0, hs - 6, 26, 14, 24);
-  },
+  ouarts(K) { drawOsmaniaArts(K); },
   // ---------------- Modern Hyderabad ----------------
   // Cyber Towers: 10-storey peach drum (R 46.5 m) wrapped in a white diamond lattice, two deep wedge notches
   // (NE and SW) showing a curved green glass core, white pergola crown on the roof. Front (rot) = NE notch.

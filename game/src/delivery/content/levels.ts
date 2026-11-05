@@ -24,6 +24,7 @@ export function validateLevels(input: unknown): LevelConfig[] {
     if (!callModes.has(level.callMode)) bad('unknown call mode.');
     if (level.callMode === 'NONE' ? !Array.isArray(level.script) || level.script.length !== 0 : !scriptValid(level.script)) bad('call script is invalid.');
     if (level.callMode === 'NONE' && (level.revealAt !== 'afterDelivery' || level.nagScript || level.bonusScript)) bad('scene-only levels cannot require a call.');
+    if (level.storyScript && !scriptValid(level.storyScript)) bad('cinematic script is invalid.');
     if (level.nagScript && !scriptValid(level.nagScript)) bad('nag script is invalid.');
     if (level.callMode === 'CUSTOMER_NAGS_EN_ROUTE' && !scriptValid(level.nagScript)) bad('nag call needs a script.');
     if (level.bonusScript && !scriptValid(level.bonusScript)) bad('bonus script is invalid.');

@@ -1,0 +1,64 @@
+{
+  "id": "kajal-indu-authored-rig-v1-measured-background-cleanup-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-seated-cloth-refinement-v1-seated-role-v1-continuous-elbows-v1-native-front-face-projection-v1-seated-role-v1-continuous-elbows-v1-mobile-jpeg89-v1",
+  "sceneName": "ReviewedCharacterScene",
+  "requireSkin": true,
+  "nodes": {
+    "leftArm": "LeftArm",
+    "rightArm": "RightArm",
+    "catchPoint": "PizzaCatch"
+  },
+  "pose": {
+    "mode": "handoff-clip",
+    "clipName": "InduWave",
+    "upperBodyNodes": [
+      "RightShoulder",
+      "RightArm",
+      "RightForeArm",
+      "RightWristTwist",
+      "RightHand",
+      "RightIndex1",
+      "RightIndex2",
+      "RightIndex3",
+      "RightMiddle1",
+      "RightMiddle2",
+      "RightMiddle3",
+      "RightRing1",
+      "RightRing2",
+      "RightRing3",
+      "RightPinky1",
+      "RightPinky2",
+      "RightPinky3",
+      "RightThumb1",
+      "RightThumb2",
+      "RightThumb3"
+    ]
+  },
+  "motions": {
+    "required": [
+      "idle",
+      "walk",
+      "dance",
+      "read"
+    ],
+    "clips": {
+      "idle": {
+        "clipName": "Idle"
+      },
+      "walk": {
+        "clipName": "Walk",
+        "metresPerCycle": 0.9
+      },
+      "dance": {
+        "clipName": "Dance"
+      },
+      "read": {
+        "clipName": "Read"
+      }
+    }
+  },
+  "height": {
+    "min": 1.5675,
+    "max": 1.7325
+  },
+  "materialTreatment": "as-authored"
+}

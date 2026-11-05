@@ -9,11 +9,11 @@ const shapes=(svg:string)=>svg.replace(/<text\b[^>]*>[\s\S]*?<\/text>/g,'')
   .replace(/\s(?:aria-label|data-build|class|fill|stroke|stroke-width|font-[\w-]+|role|xmlns)="[^"]*"/g,'');
 const withoutPaving=(svg:string)=>svg.replace(/<g data-build="terrace-paving">[\s\S]*?<\/g>/,'');
 
-test('each of the fourteen completed deliveries adds genuinely different restaurant construction geometry',()=>{
+test('each configured delivery adds genuinely different restaurant construction geometry',()=>{
   const levels=loadLevels(),art=levels.map((level,i)=>restaurantArt(i+1,levels.length,level.restaurantStage));
-  assert.equal(new Set(art.map(svg=>shapes(withoutPaving(svg)))).size,14,'structural upgrades themselves are all different, even without paving stones, text or colours');
+  assert.equal(new Set(art.map(svg=>shapes(withoutPaving(svg)))).size,levels.length,'structural upgrades themselves are all different, even without paving stones, text or colours');
   for(let i=1;i<art.length;i++)assert.notEqual(shapes(art[i]),shapes(art[i-1]),`level${i+1} visibly advances beyond level${i}`);
-  for(const[step,feature]of[[1,'cart'],[2,'canopy'],[3,'stall-frame'],[4,'counter-oven'],[5,'takeaway-counter'],[6,'shop'],[7,'shop-seating'],[8,'brick-oven'],[9,'kitchen'],[10,'dining-room'],[11,'terrace'],[12,'finished-facade'],[13,'installed-sign'],[14,'grand-opening']] as const)
+  for(const[step,feature]of[[1,'cart'],[2,'canopy'],[3,'stall-frame'],[4,'counter-oven'],[5,'takeaway-counter'],[6,'shop'],[7,'shop-seating'],[8,'brick-oven'],[9,'kitchen'],[10,'dining-room'],[11,'terrace'],[12,'finished-facade'],[13,'installed-sign'],[15,'delivery-hatch'],[16,'roof-garden'],[17,'patio-lights'],[18,'delivery-garage'],[19,'grand-opening']] as const)
     assert.ok(art[step-1].includes(`data-build="${feature}"`),`${feature} is built at the matching authored milestone`);
 });
 

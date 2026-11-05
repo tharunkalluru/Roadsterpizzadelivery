@@ -401,7 +401,7 @@
               "center": [
                 0.003055731886134491,
                 1.170329534367637,
-                -9.140208601066124e-05
+                -0.00009140208601066124
               ],
               "radius": 0.311213491472463
             },
@@ -577,7 +577,7 @@
               "center": [
                 -0.006348112255560284,
                 0.8271495960560256,
-                -5.719912477414324e-07
+                -5.719912477414324e-7
               ],
               "radius": 0.9105395672523668
             },
@@ -2611,7 +2611,7 @@
             "geometry_0": {
               "vertexCount": 26696,
               "center": [
-                -9.549290762198015e-05,
+                -0.00009549290762198015,
                 0.8018177304933872,
                 0.0330507619005867
               ],
@@ -3307,6 +3307,1060 @@
         "height": {
           "min": 1.7859999999999998,
           "max": 1.974
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "balayya-chennakesava",
+      "candidate": {
+        "assetId": "balayya-chennakesava-independent-appearance-v28",
+        "sha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113"
+      },
+      "glb": {
+        "url": "/delivery/characters/balayya-chennakesava/actor-v28.glb",
+        "sha256": "b77a014e627e68af453b34e164ed2c66a1d57a86723e1687df7f7850fab624b9"
+      },
+      "contractPath": "public/delivery/characters/balayya-chennakesava/actor-v28.rig.json",
+      "contract": {
+        "id": "balayya-chennakesava-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-mobile-jpeg89-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "RightShoulder",
+            "LeftArm",
+            "RightArm",
+            "LeftForeArm",
+            "RightForeArm",
+            "LeftHand",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8666666666666667
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "b77a014e627e68af453b34e164ed2c66a1d57a86723e1687df7f7850fab624b9",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.02,
+            "poseCount": 5983,
+            "clips": [
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 52
+              },
+              {
+                "name": "PreservedOriginalIdle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "RightShoulder",
+                "LeftArm",
+                "RightArm",
+                "LeftForeArm",
+                "RightForeArm",
+                "LeftHand",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightWristTwist"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "balayya-chennakesava-review-mesh": {
+              "vertexCount": 15547,
+              "center": [
+                -0.028628086970030137,
+                0.779074116396867,
+                0.03287190911338822
+              ],
+              "radius": 1.0241445437528893
+            },
+            "LeftAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                0.2535114416112242,
+                0.9977640563122577,
+                0.22179228051532526
+              ],
+              "radius": 0.47280773167776025
+            },
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                0.2572010132551159,
+                0.9921352923959754,
+                0.2030950507201932
+              ],
+              "radius": 0.5574650334117053
+            },
+            "RightAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                -0.2531864018589009,
+                1.2230970896520126,
+                0.22529984995555669
+              ],
+              "radius": 0.6229843664622379
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                -0.2609323816353756,
+                1.210398919480239,
+                0.20434168478647885
+              ],
+              "radius": 0.7036868089536169
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "mahesh-athadu",
+      "candidate": {
+        "assetId": "mahesh-athadu-independent-appearance-v20",
+        "sha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9"
+      },
+      "glb": {
+        "url": "/delivery/characters/mahesh-athadu/actor-v20.glb",
+        "sha256": "c8a62c4dafd108b5509c8103257107cd6c4860b97debdc258584df0b553766b4"
+      },
+      "contractPath": "public/delivery/characters/mahesh-athadu/actor-v20.rig.json",
+      "contract": {
+        "id": "mahesh-athadu-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-mobile-jpeg89-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "RightShoulder",
+            "LeftArm",
+            "RightArm",
+            "LeftForeArm",
+            "RightForeArm",
+            "LeftHand",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8857142857142857
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "c8a62c4dafd108b5509c8103257107cd6c4860b97debdc258584df0b553766b4",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.02,
+            "poseCount": 5983,
+            "clips": [
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 52
+              },
+              {
+                "name": "PreservedOriginalIdle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "RightShoulder",
+                "LeftArm",
+                "RightArm",
+                "LeftForeArm",
+                "RightForeArm",
+                "LeftHand",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightWristTwist"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAnatomicalWristTransition": {
+              "vertexCount": 84,
+              "center": [
+                0.28114658362369216,
+                1.003093132879626,
+                0.1469948292420113
+              ],
+              "radius": 0.4515458417237092
+            },
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                0.2852834465465943,
+                0.954459063567029,
+                0.1962357432345928
+              ],
+              "radius": 0.5234119369620883
+            },
+            "mahesh-athadu-review-mesh": {
+              "vertexCount": 13393,
+              "center": [
+                -0.0011355505229702079,
+                0.8206499560466202,
+                0.022491194738438136
+              ],
+              "radius": 1.1012638353113933
+            },
+            "RightAnatomicalWristTransition": {
+              "vertexCount": 92,
+              "center": [
+                -0.2776898408094901,
+                1.2423396979561765,
+                0.13713949497844524
+              ],
+              "radius": 0.5941450672945561
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                -0.2842474005200537,
+                1.223290011701968,
+                0.1869035745928923
+              ],
+              "radius": 0.6876275231013504
+            }
+          }
+        },
+        "height": {
+          "min": 1.767,
+          "max": 1.9530000000000003
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "shankar-dada",
+      "candidate": {
+        "assetId": "shankar-dada-independent-appearance-v24",
+        "sha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a"
+      },
+      "glb": {
+        "url": "/delivery/characters/shankar-dada/actor-v24.glb",
+        "sha256": "2801fe2aaae22e878cd786a92e2c81a5c09e956e9ce9969eafc8c674dae6ecd4"
+      },
+      "contractPath": "public/delivery/characters/shankar-dada/actor-v24.rig.json",
+      "contract": {
+        "id": "shankar-dada-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-native-trouser-spill-repair-v1-mobile-jpeg89-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "RightShoulder",
+            "LeftArm",
+            "RightArm",
+            "LeftForeArm",
+            "RightForeArm",
+            "LeftHand",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8476190476190476
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "2801fe2aaae22e878cd786a92e2c81a5c09e956e9ce9969eafc8c674dae6ecd4",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.02,
+            "poseCount": 5983,
+            "clips": [
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 52
+              },
+              {
+                "name": "PreservedOriginalIdle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "RightShoulder",
+                "LeftArm",
+                "RightArm",
+                "LeftForeArm",
+                "RightForeArm",
+                "LeftHand",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightWristTwist"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                0.255172082627934,
+                0.9900938944018786,
+                0.17604954631950714
+              ],
+              "radius": 0.4912349928726298
+            },
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                0.25912812351784187,
+                0.9849755137769471,
+                0.1759284429518282
+              ],
+              "radius": 0.5646278937278902
+            },
+            "RightAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                -0.2567871993422357,
+                0.9773756256898959,
+                0.1740073702047949
+              ],
+              "radius": 0.48222061754191553
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                -0.2606147359044385,
+                0.9718239459672318,
+                0.17520367193259984
+              ],
+              "radius": 0.5550891921774725
+            },
+            "shankar-dada-review-mesh": {
+              "vertexCount": 14258,
+              "center": [
+                -0.009482619250136243,
+                0.7570199581809588,
+                0.018504705925401266
+              ],
+              "radius": 0.9868505341587218
+            }
+          }
+        },
+        "height": {
+          "min": 1.6909999999999998,
+          "max": 1.8690000000000002
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "venkatesh-raja",
+      "candidate": {
+        "assetId": "venkatesh-raja-independent-appearance-v24",
+        "sha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364"
+      },
+      "glb": {
+        "url": "/delivery/characters/venkatesh-raja/actor-v24.glb",
+        "sha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9"
+      },
+      "contractPath": "public/delivery/characters/venkatesh-raja/actor-v24.rig.json",
+      "contract": {
+        "id": "venkatesh-raja-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-seated-cloth-refinement-v1-seated-role-v1-continuous-elbows-v1-mobile-jpeg89-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.9
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.02,
+            "poseCount": 7145,
+            "clips": [
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "PreservedSeatedSourceIdle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightWristTwist"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                0.3657204203148632,
+                0.7570313877483402,
+                0.15621710590658044
+              ],
+              "radius": 0.4882648364862743
+            },
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                0.3490160482823164,
+                0.8343249706858575,
+                0.17858092529873523
+              ],
+              "radius": 0.624965180272792
+            },
+            "LeftAuthoredElbowTransition": {
+              "vertexCount": 128,
+              "center": [
+                0.3151702137381154,
+                0.9945108293096323,
+                0.047579861801264084
+              ],
+              "radius": 0.4045266388725783
+            },
+            "RightAnatomicalWristTransition": {
+              "vertexCount": 98,
+              "center": [
+                -0.34778970067135495,
+                0.78303446891071,
+                0.1390438261190896
+              ],
+              "radius": 0.5183750372550269
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                -0.32899452196007317,
+                0.8326208944924479,
+                0.15403365197116176
+              ],
+              "radius": 0.6314573427784324
+            },
+            "RightAuthoredElbowTransition": {
+              "vertexCount": 128,
+              "center": [
+                -0.26914999254871064,
+                0.9949886072551912,
+                0.01108385431999842
+              ],
+              "radius": 0.40680786973354144
+            },
+            "venkatesh-raja-review-mesh": {
+              "vertexCount": 13806,
+              "center": [
+                0.00004748131328957683,
+                0.7737239549463981,
+                0.05963326824500431
+              ],
+              "radius": 1.0250409777139686
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "kajal-indu",
+      "candidate": {
+        "assetId": "kajal-indu-independent-appearance-v57",
+        "sha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393"
+      },
+      "glb": {
+        "url": "/delivery/characters/kajal-indu/actor-v57.glb",
+        "sha256": "348ed7055ae68b6e4f6268976c7c4500e5e922cdf03dcd8842370bb9c7b09227"
+      },
+      "contractPath": "public/delivery/characters/kajal-indu/actor-v57.rig.json",
+      "contract": {
+        "id": "kajal-indu-authored-rig-v1-measured-background-cleanup-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-seated-cloth-refinement-v1-seated-role-v1-continuous-elbows-v1-native-front-face-projection-v1-seated-role-v1-continuous-elbows-v1-mobile-jpeg89-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "InduWave",
+          "upperBodyNodes": [
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.9
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "348ed7055ae68b6e4f6268976c7c4500e5e922cdf03dcd8842370bb9c7b09227",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.02,
+            "poseCount": 7187,
+            "clips": [
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "InduWave",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "PreservedSeatedSourceIdle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "InduWave",
+              "upperBodyNodes": [
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightWristTwist",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "geometry_0": {
+              "vertexCount": 13064,
+              "center": [
+                0.013765183584489277,
+                0.6776542976836127,
+                0.18593943131619117
+              ],
+              "radius": 0.9414831829511909
+            },
+            "geometry_0_1": {
+              "vertexCount": 4,
+              "center": [
+                0.07689003668727358,
+                1.0293725959002873,
+                0.0464746791398457
+              ],
+              "radius": 0.2533943501394704
+            },
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                0.33659443634930997,
+                0.7423702250337265,
+                0.2094676205521832
+              ],
+              "radius": 0.5732946544308021
+            },
+            "LeftAuthoredElbowTransition": {
+              "vertexCount": 128,
+              "center": [
+                0.27191158129636517,
+                0.8952535881425912,
+                0.08932943348722062
+              ],
+              "radius": 0.3719684301364481
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 2502,
+              "center": [
+                -0.19599962205845767,
+                0.9385691634603283,
+                0.27849546992834656
+              ],
+              "radius": 0.7468561784250538
+            },
+            "RightAuthoredElbowTransition": {
+              "vertexCount": 128,
+              "center": [
+                -0.18549287447969226,
+                0.9339463403733228,
+                0.13258779379776475
+              ],
+              "radius": 0.42185129192307447
+            }
+          }
+        },
+        "height": {
+          "min": 1.5675,
+          "max": 1.7325
         },
         "materialTreatment": "as-authored"
       }

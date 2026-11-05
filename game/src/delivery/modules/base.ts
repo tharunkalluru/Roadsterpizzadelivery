@@ -162,7 +162,14 @@ export abstract class ModuleBase implements DeliveryModule {
     this.status.canDrop=false;this.status.instruction=flight<1?'Passing the pizza…':'Caught it!';
     if(handoff.elapsed>=.75){
       this.handoff=null;this.handoffPizza!.visible=false;
-      handoff.receiver.receivePizza?.();
+      const received=handoff.receiver.receivePizza?.()===true;
+      if(!received&&this.params.retainReceivedCarton===true){
+        // A receiver without a meal performance still owns the delivered box.
+        // Preserve its horizontal world pose when parenting to the actual catch anchor.
+        const anchor=handoff.receiver.catchPoint??handoff.receiver.group;
+        anchor.updateWorldMatrix(true,false);anchor.attach(this.handoffPizza!);
+        this.handoffPizza!.name='delivery-received-carton';this.handoffPizza!.visible=true;
+      }
       handoff.after(); // Completion may synchronously tear down the entire module.
     }
   }

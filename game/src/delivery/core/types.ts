@@ -6,7 +6,7 @@ export type DeliveryModuleName = 'matchAndLand' | 'threadGap' | 'beatDrop' | 'un
 
 export interface Destination { label: string; x: number; z: number; y?: number; lat?: number; lon?: number }
 export interface Celebrity { name: string; movie: string; image: string }
-export interface ScriptLine { who: 'customer' | 'player'; text: string; replies?: string[]; reveal?: boolean }
+export interface ScriptLine { who: 'customer' | 'player'; text: string; speaker?:string; replies?: string[]; reveal?: boolean }
 export interface LevelVariant {
   celebrity?: Partial<Celebrity>;
   destination?: Destination;
@@ -24,6 +24,8 @@ export interface LevelConfig {
   callMode: CallMode;
   revealAt: 'callLine' | 'afterDelivery';
   script: ScriptLine[];
+  /** Automatic scene dialogue; independent from phone-call gating. */
+  storyScript?: ScriptLine[];
   nagScript?: ScriptLine[];
   bonusScript?: ScriptLine[];
   module: DeliveryModuleName;

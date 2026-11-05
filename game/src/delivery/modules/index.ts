@@ -1,3 +1,5 @@
+import { RajaAutoDelivery, InduBusDelivery } from './moving-cinematic-scenes';
+import { CinematicVenue } from './cinematic-venues';
 import type { DeliveryModule, DeliveryModuleName } from './types';
 import { MatchAndLand } from './match-and-land';
 import { ThreadGap } from './thread-gap';
@@ -9,7 +11,7 @@ import { RopeBucket, GateDelivery, WalkingHandoff, WeddingHandoff, AngleParking,
 
 const constructors = { matchAndLand: MatchAndLand, threadGap: ThreadGap, beatDrop: BeatDrop, underwater: Underwater, chainDrop: ChainDrop } satisfies Record<DeliveryModuleName, new () => DeliveryModule>;
 const registry = new Map<string, new () => DeliveryModule>(Object.entries({ ...constructors,
-  ropeBucket: RopeBucket, gateDelivery: GateDelivery, walkingHandoff: WalkingHandoff,
+  rajaAutoDelivery:RajaAutoDelivery,induBusDelivery:InduBusDelivery, cinematicVenue:CinematicVenue, ropeBucket: RopeBucket, gateDelivery: GateDelivery, walkingHandoff: WalkingHandoff,
   weddingHandoff: WeddingHandoff, angleParking: AngleParking, classroomHandoff: ClassroomHandoff, metroRide: MetroRide }));
 /** A genuinely unique future setpiece plugs in without changing the content schema. */
 export function registerDeliveryModule(name: string, Constructor: new () => DeliveryModule) {

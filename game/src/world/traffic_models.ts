@@ -10,7 +10,7 @@ import { archedSide,archLip,carCanopy,facePanel,formedCabFrame,ellipticalLoft,cy
 // optional text decals and its footprint size [width, height, length]. Local frame: ground y=0, front toward -z.
 const PI = Math.PI;
 export interface LampAnchor { x: number; y: number; z: number }
-export interface Model { body: Batch; lights: Batch; tailLights?: Batch; reverseLights?: Batch; headlights?: readonly LampAnchor[]; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string; quoteId?: string; archetype?:string; occupants?:VehicleOccupant[] }
+export interface Model { body: Batch; lights: Batch; tailLights?: Batch; reverseLights?: Batch; headlights?: readonly LampAnchor[]; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string; quoteId?: string; archetype?:string; occupants?:VehicleOccupant[]; driverVertexRange?:readonly[number,number] }
 
 // Lamp surfaces sit beyond the body skin, so paint cannot hide them from an
 // exterior camera. Headlights stay in the shared emissive batch; separate rear
@@ -246,7 +246,9 @@ export function auto(r: Rng, quoteIndex = r.int(0, 9)): Model {
   // handlebar, driver in khaki, passenger bench
   b.box(0,1.05,-.86,.57,.035,.035,'#3a3840');
   seat(b,0,.735,-.42,.43);
+  const driverStart=b.pos.length/3;
   rider(b,{kind:'shirt',s:1,skin:r.pick(['#6e452f','#7d5135','#8d5a3b','#9c6644']),hair:'#141216',a:'#A3895A',b:'#6f6a60',c:'#1b1a1f',walk:1},0,.76,-.42,'rickshawDriver');
+  const driverVertexRange=[driverStart,b.pos.length/3] as const;
   b.box(0,.72,.78,1.16,.12,.5,'#5a2a24');b.box(0,1.00,1.05,1.16,.5,.08,'#5a2a24');
   const occupants:VehicleOccupant[]=[{role:'driver',x:0,hipY:.76,z:-.42,scale:1,control:{x:0,y:1.05,z:-.86}}];
   const pax = r.int(0, 3);
@@ -268,7 +270,7 @@ export function auto(r: Rng, quoteIndex = r.int(0, 9)): Model {
   const quote = autoQuote(quoteIndex);
   const quoteMaterial = new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture(quote.lines.map(text => ({ text, font: '700 {s}px "Noto Sans Telugu", sans-serif', color: '#FFF6DC', size: 52 })), 768, 224, K) });
   return {body:b,lights:l,...lighting,size:[1.36,1.85,2.65],decals:[glass(g),decal(.42,.11,plate,0,.62,1.31),decal(1.17,.5,quoteMaterial,0,1.34,1.35)],kind:'auto',archetype:'auto-rickshaw',quoteId:quote.id,
-    occupants};
+    occupants,driverVertexRange};
 }
 
 // ---------------- two-wheelers ----------------

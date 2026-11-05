@@ -1,0 +1,228 @@
+{
+  "file": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-head-cpu-v3.glb",
+  "sha256": "4d48d7670df27e4bbd255b6a1ca6dead1c7be66521a4a26b01a6f1986f8a9091",
+  "bytes": 4405004,
+  "vertices": 69636,
+  "triangles": 85804,
+  "seconds": 44.272215375,
+  "device": "cpu",
+  "sourceSha256": "9545c6a509f5d1d6e3ded0b315af1f489b81b1d6f5d8dbdc12e02a3acabe3f1f",
+  "resolution": 192,
+  "memorySamples": [
+    {
+      "stage": "before-load",
+      "systemFreePercent": 52,
+      "rssBytes": 319258624,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "weights-ready",
+      "systemFreePercent": 37,
+      "rssBytes": 342933504,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-0:8",
+      "systemFreePercent": 40,
+      "rssBytes": 698286080,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-8:16",
+      "systemFreePercent": 40,
+      "rssBytes": 703496192,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-16:24",
+      "systemFreePercent": 40,
+      "rssBytes": 705232896,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-24:32",
+      "systemFreePercent": 40,
+      "rssBytes": 706363392,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-32:40",
+      "systemFreePercent": 40,
+      "rssBytes": 708608000,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-40:48",
+      "systemFreePercent": 40,
+      "rssBytes": 709836800,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-48:56",
+      "systemFreePercent": 40,
+      "rssBytes": 711016448,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-56:64",
+      "systemFreePercent": 40,
+      "rssBytes": 712196096,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-64:72",
+      "systemFreePercent": 41,
+      "rssBytes": 713375744,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-72:80",
+      "systemFreePercent": 40,
+      "rssBytes": 714555392,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-80:88",
+      "systemFreePercent": 41,
+      "rssBytes": 715735040,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-88:96",
+      "systemFreePercent": 41,
+      "rssBytes": 716898304,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-96:104",
+      "systemFreePercent": 40,
+      "rssBytes": 718077952,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-104:112",
+      "systemFreePercent": 41,
+      "rssBytes": 719290368,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-112:120",
+      "systemFreePercent": 41,
+      "rssBytes": 720486400,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-120:128",
+      "systemFreePercent": 41,
+      "rssBytes": 701186048,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-128:136",
+      "systemFreePercent": 40,
+      "rssBytes": 535412736,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-136:144",
+      "systemFreePercent": 38,
+      "rssBytes": 475168768,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-144:152",
+      "systemFreePercent": 38,
+      "rssBytes": 476348416,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-152:160",
+      "systemFreePercent": 38,
+      "rssBytes": 477511680,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-160:168",
+      "systemFreePercent": 38,
+      "rssBytes": 478674944,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-168:176",
+      "systemFreePercent": 39,
+      "rssBytes": 479854592,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-176:184",
+      "systemFreePercent": 38,
+      "rssBytes": 477511680,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-184:192",
+      "systemFreePercent": 38,
+      "rssBytes": 466452480,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "mesh-complete",
+      "systemFreePercent": 37,
+      "rssBytes": 487211008,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "texture-rows-0:8",
+      "systemFreePercent": 42,
+      "rssBytes": 195002368,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-128:136",
+      "systemFreePercent": 42,
+      "rssBytes": 197410816,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-256:264",
+      "systemFreePercent": 42,
+      "rssBytes": 199655424,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-384:392",
+      "systemFreePercent": 42,
+      "rssBytes": 201752576,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-512:520",
+      "systemFreePercent": 42,
+      "rssBytes": 203816960,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-640:648",
+      "systemFreePercent": 41,
+      "rssBytes": 199229440,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-768:776",
+      "systemFreePercent": 41,
+      "rssBytes": 200785920,
+      "mpsDriverBytes": 173834240
+    },
+    {
+      "stage": "texture-rows-896:904",
+      "systemFreePercent": 41,
+      "rssBytes": 202883072,
+      "mpsDriverBytes": 173834240
+    }
+  ],
+  "maxRssBytes": 720486400,
+  "maxMpsDriverBytes": 173834240,
+  "textureSize": 1024,
+  "backend": "official MIT TripoSR weights, explicit CPU neural inference/query, local CPU scikit-image marching cubes and original native OpenGL texture baker",
+  "release": "unapproved, independent actual comparison required"
+}

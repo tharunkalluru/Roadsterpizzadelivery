@@ -8,6 +8,8 @@ export interface CampaignScenario {
   requiredFacts: readonly string[];
   visualChecks: readonly string[];
   artIds: readonly string[];
+  completionKind?:'handoff'|'placement'|'overtake';
+  requiresVisibleActor?:boolean;
 }
 
 /** Acceptance instructions, not a completion script. The game still owns every
@@ -80,12 +82,40 @@ export const CAMPAIGN_SCENARIOS: readonly CampaignScenario[] = [
     requiredFacts: ['classroom-doorway', 'grounded-arrival', 'manual-handoff'],
     visualChecks: ['A doorway/room identity and medical classroom context replace an isolated number post.', 'Arjun Reddy appearance matches the film reference.'], artIds: ['arjun-reddy'] },
   { id: 'between-overs', title: 'Nani · Uppal Stadium',
-    manualSteps: ['Reach the actual stadium delivery marker.', 'Watch the automatic landing/positioning on the existing turf and physical handoff during the real break-between-overs window.', 'View Nani until Next; then inspect the restaurant opening and Explore action.'],
+    manualSteps: ['Reach the actual stadium delivery marker.', 'Watch the automatic landing/positioning on the existing turf and physical handoff during the real break-between-overs window.', 'View Nani until Next, then verify loading into the next delivery; the restaurant opens only after the configured final level.'],
     negativeTrial: 'A wrong beat, airborne car or outside-stadium press must fail without a penalty.',
     requiredFacts: ['real-stadium-surface', 'valid-timing-window', 'grounded-arrival', 'manual-handoff', 'final-opening'],
     visualChecks: ['Original oval field, wicket, stands and floodlights remain; no roads/traffic or duplicate pitch.', 'Jersey Nani is recognizable and physically present at the handoff.'], artIds: ['nani-jersey'] },
+  {id:'balayya-wine-mart',title:'Balayya · Q by Tonique',requiresVisibleActor:true,
+   manualSteps:['Jump-grab an order and drive to the researched wine-mart entrance.','Stop inside the blue marker; verify Balayya speaks inside holding the bottle and phone, then walks to the doorway for the physical pizza handoff.','Inspect his Chennakesava Reddy appearance and retained scene, then choose Next.'],
+   negativeTrial:'Flying above the shop, rolling through the marker or stopping behind the building must not capture the story.',
+   requiredFacts:['grounded-arrival','bound-bottle-visible','bound-phone-visible','receiver-walked-to-door','manual-handoff'],
+   visualChecks:['The verified Q by Tonique Film Nagar address has a readable shop identity and clear road entrance; the authored frontage and interior are documented as approximations.','Chennakesava Reddy Balayya is recognizable; Mansion House bottle and phone are genuinely held, not floating beside his hands.'],artIds:['balayya-chennakesava']},
+  {id:'shankar-arts-corridor',title:'Shankar Dada · Osmania University',requiresVisibleActor:true,
+   manualSteps:['Jump-grab an order and approach Osmania University Arts College through its real campus roads.','Stop on the ground marker; watch the corridor sequence with Shankar holding the X-ray and wearing the stethoscope.','Observe the physical handoff and held character view before Next.'],
+   negativeTrial:'A flyby, nearby rooftop or wrong campus cannot start the corridor story or advance progress.',
+   requiredFacts:['grounded-arrival','bound-xray-visible','stethoscope-present','manual-handoff'],
+   visualChecks:['Osmania University Arts College, open corridor, campus buildings and access follow the mapped campus; it is not Osmania Medical College.','Shankar Dada MBBS appearance, actual X-ray grip and stethoscope match the scene reference; corridor columns do not hide the face.'],artIds:['shankar-dada']},
+  {id:'athadu-prasads-booth',title:'Athadu · Prasads interior telephone',completionKind:'placement',requiresVisibleActor:true,
+   manualSteps:['Catch an order and stop at the actual Prasads entrance steps.','Watch Mahesh remain inside the interior telephone booth during the automatic conversation.','Observe the carton left on the entrance steps, with no customer collection, and retain the view until Next.'],
+   negativeTrial:'A hovering car, remote interaction or a phone prop without its actual actor cannot certify this delivery.',
+   requiredFacts:['grounded-arrival','bound-phone-visible','receiver-stays-in-booth','pizza-left-on-steps'],
+   visualChecks:['The booth is inside Prasads and the carton rests on the actual entrance steps.','Mahesh matches the Athadu Prasads phone scene; the handset meets his hand/ear and he remains in the booth after delivery.'],artIds:['mahesh-athadu']},
+  {id:'raja-moving-auto',title:'Raja · Moving auto right-side handoff',requiresVisibleActor:true,
+   manualSteps:['Catch an order, then approach the actual marked auto from its right on a legal same-direction lane.','Match speed on the road to trigger the blue marker; watch the actual auto and car continue moving during dialogue and handoff.','Hold the completed moving view until Next; separately test a stopped pre-entry carrier recycling without jumping at a brief signal.'],
+   negativeTrial:'Left-side approach, opposing heading, unmatched speed, flight or a missing carrier must not start the story.',
+   requiredFacts:['moving-right-side-entry','selected-auto-continuity','manual-handoff'],
+   visualChecks:['Raja resembles Venkatesh in the film, seated correctly in khaki at the actual auto controls with no duplicate generic driver.','The side camera clearly shows him while both vehicles follow real lanes; no disappearing auto or teleport occurs.'],artIds:['venkatesh-raja']},
+  {id:'indu-moving-bus',title:'Indu · RTC bus chunni and overtake',completionKind:'overtake',requiresVisibleActor:true,
+   manualSteps:['Jump-grab an order and reach the moving blue marker behind the bus in its right-side lane, with the bus in the left lane.','Watch Indu wave from the actual bus window and the chunni fall onto the windshield and stay there throughout the conversation.','Watch the car overtake without giving away the pizza; inspect the retained moving view, then choose final Next and observe the restaurant opening.'],
+   negativeTrial:'Wrong-lane, airborne or remote approaches cannot capture; controller completion without a retained chunni, actual overtake and retained pizza is insufficient.',
+   requiredFacts:['behind-right-bus-entry','selected-bus-continuity','chunni-windshield-retained','indu-window-wave','player-overtook-bus','pizza-retained','final-opening'],
+   visualChecks:['Indu matches Kajal in Magadheera, wears white and visibly peeks/waves from the right RTC window; no friend model is required.','The chunni stays on the windshield; the car visibly passes the bus while keeping the pizza, and both vehicles remain rendered on real lanes.'],artIds:['kajal-indu']},
+
 ];
 
+export const campaignCompletionKind=(id:string)=>campaignScenario(id)?.completionKind??'handoff';
+export const campaignAutomaticCompletionFact=(id:string)=>`automatic-${campaignCompletionKind(id)}`;
 export const campaignScenario = (id: string) => CAMPAIGN_SCENARIOS.find(scenario => scenario.id === id);
 /** The same scenery also supports the older call/manual-drop campaign. Its
  * proof must not silently become automatic just because the current content
@@ -94,9 +124,10 @@ export function campaignRequiredFacts(level: Pick<LevelConfig, 'id' | 'callMode'
   const scenario=campaignScenario(level.id);if(!scenario)return [];
   if(level.callMode!=='NONE')return [...scenario.requiredFacts];
   const replaced=new Set(['manual-handoff','truck-exit','compound-exit','resurfaced','dive-action','rail-multiple-coaches']);
-  return [...scenario.requiredFacts.filter(fact=>!replaced.has(fact)),
+  const kind=campaignCompletionKind(level.id);
+  return [...scenario.requiredFacts.filter(fact=>!replaced.has(fact)&&(fact!=='final-opening'||final)),
     ...(level.id==='devara-depths'?['automatic-dive']:[]),
-    'story-captured','physical-pizza-transfer','automatic-handoff','story-viewing-hold',
+    'story-captured',...(kind==='handoff'?['physical-pizza-transfer']:kind==='placement'?['physical-pizza-placement']:[]),campaignAutomaticCompletionFact(level.id),'story-viewing-hold',
     ...(final?['final-next-requested']:['next-requested','direct-next-transition','next-loading','next-road-ready'])];
 }
 export function campaignScenarioURL(level: Pick<LevelConfig, 'level'>, touch = false) {

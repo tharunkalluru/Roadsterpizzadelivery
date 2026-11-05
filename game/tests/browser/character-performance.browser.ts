@@ -55,7 +55,7 @@ document.getElementById('inspect')!.onclick=async()=>{
 (document.getElementById('speech')as HTMLInputElement).oninput=e=>{actor?.setSpeechEnvelope?.(Number((e.target as HTMLInputElement).value));if(paused)actor?.animate?.(.1,'idle',0);};
 document.getElementById('pick')!.onclick=async()=>{
   paused=true;picking=false;(document.getElementById('speech')as HTMLInputElement).value='0';document.getElementById('pause')!.textContent='Resume animation';await load();if(!actor)return;
-  const head=actor.group.getObjectByName('Head'),p=head?.getWorldPosition(new THREE.Vector3());if(p){target.set(p.x,p.y,p.z+.08);distance=.85;orbit=0;elevation=.015;}
+  const head=actor.group.getObjectByName('Head'),p=head?.getWorldPosition(new THREE.Vector3());if(p){target.set(p.x,p.y,p.z+.08);distance=.85;elevation=.015;}
   picking=true;canvas.style.cursor='crosshair';panel.hidden=true;document.getElementById('hint')!.textContent='Click the centre of the visible closed lips · H restores controls';
 };
 approve.onclick=()=>{const a=annotations.get(select.value);if(!a)return;a.review={...a.review,status:'approved',approvedAt:new Date().toISOString()};saveAnnotations();annotationStatus();};
@@ -67,7 +67,8 @@ const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2(),maskPoint=new 
 async function pickAt(event:PointerEvent){if(!actor)return;try{
   const rect=canvas.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);actor.group.updateWorldMatrix(true,true);raycaster.setFromCamera(pointer,camera);
   const hit=raycaster.intersectObject(actor.group,true).find(hit=>{let n:THREE.Object3D|null=hit.object;while(n&&n!==actor!.group){if(!n.visible||n.name.startsWith('received-')||n.name==='delivery-mouth-anchor')return false;n=n.parent;}return n===actor!.group;});
-  if(!hit)throw Error('No visible actor surface at that click.');const annotation=pickFaceAnnotation(actor.group,select.value,hit);annotations.set(select.value,annotation);saveAnnotations();
+  if(!hit)throw Error('No visible actor surface at that click.');
+  const annotation=pickFaceAnnotation(actor.group,select.value,hit,query.get('faceSpace')==='head-local'?'head-local':undefined);annotations.set(select.value,annotation);saveAnnotations();
   picking=false;canvas.style.cursor='';document.getElementById('hint')!.textContent='H · show/hide controls';await load();panel.hidden=false;annotationStatus();
 }catch(error){annotationLabel.textContent=String(error);panel.hidden=false;}}
 let drag:{x:number;y:number}|null=null;canvas.onpointerdown=e=>{if(picking){void pickAt(e);return;}drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);};canvas.onpointermove=e=>{if(!drag)return;orbit-=(e.clientX-drag.x)*.006;elevation=THREE.MathUtils.clamp(elevation+(e.clientY-drag.y)*.004,-.2,.8);drag={x:e.clientX,y:e.clientY};};canvas.onpointerup=canvas.onpointercancel=()=>drag=null;canvas.onwheel=e=>{e.preventDefault();distance=THREE.MathUtils.clamp(distance*(e.deltaY>0?1.08:.92),.5,10);};

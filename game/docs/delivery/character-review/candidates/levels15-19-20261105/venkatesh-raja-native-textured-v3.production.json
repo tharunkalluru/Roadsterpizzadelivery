@@ -1,0 +1,64 @@
+{
+  "status": "UNREVIEWED native mesh\u2192UV authoring; real scene and independent likeness acceptance remain required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-seated-rig-v2.blend",
+  "sourceSha256": "2ed14cfc32a2dfcfabd010e45dbcfcf43170efed3ce71e028863c3be8043f6e0",
+  "fullBodySource": "docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-seated-rig-v2.blend",
+  "fullBodySourceSha256": "2ed14cfc32a2dfcfabd010e45dbcfcf43170efed3ce71e028863c3be8043f6e0",
+  "projectionBodyBounds": [
+    [
+      -0.576572060585022,
+      -0.22957812249660492,
+      -4.604983041645028e-05
+    ],
+    [
+      0.5767499804496765,
+      0.22964982688426971,
+      1.820104956626892
+    ]
+  ],
+  "frontGuide": "docs/delivery/character-review/production/levels15-19-20261105/venkatesh-raja-front-v1.png",
+  "frontSha256": "f0baf4ee34b56ac8f44559bceba505796968cb41bcb54aac0e68988122ac0cfd",
+  "backGuide": "docs/delivery/character-review/production/levels15-19-20261105/venkatesh-raja-back-v1.png",
+  "backSha256": "bcd78377603fcd5fac40c11cb3d4cc21eb943f7b3355fd5a313b179bcbdf29d0",
+  "sideGuides": {},
+  "semanticMask": null,
+  "preservedAllAnimationNames": [
+    "Dance",
+    "Idle",
+    "Read",
+    "TakePizza",
+    "Walk"
+  ],
+  "guideEvidence": "Synthetic artist scaffold with inferred unseen rear, not film evidence",
+  "authoredTexels": 561682,
+  "projectedTexels": 938875,
+  "sourceAlphaValidSamples": 838865,
+  "outsideUvPaddingTexels": 0,
+  "zeroAreaUvTriangles": 0,
+  "fullBodyNativeUvRebake": true,
+  "nativeUvReunwrap": true,
+  "normalRepairs": [],
+  "originalNonzeroPixelsUnchanged": false,
+  "frontDetailedHeadUnchanged": true,
+  "addedNeckSkinLinearColour": null,
+  "producerSha256": "b7c476a683245b115658fd60aa6ae75e2b1a80b27af1d7ad9308e18c4a649ef0",
+  "producerArguments": [
+    "--body-source",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-seated-rig-v2.blend",
+    "--front",
+    "docs/delivery/character-review/production/levels15-19-20261105/venkatesh-raja-front-v1.png",
+    "--back",
+    "docs/delivery/character-review/production/levels15-19-20261105/venkatesh-raja-back-v1.png",
+    "--output",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-native-textured-v3.glb",
+    "--size",
+    "1024",
+    "--rebake-all-body",
+    "--reunwrap",
+    "--cloth-color",
+    ".32",
+    ".25",
+    ".16"
+  ],
+  "outputGlbSha256": "bf90105dde48deadeb932a3b0687468266a1341b4b374d692b1c5ce3c1d39bc6"
+}

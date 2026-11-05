@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { loadLevels } from '../../src/delivery/content/levels';
 import { EventBus, type DeliveryEvents } from '../../src/delivery/core/events';
 import { CampaignQARecorder, type CampaignQANextObservation, type CampaignQAStoryObservation } from '../../src/delivery/qa/campaign-recorder';
-import { campaignRequiredFacts, campaignScenario } from '../../src/delivery/qa/campaign-scenarios';
+import { campaignRequiredFacts, campaignScenario, campaignCompletionKind, campaignAutomaticCompletionFact } from '../../src/delivery/qa/campaign-scenarios';
 import { StoryDirector } from '../../src/delivery/systems/story-director';
 import { DeliveryController } from '../../src/delivery/systems/delivery-controller';
 import { RopeBucket } from '../../src/delivery/modules/street-scenes';
@@ -37,7 +37,9 @@ test('automatic current content replaces manual/exit requirements while legacy c
   const levels=loadLevels();
   for(const level of levels){
     const required=campaignRequiredFacts(level,level===levels.at(-1));
-    for(const fact of ['story-captured','physical-pizza-transfer','automatic-handoff','story-viewing-hold'])assert.ok(required.includes(fact));
+    for(const fact of ['story-captured',campaignAutomaticCompletionFact(level.id),'story-viewing-hold'])assert.ok(required.includes(fact));
+    assert.equal(required.includes('physical-pizza-transfer'),campaignCompletionKind(level.id)==='handoff');
+    assert.equal(required.includes('physical-pizza-placement'),campaignCompletionKind(level.id)==='placement');
     for(const fact of ['manual-handoff','truck-exit','compound-exit','resurfaced','dive-action'])assert.equal(required.includes(fact),false);
     assert.equal(required.includes('next-road-ready'),level!==levels.at(-1));
     assert.deepEqual(campaignRequiredFacts({...level,callMode:'PLAYER_CALLS'},false),[...campaignScenario(level.id)!.requiredFacts]);
@@ -202,4 +204,19 @@ test('the original held altitude cannot change before Next placement and an inte
   f.r.observeNext(nextView(next.id,{loading:false,relocating:false,paused:false,choosing:false,x:next.destination.x,z:next.destination.z,placementRevision:2,onRoad:true,surface:'road'}));
   assert.equal(f.r.active!.facts.includes('next-road-ready'),false);
   assert.ok(f.r.report().assistance.some(event=>event.kind==='next-unexpected-old-scene-motion'));
+});
+
+test('new actors cannot be counted from a hidden scene rig or controller completion alone',()=>{
+ const f=fixture(),level=f.levels[14];f.r.begin(level.id);
+ f.r.observeStory(observation({levelId:level.id,visiblePizzaTransfer:true,actorInView:false}));
+ assert.equal(f.r.active!.facts.includes('story-captured'),false);assert.equal(f.r.setpieceFinished(level.id,observation({levelId:level.id,controllerState:'REVEAL',actorInView:false})),false);
+ f.r.complete(level.id);const row=f.r.report().rows[14];assert.equal(row.automaticHandoff,false);assert.ok(row.missingArt.includes('balayya-chennakesava'));assert.equal(row.allScenarioEvidence,false);
+});
+test('Prasads records an observed carton placement, never inventing a customer handoff or art approval',()=>{
+ const f=fixture(),level=f.levels[16];f.r.begin(level.id);const snap=observation({levelId:level.id,actorInView:true,visiblePizzaPlacement:true});f.r.observeStory(snap);
+ assert.equal(f.r.setpieceFinished(level.id,{...snap,controllerState:'REVEAL'}),true);f.r.complete(level.id);const row=f.r.report().rows[16];assert.equal(row.automaticPlacement,true);assert.equal(row.automaticHandoff,false);assert.equal(f.r.active!.facts.includes('physical-pizza-transfer'),false);assert.equal(row.allScenarioEvidence,false);
+});
+test('Indu must actually overtake and retain the pizza; the no-handoff ending never creates transfer evidence',()=>{
+ for(const missing of [{overtakeCompleted:false,pizzaRetained:true},{overtakeCompleted:true,pizzaRetained:false}]){const f=fixture(),level=f.levels[18];f.r.begin(level.id);const snap=observation({levelId:level.id,actorInView:true,...missing});f.r.observeStory(snap);assert.equal(f.r.setpieceFinished(level.id,{...snap,controllerState:'REVEAL'}),false);}
+ const f=fixture(),level=f.levels[18];f.r.begin(level.id);const snap=observation({levelId:level.id,actorInView:true,overtakeCompleted:true,pizzaRetained:true});f.r.observeStory(snap);assert.equal(f.r.setpieceFinished(level.id,{...snap,controllerState:'REVEAL'}),true);f.r.complete(level.id);const row=f.r.report().rows[18];assert.equal(row.automaticOvertake,true);assert.equal(row.automaticHandoff,false);assert.equal(f.r.active!.facts.includes('physical-pizza-transfer'),false);assert.equal(row.allScenarioEvidence,false);
 });

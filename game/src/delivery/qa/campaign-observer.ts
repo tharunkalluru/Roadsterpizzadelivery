@@ -86,7 +86,9 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
   let metroLast: { x: number; z: number } | null = null, openingSince:number|null=null,openingLast:number|null=null,openingNode:Element|null=null;
   const motionTimes = new Map<string, { time: number; clip: string; duration: number }>();
   const crowdVersions=new Map<string,number>();
+  const movingEvidence=new Map<string,{id:string;x:number;z:number;time:number}>();
   const cartonView=createCampaignCartonViewProbe();
+  const retainedClothWorld=new THREE.Vector3(),retainedClothExpected=new THREE.Vector3();
   const find = (name: string) => root?.getObjectByName(name);
   const locallyVisible = (object: THREE.Object3D | undefined) => {
     if (!object) return false;
@@ -140,12 +142,19 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
       [rect.left+inset,rect.bottom-inset],[rect.right-inset,rect.bottom-inset]]
       .every(([x,y])=>{const top=document.elementFromPoint(x,y);return !!top&&overlay.contains(top);});
   };
+  const visibleActor=()=>{
+    const actor=(game.story?.module as any)?.receiver??(game.story?.module as any)?.actor;
+    return !!actor?.group&&actor.group.userData.characterRelease!=='withheld'&&campaignCartonInView(actor.group,game.engine.scene,game.engine.camera,cartonView);
+  };
   const storyObservation=():CampaignQAStoryObservation=>{
     const story=game.story!,level=story.controller.activeLevel,module=story.module;
     const physicalPizza=['delivery-truck-handoff-pizza','delivery-handoff-pizza','delivery-scene-pizza','delivery-devara-placed-pizza'];
     const finale=finaleOverlay();
     return {levelId:level?.id??null,phase:story.director.phase,captured:story.cinematic,controllerState:story.controller.state,
       modulePresent:!!module&&currentModule===module&&!!root?.children.length,charactersReady:module?.charactersReady!==false,
+      actorInView:visibleActor(),visiblePizzaPlacement:campaignCartonInView(find('delivery-steps-pizza'),game.engine.scene,game.engine.camera,cartonView),
+      overtakeCompleted:(()=>{const v=(module as any)?.vehicle,p=game.player.pos;return level?.id==='indu-moving-bus'&&!!v&&game.traffic.cars.some(c=>c.g.uuid===v.id)&&((p.x-v.x)*v.hx+(p.z-v.z)*v.hz)>v.size[2]/2+5;})(),
+      pizzaRetained:locallyVisible((game.player as any).pizzaCargo),
       sceneVisible:!!root&&locallyVisible(root),visiblePizzaTransfer:physicalPizza.some(name=>campaignCartonInView(find(name),game.engine.scene,game.engine.camera,cartonView)),
       paused:game.paused||game.choosing||!!document.hidden,pauseVisible:hudVisible('#b-help'),nextVisible:hudVisible('[data-du="story-next"]'),
       gameplayVisible:['#minimap','#t-left','#t-right','#t-gas','#t-brake','#t-fly','#t-jump','#flight-navigation','[data-du="drop"]','[data-du="call"]']
@@ -165,7 +174,7 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
     const story = game.story; if (!story) return;
     const module = story.module, active = story.controller.activeLevel, p = game.player;
     if (module && module !== currentModule) {
-      currentModule = module; root = game.engine.scene.children.find(child => child.name === 'delivery-setpiece') ?? null;
+      currentModule = module;const moduleRoot=(module as any).root;root=moduleRoot instanceof THREE.Object3D?moduleRoot:game.engine.scene.children.find(child => child.name === 'delivery-setpiece') ?? null;
       if (root) cachedOrigin.copy(root.position); if (active) cachedLevel = active;
     }
     observeNext();
@@ -179,6 +188,38 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
     if (!recorder.active) return;
     const level = active ?? cachedLevel, facts = recorder.active.facts;
     if(level.callMode==='NONE')recorder.observeStory(storyObservation());
+    // New scenes retain separate mechanical telemetry and explicit visual/art
+    // approvals. An actor's name, completed controller or hidden prop alone
+    // cannot certify a visible film performance.
+    if(level.level>=15){
+      const raw=module as any,actor=raw?.receiver??raw?.actor;
+      const bound=(name:string)=>{const object=find(name);if(!object||!campaignCartonInView(object,game.engine.scene,game.engine.camera,cartonView))return false;let hand=false;for(let at=object.parent;at&&at!==actor?.group;at=at.parent)if(at instanceof THREE.Bone&&['LeftHand','RightHand'].includes(at.name))hand=true;return hand;};
+      if(bound('mansion-house-bottle'))recorder.fact('bound-bottle-visible');
+      if(bound('film-phone-receiver'))recorder.fact('bound-phone-visible');
+      if(bound('shankar-xray'))recorder.fact('bound-xray-visible');
+      if(campaignCartonInView(find('shankar-stethoscope'),game.engine.scene,game.engine.camera,cartonView))recorder.fact('stethoscope-present');
+      if(level.id==='balayya-wine-mart'&&raw?.walk>=1&&visibleActor())recorder.fact('receiver-walked-to-door');
+      if(level.id==='athadu-prasads-booth'&&actor?.group&&raw.actorStart&&actor.group.position.distanceTo(raw.actorStart)<.01&&visibleActor())recorder.fact('receiver-stays-in-booth');
+      if(level.id==='athadu-prasads-booth'&&campaignCartonInView(find('delivery-steps-pizza'),game.engine.scene,game.engine.camera,cartonView))recorder.fact('pizza-left-on-steps');
+      const vehicle=raw?.vehicle,frame=module?.story;
+      if(vehicle&&game.traffic.cars.some(c=>c.g.uuid===vehicle.id)){
+        if(!story.cinematic&&frame?.entry&&frame.allowMovingEntry)recorder.fact(level.id==='raja-moving-auto'?'moving-right-side-entry':'behind-right-bus-entry');
+        const key=`vehicle:${level.id}`,previous=movingEvidence.get(key),now=game.t;
+        if(previous&&previous.id===vehicle.id&&Math.hypot(vehicle.x-previous.x,vehicle.z-previous.z)>4&&locallyVisible(vehicle.group))recorder.fact(level.id==='raja-moving-auto'?'selected-auto-continuity':'selected-bus-continuity');
+        if(!previous||previous.id!==vehicle.id)movingEvidence.set(key,{id:vehicle.id,x:vehicle.x,z:vehicle.z,time:now});
+        const cloth=game.engine.scene.getObjectByName('Indu chunni retained on windshield');
+        if(level.id==='indu-moving-bus'&&cloth&&campaignCartonInView(cloth,game.engine.scene,game.engine.camera,cartonView)){
+          const expected=retainedClothExpected.set(p.pos.x-Math.sin(p.yaw)*1.35,p.pos.y+.95,p.pos.z-Math.cos(p.yaw)*1.35),close=cloth.getWorldPosition(retainedClothWorld).distanceTo(expected)<.25,key=`cloth:${level.id}`,prior=movingEvidence.get(key);
+          if(!close)movingEvidence.delete(key);else if(!prior)movingEvidence.set(key,{id:cloth.uuid,x:p.pos.x,z:p.pos.z,time:now});else if(prior.id===cloth.uuid&&now-prior.time>2&&Math.hypot(p.pos.x-prior.x,p.pos.z-prior.z)>3)recorder.fact('chunni-windshield-retained');
+        }
+        const wrist=actor?.group?.getObjectByName('RightHand');
+        if(level.id==='indu-moving-bus'&&wrist instanceof THREE.Bone&&raw.capturedTime<3&&visibleActor()){
+          const key=`wave:${level.id}`,prior=movingEvidence.get(key),point=wrist.getWorldPosition(new THREE.Vector3()).applyMatrix4(actor.group.matrixWorld.clone().invert());
+          if(prior&&Math.hypot(point.x-prior.x,point.z-prior.z)>.02)recorder.fact('indu-window-wave');else if(!prior)movingEvidence.set(key,{id:vehicle.id,x:point.x,z:point.z,time:now});
+        }
+      }
+    }
+
     const grounded=!p.flying&&!p.descending&&!p.jumping&&Math.abs(p.vy)<=.1;
     if(physicalCompletion&&grounded)recorder.fact('grounded-arrival');
     if (contacting?.id === 'delivery-interior-floor') { recorder.fact('truck-interior-contact'); lastFloor = { ...contacting, previous: { ...contacting.previous } }; }
@@ -305,7 +346,7 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
   off.push(game.deliveryEvents.on('locationSet', event => guard('event:locationSet',()=>{
     recorder.begin(event.levelId); railContacts.clear(); motionTimes.clear(); currentModule = null; root = null; lastFloor = null; sawBucketPizza = false;
     visual.replaceChildren(...(campaignScenario(event.levelId)?.visualChecks??[]).map(check=>{const option=document.createElement('option');option.value=check;option.textContent=check;return option;}));
-    crowdVersions.clear(); metroTravel = 0; metroLast = null; metroTrain = ''; firstMetroStation = ''; lastMetroStop = ''; openingSince = null;openingLast=null;openingNode=null;observe();
+    crowdVersions.clear();movingEvidence.clear(); metroTravel = 0; metroLast = null; metroTrain = ''; firstMetroStation = ''; lastMetroStop = ''; openingSince = null;openingLast=null;openingNode=null;observe();
   })), game.deliveryEvents.on('orderPicked', event => guard('event:orderPicked',()=>recorder.picked(event.carrierId, !!game.player.jumping))),
   game.deliveryEvents.on('setpieceDone', event => guard('event:setpieceDone',()=>{observe(true);recorder.setpieceFinished(event.levelId,storyObservation());})),
   game.deliveryEvents.on('levelComplete', event => guard('event:levelComplete',()=>{ observe(); recorder.complete(event.levelId); })),

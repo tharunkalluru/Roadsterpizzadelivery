@@ -1,0 +1,228 @@
+{
+  "file": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/shankar-dada-head-cpu-v3.glb",
+  "sha256": "ad06f94ef725ec21e35590837fbce195ad0846516faaa22b35e7d0676bfdbe3f",
+  "bytes": 4790828,
+  "vertices": 77776,
+  "triangles": 95668,
+  "seconds": 41.0474525,
+  "device": "cpu",
+  "sourceSha256": "ed7a119287547f4fcac608321ac8fd771274ea981e131e88c157ca29724e8095",
+  "resolution": 192,
+  "memorySamples": [
+    {
+      "stage": "before-load",
+      "systemFreePercent": 37,
+      "rssBytes": 323239936,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "weights-ready",
+      "systemFreePercent": 38,
+      "rssBytes": 299712512,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-0:8",
+      "systemFreePercent": 42,
+      "rssBytes": 985464832,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-8:16",
+      "systemFreePercent": 44,
+      "rssBytes": 993787904,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-16:24",
+      "systemFreePercent": 44,
+      "rssBytes": 995049472,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-24:32",
+      "systemFreePercent": 44,
+      "rssBytes": 996360192,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-32:40",
+      "systemFreePercent": 44,
+      "rssBytes": 997539840,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-40:48",
+      "systemFreePercent": 45,
+      "rssBytes": 998719488,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-48:56",
+      "systemFreePercent": 45,
+      "rssBytes": 999899136,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-56:64",
+      "systemFreePercent": 44,
+      "rssBytes": 1001078784,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-64:72",
+      "systemFreePercent": 44,
+      "rssBytes": 1002258432,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-72:80",
+      "systemFreePercent": 44,
+      "rssBytes": 1003503616,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-80:88",
+      "systemFreePercent": 45,
+      "rssBytes": 1004879872,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-88:96",
+      "systemFreePercent": 45,
+      "rssBytes": 1006436352,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-96:104",
+      "systemFreePercent": 47,
+      "rssBytes": 1007616000,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-104:112",
+      "systemFreePercent": 47,
+      "rssBytes": 1008795648,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-112:120",
+      "systemFreePercent": 47,
+      "rssBytes": 1009991680,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-120:128",
+      "systemFreePercent": 47,
+      "rssBytes": 1011171328,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-128:136",
+      "systemFreePercent": 47,
+      "rssBytes": 1012350976,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-136:144",
+      "systemFreePercent": 47,
+      "rssBytes": 1013530624,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-144:152",
+      "systemFreePercent": 47,
+      "rssBytes": 1015480320,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-152:160",
+      "systemFreePercent": 47,
+      "rssBytes": 1016659968,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-160:168",
+      "systemFreePercent": 48,
+      "rssBytes": 1017839616,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-168:176",
+      "systemFreePercent": 47,
+      "rssBytes": 1019019264,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-176:184",
+      "systemFreePercent": 48,
+      "rssBytes": 1020198912,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-184:192",
+      "systemFreePercent": 48,
+      "rssBytes": 1021378560,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "mesh-complete",
+      "systemFreePercent": 49,
+      "rssBytes": 1018626048,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "texture-rows-0:8",
+      "systemFreePercent": 48,
+      "rssBytes": 844087296,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-128:136",
+      "systemFreePercent": 48,
+      "rssBytes": 844120064,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-256:264",
+      "systemFreePercent": 48,
+      "rssBytes": 844120064,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-384:392",
+      "systemFreePercent": 48,
+      "rssBytes": 844120064,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-512:520",
+      "systemFreePercent": 49,
+      "rssBytes": 844120064,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-640:648",
+      "systemFreePercent": 49,
+      "rssBytes": 844120064,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-768:776",
+      "systemFreePercent": 49,
+      "rssBytes": 844251136,
+      "mpsDriverBytes": 175144960
+    },
+    {
+      "stage": "texture-rows-896:904",
+      "systemFreePercent": 49,
+      "rssBytes": 846348288,
+      "mpsDriverBytes": 175144960
+    }
+  ],
+  "maxRssBytes": 1021378560,
+  "maxMpsDriverBytes": 175144960,
+  "textureSize": 1024,
+  "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+  "release": "unapproved, independent actual comparison required"
+}

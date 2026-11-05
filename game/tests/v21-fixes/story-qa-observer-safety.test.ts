@@ -11,7 +11,7 @@ import type { Game } from '../../src/game/game';
 
 /** Actual observer/event-bus/controller, with minimal DOM fixture only. This
  * does not establish native pixels, real input, hardware or campaign acceptance. */
-function withObserver(run:(fixture:any)=>void){
+function withObserver(run:(fixture:any)=>void,levelIndex=7){
   class Element{
     hidden=false;style:any={};textContent='';value='';children:Element[]=[];parent:Element|null=null;attrs=new Map<string,string>();
     setAttribute(name:string,value:string){this.attrs.set(name,value);}getAttribute(name:string){return this.attrs.get(name)??null;}
@@ -30,7 +30,7 @@ function withObserver(run:(fixture:any)=>void){
   install('document',document);install('getComputedStyle',()=>({display:'block',visibility:'visible',opacity:'1'}));
   install('requestAnimationFrame',(callback:FrameRequestCallback)=>{scheduled++;frame=callback;return scheduled;});install('cancelAnimationFrame',()=>{});
   install('addEventListener',()=>{});install('removeEventListener',()=>{});
-  const level=loadLevels()[7],events=new EventBus<DeliveryEvents>(),controller=new DeliveryController([level],events,{getItem:()=>null,setItem(){}});
+  const level=loadLevels()[levelIndex],events=new EventBus<DeliveryEvents>(),controller=new DeliveryController([level],events,{getItem:()=>null,setItem(){}});
   const scene=new THREE.Scene(),root=new THREE.Group();root.name='delivery-setpiece';scene.add(root);
   const pizza=new THREE.Mesh(new THREE.BoxGeometry(1,.2,1),new THREE.MeshBasicMaterial());pizza.name='delivery-handoff-pizza';pizza.position.z=-10;root.add(pizza);
   const camera=new THREE.PerspectiveCamera(60,2,.1,100);camera.updateMatrixWorld(true);scene.updateMatrixWorld(true);
@@ -49,6 +49,21 @@ function withObserver(run:(fixture:any)=>void){
     for(const[name,descriptor]of original)if(descriptor)Object.defineProperty(globalThis,name,descriptor);else delete(globalThis as any)[name];
   }
 }
+
+for(const offset of [0,1])test(`actual scarf retention uses world coordinates on a translated/rotated Roadster, offset ${offset}`,()=>withObserver(f=>{
+  const player=f.game.player;player.pos.set(0,.55,-10);player.yaw=.5;player.group=new THREE.Group();f.game.engine.scene.add(player.group);player.group.position.copy(player.pos);player.group.rotation.y=player.yaw;
+  const cloth=new THREE.Mesh(new THREE.PlaneGeometry(1.7,.52),new THREE.MeshBasicMaterial({side:THREE.DoubleSide}));cloth.name='Indu chunni retained on windshield';cloth.position.set(offset,.95,-1.35);player.group.add(cloth);
+  const actor=new THREE.Group(),mesh=new THREE.Mesh(new THREE.BoxGeometry(.5,1.8,.5),new THREE.MeshBasicMaterial());actor.add(mesh);actor.position.z=-10;f.root.add(actor);
+  const bus=new THREE.Group();f.game.engine.scene.add(bus);const vehicle={id:bus.uuid,group:bus,x:0,y:0,z:-10,hx:0,hz:-1,size:[2.5,3.6,11]};
+  f.game.traffic={cars:[{g:bus}]};Object.assign(f.game.story.module,{receiver:{group:actor},vehicle});
+  try{
+    f.updateWorld();f.poll(300);
+    player.pos.x+=6;player.group.position.copy(player.pos);vehicle.x+=6;bus.position.x=vehicle.x;
+    f.updateWorld();f.poll(2601);
+    assert.equal(f.observer.report().attempts[0].facts.includes('chunni-windshield-retained'),offset===0,
+      'same frustum, .25m fit, two-second dwell and actual movement thresholds apply to the real attached mesh');
+  }finally{cloth.geometry.dispose();cloth.material.dispose();mesh.geometry.dispose();mesh.material.dispose();}
+},18));
 
 test('the actual observer reads all four real WeddingCrowd batches without assuming the named Group is an InstancedMesh',()=>withObserver(f=>{
   const crowd=new WeddingCrowd();f.root.add(crowd.group);f.updateWorld();

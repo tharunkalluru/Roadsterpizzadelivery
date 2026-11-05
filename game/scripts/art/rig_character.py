@@ -32,6 +32,7 @@ def arguments():
     parser.add_argument('--up-axis', choices=['auto', 'z', 'y'], default='auto')
     parser.add_argument('--triangles', type=int, default=65000)
     parser.add_argument('--seated', action='store_true')
+    parser.add_argument('--no-reader-props', action='store_true', help='Seated traffic roles have no Japanese reader book; does not alter existing reader exports')
     parser.add_argument('--infer-landmarks', action='store_true', help='Opt-in surface-slice A-pose limb calibration; ambiguous clothing must use authored landmarks')
     parser.add_argument('--landmarks', type=Path, help='Optional native Blender metre-space actual anatomy JSON')
     parser.add_argument('--calibrated-motions', action='store_true', help='Opt-in anatomy-space neutral stance and handoff; legacy clip authoring remains the default')
@@ -229,7 +230,7 @@ class ActualLimbPose:
         return result
 
 
-def restrict_handoff_channels(path, names):
+def restrict_handoff_channels(path, names, clip_name='TakePizza'):
     """Blender bakes every skin joint; keep the authored upper-body action mask.
 
     This edits the newly exported glTF animation metadata only. Source geometry,
@@ -240,7 +241,7 @@ def restrict_handoff_channels(path, names):
     if kind != 0x4E4F534A: raise RuntimeError('Expected glTF JSON chunk.')
     model = json.loads(data[20:20 + json_size])
     for animation in model.get('animations', []):
-        if animation.get('name') == 'TakePizza':
+        if animation.get('name') == clip_name:
             animation['channels'] = [channel for channel in animation['channels']
                 if model['nodes'][channel['target']['node']].get('name') in names]
             if not animation['channels']: raise RuntimeError('Export omitted the real authored handoff tracks.')
@@ -521,7 +522,7 @@ def build(args):
         palms=[rig.pose.bones[side+'Hand'].head.lerp(rig.pose.bones[side+'Hand'].tail,.4) for side in ['Left','Right']]
         catch.parent=rig;catch.parent_type='OBJECT';catch.parent_bone='';catch.matrix_parent_inverse=Matrix.Identity(4)
         catch.matrix_world=Matrix.Translation((palms[0]+palms[1])/2+Vector((0,0,.045*s)))
-    if args.seated:
+    if args.seated and not args.no_reader_props:
         # An actual open book remains in the left hand while the right receives
         # the pizza. It is not painted onto the torso or invented by the loader.
         read(1);bpy.context.view_layer.update()
@@ -554,7 +555,7 @@ def build(args):
         export_skins=True, export_morph=False, export_yup=True, export_apply=False)
     restrict_handoff_channels(args.output, upper_body)
     contract = {'id': args.identity + '-authored-rig-v1', 'sceneName': scene.name, 'requireSkin': True,
-        'nodes': {'leftArm': 'LeftArm', 'rightArm': 'RightArm', 'catchPoint': 'PizzaCatch', **({'book':'JapaneseBook'} if args.seated else {})},
+        'nodes': {'leftArm': 'LeftArm', 'rightArm': 'RightArm', 'catchPoint': 'PizzaCatch', **({'book':'JapaneseBook'} if args.seated and not args.no_reader_props else {})},
         'pose': {'mode': 'handoff-clip', 'clipName': 'TakePizza', 'upperBodyNodes': upper_body},
         'motions': {'required': ['idle', 'walk', 'dance', 'read'], 'clips': {
             'idle': {'clipName': 'Idle'}, 'walk': {'clipName': 'Walk', 'metresPerCycle': actual_motion.metres_per_cycle if actual_motion else .9},

@@ -1,3 +1,4 @@
+import {inOsmaniaCampus,osmaniaAcademicBuilding} from './osmania-campus-context';
 import * as THREE from 'three';
 import { TiledBatch, TPL, rng, hash, Rng } from '../core/util';
 import { boardScheme } from './signs';
@@ -672,7 +673,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     for (const p of a.ring) { minx = Math.min(minx, p[0]); maxx = Math.max(maxx, p[0]); minz = Math.min(minz, p[1]); maxz = Math.max(maxz, p[1]); }
     return { ring: a.ring, minx, maxx, minz, maxz, soft: a.cls === 'industrial' };
   });
-  const areaRule = (x: number, z: number) => { let r = 0; for (const a of noShop) if (x >= a.minx && x <= a.maxx && z >= a.minz && z <= a.maxz && pointInRing(x, z, a.ring)) { if (!a.soft) return 2; r = 1; } return r; };
+  const areaRule = (x: number, z: number) => { if(inOsmaniaCampus(x,z))return 2; let r = 0; for (const a of noShop) if (x >= a.minx && x <= a.maxx && z >= a.minz && z <= a.maxz && pointInRing(x, z, a.ring)) { if (!a.soft) return 2; r = 1; } return r; };
   const realCells = new Map<string, number>(); const groupCount: Record<string, number> = {};
   const activity = new Map<string, number>();
   const addActivity = (x: number, z: number, n: number) => { const k = key(x, z, 100); activity.set(k, (activity.get(k) || 0) + n); };
@@ -801,7 +802,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     if (signedArea(ring) > 0) ring = ring.reverse();     // consistent winding (clockwise in x/z) => outward normals below
     const [cx, cz] = centroid(ring);
     const br = rng(hash(b.id));
-    const col = new THREE.Color(b.fc && /^#/.test(b.fc) ? b.fc : br.pick(PALETTE)).multiplyScalar(br.range(0.86, 1.04));
+    const academic = osmaniaAcademicBuilding(b.id);
+    const col = new THREE.Color(b.fc && /^#/.test(b.fc) ? b.fc : academic ? academic.category==='hostel'?'#C8C2B2':'#D1C9B8' : br.pick(PALETTE)).multiplyScalar(br.range(0.86, 1.04));
     const h = b.h;
     const correction = modelClearance.correct(b);
     if (correction) {
@@ -862,6 +864,19 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         B.wall.quad([p[0], 0, p[1]], [q[0], 0, q[1]], [q[0], h, q[1]], [p[0], h, p[1]], col, [[0, 0.02], [len / 12, 0.02], [len / 12, v1], [0, v1]]);
       }
       if (h > 3 && !opts.lowQ && !sheet) B.st.quad([p[0], h, p[1]], [q[0], h, q[1]], [q[0], h + 0.9, q[1]], [p[0], h + 0.9, p[1]], col.clone().multiplyScalar(0.92));
+    }
+    // Bind academic names only to source points actually inside this existing
+    // footprint. A nearby label cannot rename an unrelated building.
+    if(academic&&inTile(cx,cz)&&!zone.boards.some(bd=>bd.building===b.id&&bd.text.toLowerCase()===academic.name.toLowerCase())){
+      const faces=frontsOf(b.id,ring,cx,cz);let edge=faces[0]?.i??0,best=0;
+      if(!faces.length)for(let i=0;i<ring.length;i++){const a=ring[i],q=ring[(i+1)%ring.length],len=Math.hypot(q[0]-a[0],q[1]-a[1]);if(len>best){best=len;edge=i;}}
+      const a=ring[edge],q=ring[(edge+1)%ring.length],len=Math.hypot(q[0]-a[0],q[1]-a[1]);
+      if(len>3){const ex=(q[0]-a[0])/len,ez=(q[1]-a[1])/len,mx=(a[0]+q[0])/2,mz=(a[1]+q[1])/2;let nx=ez,nz=-ex;if(nx*(mx-cx)+nz*(mz-cz)<0){nx=-nx;nz=-nz;}
+        const x=mx+nx*.32,z=mz+nz*.32,w=Math.min(8,len-.6),y=Math.min(4.1,h-.6),bg='#596558';
+        const panel:[[number,number],[number,number],[number,number],[number,number]]=[[x-ex*w/2-nx*.06,z-ez*w/2-nz*.06],[x+ex*w/2-nx*.06,z+ez*w/2-nz*.06],[x+ex*w/2+nx*.06,z+ez*w/2+nz*.06],[x-ex*w/2+nx*.06,z-ez*w/2+nz*.06]];
+        if(modelClearance.clear(panel,y-.4,y+.4)){B.st.quad([panel[0][0],y-.4,panel[0][1]],[panel[1][0],y-.4,panel[1][1]],[panel[2][0],y+.4,panel[2][1]],[panel[3][0],y+.4,panel[3][1]],bg);
+          const right=nx*(-ez)+nz*ex>0?[ex,0,ez]:[-ex,0,-ez];signs.push({id:`ou_academic_${b.id}`,text:academic.name.toUpperCase().slice(0,30),bg,fg:'#F1E8D2',c:[x+nx*.02,y,z+nz*.02],right,up:[0,1,0],w,h:.72});}
+      }
     }
     // shop units along the frontage: pillars between shutters, generic boards, parked bikes, carts (customers are the walkers)
     const shopFronts = shop ? fronts : [...fill.values()];

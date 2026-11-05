@@ -1,0 +1,66 @@
+{
+  "scope": "Local packaged preflight; final clean build info is authoritative",
+  "baselineSourceCommit": "7c9a9efe8826e49fefcd5e517abaa5e50869ae1b",
+  "preflightBuild": {
+    "sourceCommit": "7c9a9efe8826e49fefcd5e517abaa5e50869ae1b",
+    "sourceDirty": true,
+    "buildFingerprint": "463dc4a8b94d0e928b2f96b5f637358a302c1fb94a20b50dddff0a2989a30f17",
+    "baseline": "02f6abef4946b701ebca6d66d51257e2c5f638be",
+    "release": "nineteen-scene-campaign-20261105",
+    "roadData": "existing-live-road-baseline-a679b72"
+  },
+  "runtimeTests": {
+    "tests": 1242,
+    "passed": 1242,
+    "failed": 0,
+    "durationMs": 491674.812916,
+    "postSnapshotDevelopmentObserverTests": {
+      "passed": 9,
+      "failed": 0
+    }
+  },
+  "legacySuites": {
+    "passed": 37,
+    "total": 38,
+    "knownPreExistingFailure": {
+      "suite": "expressway-regressions.mjs",
+      "actualTileBytes": 697698,
+      "staleManifestExpected": 705238
+    }
+  },
+  "desktop": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "driveSpeedMs": 7.13316,
+    "spaceBrakedSpeedMs": 0,
+    "flightObserved": true,
+    "landingObserved": true,
+    "jumpObserved": true,
+    "mapObserved": true,
+    "pauseProgressTotal": 19,
+    "browserErrors": 0
+  },
+  "mobile": {
+    "environment": "Chromium desktop touch emulation; not physical hardware",
+    "landscape": [
+      915,
+      412
+    ],
+    "portrait": [
+      412,
+      915
+    ],
+    "touchPointsDuringRun": 1,
+    "opaqueUiClasses": "solid-ui is-touch",
+    "portraitBlocked": true,
+    "landscapeUnblocked": true,
+    "touchDriveSpeedMs": 3.36168,
+    "touchBrakeSpeedMs": 0
+  },
+  "expandedPackageBytes": 263033422,
+  "hostMaximumBytes": 268435456,
+  "physicalHardwareVerified": false,
+  "assistanceDisclosure": "Most scene starts were assisted. Level16 initial carrier approach was staged; its later actual jump pickup, flight, ground landing, cinematic and Next used native controls. See its raw report sidecar."
+}

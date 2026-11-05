@@ -50,6 +50,7 @@ class LocalSceneModule implements DeliveryModule {
   get headlightGain(){return this.inner.headlightGain;}
   get story(){return this.inner.story;}
   get storyArrivalReady(){return this.inner.storyArrivalReady;}
+  get storyDialogueReady(){return this.inner.storyDialogueReady;}
   setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){this.inner.setStoryPresentation?.(active,landing);}
   setup(ctx:DeliveryModuleContext,params:ModuleParams){this.inner.setup(this.context(ctx),params);}
   update(dt:number){this.inner.update(dt);} onDrop(){this.inner.onDrop();} teardown(){this.inner.teardown();}

@@ -1,0 +1,34 @@
+{
+  "status": "UNAPPROVED; deformed skin continuity and real scene still require independent review",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-driving-v19.blend",
+  "sourceSha256": "7116ced380b077f7556286c5f4a79cad2f3dc86d3153e11e7c580fbc35ae6277",
+  "transitions": [
+    {
+      "side": "Left",
+      "actualElbow": [
+        0.361746221780777,
+        0.00462300656363368,
+        1.180652379989624
+      ],
+      "upperOverlapMetres": 0.1,
+      "forearmOverlapMetres": 0.07,
+      "radiusMetres": 0.031,
+      "closedSkinMesh": true,
+      "weighting": "continuous Arm to ForeArm blend"
+    },
+    {
+      "side": "Right",
+      "actualElbow": [
+        -0.32042115926742554,
+        0.08599694818258286,
+        1.1806353330612183
+      ],
+      "upperOverlapMetres": 0.1,
+      "forearmOverlapMetres": 0.07,
+      "radiusMetres": 0.031,
+      "closedSkinMesh": true,
+      "weighting": "continuous Arm to ForeArm blend"
+    }
+  ],
+  "outputSha256": "8991b9f492a084c671b392f1b50774b8502d6d53a6fe0287c6be60fc323e3125"
+}

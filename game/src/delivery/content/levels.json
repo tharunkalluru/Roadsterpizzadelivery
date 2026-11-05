@@ -425,7 +425,305 @@
     "arrivalRadius": 100,
     "restaurantStage": "Grand opening",
     "completionLine": "One delivery closer to your restaurant.",
-    "failureLine": "Try again. Your pizza is safe.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "balayya-wine-mart",
+    "level": 15,
+    "celebrity": {
+      "name": "Balayya",
+      "movie": "Chennakesava Reddy",
+      "image": "/delivery/characters/balayya-chennakesava/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Q by Tonique · Film Nagar",
+      "x": -9133.034,
+      "z": -1706.318,
+      "y": 0,
+      "lat": 17.4217175417,
+      "lon": 78.41064506445
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello balayya babu garu, Namaskaram andi"
+      },
+      {
+        "who": "customer",
+        "text": "Hello, Namaskaram"
+      },
+      {
+        "who": "player",
+        "text": "Em chestunnar andi"
+      },
+      {
+        "who": "customer",
+        "text": "Evad ra nuvvu, evad ra matladedhi"
+      },
+      {
+        "who": "player",
+        "text": "Balayya Babu garu, Nenandi Pizza delivery boy ni"
+      },
+      {
+        "who": "customer",
+        "text": "adi cheppu mundu, gadidha"
+      },
+      {
+        "who": "player",
+        "text": "Sorry Balayya, Pizza teskondi"
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "wineMart",
+      "actorStyle": "balayya",
+      "characterId": "balayya-chennakesava",
+      "immersiveHandoff": true,
+      "sceneYaw": -0.33154362,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Takeaway expansion",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "shankar-arts-corridor",
+    "level": 16,
+    "celebrity": {
+      "name": "Shankar Dada",
+      "movie": "Shankar Dada MBBS",
+      "image": "/delivery/characters/shankar-dada/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Osmania University · Arts College corridor",
+      "x": 3188.103,
+      "z": -1366.926,
+      "y": 0,
+      "lat": 17.41865094074603,
+      "lon": 78.52660461316053
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello Bossu, Pizza occhindi"
+      },
+      {
+        "who": "customer",
+        "text": "Induvadhana…..wow"
+      },
+      {
+        "who": "player",
+        "text": "Chala baga padaru Boss, inka em patalu occhu"
+      },
+      {
+        "who": "customer",
+        "text": "Naku occhinde nalugu mukkalu,"
+      },
+      {
+        "who": "player",
+        "text": "OK boss, take pizza"
+      },
+      {
+        "who": "customer",
+        "text": "Mee anathamaina premani eppudu marachipolenu, good night"
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "artsCorridor",
+      "actorStyle": "shankarDada",
+      "sceneYaw": 0.43633231299858233,
+      "actorOffset": [
+        0,
+        3.4,
+        -15
+      ],
+      "characterId": "shankar-dada",
+      "immersiveHandoff": true,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Roof garden",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "athadu-prasads-booth",
+    "level": 17,
+    "celebrity": {
+      "name": "Mahesh Babu",
+      "movie": "Athadu",
+      "image": "/delivery/characters/mahesh-athadu/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Prasads · entrance steps",
+      "x": -3222.52,
+      "z": -728.728,
+      "y": 0,
+      "lat": 17.41288447134651,
+      "lon": 78.46627147382058
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello Saar, Pizza teskoniki Baitaki ostara?"
+      },
+      {
+        "who": "customer",
+        "text": "Avasaram ledu"
+      },
+      {
+        "who": "player",
+        "text": "Naku Avasram, 4 Kilometres ride cheskuntu occhina, kanisam baitki rakapothe ela"
+      },
+      {
+        "who": "customer",
+        "text": "Gun Chudali anuko tappu ledu, kani Bullet chudali anukoku Chacchipothav"
+      },
+      {
+        "who": "player",
+        "text": "Aithe meru kuda pizza ni chudali anukondi tappu ledu, kani bill chudali anukoku, chacchipothav."
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "phoneBooth",
+      "actorStyle": "athadu",
+      "characterId": "mahesh-athadu",
+      "immersiveHandoff": true,
+      "sceneYaw": 1.2950343049797925,
+      "dropOffset": [
+        10.5,
+        0.62,
+        -8.5
+      ]
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Patio lighting",
+    "completionLine": "Pizza on the steps."
+  },
+  {
+    "id": "raja-moving-auto",
+    "level": 18,
+    "celebrity": {
+      "name": "Raja",
+      "movie": "Raja",
+      "image": "/delivery/characters/venkatesh-raja/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Moving auto",
+      "x": -1763.812,
+      "z": -2069.6,
+      "y": 0,
+      "lat": 17.425,
+      "lon": 78.48
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello mamaa, Pizza Konchem challaga aindi aindi, emi anukoku"
+      },
+      {
+        "who": "customer",
+        "text": "Oh shit myan, Ohh"
+      },
+      {
+        "who": "player",
+        "text": "Aina endi mama meeru, Auto Naduputunnaru?"
+      },
+      {
+        "who": "customer",
+        "text": "Adantha appud andi, ippud nen maripoyanu"
+      }
+    ],
+    "module": "rajaAutoDelivery",
+    "moduleParams": {
+      "characterId": "venkatesh-raja",
+      "immersiveHandoff": true,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Delivery garage",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "indu-moving-bus",
+    "level": 19,
+    "celebrity": {
+      "name": "Indu",
+      "movie": "Magadheera",
+      "image": "/delivery/characters/kajal-indu/portrait-v1.png"
+    },
+    "destination": {
+      "label": "RTC bus",
+      "x": -701.275,
+      "z": -2622.969,
+      "y": 0,
+      "lat": 17.43,
+      "lon": 78.49
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "customer",
+        "text": "Hello"
+      },
+      {
+        "who": "player",
+        "text": "Hello madam, merena rani?"
+      },
+      {
+        "who": "customer",
+        "text": "Indu",
+        "speaker": "Offscreen voice"
+      },
+      {
+        "who": "customer",
+        "text": "Thana peru rani kade"
+      },
+      {
+        "who": "player",
+        "text": "Avna, mari Rani peru mida enduku order pettaru? Ippud e pizza evardi?"
+      },
+      {
+        "who": "customer",
+        "text": "Arey Emchestunnav, immantunnana, ah pizza ivvu"
+      },
+      {
+        "who": "player",
+        "text": "Nen ivvani ellehe,"
+      },
+      {
+        "who": "customer",
+        "text": "Champutha ne abba"
+      },
+      {
+        "who": "player",
+        "text": "Champeyyy!!!!"
+      }
+    ],
+    "module": "induBusDelivery",
+    "moduleParams": {
+      "characterId": "kajal-indu",
+      "immersiveHandoff": true,
+      "keepPizzaOnCompletion": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Hyderabad flagship",
+    "completionLine": "Pizza stays with the delivery boy. Champeyyy!",
     "campaignRole": "finale"
   }
 ]

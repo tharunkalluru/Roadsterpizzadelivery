@@ -1,0 +1,28 @@
+{
+  "status": "UNAPPROVED exact mobile export; compare views and actual handoff before registry",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-elbows-v23.blend",
+  "sourceSha256": "df9738c1c8c831030c0f5e13aed3a6f3078e9e8ccf9c2598a650b4cce734ee4a",
+  "outputSha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9",
+  "bytes": 2710232,
+  "maxBytes": 2800000,
+  "withinBudget": true,
+  "jpegQuality": 89,
+  "geometryReductions": [
+    {
+      "mesh": "venkatesh-raja-review-mesh",
+      "before": 26506,
+      "target": 20000,
+      "after": 20000
+    },
+    {
+      "mesh": "AuthoredDetailedHead",
+      "before": 20000,
+      "target": 15000,
+      "after": 15000
+    }
+  ],
+  "imageFormats": [
+    "image/jpeg",
+    "image/jpeg"
+  ]
+}
