@@ -3,6 +3,32 @@ import { Batch,toTpl,type Tpl } from '../core/util';
 
 const cache=new Map<string,Tpl>();
 
+/** Finite fabric shell with returned hems and a curved rear valance. The old
+ * open-ended half-cylinder left daylight above the flat rear canvas and
+ * windscreen. Passenger doorways below the side rails remain genuinely open. */
+export function rickshawCanopy(b:Batch,color:string){
+  const front=-.945,rear=1.305,steps=24,base=1.575;
+  const top=(i:number,z:number,inset=0)=>{const a=Math.PI*i/steps;
+    return [-Math.cos(a)*(.70-inset),base+Math.sin(a)*(.24-inset),z];};
+  for(let i=0;i<steps;i++){
+    const a=top(i,front),c=top(i+1,front),d=top(i+1,rear),e=top(i,rear);
+    b.quad(a,e,d,c,color);
+    const ai=top(i,front+.025,.025),ci=top(i+1,front+.025,.025),di=top(i+1,rear-.025,.025),ei=top(i,rear-.025,.025);
+    b.quad(ai,ci,di,ei,color);
+    // Front hem joins the existing screen header. The full curved rear
+    // closure meets the rear canvas, including its high central crown.
+    const frontLow=(p:number[])=>[p[0],p[1]-.10,p[2]];
+    b.quad(a,c,frontLow(c),frontLow(a),color);
+    b.quad(e,[e[0],base-.025,rear],[d[0],base-.025,rear],d,color);
+    b.quad(frontLow(a),frontLow(c),ci,ai,color);
+    b.quad(ei,di,[di[0],base-.025,rear-.025],[ei[0],base-.025,rear-.025],color);
+  }
+  for(const i of [0,steps]){
+    const a=top(i,front),c=top(i,rear),d=top(i,rear-.025,.025),e=top(i,front+.025,.025);
+    if(i===0)b.quad(a,c,d,e,color);else b.quad(e,d,c,a,color);
+  }
+}
+
 /** One pressed, shallow auto legshield. The centre lower cut clears the front
  * wheel/fender; joined returned sides leave the driver's feet behind it. */
 export function rickshawCowl(b:Batch,paint:string){

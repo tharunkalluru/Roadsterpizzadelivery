@@ -4,7 +4,7 @@ import type { CharacterGpuContext } from '../art/gpu-preparation';
 import { characterIdsForLevel } from '../art/scene-asset-window';
 import { createReleasedSceneCharacter, sceneCharacterIdentity } from '../art/scene-character';
 import { createDeliveryModule } from '../modules';
-import type { DeliveryModule, DeliveryModuleContext, ModuleParams } from '../modules/types';
+import type { DeliveryModule, DeliveryModuleContext, ModuleParams, ModuleStoryLandingZone } from '../modules/types';
 import { prepareLocalCharacterArtReview, type LocalArtReviewDependencies, type LocalArtReviewEvidence, type LocalArtReviewRecord, type LocalPushpaArtReview } from './pushpa-art-review';
 import candidates from './local-candidate-catalog.json';
 
@@ -42,7 +42,7 @@ class LocalSceneModule implements DeliveryModule {
   constructor(private inner:DeliveryModule,private context:(ctx:DeliveryModuleContext)=>DeliveryModuleContext){}
   get target(){return this.inner.target;} get status(){return this.inner.status;}
   get supports(){return this.inner.supports;} get movement(){return this.inner.movement;}
-  get arrival(){return this.inner.arrival;} get trafficBodies(){return this.inner.trafficBodies;}
+  get arrival(){return this.inner.arrival;} get trafficBodies(){return this.inner.trafficBodies;}get trafficReservations(){return this.inner.trafficReservations;}
   get exitPending(){return this.inner.exitPending;} get sceneryPending(){return this.inner.sceneryPending;}
   get intentionalStop(){return this.inner.intentionalStop;}
   get hideWorldGuidance(){return this.inner.hideWorldGuidance;} get cameraFocus(){return this.inner.cameraFocus;}
@@ -50,7 +50,7 @@ class LocalSceneModule implements DeliveryModule {
   get headlightGain(){return this.inner.headlightGain;}
   get story(){return this.inner.story;}
   get storyArrivalReady(){return this.inner.storyArrivalReady;}
-  setStoryPresentation(active:boolean){this.inner.setStoryPresentation?.(active);}
+  setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){this.inner.setStoryPresentation?.(active,landing);}
   setup(ctx:DeliveryModuleContext,params:ModuleParams){this.inner.setup(this.context(ctx),params);}
   update(dt:number){this.inner.update(dt);} onDrop(){this.inner.onDrop();} teardown(){this.inner.teardown();}
 }

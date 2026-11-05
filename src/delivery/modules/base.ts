@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
-import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus, ModuleStoryFrame } from './types';
+import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus, ModuleStoryFrame, ModuleStoryLandingZone } from './types';
 import type { SceneCharacter } from './character';
 import { createReleasedSceneCharacter } from '../art/scene-character';
 import { InstancePreparation } from '../art/instance-preparation';
@@ -35,11 +35,23 @@ export abstract class ModuleBase implements DeliveryModule {
   private handoffLeft=new THREE.Vector3();
   private handoffRight=new THREE.Vector3();
   private handoffPosition=new THREE.Vector3();
+  private landingMarkerPosition=new THREE.Vector3();
   target: DeliveryPoint = { x: 0, y: 0, z: 0, label: '' };
   status: ModuleStatus = { instruction: '', canDrop: false, actionLabel: 'DROP' };
   movement: ModuleMovement = { mode: 'normal' };
   get supports(): readonly MovingRailBody[] { return this.bodies; }
-  setStoryPresentation(active:boolean){if(active&&this.ring)this.ring.visible=false;}
+  setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){
+    if(!this.ring)return;
+    if(active){this.ring.visible=false;return;}
+    if(this.ready&&!this.ended&&this.ctx.automaticStories&&landing){
+      const point=landing.point,y=landing.markerHeight??point.y-.55;
+      if(![point.x,y,point.z].every(Number.isFinite))return;
+      this.root.updateWorldMatrix(true,false);
+      this.landingMarkerPosition.set(point.x,y+.08,point.z);
+      this.ring.position.copy(this.root.worldToLocal(this.landingMarkerPosition));
+      this.ring.visible=true;
+    }
+  }
   get story(): ModuleStoryFrame | undefined {
     if(!this.ready||!this.ctx.automaticStories)return undefined;
     const p=this.ctx.player(),point={...this.target,y:this.ctx.destination.y+.55};
@@ -150,6 +162,7 @@ export abstract class ModuleBase implements DeliveryModule {
     this.status.canDrop=false;this.status.instruction=flight<1?'Passing the pizza…':'Caught it!';
     if(handoff.elapsed>=.75){
       this.handoff=null;this.handoffPizza!.visible=false;
+      handoff.receiver.receivePizza?.();
       handoff.after(); // Completion may synchronously tear down the entire module.
     }
   }

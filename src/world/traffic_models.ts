@@ -4,7 +4,7 @@ import { labelTexture } from './signs';
 import { PersonSpec, drawSeatedPerson, randomPerson, personFemale, personAge, type PersonSeat } from './people';
 import { autoQuote } from './auto-quotes';
 import { TRAFFIC_VEHICLE_SPECS, type VehicleOccupant } from './traffic-vehicle-specs';
-import { archedSide,archLip,carCanopy,facePanel,formedCabFrame,ellipticalLoft,cycleMudguard,rickshawCowl } from './traffic-coachwork';
+import { archedSide,archLip,carCanopy,facePanel,formedCabFrame,ellipticalLoft,cycleMudguard,rickshawCowl,rickshawCanopy } from './traffic-coachwork';
 
 // Hyderabad street traffic. Each builder returns a body batch, a lights batch (emissive at night),
 // optional text decals and its footprint size [width, height, length]. Local frame: ground y=0, front toward -z.
@@ -238,7 +238,7 @@ export function auto(r: Rng, quoteIndex = r.int(0, 9)): Model {
   }
   strut(b,[0,1.25,-1.219],[.19,1.60,-1.00],.008,'#292d30');
   // canopy: rounded black hood on rails
-  b.add(TPL.halfCyl,0,1.55,.18,.70,2.25,.24,K,{rx:-PI/2});
+  rickshawCanopy(b,K);
   b.box(0, 1.62, -0.93, 1.38, 0.1, 0.08, K); b.box(0, 1.62, 1.29, 1.38, 0.1, 0.08, K);
   for (const s of [-1, 1]) { b.box(s * 0.66, 1.3, -0.4, 0.05, 0.62, 0.05, K); b.box(s * 0.66, 1.3, 1.27, 0.05, 0.62, 0.05, K); b.box(s * 0.67, 1.6, 0.44, 0.04, 0.06, 1.66, K); }
   b.box(0, 1.3, 1.31, 1.2, 0.55, 0.03, K);                                                   // rear canvas with window

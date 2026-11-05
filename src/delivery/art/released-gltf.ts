@@ -6,6 +6,8 @@ import assetManifest from './character-assets.json';
 import { CHARACTER_REVIEW_MANIFEST, getCharacterReleaseDecision, type CharacterCandidate, type CharacterReviewManifest } from './release-gate';
 import { applyCharacterMotionBounds, validateCharacterMotionBounds, type CharacterMotionBounds } from './motion-bounds';
 import { createAuthoredMotionPlayer, validateAuthoredMotions, type AuthoredMotionContract } from './authored-motion';
+import { installActorPerformance, prepareActorPerformanceGeometry } from './actor-performance';
+import type { FaceAnnotation } from './face-annotations';
 
 export interface ReleasedCharacterResources {
   geometry: <T extends THREE.BufferGeometry>(value: T) => T;
@@ -236,6 +238,7 @@ export class ReleasedGltfRegistry {
       if (!template || template.clearWhenUnused || !getCharacterReleaseDecision(identity, template.entry.candidate, this.reviews).allowed) { failed.push({ characterId: identity, reason: 'Character GPU preparation was cancelled.' }); continue; }
       template.gpuBorrows++;
       try {
+        await prepareActorPerformanceGeometry(template.root,identity,()=>!template.clearWhenUnused&&this.templates.get(identity)===template);
         await prepare(template.root, template.entry);
         if (template.clearWhenUnused || this.templates.get(identity) !== template) throw new Error('Character GPU preparation was cancelled.');
         if (template.entryFingerprint !== JSON.stringify(template.entry) || !getCharacterReleaseDecision(identity, template.entry.candidate, this.reviews).allowed) throw new Error('Character metadata or approval changed during GPU preparation.');
@@ -251,7 +254,7 @@ export class ReleasedGltfRegistry {
     disposeTemplate(template); if (this.templates.get(identity) === template) this.templates.delete(identity);
   }
 
-  create(identity: string, resources: ReleasedCharacterResources): SceneCharacter | null {
+  create(identity: string, resources: ReleasedCharacterResources, facePreview?:FaceAnnotation): SceneCharacter | null {
     const template = this.templates.get(identity);
     if (!template || template.clearWhenUnused || template.entryFingerprint !== JSON.stringify(template.entry) || !getCharacterReleaseDecision(identity, template.entry.candidate, this.reviews).allowed) return null;
     const group = cloneSkeleton(template.root) as THREE.Group, materialCopies = new Map<THREE.Material, THREE.Material>(), skeletons = new Set<THREE.Skeleton>();
@@ -268,19 +271,25 @@ export class ReleasedGltfRegistry {
     const motion = createAuthoredMotionPlayer(group, template.animations, template.entry.contract.motions, pose.mode === 'handoff-clip' ? pose : undefined);
     const instanceBoneBytes = [...skeletons].reduce((sum, skeleton) => sum + skeleton.boneMatrices.byteLength, 0);
     let remaining = materialCopies.size, released = false;
+    let performance:{bytes:number;dispose:()=>void}|undefined;
     template.instances++; template.memory.instanceBoneBytes += instanceBoneBytes;
-    const releasePart = () => { if (released || --remaining > 0) return; released = true; motion.dispose(); skeletons.forEach(skeleton => skeleton.dispose()); template.instances--; template.memory.instanceBoneBytes -= instanceBoneBytes; this.collectRetired(identity, template); };
+    const releasePart = () => { if (released || --remaining > 0) return; released = true; performance?.dispose();template.memory.instanceGeometryBytes-=performance?.bytes??0;motion.dispose(); skeletons.forEach(skeleton => skeleton.dispose()); template.instances--; template.memory.instanceBoneBytes -= instanceBoneBytes; this.collectRetired(identity, template); };
     const watch = (resource: THREE.Material) => { let disposed = false; resource.addEventListener('dispose', () => { if (!disposed) { disposed = true; releasePart(); } }); };
     for (const material of materialCopies.values()) watch(material);
     try { for (const [index, material] of [...materialCopies.values()].entries()) resources.material(`released-${identity}-${group.uuid}-${index}`, material); }
     catch (error) { materialCopies.forEach(m => m.dispose()); throw error; }
-    group.userData.releasedCharacter = { identity, candidate: { ...template.entry.candidate }, poseContract: template.entry.contract.id };
+    group.userData.releasedCharacter = { identity, candidate: { ...template.entry.candidate }, poseContract: template.entry.contract.id,glbSha256:template.entry.glb.sha256 };
     const result: SceneCharacter = {
       group, leftArm, rightArm, catchPoint, catchPointSpace:template.entry.contract.catchPointSpace??'palm-contact', book: nodes.book ? group.getObjectByName(nodes.book) : undefined,
       catchPose(amount) { if (!released) motion.catchPose(amount); },
       animate: motion.animate ? (dt, mode, speed) => { if (!released) motion.animate!(dt, mode, speed); } : undefined,
     };
-    result.catchPose(0); return result;
+    result.catchPose(0);
+    // Native face annotations are picked in this exact authored initial pose.
+    // Establish it once before validating skinned barycentric landmarks.
+    result.animate?.(0,'idle',0);
+    performance=installActorPerformance(result,identity,resources,facePreview);template.memory.instanceGeometryBytes+=performance.bytes;
+    return result;
   }
 
   /** Cancellation is per identity. Live clones keep shared geometry/textures
@@ -319,7 +328,7 @@ export class ReleasedGltfRegistry {
 const releasedRegistry = new ReleasedGltfRegistry();
 export const prewarmReleasedGltfAssets = (identities?: readonly string[]) => releasedRegistry.prewarm(identities);
 export const prepareReleasedGltfGpu = (identities: readonly string[], prepare: ReleasedGltfGpuPreparation) => releasedRegistry.prepareGpu(identities, prepare);
-export const createReleasedGltfCharacter = (identity: string, resources: ReleasedCharacterResources) => releasedRegistry.create(identity, resources);
+export const createReleasedGltfCharacter = (identity: string, resources: ReleasedCharacterResources, facePreview?:FaceAnnotation) => releasedRegistry.create(identity, resources,facePreview);
 export const disposeReleasedGltfAssets = () => releasedRegistry.dispose();
 export const retireReleasedGltfAssets = (identities: readonly string[]) => releasedRegistry.retire(identities);
 export const retainReleasedGltfAssets = (identities: readonly string[]) => releasedRegistry.retainOnly(identities);

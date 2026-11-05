@@ -50,7 +50,8 @@ export function clipRoadPathToTile(points: readonly [number, number][], i: numbe
 // The same two triangles as Batch.quad. A finite sloped road is not a capsule:
 // clamping projection to its endpoint creates a flat invisible ledge beyond it.
 export function roadQuadHeight(quad: RoadQuad, x: number, z: number): number | null {
-  for (const [a, b, c] of [[quad[0], quad[1], quad[2]], [quad[0], quad[2], quad[3]]]) {
+  for (let i = 0; i < 2; i++) {
+    const a = quad[0], b = quad[i === 0 ? 1 : 2], c = quad[i === 0 ? 2 : 3];
     const bx = b[0] - a[0], bz = b[2] - a[2], cx = c[0] - a[0], cz = c[2] - a[2], det = bx * cz - bz * cx;
     if (Math.abs(det) < 1e-9) continue;
     const px = x - a[0], pz = z - a[2], u = (px * cz - pz * cx) / det, v = (bx * pz - bz * px) / det;

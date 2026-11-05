@@ -105,7 +105,7 @@ test('ordinary relocation retry still assigns the next unfinished level after co
 test('Restart current level during captured motion loads a safe road for the same unfinished delivery', async () => {
   const f = fixture(); f.pickup(); f.runtime.beforePlayer(.05);
   const target = f.runtime.destination!; f.game.player.pos.set(target.x, .55, target.z); f.runtime.tick(.05, true);
-  f.runtime.beforePlayer(.05); f.runtime.afterPlayer(.05);
+  for(let i=0;i<8;i++)f.runtime.beforePlayer(.05); f.runtime.afterPlayer(.05);
   assert.equal(f.runtime.director.phase, 'playing');
   await f.runtime.restartCurrentLevel();
   assert.equal(f.relocations.length, 1);

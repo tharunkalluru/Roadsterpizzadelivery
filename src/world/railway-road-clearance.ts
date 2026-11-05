@@ -1,5 +1,6 @@
 import type { RoadEdge } from './types';
 import type { RailProfile } from './railway-geometry';
+import { roadClearanceWidth } from './road-pavement';
 
 // Clearance for fixed roadside furniture at genuine level crossings. This is
 // deliberately separate from the animated gate arms. It is built once per tile
@@ -49,7 +50,7 @@ export function railwayRoadClearance(roads: readonly RoadEdge[], profiles: reado
         const y = (road.elev?.[i - 1] || 0) + ((road.elev?.[i] || 0) - (road.elev?.[i - 1] || 0)) * u;
         const railY = profile.elev[j - 1] + (profile.elev[j] - profile.elev[j - 1]) * v;
         if (Math.abs(y - railY) > .55) continue;
-        const sine = Math.abs(denominator) / (length * railLength), cosine = Math.abs(dx * rx + dz * rz) / (length * railLength), halfWidth = road.w / 2 + 6;
+        const sine = Math.abs(denominator) / (length * railLength), cosine = Math.abs(dx * rx + dz * rz) / (length * railLength), halfWidth = roadClearanceWidth(road) / 2 + 6;
         // Open the entire road/sidewalk width at an oblique crossing, not only
         // the narrow centreline intercept. Adjacent strands merge below.
         raw.push({ x: a[0] + dx * u, z: a[1] + dz * u, y, hx: dx / length, hz: dz / length,

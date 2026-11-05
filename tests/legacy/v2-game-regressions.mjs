@@ -88,7 +88,7 @@ try {
     title: "export class TitleScreen { show() {} } export { goFullscreen, exitFullscreen, isFullscreen, canFullscreen, fullscreenFallbackHtml } from 'actual-title';",
   };
   await build({
-    stdin: { contents: "export { Game } from './src/game/game'; export { Player } from './src/game/player'; export { Vector3, Group, Mesh, MeshBasicMaterial, BufferGeometry, PerspectiveCamera } from 'three';", resolveDir: root, loader: 'ts' },
+    stdin: { contents: "export { Game } from './src/game/game'; export { Player } from './src/game/player'; export { RailRiderClearance } from './src/game/rail-rider-clearance'; export { Vector3, Group, Mesh, MeshBasicMaterial, BufferGeometry, PerspectiveCamera } from 'three';", resolveDir: root, loader: 'ts' },
     outfile: join(output, 'production.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error',
     plugins: [{ name: 'ui-constructor-boundaries', setup(build) {
       build.onResolve({ filter: /^actual-title$/ }, () => ({ path: join(root, 'src/ui/title.ts'), namespace: 'actual-title' }));
@@ -96,7 +96,7 @@ try {
       build.onLoad({ filter: /[/\\]ui[/\\](hud|map|areapicker|title)\.ts$/, namespace: 'file' }, args => ({ contents: uiModules[args.path.match(/([^/\\]+)\.ts$/)[1]], loader: 'js' }));
     } }],
   });
-  const { Game, Player, Vector3, Group, Mesh, MeshBasicMaterial, BufferGeometry, PerspectiveCamera } = await import(pathToFileURL(join(output, 'production.mjs')));
+  const { Game, Player, RailRiderClearance, Vector3, Group, Mesh, MeshBasicMaterial, BufferGeometry, PerspectiveCamera } = await import(pathToFileURL(join(output, 'production.mjs')));
   const order = state => ({ state, pickup: { x: 100, z: 0, y: 0, label: 'Kitchen', sub: 'Pickup road' }, drop: { x: 500, z: 0, y: 0, label: 'Customer', sub: 'Customer road' }, dist: 500, limit: 120, t: 12, heat: 100, slices: 8, pickupName: 'Kitchen' });
   const waypoint = { x: 700, z: 50, y: 0, label: 'Street waypoint', sub: 'Street' };
   const report = day => ({ day, tickets: 100, occupancy: 0.5, gross: 15000, coins: 4, note: 'Test day' });
@@ -118,7 +118,10 @@ try {
       engine: { renderer: { domElement: canvas }, camera: new PerspectiveCamera(), render() { counts.render++; }, placeSun() {} },
       clock: { getDelta() { counts.clock++; return 0.05; } },
       city: { rails: new Map(), update() { counts.city++; }, updateSignals(seconds) { counts.signals++; counts.signalSeconds = seconds; }, signs: { update() {} }, loadedBuildings: () => [] },
-      traffic: { t: 0, update(dt) { this.t += dt; counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], clear() { this.list.length = 0; }, update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], update() {} },
+      traffic: { t: 0, update(dt) { this.t += dt; counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], clear() { this.list.length = 0; }, update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], setRiderStop() {}, update() {} },
+      // This fixture bypasses Game's constructor, so retain its real initially
+      // inactive train-rider guard rather than weakening production frame code.
+      railRiderClearance: new RailRiderClearance(), railRiderWarned: false,
       railContacts: { beforePlayer() {}, afterPlayer: () => ({ hit: false, impact: 0, carried: false }) }, aircraft: { update() {} },
       t: 0, moodT: 1, busyT: 1, fpsN: 0, fpsT: performance.now(), fps: 60, devOn: false, autopilot: false,
       camPos: new Vector3(), camLook: new Vector3(), cameraPlacementRevision: 0, orbitYaw: 0, orbitPitch: 0.38, orbitDist: 0,

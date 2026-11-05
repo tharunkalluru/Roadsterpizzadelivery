@@ -9,11 +9,12 @@ import { DeliveryUI, type DeliveryView, type DeliveryUIActions } from './ui/deli
 import { createDeliveryModule } from './modules';
 import type { DeliveryModule, DeliveryPoint } from './modules/types';
 import type { MovingRailBody } from '../game/moving-rail';
-import { roofUnder } from '../game/physics';
+import { roofUnder, supportAt } from '../game/physics';
 import type { LevelConfig, StorageLike } from './core/types';
 import { projectRailwayRun, type RailwayRun } from '../game/railway-flow';
 import { verifiedRailPassages, type VerifiedRailPassage } from './rail-passages';
 import { sampleTruckRoute, truckLane } from './truck-route';
+import { truckRearTrafficReservation } from './modules/truck-interior';
 import { signedFlightAngle } from '../ui/flight-navigation';
 import { resolveDeliveryRoadTarget } from './road-navigation-target';
 import { buildRailwayStoryRoute } from '../game/railway-story-route';
@@ -23,6 +24,7 @@ import { prewarmReleasedSceneCharacters, retainSceneCharacters, hasRegisteredSce
 import { sceneAssetWindow, characterIdsForLevel } from './art/scene-asset-window';
 import { ScenePreparation } from './art/scene-preparation';
 import { StoryDirector, stepStoryPose } from './systems/story-director';
+import { StoryLandingGate, storyLandingZone, storyLandingMarker } from './systems/story-landing';
 import { clearCameraPosition, staticSolidAt } from '../game/spatial-safety';
 import type { CityData } from '../world/city';
 
@@ -106,10 +108,13 @@ export class DeliveryRuntime {
   private roadTargetCache?: { revision: number; x: number; y: number; z: number; label?:string; offRoad: boolean; roadHeight: number; point: DeliveryPoint | null };
   private moduleFactory: (name: string) => DeliveryModule;
   private trafficBodies: MovingRailBody[] = [];
+  private trafficReservations:MovingRailBody[]=[];
   private passageCache: { coach: string; run: RailwayRun; revision: number; offset: number; center: number; candidates: VerifiedRailPassage[]; chosen: VerifiedRailPassage | null } | null = null;
   readonly director = new StoryDirector();
   private showFinale=false;
   private storyPoseReady=false;
+  private storyLanding = new StoryLandingGate();
+  private storyLandingReady=false;
 
   constructor(private game: Game, options: DeliveryRuntimeOptions = {}) {
     let storage: StorageLike | undefined = options.storage;
@@ -138,6 +143,7 @@ export class DeliveryRuntime {
     const events = game.deliveryEvents;
     this.off.push(events.on('orderPicked', () => { if(this.canPickup)this.controller.pickup(); }),
       events.on('locationSet', event => {
+        game.player.setCarryingPizza?.(true);
         const level = this.controller.activeLevel;
         let destination = { ...event.destination, y: event.destination.y ?? 0 };
         if (level?.moduleParams.nearestMetro) {
@@ -157,7 +163,7 @@ export class DeliveryRuntime {
       events.on('callEnded', () => { game.resetInput(); game.clock.getDelta(); }),
       events.on('setpieceFailed', event => { this.notice = event.reason; this.noticeUntil = this.elapsed + 3; }),
       events.on('levelComplete', () => {
-        game.carriers.clear(); game.hud.pickupStatus(false); game.resetInput();
+        game.carriers.clear(); game.player.setCarryingPizza?.(false); game.hud.pickupStatus(false); game.resetInput();
         this.director.complete();
         this.retainedCompletedScene=this.cinematic||!!this.module?.exitPending;
         this.retainedSceneLevelId=this.retainedCompletedScene?this.controller.activeLevel?.id??null:null;
@@ -304,7 +310,7 @@ export class DeliveryRuntime {
   }
   /** Called before physics: moving supports must have their new pose this frame. */
   beforePlayer(dt: number) {
-    if (this.disposed || this.blocking) return;
+    if (this.disposed || this.blocking) { this.storyLanding.reset(); this.storyLandingReady=false; return; }
     dt = Math.max(0, Math.min(.1, Number.isFinite(dt) ? dt : 0));
     this.elapsed += dt;
     this.prepareCharacterWindow();
@@ -343,20 +349,43 @@ export class DeliveryRuntime {
       }
     }
     this.module?.update(dt);
-    if(this.director.tryStart(this.module?.story,c.canDrop)){
+    const frame=this.module?.story;
+    // Boarding stays manual. Metro establishes its authored frame on the next
+    // update, only after a real, settled marked-rake roof contact qualifies.
+    const boarding=!frame&&this.module?.storyArrivalReady ? {
+      entry:true,point:{x:p.pos.x,y:p.pos.y,z:p.pos.z},
+    } : frame;
+    const landing=storyLandingZone(boarding);
+    // Navigation, the blue ring and capture all use the same safe approach.
+    // The module's own target remains the separate physical handoff point.
+    if(!this.cinematic&&!c.complete&&c.activeLevel?.callMode==='NONE'&&this.module){
+      const navigation=landing?storyLandingMarker(landing):this.module.target;
+      this.setTarget({...navigation,label:this.module.target.label||c.activeLevel.destination.label});
+    }
+    if(!this.cinematic&&c.canDrop&&boarding){
+      const physical=supportAt(this.game.city,p.pos.x,p.pos.z,p.pos.y-.55,false);
+      this.storyLandingReady=this.storyLanding.update(dt,{...p.pos,yaw:p.yaw,speed:p.speed,
+        flying:p.flying,descending:p.descending,jumping:p.jumping,verticalSpeed:p.vy},boarding,
+        physical.y,true,p.placementRevision,!!p.glide);
+    }else{this.storyLanding.reset();this.storyLandingReady=false;}
+    if(this.director.tryStart(frame,c.canDrop&&this.storyLandingReady)){
       this.storyPoseReady=false;
       this.game.resetInput();this.game.orbitYaw=0;this.game.orbitDist=0;this.game.orbitPitch=.38;
       this.syncView();
     }
-    this.module?.setStoryPresentation?.(this.cinematic);
+    this.module?.setStoryPresentation?.(this.cinematic,landing);
     if(this.director.actionReady(dt,this.storyPoseReady&&!!this.module?.status.canDrop&&c.canDrop))this.module?.onDrop();
     if(this.retainedCompletedScene&&!this.cinematic&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
     this.trafficBodies.length = 0;
     for (const body of this.module?.trafficBodies ?? this.module?.supports ?? []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
     for(const scene of this.completedScenery)for(const body of scene.trafficBodies??[])if(body.id==='delivery-log-truck')this.trafficBodies.push(body);
-    this.game.traffic.setKinematicVehicles?.(this.trafficBodies, dt);
-    const surfaceApproach=c.activeLevel?.moduleParams.scene==='surfaceEmergence';
-    const movement = this.cinematic || c.canDrop || surfaceApproach ? this.module?.movement : undefined;
+    this.trafficReservations.length=0;
+    this.trafficReservations.push(...this.module?.trafficReservations??[]);
+    for(const scene of this.completedScenery)this.trafficReservations.push(...scene.trafficReservations??[]);
+    this.game.traffic.setKinematicVehicles?.(this.trafficBodies, dt,this.trafficReservations);
+    // Automatic stories may assist motion only after the settled arrival.
+    // In particular proximity cannot pull a flying car into a truck or lake.
+    const movement = this.cinematic || c.canDrop&&c.activeLevel?.callMode!=='NONE' ? this.module?.movement : undefined;
     p.deliveryMotion = movement && movement.mode !== 'normal' && movement.center ? {
       mode: movement.mode, x: movement.center.x, z: movement.center.z, radius: movement.radius ?? 80,
       altitude: movement.mode === 'underwater' ? (movement.center.y - (movement.depth ?? 4)) : (movement.altitude ?? movement.center.y + 3),
@@ -399,7 +428,7 @@ export class DeliveryRuntime {
     if (this.disposed) return;
     dt = Math.max(0, Math.min(.1, Number.isFinite(dt) ? dt : 0));
     this.ui.setVisible(visible);
-    if (!visible) { this.syncBlocking(); return; }
+    if (!visible) { this.storyLanding.reset();this.storyLandingReady=false;this.syncBlocking(); return; }
     if (!this.ui.collectionOpen) {
       const d = this.target ? Math.hypot(this.game.player.pos.x - this.target.x, this.game.player.pos.z - this.target.z) : Infinity;
       const arrival=this.module?.arrival;
@@ -461,8 +490,14 @@ export class DeliveryRuntime {
       if (route.length < 2) return;
       // Do not introduce a new truck through an NPC already occupying the lane.
       const roofHeight = interior ? 5.8 : Number(level.moduleParams.roofHeight) || 2.8;
+      // Do not trim a blocked walk-in route down to a few final metres. A
+      // real mapped run must remain for the rear gap and ordinary braking;
+      // otherwise keep the order and retry placement, never extend/teleport it.
+      const remainingRun=new Array<number>(route.length).fill(0);
+      for(let i=route.length-2;i>=0;i--)remainingRun[i]=remainingRun[i+1]+
+        Math.hypot(route[i+1].x-route[i].x,route[i+1].z-route[i].z);
       const clearStart = route.findIndex((point, index) => {
-        if (index >= route.length - 1) return false;
+        if (index >= route.length - 1 || interior&&remainingRun[index]<30) return false;
         const next = route[index + 1], n = Math.hypot(next.x - point.x, next.z - point.z) || 1;
         const hx = (next.x - point.x) / n, hz = (next.z - point.z) / n;
         const body: MovingRailBody = { id: 'delivery-log-truck', ...point,
@@ -470,7 +505,8 @@ export class DeliveryRuntime {
           hx, hz,
           bottom: point.y + .2, roof: point.y + roofHeight, halfWidth: interior ? 3 : 1.95, halfLength,
           previous: { ...point, hx: 0, hz: 1 } };
-        return this.game.traffic.kinematicPoseClear?.(body) !== false;
+        return this.game.traffic.kinematicPoseClear?.(body) !== false&&
+          (!interior||this.game.traffic.kinematicPoseClear?.(truckRearTrafficReservation(body))!==false);
       });
       if (clearStart < 0) return;
       if (clearStart) route = route.slice(clearStart);
@@ -515,8 +551,11 @@ export class DeliveryRuntime {
     const characterIds=characterIdsForLevel(level),renderer=this.game.engine.renderer;
     const prepareCharacterGraphics=hasRegisteredSceneCharacters(characterIds)&&typeof renderer?.compile==='function'&&typeof renderer?.getContext==='function'
       ?async(instance?:Group,valid?:()=>boolean)=>{await prewarmReleasedSceneCharacters(characterIds,this.game.engine);if(instance)await prepareCharacterGpu(instance,this.game.engine,valid);}:undefined;
-    module.setup({ sceneEvent:(kind)=> { if(this.module===module&&c.activeLevel===level&&c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel); }, scene: this.game.engine.scene, destination, route,
-      canInteract: () => c.canDrop, automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
+    module.setup({ sceneEvent:(kind)=> { if(this.module!==module||c.activeLevel!==level)return;
+      if(kind==='catchStarted')this.game.player.setCarryingPizza?.(false);
+      if(c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel);
+    }, scene: this.game.engine.scene, destination, route,
+      canInteract: () => c.canDrop&&(level.callMode!=='NONE'||this.cinematic||this.storyLandingReady), automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       cameraPathClear: (from, to) => {
@@ -553,7 +592,7 @@ export class DeliveryRuntime {
       onTarget: point => {
         // Teardown may synchronously follow done(). Ignore a late callback from
         // an old module so it cannot revive a completed delivery's map target.
-        if (this.module === module && c.activeLevel===level && !c.complete)
+        if (this.module === module && c.activeLevel===level && !c.complete && (level.callMode!=='NONE'||this.cinematic))
           this.setTarget({ ...point, label: point.label || level.destination.label });
       },
       cue: kind => {if(kind==='throw'){this.notice='';this.noticeUntil=0;}this.game.sound.cue(kind === 'success' ? 'delivery' : kind === 'retry' ? 'error' : kind === 'throw' ? 'flight' : 'accept');},
@@ -657,18 +696,18 @@ export class DeliveryRuntime {
       // view without retaining an entire campaign's geometry and textures.
       if(this.completedScenery.length>2)this.completedScenery.shift()!.teardown();
     }else module?.teardown();
-    this.trafficBodies.length = 0; this.game.traffic.setKinematicVehicles?.(this.trafficBodies, 0);
+    this.trafficBodies.length = 0;this.trafficReservations.length=0; this.game.traffic.setKinematicVehicles?.(this.trafficBodies, 0,this.trafficReservations);
     const p = this.game.player;
     if (p.deliveryMotion?.mode === 'underwater' && p.pos.y < .3) { p.flying = true; p.descending = false; p.altT = 0; }
     p.deliveryMotion = undefined;
   }
   private releaseStoryTrain(){this.game.rail?.clearStoryShuttle?.();this.storyShuttle='';this.storyRun=null;}
   private clearDelivery(preserveExit=false) {
-    this.director.reset();this.showFinale=false;this.storyPoseReady=false;
+    this.director.reset();this.storyLanding.reset();this.storyLandingReady=false;this.showFinale=false;this.storyPoseReady=false;
     if(!preserveExit||!this.retainedCompletedScene||!this.module?.exitPending)this.removeModule(preserveExit);
     if(!preserveExit){for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[];}
     this.releaseStoryTrain(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;
-    this.game.carriers.clear(); this.game.pickupDetector.reset(); this.game.hud.pickupStatus(false);
+    this.game.carriers.clear(); this.game.player.setCarryingPizza?.(false); this.game.pickupDetector.reset(); this.game.hud.pickupStatus(false);
     this.game.resetInput(); this.game.clock.getDelta();
     this.prepareCharacterWindow();
   }
@@ -691,6 +730,7 @@ export class DeliveryRuntime {
   dispose() {
     if (this.disposed) return;
     this.disposed = true; this.characterPreparation.dispose();this.removeModule();for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[]; this.releaseStoryTrain(); this.setTarget(null);retainSceneCharacters([]);
+    this.game.player.setCarryingPizza?.(false);
     for (const off of this.off) off(); this.off = [];
     this.controller.dispose(); this.ui.dispose(); this.game.hud.storyBlocked = false;
     this.game.hud.root?.classList.remove('story-cinematic');

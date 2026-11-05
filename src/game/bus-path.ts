@@ -2,6 +2,7 @@ import type { GEdge, RoadGraph } from './roadgraph';
 import { hasCentreMedian } from '../world/city';
 import { TrafficCurve, roundedTrafficCorner, turnProfile, type TrafficPose } from './traffic-path';
 import { constructionLane } from '../world/construction';
+import { trafficApproachRoom } from './traffic-approach';
 
 export function busRoundedCorner(a: TrafficPose, b: TrafficPose) {
   // Intersecting almost-parallel tangents can put their artificial corner
@@ -14,7 +15,14 @@ export function busRoundedCorner(a: TrafficPose, b: TrafficPose) {
 // A legal graph connection alone is not proof that an eleven-metre bus can turn.
 export function busLane(edge: GEdge, dir: 1 | -1 = 1) {
   const workLane = constructionLane(edge.e, dir); if (workLane !== undefined) return workLane;
+  if (edge.e.oneway && edge.e.joinedPavement?.usableLanes === 1) return 0;
   const half = edge.e.w / 2, margin = 1.25;
+  // Retaining an old pavement footprint alone does not assign a new traffic
+  // lane. Keep legacy join/capacity profiles exact, and use the source lane
+  // rule for an explicit physical-width override without a capacity change.
+  if(edge.e.oneway&&edge.e.joinedPavement&&
+    (edge.e.joinedPavement.physicalWidth===undefined||edge.e.joinedPavement.usableLanes!==undefined))
+    return Math.min(edge.e.w/4,half-margin-.3);
   if (edge.e.oneway) return Math.max(-half + margin + .3, Math.min(half - margin - .3, edge.e.w < 9 ? 0 : 2.8));
   const low = (hasCentreMedian(edge.e) ? .95 : .35) + margin;
   return Math.max(low, Math.min(Math.max(low, half - margin - .3), 2.8));
@@ -25,10 +33,8 @@ export function busTurn(graph: RoadGraph, before: GEdge, fromDir: 1 | -1, after:
   const entry = graph.pointAt(before, before.len - .001, fromDir), exit = graph.pointAt(after, .001, toDir);
   const angle = Math.acos(Math.max(-1, Math.min(1, entry.hx * exit.hx + entry.hz * exit.hz)));
   if (angle > Math.PI * .88) return null;
-  const endIndex = fromDir === 1 ? before.cum.length - 1 : 1;
-  const startIndex = toDir === 1 ? 1 : after.cum.length - 1;
-  const roomIn = before.cum[endIndex] - before.cum[endIndex - 1];
-  const roomOut = after.cum[startIndex] - after.cum[startIndex - 1];
+  const roomIn = trafficApproachRoom(before, fromDir, true);
+  const roomOut = trafficApproachRoom(after, toDir, false);
   const profile = turnProfile('bus'), lane = busLane(after, toDir), wanted = Math.max(3, profile.radius * Math.tan(angle / 2));
   for (const factor of [1, 1.45, .7]) {
     const startS = Math.max(fromS, before.len - Math.min(wanted * factor, roomIn * .46));

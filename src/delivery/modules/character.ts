@@ -15,6 +15,10 @@ export interface SceneCharacter {
   catchPose: (amount: number) => void;
   /** Authored in-place motion; scene systems continue to own the world path. */
   animate?: (dt: number, motion: CharacterMotion, speed?: number) => void;
+  /** Starts a local, physical carton-opening/eating performance when suitable. */
+  receivePizza?: () => boolean;
+  /** Explicit normalized amplitude from future speech/audio playback. */
+  setSpeechEnvelope?: (amount:number) => void;
 }
 interface Resources { geometry: <T extends THREE.BufferGeometry>(value: T) => T; material: (key: string, value: THREE.MeshBasicMaterial) => void }
 interface Look { shirt:string; pants:string; skin:string; hair:string; width:number; jaw:number; beard:number; hairHeight:number; moustache:boolean }

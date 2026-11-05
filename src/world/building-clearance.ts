@@ -3,6 +3,7 @@ import type { Building, RoadEdge, XZ } from './types';
 import { auxiliaryLane, travelDirection } from './expressway';
 import { metroCorridors, metroPlatformAssemblies, metroDeckHeight, type MetroLineInput } from './metro-geometry';
 import type { RailProfile } from './railway-geometry';
+import { roadClearanceWidth, roadSceneryCorridors } from './road-pavement';
 
 // Source footprints are retained in the packs. Only the generated, solid model
 // is trimmed where conflicting source layers otherwise close a transport route.
@@ -78,12 +79,12 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
     const ax = a[0] - dx / len * endPadding, az = a[1] - dz / len * endPadding, bx = b[0] + dx / len * endPadding, bz = b[1] + dz / len * endPadding;
     add(id, [[ax + nx * left, az + nz * left], [bx + nx * left, bz + nz * left], [bx - nx * right, bz - nz * right], [ax - nx * right, az - nz * right]], floor, top);
   };
-  for (const road of roads) {
+  for (const model of roads) for (const road of roadSceneryCorridors(model)) {
     if (/^(footway|path|steps|pedestrian|cycleway|bridleway|track)$/.test(road.cls)) continue;
     const extra = auxiliaryLane(road, roads as RoadEdge[]), outer = -travelDirection(road);
-    // Match the renderer's whole-edge minimum width and shared corner vertices,
-    // rather than independent square-ended strips that leave a gap at a bend.
-    const elevated = !!road.elev?.some(y => y > 1.2), hw = Math.max(road.w / 2, elevated ? 4.2 : 0) + .2;
+    // Retain the former raised-road envelope and shared corner vertices for
+    // conservative facade exclusion, including locally corrected shoulders.
+    const elevated = !!road.elev?.some(y => y > 1.2), hw = Math.max(roadClearanceWidth(road) / 2, elevated ? 4.2 : 0) + .2;
     const boundary = (side: number) => road.pts.map((p, i): XZ => {
       const a = road.pts[Math.max(0, i - 1)], b = road.pts[Math.min(road.pts.length - 1, i + 1)], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz) || 1;
       const off = side * (hw + (side === outer ? extra[i] || 0 : 0));

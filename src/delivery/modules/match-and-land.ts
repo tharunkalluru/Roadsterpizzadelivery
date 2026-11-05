@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { railRoofAt, type MovingRailBody } from '../../game/moving-rail';
 import { ModuleBase, distanceXZ, heading, numberParam } from './base';
-import type { DeliveryPoint, VerifiedTrainPassage, ModuleStoryFrame } from './types';
+import type { DeliveryPoint, VerifiedTrainPassage, ModuleStoryFrame, ModuleStoryLandingZone } from './types';
 import type { DeliveryModuleContext, ModuleParams } from './types';
 import { TruckInterior } from './truck-interior';
 import type { SceneCharacter } from './character';
@@ -14,8 +14,9 @@ export class MatchAndLand extends ModuleBase {
   private receiver:SceneCharacter|null=null;
   get supports(){return this.interior?.supports??super.supports;}
   get trafficBodies(){return this.interior?.trafficBodies??this.supports.filter(body=>body.id==='delivery-log-truck');}
+  get trafficReservations(){return this.interior?.trafficReservations??[];}
   get arrival(){return this.interior?.arrival;}
-  override setStoryPresentation(active:boolean){if(this.interior)this.interior.setStoryPresentation(active);else super.setStoryPresentation(active);}
+  override setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){if(this.interior)this.interior.setStoryPresentation(active,landing);else super.setStoryPresentation(active,landing);}
   get storyArrivalReady(){return !this.interior&&this.vehicleKind==='train'&&this.story?.entry===true;}
   override get story():ModuleStoryFrame|undefined{
     if(this.interior)return this.interior.story;
@@ -28,7 +29,11 @@ export class MatchAndLand extends ModuleBase {
     for(let i=1;i<coaches.length;i++)if(distanceXZ(p,coaches[i])<distanceXZ(p,coaches[nearest]))nearest=i;
     const goal=coaches.findIndex(b=>b.id===body.id),next=goal<0?body:coaches[nearest+Math.sign(goal-nearest)]??body;
     const atCustomer=next.id===body.id;
-    return {entry:coaches.some(coach=>this.landedOnCoach(coach)),
+    const landed=coaches.find(coach=>this.landedOnCoach(coach));
+    return {entry:!!landed,
+      // Any real coach on this marked rake remains a manual landing zone.
+      // Its support is verified above; the director still waits for a stop.
+      landing:landed?{point:{x:p.x,y:railRoofAt(landed,p.x,p.z)!+.55,z:p.z},radius:3.15}:undefined,
       point:{x:next.x-(atCustomer?next.hx*3.3:0),y:next.roof+.55,z:next.z-(atCustomer?next.hz*3.3:0)},
       yaw:Math.atan2(-next.hx,-next.hz),maxSpeed:7,verticalSpeed:3};
   }
@@ -41,7 +46,8 @@ export class MatchAndLand extends ModuleBase {
     const actor=this.receiver!.group;actor.updateWorldMatrix(true,false);
     // The car stops 3.3m behind the receiver. A camera only .9m to the side
     // sits in its cabin and hides the customer behind the windscreen.
-    actor.localToWorld(this.roofFocusPosition.set(3,1.8,2.4));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));return this.roofFocus;
+    actor.localToWorld(this.roofFocusPosition.set(3,1.8,2.4));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));
+    actor.getWorldPosition(this.roofFocusAnchor);return this.roofFocus;
   }
   get charactersReady(){return this.interior?.charactersReady??super.charactersReady;}
   get headlightGain(){return this.interior ? this.interior.headlightGain : this.roofCustomerNear(14) ? .02 : undefined;}
@@ -84,7 +90,8 @@ export class MatchAndLand extends ModuleBase {
   private catchReturn=0;
   private roofFocusPosition=new THREE.Vector3();
   private roofFocusTarget=new THREE.Vector3();
-  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,context:'stationary-handoff' as const};
+  private roofFocusAnchor=new THREE.Vector3();
+  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,translationAnchor:this.roofFocusAnchor,context:'stationary-handoff' as const};
   private roofLampPlayer=new THREE.Vector3();
   private roofLampWorld=new THREE.Vector3();
   private roofLampRequest={position:this.roofLampWorld,kind:'porch' as const};

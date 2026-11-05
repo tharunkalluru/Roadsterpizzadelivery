@@ -6,6 +6,11 @@ import { RoadGraph } from '../../src/game/roadgraph';
 import { rng } from '../../src/core/util';
 import type { MovingRailBody } from '../../src/game/moving-rail';
 import { trafficOverlap } from '../../src/game/traffic-path';
+import { installLegacyCandidateActors } from './fixtures/legacy-candidate-actors';
+import { createDeliveryModule,type DeliveryPlayer } from '../../src/delivery/modules';
+import { truckRearTrafficReservation } from '../../src/delivery/modules/truck-interior';
+import { StoryLandingGate } from '../../src/delivery/systems/story-landing';
+installLegacyCandidateActors();
 
 const sizes = { car: [1.8, 1.6, 4.5], auto: [1.36, 1.85, 2.65], bike: [.75, 1.9, 2], bus: [2.5, 3.3, 11], truck: [2.5, 3.1, 8.4] };
 const farPlayer = { x: 350, y: .55, z: 200, speed: 0, hx: 1, hz: 0 };
@@ -73,4 +78,65 @@ test('adapter snapshots reusable bodies and ignores invalid scene geometry', () 
   const snapshot = list[0]; body.x = 130; assert.equal(snapshot.x, 120);
   traffic.setKinematicVehicles([body], .1); assert.equal(list[0], snapshot); assert.equal(snapshot.x, 130);
   traffic.setKinematicVehicles([], 0); assert.equal(list.length, 0);
+});
+
+function actualTruck(traffic:Traffic,player:DeliveryPlayer){
+  const module=createDeliveryModule('matchAndLand');module.setup({scene:traffic.scene,player:()=>player,
+    destination:{x:120,y:0,z:-3},route:[{x:120,y:0,z:-3},{x:1000,y:0,z:-3}],
+    automaticStories:true,canInteract:()=>true,emit(){},
+    vehicleSpeedLimit:body=>traffic.kinematicSpeedLimit(body,6),vehiclePoseClear:body=>traffic.kinematicPoseClear(body),
+  },{scene:'truckInterior',vehicle:'truck',speed:6});
+  return module;
+}
+for(const group of ['bus','bike','car']as const)test(`actual ${group} keeps the complete stationary truck landing/ramp bay clear without losing its identity`,()=>{
+  const {traffic,car}=fixture(group),player:DeliveryPlayer={x:103,y:24,z:-3,yaw:-Math.PI/2,speed:0,flying:true};
+  const module=actualTruck(traffic,player),id=car.g.uuid,dt=1/60;let lastX=car.x;
+  const tick=()=>{module.update(dt);traffic.setKinematicVehicles(module.trafficBodies??[],dt,module.trafficReservations??[]);traffic.update(dt,100,0,farPlayer);
+    assert.equal(traffic.cars[0],car);assert.equal(car.g.uuid,id);assert.ok(car.x>=lastX-1e-9&&car.x-lastX<.3,'normal clock/path remains continuous');lastX=car.x;};
+  const initial=module.trafficBodies![0].x;for(let i=0;i<120;i++)tick();
+  assert.ok(module.trafficBodies![0].x>initial+7,'overhead flight does not park the truck');
+  Object.assign(player,module.story!.point,{flying:false,y:.55});for(let i=0;i<480;i++)tick();
+  const body=module.trafficBodies![0],reservation=module.trafficReservations![0],frame=module.story!;
+  assert.ok(Math.abs(body.x-body.previous.x)<1e-8,'ground approach parks the real truck');
+  assert.ok(!trafficOverlap(car,{...reservation,y:reservation.bottom,size:[reservation.halfWidth*2,reservation.roof-reservation.bottom,reservation.halfLength*2]},.3),'bus tail and nose stay outside the actual arrival/ramp space');
+  assert.equal(traffic.hitTest(frame.point.x,.55,frame.point.z,1.3),null);
+  const landing={point:{...frame.point},radius:3.15},gate=new StoryLandingGate();
+  for(let i=0;i<40;i++)assert.equal(gate.update(dt,{...frame.point,y:24,yaw:player.yaw,speed:0,flying:true}, {...frame,landing},0,true,0,false),false,'reservation is not an automatic flight trigger');
+  let settled=false;for(let i=0;i<40;i++)settled=gate.update(dt,{...frame.point,y:.55,yaw:player.yaw,speed:0,flying:false,verticalSpeed:0},{...frame,landing},0,true,0,false);
+  assert.equal(settled,true,'the now-clear real ground permits a stationary manual arrival');
+  assert.ok(!module.supports.some(b=>b.id===reservation.id),'reservation never becomes an invisible player collider');
+  const stopped=car.x;module.teardown();traffic.setKinematicVehicles([],0,[]);for(let i=0;i<180;i++)traffic.update(dt,100,0,farPlayer);
+  assert.ok(car.x>stopped+5);assert.equal(car.g.uuid,id);
+});
+
+for(const group of ['bus','bike','car']as const)test(`pre-existing ${group} inside a newly visible rear reservation clears naturally while the truck establishes headway`,()=>{
+  const {traffic,car}=fixture(group),at=traffic.graph.pointAt(car.edge,103,1,3);Object.assign(car,at,{s:103,speed:3});
+  const player:DeliveryPlayer={x:104,y:.55,z:5,yaw:-Math.PI/2,speed:0,flying:false},module=actualTruck(traffic,player),id=car.g.uuid,dt=1/60;
+  const start=module.trafficBodies![0].x;let moved=0,cleared=false;
+  for(let i=0;i<600;i++){
+    module.update(dt);traffic.setKinematicVehicles(module.trafficBodies??[],dt,module.trafficReservations??[]);const prior=car.x;traffic.update(dt,100,0,farPlayer);moved+=car.x-prior;
+    const bay=module.trafficReservations![0];cleared ||=!trafficOverlap(car,{...bay,y:bay.bottom,size:[bay.halfWidth*2,bay.roof-bay.bottom,bay.halfLength*2]},.3);
+    assert.equal(traffic.cars[0],car);assert.equal(car.g.uuid,id);assert.ok(car.x>=prior&&car.x-prior<.2,'no pop, backwards jump or despawn');
+    assert.ok(!trafficOverlap(car,{...module.trafficBodies![0],y:module.trafficBodies![0].bottom,size:[6.24,5.7,20]},0),'real truck body stays physical');
+  }
+  assert.ok(module.trafficBodies![0].x>start+8,'truck does not deadlock by parking over the occupied bay');assert.equal(cleared,true);
+  assert.ok(moved>.1,'existing NPC brakes through its real path instead of freezing on an invisible reservation wall');module.teardown();
+});
+
+test('ordinary NPC spawning rejects the reserved rear bay separately from the real truck body',()=>{
+  const {traffic}=fixture();traffic.cars.length=0;
+  const random:any=()=>.4;random.pick=(items:any[])=>items[0];random.range=(lo:number,hi:number)=>(lo+hi)/2;traffic.r=random;
+  const body=truck(220),reservation=truckRearTrafficReservation(body);traffic.setKinematicVehicles([body],.1,[reservation]);
+  traffic.spawn(100,0);assert.equal(traffic.cars.length,0,'x=200 is behind the physical truck but inside its reserved approach');
+  traffic.setKinematicVehicles([body],.1,[]);traffic.spawn(100,0);assert.equal(traffic.cars.length,1,'negative control: ordinary physical-truck-only spawn would crowd that bay');
+});
+
+test('rear reservations on an adjacent carriageway or another vertical level leave ordinary motion exact',()=>{
+  for(const mode of ['adjacent','above']as const){
+    const a=fixture(),b=fixture(),reservation=truckRearTrafficReservation(truck());
+    if(mode==='adjacent')reservation.z+=10;else{reservation.y+=12;reservation.bottom+=12;reservation.roof+=12;}
+    b.traffic.setKinematicVehicles([],1/60,[reservation]);
+    for(let i=0;i<180;i++){a.traffic.update(1/60,100,0,farPlayer);b.traffic.update(1/60,100,0,farPlayer);}
+    assert.deepEqual([b.car.x,b.car.y,b.car.z,b.car.speed],[a.car.x,a.car.y,a.car.z,a.car.speed],mode);
+  }
 });

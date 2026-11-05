@@ -36,6 +36,10 @@ import { railwayRoadClearance, roadHeightAt } from './railway-road-clearance';
 import { underpassAreaClipper, buildUnderpassTile } from './underpass-terrain';
 import { shareRoadJunction } from './road-openings';
 import type { MetroFlightClearance } from './metro-flight-clearance';
+import { roadPavementWidth, roadPavementWidthAt, roadSupportWidthAt, roadPavementLanes } from './road-pavement';
+import { roadSceneryClearanceWidth as roadClearanceWidth } from './fitted-road-scenery-clearance';
+import { dividerStripeDistance, drawClosedDivider } from './road-divider-mesh';
+import { continuousPaintStroke, paintOnRoad } from './road-paint-mesh';
 
 const PALETTE = ['#E8A87C', '#F2D49B', '#9FC7C1', '#C9B6E4', '#F4B6C2', '#E7D7C1', '#B5C99A', '#F1C27D', '#D9CAB3', '#8FB9C9',
   '#E3A6A1', '#F3EFE6', '#C8D6A3', '#E9C46A', '#BFD7EA', '#F0B78F', '#EDE6DA', '#D8CFC0'];
@@ -251,7 +255,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       if (!ramp && (hx || hz) && !localExpressway(s.e) && Math.abs(dx * hx + dz * hz) / Math.sqrt(L2) > 0.94 && !shareRoadJunction(own, s.e)) continue;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
       if (Math.abs(s.ya + (s.yb - s.ya) * t - ownY) > 2.4) continue;    // another road passes safely above or below this roadside feature
-      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e!.w / 2 + pad) return true;
+      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e!) / 2 + pad) return true;
     }
     return false;
   };
@@ -262,7 +266,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       if (s.kind !== 'road' || !s.e || (s.ya <= 1.2 && s.yb <= 1.2)) continue;
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
-      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) > s.e.w / 2 + pad) continue;
+      if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) > roadClearanceWidth(s.e) / 2 + pad) continue;
       const y = s.ya + (s.yb - s.ya) * t;
       if (y > 1.2 && (!best || y < best.y)) best = { y, s };
     }
@@ -276,15 +280,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
       const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
       const cx = s.ax + dx * t, cz = s.az + dz * t, d = Math.hypot(x - cx, z - cz);
-      if (d < s.e.w / 2 - 0.3 && (!best || d < best.d)) best = { e: s.e, d, cx, cz, w: s.e.w };
+      const width=roadPavementWidthAt(s.e,cx,cz);
+      if (d < width / 2 - 0.3 && (!best || d < best.d)) best = { e: s.e, d, cx, cz, w: width };
     }
     return best;
   };
   for (const e of renderRoads) {
     const y0 = ROAD_Y[e.cls] ?? 0.04;
     const elevAt = (i: number) => (e.elev ? e.elev[i] : 0);
-    // narrow over-bridges get a deck at least 8.4 m wide between the parapets, so a car can take their bends
-    const { hw, extra, outer, L, R, quads: roadQuads } = roadRibbon(e, zone.roads);
+    // The same finite pavement boundary drives drawing, support, and soffits.
+    const { hw, widths, extra, outer, L, R, quads: roadQuads } = roadRibbon(e, zone.roads);
+    const pavementLine=(side:number,offset:number):XZ[]=>e.joinedPavement?e.pts.map((p,i)=>{const edge=side>0?L[i]:R[i],scale=(widths[i]+offset)/(widths[i]||1);return[p[0]+(edge[0]-p[0])*scale,p[1]+(edge[1]-p[1])*scale];}):offsetLine(e.pts,side*(hw+offset));
     const pierSites = new Map<number, BridgeSupportSite[]>();
     for (const site of bridgeSupportPlan(zone.roads).get(e) || []) (pierSites.get(site.i) || pierSites.set(site.i, []).get(site.i)!).push(site);
     let v = 0;
@@ -299,7 +305,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         [[0, v], [0, v1], [e.w / 6, v1], [e.w / 6, v]]);
       v = v1;
       // collision/drive surface
-      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: hw + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road', roadQuad: roadQuads[i], paintLift: y0 };
+      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: Math.max(widths[i],widths[i+1]) + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road', roadQuad: roadQuads[i], paintLift: y0 };
       if (localQuads) for (const quad of localQuads) {
         // A clipped triangle can begin with its short transverse edge. Index
         // its longest edge so the far end remains discoverable by supportAt.
@@ -323,10 +329,11 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         for (const site of pierSites.get(i) || []) {
           const { x, z, h, hx, hz } = site;
           if (!ownsRoadPoint(e, x, z)) continue;
-          const footprint = { x, z, r: .8 }, cap = { x, z, hx, hz, hw: Math.min(e.w, 9) / 2, hl: .8 };
+          const capWidth = Math.min(roadSupportWidthAt(e,x,z),9);
+          const footprint = { x, z, r: .8 }, cap = { x, z, hx, hz, hw: capWidth / 2, hl: .8 };
           if (!structureClearance.clear(footprint, 0, h) || !structureClearance.clear(cap, h - .7, h)) continue;
           B.st.add(TPL.cyl, x, h / 2, z, 0.75, h, 0.75, '#bdb8c8', { ao: true, aoH: 3 }); addObstacle(x, z, 0.8, h);
-          B.st.box(x, h - 0.35, z, Math.min(e.w, 9), 0.7, 1.6, '#c4bfcf', { ry: Math.atan2(hx, hz) });
+          B.st.box(x, h - 0.35, z, capWidth, 0.7, 1.6, '#c4bfcf', { ry: Math.atan2(hx, hz) });
           structureSupports.push({ source: e.id, sourceIds: site.sources, part: 'bridge', footprint, bottom: 0, top: h, cap: { footprint: cap, bottom: h - .7, top: h } });
         }
       }
@@ -335,11 +342,19 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const centreMedian = hasCentreMedian(e);
     // lane markings
     if (!opts.lowQ || MAJOR.has(e.cls) || MOTORWAY.has(e.cls)) {
-      const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6) => {
+      const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6, keep?: (i: number) => boolean) => {
         let acc = 0;
+        // Continuous yellow boundaries share their exact cross-section at a
+        // bend instead of leaving a wedge between two separately capped strips.
+        const joinedStroke = off === 0 ? continuousPaintStroke(pts, wid) : null;
+        const emit = (polygon: XZ[], segment: number) => {
+          for(const strip of paintOnRoad(polygon,roadQuads[segment],y0+.012))
+            for(const q of localLongRoads.has(e.id)?clipRoadQuadToTile(strip,zone.i,zone.j):[strip])B.marks.tri(q[0],q[1],q[2],col);
+        };
         for (let i = 0; i < pts.length - 1; i++) {
           const ax = pts[i][0], az = pts[i][1], bx = pts[i + 1][0], bz = pts[i + 1][1];
           const L2 = Math.hypot(bx - ax, bz - az); if (L2 < 0.01) continue;
+          if (keep && !keep(i)) { acc += L2; continue; }
           const dx = (bx - ax) / L2, dz = (bz - az) / L2, ang = Math.atan2(dx, dz);
           for (let d = 0; d < L2 - 1e-6;) {
             const phase = (acc + d) % (on + off);
@@ -349,36 +364,47 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
             const mx = ax + dx * (d + len / 2), mz = az + dz * (d + len / 2);
             if (!localLongRoads.has(e.id) && !ownsRoadPoint(e, mx, mz)) { d += len; continue; }
             const x0 = ax + dx * d, z0 = az + dz * d, x1 = ax + dx * (d + len), z1 = az + dz * (d + len), nx = -dz * wid / 2, nz = dx * wid / 2;
-            const vertex = (x: number, z: number): [number,number,number] => {
-              const a = e.pts[i], b = e.pts[i + 1], ex = b[0] - a[0], ez = b[1] - a[1];
-              const u = Math.max(0, Math.min(1, ((x - a[0]) * ex + (z - a[1]) * ez) / (ex * ex + ez * ez || 1)));
-              return [x, (roadQuadHeight(roadQuads[i], x, z) ?? elevAt(i) + (elevAt(i + 1) - elevAt(i)) * u) + y0 + .012, z];
-            };
             // Paint is a film following the asphalt triangles, never a row of
             // horizontal boxes protruding from a descending flyover.
-            const strip:RoadQuad=[vertex(x0 + nx, z0 + nz),vertex(x1 + nx, z1 + nz),vertex(x1 - nx, z1 - nz),vertex(x0 - nx, z0 - nz)];
+            const stroke=joinedStroke?.segments[i];
+            const strip:XZ[]=stroke ? [stroke.left0,stroke.left1,stroke.right1,stroke.right0] : [[x0+nx,z0+nz],[x1+nx,z1+nz],[x1-nx,z1-nz],[x0-nx,z0-nz]];
             // Continuous edge paint may span kilometres. Its source midpoint
             // cannot assign the whole strip to one tile after asphalt is local.
-            for(const q of localLongRoads.has(e.id)?clipRoadQuadToTile(strip,zone.i,zone.j):[strip])B.marks.quad(q[0],q[1],q[2],q[3],col);
+            emit(strip,i);
             d += len;
           }
           acc += L2;
         }
+        for(const bevel of joinedStroke?.bevels||[]) {
+          if(!localLongRoads.has(e.id)&&!ownsRoadPoint(e,...pts[bevel.index]))continue;
+          for(const segment of [bevel.index-1,bevel.index])emit(bevel.points,segment);
+        }
       };
       if (e.w >= 7.5 && !e.oneway && !centreMedian) dash(e.pts, '#ecebf0', 0.14);
-      if (e.oneway && e.w >= 7 && !e.workZone) {
+      if (e.oneway && (e.w >= 7 || e.joinedPavement?.usableLanes && e.joinedPavement.originalWidth >= 7) && !e.workZone) {
         // one dashed line between each pair of lanes (ORR and the expressways run four lanes a side)
-        const nl = e.expressway?.controlled ? e.expressway.throughLanes : Math.max(2, Math.round(e.w / 3.3));
-        for (let k = 1; k < nl; k++) {
-          const off = e.expressway?.controlled ? travelDirection(e) * (-hw + (e.expressway.shoulders?.[0] || 0) + k * (e.expressway.laneWidth || 3.5)) : -hw + k * e.w / nl;
-          dash(nl === 2 ? e.pts : offsetLine(e.pts, off), '#ecebf0', 0.14, MOTORWAY.has(e.cls) ? 4.5 : 3, MOTORWAY.has(e.cls) ? 7.5 : 6);
+        if (e.joinedPavement?.usableLanes && !e.expressway?.controlled) {
+          let along = 0;
+          const counts = e.pts.map((p, i) => { if(i)along+=Math.hypot(p[0]-e.pts[i-1][0],p[1]-e.pts[i-1][1]);return roadPavementLanes(e,along); });
+          for(let k=1;k<Math.max(...counts);k++){
+            const line: XZ[] = e.pts.map((p,i)=>{const offset=-widths[i]+2*widths[i]*k/counts[i];return[p[0]+(L[i][0]-p[0])*offset/(widths[i]||1),p[1]+(L[i][1]-p[1])*offset/(widths[i]||1)];});
+            // A source lane-count boundary ends a stripe; do not draw a short
+            // diagonal joining unrelated divider positions across that change.
+            dash(line,'#ecebf0',.14,MOTORWAY.has(e.cls)?4.5:3,MOTORWAY.has(e.cls)?7.5:6,i=>counts[i]===counts[i+1]&&k<counts[i]);
+          }
+        } else {
+          const nl = e.expressway?.controlled ? e.expressway.throughLanes : Math.max(2, Math.round(e.w / 3.3));
+          for (let k = 1; k < nl; k++) {
+            const off = e.expressway?.controlled ? travelDirection(e) * (-hw + (e.expressway.shoulders?.[0] || 0) + k * (e.expressway.laneWidth || 3.5)) : -hw + k * e.w / nl;
+            dash(nl === 2 ? e.pts : offsetLine(e.pts, off), '#ecebf0', 0.14, MOTORWAY.has(e.cls) ? 4.5 : 3, MOTORWAY.has(e.cls) ? 7.5 : 6);
+          }
         }
       }
       if (MOTORWAY.has(e.cls)) {
-        dash(offsetLine(e.pts, (hw - .45) * travelDirection(e)), '#e8c84a', .16, 50, 0);
-        dash(isORR(e) ? (outer === -1 ? R : L) : offsetLine(e.pts, -(hw - .45) * travelDirection(e)), '#f4f2f6', .16, 50, 0);
+        dash(e.joinedPavement?pavementLine(-travelDirection(e),-.45):offsetLine(e.pts, (hw - .45) * travelDirection(e)), '#e8c84a', .16, 50, 0);
+        dash(isORR(e) ? (outer === -1 ? R : L) : e.joinedPavement?pavementLine(travelDirection(e),-.45):offsetLine(e.pts, -(hw - .45) * travelDirection(e)), '#f4f2f6', .16, 50, 0);
       }
-      if (MAJOR.has(e.cls) && e.w >= 9) { dash(offsetLine(e.pts, hw - 0.35), '#d9c25a', 0.12, 50, 0); dash(offsetLine(e.pts, -hw + 0.35), '#d9c25a', 0.12, 50, 0); }
+      if (MAJOR.has(e.cls) && (e.w >= 9||e.joinedPavement)) { dash(pavementLine(1,-.35), '#d9c25a', 0.12, 50, 0); dash(pavementLine(-1,-.35), '#d9c25a', 0.12, 50, 0); }
     }
     // ORR and expressways at ground level: steel crash barriers on both sides (open wherever another road joins or
     // crosses), a planted strip along the median side, and lamps on the median side
@@ -416,7 +442,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         }
         // median shrubs and lamps
         if (median && !opts.lowQ) {
-          const sl = offsetLine(e.pts, side * (hw + 1.6)); let acc = hash(e.id) % 40;
+          const sl = pavementLine(side,1.6); let acc = hash(e.id) % 40;
           for (let i = 0; i < sl.length - 1; i++) {
             const ax = sl[i][0], az = sl[i][1], bx = sl[i + 1][0], bz = sl[i + 1][1], L2 = Math.hypot(bx - ax, bz - az), ang = Math.atan2(bx - ax, bz - az);
             for (let d = 0; d < L2; d += 7) { const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2; if (ownsRoadPoint(e, x, z) && elevAt(i) < .1 && !blocked(x, z, e, .6)) B.st.add(TPL.ico0, x, groundYAt(e, x, z) + .6, z, .75, .6, .75, ['#4e7d33', '#5c8f3a', '#6fa14a'][Math.floor(d) % 3]); }
@@ -434,7 +460,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     // flyover lamps: on the parapet, every ~35 m, arm reaching over the carriageway
     if (elevated && (MAJOR.has(e.cls) || MOTORWAY.has(e.cls))) late.push(() => {
       const sd = e.oneway === 'backward' ? 1 : -1;           // the left parapet in the direction of travel
-      const lp = offsetLine(e.pts, sd * (hw + 0.15));
+      const lp = pavementLine(sd,.15);
       let acc = hash(e.id) % 35;
       for (let i = 0; i < lp.length - 1; i++) {
         const ax = lp[i][0], az = lp[i][1], bx = lp[i + 1][0], bz = lp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
@@ -460,13 +486,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         let run: { a: number[]; b: number[]; d0: number; d1: number; ang: number } | null = null;
         const flush = () => {
           if (!run) return;
-          const { a, b, d0, d1 } = run; const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1;
-          const nx = (-dz / L) * wid / 2, nz = (dx / L) * wid / 2;
-          const p0 = [a[0] - nx, a[1] - nz], p1 = [b[0] - nx, b[1] - nz], q0 = [a[0] + nx, a[1] + nz], q1 = [b[0] + nx, b[1] + nz];
-          const uv = [[d0, 0], [d1, 0], [d1, 1], [d0, 1]], ya = groundYAt(e, a[0], a[1]), yb = groundYAt(e, b[0], b[1]);
-          B.kerb.quad([p0[0], ya + hgt, p0[1]], [p1[0], yb + hgt, p1[1]], [q1[0], yb + hgt, q1[1]], [q0[0], ya + hgt, q0[1]], pattern[0], uv);
-          B.kerb.quad([p0[0], ya, p0[1]], [p1[0], yb, p1[1]], [p1[0], yb + hgt, p1[1]], [p0[0], ya + hgt, p0[1]], pattern[0], uv);
-          B.kerb.quad([q1[0], yb, q1[1]], [q0[0], ya, q0[1]], [q0[0], ya + hgt, q0[1]], [q1[0], yb + hgt, q1[1]], pattern[0], [[d1, 0], [d0, 0], [d0, 1], [d1, 1]]);
+          const { a, b, d0, d1 } = run, ya = groundYAt(e, a[0], a[1]), yb = groundYAt(e, b[0], b[1]);
+          drawClosedDivider(B.kerb, a, b, wid, hgt, ya, yb, pattern[0], dividerStripeDistance(d0,total), dividerStripeDistance(d1,total));
           run = null;
         };
         for (let i = 0; i < pts.length - 1; i++) {
@@ -513,15 +534,15 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         flush(n);
       };
       if (e.oneway) {
-        curb(offsetLine(e.pts, sideRight * (hw + 0.2)), 0.4, 0.42, ['#FFC21A', '#1b1a1f'], 1, 'median');
+        curb(pavementLine(sideRight,.2), 0.4, 0.42, ['#FFC21A', '#1b1a1f'], 1, 'median');
         if (!opts.lowQ) {
-          const fp = offsetLine(e.pts, -sideRight * (hw + 1.2));
+          const fp = pavementLine(-sideRight,1.2);
           for (let i = 0; i < fp.length - 1; i++) {
             const ax = fp[i][0], az = fp[i][1], bx = fp[i + 1][0], bz = fp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
             footRun(ax, az, bx, bz, L2, 2.2);
           }
-          curb(offsetLine(e.pts, -sideRight * (hw + 0.1)), 0.22, 0.26, ['#f1eff4', '#232129'], 1, 'kerb');
-          { const wp = trimPath(offsetLine(e.pts, -sideRight * (hw + 1.2)), e); for (const pts of localLongRoads.has(e.id) ? clipRoadPathToTile(wp, zone.i, zone.j) : [wp]) if (pts.length >= 2) walkPaths.push({ pts, edge: e.id, side: (-sideRight) as 1 | -1 }); }
+          curb(pavementLine(-sideRight,.1), 0.22, 0.26, ['#f1eff4', '#232129'], 1, 'kerb');
+          { const wp = trimPath(pavementLine(-sideRight,1.2), e); for (const pts of localLongRoads.has(e.id) ? clipRoadPathToTile(wp, zone.i, zone.j) : [wp]) if (pts.length >= 2) walkPaths.push({ pts, edge: e.id, side: (-sideRight) as 1 | -1 }); }
         }
       } else if (e.cls !== 'tertiary' || e.w >= 8) {
         if (centreMedian) {
@@ -531,17 +552,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         }
         for (const sgn of [1, -1]) {
           if (opts.lowQ) break;
-          const fp = offsetLine(e.pts, sgn * (hw + 1.1));
+          const fp = pavementLine(sgn,1.1);
           for (let i = 0; i < fp.length - 1; i++) {
             const ax = fp[i][0], az = fp[i][1], bx = fp[i + 1][0], bz = fp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
             footRun(ax, az, bx, bz, L2, 2.0);
           }
-          curb(offsetLine(e.pts, sgn * (hw + 0.05)), 0.2, 0.25, ['#f1eff4', '#232129'], 1, 'kerb');
+          curb(pavementLine(sgn,.05), 0.2, 0.25, ['#f1eff4', '#232129'], 1, 'kerb');
           { const wp = trimPath(fp, e); for (const pts of localLongRoads.has(e.id) ? clipRoadPathToTile(wp, zone.i, zone.j) : [wp]) if (pts.length >= 2) walkPaths.push({ pts, edge: e.id, side: sgn as 1 | -1 }); }
         }
       }
       // street lamps along major roads, every ~30 m, on the left kerb
-      const lp = offsetLine(e.pts, (e.oneway ? sideRight : 1) * (hw + (e.oneway ? 0.2 : 0.4)));
+      const lp = pavementLine(e.oneway ? sideRight : 1,e.oneway ? .2 : .4);
       let acc = hash(e.id) % 30;
       for (let i = 0; i < lp.length - 1; i++) {
         const ax = lp[i][0], az = lp[i][1], bx = lp[i + 1][0], bz = lp[i + 1][1], L2 = Math.hypot(bx - ax, bz - az);
@@ -564,7 +585,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   for (const e of zone.roads) for (const [node, i, j] of [[e.from, 0, 1], [e.to, e.pts.length - 1, e.pts.length - 2]] as [string | null, number, number][]) {
     if (!node || !e.pts[i] || !e.pts[j] || !inTile(...e.pts[i])) continue;
     const p = e.pts[i], q = e.pts[j], length = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1;
-    const width = e.elev?.some(y => y > 1.2) ? Math.max(e.w / 2, 4.2) : e.w / 2, extra = auxiliaryLane(e, zone.roads)[i] || 0, outer = -travelDirection(e);
+    const endDistance=i===0?0:e.pts.slice(1).reduce((s,p,n)=>s+Math.hypot(p[0]-e.pts[n][0],p[1]-e.pts[n][1]),0);
+    const width = roadPavementWidth(e,endDistance)/2, extra = auxiliaryLane(e, zone.roads)[i] || 0, outer = -travelDirection(e);
     const direction = i === 0 ? 1 : -1, dx = (q[0] - p[0]) / length * direction, dz = (q[1] - p[1]) / length * direction;
     const edge = (side: number): XZ => [p[0] - dz * side * (width + (side === outer ? extra : 0)), p[1] + dx * side * (width + (side === outer ? extra : 0))];
     (caps.get(node) || caps.set(node, []).get(node)!).push({ e, i: Math.min(i, e.pts.length - 2), y: e.elev?.[i] || 0, pts: [edge(1), edge(-1)] });
@@ -1032,7 +1054,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // market streets (side streets lined with shops) get walking strips along their edges for the crowds
   if (!opts.lowQ) for (const e of ownRoads) {
     if (!STREETS.has(e.cls) || (e.elev && Math.max(...e.elev) > 1.2) || (unitsByEdge.get(e.id) || 0) < 3) continue;
-    for (const sgn of [1, -1] as (1 | -1)[]) { const wp = trimPath(offsetLine(e.pts, sgn * (e.w / 2 + 0.7)), e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: sgn }); }
+    for (const sgn of [1, -1] as (1 | -1)[]) { const wp = trimPath(e.joinedPavement?e.pts.map((p,i)=>{const a=e.pts[Math.max(0,i-1)],b=e.pts[Math.min(e.pts.length-1,i+1)],length=Math.hypot(b[0]-a[0],b[1]-a[1])||1,off=sgn*(roadPavementWidthAt(e,...p)/2+.7);return[p[0]-(b[1]-a[1])/length*off,p[1]+(b[0]-a[0])/length*off] as XZ;}):offsetLine(e.pts, sgn * (e.w / 2 + 0.7)), e); if (wp.length >= 2) walkPaths.push({ pts: wp, edge: e.id, side: sgn }); }
   }
   for (const f of zone.furniture) {
     const [x, z] = f.p;
@@ -1053,7 +1075,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const cx = a[0] + (b2[0] - a[0]) * best.t, cz = a[1] + (b2[1] - a[1]) * best.t;
       const side: 1 | -1 = (x - cx) * hz + (z - cz) * -hx >= 0 ? 1 : -1;          // left of the edge direction = (hz, -hx)
       const lx = hz * side, lz = -hx * side;
-      const off = e.w / 2 + 1.7 + (depressedRoads.has(e) ? .15 : 0), sx = cx + lx * off, sz = cz + lz * off, ang = Math.atan2(hx, hz);
+      const off = roadClearanceWidth(e) / 2 + 1.7 + (depressedRoads.has(e) ? .15 : 0), sx = cx + lx * off, sz = cz + lz * off, ang = Math.atan2(hx, hz);
       const base = groundYAt(e, sx, sz);
       if (busStops.some((q) => Math.hypot(q.x - sx, q.z - sz) < 12)) continue;
       if (!structureClearance.clear({ x: sx, z: sz, hx, hz, hw: 1.25, hl: 3.2 }, base, base + 3.4)) continue;
@@ -1086,7 +1108,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const sf = over.s, dx = sf.bx - sf.ax, dz = sf.bz - sf.az, L2 = Math.hypot(dx, dz) || 1;
         const t = Math.max(0, Math.min(1, ((x - sf.ax) * dx + (z - sf.az) * dz) / (L2 * L2)));
         const cx = sf.ax + dx * t, cz = sf.az + dz * t, nx = -dz / L2, nz = dx / L2, side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1;
-        const off = Math.max(sf.e!.w / 2, 4.2) + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95;
+        const off = roadPavementWidthAt(sf.e!,cx,cz)/2 + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95;
         const ox = -nx * side * 1.6, oz = -nz * side * 1.6;
         if (lamps.some((l) => Math.hypot(l.x - lx - ox, l.z - lz - oz) < 12)) continue;
         streetLamp({ road: sf.e!.id, kind: 'mapped', x: lx, z: lz, base: y, inwardX: -nx * side, inwardZ: -nz * side, height: 8, surfaceY: over.y });
@@ -1106,7 +1128,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           // A mapped median mast serves both carriageways with separate heads.
           for (const side of [-1, 1]) streetLamp({ road: e.id, kind: 'median', x: cx, z: cz, inwardX: nx * side, inwardZ: nz * side, reach: 2.4, surfaceY: ROAD_Y[e.cls] ?? .04 });
         } else {
-          const side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1, off = e.w / 2 + .6;
+          const side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1, off = roadPavementWidthAt(e,cx,cz) / 2 + .6;
           const lx = cx + nx * off * side, lz = cz + nz * off * side;
           if (lamps.some(l => Math.hypot(l.x - lx + nx * side * 1.9, l.z - lz + nz * side * 1.9) < 7)) continue;
           streetLamp({ road: e.id, kind: 'mapped', x: lx, z: lz, inwardX: -nx * side, inwardZ: -nz * side, reach: 1.9, surfaceY: ROAD_Y[e.cls] ?? .04 });
@@ -1244,7 +1266,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         lines.sort((a, b) => '←↑→'.indexOf(a[0]) - '←↑→'.indexOf(b[0])); lines.length = Math.min(lines.length, 3);
         // Position and face the board from the tangent at its actual roadside
         // location, rather than the last segment of a curved junction approach.
-        const lx = approachZ, lz = -approachX, off = e.w / 2 + (e.oneway ? 1.2 : 1.6), px = bx + lx * off, pz = bz + lz * off;
+        const lx = approachZ, lz = -approachX, off = roadClearanceWidth(e) / 2 + (e.oneway ? 1.2 : 1.6), px = bx + lx * off, pz = bz + lz * off;
         if (blocked(px, pz, e, 0.4)) continue;
         const ang = Math.atan2(approachX, approachZ), H = 0.72 * lines.length + 0.3, top = 4.4 + H, base = groundYAt(e, px, pz);
         // Panels extend away from the pole/road. Check their whole footprint
@@ -1298,7 +1320,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         for (const s of near(x, z)) {
           if (s.kind !== 'road' || !s.e || NOTCAR.test(s.e.cls)) continue;
           const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
-          if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e.w / 2 + pad) return true;
+          if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e) / 2 + pad) return true;
         }
         return false;
       },
@@ -1357,7 +1379,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const ks = new Set<string>(); for (let x = minx; x <= maxx + 49; x += 49) for (let z = minz; z <= maxz + 49; z += 49) ks.add(key(Math.min(x, maxx), Math.min(z, maxz)));
         for (const k of ks) (buildingGrid.get(k) || buildingGrid.set(k, []).get(k)!).push(bld);
       },
-      road: (x, z, pad) => { for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 2 || s.yb > 2) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.e.w / 2 + pad) return true; } return false; },
+      road: (x, z, pad) => { for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 2 || s.yb > 2) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < roadClearanceWidth(s.e) / 2 + pad) return true; } return false; },
       sign: (id, text, bg, fg, c, f, w, h) => { const l2 = Math.hypot(f[0], f[2]) || 1; signs.push({ id, text, bg, fg, c, right: [f[2] / l2, 0, -f[0] / l2], up: [0, 1, 0], w, h }); },
       roadNear: (x, z, R) => { let best: any = null; for (const s of near(x, z)) { if (s.kind !== 'road' || !s.e || s.ya > 1.2 || /footway|path|steps|service/.test(s.e.cls)) continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, L = Math.sqrt(L2); const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)), cx = s.ax + dx * t, cz = s.az + dz * t, d = Math.hypot(x - cx, z - cz); if (d < R && (!best || d < best.d)) best = { d, cx, cz, hx: dx / L, hz: dz / L, w: s.e.w }; } return best; },
       roadY: (x, z) => { let best: number | null = null; for (const s of near(x, z)) { if (s.kind !== 'road') continue; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1; const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2)); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < s.hw) { const y = s.ya + (s.yb - s.ya) * t; if (best === null || y > best) best = y; } } return best; },

@@ -2,6 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createDeliveryQA } from '../../src/delivery/qa';
+
+test('reported Tarnaka drive is an allowlisted local start with ordinary placement',()=>{
+  const qa=createDeliveryQA('1',undefined,new URLSearchParams('qaRoad=tarnaka'))!;
+  assert.deepEqual(qa.start,{x:3983.1,z:-2073.2,yaw:280.3*Math.PI/180,y:0});
+  assert.equal(createDeliveryQA('2',undefined,new URLSearchParams('qaRoad=tarnaka'))!.start,null);
+  assert.equal(createDeliveryQA('1',undefined,new URLSearchParams('qaRoad=tarnaka&qaCampaign=1&qaCampaignMode=full'))!.start,null);
+});
 import { ProgressSystem, MYSTERY_SAVE_KEY } from '../../src/delivery/systems/progress-system';
 
 test('QA scenarios use the real fourteen levels and normal sequential progress with isolated storage', () => {

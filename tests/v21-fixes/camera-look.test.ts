@@ -50,6 +50,31 @@ test('close cargo handoff frames the real receiver while manual orbit, normal st
  const road=fixture(0,false);road.story={supports:[],cameraFocus:focus};road.updateCamera(0);assert.equal(road.camPos.z,DRIVING_CAMERA.distance);
  const air=fixture(0,true);air.story=g.story;air.updateCamera(0);assert.ok(air.camPos.y>40,'cargo focus cannot capture flight');
 });
+test('a held moving train shot keeps the receiver framed for a minute at different frame cadences',()=>{
+ for(const hz of [30,60,90,120]){
+  const g=fixture(0,false),anchor=new THREE.Vector3(100,4.2,200);
+  const focus={context:'stationary-handoff',translationAnchor:anchor,position:anchor.clone().add(new THREE.Vector3(3,1.8,2.4)),target:anchor.clone().add(new THREE.Vector3(0,1.1,0))};
+  g.story={cinematic:true,supports:[],cameraFocus:focus};g.updateCamera(0);
+  for(let i=0;i<hz*60;i++){
+   const dx=16/hz;anchor.x+=dx;focus.position.x+=dx;focus.target.x+=dx;g.player.pos.x+=dx;
+   g.updateCamera(1/hz);g.engine.camera.updateMatrixWorld(true);
+   assert.ok(g.camPos.distanceTo(focus.position)<1e-8,'the train translation must not create a three-metre camera lag');
+   const face=anchor.clone().add(new THREE.Vector3(0,1.7,0)).project(g.engine.camera);
+   assert.ok(Math.abs(face.x)<.1&&face.y>0&&face.y<.6&&face.z<1,'the face remains visible throughout the held shot');
+  }
+  anchor.x+=100;focus.position.x+=100;focus.target.x+=100;g.updateCamera(1/hz);
+  assert.ok(g.camPos.distanceTo(focus.position)<1e-8,'a discontinuity snaps to the independently checked shot');
+  g.story={cinematic:false,supports:[]};g.updateCamera(1/hz);
+  assert.equal(g.focusTranslationOwner,undefined,'ordinary camera cannot inherit an old carrier anchor');
+ }
+});
+test('static actor shots are not carried along by a moving player',()=>{
+ const g=fixture(0,false),focus={position:{x:100,y:3,z:100},target:{x:102,y:2,z:103}};
+ g.story={cinematic:true,supports:[],cameraFocus:focus};g.updateCamera(0);
+ for(let i=0;i<600;i++){g.player.pos.x+=.2;g.updateCamera(1/60);}
+ assert.ok(g.camPos.distanceTo(new THREE.Vector3().copy(focus.position))<1e-8);
+ assert.equal(g.focusTranslationOwner,undefined);
+});
 test('accelerating after multiple hover orbits recenters by the shortest arc',()=>{
  for(const turns of [-3,-1,1,4]){
   const g=fixture();g.orbitYaw=turns*Math.PI*2+.2;g.updateCamera(1/60);
