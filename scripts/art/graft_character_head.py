@@ -30,6 +30,9 @@ parser.add_argument('--body-cut-z',type=float,default=1.54)
 parser.add_argument('--head-up-axis',choices=['y','z'],default='y')
 parser.add_argument('--head-yaw',type=float,default=-math.pi/2)
 parser.add_argument('--head-triangles',type=int,default=40000)
+parser.add_argument('--neck-base-fraction',type=float,default=0,help='Explicit anatomical neck height as fraction of full source hair/head bounds; default0 preserves previous stump-only guides')
+parser.add_argument('--hair-tail-extend',type=float,default=0,help='Explicit extra hair length below the anatomical neck; keeps face/head scale unchanged')
+parser.add_argument('--preserve-collar',action='store_true',help='Retain actual outer raised collar wings below7cm above the central head cut; inspect all neck views')
 parser.add_argument('--clear-front-neck',action='store_true',help='Explicit per-actor cleanup of old jaw protrusion while preserving the high shirt collar')
 parser.add_argument('--front-neck-trim-z',type=float,default=1.49)
 parser.add_argument('--front-neck-trim-x',type=float,default=.105)
@@ -65,10 +68,14 @@ lo=Vector(tuple(min(point[i] for point in points) for i in range(3)))
 hi=Vector(tuple(max(point[i] for point in points) for i in range(3)))
 if hi.z-lo.z<1e-6:raise RuntimeError('Head has no upright volume.')
 scale=args.head_height/(hi.z-lo.z)
-base=[point for point in points if point.z<lo.z+(hi.z-lo.z)*.08]
+neck_base=lo.z+(hi.z-lo.z)*args.neck_base_fraction
+base=[point for point in points if abs(point.z-neck_base)<(hi.z-lo.z)*.04 and abs(point.x-(lo.x+hi.x)/2)<(hi.x-lo.x)*.08] if args.neck_base_fraction else [point for point in points if point.z<lo.z+(hi.z-lo.z)*.08]
 if not base:raise RuntimeError('An anatomical neck stump is required.')
 center=sum(base,Vector())/len(base)
-for vertex,point in zip(head.data.vertices,points):vertex.co=Vector(((point.x-center.x)*scale,(point.y-center.y)*scale,(point.z-lo.z)*scale+args.neck_z))
+for vertex,point in zip(head.data.vertices,points):
+ z=(point.z-neck_base)*scale+args.neck_z
+ if args.hair_tail_extend and point.z<neck_base and abs((point.x-center.x)*scale)>.055:z-=args.hair_tail_extend*min(1,(neck_base-point.z)/max(.001,neck_base-lo.z))
+ vertex.co=Vector(((point.x-center.x)*scale,(point.y-center.y)*scale,z))
 head.name='AuthoredDetailedHead'
 # glTF splits vertices at UV seams. Weld geometric duplicates while preserving
 # per-face UV loops BEFORE smoothing/decimation: treating every UV island as a
@@ -86,7 +93,10 @@ bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bp
 for obj in imported:
     if obj!=head and obj.name in bpy.data.objects:bpy.data.objects.remove(obj,do_unlink=True)
 mesh=bmesh.new();mesh.from_mesh(body.data)
-bmesh.ops.bisect_plane(mesh,geom=list(mesh.verts)+list(mesh.edges)+list(mesh.faces),dist=.0001,plane_co=(0,0,args.body_cut_z),plane_no=(0,0,1),clear_outer=True,clear_inner=False)
+bmesh.ops.bisect_plane(mesh,geom=list(mesh.verts)+list(mesh.edges)+list(mesh.faces),dist=.0001,plane_co=(0,0,args.body_cut_z+(.07 if args.preserve_collar else 0)),plane_no=(0,0,1),clear_outer=True,clear_inner=False)
+if args.preserve_collar:
+ old_neck=[f for f in mesh.faces if f.calc_center_median().z>args.body_cut_z and abs(f.calc_center_median().x)<.095]
+ bmesh.ops.delete(mesh,geom=old_neck,context='FACES')
 trimmed_faces=0
 if args.clear_front_neck:
     selected=[face for face in mesh.faces if face.calc_center_median().z>args.front_neck_trim_z and abs(face.calc_center_median().x)<args.front_neck_trim_x and face.calc_center_median().y<args.front_neck_trim_y]

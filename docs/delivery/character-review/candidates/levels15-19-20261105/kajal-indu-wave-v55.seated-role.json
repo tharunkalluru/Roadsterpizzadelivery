@@ -1,0 +1,33 @@
+{
+  "status": "UNAPPROVED seated role candidate; independent likeness/pose/deformation/gameplay review still required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-frontface-v54.blend",
+  "sourceSha256": "dbdd896996a97556558cb1e4637001694d7d7bf4de58096a97f76290378a9a8c",
+  "role": "indu",
+  "hipAndLegs": "source seated Idle transforms retained, not compressed standing mesh",
+  "seatedHeight": 1.2608626643195748,
+  "roleClips": [
+    "Idle",
+    "InduWave"
+  ],
+  "grips": [
+    {
+      "name": "DrivingGripLeft.001",
+      "world": [
+        0.12999984622001648,
+        -0.260705828666687,
+        0.5499995946884155
+      ],
+      "bone": "LeftHand"
+    },
+    {
+      "name": "DrivingGripRight.001",
+      "world": [
+        -0.3399999141693115,
+        -0.25000011920928955,
+        1.0607057809829712
+      ],
+      "bone": "RightHand"
+    }
+  ],
+  "outputSha256": "55d7cd94330652ac9bdc6faf679f6a8ea3601a7d3d33d1706eda26b0f7e56de9"
+}

@@ -1138,6 +1138,7 @@ export class Game {
     this.railTrackFallback?.update(P.x, P.z, this.city.tiles, dt, this.rail.bodies);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
+    this.story?.afterTraffic?.(dt);
     if (this.carrierPickupMode) this.updateCarrierPickup(dt);
     this.city.updateSignals(this.traffic.t);
     const fw = this.player.forward;

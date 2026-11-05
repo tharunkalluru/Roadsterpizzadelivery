@@ -24,7 +24,7 @@ export function restaurantArt(stage:number,total:number,label:string){
   const count=Math.max(0,Math.floor(Number.isFinite(total)?total:0));
   const built=Math.max(0,Math.min(count,Math.floor(Number.isFinite(stage)?stage:0)));
   if(count<=7||built===0)return legacyRestaurantArt(built,count,label);
-  const complete=built===count,phase=Math.max(1,Math.min(14,Math.ceil(built/count*14)));
+  const complete=built===count,phase=Math.max(1,Math.min(14,count>14?built:Math.ceil(built/count*14)));
   const shop=phase>=6,width=phase>=12?236:190,left=(320-width)/2;
   const parts:string[]=[];
   const add=(name:string,art:string)=>parts.push(`<g data-build="${name}">${art}</g>`);
@@ -49,6 +49,14 @@ export function restaurantArt(stage:number,total:number,label:string){
   if(phase>=12)add('finished-facade',`<path d="M${left+4} 90v85m${width-8}-85v85M${left-2} 89h${width+4}" stroke="#FFF2CC" stroke-width="5"/><path d="M${left+3} 174h${width-6}" stroke="#B78560" stroke-width="6"/>`);
   if(phase>=13)add(complete?'neon-open':'installed-sign',`<rect ${complete?'class="du-opening-neon-frame" ':''}x="85" y="16" width="150" height="31" rx="7" fill="#21152F" stroke="${complete?'#45E3D3':'#CBB8DC'}" stroke-width="3"/><text ${complete?'class="du-opening-neon-text" ':''}x="160" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="900" fill="${complete?'#45E3D3':'#9683A7'}">ROADSTER PIZZA</text>`);
   else add('painted-name',`<text x="160" y="${phase===1?148:95}" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#FFBF00">ROADSTER PIZZA</text>`);
+  if(phase>=14)add('entrance-steps',`<path d="M${left+width-65} 180h50v5h8v6h-66v-6h8z" fill="#BFA88A" stroke="#785D91" stroke-width="2"/>`);
+  // An extended campaign preserves the first fourteen construction milestones,
+  // then adds real expansion details rather than shrinking an existing shop.
+  if(count>14&&built>=15)add('delivery-hatch','<rect x="8" y="141" width="34" height="27" rx="3" fill="#DB573C" stroke="#FFF2CC" stroke-width="3"/><path d="M6 139h38m-31 30v12m24-12v12" stroke="#BFA88A" stroke-width="4"/>');
+  if(count>14&&built>=16)add('roof-garden','<path d="M51 44h25l-4 12H55zM245 44h25l-4 12h-17z" fill="#DB573C"/><path d="M63 44V29m0 8-10-8m10 5 10-9m185 19V29m0 8-10-8m10 5 10-9" stroke="#45E3D3" stroke-width="4"/>');
+  if(count>14&&built>=17)add('patio-lights','<path d="M12 69q148 32 296 0" fill="none" stroke="#785D91" stroke-width="2"/>'+Array.from({length:8},(_,i)=>`<circle cx="${23+i*39}" cy="${74+Math.sin(i/7*Math.PI)*12}" r="3" fill="#FFDB85"/>`).join(''));
+  if(count>14&&built>=18)add('delivery-garage','<rect x="278" y="145" width="35" height="38" rx="3" fill="#432F50" stroke="#CBB8DC" stroke-width="3"/><path d="M281 156h29m-29 8h29m-29 8h29" stroke="#785D91" stroke-width="3"/>');
+  if(count>14&&built>=19)add('flagship-sign','<path d="M74 15v34m172-34v34M68 13h184" stroke="#45E3D3" stroke-width="3"/><path d="m61 30 4 4-4 4m198-8-4 4 4 4" fill="none" stroke="#FFBF00" stroke-width="3"/>');
   // New paving is actual construction geometry, keeping >14-level campaigns
   // visibly progressive even when two deliveries share a structural milestone.
   // Bound SVG node count for unusually large authored campaigns.

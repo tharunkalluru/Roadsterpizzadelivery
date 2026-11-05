@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import {loadLevels} from '../../src/delivery/content/levels';
 import { createDeliveryQA } from '../../src/delivery/qa';
 
 test('reported Tarnaka drive is an allowlisted local start with ordinary placement',()=>{
@@ -11,10 +12,10 @@ test('reported Tarnaka drive is an allowlisted local start with ordinary placeme
 });
 import { ProgressSystem, MYSTERY_SAVE_KEY } from '../../src/delivery/systems/progress-system';
 
-test('QA scenarios use the real fourteen levels and normal sequential progress with isolated storage', () => {
-  for (let number = 1; number <= 14; number++) {
+test('QA scenarios use the real nineteen levels and normal sequential progress with isolated storage', () => {
+  for (let number = 1; number <= loadLevels().length; number++) {
     const qa = createDeliveryQA(String(number))!;
-    assert.equal(qa.runtime.levels!.length, 14);
+    assert.equal(qa.runtime.levels!.length, loadLevels().length);
     const progress = new ProgressSystem(qa.runtime.levels!, qa.storage);
     assert.equal(progress.currentLevel, number); assert.equal(progress.completedIds.length, number - 1);
     assert.equal(qa.area.x, qa.runtime.levels![number - 1].destination.x);
@@ -28,7 +29,7 @@ test('QA scenarios use the real fourteen levels and normal sequential progress w
 });
 
 test('invalid QA levels cannot launch, and the entry point gates its dynamic import on Vite DEV', () => {
-  for (const value of [null, '', '0', '15', '-1', '1.5', '1x', 'Infinity', '01']) assert.equal(createDeliveryQA(value), null);
+  for (const value of [null, '', '0', String(loadLevels().length+1), '-1', '1.5', '1x', 'Infinity', '01']) assert.equal(createDeliveryQA(value), null);
   const main = readFileSync('src/main.ts', 'utf8');
   assert.match(main, /import\.meta\.env\.DEV && q\.has\('qaDelivery'\)/);
   assert.match(main, /await import\('\.\/delivery\/qa'\)/);

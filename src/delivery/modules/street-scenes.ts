@@ -35,7 +35,7 @@ const GLYPHS: Record<string, string[]> = {
 
 /** Static scenery is merged by material inside this local scene. Temporary
  * source geometry is disposed immediately; only merged buffers stay resident. */
-class SceneBatch {
+export class SceneBatch {
   private pending = new Map<string, THREE.BufferGeometry[]>();
   constructor(private own: <T extends THREE.BufferGeometry>(g: T) => T,
     private material: (color: string) => THREE.MeshBasicMaterial, private parent: THREE.Group) {}

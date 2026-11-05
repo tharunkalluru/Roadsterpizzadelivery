@@ -186,6 +186,13 @@ function finalObserverFixture(control: ObserverDomControl, automatic = true) {
     railContacts: { supportId: null }, city: { movingRail: [] }, metro: { stationDwells: [] },
     player: { pos: new THREE.Vector3(0, .55, 0), yaw: 0, speed: 0, vy: 0, placementRevision: 1,
       flying: false, descending: false, jumping: false, onRoad: false, lastKind: 'ground' } };
+  // Current final level completes by passing the bus with its pizza retained.
+  // These synthetic visible nodes model only observer inputs, not art approval.
+  const actor=new THREE.Group(),bus=new THREE.Group();actor.position.z=-10;root.add(actor,bus);
+  actor.add(new THREE.Mesh(new THREE.BoxGeometry(.6,1.8,.4),new THREE.MeshBasicMaterial()));
+  Object.assign(story.module,{receiver:{group:actor},vehicle:{id:bus.uuid,x:0,z:0,hx:0,hz:-1,size:[2.5,3.6,11]}});
+  game.traffic={cars:[{g:bus}]};game.player.pos.z=-20;game.player.pizzaCargo=pizza;
+  scene.updateMatrixWorld(true);
   const observer = attachCampaignQA(game as Game, { full: true, touch: false });
   events.emit('locationSet', { levelId: level.id, destination: level.destination });
   story.controller.state = 'REVEAL'; events.emit('setpieceDone', { levelId: level.id });
@@ -196,7 +203,7 @@ function finalObserverFixture(control: ObserverDomControl, automatic = true) {
   game.t = 1; control.poll(1000); game.t = 2.1; control.poll(2100);
   if (automatic) {
     control.clickNext();
-    assert.ok(observer.report().attempts[0].facts.includes('automatic-handoff'));
+    assert.ok(observer.report().attempts[0].facts.includes('automatic-overtake'));
     assert.ok(observer.report().attempts[0].facts.includes('story-viewing-hold'));
     assert.ok(observer.report().attempts[0].facts.includes('final-next-requested'));
   }

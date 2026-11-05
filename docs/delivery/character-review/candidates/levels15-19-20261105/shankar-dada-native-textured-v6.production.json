@@ -1,0 +1,64 @@
+{
+  "status": "UNREVIEWED native mesh\u2192UV authoring; real scene and independent likeness acceptance remain required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/shankar-dada-corridor-rig-v5.blend",
+  "sourceSha256": "8928fa4a0c910368cc51c89b1d6a5474fa7d3bc835c0376e7cfb57b84c3d178b",
+  "fullBodySource": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/shankar-dada-corridor-rig-v5.blend",
+  "fullBodySourceSha256": "8928fa4a0c910368cc51c89b1d6a5474fa7d3bc835c0376e7cfb57b84c3d178b",
+  "projectionBodyBounds": [
+    [
+      -0.5707210898399353,
+      -0.17475558817386627,
+      4.257361979398411e-06
+    ],
+    [
+      0.5707210898399353,
+      0.17465539276599884,
+      1.7799749374389648
+    ]
+  ],
+  "frontGuide": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/shankar-dada-front-v2.png",
+  "frontSha256": "c2b93acc9275c478a633892052d02804b809d97f18b2eea2f1717eae0099f9f2",
+  "backGuide": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/shankar-dada-back-v2.png",
+  "backSha256": "4046639d602060bc86399c07c4e999a7069fc37b07233e0873c170d4d8e70ac6",
+  "sideGuides": {},
+  "semanticMask": null,
+  "preservedAllAnimationNames": [
+    "Dance",
+    "Idle",
+    "Read",
+    "TakePizza",
+    "Walk"
+  ],
+  "guideEvidence": "Synthetic artist scaffold with inferred unseen rear, not film evidence",
+  "authoredTexels": 580531,
+  "projectedTexels": 960365,
+  "sourceAlphaValidSamples": 892200,
+  "outsideUvPaddingTexels": 0,
+  "zeroAreaUvTriangles": 0,
+  "fullBodyNativeUvRebake": true,
+  "nativeUvReunwrap": true,
+  "normalRepairs": [],
+  "originalNonzeroPixelsUnchanged": false,
+  "frontDetailedHeadUnchanged": true,
+  "addedNeckSkinLinearColour": null,
+  "producerSha256": "b7c476a683245b115658fd60aa6ae75e2b1a80b27af1d7ad9308e18c4a649ef0",
+  "producerArguments": [
+    "--body-source",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/shankar-dada-corridor-rig-v5.blend",
+    "--front",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/shankar-dada-front-v2.png",
+    "--back",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/shankar-dada-back-v2.png",
+    "--size",
+    "1024",
+    "--cloth-color",
+    ".85",
+    ".85",
+    ".85",
+    "--rebake-all-body",
+    "--reunwrap",
+    "--output",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/shankar-dada-native-textured-v6.glb"
+  ],
+  "outputGlbSha256": "e96b00d6e7fc813a40b945b9fa9b6d50859127fa9e4eec26e5b39606fa2ef893"
+}

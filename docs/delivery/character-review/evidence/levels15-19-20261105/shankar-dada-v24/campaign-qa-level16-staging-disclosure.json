@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "rawArtifact": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/campaign-qa-level16-input-flight-landing-delivered-next-reviewed.json",
+  "rawSha256": "ba0b188f826d6c55e0b7a06a79be07f0f403ff27d95aaabf4d608f16451bf9d0",
+  "truth": "Assisted starting position before the actual Level16 jump pickup. After staging, Root used actual GO/Jump, about1.4km flight, manual ground landing, normal story/meal and Next without further relocation.",
+  "observerAttributionLimit": "The Level16 row has an empty assistance array because initial pre-pickup staging was attributed by the observer to already-finished Level15 as global player-relocated. This does not establish an unassisted Level16 start.",
+  "observedBy": "/root",
+  "scope": "Natural jump collection AFTER initial assisted staging; complete subsequent input-driven Level16 loop and Next within1.50km. Raw artifact preserved without correction or replacement.",
+  "hardware": "Desktop Chrome CDP touch controls / mobile layout; no physical phone or hardware performance claim",
+  "fullUnassistedCampaignClaimed": false
+}

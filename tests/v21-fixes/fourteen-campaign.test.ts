@@ -12,10 +12,10 @@ import { loadLegacyLevels } from './fixtures/legacy-levels';
 
 const identities=['Pushpa Raj','Ram','Devara','Srikanth Odela','Arundhati','Jessie','Hasini','Bhanumathi','Sukumar','Pawan Kalyan','Maruthi','Prabhas','Arjun Reddy','Nani'];
 
-test('production campaign preserves all fourteen approved identities, order and scene-only content',()=>{
-  const levels=loadLevels();assert.equal(levels.length,14);assert.deepEqual(levels.map(l=>l.celebrity.name),identities);
+test('extended campaign preserves the original fourteen identities and scene-only order',()=>{
+  const levels=loadLevels();assert.equal(levels.length,19);assert.deepEqual(levels.slice(0,14).map(l=>l.celebrity.name),identities);
   assert.equal(levels[12].level,13);assert.equal(levels[12].celebrity.name,'Arjun Reddy');assert.match(levels[12].destination.label,/Osmania Medical/i);
-  assert.ok(!levels.some(l=>/Mahesh|Rajamouli|IMAX|film.city|Ramoji/i.test(`${l.celebrity.name} ${l.destination.label}`)));
+  assert.ok(!levels.slice(0,14).some(l=>/Mahesh|Rajamouli|IMAX|film.city|Ramoji/i.test(`${l.celebrity.name} ${l.destination.label}`)));
   assert.deepEqual(campaignPlan(levels).map(l=>l.id),levels.map(l=>l.id),'distance optimisation cannot reorder the approved numbered scenes');
   for(const level of levels){
     assert.equal(level.callMode,'NONE');assert.deepEqual(level.script,[]);assert.equal(level.nagScript,undefined);assert.equal(level.bonusScript,undefined);assert.equal(level.revealAt,'afterDelivery');
@@ -37,7 +37,7 @@ test('every production mechanic is registered, builds its environment, remains a
   }
 });
 
-test('all fourteen scene-only deliveries require arrival and complete once without a call or duplicate progress',()=>{
+test('all configured scene-only deliveries require arrival and complete once without a call or duplicate progress',()=>{
   const levels=loadLevels(),events=new EventBus<DeliveryEvents>(),controller=new DeliveryController(levels,events),finished:string[]=[],calls:string[]=[];
   events.on('levelComplete',e=>finished.push(e.levelId));events.on('callStarted',()=>calls.push('call'));events.on('callRinging',()=>calls.push('ring'));
   for(const level of levels){
@@ -53,8 +53,8 @@ test('all fourteen scene-only deliveries require arrival and complete once witho
 });
 
 test('HUD/progression totals follow content length rather than a hard-coded fourteen',()=>{
-  for(const count of[1,7,14,15]){
-    const levels=loadLevels();if(count===15)levels.push({...structuredClone(levels[13]),id:'future-customer',level:15});
+  for(const count of[1,7,14,15,19]){
+    const levels=loadLevels();
     const configured=validateLevels(levels.slice(0,count)),progress=new ProgressSystem(configured);assert.equal(progress.total,count);
     for(const level of configured)assert.equal(progress.complete(level.id),true);
     assert.equal(progress.cards.length,count);assert.equal(progress.currentLevel,count);assert.equal(progress.finished,true);

@@ -41,8 +41,17 @@ if a.reunwrap:
  if not a.rebake_all_body:raise RuntimeError('Reunwrap requires a complete new native body bake')
  bpy.ops.object.select_all(action='DESELECT');body.select_set(True);bpy.context.view_layer.objects.active=body;bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(angle_limit=1.45,island_margin=.001,area_weight=.8,correct_aspect=True,scale_to_bounds=True);bpy.ops.object.mode_set(mode='OBJECT')
 old=pixels(atlas) if atlas and tuple(atlas.size)==(width,height) else np.zeros((height,width,4),dtype=np.float32);result=np.zeros_like(old) if a.rebake_all_body else old.copy();result[:,:,3]=1;coverage=np.zeros((height,width),dtype=bool);changed=np.zeros_like(coverage);nearest=np.full((height,width),np.inf,dtype=np.float32)
-with bpy.data.libraries.load(str(a.body_source.resolve()),link=False) as (library,data):data.objects=[name for name in library.objects if 'review-mesh' in name]
-original=max((o for o in data.objects if o and o.type=='MESH'),key=lambda o:len(o.data.vertices));positions=np.array([tuple(original.matrix_world@v.co) for v in original.data.vertices],dtype=np.float32);lo=positions.min(axis=0);hi=positions.max(axis=0)
+if a.body_source.resolve()==source.resolve():
+ # The fresh, neutral body is already loaded. Blender refuses linking its own
+ # file; copy that untouched native geometry without changing source bytes.
+ original=body.copy();original.data=body.data.copy()
+else:
+ with bpy.data.libraries.load(str(a.body_source.resolve()),link=False) as (library,data):data.objects=[name for name in library.objects if 'review-mesh' in name]
+ original=max((o for o in data.objects if o and o.type=='MESH'),key=lambda o:len(o.data.vertices))
+positions=np.array([tuple(original.matrix_world@v.co) for v in original.data.vertices],dtype=np.float32);lo=positions.min(axis=0);hi=positions.max(axis=0)
+# Bounds source is not a second runtime actor. Even an unlinked object can be
+# reached through its armature parent by the glTF exporter; discard this copy.
+bpy.data.objects.remove(original,do_unlink=True)
 guides={}
 if bool(a.left)!=bool(a.right):raise RuntimeError('Both side guides are required; never silently mirror one')
 for role,path in [('front',a.front),('back',a.back),*([('left',a.left),('right',a.right)] if a.left else [])]:

@@ -1,3 +1,6 @@
+import {drawOsmaniaLibrary} from './osmania-university';
+import {drawFilmnagarWineMart} from './filmnagar-wine-mart';
+import {drawPrasadsSource} from './prasads-source-model';
 import { drawCollegeCampus } from './college-campus-models';
 import { TPL } from '../core/util';
 import { drawIndianFlag } from './indian_flag';
@@ -399,7 +402,7 @@ const R_: Record<string, Recipe> = {
   nizam_college: { draw: K => drawCollegeCampus(K,'nizam_college'), clear:0 },
   osmania_medical: { draw: K => drawCollegeCampus(K,'osmania_medical'), clear:0 },
   gandhi_bhavan: { draw: (K, D) => { colonial(K, W(D, 28), 12, 8, '#f3efe6', '#ffffff', { storeys: 2 }); K.board('GANDHI BHAVAN', 0, 7, 4.5, 9); }, clear: [32, 16] },
-  ou_library: { draw: (K, D) => { indoSaracenic(K, W(D, 92) * 0.8, Dp(D, 71) * 0.6, 12, '#c9b392', '#e6d8bc', { dome: 6, chhatris: 4 }); }, clear: [80, 50] },
+  ou_library: { draw: K=>drawOsmaniaLibrary(K), clear:0 },
   // ---- hospitals ----
   nims: { draw: (K) => { tower(K, 0, 0, 70, 30, 40, '#e9eef2', '#9cb4c8'); tower(K, 50, -10, 30, 30, 28, '#e9eef2', '#9cb4c8'); K.board("NIZAM'S INSTITUTE OF MEDICAL SCIENCES", 0, 15.2, 4.5, 16); }, clear: [130, 50] },
   gandhi_hospital: { draw: (K) => { tower(K, 0, 0, 120, 28, 36, '#efe8da', '#c9a36a'); for (const s of [-1, 1]) tower(K, s * 50, -40, 24, 50, 30, '#efe8da', '#c9a36a'); K.board('GANDHI HOSPITAL', 0, 14.2, 4.5, 12); }, clear: [140, 110] },
@@ -447,7 +450,8 @@ const R_: Record<string, Recipe> = {
   city_center: { draw: (K, D) => { tower(K, 0, 0, W(D, 87) * 0.85, Dp(D, 77) * 0.85, 24, '#e6e1d8', '#b83a2e'); K.board('CITY CENTER MALL', 0, Dp(D, 77) * 0.43 + 0.2, 18, 12, 2, '#b83a2e', '#ffffff'); }, clear: [80, 72] },
   hyderabad_central: { draw: (K, D) => { tower(K, 0, 0, W(D, 101) * 0.85, Dp(D, 48) * 0.85, 22, '#e9e6df', '#2a6a5a'); K.board('HYDERABAD CENTRAL', 0, Dp(D, 48) * 0.43 + 0.2, 16, 14, 2, '#2a6a5a', '#ffffff'); }, clear: [92, 46] },
   // Prasads IMAX (2003): the drum of the IMAX screen beside the multiplex block, at NTR Gardens
-  prasads: { draw: (K, D) => { tower(K, -8, 0, W(D, 97) * 0.6, Dp(D, 65) * 0.8, 22, '#e1dbd0', '#2f3a48'); K.cyl(W(D, 97) * 0.3, 0, 0, 16, 26, '#3a4a5e', 'cyl24'); K.board('PRASADS IMAX', W(D, 97) * 0.3, 16.1, 20, 12, 2, '#3a4a5e', '#ffffff'); K.solidCircle(W(D, 97) * 0.3, 0, 16, 26); }, clear: [100, 68] },
+  prasads: { draw: K=>drawPrasadsSource(K), clear:0 },
+  q_tonique_filmnagar: { draw: K=>drawFilmnagarWineMart(K), clear:0 },
   // Sudarshan 35mm, RTC X Roads: the single-screen landmark with its tall name board
   sudarshan: { draw: (K, D) => { K.box(0, 0, 0, W(D, 38), 16, Dp(D, 25), '#e7d9bd'); K.box(0, Dp(D, 25) / 2 + 0.3, 8, 18, 6, 0.4, '#7a1f22'); K.board('SUDARSHAN 35MM', 0, Dp(D, 25) / 2 + 0.55, 11, 16, 2.2, '#7a1f22', '#ffd86a'); K.solidRect(0, 0, W(D, 38), Dp(D, 25), 16); }, clear: [42, 28] },
   // Shilparamam: crafts village, its entrance arch and thatched pavilions

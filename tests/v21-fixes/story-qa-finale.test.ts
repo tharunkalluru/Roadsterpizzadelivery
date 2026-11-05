@@ -69,6 +69,14 @@ function withFinaleObserver(run:(fixture:ReturnType<typeof prepare>)=>void){
     const game:any={story,deliveryEvents:events,engine:{scene,camera},t:0,paused:false,choosing:false,relocating:false,
       railContacts:{supportId:null},city:{movingRail:[]},metro:{stationDwells:[]},
       player:{pos:new THREE.Vector3(0,.55,0),yaw:0,speed:0,vy:0,placementRevision:1,flying:false,descending:false,jumping:false,onRoad:false,lastKind:'ground'}};
+    // The current finale is an overtake with the pizza retained, not a
+    // handoff. Supply its actual observer prerequisites before testing UI
+    // exposure; a synthetic mesh here is never character-art acceptance.
+    const actor=new THREE.Group(),bus=new THREE.Group();actor.position.z=-10;root.add(actor,bus);
+    const actorMesh=new THREE.Mesh(new THREE.BoxGeometry(.6,1.8,.4),new THREE.MeshBasicMaterial());actor.add(actorMesh);
+    Object.assign(story.module,{receiver:{group:actor},vehicle:{id:bus.uuid,x:0,z:0,hx:0,hz:-1,size:[2.5,3.6,11]}});
+    game.traffic={cars:[{g:bus}]};game.player.pos.z=-20;game.player.pizzaCargo=pizza;
+    scene.updateMatrixWorld(true);
     const observer=attachCampaignQA(game as Game,{full:true,touch:false});
     events.emit('locationSet',{levelId:level.id,destination:level.destination});
     const poll=(at:number)=>{wall=at;game.t=at/1000;frame?.(at);};
@@ -84,7 +92,7 @@ function withFinaleObserver(run:(fixture:ReturnType<typeof prepare>)=>void){
       clickNext(){listeners.get('click')?.forEach(fn=>fn({target:next,isTrusted:true}));assert.ok(observer.report().attempts[0].facts.includes('final-next-requested'));},
       showOpening(phase='closed'){overlay.hidden=false;map.hidden=false;next.hidden=true;opening.setAttribute('data-opening',phase);},
       controlAbove(){controlAbove=true;},
-      dispose(){observer.dispose();pizza.geometry.dispose();pizza.material.dispose();}};
+      dispose(){observer.dispose();pizza.geometry.dispose();pizza.material.dispose();actorMesh.geometry.dispose();actorMesh.material.dispose();}};
   }
   let fixture:ReturnType<typeof prepare>|null=null;
   try{fixture=prepare();run(fixture);}finally{

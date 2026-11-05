@@ -1,0 +1,34 @@
+{
+  "status": "UNAPPROVED; deformed skin continuity and real scene still require independent review",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-wave-v55.blend",
+  "sourceSha256": "8f1e93a2e743816243f9884a7596c9dbecc498b1458ae243b94ec0273b307c2a",
+  "transitions": [
+    {
+      "side": "Left",
+      "actualElbow": [
+        0.333749383687973,
+        -0.08666491508483887,
+        1.0698045492172241
+      ],
+      "upperOverlapMetres": 0.1,
+      "forearmOverlapMetres": 0.07,
+      "radiusMetres": 0.031,
+      "closedSkinMesh": true,
+      "weighting": "continuous Arm to ForeArm blend"
+    },
+    {
+      "side": "Right",
+      "actualElbow": [
+        -0.2560831606388092,
+        -0.08360185474157333,
+        1.0698487758636475
+      ],
+      "upperOverlapMetres": 0.1,
+      "forearmOverlapMetres": 0.07,
+      "radiusMetres": 0.031,
+      "closedSkinMesh": true,
+      "weighting": "continuous Arm to ForeArm blend"
+    }
+  ],
+  "outputSha256": "1b74580808a2b851a41248d82f29389d019a7c14d6a0845e29cb435cbf685097"
+}

@@ -4081,6 +4081,1211 @@
         "physicalDevicePerformanceClaimed": false,
         "touchControlsCertified": false
       }
+    },
+    {
+      "characterId": "balayya-chennakesava",
+      "name": "Balakrishna as Chennakesava Reddy",
+      "film": "Chennakesava Reddy",
+      "status": "approved",
+      "candidate": {
+        "assetId": "balayya-chennakesava-independent-appearance-v28",
+        "sha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113"
+      },
+      "authorId": "/root/new_character_accuracy",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "balayya-official-chennakesava-scene",
+          "characterId": "balayya-chennakesava",
+          "kind": "film-still",
+          "sourceUrl": "https://www.youtube.com/watch?v=wraxlzkMZWs",
+          "publisher": "Sun NXT official film scene",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/balayya-sunnxt-official-thumbnail.jpg",
+          "sha256": "7bd7d8802b9724c6de8cc2bc1775a6a6fcf07d87527ed6aaceadf16c97e81b56",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Official 2002 film scene thumbnail independently compared for period face, hair, tilak, moustache and white film costume."
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/front.png",
+          "sha256": "f2aef84074ed9cb36b700baeadce3a529b51173e9569bb3b25e457984297c4f9",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/three-quarter.png",
+          "sha256": "9ed9930059dbe27c4ccf803e74538ca0a48175bf4fd1c3cc71067929cbce3692",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/profile.png",
+          "sha256": "337d0ef33399b1d4b51e8f79a98fbd795b6f59f9db94725e16b4e592df24271b",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "back",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/back.png",
+          "sha256": "3f74cdc5fc0e92557d4474afdd3aa2d8bd9a648e03c4f62a420779a3dc775fe5",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/full-body.png",
+          "sha256": "ca033d91e22e7f13b385564654d6be184936ee2558650b54684745738ff124e0",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/in-game-handoff.png",
+          "sha256": "bd6ab7abdfd9315998e37131b5c6c6c55c1f3806f6b4f81e6b8d399f7c9328eb",
+          "assetSha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113",
+          "comparedReferenceIds": [
+            "balayya-official-chennakesava-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        }
+      ],
+      "feedback": [
+        "Independent reviewer explicitly approved exact compact GLB v28 appearance/geometry and actual phone/bottle role at915×412 after all five isolated views. Minor rear collar tan material patch noted; no major opening observed.",
+        "Scope is character appearance only. Lip animation, eating performance, held gameplay, night scene and final publishing acceptance remain pending.",
+        "Final exact normal-night scene visuals and continuous root playback passed within documented browser scope. Physical phone, complete unassisted campaign and publication remain separate."
+      ],
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/balayya-chennakesava/actor-v28.glb",
+          "sha256": "b77a014e627e68af453b34e164ed2c66a1d57a86723e1687df7f7850fab624b9"
+        },
+        {
+          "path": "public/delivery/characters/balayya-chennakesava/actor-v28.rig.json",
+          "sha256": "6f4ec802fd1cd7acf82a854f3688fa6b8c72a65ab7908e9d4a8d7d4274530d23"
+        }
+      ],
+      "reviewerId": "/root/new_campus_environments",
+      "reviewedAt": "2026-11-05T22:14:20.239Z",
+      "releaseQa": {
+        "status": "scoped-pass",
+        "appearanceOnly": false,
+        "scope": "Exact approved model in normal browser production character path: night speech, delivery transfer, post-delivery held character and Next screen. Balayya/Shankar include opening carton and bite; Mahesh remains in booth while pizza is left on steps.",
+        "continuousPlaybackObserver": "/root",
+        "independentVisualReviewer": "/root/new_campus_environments",
+        "evidence": [
+          {
+            "phase": "speaking",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-speaking.png",
+            "sha256": "8c5bfcab635ad03ac8f3929545211601db9c0638ba8594b6095e0839372d0b77"
+          },
+          {
+            "phase": "opening",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-opening.png",
+            "sha256": "0188f5390e206e62bbdb88ec8febf6325a937ac24677c70b04c549fb9003a0ae"
+          },
+          {
+            "phase": "bite",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-bite.png",
+            "sha256": "9ce6433507ec07c0e21eea007a00354c34b239dcc0ce5581557553518b67b56d"
+          },
+          {
+            "phase": "final",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-final.png",
+            "sha256": "23dee3fcf7699ece752384c0c722c5541aee8b1016a8bb9c68e2d4a67b351d9c"
+          }
+        ],
+        "physicalDeviceVerified": false,
+        "physicalPhonePerformanceClaimed": false,
+        "fullCampaignAccepted": false,
+        "pending": [
+          "Physical-phone gameplay/performance coverage",
+          "Full campaign end-to-end acceptance",
+          "Publishing verification"
+        ],
+        "touchEvidence": {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/campaign-qa-touch-assisted-initial.json",
+          "sha256": "5a1c70c55eb32e69c9ba8ef14694321a7efbcbfbe191d768f24d14a4413b8458",
+          "scope": "Actual CDP trusted touch GO/BRAKE after QA order preparation and6.5m mapped approach staging. Root observed Next entering Level16 ROAMING1500m from destination. Initial capture is NOT final porch2 visual evidence, not natural pickup or unassisted full delivery.",
+          "physicalHardwareVerified": false,
+          "assisted": true
+        },
+        "finalTouchEvidence": {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/campaign-qa-level15-normal-night-final-hudfix.json",
+          "sha256": "5381c157828dcfbfeeb84b82f727fd8938920b5dac5d6ae5027c5a0f3d9bb09b",
+          "scope": "Root final normal-night post-HUD-fix observer, actual CDP GO/BRAKE after assisted starting position,20 consecutive clean hidden-HUD story frames and Next road-ready. Assisted run; not physical phone, natural pickup or full-campaign acceptance.",
+          "physicalHardwareVerified": false,
+          "assisted": true
+        }
+      },
+      "performanceReview": {
+        "status": "scoped-pass",
+        "nativeSpeech": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "method": "native-visible-face-pick",
+          "annotationPath": "src/delivery/art/face-annotations.json",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/native-mouth-pick.png",
+              "sha256": "b1321c2f183e4ca10aa15b19a3ba14e54ceb47c2c31d9aed3eccb5411c49840d",
+              "scope": "Exact native visible face cursor pick"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/native-speech08.png",
+              "sha256": "f9429ffe089c463681d0cdaaecc0100900f69cb74bd22f9bd9b437fb6f41ac97",
+              "scope": "Bounded speech deformer preview at0.8, independently scoped pass"
+            }
+          ]
+        },
+        "pending": [
+          "Physical-phone validation",
+          "Full campaign acceptance"
+        ],
+        "normalScene": {
+          "status": "scoped-pass",
+          "environment": "Desktop Chrome normal production character path with915x412 touch layout where supplied; hardware not verified",
+          "continuousPlaybackObserver": "/root",
+          "independentVisualReviewer": "/root/new_campus_environments",
+          "evidence": [
+            {
+              "phase": "speaking",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-speaking.png",
+              "sha256": "8c5bfcab635ad03ac8f3929545211601db9c0638ba8594b6095e0839372d0b77"
+            },
+            {
+              "phase": "opening",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-opening.png",
+              "sha256": "0188f5390e206e62bbdb88ec8febf6325a937ac24677c70b04c549fb9003a0ae"
+            },
+            {
+              "phase": "bite",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-bite.png",
+              "sha256": "9ce6433507ec07c0e21eea007a00354c34b239dcc0ce5581557553518b67b56d"
+            },
+            {
+              "phase": "final",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/balayya-chennakesava-v28/normal-night-final.png",
+              "sha256": "23dee3fcf7699ece752384c0c722c5541aee8b1016a8bb9c68e2d4a67b351d9c"
+            }
+          ]
+        },
+        "eating": {
+          "status": "scoped-pass",
+          "scope": "Native opening/bite/settled phases and actual normal-night game scene, retained visible carton; not physical-phone acceptance",
+          "observedBy": "/root",
+          "reviewerId": "/root/new_campus_environments"
+        }
+      }
+    },
+    {
+      "characterId": "shankar-dada",
+      "name": "Chiranjeevi as Shankar Dada",
+      "film": "Shankar Dada MBBS",
+      "status": "approved",
+      "candidate": {
+        "assetId": "shankar-dada-independent-appearance-v24",
+        "sha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a"
+      },
+      "authorId": "/root/new_character_accuracy",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "shankar-gemini-official-corridor",
+          "characterId": "shankar-dada",
+          "kind": "film-still",
+          "sourceUrl": "https://www.idlebrain.com/movie/photogallery/shankardadambbs.html",
+          "publisher": "Gemini Film Circuit official film press gallery via Idlebrain",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/shankar-official-corridor14.jpg",
+          "sha256": "4e41530f2ead3b249c4d249cd75e378e06bb40e0aa00a9ae2a699052d8274548",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Official press gallery explicitly courtesy Gemini Film Circuit; frame14 shows pink collared shirt, short white lab coat, period hair/moustache and black trousers in medical corridor. Does not prove X-ray gesture; X-ray prop/pose is separately user-directed."
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/front.png",
+          "sha256": "724fe008f38a6b291e64a88765b5d0df72978152024cfcecdadc101457ba7cc3",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/three-quarter.png",
+          "sha256": "0040048e86ea03fc563c5bf265fec2e2b234217449c6a9d0286bc88b2b2072f2",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/profile.png",
+          "sha256": "e718e7d375aa3f170ac2e9f9e56e3d8b1310f75876c41ebe64aa13cb36948eed",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "back",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/back.png",
+          "sha256": "8d2955607b219980e1c53c192d4f9aac031fe0c68c3377c162a4c258a680c2d1",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/full-body.png",
+          "sha256": "4df6c7d2250e3441473f47a55aa4d7e765c25094457698790f2df9f8b274dca4",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/in-game-handoff.png",
+          "sha256": "6a7d33884a4ef86f35ba717e23b40469bd21d3bf7c662492435ab2d61bf36a15",
+          "assetSha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a",
+          "comparedReferenceIds": [
+            "shankar-gemini-official-corridor"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        }
+      ],
+      "feedback": [
+        "Independent exact v24 five-view and actual Arts corridor appearance/geometry PASS. Black trousers clean, white coat hem preserved, recognizable primary corridor film cues, upright X-ray edge grip/readability observed.",
+        "Appearance-only approval. Lip animation, eating performance, night and final gameplay/publishing acceptance remain pending. X-ray gesture authored to user instruction rather than claimed exact photographic reconstruction.",
+        "Final exact normal-night scene visuals and continuous root playback passed within documented browser scope. Physical phone, complete unassisted campaign and publication remain separate."
+      ],
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/shankar-dada/actor-v24.glb",
+          "sha256": "2801fe2aaae22e878cd786a92e2c81a5c09e956e9ce9969eafc8c674dae6ecd4"
+        },
+        {
+          "path": "public/delivery/characters/shankar-dada/actor-v24.rig.json",
+          "sha256": "2de31e07a2595adceb97b0628eb90860aeb08932845b8f86664327a64427c47e"
+        }
+      ],
+      "reviewerId": "/root/new_campus_environments",
+      "reviewedAt": "2026-11-05T22:18:26.355Z",
+      "releaseQa": {
+        "status": "scoped-pass",
+        "appearanceOnly": false,
+        "scope": "Exact approved model in normal browser production character path: night speech, delivery transfer, post-delivery held character and Next screen. Balayya/Shankar include opening carton and bite; Mahesh remains in booth while pizza is left on steps.",
+        "continuousPlaybackObserver": "/root",
+        "independentVisualReviewer": "/root/new_campus_environments",
+        "evidence": [
+          {
+            "phase": "speaking",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-speaking.png",
+            "sha256": "99c93242bed34437c872a930fafdcd76cbc96f83dfbbca6e93fe4275f22a3d40"
+          },
+          {
+            "phase": "opening",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-opening.png",
+            "sha256": "e8b5685669d5a12c82c42c6fc642e9397edfb7192cc7013c0c89f8dbfe494fad"
+          },
+          {
+            "phase": "bite",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-bite.png",
+            "sha256": "c516849494ea85bb282a09a97279da4be63919fcea37e677074221cb6e27012c"
+          },
+          {
+            "phase": "final",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-final.png",
+            "sha256": "feda7feec5daa3cd08ae25dff4dc1c4753d65a039b2a70cca5e1dfd33d6cdb2f"
+          }
+        ],
+        "physicalDeviceVerified": false,
+        "physicalPhonePerformanceClaimed": false,
+        "fullCampaignAccepted": false,
+        "pending": [
+          "Physical-phone gameplay/performance coverage",
+          "Full campaign end-to-end acceptance",
+          "Publishing verification"
+        ],
+        "finalTouchEvidence": {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/campaign-qa-level16-real-touch-jump-pickup-assisted-position.json",
+          "sha256": "53609147e527ccb62d59d74a33e359c2c7861f6e5364fd035e59f11b512b2a20",
+          "scope": "Actual CDP GO450ms then existing Jump successfully collected pizza naturally after an assisted starting position. Does not establish unassisted route or physical device.",
+          "physicalHardwareVerified": false,
+          "assisted": true
+        },
+        "fullFlowTouchEvidence": {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/campaign-qa-level16-input-flight-landing-delivered-next-reviewed.json",
+          "sha256": "ba0b188f826d6c55e0b7a06a79be07f0f403ff27d95aaabf4d608f16451bf9d0",
+          "disclosurePath": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/campaign-qa-level16-staging-disclosure.json",
+          "disclosureSha256": "01968a1611d14b09ce43a487ee694772025b8a26e4ddaffab67243482d029dd9",
+          "scope": "Assisted starting position before the actual Level16 jump pickup. After staging, Root used actual GO/Jump, about1.4km flight, manual ground landing, normal story/meal and Next without further relocation.",
+          "observerAttributionLimit": "The Level16 row has an empty assistance array because initial pre-pickup staging was attributed by the observer to already-finished Level15 as global player-relocated. This does not establish an unassisted Level16 start.",
+          "physicalHardwareVerified": false,
+          "assistedStartingPosition": true,
+          "inputOnlyAfterStaging": true,
+          "fullUnassistedCampaignClaimed": false
+        }
+      },
+      "performanceReview": {
+        "status": "scoped-pass",
+        "nativeSpeech": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "method": "native-visible-face-pick",
+          "annotationPath": "src/delivery/art/face-annotations.json",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/native-mouth-pick.png",
+              "sha256": "f9aaf6fed69292f44404bba0907cae01868907c8347eda33fb7b45cb10b588d1",
+              "scope": "Exact native visible face cursor pick"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/native-speech08.png",
+              "sha256": "a80e77e6b6e33bfc40e3eec4196bc02923cadb4d7f4b9991160f54cbf3bb377a",
+              "scope": "Bounded speech deformer preview at0.8, independently scoped pass"
+            }
+          ]
+        },
+        "pending": [
+          "Physical-phone validation",
+          "Full campaign acceptance"
+        ],
+        "normalScene": {
+          "status": "scoped-pass",
+          "environment": "Desktop Chrome normal production character path with915x412 touch layout where supplied; hardware not verified",
+          "continuousPlaybackObserver": "/root",
+          "independentVisualReviewer": "/root/new_campus_environments",
+          "evidence": [
+            {
+              "phase": "speaking",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-speaking.png",
+              "sha256": "99c93242bed34437c872a930fafdcd76cbc96f83dfbbca6e93fe4275f22a3d40"
+            },
+            {
+              "phase": "opening",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-opening.png",
+              "sha256": "e8b5685669d5a12c82c42c6fc642e9397edfb7192cc7013c0c89f8dbfe494fad"
+            },
+            {
+              "phase": "bite",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-bite.png",
+              "sha256": "c516849494ea85bb282a09a97279da4be63919fcea37e677074221cb6e27012c"
+            },
+            {
+              "phase": "final",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/shankar-dada-v24/normal-night-final.png",
+              "sha256": "feda7feec5daa3cd08ae25dff4dc1c4753d65a039b2a70cca5e1dfd33d6cdb2f"
+            }
+          ]
+        },
+        "eating": {
+          "status": "scoped-pass",
+          "scope": "Native opening/bite/settled phases and actual normal-night game scene, retained visible carton; not physical-phone acceptance",
+          "observedBy": "/root",
+          "reviewerId": "/root/new_campus_environments"
+        }
+      }
+    },
+    {
+      "characterId": "mahesh-athadu",
+      "name": "Mahesh Babu as Nandu",
+      "film": "Athadu",
+      "status": "approved",
+      "candidate": {
+        "assetId": "mahesh-athadu-independent-appearance-v20",
+        "sha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9"
+      },
+      "authorId": "/root/new_character_accuracy",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "athadu-aditya-official-film",
+          "characterId": "mahesh-athadu",
+          "kind": "film-still",
+          "sourceUrl": "https://www.youtube.com/watch?v=PZfred3F_io",
+          "publisher": "Aditya Cinemalu official licensed Athadu film video",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/athadu-aditya-official-scene.jpg",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Reviewer checked actual publisher thumbnail plus YouTube oEmbed publisher/title. Supports young 2005 face, short hair and black shirt; does not depict phone booth or leather jacket.",
+          "sha256": "15f494af32a0d007b7ca2d752194e0356b12527bed3031714baa8c137627f5d8"
+        },
+        {
+          "id": "athadu-phonebooth-press-still",
+          "characterId": "mahesh-athadu",
+          "kind": "film-still",
+          "sourceUrl": "https://timesofindia.indiatimes.com/entertainment/telugu/movies/news/15yearsforclassicathadu-unseen-pictures-of-mahesh-babu-that-will-leave-you-wanting-for-more/articleshow/77458646.cms",
+          "publisher": "Times of India film press gallery",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/athadu-phonebooth-still.jpg",
+          "primarySource": false,
+          "visuallyVerified": true,
+          "note": "Exact booth/leather broad lapels corroboration; press-photo provenance secondary rather than claimed primary.",
+          "sha256": "d9a514ea4fa658cc345a94fd39e71fa5c02dd083396cd2efcae06122dbe4d3df"
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/front.png",
+          "sha256": "815be998d82aea769fad734355707d332c6ef1aec5e1d47a78de8def1d3c3625",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/three-quarter.png",
+          "sha256": "2ece9a852cdfe473954523918249eb7802bf565127a7cddcf4d977014cd32733",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/profile.png",
+          "sha256": "bb93dbc64e593b3e6ea66806fa85aa21033deabdaf1259d14d6e2f5cc87f918a",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "back",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/back.png",
+          "sha256": "c1d7d8f2f5806afe15d0e75ad768d5373054490c6903a1d37316b3b5f8e0bcf7",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/full-body.png",
+          "sha256": "0747596a2228e9f88527d25b1561a7e72a44175b620812d4575c8c29ab4efde8",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/in-game-handoff.png",
+          "sha256": "75caaed32294a0a7eeb7cbcd4a52d05c814f6e147df7e7082e83aeefc4a42b00",
+          "assetSha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "athadu-phonebooth-press-still"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        }
+      ],
+      "feedback": [
+        "Exact compact v20 five fitted views and fresh actual desktop booth scene independently passed appearance/geometry. Hanging wrist stump fixed; black curved receiver and connected cord visible at ear; face/hair/leather role recognizable. Minor rear collar edge noted.",
+        "Appearance-only approval. Native lip performance, night scene and final gameplay/publishing acceptance pending. Character intentionally does not eat or accept pizza; physical pizza remains on steps.",
+        "Final exact normal-night scene visuals and continuous root playback passed within documented browser scope. Physical phone, complete unassisted campaign and publication remain separate."
+      ],
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/mahesh-athadu/actor-v20.glb",
+          "sha256": "c8a62c4dafd108b5509c8103257107cd6c4860b97debdc258584df0b553766b4"
+        },
+        {
+          "path": "public/delivery/characters/mahesh-athadu/actor-v20.rig.json",
+          "sha256": "b1e7ee0b34f713cc3ec2653d01f35d8acb411aa46462a98cbc5fafe59882e7be"
+        }
+      ],
+      "reviewerId": "/root/new_campus_environments",
+      "reviewedAt": "2026-11-05T22:16:42.165Z",
+      "releaseQa": {
+        "status": "scoped-pass",
+        "appearanceOnly": false,
+        "scope": "Exact approved model in normal browser production character path: night speech, delivery transfer, post-delivery held character and Next screen. Balayya/Shankar include opening carton and bite; Mahesh remains in booth while pizza is left on steps.",
+        "continuousPlaybackObserver": "/root",
+        "independentVisualReviewer": "/root/new_campus_environments",
+        "evidence": [
+          {
+            "phase": "speaking",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-speaking.png",
+            "sha256": "fbe7f09f50d62ed6d3cc328c8e6fd53cd80de2df7596cd007c4e59448c773944"
+          },
+          {
+            "phase": "transfer",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-transfer.png",
+            "sha256": "402aa37143da79d3b099bf5132bff7d2e73e09c2e12c77d3b4df26f4550e8d59"
+          },
+          {
+            "phase": "held",
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-held.png",
+            "sha256": "0dbf703607280e93c2d8705b3e9384545ee7b02290d96333a08dd15ba2f20671"
+          }
+        ],
+        "physicalDeviceVerified": false,
+        "physicalPhonePerformanceClaimed": false,
+        "fullCampaignAccepted": false,
+        "pending": [
+          "Physical-phone gameplay/performance coverage",
+          "Full campaign end-to-end acceptance",
+          "Publishing verification"
+        ]
+      },
+      "performanceReview": {
+        "status": "scoped-pass",
+        "nativeSpeech": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "method": "native-visible-face-pick",
+          "annotationPath": "src/delivery/art/face-annotations.json",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/native-mouth-pick.png",
+              "sha256": "df8913a97efd8bc5c9dd171c8758f7dfd5c15660246cb81e609f4d3255a7dbbb",
+              "scope": "Exact native visible face cursor pick"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/native-speech08.png",
+              "sha256": "85b42e88f62f4c8ba4d22bf9ab5dd044e8f3946b1b48e44c4ce7c5f9c5fffc21",
+              "scope": "Bounded speech deformer preview at0.8, independently scoped pass"
+            }
+          ]
+        },
+        "pending": [
+          "Physical-phone validation",
+          "Full campaign acceptance"
+        ],
+        "normalScene": {
+          "status": "scoped-pass",
+          "environment": "Desktop Chrome normal production character path with915x412 touch layout where supplied; hardware not verified",
+          "continuousPlaybackObserver": "/root",
+          "independentVisualReviewer": "/root/new_campus_environments",
+          "evidence": [
+            {
+              "phase": "speaking",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-speaking.png",
+              "sha256": "fbe7f09f50d62ed6d3cc328c8e6fd53cd80de2df7596cd007c4e59448c773944"
+            },
+            {
+              "phase": "transfer",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-transfer.png",
+              "sha256": "402aa37143da79d3b099bf5132bff7d2e73e09c2e12c77d3b4df26f4550e8d59"
+            },
+            {
+              "phase": "held",
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/mahesh-athadu-v20/normal-night-held.png",
+              "sha256": "0dbf703607280e93c2d8705b3e9384545ee7b02290d96333a08dd15ba2f20671"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "characterId": "venkatesh-raja",
+      "name": "Venkatesh as Raja",
+      "film": "Raja",
+      "status": "approved",
+      "candidate": {
+        "assetId": "venkatesh-raja-independent-appearance-v24",
+        "sha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364"
+      },
+      "authorId": "/root/new_character_accuracy",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "raja-sunnxt-official-film",
+          "characterId": "venkatesh-raja",
+          "kind": "film-still",
+          "sourceUrl": "https://www.sunnxt.com/telugu-movie-raja-telugu-1999/detail/11335",
+          "publisher": "Sun NXT official1999 film page",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/raja-sunnxt-official-film.jpg",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Official film-page poster establishes period face, moustache and brushed wavy hair. Poster red shirt does NOT prove khaki auto-driver outfit; khaki is explicit user-authored adaptation.",
+          "sha256": "93e53512597b00b612aa3ae0e2503ff18ee0d645a0ef96f7f5743b4b2f923d28"
+        },
+        {
+          "id": "raja-dialogue-frame",
+          "characterId": "venkatesh-raja",
+          "kind": "film-still",
+          "sourceUrl": "https://tenor.com/en-IN/view/raja-movie-venkatesh-adhantha-adantha-adantha-appudandi-gif-20340146",
+          "publisher": "Tenor supplementary exact Raja dialogue frame",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/raja-dialogue-reference-frame.png",
+          "primarySource": false,
+          "visuallyVerified": true,
+          "note": "Supplementary period face/dialogue reference, not primary costume evidence.",
+          "sha256": "2e8dcf1f5316e06be1b1114dbc5c09b5cd078b5f557d49299595a32c1ac14ef7"
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/front.png",
+          "sha256": "fd29ce2b15f34ef98597e8df9eb5fdfa8b3badc5e14623637275e0e38c7c6606",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/three-quarter.png",
+          "sha256": "1015163f30af9906cfc59d30c4c6b8f9dfec94536267b5c9ee5adc2ffa035b65",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/profile.png",
+          "sha256": "d8cb0051e25cbd9c83d970c7a846fcfe13dee92f0479f63032ec692d0b48dacf",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "back",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/back.png",
+          "sha256": "19e89387614793deb99bee42d57628b44fbd16eba374d2d9fdae58b3a465c797",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/full-body.png",
+          "sha256": "bf2aaea67790d4d9389013dde6e531bfa8fa5b0f3be976c7fd68e716de49621d",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/in-game-handoff.png",
+          "sha256": "aacc15ff889c6f8aafdc67c92f35d84675dac651ce592798039a4a7796b246c4",
+          "assetSha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364",
+          "comparedReferenceIds": [
+            "raja-sunnxt-official-film",
+            "raja-dialogue-frame"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        }
+      ],
+      "feedback": [
+        "Exact compact24 five views and actual driver-side scene independently appearance/geometry PASS. Recognizable period face/moustache, coherent seated khaki body and actual handlebar gesture. Closed tapered elbow continuity replaces prior open gap and rejected oversized cap; minor angular shading noted.",
+        "Khaki uniform is user-directed adaptation; primary red-shirt film poster does not establish auto-driver costume. Native lip, moving handoff/night/gameplay and final publishing gates separate.",
+        "Independent final normal-production night moving-scene visual gate passed within exact documented scope; no physical-device, unassisted-playthrough or publisher acceptance inferred."
+      ],
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/venkatesh-raja/actor-v24.glb",
+          "sha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9"
+        },
+        {
+          "path": "public/delivery/characters/venkatesh-raja/actor-v24.rig.json",
+          "sha256": "332eaebc23657791a8ea4902378963fcdef1fda8bce15f208b8a46025aec9f6d"
+        }
+      ],
+      "reviewerId": "/root/new_campus_environments",
+      "reviewedAt": "2026-11-05T22:49:28.473Z",
+      "releaseQa": {
+        "status": "scoped-pass",
+        "appearanceOnly": false,
+        "remaining": [
+          "Actual dialogue/moving handoff/night",
+          "Full gameplay and publishing verification"
+        ],
+        "physicalDeviceVerified": false,
+        "scope": "Normal production night auto story: same actual moving NPC travelled141m; recognizable seated driver speaking with112-vertex native lip mask, visible supported tray after pizza transfer, no eating while driving.",
+        "independentVisualReviewer": "/root/new_campus_environments",
+        "reportedBy": "/root",
+        "normalNightEvidence": [
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-raja24-night-cabin-speaking.png",
+            "sha256": "0892e5a32dc255d853f8106823e95860be04ccaf1d744a549135904f6b2cbce4"
+          },
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-raja24-night-cabin-tray-held.png",
+            "sha256": "d4f84968590bc6c97fc164899b3875849ac0cb97c3ec45da62571648baa07b0e"
+          },
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-night-level18-cabin-tray.json",
+            "sha256": "6b400b672224ec2398a177dabfe038e2dbebdeca814db67d4d0d7ad3941aac1e"
+          }
+        ],
+        "physicalPhonePerformanceClaimed": false,
+        "fullCampaignAccepted": false,
+        "unassistedPlaythroughClaimed": false,
+        "pending": [
+          "Final Next/restaurant confirmation where applicable",
+          "Physical phone/unassisted complete campaign",
+          "Publishing verification"
+        ]
+      },
+      "performanceReview": {
+        "status": "scoped-pass",
+        "nativeSpeech": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "method": "native-visible-face-pick",
+          "scope": "112 visible lip vertices, bounded native speech preview independently approved; no eating while driving",
+          "annotationPath": "src/delivery/art/face-annotations.json",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/native-mouth-pick.png",
+              "sha256": "70a531018e408ee2b583039cdf63cc5d02b3b563c40960b9adf8c7846f0d0bcf"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/native-speech08.png",
+              "sha256": "051d14e8db71a199ea84425c95f8f77e589e2ae897d622fef337aad1d4a5a675"
+            }
+          ]
+        },
+        "pending": [
+          "Final Next/restaurant where applicable",
+          "Physical phone/full campaign/publishing"
+        ],
+        "normalScene": {
+          "status": "scoped-pass",
+          "scope": "Normal production night auto story: same actual moving NPC travelled141m; recognizable seated driver speaking with112-vertex native lip mask, visible supported tray after pizza transfer, no eating while driving.",
+          "environment": "Desktop browser normal production character path and touch layout where supplied; hardware unverified",
+          "reviewerId": "/root/new_campus_environments",
+          "reportedBy": "/root",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-raja24-night-cabin-speaking.png",
+              "sha256": "0892e5a32dc255d853f8106823e95860be04ccaf1d744a549135904f6b2cbce4"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-raja24-night-cabin-tray-held.png",
+              "sha256": "d4f84968590bc6c97fc164899b3875849ac0cb97c3ec45da62571648baa07b0e"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/venkatesh-raja-v24/independent-night-level18-cabin-tray.json",
+              "sha256": "6b400b672224ec2398a177dabfe038e2dbebdeca814db67d4d0d7ad3941aac1e"
+            }
+          ]
+        },
+        "eating": {
+          "status": "not-applicable",
+          "reason": "Driver continues controlling the moving auto; pizza rests on supported tray."
+        }
+      }
+    },
+    {
+      "characterId": "kajal-indu",
+      "name": "Kajal Aggarwal as Indu",
+      "film": "Magadheera",
+      "status": "approved",
+      "candidate": {
+        "assetId": "kajal-indu-independent-appearance-v57",
+        "sha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393"
+      },
+      "authorId": "/root/new_character_accuracy",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "indu-geetha-arts-official-bus-scene",
+          "characterId": "kajal-indu",
+          "kind": "film-still",
+          "sourceUrl": "https://www.youtube.com/watch?v=jTacxvrKsCQ",
+          "publisher": "Geetha Arts official Magadheera film video",
+          "path": "docs/delivery/character-review/production/levels15-19-20261105/references/kajal-magadheera-geetha-official-bus-thumbnail.jpg",
+          "sha256": "5e2e24852d0e60d6ae1a06cf78e15ebabd74c93ffd17a7ea5bb819c0cda1802c",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Verified film publisher exact bus-scene thumbnail shows2009 Indu hair/bindi/earring and facial cues. White outfit is explicit user instruction; thumbnail does not establish all authored delivery choreography."
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/front.png",
+          "sha256": "1d8db185f452a6fc4f429b7da0b552ae47553178259808d13f81d366a585ca79",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/three-quarter.png",
+          "sha256": "7658915b364a35485fc514b7559d4cf2c796cfd6e78819bc68fef9f365a2dc3a",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/profile.png",
+          "sha256": "43beeeb6a7544fa6344f17a4ff265a97539b639b57846f0a71294f8c9176941e",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "back",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/back.png",
+          "sha256": "51416b8f0c431607a3dc8e454d191091137e44fc3e6262ab845d7e3b4956d54b",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/full-body.png",
+          "sha256": "dfd8d9fb0f103de83e49c504546a64f3eaba84d7b1499379d5d4fafe4a6c4bcf",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/in-game-handoff.png",
+          "sha256": "572f83d28bbbf16b6b691faefb7098d9ed67b8986be88639380c5ad5b93b528f",
+          "assetSha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393",
+          "comparedReferenceIds": [
+            "indu-geetha-arts-official-bus-scene"
+          ],
+          "observedBy": "/root/new_campus_environments"
+        }
+      ],
+      "feedback": [
+        "Independent exact compact57 five centered head-facing views and actual close bus-window scene passed appearance/geometry. Recognizable unobstructed Indu/Kajal face, coherent long hair, wave beside face and body lean through open window. Earlier source sheets, cheek UV scars and excessive elbow volume removed; minor angular sleeve detail noted.",
+        "Isolated orbit is explicitly offset -π/2 because the seated character turns toward the window; camera targets actual evaluated upper-head vertices, with full-body views retained.",
+        "Appearance-only approval. Native lip, night/scarf/overtake/gameplay and final publishing verification separate. No pizza handoff or eating intended; player keeps pizza per user ending.",
+        "Independent final normal-production night moving-scene visual gate passed within exact documented scope; no physical-device, unassisted-playthrough or publisher acceptance inferred."
+      ],
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/kajal-indu/actor-v57.glb",
+          "sha256": "348ed7055ae68b6e4f6268976c7c4500e5e922cdf03dcd8842370bb9c7b09227"
+        },
+        {
+          "path": "public/delivery/characters/kajal-indu/actor-v57.rig.json",
+          "sha256": "f26a3ae6d48989f941020f3778c80fb08e7aa3e502dc90a38c7c9cabd26ec97d"
+        }
+      ],
+      "reviewerId": "/root/new_campus_environments",
+      "reviewedAt": "2026-11-05T23:04:20.195Z",
+      "supplementaryEvidence": [
+        {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/body-orbit-front.png",
+          "sha256": "6a007ede8a06ff68ef4dd877ff8a963c1edf4c80cf6b0dc23d8d6f33aa4058ab",
+          "scope": "Supplementary actual compact body-orbit view, before evaluated-head centering; same GLB and explicit head-facing orbit offset."
+        },
+        {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/body-orbit-three-quarter.png",
+          "sha256": "919319e76d4596b15c42940a55c0ec2185ad14b9ec53a08f7b38404d0ed224b3",
+          "scope": "Supplementary actual compact body-orbit view, before evaluated-head centering; same GLB and explicit head-facing orbit offset."
+        },
+        {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/body-orbit-profile.png",
+          "sha256": "488a2c33f7cef45e58713c8220fa36dae21ca3e7659caaad784b931416084820",
+          "scope": "Supplementary actual compact body-orbit view, before evaluated-head centering; same GLB and explicit head-facing orbit offset."
+        },
+        {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/body-orbit-back.png",
+          "sha256": "d5b44a138130169295f0e15c745dac9ce3274a625a3b3ca650ab81c761a7c10e",
+          "scope": "Supplementary actual compact body-orbit view, before evaluated-head centering; same GLB and explicit head-facing orbit offset."
+        },
+        {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/body-orbit-full-body.png",
+          "sha256": "0a4d73fbfe4894e86f380fa34ab81fb53fcfa09f1b1274e0a8c973fa0d57f2d9",
+          "scope": "Supplementary actual compact body-orbit view, before evaluated-head centering; same GLB and explicit head-facing orbit offset."
+        }
+      ],
+      "releaseQa": {
+        "status": "scoped-pass",
+        "appearanceOnly": false,
+        "remaining": [
+          "Actual night/scarf/overtake",
+          "Full gameplay and publishing verification"
+        ],
+        "physicalDeviceVerified": false,
+        "scope": "Normal production night RTC-bus story: same actual mapped NPC bus, retained windshield cloth, unobstructed window character with90-vertex Head-local lip performance, car12.5m ahead after overtaking; user retains pizza/cloth, no handoff or eating.",
+        "independentVisualReviewer": "/root/new_campus_environments",
+        "reportedBy": "/root",
+        "normalNightEvidence": [
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-retained-chunni.png",
+            "sha256": "c09bc40f81a6d8066e9c783b9531d4ac9a28db18539bfefb941192097ad4b27d"
+          },
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-speaking-normal.png",
+            "sha256": "88dd85bd280607bbd6e7f049e90e0f6e924c59d2e0d4344ca136426730a7a7d0"
+          },
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-held-normal.png",
+            "sha256": "e9e68114dd97a96a464108b03a383819ae720c80f560f7dfdb1dbd837513189a"
+          },
+          {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-actual-overtake-wide.png",
+            "sha256": "e122beb751a3926a7d584f8cd00d8ca1b4f81ab5e5f2039ad79fb73121bd2332"
+          }
+        ],
+        "physicalPhonePerformanceClaimed": false,
+        "fullCampaignAccepted": false,
+        "unassistedPlaythroughClaimed": false,
+        "pending": [
+          "Physical-phone validation",
+          "Unassisted complete campaign acceptance",
+          "Publishing verification"
+        ],
+        "finaleUi": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "scope": "Reviewer personally clicked actual Next/grand opening then Explore Hyderabad. Exact Indu native portrait and ROADSTER PIZZA restaurant observed; returns to ROAMING with finished=true and cinematic/paused/choosing=false.",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-level19-night-grand-opening.png",
+              "sha256": "3f004431a0538333891953ffe2e52f939a7bd5eae1be324506ac0e67ee663dd2"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-level19-post-finale-roam.png",
+              "sha256": "36ae337ef72084469cb4450763ad1d299ec08d944f680df05aa09854fd7d2b9d"
+            }
+          ],
+          "physicalHardwareVerified": false
+        },
+        "initialRawWithKnownLimits": {
+          "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-night-level19-finale-initial.json",
+          "sha256": "ddf64b92632aa072e4a5747eb8426c4d33172a72990fd3e35334d902d637416f",
+          "disclosurePath": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-night-level19-finale-disclosure.json",
+          "disclosureSha256": "9361152a80ba8df4a3980cfb084075e0817950a23ea1664724e6edc2d7b23337",
+          "allMechanicsAccepted": false,
+          "supersededBy": {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-night-level19-cloth-world3-clean.json",
+            "sha256": "dc3733d95a897e4933926aa631c0c920c0d6d3ff5f5e4bb628f36fd09108b009",
+            "note": "Superseded by a fresh correct run only. Earlier failed export remains intact as regression evidence and is not retroactively accepted."
+          }
+        },
+        "cleanNormalNightMechanics": {
+          "status": "scoped-pass",
+          "runId": "campaign-qa-mw46i44y",
+          "reviewerId": "/root/new_campus_environments",
+          "scope": "Fresh actual normal-night Level19: same mapped bus186m travel, player12.5m ahead, retained scarf and pizza with world-space bounds unchanged, visible window speech, final Next/grand opening. Level19 row has no missing facts/visual checks/violations and observedSceneMechanics/allScenarioEvidence=true.",
+          "raw": {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-night-level19-cloth-world3-clean.json",
+            "sha256": "dc3733d95a897e4933926aa631c0c920c0d6d3ff5f5e4bb628f36fd09108b009"
+          },
+          "heldImage": {
+            "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-cloth-world3-held.png",
+            "sha256": "62a30187a01ac300d2e5aec1c906de96e3d36648e37b0cc161809d1ada42f891"
+          },
+          "sourceArchive": {
+            "path": "docs/qa/level19-independent-night-campaign-evidence-20261105.json.gz",
+            "sha256": "e0ee6332d24ccfd1311928e964560da3cb030f8563f40e2b817058e54adacaa5"
+          },
+          "levelRow": {
+            "level": 19,
+            "id": "indu-moving-bus",
+            "observedSceneMechanics": true,
+            "allScenarioEvidence": true,
+            "missingFacts": [],
+            "missingVisualChecks": [],
+            "storyViolations": []
+          },
+          "assistance": [
+            {
+              "kind": "qa-order-preparation",
+              "at": 256.5999999642372,
+              "levelId": null
+            },
+            {
+              "kind": "player-relocated",
+              "at": 27383.79999995256,
+              "levelId": "indu-moving-bus"
+            },
+            {
+              "kind": "pickup-not-observed",
+              "at": 59184.09999996442,
+              "levelId": "indu-moving-bus"
+            }
+          ],
+          "inputEvidence": {
+            "pointerTypes": [],
+            "trustedTouchObserved": false,
+            "physicalHardwareVerified": false,
+            "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+          },
+          "globalAcceptance": {
+            "observerHealthy": true,
+            "allCompleted": false,
+            "naturalPickupAll": false,
+            "noAssistance": false,
+            "allScenarioEvidence": false,
+            "unreviewedArtPreview": false,
+            "observedSceneMechanicsAll": false,
+            "fullCampaignAccepted": false,
+            "note": "Completion events alone are not physical-scene, visual-likeness, true-touch or hardware acceptance."
+          },
+          "physicalHardwareVerified": false,
+          "naturalPickupClaimed": false,
+          "unassistedCampaignClaimed": false
+        }
+      },
+      "performanceReview": {
+        "status": "scoped-pass",
+        "nativeSpeech": {
+          "status": "scoped-pass",
+          "reviewerId": "/root/new_campus_environments",
+          "method": "native-visible-face-pick",
+          "coordinateSpace": "head-local",
+          "scope": "Stable actual visible closed lip pick90 vertices, then bounded opening0.8 preview independently passed. Same exact GLB, actual native triangle, unchanged proximity and sparse mask bounds.",
+          "annotationPath": "src/delivery/art/face-annotations.json",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/native-mouth-pick-stable.png",
+              "sha256": "52102134756d690d03cf9f2046f70239ecab17c0a9b24a60aac94f50ff86ab44"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/native-speech08-stable.png",
+              "sha256": "922247ed4ac1e995c6f3813286ecfbef866413b031e98500bb024bfe851209f8"
+            }
+          ],
+          "discardedDraft": "Earlier74-vertex off-centre pre-RAF-settle pick discarded; no draft annotation was merged or released."
+        },
+        "pending": [
+          "Physical-phone validation",
+          "Unassisted complete campaign acceptance",
+          "Publishing verification"
+        ],
+        "normalScene": {
+          "status": "scoped-pass",
+          "scope": "Normal production night RTC-bus story: same actual mapped NPC bus, retained windshield cloth, unobstructed window character with90-vertex Head-local lip performance, car12.5m ahead after overtaking; user retains pizza/cloth, no handoff or eating.",
+          "environment": "Desktop browser normal production character path and touch layout where supplied; hardware unverified",
+          "reviewerId": "/root/new_campus_environments",
+          "reportedBy": "/root",
+          "evidence": [
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-retained-chunni.png",
+              "sha256": "c09bc40f81a6d8066e9c783b9531d4ac9a28db18539bfefb941192097ad4b27d"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-speaking-normal.png",
+              "sha256": "88dd85bd280607bbd6e7f049e90e0f6e924c59d2e0d4344ca136426730a7a7d0"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-held-normal.png",
+              "sha256": "e9e68114dd97a96a464108b03a383819ae720c80f560f7dfdb1dbd837513189a"
+            },
+            {
+              "path": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-indu57-night-actual-overtake-wide.png",
+              "sha256": "e122beb751a3926a7d584f8cd00d8ca1b4f81ab5e5f2039ad79fb73121bd2332"
+            }
+          ]
+        },
+        "eating": {
+          "status": "not-applicable",
+          "reason": "User keeps pizza by explicit plot ending; no delivery handoff."
+        },
+        "cleanLevel19Mechanics": {
+          "status": "scoped-pass",
+          "runId": "campaign-qa-mw46i44y",
+          "rawPath": "docs/delivery/character-review/evidence/levels15-19-20261105/kajal-indu-v57/independent-night-level19-cloth-world3-clean.json",
+          "rawSha256": "dc3733d95a897e4933926aa631c0c920c0d6d3ff5f5e4bb628f36fd09108b009",
+          "scope": "Exact Level19 row mechanics only; global19-level campaign acceptance remains false."
+        }
+      }
     }
   ]
 }

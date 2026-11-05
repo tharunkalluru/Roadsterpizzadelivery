@@ -1,3 +1,4 @@
+import {FILMNAGAR_WINE_MART} from './filmnagar-wine-mart';
 import { COLLEGE_CAMPUSES } from './college-campus-data';
 // Shared, lightweight place catalogue. The map and model placement use the same identities and anchors.
 // Existing coordinates and unmeasured model dimensions are retained as provisional; see docs/landmark-audit.json.
@@ -16,6 +17,7 @@ const QT = (name: string, lat: number, lon: number, terrace: number, cube: numbe
   ({ kind: 'qstomb', name, lat, lon, rot: 0, clear: [terrace + 6, terrace + 6], p: { terrace, cube, dome, h, arches } });
 
 export const BASE_LANDMARKS: LandmarkDefinition[] = [
+  {kind:'x_q_tonique_filmnagar',name:FILMNAGAR_WINE_MART.name,...FILMNAGAR_WINE_MART.anchor,rot:FILMNAGAR_WINE_MART.rotation,clear:0},
   {kind:'x_osmania_medical',name:'Osmania Medical College',...COLLEGE_CAMPUSES.osmania_medical.anchor,rot:COLLEGE_CAMPUSES.osmania_medical.rotation,clear:0},
   // ---- Old City ----
   { kind: 'charminar', name: 'Charminar', lat: 17.36160, lon: 78.47463, rot: 11.5, clear: 27 },
@@ -45,7 +47,7 @@ export const BASE_LANDMARKS: LandmarkDefinition[] = [
   { kind: 'highcourt', name: 'Telangana High Court', lat: 17.36909, lon: 78.47199, rot: 347, clear: [120, 54] },
   { kind: 'osmania', name: 'Osmania General Hospital', lat: 17.37256, lon: 78.47353, rot: 163, clear: [186, 64] },
   { kind: 'salarjung', name: 'Salar Jung Museum', lat: 17.37136, lon: 78.48043, rot: 340, clear: [126, 82] },
-  { kind: 'ouarts', name: 'Osmania University Arts College', lat: 17.41921, lon: 78.52625, rot: 155, clear: [114, 120] },
+  { kind: 'ouarts', name: 'Osmania University Arts College', lat: 17.41921, lon: 78.52625, rot: 155, clear: 0 },
   // ---- Modern Hyderabad ----
   { kind: 'cybertowers', name: 'Cyber Towers', lat: 17.45048, lon: 78.38112, rot: 56, clear: 49 },
   { kind: 'cablebridge', name: 'Durgam Cheruvu Cable Bridge', lat: 17.431685637, lon: 78.389881881, rot: 75.842305, clear: 0 },
@@ -81,6 +83,7 @@ const BASE_STYLE: Record<string, [PlaceCategory, PlaceIcon]> = {
   stadium: ['Sport', 'stadium'], clocktower: ['Heritage', 'tower'],
   x_asian_amb: ['Culture', 'building'],
   x_osmania_medical: ['City life','building'],
+  x_q_tonique_filmnagar: ['City life','building'],
 };
 function extraStyle(type: string): [PlaceCategory, PlaceIcon] {
   if (/^temple|gurudwara/.test(type)) return ['Worship', 'temple'];

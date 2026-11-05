@@ -74,6 +74,18 @@ function fixture() {
     get actions() { return actions; }, get model() { return model; } };
 }
 
+test('capture hides driving HUD in its first rendered frame without waiting for the next regular UI tick',()=>{
+  const f=fixture(),classes=new Set<string>();
+  f.game.hud.root={classList:{toggle(name:string,on:boolean){if(on)classes.add(name);else classes.delete(name);},remove(name:string){classes.delete(name);}}};
+  f.pickup();f.runtime.beforePlayer(.05);const at=f.runtime.destination!;f.game.player.pos.set(at.x,.55,at.z);
+  f.runtime.tick(.05,true);
+  for(let i=0;i<20&&!f.runtime.cinematic;i++)f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.director.phase,'playing');
+  assert.equal(classes.has('story-cinematic'),true,'controls must be concealed before a screenshot or passive observer can see a captured frame');
+  assert.equal(f.game.hud.storyBlocked,true);
+  f.runtime.dispose();
+});
+
 test('Restart current level from held completion replays that scene via relocation without deleting earned progress', async () => {
   const f = fixture(); f.complete();
   assert.equal(f.runtime.controller.progress.completedIds.length, 1);

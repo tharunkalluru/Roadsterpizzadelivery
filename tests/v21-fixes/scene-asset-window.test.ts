@@ -17,7 +17,7 @@ test('retained sets stay resident while the car exits, with no entire-campaign w
   assert.deepEqual(sceneAssetWindow(levels,levels[1].id,levels[0].id),['ram-vvr','devara','pushpa-raj']);
   assert.deepEqual(sceneAssetWindow(levels,levels[0].id,levels[0].id),['pushpa-raj','ram-vvr']);
   assert.deepEqual(sceneAssetWindow(levels,null),[]);
-  assert.deepEqual(sceneAssetWindow(levels,null,levels.at(-1)!.id),['nani-jersey']);
+  assert.deepEqual(sceneAssetWindow(levels,null,levels.at(-1)!.id),['kajal-indu']);
   const extended=[...levels,{...levels.at(-1)!,id:'new-content-only-level',moduleParams:{characterId:'another-actor'}}];
-  assert.deepEqual(sceneAssetWindow(extended,levels.at(-1)!.id),['nani-jersey','another-actor']);
+  assert.deepEqual(sceneAssetWindow(extended,levels.at(-1)!.id),['kajal-indu','another-actor']);
 });

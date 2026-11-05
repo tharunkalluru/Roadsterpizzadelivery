@@ -18,10 +18,15 @@ export class StoryLandingGate {
     if (this.revision !== placementRevision) this.held = 0;
     this.revision = placementRevision;
     const zone = storyLandingZone(frame);
+    // Only explicitly authored moving road handoffs can use relative speed.
+    // Ordinary destinations, trains and metro retain the stopped arrival rule.
+    const moving=frame?.allowMovingEntry===true;
+    const headingMatches=!moving||frame.yaw!==undefined&&Math.abs(Math.atan2(Math.sin(player.yaw-frame.yaw),Math.cos(player.yaw-frame.yaw)))<.45;
+    const speedMatches=moving?Number.isFinite(frame.speed)&&frame.speed!>1&&Math.abs(player.speed-frame.speed!)<4:Math.abs(player.speed)<=.35;
     const settled = allowed && frame?.entry && zone && !player.flying && !player.descending && !player.jumping && !gliding &&
       [dt, player.x, player.y, player.z, player.speed, player.verticalSpeed ?? 0, supportY,
         zone.point.x, zone.point.y, zone.point.z, zone.radius].every(Number.isFinite) &&
-      Math.abs(player.speed) <= .35 && Math.abs(player.verticalSpeed ?? 0) <= .15 &&
+      headingMatches && speedMatches && Math.abs(player.verticalSpeed ?? 0) <= .15 &&
       Math.abs(player.y - .55 - supportY) <= .2 &&
       Math.abs(player.y - zone.point.y) <= .65 &&
       Math.hypot(player.x - zone.point.x, player.z - zone.point.z) <= zone.radius;

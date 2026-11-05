@@ -1,0 +1,83 @@
+{
+  "build": "working tree above7c9a9ef,2026-11-05; not a published build",
+  "browserSession": "oucampusreview",
+  "baseURL": "http://127.0.0.1:4310",
+  "viewport": [
+    1280,
+    720
+  ],
+  "graphics": "low",
+  "device": "desktop Chrome; keyboard. No physical-phone performance claim",
+  "assistance": "QA Prepare order bypassed jump pickup; player placed at stated approach. Only subsequent W/Space motion is ordinary gameplay. Pending actors were hidden; no likeness or completed delivery acceptance.",
+  "scenarios": [
+    {
+      "level": 16,
+      "url": "?qaDelivery=16&qaScene=1&q=low",
+      "start": "24m outward from researched marker, yaw0.436332313",
+      "input": "W3100ms then Space1000ms",
+      "endPosition": [
+        3189.84358248,
+        0.55,
+        -1363.19330883
+      ],
+      "endCamera": [
+        3192.71738721,
+        2.39999989,
+        -1357.0304147
+      ],
+      "state": "SETPIECE;4.1m from marker; storyEntrytrue, capturedfalse because outside3.15m landingradius",
+      "result": "ordinary approach ground-clear, actor/cinematic acceptance pending",
+      "evidence": [
+        "output/playwright/ou-new-campus-real-approach.png",
+        "output/playwright/ou-new-campus-parked-v1.png"
+      ]
+    },
+    {
+      "level": 17,
+      "url": "?qaDelivery=17&qaScene=1&q=low",
+      "start": "24m outward from researched marker, yaw1.295034305",
+      "input": "W3100ms then Space1000ms",
+      "endPosition": [
+        -3218.5669392,
+        0.55,
+        -727.60939654
+      ],
+      "endCamera": [
+        -3212.02384156,
+        2.39999868,
+        -725.75788654
+      ],
+      "state": "SETPIECE;4.1m frommarker; storyEntrytrue/capturedfalse",
+      "result": "ordinary approach ground-clear, boothsetinsideentry; actor/cinematic acceptance pending",
+      "evidence": [
+        "output/playwright/prasads-new-source-approach.png",
+        "output/playwright/prasads-new-source-parked.png"
+      ]
+    },
+    {
+      "level": 15,
+      "url": "?qaDelivery=15&qaScene=1&q=low",
+      "discardedArtificialApproach": "A straight24m start behind marker hit unrelated buildings. Not a mappedroute test; no buildings deleted to force passage. Evidence filmnagar-new-winemart-approach/parked.png",
+      "mappedRoad": "serviceedge5dba48fe-fc6_1, marker s12.7506342732 of19.2586285271m; GPSend[-9133.03949767,0,-1706.30185790]",
+      "start": "6.5m upstream on actual mapped serviceedge, aligned road heading",
+      "input": "W1600ms then Space800ms",
+      "endPosition": [
+        -9133.034,
+        0.55,
+        -1706.318
+      ],
+      "endYaw": -0.33154362,
+      "endSpeed": 0,
+      "endCamera": [
+        -9129.92033633,
+        1.89354839,
+        -1707.2760209
+      ],
+      "state": "SETPIECE; storycapturedtrue after stationary grounded arrival",
+      "result": "mappedserviceapproach and final wholeRoadsterbody clear; no widening/removing adjacent buildings. Actor/cinematic acceptancepending",
+      "evidence": [
+        "output/playwright/filmnagar-mapped-service-park.png"
+      ]
+    }
+  ]
+}

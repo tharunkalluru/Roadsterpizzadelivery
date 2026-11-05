@@ -32,7 +32,13 @@ export interface ModuleCameraFocus {
 export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
 /** Authored local story motion. Entry is separate from proximity/call gates:
  * trains only grant it after a genuine player-controlled roof landing. */
+export interface DeliveryRoadVehicle {
+  id:string;group:THREE.Group;x:number;y:number;z:number;hx:number;hz:number;speed:number;size:readonly number[];approachValid?:boolean;
+}
 export interface ModuleStoryFrame {
+  /** Explicit exception for side-by-side road scenes; never grants airborne entry. */
+  allowMovingEntry?:boolean;
+
   entry: boolean;
   point: DeliveryPoint;
   /** Manual arrival area before authored motion. Moving services can retain
@@ -84,6 +90,15 @@ export interface DeliveryModuleContext {
   vehicleSpeedLimit?: (body: MovingRailBody) => number;
   vehiclePoseClear?: (body: MovingRailBody) => boolean;
   /** Train surface from the existing railway simulation, not a replacement train. */
+  existingRoadVehicle?: (kind:'auto'|'bus', currentId?:string) => DeliveryRoadVehicle|null;
+  releaseRoadVehicle?:(id:string)=>void;
+  waitingRoadTarget?:()=>DeliveryPoint|null;
+  storyDialogueComplete?:()=>boolean;
+  /** Host restores controls and restages the same active order after an invalidated carrier. */
+  storyCarrierLost?:()=>void;
+  storySpeechEnvelope?:()=>number;
+  /** Presentation anchor only; never advances player simulation. */
+  playerObject?:()=>THREE.Group;
   existingTrain?: (exactBodyId?: string) => MovingRailBody | null;
   trainBodies?: () => readonly MovingRailBody[];
   metroService?: () => { bodies: readonly MovingRailBody[]; dwells: readonly MetroStationDwell[] };
@@ -103,6 +118,7 @@ export interface DeliveryModule {
   /** A genuine marked-rake roof touchdown satisfies arrival even when its
    * customer is several coaches beyond the ordinary destination radius. */
   readonly storyArrivalReady?:boolean;
+  readonly storyDialogueReady?:boolean;
   readonly target: DeliveryPoint;
   readonly status: ModuleStatus;
   readonly supports: readonly MovingRailBody[];

@@ -1,0 +1,64 @@
+{
+  "status": "UNREVIEWED native mesh\u2192UV authoring; real scene and independent likeness acceptance remain required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/mahesh-athadu-mobile-rig-v1.blend",
+  "sourceSha256": "35b0a238e17fdb4aaa147edf7c5c14518441b8c3f60b24d4c1f22b6fa2a313c9",
+  "fullBodySource": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/mahesh-athadu-mobile-rig-v1.blend",
+  "fullBodySourceSha256": "35b0a238e17fdb4aaa147edf7c5c14518441b8c3f60b24d4c1f22b6fa2a313c9",
+  "projectionBodyBounds": [
+    [
+      -0.5951424837112427,
+      -0.18354550004005432,
+      -1.7775799278751947e-05
+    ],
+    [
+      0.5951424837112427,
+      0.18360011279582977,
+      1.8600000143051147
+    ]
+  ],
+  "frontGuide": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/mahesh-athadu-front-v2.png",
+  "frontSha256": "e274a7caa3466fd67ec888fad626621d2e1da6fbf82d8d67cd7f98d1bb0fc687",
+  "backGuide": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/mahesh-athadu-back-v1.png",
+  "backSha256": "2adeeac4761709095b3a9ad667b47858d90d2c32f67ceeaa6f5295ccea952334",
+  "sideGuides": {},
+  "semanticMask": null,
+  "preservedAllAnimationNames": [
+    "Dance",
+    "Idle",
+    "Read",
+    "TakePizza",
+    "Walk"
+  ],
+  "guideEvidence": "Synthetic artist scaffold with inferred unseen rear, not film evidence",
+  "authoredTexels": 454195,
+  "projectedTexels": 853409,
+  "sourceAlphaValidSamples": 813480,
+  "outsideUvPaddingTexels": 0,
+  "zeroAreaUvTriangles": 0,
+  "fullBodyNativeUvRebake": true,
+  "nativeUvReunwrap": true,
+  "normalRepairs": [],
+  "originalNonzeroPixelsUnchanged": false,
+  "frontDetailedHeadUnchanged": true,
+  "addedNeckSkinLinearColour": null,
+  "producerSha256": "b7c476a683245b115658fd60aa6ae75e2b1a80b27af1d7ad9308e18c4a649ef0",
+  "producerArguments": [
+    "--body-source",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/mahesh-athadu-mobile-rig-v1.blend",
+    "--front",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/mahesh-athadu-front-v2.png",
+    "--back",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/production/levels15-19-20261105/mahesh-athadu-back-v1.png",
+    "--size",
+    "1024",
+    "--cloth-color",
+    ".02",
+    ".02",
+    ".025",
+    "--rebake-all-body",
+    "--reunwrap",
+    "--output",
+    "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/mahesh-athadu-native-textured-v3.glb"
+  ],
+  "outputGlbSha256": "09f1d13c6fa8972fb0bfe7511b16970483d0a9d4a74b50cd370cbfb0f2cf6724"
+}

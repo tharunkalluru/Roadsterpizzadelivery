@@ -1,0 +1,72 @@
+{
+  "status": "UNREVIEWED native mesh\u2192UV authoring; real scene and independent likeness acceptance remain required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/balayya-chennakesava-mobile-rig-v1.blend",
+  "sourceSha256": "ebf6909bb5525f45d9eea203f2a7fdb3d33bb3b612d5029d30626b6fd6b5e309",
+  "fullBodySource": "docs/delivery/character-review/candidates/levels15-19-20261105/balayya-chennakesava-mobile-rig-v1.blend",
+  "fullBodySourceSha256": "ebf6909bb5525f45d9eea203f2a7fdb3d33bb3b612d5029d30626b6fd6b5e309",
+  "projectionBodyBounds": [
+    [
+      -0.5675229430198669,
+      -0.20843400061130524,
+      -0.00010377981379861012
+    ],
+    [
+      0.567520797252655,
+      0.20847025513648987,
+      1.8199959993362427
+    ]
+  ],
+  "frontGuide": "docs/delivery/character-review/production/levels15-19-20261105/balayya-chennakesava-front-v2.png",
+  "frontSha256": "83bb683ddfb77baca16afd624543c81010d5927b37267c27ccce49eb59c78a89",
+  "backGuide": "docs/delivery/character-review/production/levels15-19-20261105/balayya-chennakesava-back-v1.png",
+  "backSha256": "72be28581dea23231aab1cb65fa734b4529bb66de93430966dbcadf8e5a1b8a5",
+  "sideGuides": {},
+  "semanticMask": null,
+  "preservedAllAnimationNames": [
+    "Dance",
+    "Idle",
+    "Read",
+    "TakePizza",
+    "Walk"
+  ],
+  "guideEvidence": "Synthetic artist scaffold with inferred unseen rear, not film evidence",
+  "authoredTexels": 636151,
+  "projectedTexels": 1090499,
+  "sourceAlphaValidSamples": 1036849,
+  "outsideUvPaddingTexels": 0,
+  "zeroAreaUvTriangles": 0,
+  "fullBodyNativeUvRebake": true,
+  "nativeUvReunwrap": true,
+  "normalRepairs": [],
+  "originalNonzeroPixelsUnchanged": false,
+  "frontDetailedHeadUnchanged": true,
+  "addedNeckSkinLinearColour": null,
+  "producerSha256": "b7c476a683245b115658fd60aa6ae75e2b1a80b27af1d7ad9308e18c4a649ef0",
+  "producerArguments": [
+    "--body-source",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/balayya-chennakesava-mobile-rig-v1.blend",
+    "--front",
+    "docs/delivery/character-review/production/levels15-19-20261105/balayya-chennakesava-front-v2.png",
+    "--back",
+    "docs/delivery/character-review/production/levels15-19-20261105/balayya-chennakesava-back-v1.png",
+    "--output",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/balayya-chennakesava-native-textured-v3.glb",
+    "--size",
+    "1024",
+    "--cloth-color",
+    ".82",
+    ".82",
+    ".8",
+    "--skin-color",
+    ".45",
+    ".30",
+    ".20",
+    "--pants-color",
+    ".85",
+    ".85",
+    ".82",
+    "--rebake-all-body",
+    "--reunwrap"
+  ],
+  "outputGlbSha256": "3bc66920b35124cf7e3b15a5240ca628b906db54d3ae2c9b3407c718938c1e56"
+}

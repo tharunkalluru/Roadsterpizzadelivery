@@ -5,7 +5,7 @@ import { CharacterSculpt } from '../modules/character-sculpt';
 import {createMealGeometry,registerMealGeometrySource,prepareActorPerformanceGeometry as prepareGeometry} from './actor-meal-geometry';
 import { faceMesh,reviewedFaceAnnotation,validFaceAnnotation,type FaceAnnotation } from './face-annotations';
 
-const EATERS = new Set(['pushpa-raj','ram-vvr','jessie','hasini','bhanumathi','sukumar','nani-jersey','arjun-reddy','maruthi','vakeel-saab','srikanth-odela']);
+const EATERS = new Set(['pushpa-raj','ram-vvr','jessie','hasini','bhanumathi','sukumar','nani-jersey','arjun-reddy','maruthi','vakeel-saab','srikanth-odela','balayya-chennakesava','shankar-dada']);
 const clamp = THREE.MathUtils.clamp;
 const smooth = (value:number) => { const t=clamp(value,0,1);return t*t*(3-2*t); };
 const step = (dt:number) => Number.isFinite(dt)?clamp(dt,0,.1):0;
@@ -43,7 +43,7 @@ export function createMouthPerformance(root:THREE.Group,resources:ReleasedCharac
     const position=new THREE.BufferAttribute(new Float32Array(original.array),3).setUsage(THREE.DynamicDrawUsage);
     geometry.setAttribute('position',position);geometry.name=`${source.name}:instance-mouth`;
     geometry.userData={...source.userData,deliveryMouthInstance:true};registerMealGeometrySource(geometry,source);mesh.geometry=resources.geometry(geometry);
-    // Transform root-up to the mesh's bind coordinates; skinning still follows
+    // The native annotation's reviewed up direction is in mesh coordinates; skinning still follows
     // the original head. No world coordinate enters a vertex buffer.
     const delta=new THREE.Vector3(...annotation.displacementUp);
     buffers.push({attribute:position,source:original,edits:entries,delta,low:Math.min(...entries.map(e=>e.index))*3,high:(Math.max(...entries.map(e=>e.index))+1)*3});

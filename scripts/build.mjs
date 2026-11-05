@@ -5,6 +5,8 @@ import { gameBuildFingerprint } from './build-fingerprint.mjs';
 import { packageLosslessAssets, expandedDirectoryBytes, LOSSLESS_ASSET_PREFIX } from './asset-transport.mjs';
 const profiles = spawnSync(process.execPath, ['scripts/audit-required-fixes-release.mjs'], { stdio: 'inherit' });
 if (profiles.status !== 0) process.exit(profiles.status || 1);
+const characters = spawnSync(process.execPath, ['scripts/audit-character-release.mjs'], { stdio: 'inherit' });
+if (characters.status !== 0) process.exit(characters.status || 1);
 rmSync('dist', { recursive: true, force: true });
 const result = spawnSync(process.execPath, ['node_modules/vite/bin/vite.js', 'build', '--outDir', 'dist/client'], { stdio: 'inherit' });
 if (result.status !== 0) process.exit(result.status || 1);
@@ -29,7 +31,7 @@ writeFileSync('dist/client/build-info.json', JSON.stringify({
   sourceDirty: Boolean(status.stdout.trim()),
   buildFingerprint: gameBuildFingerprint(process.cwd()),
   baseline: '02f6abef4946b701ebca6d66d51257e2c5f638be',
-  release: 'fourteen-required-game-fixes-20261105',
+  release: 'nineteen-scene-campaign-20261105',
   roadData: 'existing-live-road-baseline-a679b72',
 }) + '\n');
 mkdirSync('dist/.openai', { recursive: true });

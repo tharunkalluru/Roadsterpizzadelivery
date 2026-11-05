@@ -1,0 +1,228 @@
+{
+  "file": "docs/delivery/character-review/candidates/levels15-19-20261105/balayya-chennakesava-head-cpu-v3.glb",
+  "sha256": "681b5cbf7fe30a7485751970fd45c5cd593480c72bff89f588872e30471f8532",
+  "bytes": 4271576,
+  "vertices": 66412,
+  "triangles": 82818,
+  "seconds": 43.122081209,
+  "device": "cpu",
+  "sourceSha256": "9c47ac1b032e54005c08529a39aa3c54bf6369b89f8066118a0c79f22dd45dba",
+  "resolution": 192,
+  "memorySamples": [
+    {
+      "stage": "before-load",
+      "systemFreePercent": 47,
+      "rssBytes": 334020608,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "weights-ready",
+      "systemFreePercent": 38,
+      "rssBytes": 1109131264,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-0:8",
+      "systemFreePercent": 45,
+      "rssBytes": 1192706048,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-8:16",
+      "systemFreePercent": 45,
+      "rssBytes": 1193279488,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-16:24",
+      "systemFreePercent": 45,
+      "rssBytes": 1194360832,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-24:32",
+      "systemFreePercent": 45,
+      "rssBytes": 1195425792,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-32:40",
+      "systemFreePercent": 46,
+      "rssBytes": 1196343296,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-40:48",
+      "systemFreePercent": 46,
+      "rssBytes": 1196343296,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-48:56",
+      "systemFreePercent": 46,
+      "rssBytes": 1196343296,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-56:64",
+      "systemFreePercent": 46,
+      "rssBytes": 1196343296,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-64:72",
+      "systemFreePercent": 45,
+      "rssBytes": 1084293120,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-72:80",
+      "systemFreePercent": 44,
+      "rssBytes": 989413376,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-80:88",
+      "systemFreePercent": 43,
+      "rssBytes": 895057920,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-88:96",
+      "systemFreePercent": 43,
+      "rssBytes": 882786304,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-96:104",
+      "systemFreePercent": 44,
+      "rssBytes": 880951296,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-104:112",
+      "systemFreePercent": 43,
+      "rssBytes": 880967680,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-112:120",
+      "systemFreePercent": 43,
+      "rssBytes": 857112576,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-120:128",
+      "systemFreePercent": 43,
+      "rssBytes": 857112576,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-128:136",
+      "systemFreePercent": 43,
+      "rssBytes": 721797120,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-136:144",
+      "systemFreePercent": 40,
+      "rssBytes": 704036864,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-144:152",
+      "systemFreePercent": 38,
+      "rssBytes": 515031040,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-152:160",
+      "systemFreePercent": 36,
+      "rssBytes": 359579648,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-160:168",
+      "systemFreePercent": 37,
+      "rssBytes": 323862528,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-168:176",
+      "systemFreePercent": 37,
+      "rssBytes": 227000320,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-176:184",
+      "systemFreePercent": 37,
+      "rssBytes": 192724992,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "density-slices-184:192",
+      "systemFreePercent": 33,
+      "rssBytes": 146374656,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "mesh-complete",
+      "systemFreePercent": 35,
+      "rssBytes": 142213120,
+      "mpsDriverBytes": 475136
+    },
+    {
+      "stage": "texture-rows-0:8",
+      "systemFreePercent": 32,
+      "rssBytes": 169639936,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-128:136",
+      "systemFreePercent": 32,
+      "rssBytes": 172621824,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-256:264",
+      "systemFreePercent": 32,
+      "rssBytes": 174718976,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-384:392",
+      "systemFreePercent": 32,
+      "rssBytes": 176799744,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-512:520",
+      "systemFreePercent": 32,
+      "rssBytes": 177504256,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-640:648",
+      "systemFreePercent": 32,
+      "rssBytes": 175276032,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-768:776",
+      "systemFreePercent": 31,
+      "rssBytes": 177307648,
+      "mpsDriverBytes": 173719552
+    },
+    {
+      "stage": "texture-rows-896:904",
+      "systemFreePercent": 31,
+      "rssBytes": 178470912,
+      "mpsDriverBytes": 173719552
+    }
+  ],
+  "maxRssBytes": 1196343296,
+  "maxMpsDriverBytes": 173719552,
+  "textureSize": 1024,
+  "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+  "release": "unapproved, independent actual comparison required"
+}

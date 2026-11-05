@@ -123,7 +123,7 @@ for name,kind in cases['retained'].items():
       if ((a.lat > amb.lat) !== (b.lat > amb.lat) && amb.lon < (b.lon - a.lon) * (amb.lat - a.lat) / (b.lat - a.lat) + a.lon) contained = !contained;
     }
     assert.ok(contained, 'AMB identity must be explicitly contained by its named Sarath mall footprint');
-    assert.equal(models.size, 193);
+    assert.equal(models.size, 194);
   });
   test('mall source models render finite source-plan roofs with upward support normals', () => {
     for (const id of ['inorbit','forum','lulu','asian_amb']) {

@@ -6,21 +6,21 @@ import { CAMPAIGN_SCENARIOS, campaignRequiredFacts, campaignScenario, campaignSc
 
 const snapshot = (overrides: Partial<CampaignQASnapshot> = {}): CampaignQASnapshot => ({ x: 0, y: .55, z: 0, yaw: 0, speed: 0,
   flying: false, descending: false, jumping: false, placementRevision: 1, support: null, action: 'DELIVER', ready: false, instruction: '', ...overrides });
-const fixture = (count = 14, mode: 'full-campaign' | 'isolated-scene' = 'full-campaign', manual=false) => {
+const fixture = (count = 19, mode: 'full-campaign' | 'isolated-scene' = 'full-campaign', manual=false) => {
   let now = 0; const levels = loadLevels().slice(0, count).map(level=>manual?{...level,callMode:'PLAYER_CALLS' as const}:level);
   const recorder = new CampaignQARecorder(levels, { mode, layout: 'desktop', environment: 'Unit fixture; no physical hardware' }, [], () => now);
   return { levels, recorder, advance: (ms: number) => now += ms };
 };
 
 test('every approved campaign scene has a physical workflow, a negative trial and independent art requirements', () => {
-  const levels = loadLevels(); assert.equal(levels.length, 14); assert.equal(CAMPAIGN_SCENARIOS.length, levels.length);
+  const levels = loadLevels(); assert.equal(levels.length, 19); assert.equal(CAMPAIGN_SCENARIOS.length, levels.length);
   const ids = new Set<string>(), actors = new Set<string>();
   for (const level of levels) {
     const scenario = campaignScenario(level.id)!; assert.ok(scenario); assert.ok(!ids.has(scenario.id)); ids.add(scenario.id);
     assert.ok(scenario.manualSteps.length >= 2); assert.ok(scenario.negativeTrial.length > 30); assert.ok(scenario.visualChecks.length >= 2);
-    assert.ok(scenario.requiredFacts.includes('manual-handoff')); scenario.artIds.forEach(id => actors.add(id));
+    assert.ok(scenario.requiredFacts.includes('manual-handoff')||scenario.completionKind==='placement'||scenario.completionKind==='overtake'); scenario.artIds.forEach(id => actors.add(id));
   }
-  assert.equal(actors.size, 17, 'fourteen named primary actors and the three Vakeel Saab companions need approval');
+  assert.equal(actors.size, 22, 'nineteen named primary actors and three Vakeel Saab companions need approval');
   assert.deepEqual(campaignScenario('paradise-rope-bucket')!.artIds, ['srikanth-odela']); assert.deepEqual(campaignScenario('salaar-inner-compound')!.artIds, ['prabhas-salaar']);
   assert.ok(campaignScenario('vakeel-next-station')!.requiredFacts.includes('authored-metro-exit'));
   assert.ok(campaignScenario('jessie-walking-delivery')!.requiredFacts.includes('authored-walk'));
@@ -101,9 +101,9 @@ test('all physical facts and an artifact path do not automatically certify visua
 });
 
 test('future content increases the denominator and needs its own explicit scene acceptance checklist', () => {
-  const levels = loadLevels(), extra = { ...levels[13], id: 'future-delivery', level: 15 };
+  const levels = loadLevels(), extra = { ...levels[18], id: 'future-delivery', level: 20 };
   const recorder = new CampaignQARecorder([...levels, extra], { mode: 'full-campaign', layout: 'desktop', environment: 'Content extension fixture' });
-  const report = recorder.report(); assert.equal(report.expectedLevelIds.length, 15); assert.equal(report.rows.at(-1)!.configuredScenario, false);
+  const report = recorder.report(); assert.equal(report.expectedLevelIds.length, 20); assert.equal(report.rows.at(-1)!.configuredScenario, false);
   assert.equal(report.acceptance.fullCampaignAccepted, false);
   const trainURL = new URL(campaignScenarioURL(levels[1], true), 'http://localhost'); assert.equal(trainURL.searchParams.get('qaTrainRide'), '1');
   assert.equal(trainURL.searchParams.get('qaTouch'), '1'); assert.equal(trainURL.searchParams.get('qaCampaign'), '1');

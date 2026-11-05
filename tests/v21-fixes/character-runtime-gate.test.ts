@@ -19,7 +19,7 @@ test('an unprepared or unapproved appearance stays mesh-free even if a scene tog
 });
 
 test('campaign audit includes all three women and evaluates each exact released candidate independently of gameplay',()=>{
-  const decisions=auditCampaignCharacters(loadLevels());assert.equal(decisions.length,17);
+  const decisions=auditCampaignCharacters(loadLevels());assert.equal(decisions.length,22,'nineteen customers plus the three metro companions are independently gated');
   assert.deepEqual(decisions.filter(d=>d.level===10).map(d=>d.characterId),['vakeel-saab','vakeel-woman-1','vakeel-woman-2','vakeel-woman-3']);
   for(const decision of decisions){
     assert.ok(decision.reasons.length>0);

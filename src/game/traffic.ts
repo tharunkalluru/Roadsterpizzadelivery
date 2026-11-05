@@ -63,6 +63,177 @@ const MAJOR = new Set(['trunk', 'primary', 'secondary', 'motorway', 'motorway_li
 export class Traffic {
   cars: Car[] = []; protos: Proto[] = []; byGroup: Record<Group, Proto[]> = { car: [], auto: [], bike: [], bus: [], truck: [] };
   r = rng(77); t = 0;
+  private nextStorySpawn=0;
+  private storyRejectedFootprints=new Map<string,number>();
+  private storyCorridor:{x:number;y:number;z:number}|null=null;
+  private pendingStoryVehicle:{kind:'auto'|'bus';candidate:Car;hint:{x:number;y:number;z:number}}|null=null;
+  getStoryVehicleCorridor(){return this.storyCorridor;}
+  private storyVehicleId:string|null=null;
+  private lostStoryVehicleId:string|null=null;
+  private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
+  /** One scene-owned live NPC; all ordinary traffic retains its original clock. */
+  leaseStoryVehicle(id:string|null){
+    // Runtime reads the same selected NPC each frame. Renewing an unchanged
+    // live lease must not invalidate its bounded physical-entry probe cache.
+    if(id&&id===this.storyVehicleId&&this.cars.some(c=>c.g.uuid===id&&c.g.parent))return;
+    this.pendingStoryVehicle=null;if(!id)this.storyCorridor=null;
+    this.storyVehicleId=null;this.lostStoryVehicleId=null;this.storyEntryCheck=null;
+    if(id){if(this.cars.some(c=>c.g.uuid===id&&c.g.parent))this.storyVehicleId=id;else this.lostStoryVehicleId=id;}
+  }
+  storyVehicleLeaseStatus(id:string):'active'|'lost'|'none'{
+    if(this.lostStoryVehicleId===id)return 'lost';
+    return this.storyVehicleId===id&&this.cars.some(c=>c.g.uuid===id&&c.g.parent)?'active':this.storyVehicleId===id?'lost':'none';
+  }
+  private storyLeased(c:Car){return this.storyVehicleId!=null&&c.g?.uuid===this.storyVehicleId;}
+  private storyHorizon(c:Car){return Math.max(220,Math.min(500,c.speed*(c.group==='bus'?35:45)+40));}
+  /** Advance planning metadata on connected mapped road only. This is not a
+   * visible vehicle and does not advance the traffic clock. */
+  private storyForwardCandidate(c:Car,metres:number):Car|null {
+    let edge=c.edge,dir=c.dir,s=c.s,left=metres;
+    const sideLane=c.lane-c.size[0]/2-(c.group==='bus'?2.5:2.1);
+    for(let record=0;record<96;record++){
+      const room=edge.len-s;
+      if(left<=room){const pose=this.graph.pointAt(edge,s+left,dir,c.lane);return {...c,edge,dir,s:s+left,...pose};}
+      left-=room;const end=this.graph.pointAt(edge,edge.len-.01,dir,c.lane),node=this.graph.nodes.get(dir===1?edge.to:edge.from);
+      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),p=this.graph.pointAt(o.edge,.01,o.dir,c.lane);return {...o,room:sideLane>=lo+.15&&sideLane<=hi-.15,dot:p.hx*end.hx+p.hz*end.hz,p};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.p.y-end.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
+      if(!next)return null;edge=next.edge;dir=next.dir;s=0;
+    }return null;
+  }
+  private trySpawnStoryCandidate(candidate:Car,px:number,pz:number,validated=false):Car|null {
+    const {edge,dir,s,lane,size}=candidate,kind=candidate.group as 'auto'|'bus',distance=Math.hypot(candidate.x-px,candidate.z-pz);
+    if(distance<60||distance>220||this.graph.byId.get(edge.e.id)!==edge||!validated&&!this.canEnterStoryVehicle(candidate))return null;
+    const side=size[0]/2+(kind==='bus'?2.5:2.1),back=kind==='bus'?size[2]/2+5:-.42;
+    const approach={x:candidate.x-candidate.hz*side-candidate.hx*back,y:candidate.y,z:candidate.z+candidate.hx*side-candidate.hz*back,hx:candidate.hx,hz:candidate.hz,size:[2,1.6,4.8]};
+    if(this.railwayCrossings?.spawnBlocked(candidate,size[2]/2,size[0]/2)||this.cars.some(c=>trafficOverlap(candidate,c,2)||trafficOverlap(approach,c,1))||(this.kinematicVehicles||NO_KINEMATIC_VEHICLES).some(c=>trafficOverlap(candidate,c,2)||trafficOverlap(approach,c,1)))return null;
+    const car=this.spawnAt(kind,edge,dir,s,lane);
+    if(kind==='bus'){
+      const run=this.services?.bind(edge,dir,s,.37);if(run&&!run.ended&&(run.stopPosition.edge!==edge||run.stopPosition.dir!==dir||run.stopPosition.s-s>350)){car.busRun=run;car.routeDecals=M.busRouteBoards(run.pattern.number,run.pattern.to);for(const decal of car.routeDecals)car.g.add(new THREE.Mesh(decal.geo,decal.mat));}
+    }
+    this.leaseStoryVehicle(car.g.uuid);this.storyCorridor=null;this.nextStorySpawn=this.t+10;return car;
+  }
+  /** One ordinary NPC on a verified nearby carriageway when ambient traffic
+   * cannot supply this scene. Never moves another car or invents a road. */
+  ensureStoryVehicle(kind:'auto'|'bus',px:number,pz:number):Car|null {
+    if(![px,pz].every(Number.isFinite))return null;
+    const existing=this.cars.filter(c=>c.group===kind&&Math.hypot(c.x-px,c.z-pz)<260&&this.canHostStoryVehicle(c))
+      .sort((a,b)=>Math.hypot(a.x-px,a.z-pz)-Math.hypot(b.x-px,b.z-pz)).slice(0,2).find(c=>this.canEnterStoryVehicle(c));
+    if(existing)return existing;
+    if(this.t<this.nextStorySpawn||this.cars.length>this.max)return null;
+    this.nextStorySpawn=this.t+3;
+    const pending=this.pendingStoryVehicle;
+    if(pending?.kind===kind&&this.graph.byId.get(pending.candidate.edge.e.id)===pending.candidate.edge&&Math.hypot(pending.hint.x-px,pending.hint.z-pz)<1500&&this.canEnterStoryVehicle(pending.candidate)){
+      this.storyCorridor=pending.hint;
+      // The rendezvous is a hundred metres behind this candidate. A fast
+      // flight directly onto the hint still leaves a safe real spawn ahead.
+      const ready=this.trySpawnStoryCandidate(pending.candidate,px,pz,true);if(ready)return ready;
+      if(Math.hypot(pending.candidate.x-px,pending.candidate.z-pz)<=220){
+        const shift=Math.floor(this.t/3)%2?35:-35,c=pending.candidate;
+        const alternative=shift>0?this.storyForwardCandidate(c,shift):c.s>=-shift?{...c,s:c.s+shift,...this.graph.pointAt(c.edge,c.s+shift,c.dir,c.lane)}:this.storyForwardCandidate(c,35);
+        if(alternative)return this.trySpawnStoryCandidate(alternative,px,pz);
+      }
+      return null;
+    }
+    this.pendingStoryVehicle=null;this.storyCorridor=null;
+    const proto=this.byGroup[kind][0];if(!proto)return null;
+    const nearest=this.graph.nearestEdges(px,pz,12).filter(edge=>{
+      if(edge.e.workZone||edge.len<proto.size[2]+2||!this.allowed({group:kind}as Car,edge))return false;
+      // Narrow side streets must not crowd all twelve search slots and hide
+      // the real multi-lane corridor just beyond them.
+      return ([1,-1]as const).some(dir=>{
+        if(edge.e.oneway===(dir===1?'forward':'backward'))return false;
+        const [lo,hi]=this.laneRange(edge,proto.size[0],dir),lane=hi-.2,[a,b]=this.laneRange(edge,2,dir),sideLane=lane-proto.size[0]/2-(kind==='bus'?2.5:2.1);
+        return lane>=lo&&sideLane>=a+.15&&sideLane<=b-.15;
+      });
+    }).map(edge=>{
+      let best=Infinity,s=0;
+      for(let i=1;i<edge.e.pts.length;i++){const a=edge.e.pts[i-1],b=edge.e.pts[i],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz),u=Math.max(0,Math.min(1,((px-a[0])*dx+(pz-a[1])*dz)/(len*len||1))),d=Math.hypot(px-a[0]-dx*u,pz-a[1]-dz*u);if(d<best){best=d;s=edge.cum[i-1]+len*u;}}
+      return {edge,s,distance:best};
+    }).sort((a,b)=>(a.edge.len>=220?0:1)-(b.edge.len>=220?0:1)||a.distance-b.distance).slice(0,12);
+    let checks=0,physicalChecks=0;
+    for(const item of nearest)for(const offset of [0,90,-90,180,-180,20-item.s,item.edge.len-20-item.s])for(const dir of [1,-1]as const){
+      const edge=item.edge;if(edge.e.oneway===(dir===1?'forward':'backward'))continue;
+      const margin=Math.min(12,proto.size[2]/2+1),canonical=Math.max(margin,Math.min(edge.len-margin,item.s+offset)),s=dir===1?canonical:edge.len-canonical;
+      const [lo,hi]=this.laneRange(edge,proto.size[0],dir),lane=hi-.2;if(lane<lo)continue;
+      const sideLane=lane-proto.size[0]/2-(kind==='bus'?2.5:2.1),[sideLow,sideHigh]=this.laneRange(edge,2,dir);if(sideLane<sideLow+.15||sideLane>sideHigh-.15)continue;
+      if(++checks>64)return null;
+      const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-px,pose.z-pz);
+      if(distance<60||distance>1000)continue;
+      const tiles=(this.city as (CityData&{tiles?:Map<string,unknown>})|undefined)?.tiles;if(tiles&&!tiles.has(`${Math.floor(pose.x/1000)}_${Math.floor(pose.z/1000)}`))continue;
+      const proposed={group:kind,g:{parent:this.scene},edge,dir,s,lane,size:proto.size,speed:8,...pose}as unknown as Car;
+      if(!this.canHostStoryVehicle(proposed)||this.railwayCrossings?.spawnBlocked(pose,proto.size[2]/2,proto.size[0]/2))continue;
+      const side=proto.size[0]/2+(kind==='bus'?2.5:2.1),back=kind==='bus'?proto.size[2]/2+5:-.42;
+      const approach={x:pose.x-pose.hz*side-pose.hx*back,y:pose.y,z:pose.z+pose.hx*side-pose.hz*back,hx:pose.hx,hz:pose.hz,size:[2,1.6,4.8]};
+      const body={...pose,size:proto.size};
+      if(this.city&&(!trafficPoseClear(this.city,pose,proto.size)||!trafficPoseClear(this.city,approach,approach.size)))continue;
+      if(this.cars.some(c=>trafficOverlap(body,c,2)||trafficOverlap(approach,c,1))||(this.kinematicVehicles||NO_KINEMATIC_VEHICLES).some(c=>trafficOverlap(body,c,2)||trafficOverlap(approach,c,1)))continue;
+      const probeKey=`${edge.e.id}:${dir}:${Math.round(s/10)}:${Math.round(lane)}`;
+      if((this.storyRejectedFootprints.get(probeKey)??0)>this.t)continue;
+      if(physicalChecks++>=2)return null;
+      if(!this.canEnterStoryVehicle(proposed)){
+        if(this.storyRejectedFootprints.size>128)this.storyRejectedFootprints.clear();
+        this.storyRejectedFootprints.set(probeKey,this.t+60);continue;
+      }
+      this.storyCorridor={x:approach.x,y:approach.y,z:approach.z};
+      if(distance>220){
+        const future=this.storyForwardCandidate(proposed,100);
+        if(future&&physicalChecks<2){physicalChecks++;if(this.canEnterStoryVehicle(future)){this.pendingStoryVehicle={kind,candidate:future,hint:this.storyCorridor};return null;}}
+        this.storyRejectedFootprints.set(probeKey,this.t+60);this.storyCorridor=null;continue;
+      }
+      const car=this.trySpawnStoryCandidate(proposed,px,pz,true);if(car)return car;
+    }
+    return null;
+  }
+
+  /** Both scenes need a real same-direction lane to the vehicle's right,
+   * with enough mapped forward road for the dialogue and pass. No roads or
+   * traffic are moved just to make the scene possible. */
+  storyApproachLaneClear(c:Car){
+    if((c.group!=='auto'&&c.group!=='bus')||!c.g.parent||c.edge.e.workZone)return false;
+    const lane=c.lane-c.size[0]/2-(c.group==='bus'?2.5:2.1),[low,high]=this.laneRange(c.edge,2,c.dir);
+    if(lane<low+.15||lane>high-.15)return false;
+    if(c.edge.len-c.s<15){const node=this.graph.nodes.get(c.dir===1?c.edge.to:c.edge.from);if(!node?.out.some(o=>o.edge!==c.edge&&this.allowed(c,o.edge)))return false;}
+    return true;
+  }
+  canHostStoryVehicle(c:Car){
+    if(!this.storyApproachLaneClear(c)||c.speed<=1||c.busRun?.ended||c.dwell>0)return false;
+    const offset=c.size[0]/2+(c.group==='bus'?2.5:2.1),lane=c.lane-offset;
+    const [low,high]=this.laneRange(c.edge,2,c.dir);
+    if(lane<low+.15||lane>high-.15)return false;
+    const needed=this.storyHorizon(c);
+    let edge=c.edge,dir=c.dir,distance=edge.len-c.s;
+    for(let n=0;n<96&&distance<needed;n++){
+      const node=this.graph.nodes.get(dir===1?edge.to:edge.from),end=this.graph.pointAt(edge,edge.len-.01,dir,lane);
+      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{
+        const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);
+        return {...o,pose,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*end.hx+pose.hz*end.hz};
+      }).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-end.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
+      if(!next)return false;edge=next.edge;dir=next.dir;distance+=edge.len;
+    }
+    return distance>=needed;
+  }
+  /** Revalidate immediately before capture. An initially eligible carrier may
+   * have reached a narrower junction while the player was catching up. Cache
+   * only this selected vehicle's geometry probe; ordinary NPCs do no extra work. */
+  canEnterStoryVehicle(c:Car){
+    const cached=this.storyEntryCheck;
+    if(c.g.uuid&&cached?.id===c.g.uuid&&this.t-cached.at<.65&&Math.hypot(c.x-cached.x,c.z-cached.z)<4)return cached.allowed;
+    let allowed=this.canHostStoryVehicle(c);
+    const side=c.size[0]/2+(c.group==='bus'?2.5:2.1),back=c.group==='bus'?c.size[2]/2+5:-.42,lane=c.lane-side;
+    const needed=this.storyHorizon(c);let edge=c.edge,dir=c.dir,start=c.s,total=0;
+    for(let record=0;allowed&&record<96&&total<needed;record++){
+      const end=Math.min(edge.len,start+needed-total);
+      if(this.city)for(let s=start;allowed&&s<=end+.01;s+=Math.min(12,Math.max(.01,end-s))){
+        const pose=this.graph.pointAt(edge,Math.min(s,end),dir,c.lane),approach={x:pose.x-pose.hz*side-pose.hx*back,y:pose.y,z:pose.z+pose.hx*side-pose.hz*back,hx:pose.hx,hz:pose.hz};
+        allowed=trafficPoseClear(this.city,pose,c.size)&&trafficPoseClear(this.city,approach,[2,1.6,4.8]);
+        if(s>=end-.01)break;
+      }
+      total+=end-start;if(!allowed||total>=needed)break;
+      const endpoint=this.graph.pointAt(edge,edge.len-.01,dir,lane),node=this.graph.nodes.get(dir===1?edge.to:edge.from);
+      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);return {...o,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*endpoint.hx+pose.hz*endpoint.hz,pose};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-endpoint.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
+      if(!next){allowed=false;break;}edge=next.edge;dir=next.dir;start=0;
+    }
+    allowed=allowed&&total>=needed;if(c.g.uuid)this.storyEntryCheck={id:c.g.uuid,at:this.t,x:c.x,z:c.z,allowed};return allowed;
+  }
   private placeVisual(g: THREE.Group, p: { x: number; y: number; z: number; hx: number; hz: number }, size: number[]) {
     g.position.set(p.x, p.y + .02, p.z);
     // Yaw remains the traffic path's heading. YXZ applies the small road pitch
@@ -146,6 +317,7 @@ export class Traffic {
     const R = rng(4049);
     const add = (m: M.Model) => {
       const p: Proto = { body: m.body.geometry(), lights: m.lights.geometry(), tailLights: m.tailLights?.geometry(), reverseLights: m.reverseLights?.geometry(), headlights: m.headlights, decals: m.decals || [], size: m.size, group: m.kind as Group };
+      if(m.driverVertexRange)p.body.userData.driverVertexRange=[...m.driverVertexRange];
       this.protos.push(p); this.byGroup[p.group].push(p);
     };
     const CAR = ['#F3F2EE', '#F3F2EE', '#F3F2EE', '#C9CCD2', '#9ea3ad', '#5b5f68', '#b3202a', '#23356b', '#6b1f2a', '#1b1a1f', '#7a5a3a', '#2a5bd7'];
@@ -168,6 +340,7 @@ export class Traffic {
   }
   setBusFeed(feed: BusFeed) { this.services = new BusServices(this.graph, feed); }
   private release(c: Car) {
+    if(this.storyLeased(c)){this.lostStoryVehicleId=this.storyVehicleId;this.storyVehicleId=null;}
     this.scene.remove(c.g);
     if (c.passengerExchange) {
       this.scene.remove(c.passengerExchange.group);
@@ -178,7 +351,7 @@ export class Traffic {
     for (const decal of c.routeDecals || []) { decal.geo.dispose(); materials.add(decal.mat); }
     for (const material of materials) { (material as THREE.MeshBasicMaterial).map?.dispose(); material.dispose(); }
   }
-  clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; for (const exchange of this.passengerExchanges || []) this.scene.remove(exchange.group); this.passengerExchanges = []; }
+  clear() { this.leaseStoryVehicle(null); for (const c of this.cars) this.release(c); this.cars.length = 0; for (const exchange of this.passengerExchanges || []) this.scene.remove(exchange.group); this.passengerExchanges = []; }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
     for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && (gone.has(this.cars[i].motion!.edge)
@@ -477,7 +650,8 @@ export class Traffic {
     // Only some autos take opportunistic U-turns; all drivers can return at a
     // sufficiently large dead end. A one-way edge has no reverse graph exit.
     const reverse = node.out.find(o => o.edge === edge && o.dir !== c.dir);
-    const opportunistic = c.assertive && this.t >= (c.uturnAt || 0) && this.r() < 0.14;
+    const drawnOpportunistic = c.assertive && this.t >= (c.uturnAt || 0) && this.r() < 0.14;
+    const opportunistic=drawnOpportunistic&&!this.storyLeased(c);
     if (!c.busRun && reverse && (!opts.length || opportunistic) && !edge.e.workZone && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
       const trim = Math.min(Math.max(3, c.size[2] * 0.65), this.segmentRoom(edge, c.dir, true) * 0.45);
       const startS = Math.max(c.s, edge.len - trim), endS = edge.len - startS;
@@ -489,6 +663,13 @@ export class Traffic {
     }
     const shuffled = [...opts];
     for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.r() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+    if(this.storyLeased(c)){
+      const end=this.graph.pointAt(edge,edge.len-.01,c.dir,c.lane);
+      const score=(out:typeof shuffled[number])=>{const p=this.graph.pointAt(out.edge,.01,out.dir,c.lane);return end.hx*p.hx+end.hz*p.hz;};
+      // Keep the existing random draws above, then prefer the already verified
+      // legal forward corridor only for this single cinematic carrier.
+      shuffled.sort((a,b)=>score(b)-score(a));
+    }
     for (const out of shuffled) {
       if (c.group === 'bus') {
         const planned = busTurn(this.graph, edge, c.dir, out.edge, out.dir, c.s, c.lane);
@@ -607,14 +788,14 @@ export class Traffic {
     // over budget (moved somewhere quieter): retire the farthest vehicle once it is well out of the way
     if (this.cars.length > this.max) {
       let far = -1, fd = 160;
-      for (let i = 0; i < this.cars.length; i++) { const d = Math.hypot(this.cars[i].x - px, this.cars[i].z - pz); if (d > fd) { fd = d; far = i; } }
+      for (let i = 0; i < this.cars.length; i++) { const d = Math.hypot(this.cars[i].x - px, this.cars[i].z - pz); if (d > fd&&!this.storyLeased(this.cars[i])) { fd = d; far = i; } }
       if (far >= 0) { this.release(this.cars[far]); this.cars.splice(far, 1); }
     }
     const byEdge = new Map<GEdge, Car[]>();
     for (const c of this.cars) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
     for (let i = this.cars.length - 1; i >= 0; i--) {
       const c = this.cars[i];
-      if (Math.hypot(c.x - px, c.z - pz) > 340) { this.release(c); this.cars.splice(i, 1); continue; }
+      if (Math.hypot(c.x - px, c.z - pz) > 340&&!this.storyLeased(c)) { this.release(c); this.cars.splice(i, 1); continue; }
       const previousSpeed = c.speed;
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {

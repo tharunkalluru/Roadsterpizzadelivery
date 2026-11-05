@@ -1,0 +1,64 @@
+{
+  "status": "UNREVIEWED native mesh\u2192UV authoring; real scene and independent likeness acceptance remain required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-nohair-seated-rig-v30.blend",
+  "sourceSha256": "8fc9da88a779c86c1df00000176428c8c282f4430530ba72191d4f012bcd1a1f",
+  "fullBodySource": "docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-nohair-seated-rig-v30.blend",
+  "fullBodySourceSha256": "8fc9da88a779c86c1df00000176428c8c282f4430530ba72191d4f012bcd1a1f",
+  "projectionBodyBounds": [
+    [
+      -0.5777516961097717,
+      -0.23125413060188293,
+      -1.966076706594322e-05
+    ],
+    [
+      0.5777516961097717,
+      0.2312728464603424,
+      1.650045394897461
+    ]
+  ],
+  "frontGuide": "docs/delivery/character-review/production/levels15-19-20261105/kajal-indu-body-nohair-front-v3.png",
+  "frontSha256": "a367f1315c753332b7f0b7699e902dfec5f5a93999e934b2d14e27b286e9abf7",
+  "backGuide": "docs/delivery/character-review/production/levels15-19-20261105/kajal-indu-body-nohair-back-v3.png",
+  "backSha256": "d9ad919293a73920696882257335cbe8ee64a358e9712f2d9c8ed37b4d729d6a",
+  "sideGuides": {},
+  "semanticMask": null,
+  "preservedAllAnimationNames": [
+    "Dance",
+    "Idle",
+    "Read",
+    "TakePizza",
+    "Walk"
+  ],
+  "guideEvidence": "Synthetic artist scaffold with inferred unseen rear, not film evidence",
+  "authoredTexels": 649276,
+  "projectedTexels": 1221091,
+  "sourceAlphaValidSamples": 671526,
+  "outsideUvPaddingTexels": 0,
+  "zeroAreaUvTriangles": 0,
+  "fullBodyNativeUvRebake": true,
+  "nativeUvReunwrap": true,
+  "normalRepairs": [],
+  "originalNonzeroPixelsUnchanged": false,
+  "frontDetailedHeadUnchanged": true,
+  "addedNeckSkinLinearColour": null,
+  "producerSha256": "b7c476a683245b115658fd60aa6ae75e2b1a80b27af1d7ad9308e18c4a649ef0",
+  "producerArguments": [
+    "--output",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-nohair-native-v31.glb",
+    "--body-source",
+    "docs/delivery/character-review/candidates/levels15-19-20261105/kajal-indu-nohair-seated-rig-v30.blend",
+    "--front",
+    "docs/delivery/character-review/production/levels15-19-20261105/kajal-indu-body-nohair-front-v3.png",
+    "--back",
+    "docs/delivery/character-review/production/levels15-19-20261105/kajal-indu-body-nohair-back-v3.png",
+    "--size",
+    "1024",
+    "--rebake-all-body",
+    "--reunwrap",
+    "--cloth-color",
+    ".85",
+    ".85",
+    ".82"
+  ],
+  "outputGlbSha256": "444ce29e315a2ee4a814b69784529e8e1f3546e18b2aa7acd994c04e5fa2ab04"
+}

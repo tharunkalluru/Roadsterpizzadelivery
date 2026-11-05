@@ -1,0 +1,32 @@
+{
+  "status": "UNAPPROVED seated role candidate; independent likeness/pose/deformation/gameplay review still required",
+  "source": "/Users/tharun/Documents/Codex/2026-11-05/roadster-required-fixes-release/docs/delivery/character-review/candidates/levels15-19-20261105/venkatesh-raja-costume-v16.blend",
+  "sourceSha256": "5e07cc93a38f5040c80eb4dc510ce3a40158d45e27b1d8e84df3e53bace32597",
+  "role": "raja",
+  "hipAndLegs": "source seated Idle transforms retained, not compressed standing mesh",
+  "seatedHeight": 1.410683372989297,
+  "roleClips": [
+    "Idle"
+  ],
+  "grips": [
+    {
+      "name": "DrivingGripLeft",
+      "world": [
+        0.22000014781951904,
+        -0.44489994645118713,
+        0.8299999833106995
+      ],
+      "bone": "LeftHand"
+    },
+    {
+      "name": "DrivingGripRight",
+      "world": [
+        -0.21999981999397278,
+        -0.44489967823028564,
+        0.8300000429153442
+      ],
+      "bone": "RightHand"
+    }
+  ],
+  "outputSha256": "f1495623eea16ddf6fdbfa78740592d26093fc6c4b382ca3f0166d45cf8e9a08"
+}
