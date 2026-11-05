@@ -25,6 +25,9 @@ export interface ModuleCameraFocus {
   /** Checked collinear camera pivot outside a subject's invisible player
    * keep-out. Optical aim remains on the actual subject; ordinary shots omit it. */
   clearanceTarget?:DeliveryPoint;
+  /** Actual moving subject origin. Translate the whole shot with its carrier
+   * before damping the relative framing; ordinary static shots omit this. */
+  translationAnchor?:DeliveryPoint;
 }
 export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
 /** Authored local story motion. Entry is separate from proximity/call gates:

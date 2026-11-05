@@ -130,6 +130,8 @@ export class Game {
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
   cameraPlacementRevision = -1;
   private cameraTranslation?: CameraTranslationFollow;
+  private focusTranslation?: CameraTranslationFollow;
+  private focusTranslationOwner?: object;
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: {
     lowQ: boolean; still?: boolean; delivery?: DeliveryRuntimeOptions;
@@ -1223,6 +1225,7 @@ export class Game {
       this.orbitYaw = 0; this.orbitPitch = 0.38; this.orbitDist = 0;
       this.airOrbitPitch = .62; this.airOrbitDist = 0;
       this.cameraTranslation?.reset();
+      this.focusTranslation?.reset();this.focusTranslationOwner=undefined;
     }
     const f = this.player.forward;
     const flight = this.player.flying || this.player.descending;
@@ -1271,6 +1274,15 @@ export class Game {
     if (this.cameraTranslation.advance(this.camPos, this.camLook, P, dt, !interactionFocus)) {
       this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
     }
+    const anchor=interactionFocus?.translationAnchor;
+    if(anchor){
+      this.focusTranslation??=new CameraTranslationFollow();
+      if(this.focusTranslationOwner!==interactionFocus)this.focusTranslation.reset();
+      this.focusTranslationOwner=interactionFocus;
+      if(this.focusTranslation.advance(this.camPos,this.camLook,anchor,dt,true)){
+        this.camPos.set(0,0,0);this.camLook.set(0,0,0);
+      }
+    }else{this.focusTranslation?.reset();this.focusTranslationOwner=undefined;}
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
     // This captured truck shot has a checked pivot beyond the car's nose.

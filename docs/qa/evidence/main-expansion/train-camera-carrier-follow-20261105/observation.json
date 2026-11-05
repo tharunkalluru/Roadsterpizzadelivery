@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-05",
+  "baseCommit": "322fe7001f777c800da3ab5249843bf4002adade",
+  "sourceHashes": {
+    "src/game/game.ts": "5debf561d6a536c6d72f68c90b604f716b61cd725fd3245ceb8b8930ecff8124",
+    "src/game/camera-translation.ts": "b4be7c0e377a8796e8e00f6d9510093245b7f60bd5c752699b6ea38476682b25",
+    "src/delivery/modules/match-and-land.ts": "109440ef64e706be6a807ac5f181a67c92f7a3470a7d302b97e01b2e1c8caa46",
+    "src/delivery/modules/types.ts": "1eba802c7a774031cdfb9e0c51606163fe6205e77d0d980d95eabc0c6498d2a4"
+  },
+  "url": "http://127.0.0.1:4304/?qaDelivery=2&qaTrainRide=1&qaScene=1&q=low",
+  "device": "Headed desktop Chrome156;1280x720;DPR1;not physical phone",
+  "assistance": [
+    "Prepare order skips normal jump pickup",
+    "Land above rear coach uses explicit QA staging; normal descent then rear-to-customer authored traversal"
+  ],
+  "actualObserved": [
+    "Real roof support, automated coach traversal, pizza handoff, LEVEL_COMPLETE with held Next",
+    "Unpaused held shot follows moving train for multiple intervals; character remains fully visible",
+    "Next enters initial loading and returns controls in next level"
+  ],
+  "heldObservation": {
+    "state": "LEVEL_COMPLETE",
+    "cinematic": true,
+    "player": [
+      -412.23531446831066,
+      4.835,
+      -2776.5668257386674
+    ],
+    "phase": "viewing",
+    "anchor": {
+      "x": -415.5348714152749,
+      "y": 4.285,
+      "z": -2776.5127521430786
+    },
+    "camera": [
+      -413.1763922883468,
+      6.084999999999996,
+      -2779.5453939627805
+    ],
+    "focus": {
+      "position": {
+        "x": -413.18435144983596,
+        "y": 6.085,
+        "z": -2779.5516756189286
+      },
+      "target": {
+        "x": -415.5348714152749,
+        "y": 5.385,
+        "z": -2776.5127521430786
+      },
+      "translationAnchor": {
+        "x": -415.5348714152749,
+        "y": 4.285,
+        "z": -2776.5127521430786
+      },
+      "context": "stationary-handoff"
+    },
+    "positionLag": 0.010139401144708649,
+    "body": "II\nNext \u2192"
+  },
+  "nextObservation": {
+    "state": "ROAMING",
+    "player": [
+      -960.1992619635039,
+      0.55,
+      -2091.4560616206777
+    ],
+    "cinematic": false,
+    "destination": null,
+    "body": "II\n0\nkm/h\nWelcome to Hyderabad main road!\nW drive\nA D steer\nSpace brake\nS reverse\nQ fly\nE jump\nM map\nH horn\nN sound\nDrag look around when stopped\nP pause\nFLY\nJUMP\nJeera\nLook for a glowing pizza slice above traffic"
+  },
+  "independentReview": {
+    "path": "/tmp/roadster-train-focus-camera-independent-review-v1.json",
+    "sha256": "72474a5f6c18e2af32320514a713e89f72848183dfa7f1326deff1103d44fa8e"
+  },
+  "testGroups": {
+    "cameraLook": 12,
+    "trainStoryLighting": 3
+  },
+  "screenshots": {
+    "train-camera-carrier-follow-first-20261105.png": "d01914a048252079056a02823c6bfd63cb6845b4c7b587153b97ee2abc7bc8e0",
+    "train-camera-carrier-follow-held-20261105.png": "fea9bf2b6f80ad7b447647be63e02c4fd949bb59494d3630e4d4b04238db469e",
+    "train-camera-carrier-follow-held-later-20261105.png": "1059437f5df85886b39a440c12ca4acd80ada7cfd86ae68798b392aaf85fc0ed",
+    "train-camera-next-loading-20261105.png": "4c523b52ac0f6b98e72359ed6041a90871c1570d410e989fbea551fa0222473e",
+    "train-camera-next-restored-20261105.png": "3ba19c0f5c69d4a4c114f68d0c826158a46c590b911fb8875f92e36c044cb1e0"
+  },
+  "fullCampaignAccepted": false,
+  "physicalPhoneAccepted": false,
+  "roadFitAccepted": false,
+  "deployed": false
+}
