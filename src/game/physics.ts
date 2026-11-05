@@ -12,9 +12,11 @@ const k50 = (x: number, z: number) => `${Math.floor(x / 50)},${Math.floor(z / 50
 export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof' | 'rail' | 'landmark' | 'water';
 export interface Support { y: number; s: Surface | null; onRoad: boolean; kind: SupportKind; elevatedRoad: boolean }
 
-// Highest surface under (x,z) that the car can reach from height `fromY`: roads and flyovers, the metro deck,
+// Reachable surface under (x,z), preserving continuous driving contact: roads, flyovers, the metro deck,
 // bus-shelter roofs and building roofs. Surfaces more than 1.6 m above `fromY` are overhead and ignored.
-export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false, previous?: {x:number;z:number;feet:number}): Support {
+export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false, previous?: {x:number;z:number;feet:number;road?: Surface['e']}): Support {
+  let continuousHeight = -Infinity;
+  const travelled = previous ? Math.hypot(x - previous.x, z - previous.z) : 0;
   let best: Support = { y: 0, s: null, onRoad: false, kind: 'ground', elevatedRoad: false }, found = false, bestScore = Math.abs(fromY);
   const water = roadsOnly ? null : waterHeightAt(city.waterGrid, x, z);
   if (water !== null) best = { y: water - WATER_DRAFT, s: null, onRoad: false, kind: 'water', elevatedRoad: false };
@@ -35,6 +37,34 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
       // where surfaces overlap (an up-ramp beside a down-ramp, a deck edge over a slip road) the car stays on the one
       // it is driving on: the surface nearest its own height wins, and the margin strip only counts when nothing else does
       const core = exact !== undefined || s.kind !== 'road' || ((!s.e || d <= s.e.w / 2 + 0.15) && rawT >= -1e-6 && rawT <= 1.000001);
+      const oldHeight = previous && s.kind === 'road' && s.roadQuad ? roadQuadHeight(s.roadQuad, previous.x, previous.z) : null;
+      // Adjacent roads need not overlap at their seam: the first ramp
+      // triangle cannot contain the previous frame's point on the approach.
+      // Accept a shared endpoint only locally, with a reachable matching grade.
+      let joined = false;
+      if (previous?.road && s.e && travelled > 1e-6) {
+        const road = s.e, old = previous.road;
+        for (let side = 0; side < 2; side++) {
+          const end = side === 0 ? 0 : road.pts.length - 1;
+          const node = end === 0 ? road.from : road.to;
+          if (!node || node !== old.from && node !== old.to) continue;
+          const p = road.pts[end], distance = Math.hypot(previous.x - p[0], previous.z - p[1]);
+          if (distance <= travelled + 2 && Math.abs((road.elev?.[end] ?? 0) - previous.feet) <= .03 + distance * .14) joined = true;
+        }
+      }
+      const continuous = !!previous && travelled > 1e-6 && s.kind === 'road' &&
+        Math.abs(y - previous.feet) <= .03 + travelled * .14 &&
+        (oldHeight !== null && Math.abs(oldHeight - previous.feet) < .025 ||
+          !!s.e && s.e.id === previous.road?.id || joined);
+      // At a ramp mouth a ground road often overlaps its first triangles.
+      // Follow the reachable upper pavement instead of repeatedly choosing
+      // the lower sheet just because it is closer to last frame's height.
+      if (continuous) {
+        if (y > continuousHeight) { continuousHeight = y; found = true; bestScore = 0;
+          best = { y, s, onRoad: true, kind: 'road', elevatedRoad: y > 1.2 }; }
+        continue;
+      }
+      if (continuousHeight > -Infinity) continue;
       const score = Math.abs(y - fromY) + (core ? 0 : 3);
       if (!found || score < bestScore - 0.01 || (Math.abs(score - bestScore) <= 0.01 && y > best.y)) {
         found = true; bestScore = score; best = { y, s, onRoad: s.kind === 'road', kind: s.kind, elevatedRoad: s.kind === 'road' && y > 1.2 };

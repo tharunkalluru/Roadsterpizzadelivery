@@ -308,7 +308,7 @@ export class Player {
     }
     this.kerbT -= dt;
     // --- vertical ---
-    const sup = supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55} : undefined);
+    const sup = supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55,road:this.lastEdge??undefined} : undefined);
     const landmark = sup.kind === 'landmark' ? landmarkCarContact(this.city.landmarkSurfaceGrid, this.pos.x, this.pos.z, this.yaw, sup.y) : null;
     const ground = landmark?.y ?? sup.y + 0.55;
     if (diving && !this.jumping) {
@@ -375,7 +375,7 @@ export class Player {
       if (this.descending) this.vy = Math.max(this.vy, -6);
       if (this.pos.y <= ground) { if (this.vy < -9) { this.bump = 0.6; this.speed *= 0.6; } this.pos.y = ground; this.vy = 0; this.descending = false; }
     } else { this.pos.y = ground; this.vy = 0; }
-    const sup2 = this.airborne ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55} : undefined);
+    const sup2 = this.airborne ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55,road:this.lastEdge??undefined} : undefined);
     const grounded = !this.airborne && Math.abs(this.pos.y - (sup2.kind === 'landmark' && landmark ? landmark.y : sup2.y + .55)) < 0.1;
     // Descent can retain airborne speed, but the same touchdown frame obeys the road cap.
     if (grounded) this.enforceSpeedLimit();
