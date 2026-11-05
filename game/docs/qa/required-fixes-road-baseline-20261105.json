@@ -16,7 +16,7 @@
     },
     {
       "path": "src/world/road-grades.ts",
-      "sha256": "5b67e2124fcbe3e6621870770832fa801f747345fe5734b99310074a38751f4d"
+      "sha256": "d93e33295591896ec0240932e5c79b98210af3efc58102680caad230e999df0c"
     },
     {
       "path": "src/world/road-crossing-levels.ts",
@@ -1257,12 +1257,17 @@
     {
       "path": "public/city/packs/p7_7.pack.wasm",
       "sha256": "e040a24b4fe5885d9888aab853c3598bf6a5c32c37f94c6a7b6e13869349a0db"
+    },
+    {
+      "path": "src/world/flyover-terminals.ts",
+      "sha256": "5fdcd91790d36284af37765dfd71a5d4cac3ea03b620117ae51dfa9b5f3874b8"
     }
   ],
   "rawPacks": 304,
   "globalRoadReconstructionSelected": false,
   "newSurveyedOrOptimizedRoadHeightClaim": false,
   "scopedRoadCorrections": [
-    "Nagole station: remove two generated elevated road sections; preserve XY, IDs and connectivity."
+    "Nagole station: remove two generated elevated road sections; preserve XY, IDs and connectivity.",
+    "Paradise/Sardar Patel: repair eight mapped fork mouths, keep source ground routes level, retain two 3.4m lanes and delay ramp rise until finite pavements separate. No new routes or changed XY/connectivity."
   ]
 }
