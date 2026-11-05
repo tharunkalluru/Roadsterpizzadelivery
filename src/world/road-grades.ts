@@ -1,3 +1,4 @@
+import { repairReviewedFlyoverTerminals } from './flyover-terminals';
 import type { CoreData, RoadEdge, StopTuple, XZ } from './types';
 import { mappedRoadLevels, repairRoadCrossingLevels, type CrossingLevelReport } from './road-crossing-levels';
 
@@ -6,7 +7,7 @@ import { mappedRoadLevels, repairRoadCrossingLevels, type CrossingLevelReport } 
 // Keep controlled ORR profiles and existing high-level crossings intact while
 // extending estimated approaches over their connected, same-level road network.
 const BASE_GRADE = .065, SAMPLE = 2, SEPARATION = 4.5;
-export interface RoadGradePatch { id: string; pts: XZ[]; elev: number[] | null }
+export interface RoadGradePatch { id: string; pts: XZ[]; elev: number[] | null; w?:number; joinedPavement?:RoadEdge['joinedPavement']; sceneryWidth?:number }
 export interface RoadGradeReport {
   roads: number; repairedRoads: number; sourceSteepSegments: number; modelSteepSegments: number; maxModelGrade: number;
   protectedRoads: number; protectedRoadsChanged: number; separatedCrossings: number; minCrossingSeparation: number;
@@ -34,19 +35,20 @@ export function roadHeightAlong(e: RoadEdge, distance: number) {
   }
   return gradeOf(e, 0);
 }
+const patchOf=(e:RoadEdge):RoadGradePatch=>({id:e.id,pts:e.pts,elev:e.elev,...(e.joinedPavement?.release==='reviewed-paradise-fork-20261105'?{w:e.w,joinedPavement:e.joinedPavement,sceneryWidth:e.sceneryWidth}:{})});
 export function roadGradePatches(roads: RoadEdge[]) { return patches.get(roads) || []; }
 // A cached core can already contain the repaired profiles when another World
 // is created. Publish those profiles even if this pass made no new changes.
 // Zero arrays matter too: they can deliberately remove an inherited hump.
 export function currentRoadGradePatches(roads: RoadEdge[], seed: RoadGradePatch[] = []): RoadGradePatch[] {
   const out = new Map(seed.map(p=>[p.id,p]));
-  for(const e of roads)if(e.elev)out.set(e.id,{id:e.id,pts:e.pts,elev:e.elev});
+  for(const e of roads)if(e.elev)out.set(e.id,patchOf(e));
   return [...out.values()];
 }
 export function roadGradeReport(roads: RoadEdge[]) { return reports.get(roads); }
 export function applyRoadGradePatches(roads: RoadEdge[], changes: RoadGradePatch[]) {
   const byId = new Map(changes.map(p => [p.id, p]));
-  return roads.map(e => { const p = byId.get(e.id); return p ? { ...e, pts: p.pts, elev: p.elev } : e; });
+  return roads.map(e => { const p = byId.get(e.id); return p ? { ...e, pts: p.pts, elev: p.elev, ...(p.w===undefined?{}:{w:p.w,joinedPavement:p.joinedPavement,sceneryWidth:p.sceneryWidth}) } : e; });
 }
 export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
   if (prepared.has(roads)) return prepared.get(roads)!;
@@ -122,7 +124,7 @@ export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
   const report: RoadGradeReport = { roads: roads.length, repairedRoads: 0, sourceSteepSegments: 0, modelSteepSegments: 0, maxModelGrade: 0, protectedRoads: roads.filter(protectedRoad).length, protectedRoadsChanged: 0, separatedCrossings: crossings.length, minCrossingSeparation: Infinity, joinedEndpointMaxDifference: 0,
     uncertainty: 'Estimated game road heights and eased approaches, not a survey. OriginalXY/alignment, road IDs and connectivity retained. Verified relative source layers and classified finite-envelope headroom can extend inherited game elevation estimates; explicit surveyed profiles remain fixed.', bridgeClearance, mappedLevelRoads: mapped.changed.size, mappedLevelPoints: mapped.points };
   for (const group of groups) report.joinedEndpointMaxDifference = Math.max(report.joinedEndpointMaxDifference, Math.max(...group.map(k => heights[k])) - Math.min(...group.map(k => heights[k])));
-  const result = roads.map((e, r) => {
+  const result = repairReviewedFlyoverTerminals(originalRoads, roads.map((e, r) => {
     const off = offsets[r], h = e.pts.map((_, i) => heights[off + i]), lengths = e.pts.slice(1).map((p, i) => Math.hypot(p[0] - e.pts[i][0], p[1] - e.pts[i][1]));
     for (let i = 0; i < lengths.length; i++) if (lengths[i] > .001 && Math.abs(gradeOf(e, i + 1) - gradeOf(e, i)) / lengths[i] > .1) report.sourceSteepSegments++;
     if ((protectedRoad(e) && !mapped.changed.has(e.id) && h.every((y, i) => Math.abs(y - raw[off + i]) < .00001)) || !h.some(y => y > .0001)) return e;
@@ -146,14 +148,24 @@ export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
       }
     }
     report.repairedRoads++; return { ...e, pts, elev };
+  }));
+  const endpointHeights = new Map<number, number>();
+  result.forEach((e,r) => {
+    endpointHeights.set(offsets[r], e.elev?.[0] || 0);
+    endpointHeights.set(offsets[r]+roads[r].pts.length-1, e.elev?.[e.pts.length-1] || 0);
   });
+  report.joinedEndpointMaxDifference = 0;
+  for (const group of groups) {
+    const values = group.map(k => endpointHeights.get(k) || 0);
+    report.joinedEndpointMaxDifference = Math.max(report.joinedEndpointMaxDifference, Math.max(...values)-Math.min(...values));
+  }
   for (const e of result) for (let i = 1; i < e.pts.length; i++) {
     const length = Math.hypot(e.pts[i][0] - e.pts[i - 1][0], e.pts[i][1] - e.pts[i - 1][1]);
     if (length < .001) continue;
     const grade = Math.abs(gradeOf(e, i) - gradeOf(e, i - 1)) / length; report.maxModelGrade = Math.max(report.maxModelGrade, grade); if (grade > .1) report.modelSteepSegments++;
   }
   for (const c of crossings) report.minCrossingSeparation = Math.min(report.minCrossingSeparation, roadHeightAlong(result[c.upper], c.upperS) - roadHeightAlong(result[c.lower], c.lowerS));
-  const changes = result.flatMap((e, i) => e === originalRoads[i] ? [] : [{ id: e.id, pts: e.pts, elev: e.elev }]);
+  const changes = result.flatMap((e, i) => e === originalRoads[i] ? [] : [patchOf(e)]);
   prepared.set(originalRoads, result); prepared.set(roads, result); prepared.set(result, result); reports.set(result, report); patches.set(result, changes); return result;
 }
 
