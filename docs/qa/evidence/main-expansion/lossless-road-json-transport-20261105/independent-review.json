@@ -1,0 +1,55 @@
+{
+  "actualLargeBrowserRoundtripStillRequired": true,
+  "actualPrototypeGraphObservation": {
+    "dictionaryBytes": 21405161,
+    "maximumEmissionStepsPerRole": 102004,
+    "maximumReferenceDepth": 9,
+    "nodes": 27189,
+    "path": "/tmp/roadster-json-parts-package-prototype-20261105.pack",
+    "rawJSONBytes": 88311317,
+    "sha256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+    "storedGzipBytes": 5911759,
+    "wholeFixtureReconstructionByThisReview": false
+  },
+  "files": {
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/lossless-json-parts.mjs": "d9ab0e0bbeb8b8283e89e1a0943430f728159b0e6c7cd46032157961187a2baa",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/lossless-json-parts.ts": "2a4cff29360e90256de7c1675cc54f20a09b42e0ea67021e2e84325d49512e88",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/released-road-assets.ts": "c5a277f6a8d9c0a90ec4f167bf74e62a0b55784c11652c784b67f4997cf4ae53",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/lossless-json-parts-independent.test.mjs": "afbccda47bc9990000b4030d92f40f1505521dcc56d81d8a211d13551d1c8308",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/lossless-json-parts.test.mjs": "55b46f03c4cdd0acec864331f21866f15aac20508ee65bbd48942559b9a56ea9",
+    "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/released-road-assets.test.mjs": "39040bd08f11f7216144269c72ecb468d181d81324ec61e9061d4518ee16b009"
+  },
+  "gameFPSOrPhysicalPhoneClaimed": false,
+  "knownContractLimits": {
+    "acceptedRoadProfileOrSourcePermissionConveyedByCodec": false,
+    "arbitraryPythonOrJavaScriptCodeSandboxClaimed": false,
+    "codecReadAloneDoesNotComputeSHA256": "Released loader computes actual decoded SHA before returning bytes; callers must retain that verification"
+  },
+  "numericOrPhysicalAcceptanceGranted": false,
+  "releaseApproved": false,
+  "runtimeDefaultsActivated": false,
+  "schema": "independent-lossless-json-parts-production-review-v1",
+  "tests": {
+    "allPassed": true,
+    "existingCodecAndLoaderGroups": 17,
+    "failed": 0,
+    "independentAdversarialGroups": 8,
+    "skipped": 0
+  },
+  "verdict": "PASS_BYTE_TRANSPORT_GUARDS_PENDING_ACTUAL_LARGE_BROWSER_ROUNDTRIP",
+  "verifiedProperties": {
+    "BOMAndInvalidUTF8FailClosed": true,
+    "actualReconstructedHashIndependentlyCheckedByReleasedLoader": true,
+    "backwardOnlyAllNodeReferencesPreventCycles": true,
+    "errorAbortsOtherReadersAndNeverReturnsPartialAssets": true,
+    "expandedBytesAndFourMiStepWorkLimitsCheckedBeforeFileAllocation": true,
+    "externalRoleLengthAndSHADeclarationsChecked": true,
+    "inputAndOutputAliasesCannotMutatePrivateCompiledParts": true,
+    "iterativeEmissionAvoidsRecursiveReferenceStackOverflow": true,
+    "maximumTwoReaderDownloads": true,
+    "preParseQuoteAwareContainerDepthAndSeparatorLimits": true,
+    "releaseDefinitionClonedBeforeSuspension": true,
+    "sameLengthTamperedBodyRejectedDespiteValidRecompressedDictionary": true,
+    "sharedPendingDictionaryPromiseInsertedBeforeAwait": true
+  }
+}

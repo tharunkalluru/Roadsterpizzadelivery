@@ -1,0 +1,62 @@
+{
+  "schema": "lossless-road-json-release-transport-check-v1",
+  "status": "byte-transport-only",
+  "productionDefaultActivated": false,
+  "physicalOrReleaseAcceptanceGranted": false,
+  "gameplayOrPhoneFPSMeasured": false,
+  "fixture": {
+    "description": "Actual source/model JSON with an explicitly synthetic unchanged-height fitted protocol asset; not a fitted road solution.",
+    "rawBytes": 88311317,
+    "dictionaryBytes": 21405161,
+    "storedGzipBytes": 5911759,
+    "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+    "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47"
+  },
+  "nodePackage": "/tmp/roadster-lossless-json-real-input-protocol-package-v1/transport.json",
+  "browser": {
+    "pass": true,
+    "files": {
+      "source": {
+        "bytes": 1076476,
+        "sha256": "343724bdab377fa8de6a52ff70c51e8728ff6ff2667f97dda3c64845129320f7"
+      },
+      "sourceCopies": {
+        "bytes": 589278,
+        "sha256": "d683655960f94507c48e70170f665e5d820e1b4fd063e18094d2ede9eaa7adaf"
+      },
+      "geometry": {
+        "bytes": 9101900,
+        "sha256": "6b716a0a47b2c613d1408f62108bd419008c73d10e969e1f7ea998b48c55881c"
+      },
+      "modelProjection": {
+        "bytes": 15552965,
+        "sha256": "a2223d097fe7b431f22617a68a06cdaf82824630492a7101f5f3cf67a8418fd9"
+      },
+      "fittedProfiles": {
+        "bytes": 46220536,
+        "sha256": "79c90b25d4c6efd3320914a4583bc98016956b49219f82fbb5ea918a0f3c064e"
+      },
+      "fittedProjection": {
+        "bytes": 15770162,
+        "sha256": "c97a93f676fea808a91a303c4bfbc7cc4553ead32e489b1a7a8e0369eb85de46"
+      }
+    },
+    "elapsedMS": 253.10000002384186,
+    "physicalOrReleaseAcceptance": false,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "url": "http://127.0.0.1:4305/",
+    "implementationURL": "http://127.0.0.1:4304/src/world/lossless-json-parts.ts",
+    "productionCodecSHA256": "2a4cff29360e90256de7c1675cc54f20a09b42e0ea67021e2e84325d49512e88",
+    "testMethod": "Button click in headed Chrome; native browser gzip decompression, production codec, independent original-file size and SHA checks for every file."
+  },
+  "checks": {
+    "focusedTransportTests": 26,
+    "failed": 0,
+    "typescriptMain": true,
+    "typescriptWorker": true
+  },
+  "independentReview": {
+    "path": "/tmp/roadster-lossless-json-parts-independent-review-v1.json",
+    "sha256": "0d286ad307d20fdfad95e94d786afce194e8f09352e3e4497db723f07c4b4944"
+  }
+}

@@ -1,0 +1,34 @@
+✔ pre-parse structure limits reject deep/broad/huge-separator bodies before allocating their JSON graphs (13.316708ms)
+✔ unreachable bad references and node-work amplification are rejected along with reachable ones (0.559042ms)
+✔ a deep acyclic reference chain emits iteratively without recursive stack overflow (6.891209ms)
+✔ input and output aliases cannot mutate the private compiled literal dictionary (0.808375ms)
+✔ BOM and scalar/reference type confusion cannot produce a bound asset (0.655375ms)
+✔ same-length body corruption cannot hide behind a valid recompressed dictionary and matching file declarations (13.78325ms)
+✔ two readers share one still-pending dictionary promise and clone release bindings before suspension (27.200458ms)
+✔ a shared stored-byte failure aborts the other pending reader and never yields partial assets (0.844542ms)
+✔ preserves original numeric spellings, duplicate keys, Unicode and formatting byte for byte (4.714125ms)
+✔ rejects forward, cyclic, negative, fractional and missing references (0.780834ms)
+✔ bounds exponential expansion and zero-byte exponential work before allocating a file (0.361292ms)
+✔ rejects malformed schemas, role bindings, literal Unicode and inconsistent root sizes (0.501667ms)
+✔ release JSON packager requires independent input bytes and preserves previous packages (37.836959ms)
+✔ complete bytes assemble only after all eight verified downloads, at most two at once (24.509083ms)
+✔ path escape and missing inventory reject before any request (0.764833ms)
+✔ optional checkpoint bytes keep their own digest for runtime identity validation (2.2145ms)
+✔ a declared scenery stage keeps verified bytes and exact bindings for separate post-fit installation (1.183292ms)
+✔ orphaned, stale or mixed-frame scenery rejects before any download (0.719667ms)
+✔ a receipt for another fit is rejected before downloading (0.103167ms)
+✔ declared compressed and decoded size ceilings both reject before downloading (0.162291ms)
+✔ oversized streaming response cancels and cannot return a partial release (2.038125ms)
+✔ corrupt stored bytes abort other readers and prevent later downloads (0.677167ms)
+✔ wrong decompressed body digest is not hidden by a valid gzip envelope (0.742667ms)
+✔ shared dictionary downloads once and preserves every original asset body (5.024959ms)
+✔ mixed dictionary metadata or swapped role rejects before download (10.973583ms)
+✔ valid shared envelope cannot hide corrupted original body bindings (3.802792ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.56475

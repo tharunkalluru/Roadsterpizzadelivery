@@ -1,0 +1,110 @@
+{
+  "schema": "independently-bound-lossless-road-json-transport-v1",
+  "inputs": {
+    "source": {
+      "path": "/tmp/roadster-two-bridge-source-geometry-extension-v1/additive-source-geodesic.json",
+      "sha256": "343724bdab377fa8de6a52ff70c51e8728ff6ff2667f97dda3c64845129320f7"
+    },
+    "sourceCopies": {
+      "path": "/tmp/roadster-two-bridge385-runtime-source-copy-contract-v1.json",
+      "sha256": "d683655960f94507c48e70170f665e5d820e1b4fd063e18094d2ede9eaa7adaf"
+    },
+    "geometry": {
+      "path": "/tmp/roadster-current385-CDM-knot-late-conditioned-overlay-candidate-v13/geometry.json",
+      "sha256": "6b716a0a47b2c613d1408f62108bd419008c73d10e969e1f7ea998b48c55881c"
+    },
+    "modelProjection": {
+      "path": "/tmp/roadster-current385-CDM-knot-late-conditioned-overlay-candidate-v13/worker-projection.json",
+      "sha256": "a2223d097fe7b431f22617a68a06cdaf82824630492a7101f5f3cf67a8418fd9"
+    },
+    "fittedProfiles": {
+      "path": "/tmp/roadster-current385-all3014-fitted-protocol-fixture-v1/fitted-proposal.json",
+      "sha256": "79c90b25d4c6efd3320914a4583bc98016956b49219f82fbb5ea918a0f3c064e"
+    },
+    "fittedProjection": {
+      "path": "/tmp/roadster-current385-all3014-fitted-protocol-fixture-v1/worker-projection.json",
+      "sha256": "c97a93f676fea808a91a303c4bfbc7cc4553ead32e489b1a7a8e0369eb85de46"
+    }
+  },
+  "files": {
+    "source": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 1076476,
+      "decodedSHA256": "343724bdab377fa8de6a52ff70c51e8728ff6ff2667f97dda3c64845129320f7",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "source"
+    },
+    "sourceCopies": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 589278,
+      "decodedSHA256": "d683655960f94507c48e70170f665e5d820e1b4fd063e18094d2ede9eaa7adaf",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "sourceCopies"
+    },
+    "geometry": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 9101900,
+      "decodedSHA256": "6b716a0a47b2c613d1408f62108bd419008c73d10e969e1f7ea998b48c55881c",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "geometry"
+    },
+    "modelProjection": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 15552965,
+      "decodedSHA256": "a2223d097fe7b431f22617a68a06cdaf82824630492a7101f5f3cf67a8418fd9",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "modelProjection"
+    },
+    "fittedProfiles": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 46220536,
+      "decodedSHA256": "79c90b25d4c6efd3320914a4583bc98016956b49219f82fbb5ea918a0f3c064e",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "fittedProfiles"
+    },
+    "fittedProjection": {
+      "path": "roads-65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09.pack.wasm",
+      "encoding": "json-parts-gzip",
+      "storedBytes": 5911759,
+      "storedSHA256": "65ce0b955ae16cb3bddd8a9a44f1d852bb1c55e74b4481a2408fe367605fbc09",
+      "decodedBytes": 15770162,
+      "decodedSHA256": "c97a93f676fea808a91a303c4bfbc7cc4553ead32e489b1a7a8e0369eb85de46",
+      "dictionaryBytes": 21405161,
+      "dictionarySHA256": "658d22849059942a1555730ef5ae61245c56fec86de3a66473ea4d96a969ff47",
+      "dictionaryRole": "fittedProjection"
+    }
+  },
+  "code": {
+    "scripts/package-road-json.mjs": "f3c89b6cc1028d17be30184ed5cebfcb4145a9725a2e894c0e7647f6f2678113",
+    "scripts/lossless-json-parts.mjs": "d9ab0e0bbeb8b8283e89e1a0943430f728159b0e6c7cd46032157961187a2baa",
+    "src/world/lossless-json-parts.ts": "2a4cff29360e90256de7c1675cc54f20a09b42e0ea67021e2e84325d49512e88"
+  },
+  "summary": {
+    "rawBytes": 88311317,
+    "dictionaryBytes": 21405161,
+    "storedBytes": 5911759
+  },
+  "allOriginalBytesReconstructedAndCompared": true,
+  "sourceOrPhysicalAcceptanceGranted": false,
+  "runtimeActivated": false
+}
