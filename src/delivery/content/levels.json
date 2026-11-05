@@ -195,12 +195,12 @@
       "image": "/delivery/characters/hasini/portrait-v1.png"
     },
     "destination": {
-      "label": "Nizam College · Basheerbagh entrance",
-      "x": -2241.95,
-      "z": 1007.13,
+      "label": "Nizam College · Basheerbagh gate",
+      "x": -2244.823,
+      "z": 991.6,
       "y": 0,
-      "lat": 17.3972,
-      "lon": 78.4755
+      "lat": 17.39734033783488,
+      "lon": 78.47547300089708
     },
     "callMode": "NONE",
     "revealAt": "afterDelivery",
@@ -208,7 +208,9 @@
     "module": "gateDelivery",
     "moduleParams": {
       "theme": "college",
-      "characterId": "hasini"
+      "characterId": "hasini",
+      "realCampusId": "nizam_college",
+      "sceneYaw": -1.3089969389957474
     },
     "arrivalRadius": 100,
     "restaurantStage": "Shop seating",
@@ -371,19 +373,21 @@
       "image": "/delivery/characters/arjun-reddy/portrait-v1.png"
     },
     "destination": {
-      "label": "Osmania Medical College · Koti courtyard",
-      "x": -1615.06,
-      "z": 2589.77,
+      "label": "Osmania Medical College · Koti main courtyard",
+      "x": -1472.161,
+      "z": 2664.201,
       "y": 0,
-      "lat": 17.3829,
-      "lon": 78.4814
+      "lat": 17.382227447929274,
+      "lon": 78.48274485238427
     },
     "callMode": "NONE",
     "revealAt": "afterDelivery",
     "script": [],
     "module": "classroomHandoff",
     "moduleParams": {
-      "characterId": "arjun-reddy"
+      "characterId": "arjun-reddy",
+      "realCampusId": "osmania_medical",
+      "sceneYaw": -1.3962634015954638
     },
     "arrivalRadius": 100,
     "restaurantStage": "Neon sign",

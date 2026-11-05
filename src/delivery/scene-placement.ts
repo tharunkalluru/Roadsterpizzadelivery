@@ -1,7 +1,8 @@
+import { collegeCampusId, COLLEGE_CAMPUSES } from '../world/college-campus-data';
 import type { CityData } from '../world/city';
 import type { Building, XZ } from '../world/types';
 import type { GEdge, RoadGraph } from '../game/roadgraph';
-import { roofUnder, supportAt } from '../game/physics';
+import { roofUnder, supportAt, collideBuildings } from '../game/physics';
 import { waterHeightAt } from '../world/water';
 import type { LevelConfig } from './core/types';
 import type { DeliveryPoint, ModuleParams } from './modules/types';
@@ -81,6 +82,18 @@ function profileFor(level: LevelConfig): Profile {
 type PlacementCity = CityData & { rails?: ReadonlyMap<string, { pts: XZ[]; elev?: number[] }> };
 export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGraph, level: LevelConfig, options: ScenePlacementOptions = {}): Generator<void, GroundScenePlacement | null, void> {
   if (!needsGroundScenePlacement(level.module) || !Number.isFinite(level.destination.x) || !Number.isFinite(level.destination.z)) return null;
+  const campusId=collegeCampusId(String(level.moduleParams.realCampusId||''));
+  if(campusId){
+    // Named campuses have one researched entrance, never a nearby vacant lot.
+    // Wait for its real geometry rather than relocating the scene silently.
+    const campus=COLLEGE_CAMPUSES[campusId],p=campus.delivery,loaded=options.isLoaded??(()=>true);
+    for(const dx of [-1.4,0,1.4])for(const dz of [-2.6,0,2.6]){
+      yield;
+      const at={x:p.x+dx,z:p.z+dz};
+      if(!loaded(at.x,at.z)||Math.abs(supportAt(city,at.x,at.z,.12).y)>.3||collideBuildings(city,{...at},.25,.15,2.7)>0)return null;
+    }
+    return {destination:{...level.destination,x:p.x,z:p.z,y:0},moduleParams:{realCampusId:campusId,sceneYaw:campus.sceneYaw,useExistingFacade:true},attempts:1};
+  }
   const origin = level.destination, profile = profileFor(level), budget = Math.max(1, Math.min(768, Math.floor(options.maxCandidates ?? 384)));
   const reach = profile.search + 90, area = { x0: origin.x - reach, x1: origin.x + reach, z0: origin.z - reach, z1: origin.z + reach };
   const buildings = new Map<Building, Bounds>();

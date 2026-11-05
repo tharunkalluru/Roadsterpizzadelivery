@@ -1,3 +1,4 @@
+import { COLLEGE_CAMPUSES } from './college-campus-data';
 // Shared, lightweight place catalogue. The map and model placement use the same identities and anchors.
 // Existing coordinates and unmeasured model dimensions are retained as provisional; see docs/landmark-audit.json.
 import { LM_DATA } from './landmarks_data';
@@ -15,6 +16,7 @@ const QT = (name: string, lat: number, lon: number, terrace: number, cube: numbe
   ({ kind: 'qstomb', name, lat, lon, rot: 0, clear: [terrace + 6, terrace + 6], p: { terrace, cube, dome, h, arches } });
 
 export const BASE_LANDMARKS: LandmarkDefinition[] = [
+  {kind:'x_osmania_medical',name:'Osmania Medical College',...COLLEGE_CAMPUSES.osmania_medical.anchor,rot:COLLEGE_CAMPUSES.osmania_medical.rotation,clear:0},
   // ---- Old City ----
   { kind: 'charminar', name: 'Charminar', lat: 17.36160, lon: 78.47463, rot: 11.5, clear: 27 },
   { kind: 'charkaman', name: 'Char Kaman', lat: 17.363451, lon: 78.474999, rot: 11.5, clear: 0 },   // centred on the Gulzar Houz fountain (OSM); arches ~105 m out (Char Kaman south, Machli Kaman north)
@@ -78,6 +80,7 @@ const BASE_STYLE: Record<string, [PlaceCategory, PlaceIcon]> = {
   cybertowers: ['City life', 'tower'], cablebridge: ['City life', 'bridge'], thub: ['City life', 'building'],
   stadium: ['Sport', 'stadium'], clocktower: ['Heritage', 'tower'],
   x_asian_amb: ['Culture', 'building'],
+  x_osmania_medical: ['City life','building'],
 };
 function extraStyle(type: string): [PlaceCategory, PlaceIcon] {
   if (/^temple|gurudwara/.test(type)) return ['Worship', 'temple'];
