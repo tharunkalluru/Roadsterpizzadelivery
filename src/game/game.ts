@@ -549,6 +549,11 @@ export class Game {
     if (this.map?.open) { this.map.handleKey(e); return; }
     if (this.choosing) return;
     if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
+    // Closing a keyboard-opened map deliberately returns focus to its opener.
+    // Once driving resumes, Space belongs to the brake rather than that button.
+    if (['KeyW', 'KeyA', 'KeyD', 'KeyS', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyQ', 'KeyE'].includes(e.code)) {
+      this.engine.renderer.domElement.focus({ preventScroll: true });
+    }
     this.keys.add(e.code);
     this.hud.controlFeedback?.(e.code, true);
     if (e.code === 'KeyQ') { this.queueFlight(); e.preventDefault(); }

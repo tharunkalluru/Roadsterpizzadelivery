@@ -63,11 +63,16 @@ function actualReportedWorld(classes?: [string, string]) {
 
 function checkBodyClearance(world: ReturnType<typeof actualReportedWorld>) {
   const hx = -Math.sin(target.yaw), hz = -Math.cos(target.yaw);
-  let feet = .05, samples = 0;
+  let feet = .05, samples = 0, roadFrames = 0;
   for (let distance = 5; distance <= 32; distance += .5) {
     const x = target.x + hx * distance, z = target.z + hz * distance;
     const center = supportAt(world.city, x, z, feet, true); feet = center.y;
-    assert.equal(center.kind, 'road', `finite road must remain reachable at reported approach distance${distance}`);
+    // The screenshot starts beside the carriageway. Require support wherever
+    // actual emitted asphalt is reachable, without inventing a road at +5m.
+    if (center.kind === 'road') roadFrames++;
+    else assert.ok(!world.triangles.some(t => {
+      const y = visibleHeight(t, x, z); return y !== null && Math.abs(y - feet) < .15;
+    }), `actual reachable emitted asphalt must support the car at distance${distance}`);
     // Nose/body/tail and both sides of the real car footprint. Local tyre
     // support handles legitimate road slope; a second asphalt plane inside
     // the body remains a physical obstruction even if support chooses lower.
@@ -85,6 +90,7 @@ function checkBodyClearance(world: ReturnType<typeof actualReportedWorld>) {
     }
   }
   assert.ok(samples > 400);
+  assert.ok(roadFrames >= 20, 'the reported heading must exercise at least10m of actual road support');
   return samples;
 }
 
