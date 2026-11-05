@@ -1,0 +1,24 @@
+// Desktop cold-cache microbenchmark on literal diagnostic road cohorts.
+// This is not an accepted fitted World, a device benchmark or a release check.
+import assert from'node:assert/strict';import{readFile,writeFile,mkdtemp,rm}from'node:fs/promises';import{createHash}from'node:crypto';import{gunzipSync}from'node:zlib';import{tmpdir}from'node:os';import{join,resolve}from'node:path';import{pathToFileURL,fileURLToPath}from'node:url';import{build}from'esbuild';
+const out=process.argv[2];assert.ok(out);const sha=b=>createHash('sha256').update(b).digest('hex'),held={};
+async function read(b){const x=await readFile(b.path);assert.equal(sha(x),b.sha256);held[resolve(b.path)]=b.sha256;return x;}
+const indexBinding={path:'/tmp/roadster-current-native-vector-all-source-observation-root-v3/index.json',sha256:'abc57166cd09553ffd2abcbf90c5eb44910b94984b8266b3d97f64c70b0bbe6e'},index=JSON.parse(await read(indexBinding));
+const dir=await mkdtemp(join(tmpdir(),'roof-rider-cold-cache-'));try{
+ const output=join(dir,'api.mjs'),compiled=await build({stdin:{contents:"export*from'./src/game/rail-rider-native-soffits';export{limitRiderSweep}from'./src/game/rail-rider-clearance';export{buildTile}from'./src/world/city';export{initTemplates}from'./src/core/util';",resolveDir:process.cwd(),loader:'ts'},outfile:output,bundle:true,platform:'node',format:'esm',metafile:true,logLevel:'error'});
+ for(const p of Object.keys(compiled.metafile.inputs))if(p!=='<stdin>'){const path=resolve(p);held[path]=sha(await readFile(path));}
+ const A=await import(pathToFileURL(output));A.initTemplates();const rows=[];
+ for(const key of['-15_-19','-8_2','3_-9','5_0','0_0','8_1']){
+  const descriptor=index.tiles.find(t=>t.tile===key),packet=JSON.parse(gunzipSync(await read(descriptor))),[i,j]=key.split('_').map(Number),nodes={};let differingModeledEndpointCopies=0;
+  for(const r of packet.geometryInputRoads)for(const[n,p]of[[r.from,r.pts[0]],[r.to,r.pts.at(-1)]])if(n){if(nodes[n]&&JSON.stringify(nodes[n])!==JSON.stringify(p))differingModeledEndpointCopies++;else nodes[n]=p;}
+  const before=performance.now(),tile=A.buildTile({i,j,roads:packet.geometryInputRoads,nodes,buildings:[],boards:[],furniture:[],areas:[]},{lowQ:true}),built=performance.now(),revision='bound-diagnostic-'+descriptor.sha256,cold=[];let prepared;
+  for(let run=0;run<3;run++){const t=performance.now();prepared=A.prepareNativeSoffitTile(tile,revision);cold.push(performance.now()-t);}
+  const chunks=[],steps=A.prepareNativeSoffitTileSteps(tile,revision);for(;;){const t=performance.now(),next=steps.next();chunks.push(performance.now()-t);if(next.done)break;}
+  const start=performance.now(),geometry=new A.LoadedNativeSoffits(revision,[prepared]),indexMS=performance.now()-start,slab=prepared.slabs[0],center=slab?{x:slab.triangle.reduce((n,p)=>n+p[0],0)/3,y:0,z:slab.triangle.reduce((n,p)=>n+p[2],0)/3}:{x:i*1000+500,y:0,z:j*1000+500};
+  const env={radius:2.6,launchRadius:2.8,bottom:-.56,top:.82,launchBottom:-2.5,launchTop:4},queries=[];
+  for(let n=0;n<1000;n++){const t=performance.now();A.limitRiderSweep(geometry,{...center,z:center.z-8},{...center,z:center.z+8},env);queries.push(performance.now()-t);}
+  queries.sort((a,b)=>a-b);chunks.sort((a,b)=>a-b);rows.push({tile:key,literalRoads:packet.geometryInputRoads.length,fixtureNativeBuildMS:built-before,matchedSlabTriangles:prepared.slabs.length,finiteUnknownSlabs:prepared.unknown.length,structureTrianglesInspected:prepared.structureTrianglesInspected,coldPreparationMS:cold,cooperativeChunks:chunks.length,chunkP95MS:chunks[Math.floor(chunks.length*.95)],chunkMaxMS:chunks.at(-1),spatialIndexBuildMS:indexMS,steadyQueries:1000,queryP50MS:queries[500],queryP95MS:queries[950],queryMaxMS:queries.at(-1),differingModeledEndpointCopies,allColdWorkOutsideFrameController:true});
+ }
+ const self=fileURLToPath(import.meta.url);held[self]=sha(await readFile(self));for(const[p,h]of Object.entries(held))assert.equal(sha(await readFile(p)),h);
+ const document={schema:'desktop-literal-source-road-cohort-rider-cache-microbenchmark-v1',capture:indexBinding,rows,scope:'Actual production City and safety cache, using literal post-exclusion road cohorts from the byte-bound bounds-only diagnostic capture. Other scene arrays are empty and node tables reconstructed from source road endpoints solely for this road-only microbenchmark. No current fitted model, final World/worker parity, phone FPS or release acceptance is claimed.',runtimeFrameScansActualStructureBuffers:false,actualReadDependencyBindings:Object.entries(held).map(([path,sha256])=>({path,sha256})),releaseApproved:false};await writeFile(out,JSON.stringify(document,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({path:out,sha256:sha(await readFile(out)),rows}));
+}finally{await rm(dir,{recursive:true,force:true});}

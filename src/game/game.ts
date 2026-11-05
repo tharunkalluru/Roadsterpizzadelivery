@@ -38,6 +38,9 @@ import { BugReporter, GAME_BUILD, gameCoordinates, gameScreenshot, reportObserva
 import { DESTINATION_IDENTITIES } from '../world/destination-data';
 import { RailTrains } from './rail';
 import { MovingRailInteraction } from './moving-rail';
+import { RailRiderClearance,type RiderEnvelope,type RiderPoint } from './rail-rider-clearance';
+import { prepareNativeSoffitTileSteps,LoadedNativeSoffits,type NativeSoffitTile } from './rail-rider-native-soffits';
+import { measureRailRiderEnvelope } from './rail-rider-car-envelope';
 import { RailwayCrossings, buildRailwayCrossingSites, type RailwayCrossingSite, type RailwayRoadUser } from './railway-crossings';
 import { RailwayCrossingGates } from '../world/railway-crossing-gates';
 import { railwayNetwork } from '../world/railway-geometry';
@@ -84,6 +87,16 @@ export class Game {
   private pickupBefore: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   private pickupAfter: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   railContacts = new MovingRailInteraction();
+  private railRiderClearance=new RailRiderClearance();
+  private railRiderEnvelope:RiderEnvelope;
+  private railSoffitTiles=new Map<string,NativeSoffitTile>();
+  private railSoffitJobs=new Map<string,{tile:LoadedTile;steps:Generator<void,NativeSoffitTile,void>}>();
+  private railSoffitPumpQueued=false;
+  private railSoffitRevision:string;
+  private railSoffitRequiresFittedIdentity=false;
+  private railSoffitGeometry:LoadedNativeSoffits|null=null;
+  private railSoffitEmptySize=-1;
+  private railRiderWarned=false;
   railTrackFallback?: RailTrackFallback;
   trafficHeadlights?: TrafficHeadlights;
   railwayCrossings?: RailwayCrossings;
@@ -124,6 +137,10 @@ export class Game {
   }) {
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
+    this.railRiderEnvelope=measureRailRiderEnvelope(this.player);
+    const fittedIdentity=(city as World&{candidateRoadIdentity?:unknown}).candidateRoadIdentity;
+    this.railSoffitRequiresFittedIdentity=fittedIdentity!==undefined;
+    this.railSoffitRevision=JSON.stringify(fittedIdentity??{sourceRoadGeometryGeneration:zone.sourceRoadGeometryGeneration??'legacy-live-source',sourceInputVariantPreparationGeneration:(zone as CoreData&{sourceInputVariantPreparationGeneration?:string}).sourceInputVariantPreparationGeneration??null});
     this.player.addTo(engine.scene);
     this.traffic = new Traffic(this.graph, engine.scene, engine.mats, trafficPopulationLimit(opts.lowQ,0,.75), city.busStops, city);
     this.trafficHeadlights = new TrafficHeadlights(engine.scene, opts.lowQ);
@@ -174,12 +191,20 @@ export class Game {
     city.onTileRemoved = (t) => this.tileRemoved(t);
   }
   tileAdded(t: LoadedTile, paths: boolean) {
+    // Cold once per actual native tile, never from a gameplay frame scan.
+    const tileIdentity=(t.built as typeof t.built&{candidateRoadIdentity?:unknown}).candidateRoadIdentity;
+    if(this.railSoffitRequiresFittedIdentity&&JSON.stringify(tileIdentity)!==this.railSoffitRevision){
+      this.railSoffitTiles.delete(t.key);console.error('Train roof clearance awaits matching city geometry.',t.key);
+    }else{this.railSoffitJobs.set(t.key,{tile:t,steps:prepareNativeSoffitTileSteps(t.built,this.railSoffitRevision)});this.queueSoffitPreparation();}
+    this.railSoffitGeometry=null;
     this.graph.addRoads(t.built.roads, t.built.signals);
     this.addRailwayCrossings(t.built.roads);
     this.traffic.setBusStops(this.city.busStops);
     if (paths) this.walkers.addPaths(t.built.walkPaths);
   }
   tileRemoved(t: LoadedTile) {
+    this.railSoffitJobs.delete(t.key);
+    this.railSoffitTiles.delete(t.key);this.railSoffitGeometry=null;
     const gone = this.graph.removeRoads(t.built.roads.map((e) => e.id));
     for(const edge of gone)this.crossingRoadIds?.delete(edge.e.id);
     if(this.railwayCrossings){let changed=false;for(const [id,site] of this.crossingSites)if(!this.graph.byId.has(site.roadId)){this.crossingSites.delete(id);changed=true;}if(changed)this.railwayCrossings.setSites([...this.crossingSites.values()]);}
@@ -187,6 +212,50 @@ export class Game {
     this.graph.forgetSignals(t.built.signals);
     this.traffic.setBusStops(this.city.busStops);
     this.walkers.removePaths(t.built.walkPaths);
+  }
+  private queueSoffitPreparation(){
+    if(this.railSoffitPumpQueued||!this.railSoffitJobs.size)return;
+    this.railSoffitPumpQueued=true;
+    // Chunk cold preparation between frames. Never publish partial geometry,
+    // and never do a whole 100ms dense-tile scan in a tile-added callback.
+    setTimeout(()=>{
+      this.railSoffitPumpQueued=false;const started=performance.now();
+      while(this.railSoffitJobs.size&&performance.now()-started<2){
+        const[key,job]=this.railSoffitJobs.entries().next().value;
+        if(this.city.tiles.get(key)!==job.tile){this.railSoffitJobs.delete(key);continue;}
+        try{
+          const next=job.steps.next();
+          if(next.done){this.railSoffitJobs.delete(key);this.railSoffitTiles.set(key,next.value);this.railSoffitGeometry=null;}
+        }catch(error){
+          this.railSoffitJobs.delete(key);this.railSoffitTiles.delete(key);this.railSoffitGeometry=null;
+          console.error('Could not prepare safe train roof clearance.',key,error);
+        }
+      }
+      this.queueSoffitPreparation();
+    },8);
+  }
+  private riderGeometry(){
+    if(!this.railSoffitGeometry||this.railSoffitEmptySize!==this.city.empty.size){
+      this.railSoffitEmptySize=this.city.empty.size;
+      this.railSoffitGeometry=new LoadedNativeSoffits(this.railSoffitRevision,this.railSoffitTiles.values(),this.city.empty);
+    }
+    return this.railSoffitGeometry;
+  }
+  private guardRoofRiderPose(start:RiderPoint){
+    if(!this.railRiderClearance.active)return;
+    const p=this.player,end={x:p.pos.x,y:p.pos.y,z:p.pos.z};
+    const limit=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),start,end,this.railRiderEnvelope,p.airborne||p.takeoffAnimating);
+    if(limit.fraction>=1)return;
+    const x=start.x+(end.x-start.x)*limit.fraction,z=start.z+(end.z-start.z)*limit.fraction;
+    // Horizontal GO may be stopped at the launch boundary while a deliberate
+    // takeoff still climbs in the clear space behind it. Validate that entire
+    // vertical sweep separately; freezing Y together with GO would deadlock
+    // the very manual escape this safety stop is intended to provide.
+    const vertical=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),{x,y:start.y,z},{x,y:end.y,z},this.railRiderEnvelope,p.airborne||p.takeoffAnimating);
+    p.pos.set(x,start.y+(end.y-start.y)*vertical.fraction,z);
+    const dx=p.pos.x-end.x,dy=p.pos.y-end.y,dz=p.pos.z-end.z;
+    for(const visual of[p.group,p.glow,p.light]){visual.position.x+=dx;visual.position.y+=dy;visual.position.z+=dz;}
+    p.speed=0;p.vy=0;
   }
   private addRailwayCrossings(roads: import('../world/types').RoadEdge[]) {
     if(!this.railwayCrossings)return;
@@ -1010,18 +1079,41 @@ export class Game {
     this.metro.update(dt, this.player.pos.x, this.player.pos.z);
     this.stationLife?.update(dt, this.minutes, this.metro.stationDwells, this.player.pos.x, this.player.pos.z);
     this.updateRailwayCrossings(dt);
+    const riderFrameStart={x:this.player.pos.x,y:this.player.pos.y,z:this.player.pos.z};
+    if(this.railRiderClearance.active||this.railContacts.supportId?.startsWith('rail:')){
+      const stop=this.railRiderClearance.prepare({pos:this.player.pos,placementRevision:this.player.placementRevision,supportId:this.railContacts.supportId,
+        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.railRiderEnvelope,this.player.speed);
+      this.rail.setRiderStop(stop);
+      if(stop&&!this.railRiderWarned)this.hud.toast(stop.reason==='unknown'?'Preparing safe train clearance…':'Low bridge ahead · Use FLY to continue','teal');
+      this.railRiderWarned=!!stop;
+    }else{this.rail.setRiderStop(null);this.railRiderWarned=false;}
     this.rail.update(dt, this.player.pos.x, this.player.pos.z, runningRailwayTracks(this.city.railway?.profiles || railwayNetwork().profiles));
     this.story?.beforePlayer(dt);
     // A capture can begin in beforePlayer, after this frame's input sample.
     // Consume that old sample too: a queued Jump/Fly cannot leak into story.
     if(this.story?.cinematic)Object.assign(inp,{throttle:0,brake:0,steer:0,flyPressed:false,jumpPressed:false,boost:false});
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies, ...(this.story?.supports ?? [])];
+    if(this.railRiderClearance.active&&(inp.flyPressed||inp.jumpPressed)){
+      const launch=this.railRiderClearance.guardRelativeMotion(this.riderGeometry(),this.player.pos,this.player.pos,this.railRiderEnvelope,true);
+      if(launch.reason!=='clear'){
+        inp.flyPressed=false;inp.jumpPressed=false;
+        this.hud.toast('Move back from the bridge for room to take off','teal');
+      }
+    }
     this.railContacts.beforePlayer(this.player, this.city.movingRail, !!(inp.flyPressed || inp.jumpPressed), dt);
     this.player.update(dt, inp, this.t);
+    this.guardRoofRiderPose(riderFrameStart);
     if (!wasAirborne && this.player.flying) { this.airOrbitPitch = .62; this.airOrbitDist = 0; }
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const railContact = this.railContacts.afterPlayer(this.player, dt);
+    // A fresh landing can establish occupancy in this pass. Cover its entire
+    // same-frame sweep as well, rather than waiting one train step to latch.
+    if(railContact.carried&&!this.railRiderClearance.active&&this.railContacts.supportId?.startsWith('rail:')){
+      this.railRiderClearance.prepare({pos:this.player.pos,placementRevision:this.player.placementRevision,supportId:this.railContacts.supportId,
+        flying:this.player.flying,descending:this.player.descending,jumping:this.player.jumping},this.rail.roofRiderTrains,this.riderGeometry(),this.railRiderEnvelope,this.player.speed);
+    }
+    this.guardRoofRiderPose(riderFrameStart);
     this.story?.afterPlayer(dt);
     // External train impacts may impart momentum after the driving update.
     // Bound that velocity without altering coach carry or collision separation.
