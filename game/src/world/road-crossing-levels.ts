@@ -2,12 +2,11 @@ import type { RoadEdge, XZ } from './types';
 import { roadRibbon } from './bridge-clearance';
 import { roadQuadHeight, type RoadQuad } from './road-surface';
 import mapped from './bridge-level-data.json';
-import sourceCuts from './road-source-geodesic-data.json';
 
 // Relative levels are source facts. Metres per level, headroom and the grade
 // below are explicit gameplay estimates; they are not surveyed elevations.
 const CLEARANCE = 5.85, GRADE = .065;
-type Links = [number, number, number?][][];
+type Links = [number, number][][];
 interface Span { r: number; i: number; quad: RoadQuad; length: number; dx: number; dz: number }
 interface Crossing { priority: number; upper: [number, number]; lower: [number, number]; roads: [string, string]; x: number; z: number; sourceGap: number }
 export interface CrossingLevelReport {
@@ -44,38 +43,14 @@ function closeInGraph(links: Links, a: number[], b: number[], limit = CLEARANCE 
   return false;
 }
 
-const mappedById=new Map(mapped.roads.map(r=>[r.id,r]));
-const cutById=new Map(sourceCuts.roads.map(r=>[r.id,r])),sourceById=new Map(sourceCuts.sources.map(r=>[r.id,r]));
-/** Both the absolute model floor and relative-order solver bind the same
- * source controls. Corrected cuts use official fractions/provenance, never old
- * point indices; legacy inputs retain their guarded coordinate bindings. */
-export function mappedRoadLevelControls(e:RoadEdge):Map<number,number> {
-  const match=mappedById.get(e.id),controls=new Map<number,number>();if(!match)return controls;
-  const cut=cutById.get(e.id),source=cut?sourceById.get(cut.sourceSegmentID):undefined;
-  if(cut&&source&&JSON.stringify(e.pts)===JSON.stringify(cut.pts)){
-    const floors=[...new Set(match.points.map(p=>p[3]))],ways=new Set(match.points.map(p=>`w${p[4]}@${p[5]}`));
-    if(floors.length!==1)throw Error('Corrected mapped road needs explicit source floor intervals: '+e.id);
-    const providers=source.provenance.filter(p=>ways.has(p.record_id));
-    if(!providers.length||(source.levelRules||[]).some(rule=>rule.value>0&&rule.value!==1))throw Error('Corrected mapped road source-level provenance mismatch: '+e.id);
-    for(let i=0;i<cut.sourceFractions.length;i++){
-      const fraction=cut.sourceFractions[i],positive=(source.levelRules||[]).some(rule=>rule.value>0&&fraction>=(rule.between?.[0]??0)-1e-12&&fraction<=(rule.between?.[1]??1)+1e-12);
-      // The retained feature's complete level-1 interval is authoritative,
-      // including added vertices beyond the old sampled OSM point list.
-      if(positive)controls.set(i,floors[0]);
-    }
-    return controls;
-  }
-  for(const[index,x,z,floor]of match.points){const p=e.pts[index];if(p&&Math.hypot(p[0]-x,p[1]-z)<=.15)controls.set(index,floor);}
-  return controls;
-}
 export function mappedRoadLevels(roads: RoadEdge[]) {
-  let points = 0;
+  const byId = new Map(mapped.roads.map(r => [r.id, r])); let points = 0;
   const changed = new Set<string>();
   const result = roads.map(e => {
-    if(!mappedById.has(e.id))return e;
-    const controls=mappedRoadLevelControls(e);if(!controls.size)return e;
+    const match = byId.get(e.id); if (!match) return e;
     const elev = e.pts.map((_, i) => e.elev?.[i] || 0);
-    for (const [i,floor] of controls) {
+    for (const [i, x, z, floor] of match.points) {
+      const p = e.pts[i]; if (!p || Math.hypot(p[0] - x, p[1] - z) > .15) continue;
       elev[i] = Math.max(elev[i], floor); points++;
     }
     if (elev.every((h, i) => Math.abs(h - (e.elev?.[i] || 0)) < .0001)) return e;
@@ -91,7 +66,7 @@ export function repairRoadCrossingLevels(roads: RoadEdge[], offsets: number[], l
     report.ambiguousJoins++; report.ambiguityReasons[reason]=(report.ambiguityReasons[reason]||0)+1;
     if(report.ambiguities.length<256) report.ambiguities.push({roads,x,z,sourceGap,reason});
   };
-  const sourceLevel = new Map(roads.filter(e=>mappedById.has(e.id)).map(e=>[e.id,mappedRoadLevelControls(e)]));
+  const sourceLevel = new Map(mapped.roads.map(r=>[r.id,new Map(r.points.map(p=>[p[0],p[3]]))]));
   const levelAt=(r:number,i:number)=>{const m=sourceLevel.get(roads[r].id),a=m?.get(i),b=m?.get(i+1);return a!==undefined&&b!==undefined&&a===b?a:undefined;};
   const source = heights.slice(), grid = new Map<string, Span[]>(), spans: Span[] = [];
   for (let r = 0; r < roads.length; r++) {
@@ -149,7 +124,7 @@ export function repairRoadCrossingLevels(roads: RoadEdge[], offsets: number[], l
   // would keep exactly the photographed middle deck trapped between two roads.
   const strong=crossings.filter(c=>c.priority===2), strongHeap=new Heap();
   const strongLift=(k:number,y:number)=>{if(fixed[k])return false;if(y>heights[k]+1e-8){heights[k]=y;strongHeap.push([-y,k]);return true;}return false;};
-  const strongSpread=()=>{while(strongHeap.a.length){const[negative,k]=strongHeap.pop(),y=-negative;if(y<heights[k]-1e-7)continue;for(const[n,length,grade]of links[k])strongLift(n,y-(grade??GRADE)*length);}};
+  const strongSpread=()=>{while(strongHeap.a.length){const[negative,k]=strongHeap.pop(),y=-negative;if(y<heights[k]-1e-7)continue;for(const[n,length]of links[k])strongLift(n,y-GRADE*length);}};
   let strongRounds=0;
   for(;strongRounds<24;strongRounds++){let changed=false;for(const c of strong){const target=Math.max(...c.lower.map(k=>heights[k]))+CLEARANCE;for(const k of c.upper)changed=strongLift(k,target)||changed;}if(!changed)break;strongSpread();}
   const protectedControls=fixed.slice();
@@ -162,7 +137,7 @@ export function repairRoadCrossingLevels(roads: RoadEdge[], offsets: number[], l
     const max = heights.map(() => Infinity), q = new Heap();
     for(let k=0;k<fixed.length;k++)if(protectedControls[k]){max[k]=baseline[k];q.push([max[k],k]);}
     for (const c of list) for (const k of c.lower) if (baseline[k] < max[k]) { max[k] = baseline[k]; q.push([max[k], k]); }
-    while (q.a.length) { const [y, k] = q.pop(); if (y > max[k] + 1e-8) continue; for (const [n, length, grade] of links[k]) { const next = y + (grade ?? GRADE) * length; if (next < max[n] - 1e-8) { max[n] = next; q.push([next, n]); } } }
+    while (q.a.length) { const [y, k] = q.pop(); if (y > max[k] + 1e-8) continue; for (const [n, length] of links[k]) { const next = y + GRADE * length; if (next < max[n] - 1e-8) { max[n] = next; q.push([next, n]); } } }
     return max;
   };
   const independent:Crossing[]=strong.slice(), pending=crossings.filter(c=>c.priority!==2).sort((a,b)=>b.priority-a.priority||b.sourceGap-a.sourceGap);
@@ -173,7 +148,7 @@ export function repairRoadCrossingLevels(roads: RoadEdge[], offsets: number[], l
     for(const k of c.lower)if(baseline[k]<acceptedCeil[k]){scratch.set(k,baseline[k]);q.push([baseline[k],k]);}
     while(compatible&&q.a.length){const[y,k]=q.pop();if(y>(scratch.get(k)??Infinity)+1e-8)continue;
       if(y<required[k]-1e-7||upper.has(k)&&y<target-1e-7){compatible=false;break;}
-      for(const[n,length,grade]of links[k]){const next=y+(grade??GRADE)*length;if(next<Math.min(acceptedCeil[n],scratch.get(n)??Infinity)-1e-8){scratch.set(n,next);q.push([next,n]);}}
+      for(const[n,length]of links[k]){const next=y+GRADE*length;if(next<Math.min(acceptedCeil[n],scratch.get(n)??Infinity)-1e-8){scratch.set(n,next);q.push([next,n]);}}
     }
     if(compatible){for(const[k,y]of scratch)acceptedCeil[k]=y;for(const k of c.upper)required[k]=Math.max(required[k],target);independent.push(c);}
     else ambiguity(c.roads,c.x,c.z,c.sourceGap,c.upper.some(k=>fixed[k])?'protected-height-ceiling':'contradictory-lower-road-ceilings');
@@ -183,7 +158,7 @@ export function repairRoadCrossingLevels(roads: RoadEdge[], offsets: number[], l
   const lift = (k: number, y: number) => { y = Math.min(y, ceiling[k]); if (y > heights[k] + 1e-8) { heights[k] = y; heap.push([-y, k]); } };
   for(let k=0;k<heights.length;k++)if(heights[k]>0)heap.push([-heights[k],k]);
   for (const c of independent) { const target = Math.max(...c.lower.map(k => baseline[k])) + CLEARANCE; for (const k of c.upper) lift(k, target); }
-  while (heap.a.length) { const [negative, k] = heap.pop(), y = -negative; if (y < heights[k] - 1e-7) continue; for (const [n, length, grade] of links[k]) lift(n, y - (grade ?? GRADE) * length); }
+  while (heap.a.length) { const [negative, k] = heap.pop(), y = -negative; if (y < heights[k] - 1e-7) continue; for (const [n, length] of links[k]) lift(n, y - GRADE * length); }
   report.relaxationRounds = strongRounds+(independent.length ? 1 : 0);
   for (const c of independent) report.minimumModelSeparation = Math.min(report.minimumModelSeparation, Math.min(...c.upper.map(k => heights[k])) - Math.max(...c.lower.map(k => heights[k])));
   report.separatedCrossings = independent.length; report.crossings = independent.map(({ roads, x, z, sourceGap }) => ({ roads, x, z, sourceGap }));

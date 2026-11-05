@@ -13,14 +13,14 @@ export class CameraTranslationFollow {
   /** Returns true on an unannounced discontinuity so the owner can snap to its
    * independently collision-checked desired view. World-anchored actor shots
    * are sampled but never advected with the car. */
-  advance(position: THREE.Vector3, look: THREE.Vector3, player: THREE.Vector3, dt: number, followsPlayer: boolean) {
+  advance(position: THREE.Vector3, look: THREE.Vector3, player: Readonly<{x:number;y:number;z:number}>, dt: number, followsPlayer: boolean) {
     const dx = player.x - this.previous.x, dy = player.y - this.previous.y, dz = player.z - this.previous.z;
     const discontinuity = this.sampled && dx * dx + dy * dy + dz * dz > 32 * 32;
     if (this.sampled && this.following && followsPlayer && !discontinuity && dt > 0 && position.lengthSq() && look.lengthSq()) {
       position.x += dx; position.y += dy; position.z += dz;
       look.x += dx; look.y += dy; look.z += dz;
     }
-    this.previous.copy(player); this.sampled = true; this.following = followsPlayer;
+    this.previous.set(player.x, player.y, player.z); this.sampled = true; this.following = followsPlayer;
     return discontinuity;
   }
 }

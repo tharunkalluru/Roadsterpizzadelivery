@@ -3,10 +3,8 @@ import { cpSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { build } from 'esbuild';
 import { gameBuildFingerprint } from './build-fingerprint.mjs';
 import { packageLosslessAssets, expandedDirectoryBytes, LOSSLESS_ASSET_PREFIX } from './asset-transport.mjs';
-import { verifyRoadProfileCache } from './compile-road-profile-cache.mjs';
-const profiles = spawnSync(process.execPath, ['scripts/verify-road-profile-corrections.mjs', '--hash-only'], { stdio: 'inherit' });
+const profiles = spawnSync(process.execPath, ['scripts/audit-required-fixes-release.mjs'], { stdio: 'inherit' });
 if (profiles.status !== 0) process.exit(profiles.status || 1);
-await verifyRoadProfileCache(process.cwd());
 rmSync('dist', { recursive: true, force: true });
 const result = spawnSync(process.execPath, ['node_modules/vite/bin/vite.js', 'build', '--outDir', 'dist/client'], { stdio: 'inherit' });
 if (result.status !== 0) process.exit(result.status || 1);
@@ -31,7 +29,8 @@ writeFileSync('dist/client/build-info.json', JSON.stringify({
   sourceDirty: Boolean(status.stdout.trim()),
   buildFingerprint: gameBuildFingerprint(process.cwd()),
   baseline: '02f6abef4946b701ebca6d66d51257e2c5f638be',
-  release: 'fourteen-cinematic-deliveries-v1',
+  release: 'fourteen-required-game-fixes-20261105',
+  roadData: 'existing-live-road-baseline-a679b72',
 }) + '\n');
 mkdirSync('dist/.openai', { recursive: true });
 try { cpSync('.openai/hosting.json', 'dist/.openai/hosting.json'); } catch (error) { if (error.code !== 'ENOENT') throw error; }

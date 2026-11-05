@@ -46,7 +46,8 @@ export class MatchAndLand extends ModuleBase {
     const actor=this.receiver!.group;actor.updateWorldMatrix(true,false);
     // The car stops 3.3m behind the receiver. A camera only .9m to the side
     // sits in its cabin and hides the customer behind the windscreen.
-    actor.localToWorld(this.roofFocusPosition.set(3,1.8,2.4));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));return this.roofFocus;
+    actor.localToWorld(this.roofFocusPosition.set(3,1.8,2.4));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));
+    actor.getWorldPosition(this.roofFocusAnchor);return this.roofFocus;
   }
   get charactersReady(){return this.interior?.charactersReady??super.charactersReady;}
   get headlightGain(){return this.interior ? this.interior.headlightGain : this.roofCustomerNear(14) ? .02 : undefined;}
@@ -89,7 +90,8 @@ export class MatchAndLand extends ModuleBase {
   private catchReturn=0;
   private roofFocusPosition=new THREE.Vector3();
   private roofFocusTarget=new THREE.Vector3();
-  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,context:'stationary-handoff' as const};
+  private roofFocusAnchor=new THREE.Vector3();
+  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,translationAnchor:this.roofFocusAnchor,context:'stationary-handoff' as const};
   private roofLampPlayer=new THREE.Vector3();
   private roofLampWorld=new THREE.Vector3();
   private roofLampRequest={position:this.roofLampWorld,kind:'porch' as const};

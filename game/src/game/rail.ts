@@ -49,6 +49,10 @@ export class RailTrains {
   private nextTrain = 0; private frames = new MovingRailFrames();
   private requestedStoryRun:Run|null=null;
   private conflictReservations=new RailConflictReservations();
+  private riderStop:{train:string;distance:number}|null=null;
+  /** Only an actual occupied ordinary rake receives a finite safety limit. */
+  setRiderStop(stop:{train:string;distance:number}|null){this.riderStop=stop?{train:stop.train,distance:Math.max(0,stop.distance)}:null;}
+  get roofRiderTrains(){return this.trains.map(t=>({id:t.id,story:!!t.story?.active,run:t.run,direction:t.dir,speed:t.v}));}
   get bodies() { return this.frames.bodies; }
   private crossings?: RailwayCrossings;
   setCrossings(crossings: RailwayCrossings) { this.crossings = crossings; }
@@ -224,7 +228,8 @@ export class RailTrains {
       const current = this.trains.map(t => this.shapes(t, t.s));
       const distances = this.trains.map(t => {
         const limits=this.limits(t),terminalRemaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
-        const remaining=Math.min(terminalRemaining,this.conflictReservations.stopDistance(t));
+        let remaining=Math.min(terminalRemaining,this.conflictReservations.stopDistance(t));
+        if(this.riderStop?.train===t.id)remaining=Math.min(remaining,this.riderStop.distance);
         if(t.story&&terminalRemaining<.04&&t.v<.3){
           t.v=0;t.story.dwell+=step;
           if(t.story.dwell>=2.5){t.dir=-t.dir as RailDirection;t.story.dwell=0;t.cruise=16;}
@@ -246,7 +251,7 @@ export class RailTrains {
         else if (!railwaySweepsConflict(current[a], current[a], current[b], next[b])) advance[a] = false;
         else { advance[a] = false; advance[b] = false; }
       }
-      this.trains.forEach((t, i) => { if (advance[i]) {t.s += t.dir * distances[i];travelled.set(t,travelled.get(t)!+distances[i]);} });
+      this.trains.forEach((t, i) => { if (advance[i]) {t.s += t.dir * distances[i];travelled.set(t,travelled.get(t)!+distances[i]);if(this.riderStop?.train===t.id)this.riderStop.distance=Math.max(0,this.riderStop.distance-distances[i]);} });
     }
     const bodies: MovingRailShape[] = [];
     for (const t of [...this.trains]) {

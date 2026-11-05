@@ -87,6 +87,7 @@ test('the physical train handoff and held customer keep the same fixture-aligned
   const f = fixture(); assert.equal(f.module.status.canDrop, true); f.module.onDrop();
   for (let i = 0; i < 30; i++) f.module.update(.05);
   assert.equal(f.completed, 1); assert.ok(f.module.cameraFocus);
+  const anchorBefore=new THREE.Vector3().copy(f.module.cameraFocus!.translationAnchor!);
   const request = f.module.sceneLamp!; assert.equal(request.kind, 'porch');
   Object.assign(f.body.previous, f.body); f.body.x += 6; f.body.z += 4; f.body.hx = 1; f.body.hz = 0;
   Object.assign(f.player, { x: f.body.x - 3.3, z: f.body.z, yaw: -Math.PI / 2 });
@@ -97,6 +98,10 @@ test('the physical train handoff and held customer keep the same fixture-aligned
   assert.ok(request.position.y > face.y + .4);
   assert.ok(f.actor.group.worldToLocal(new THREE.Vector3().copy(request.position)).z > 1);
   assert.ok(f.module.cameraFocus, 'the existing held camera and exact roof contact remain valid');
+  assert.ok(new THREE.Vector3().copy(f.module.cameraFocus!.translationAnchor!).distanceTo(f.actor.group.getWorldPosition(new THREE.Vector3()))<1e-8,
+    'held framing uses the actual transported actor origin');
+  assert.ok(new THREE.Vector3().copy(f.module.cameraFocus!.translationAnchor!).distanceTo(anchorBefore)>5,
+    'the translation anchor follows the moving coach after completion');
   assert.equal(f.module.headlightGain, .02); assert.equal(f.completed, 1);
   f.module.teardown(); assert.equal(f.module.sceneLamp, undefined);
 });

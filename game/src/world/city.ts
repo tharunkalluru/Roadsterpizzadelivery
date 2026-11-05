@@ -36,7 +36,8 @@ import { railwayRoadClearance, roadHeightAt } from './railway-road-clearance';
 import { underpassAreaClipper, buildUnderpassTile } from './underpass-terrain';
 import { shareRoadJunction } from './road-openings';
 import type { MetroFlightClearance } from './metro-flight-clearance';
-import { roadClearanceWidth, roadPavementWidth, roadPavementWidthAt, roadSupportWidthAt, roadPavementLanes } from './road-pavement';
+import { roadPavementWidth, roadPavementWidthAt, roadSupportWidthAt, roadPavementLanes } from './road-pavement';
+import { roadSceneryClearanceWidth as roadClearanceWidth } from './fitted-road-scenery-clearance';
 import { dividerStripeDistance, drawClosedDivider } from './road-divider-mesh';
 import { continuousPaintStroke, paintOnRoad } from './road-paint-mesh';
 
