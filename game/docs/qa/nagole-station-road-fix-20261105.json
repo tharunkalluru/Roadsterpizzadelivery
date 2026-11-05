@@ -1,0 +1,91 @@
+{
+  "scope": "Two station-side road sections only; real southern junction flyover retained",
+  "roadIDs": [
+    "28c35674-10b_0",
+    "baafddc7-d77_0"
+  ],
+  "files": [
+    {
+      "path": "public/city/core.pack.wasm",
+      "beforeSHA256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+      "afterSHA256": "31844477c37dd4d0bb76c212d7eb654ed42b081f74b106f7d3e923cde057f641",
+      "copies": [
+        {
+          "road": "baafddc7-d77_0",
+          "oldElevation": [
+            3.81,
+            1.9,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "points": 18
+        },
+        {
+          "road": "28c35674-10b_0",
+          "oldElevation": [
+            0.0,
+            6.8
+          ],
+          "points": 2
+        }
+      ]
+    },
+    {
+      "path": "public/city/packs/p2_0.pack.wasm",
+      "beforeSHA256": "2869ad7a1f1ec0afc7634d9aed5fdf8142a932e9af86d7b37fbf6d4d53165125",
+      "afterSHA256": "c871911d723534bf99accd04acd1dcdb67891503486b59712e83b0b006ce4e8d",
+      "copies": [
+        {
+          "road": "28c35674-10b_0",
+          "oldElevation": [
+            0.0,
+            6.8
+          ],
+          "points": 2
+        },
+        {
+          "road": "baafddc7-d77_0",
+          "oldElevation": [
+            3.81,
+            1.9,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "points": 18
+        }
+      ]
+    }
+  ],
+  "copies": {
+    "28c35674-10b_0": 2,
+    "baafddc7-d77_0": 2
+  }
+}
