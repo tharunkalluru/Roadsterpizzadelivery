@@ -1,3 +1,4 @@
+import { collegeCampusClearAt } from './college-campus-data';
 import { TPL, TiledBatch, rng } from '../core/util';
 import type { LmData } from './landmarks_data';
 import { EXTRA_LANDMARKS, EXTRA_MODELS } from './landmarks2';
@@ -31,6 +32,7 @@ export function placeLandmarks(origin: { lat: number; lon: number }, availableTi
 // does a landmark's clear zone cover (x, z)? (plain map buildings there are replaced by the model)
 export function inClear(l: Landmark, x: number, z: number) {
   if (l.modelAliasOf) return false;
+  const college = collegeCampusClearAt(l,x,z); if(college!==null)return college;
   const destination = destinationHeroClearAt(l, x, z); if (destination != null) return destination;
   const mapped = mappedLandmarkClearAt(l, x, z);
   if (mapped != null) return mapped;

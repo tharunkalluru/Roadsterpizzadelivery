@@ -1,3 +1,4 @@
+import { COLLEGE_CAMPUSES } from './college-campus-data';
 import type { LmData } from './landmarks_data';
 import { DESTINATION_HERO_PLANS } from './destination-hero-data';
 
@@ -6,6 +7,7 @@ import { DESTINATION_HERO_PLANS } from './destination-hero-data';
 // Exact source versions, rejected alternatives and previous values are retained
 // in pipeline/evidence/landmark-source-decisions-2026-10-26.json.
 export const LANDMARK_CORRECTIONS: Record<string, Partial<LmData>> = {
+  nizam_college: {...COLLEGE_CAMPUSES.nizam_college.anchor,rot:COLLEGE_CAMPUSES.nizam_college.rotation,type:'colonial',w:null,d:null,h:14.3},
   inorbit: { ...DESTINATION_HERO_PLANS.inorbit.anchor, rot: 0 },
   forum: { ...DESTINATION_HERO_PLANS.forum.anchor, rot: 0 },
   lulu: { ...DESTINATION_HERO_PLANS.lulu.anchor, rot: 0 },

@@ -14,7 +14,7 @@ try{
   const snapshot=readEvidenceJson('landmark-osm-source-2026-10-26.json');
   const ledger=readEvidenceJson('landmark-source-decisions-2026-10-26.json');
   const models=m.placeLandmarks(core.origin),byId=new Map(models.map(l=>[l.id,l])),places=m.placeCatalogue(core.origin);
-  assert.equal(models.length,192);assert.equal(places.length,192);
+  assert.equal(models.length,193);assert.equal(places.length,193);
   for(const row of ledger.entries.filter(r=>r.applicationChange)){
     const l=byId.get(row.id),p=places.find(p=>p.id===row.id);
     for(const[k,v]of Object.entries(row.applicationChange.after))assert.equal(m.LANDMARK_CORRECTIONS[row.id][k],v,`${row.id} ${k}: app patch must match recorded review`);

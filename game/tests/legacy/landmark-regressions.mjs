@@ -13,8 +13,8 @@ try {
   const core = JSON.parse(gunzipSync(readFileSync(new URL('../../public/city/core.pack.wasm', import.meta.url))));
   const tiles = core.packs.flatMap((p) => p.tiles), keys = new Set(tiles.map(([i,j]) => `${i}_${j}`));
   const places = placeCatalogue(core.origin), models = placeLandmarks(core.origin, tiles);
-  assert.equal(places.length, 192); assert.equal(new Set(places.map((p) => p.id)).size, 192);
-  assert.equal(models.length, 192); assert.deepEqual(new Set(models.map((p) => p.id)), new Set(places.map((p) => p.id)));
+  assert.equal(places.length, 193); assert.equal(new Set(places.map((p) => p.id)).size, 193);
+  assert.equal(models.length, 193); assert.deepEqual(new Set(models.map((p) => p.id)), new Set(places.map((p) => p.id)));
   for (const p of places) { assert.ok([p.lat,p.lon,p.x,p.z].every(Number.isFinite), p.name); assert.ok(p.icon && p.category); assert.ok(p.x >= core.bounds.minX && p.x <= core.bounds.maxX && p.z >= core.bounds.minZ && p.z <= core.bounds.maxZ, p.name); }
   const byId = new Map(models.map((p) => [p.id,p]));
   for (const p of places) { const m=byId.get(p.id); assert.equal(p.x,m.x); assert.equal(p.z,m.z); assert.ok(keys.has(m.renderTile.join('_')),p.name); }
@@ -24,8 +24,8 @@ try {
   // City-wide clustering never drops a catalogue ID; selected landmarks lead their cluster at any zoom.
   const view = {cx:-4500,cz:0,scale:0.012,width:1200,height:1000};
   const markers=layoutPlaceMarkers(places,view,'charminar');
-  assert.equal(markers.flatMap((p)=>p.members).length,192); assert.equal(new Set(markers.flatMap((p)=>p.members.map((x)=>x.id))).size,192);
-  assert.ok(markers.length<192); assert.ok(markers.some((p)=>p.place.id==='charminar'));
+  assert.equal(markers.flatMap((p)=>p.members).length,193); assert.equal(new Set(markers.flatMap((p)=>p.members.map((x)=>x.id))).size,193);
+  assert.ok(markers.length<193); assert.ok(markers.some((p)=>p.place.id==='charminar'));
   for (const p of places) assert.ok(layoutPlaceMarkers([p],{cx:p.x,cz:p.z,scale:1,width:390,height:844})[0].place.id===p.id);
   const marker=markers[0]; assert.equal(hitPlaceMarker([marker],marker.x+21,marker.y+21),marker); assert.equal(hitPlaceMarker([marker],marker.x+23,marker.y),undefined);
   // Specification and actual emitted model geometry, including both outward-facing normals and arbitrary Kit frame.
@@ -79,8 +79,8 @@ try {
   assert.ok(buddhaAdds.some((a)=>a[0]===TPL.box&&a[1]<0&&a[5]>3.5&&a[8]?.rz<0),'Buddha left forearm must bend towards the collar');
   const m=Object.assign(Object.create(FullMap.prototype),{close:()=>{throw Error('typing must not close');}});
   for (const code of ['KeyM','KeyP','Equal','Minus']) m.handleKey({code,key:code==='Equal'?'+':'m',target:{closest:()=>({})}});
-  const audit=readEvidenceJson('landmark-audit.json'); assert.deepEqual(new Set(audit.entries.map((p)=>p.id)),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191); assert.equal(audit.summary.sharedSiteAliases,1);
-  console.log('Landmark regressions: all 192 place identities, explicit shared-mall alias and three externally owned metro assemblies, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
+  const audit=readEvidenceJson('landmark-audit.json'); assert.deepEqual(new Set([...audit.entries.map((p)=>p.id),'osmania_medical']),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191); assert.equal(audit.summary.sharedSiteAliases,1);
+  console.log('Landmark regressions: all 193 place identities, explicit shared-mall alias and three externally owned metro assemblies, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
 } finally { rmSync(temp,{recursive:true,force:true}); }
 await import('./landmark-cultural-regressions.mjs');
 await import('./ambedkar-model-regressions.mjs');

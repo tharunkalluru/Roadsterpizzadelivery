@@ -129,7 +129,7 @@ abstract class StreetScene extends ModuleBase {
     return this.character(style as CharacterStyle, x, y, z, false, parent);
   }
   protected localPoint(x: number, y: number, z: number) {
-    const yaw = this.params.useExistingStreet ? numberParam(this.params, 'streetYaw', 0, -Math.PI * 2, Math.PI * 2) : 0;
+    const yaw = this.params.realCampusId ? Number(this.params.sceneYaw)||0 : this.params.useExistingStreet ? numberParam(this.params, 'streetYaw', 0, -Math.PI * 2, Math.PI * 2) : 0;
     return new THREE.Vector3(x * Math.cos(yaw) + z * Math.sin(yaw) + this.ctx.destination.x, y + this.ctx.destination.y, -x * Math.sin(yaw) + z * Math.cos(yaw) + this.ctx.destination.z);
   }
   protected streetTarget(x: number, z: number, label: string, notify = true) {
@@ -350,6 +350,7 @@ export class GateDelivery extends StreetScene {
   override get story(){
     const frame=super.story;if(!frame)return undefined;
     const p=this.ctx.player(),d=this.ctx.destination,s=numberParam(this.params,'sceneScale',1,.5,1),dx=p.x-d.x,dz=p.z-d.z;
+    if(this.params.realCampusId)return {...frame,entry:frame.entry&&distanceXZ(p,this.target)<9,yaw:Number(this.params.sceneYaw)||0};
     if(this.theme!=='salaar')return{...frame,entry:frame.entry&&dz>=1&&Math.abs(dx)<14&&distanceXZ(p,this.target)<16};
     const inside=Math.abs(dx)<19*s&&dz< -8.5*s&&dz> -43*s;
     const atGate=Math.abs(dx)<8*s&&dz>=-6*s&&dz<18*s;
@@ -403,7 +404,8 @@ export class GateDelivery extends StreetScene {
     this.theme = (['haunted', 'college', 'villa', 'salaar'].includes(String(this.params.theme)) ? this.params.theme : 'haunted') as GateTheme;
     this.receiver = null; this.doors = []; this.doorBodies = []; this.opening = 0;
     const b = this.batch();
-    if (this.params.useExistingFacade && ['college', 'villa'].includes(this.theme)) this.entranceOnly(b);
+    if(this.params.realCampusId==='nizam_college'){this.root.rotation.y=Number(this.params.sceneYaw)||0;this.receiver=this.actor('hasini',-3.2,0,-7);}
+    else if (this.params.useExistingFacade && ['college', 'villa'].includes(this.theme)) this.entranceOnly(b);
     else if (this.theme === 'haunted') this.haunted(b);
     else if (this.theme === 'college') this.college(b);
     else if (this.theme === 'villa') this.villa(b);
@@ -428,7 +430,7 @@ export class GateDelivery extends StreetScene {
     }
     for (const door of this.doors) { door.position.x *= scale; door.position.z *= scale; door.scale.set(scale, 1, scale); }
     const labels: Record<GateTheme, string> = { haunted: 'Mansion gate', college: 'College gate', villa: 'Villa entrance', salaar: 'Fortified courtyard' };
-    this.setTarget({ ...this.ctx.destination, z: this.ctx.destination.z + (this.theme === 'salaar' ? -21 * scale : 2), label: this.ctx.destination.label || labels[this.theme] });
+    this.setTarget({ ...this.ctx.destination, z: this.ctx.destination.z + (this.theme === 'salaar' ? -21 * scale : this.params.realCampusId ? 0 : 2), label: this.ctx.destination.label || labels[this.theme] });
     this.status = { instruction: this.theme === 'salaar' ? 'Enter through the great gates' : 'Stop by the gate', canDrop: false, actionLabel: 'DELIVER' };
   }
   private entranceOnly(b: SceneBatch) {
@@ -875,6 +877,7 @@ export class AngleParking extends StreetScene {
 }
 
 export class ClassroomHandoff extends StreetScene {
+  override get story(){const frame=super.story;return frame&&this.params.realCampusId?{...frame,yaw:Number(this.params.sceneYaw)||0}:frame;}
   private receiver: SceneCharacter | null = null;
   private courtyardLampLocal=new THREE.Vector3();
   private courtyardLampWorld=new THREE.Vector3();
@@ -906,6 +909,11 @@ export class ClassroomHandoff extends StreetScene {
   }
   protected build() {
     const b = this.batch();
+    if(this.params.realCampusId==='osmania_medical'){
+      this.root.rotation.y=Number(this.params.sceneYaw)||0;
+      this.receiver=this.actor('arjunReddy',-3,0,-3.2);this.courtyardFixture(b);
+      this.status={instruction:'Approach the main academic courtyard',canDrop:false,actionLabel:'HAND OVER'};return;
+    }
     if (this.params.useExistingFacade) {
       // A compact but actual classroom exterior: two wall wings frame an open
       // door and a covered student corridor, with benches and teaching props

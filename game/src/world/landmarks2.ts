@@ -1,3 +1,4 @@
+import { drawCollegeCampus } from './college-campus-models';
 import { TPL } from '../core/util';
 import { drawIndianFlag } from './indian_flag';
 import { drawNilaChakra, drawTemplePennant, drawFurledNishanSahib, JAGANNATH_HEIGHT } from './landmark_symbols';
@@ -395,7 +396,8 @@ const R_: Record<string, Recipe> = {
   // Ravindra Bharathi (1961): auditorium with its stepped facade and the long canopy over the entrance
   ravindra_bharathi: { draw: (K, D) => { K.box(0, 0, 0, W(D, 52) * 0.8, 16, Dp(D, 44) * 0.8, '#e2d8c6'); K.box(0, Dp(D, 44) * 0.4 + 4, 4.5, 30, 0.5, 8, '#f2efe8'); for (let i = -14; i <= 14; i += 4) K.box(i, Dp(D, 44) * 0.4 + 7.5, 0, 0.5, 4.5, 0.5, '#c9c1b2'); K.board('RAVINDRA BHARATHI', 0, Dp(D, 44) * 0.4 + 0.1, 11, 14, 1.6, '#7a2e26', '#f6eedc'); K.solidRect(0, 0, W(D, 52) * 0.8, Dp(D, 44) * 0.8, 16); }, clear: [56, 50] },
   lalitha_kala: { draw: (K) => { for (let k = 0; k < 8; k++) { const a = Math.PI * (0.15 + (k / 7) * 0.7); K.box(Math.cos(a) * (14 + k * 0.1), -Math.sin(a) * 14, 0, 6, 1 + k * 0.5, 3, '#c9bfae', a); } K.box(0, 4, 0, 18, 1.2, 8, '#bdb3a2'); K.board('LALITHA KALA THORANAM', 0, 9, 3, 10); }, clear: 22 },
-  nizam_college: { draw: (K) => { indoSaracenic(K, 80, 26, 12, '#e7d6ae', '#fbf4e2', { dome: 6, chhatris: 6, towers: 7 }); nameAt(K, { name: 'Nizam College' } as any, 15, 3.2); }, clear: [90, 34] },
+  nizam_college: { draw: K => drawCollegeCampus(K,'nizam_college'), clear:0 },
+  osmania_medical: { draw: K => drawCollegeCampus(K,'osmania_medical'), clear:0 },
   gandhi_bhavan: { draw: (K, D) => { colonial(K, W(D, 28), 12, 8, '#f3efe6', '#ffffff', { storeys: 2 }); K.board('GANDHI BHAVAN', 0, 7, 4.5, 9); }, clear: [32, 16] },
   ou_library: { draw: (K, D) => { indoSaracenic(K, W(D, 92) * 0.8, Dp(D, 71) * 0.6, 12, '#c9b392', '#e6d8bc', { dome: 6, chhatris: 4 }); }, clear: [80, 50] },
   // ---- hospitals ----
