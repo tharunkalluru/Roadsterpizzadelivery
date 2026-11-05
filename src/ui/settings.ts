@@ -33,7 +33,7 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <div class="sm">Engine, thrusters, traffic and delivery sounds. Starts after your first tap or key press.</div>
     ${touch ? `<div class="k">Steering</div>${seg('steer', s.steer, [['stick', 'Arrow buttons'], ['tilt', 'Tilt the phone']])}
     <div class="sm">Hold the left or right arrow to steer. Tilt steering hides the arrows; hold your phone sideways and tilt it like a steering wheel.</div>
-    <div class="k">Driving controls</div><div class="sm">Hold GO to accelerate. JUMP performs a short moving kickflip and lands automatically. The next jump is ready five seconds after landing. Road speed is limited to 120 km/h; flight to 160 km/h. FLY changes to LAND in the air, then LANDING while descending. Collection and handover buttons appear when you stop at the marked location.</div>` : ''}
+    <div class="k">Driving controls</div><div class="sm">Hold GO to accelerate. JUMP grabs glowing pizza slices with a moving kickflip and lands automatically; it recharges five seconds after landing. Use FLY / LAND for longer flights. Stop at the blue marker to begin the delivery scene. Road speed is limited to 120 km/h; flight to 160 km/h.</div>` : ''}
     <div class="k">Tips while playing</div>${seg('tips', s.tips ? 'on' : 'off', [['on', 'Show'], ['off', 'Hide']])}
     <small class="sm build-info">Build ${GAME_BUILD.slice(0, 8)} · ${touch ? 'Opaque touch UI' : 'Opaque panel fallback'}</small>`;
 }
