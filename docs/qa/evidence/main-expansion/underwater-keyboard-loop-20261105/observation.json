@@ -1,0 +1,194 @@
+{
+  "schema": "observed-underwater-delivery-normal-input-loop-v1",
+  "source": "http://127.0.0.1:4304/?qaDelivery=2&qaTrainRide=1&qaScene=1&q=low",
+  "workingTreeCommit": "285372f4cc0baf2ae72b80beb808141f747794e9",
+  "runtimeMatchesCommit": "7d801009a4a8141728e7818e169bb7e14061b815",
+  "viewport": [
+    1280,
+    720
+  ],
+  "device": "Desktop Chrome 156; no physical phone",
+  "entryContext": "Temporary QA campaign started at level 2. Its prior train roof test used rear-coach staging, then genuine Next loaded level 3. This observation covers level 3 from ROAMING, not campaign levels 1\u201314.",
+  "method": "Playwright keyboard and button input only for gameplay; read-only telemetry and screenshots. W/A/D driving, E jump pickup, Q flight/descent, Space brake, P pause during planning. No direct position, pickup, completion, level or camera state writes during this level.",
+  "steps": [
+    {
+      "phase": "pickup",
+      "state": "EN_ROUTE",
+      "jumpGrabThroughControls": true,
+      "pos": [
+        -960.4304779867579,
+        0.55,
+        -2090.260718406119
+      ],
+      "speed": 0,
+      "destination": [
+        -2273.8,
+        0,
+        -1361.3
+      ]
+    },
+    {
+      "phase": "airborne-approach",
+      "state": "SETPIECE",
+      "cinematic": false,
+      "flying": true,
+      "speed": 0,
+      "pos": [
+        -2258.393727105222,
+        23.99999999999998,
+        -1369.40550309823
+      ],
+      "horizontalDistance": 17.391,
+      "landingRadius": 3.15,
+      "note": "Approach inside authored entry region; outside the smaller landing ring. This alone does not isolate the flying flag."
+    },
+    {
+      "phase": "manual-descent",
+      "cinematic": false,
+      "descending": true,
+      "y": 5.728551960078911
+    },
+    {
+      "phase": "floating-outside-ring",
+      "cinematic": false,
+      "state": "SETPIECE",
+      "speed": 0,
+      "pos": [
+        -2267.5970833409106,
+        0.14333333333333337,
+        -1360.5900381158615
+      ],
+      "distanceApproxM": 6.2,
+      "note": "No automatic capture while outside the blue landing ring."
+    },
+    {
+      "phase": "settled-arrival-and-automatic-handoff",
+      "state": "LEVEL_COMPLETE",
+      "cinematic": true,
+      "speed": 0,
+      "flying": false,
+      "pos": [
+        -2274.7846437633207,
+        -6,
+        -1361.474575655101
+      ],
+      "visibleText": [
+        "II",
+        "Next \u2192"
+      ],
+      "note": "Normal low-speed water steering/braking centered the car; automatic dive/handoff completed. Reviewed character, neck-grip skeleton pose and delivered carton visible."
+    },
+    {
+      "phase": "held-view",
+      "state": "LEVEL_COMPLETE",
+      "directorPhase": "viewing",
+      "cinematic": true,
+      "additionalWaitSeconds": 5,
+      "visibleText": [
+        "II",
+        "Next \u2192"
+      ],
+      "characterFullyVisible": true
+    },
+    {
+      "phase": "next-click-loading",
+      "opaqueLoadingObserved": true,
+      "loadingStatus": "Loading Sardar Patel Road\u2026",
+      "loadingAriaBusy": "true",
+      "hudInert": true
+    },
+    {
+      "phase": "next-level-ready",
+      "level": 4,
+      "state": "ROAMING",
+      "cinematic": false,
+      "pos": [
+        -2496.4951955186884,
+        0.8180603351314846,
+        -4185.180032645516
+      ],
+      "nextDestination": [
+        -1020.04,
+        0,
+        -3917.85
+      ],
+      "spawnDistanceM": 1500.4616925227986,
+      "normalPickupAndControlsRestored": true
+    }
+  ],
+  "limitations": [
+    "Current legacy road source only; pending global fitted roads remain inactive and unaccepted.",
+    "No physical-phone performance, FPS, heating, battery, full-campaign or final-release acceptance.",
+    "Early files named underwater-story/handoff-or-approach show expected pre-capture approach, not a completed scene.",
+    "Development server build label8816890c is stale; exact tested source identities are recorded."
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/game/game.ts",
+      "sha256": "5debf561d6a536c6d72f68c90b604f716b61cd725fd3245ceb8b8930ecff8124"
+    },
+    {
+      "path": "src/game/player.ts",
+      "sha256": "ccb997bf582a6105e571329b823e5ce941fa57f38a1fea05297f792765b2130f"
+    },
+    {
+      "path": "src/game/physics.ts",
+      "sha256": "6a49738df819075324ecdc3cb74b4ad1895594906a765fedf3fb56fa1bec3ab1"
+    },
+    {
+      "path": "src/delivery/runtime.ts",
+      "sha256": "b8b259696d6efe95750b9cc75f61c566790dff8322d39d023a002efe8bb46143"
+    },
+    {
+      "path": "src/delivery/modules/underwater.ts",
+      "sha256": "b51e8b7de8e65073934befd65d24237a1113337c0126ca31dff87d87280e5ffe"
+    },
+    {
+      "path": "src/delivery/systems/story-landing.ts",
+      "sha256": "3f5b5c231af932df1f77648d813326f961fb229f2c962b7dd828313ae4961e23"
+    },
+    {
+      "path": "src/delivery/systems/story-director.ts",
+      "sha256": "86d526c8ac7b5272f7b071e1a0c18c7834e9a7aa931fef6e867615b93d7daa97"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "airborne-at-marker.png",
+      "sha256": "76bf6edbbbc6ed3cdbff7b1b7ecaa0b3340c178132452fee72d7c101fc737d36"
+    },
+    {
+      "file": "arrival-scene.png",
+      "sha256": "8ef2f87143f3e208214735410752030da0c89dde62ad89dc313c7edfc3ee91d1"
+    },
+    {
+      "file": "descent.png",
+      "sha256": "9f9ede79a2589faec45d005c1c9d5c7968e7bdd1a3d523b0bc79740382dd4d83"
+    },
+    {
+      "file": "handoff-or-approach.png",
+      "sha256": "f40b2b6f281a72e6c8af91d4f85d564085281a25b7152fd427563fb8e0ab6155"
+    },
+    {
+      "file": "held-for-viewing.png",
+      "sha256": "663cf96e36f66da2e1cc7d44882874c99712f378b97393e76cff39510dafd0b5"
+    },
+    {
+      "file": "next-level-ready.png",
+      "sha256": "7a103415aab9c2ec72b615c3b7757fb04bd1a84f7cad4555531a994547a866a8"
+    },
+    {
+      "file": "next-loading.png",
+      "sha256": "ff4367585f22b3e18e5331ecdf12061be88de0efbbe83c7846968f2dac1fe4ef"
+    },
+    {
+      "file": "settled-delivery.png",
+      "sha256": "be4352c6b1914a5aa937fdab462406f8a2c0d5dea544442eb75905c1f75840cf"
+    },
+    {
+      "file": "underwater-story.png",
+      "sha256": "bf6863efddf8f82c7d7475505b6f3a0e92c9cb87b2f6bb57c4dbf9bc8109eae9"
+    }
+  ],
+  "releaseApproved": false
+}
