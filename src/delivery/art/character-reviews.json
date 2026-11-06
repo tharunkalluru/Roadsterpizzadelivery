@@ -2620,16 +2620,16 @@
       "status": "approved",
       "candidate": {
         "assetId": "mahesh-athadu-rodin-cast-v1",
-        "sha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8"
+        "sha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5"
       },
       "candidateFiles": [
         {
-          "path": "public/delivery/characters/mahesh-athadu/rodin-8ac8116cb0e4.glb",
-          "sha256": "8ac8116cb0e46c8b3809cc3d83aaa890dea5987ba8484a576fb1238b407c1730"
+          "path": "public/delivery/characters/mahesh-athadu/rodin-8d69977df5f1.glb",
+          "sha256": "8d69977df5f19acd674d1deb84b8028e20101b2cfed99fe194c1be6e9c435539"
         },
         {
-          "path": "public/delivery/characters/mahesh-athadu/rodin-8ac8116cb0e4.rig.json",
-          "sha256": "64a5275079f4462965bac3f37304348d28c9f9d12bf71be1fd18664fd8bd203a"
+          "path": "public/delivery/characters/mahesh-athadu/rodin-8d69977df5f1.rig.json",
+          "sha256": "d64a1aaf64a265f39b5bedd59ba317980f95d13680ca7312e6c06e2663659927"
         }
       ],
       "authorId": "rodin-cast-art-production",
@@ -2655,80 +2655,81 @@
           "sha256": "15f494af32a0d007b7ca2d752194e0356b12527bed3031714baa8c137627f5d8"
         },
         {
-          "id": "mahesh-athadu-front-a-pose",
+          "id": "mahesh-athadu-phone-illustration",
           "characterId": "mahesh-athadu",
           "kind": "character-illustration",
-          "sourceUrl": "/docs/delivery/character-review/rodin-cast/references/mahesh-athadu.svg",
-          "publisher": "Roadster character art",
-          "path": "docs/delivery/character-review/rodin-cast/references/mahesh-athadu.svg",
-          "sha256": "74a3c33ca1177e0973fff16f1ee1ddb73a1aaff61e39cd2a03877310aa3d5044",
+          "sourceUrl": "/docs/delivery/character-review/rodin-cast/references/mahesh-athadu-phone.png",
+          "publisher": "User-supplied character art",
+          "path": "docs/delivery/character-review/rodin-cast/references/mahesh-athadu-phone.png",
+          "sha256": "5c04f1e5a21acdf8eae8c878c286f9d153abfb5b2dfd63097b596465ab2cf114",
           "primarySource": false,
           "visuallyVerified": true,
-          "note": "Exact single-view A-pose artwork supplied to Rodin for face shape, costume, and color comparison."
+          "note": "The supplied full-body telephone pose used to generate the model."
         }
       ],
       "feedback": [
-        "Clean-shaven jaw, short parted hair, black top and gray trousers carry the Athadu look into the booth. The raised hand remains at the phone while he stays inside."
+        "Verified the front, three-quarter, profile, back and full body, plus the rendered Prasads booth during the conversation. Clean-shaven identity is legible in the independent film reference.",
+        "The ivory telephone, leather jacket, gray trousers, watch and left hand in pocket follow the supplied illustration. The likeness is stylized with a softer jaw and visible segmentation in the cord. All five lines ran and the level reached Next."
       ],
       "evidence": [
         {
           "view": "front",
           "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/front.png",
-          "sha256": "e034134d132054e3ad78d782c37d308b97bf8efa43407459655acce6b3dec76f",
-          "assetSha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8",
+          "sha256": "3c0f353202ea206e3bc8d3f51de82de1e300b8f009cde9078b4e7f3e3de8886d",
+          "assetSha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5",
           "comparedReferenceIds": [
             "athadu-aditya-official-film",
-            "mahesh-athadu-front-a-pose"
+            "mahesh-athadu-phone-illustration"
           ],
-          "observedBy": "independent-campaign-reviewer"
-        },
-        {
-          "view": "three-quarter",
-          "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/three-quarter.png",
-          "sha256": "f8a0d2521d16b4dbfe6655c63f9d2a1b32f09be1b3ef92f1c6319bde2a4c8289",
-          "assetSha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8",
-          "comparedReferenceIds": [
-            "athadu-aditya-official-film",
-            "mahesh-athadu-front-a-pose"
-          ],
-          "observedBy": "independent-campaign-reviewer"
+          "observedBy": "independent-level17-visual-review"
         },
         {
           "view": "profile",
           "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/profile.png",
-          "sha256": "2ed2370180bfa89c5e888bdbf8b87b7791213b4399287caf9d906ab4983897ce",
-          "assetSha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8",
+          "sha256": "7f8881a38e1e08a441392c297cc48d693d1de75f3399cc1a9a4ab0a4b8e64f2a",
+          "assetSha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5",
           "comparedReferenceIds": [
             "athadu-aditya-official-film",
-            "mahesh-athadu-front-a-pose"
+            "mahesh-athadu-phone-illustration"
           ],
-          "observedBy": "independent-campaign-reviewer"
+          "observedBy": "independent-level17-visual-review"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/three-quarter.png",
+          "sha256": "f21316e4d7ad08713904f713a6e209a258e42149a251d5e442cac9daf7f2a831",
+          "assetSha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5",
+          "comparedReferenceIds": [
+            "athadu-aditya-official-film",
+            "mahesh-athadu-phone-illustration"
+          ],
+          "observedBy": "independent-level17-visual-review"
         },
         {
           "view": "full-body",
           "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/full-body.png",
-          "sha256": "45b3304632a471408f48836a5b231fffcebf84a3c55e12034902c153b16b66e0",
-          "assetSha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8",
+          "sha256": "3def08e1bcd3afd78851727b9213347b2ae23e341a0d3b87a1abd27c73f76aff",
+          "assetSha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5",
           "comparedReferenceIds": [
             "athadu-aditya-official-film",
-            "mahesh-athadu-front-a-pose"
+            "mahesh-athadu-phone-illustration"
           ],
-          "observedBy": "independent-campaign-reviewer"
+          "observedBy": "independent-level17-visual-review"
         },
         {
           "view": "in-game-handoff",
           "path": "docs/delivery/character-review/rodin-cast/evidence/mahesh-athadu/in-game-handoff.png",
-          "sha256": "199912af9e2f12f4737ed5afdf43023940a44f484a5ac4edc13f1814534ad333",
-          "assetSha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8",
+          "sha256": "3f988a59d93348574f710bbb4353402298cdcd23e89e00cd280c683352ba4878",
+          "assetSha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5",
           "comparedReferenceIds": [
             "athadu-aditya-official-film",
-            "mahesh-athadu-front-a-pose"
+            "mahesh-athadu-phone-illustration"
           ],
-          "observedBy": "independent-campaign-reviewer"
+          "observedBy": "independent-level17-visual-review"
         }
       ],
-      "reviewerId": "independent-campaign-reviewer",
-      "reviewedAt": "2026-11-06T09:40:52.610Z"
+      "reviewerId": "independent-level17-visual-review",
+      "reviewedAt": "2026-11-06T20:55:28.814115+00:00"
     },
     {
       "characterId": "sukumar",

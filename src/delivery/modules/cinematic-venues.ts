@@ -10,20 +10,6 @@ export class CinematicVenue extends ModuleBase {
  private actor!:SceneCharacter;private actorStart=new THREE.Vector3();private walk=0;
  private boothReceiver?:THREE.Group;private carton?:THREE.Mesh;
  private roleProps:THREE.Object3D[]=[];
- private phoneCord?:THREE.Line;private cordStart=new THREE.Vector3();private phoneWall=new THREE.Vector3();
- private updatePhoneCord(){
-  if(!this.phoneCord||!this.boothReceiver)return;
-  this.phoneCord.visible=this.boothReceiver.visible;if(!this.phoneCord.visible)return;
-  this.boothReceiver.updateWorldMatrix(true,false);
-  this.cordStart.set(0,-.15,.025);this.boothReceiver.localToWorld(this.cordStart);this.root.worldToLocal(this.cordStart);
-  const positions=this.phoneCord.geometry.getAttribute('position');
-  for(let i=0;i<positions.count;i++){
-    const t=i/(positions.count-1),sag=Math.sin(t*Math.PI);
-    positions.setXYZ(i,this.cordStart.x+(this.phoneWall.x-this.cordStart.x)*t+Math.sin(t*Math.PI*24)*.015*sag,
-      this.cordStart.y+(this.phoneWall.y-this.cordStart.y)*t-.35*sag,
-      this.cordStart.z+(this.phoneWall.z-this.cordStart.z)*t+Math.cos(t*Math.PI*24)*.015*sag);
-  }positions.needsUpdate=true;
- }
  private placing=false;private placementT=0;
  private fixtureLocal=new THREE.Vector3();private fixtureWorld=new THREE.Vector3();
  private fixtureLamp={position:this.fixtureWorld,kind:'street-scene' as const};
@@ -57,7 +43,7 @@ export class CinematicVenue extends ModuleBase {
   return {position,target,context:'stationary-handoff' as const};
  }
  protected build(){
-  this.roleProps=[];this.walk=0;this.boothReceiver=undefined;this.carton=undefined;this.phoneCord=undefined;this.placing=false;this.placementT=0;
+  this.roleProps=[];this.walk=0;this.boothReceiver=undefined;this.carton=undefined;this.placing=false;this.placementT=0;
   this.root.rotation.y=Number(this.params.sceneYaw)||0;
   const b=new SceneBatch(g=>this.own(g),c=>this.mat(c),this.root);
   const offset=this.params.actorOffset as number[]|undefined;
@@ -81,18 +67,7 @@ export class CinematicVenue extends ModuleBase {
    for(const dx of [-.9,.9]){b.box(x+dx,y+1.45,z,.1,2.9,1.8,'#7A5651');b.box(x+dx,y+1.5,z-.9,.1,2.9,.1,'#BCA995');}
    b.box(x,y+2.9,z,1.9,.15,1.9,'#765747');b.box(x,y+2.55,z+.92,1.9,.45,.15,'#DCCDB6');b.sign('TELEPHONES',x,y+2.56,z+1.01,1.7,'#342F2D');
    b.box(x,y+.85,z-.82,1.7,1.65,.12,'#725749');b.box(x+.5,y+1.35,z-.68,.35,.6,.12,'#D3BE79');
-   this.boothReceiver=new THREE.Group();this.boothReceiver.name='film-phone-receiver';this.actor.group.add(this.boothReceiver);this.bindProp(this.boothReceiver,'phone');
-   this.boothReceiver.position.y-=.06;
-   const spine=new THREE.CatmullRomCurve3([new THREE.Vector3(0,-.11,.035),new THREE.Vector3(0,-.06,0),new THREE.Vector3(0,.06,0),new THREE.Vector3(0,.11,.035)]);
-   this.boothReceiver.add(new THREE.Mesh(this.own(new THREE.TubeGeometry(spine,16,.019,8,false)),this.mat('#181A1D')));
-   for(const y of [-.115,.115]){const pad=this.cylinder(0,y,.043,.037,.04,'#151719',this.boothReceiver);pad.rotation.x=Math.PI/2;}
-
-   // The cord follows the actual handset's lower end, not an assumed shoulder.
-   this.phoneWall.set(x+.5,y+1.12,z-.62);
-   const cordGeometry=this.own(new THREE.BufferGeometry());cordGeometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array(64*3),3).setUsage(THREE.DynamicDrawUsage));
-   const cordMaterial=new THREE.LineBasicMaterial({color:'#17191B',toneMapped:false});this.materials.set('phone-cord',cordMaterial);
-   this.phoneCord=new THREE.Line(cordGeometry,cordMaterial);this.phoneCord.name='booth-attached-telephone-cord';this.phoneCord.frustumCulled=false;this.root.add(this.phoneCord);
-
+   // The Athadu model includes the ivory handset and its coiled cord.
   }else{
    const film=new THREE.Group();film.name='shankar-xray';this.actor.group.add(film);this.bindProp(film,'xray');this.box(0,0,0,.35,.48,.015,'#192A38',film);
    for(const side of [-1,1])for(let i=0;i<5;i++)this.box(side*.07,.12-i*.055,.011,.085,.012,.006,'#AFC6CC',film);
@@ -117,14 +92,13 @@ export class CinematicVenue extends ModuleBase {
   this.status={instruction:'Stop in the blue marker',canDrop:false,actionLabel:'DELIVER'};
  }
  update(dt:number){
-  if(!this.tick(dt)){this.actor?.setSpeechEnvelope?.(0);this.actor?.animate?.(dt,'idle');this.updatePhoneCord();return;}
+  if(!this.tick(dt)){this.actor?.setSpeechEnvelope?.(0);this.actor?.animate?.(dt,'idle');return;}
   this.root.visible=distanceXZ(this.ctx.player(),this.ctx.destination)<850;
   const active=!!this.ctx.storyActive?.();this.actor.setSpeechEnvelope?.(active?this.ctx.storySpeechEnvelope?.()??0:0);
   const spoken=this.ctx.storyDialogueComplete?.()??true;
   if(this.theme==='wineMart'&&active&&spoken){this.walk=Math.min(1,this.walk+Math.max(0,Math.min(.1,dt))*.25);this.actor.group.position.z=this.actorStart.z+4*this.walk;this.actor.group.position.x=this.actorStart.x-.7*this.walk;if(this.boothReceiver)this.boothReceiver.visible=false;}
   const walking=this.theme==='wineMart'&&this.walk>0&&this.walk<1;
   this.actor.animate?.(dt,walking?'walk':'idle',walking?Math.hypot(4,.7)*.25:0);
-  this.updatePhoneCord();
   this.advanceHandoff(dt);
   if(this.placing&&this.carton){
     this.placementT+=Math.max(0,Math.min(.1,dt));const t=Math.min(1,this.placementT/1.25);

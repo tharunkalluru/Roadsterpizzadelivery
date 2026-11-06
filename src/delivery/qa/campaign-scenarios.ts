@@ -99,7 +99,7 @@ export const CAMPAIGN_SCENARIOS: readonly CampaignScenario[] = [
   {id:'athadu-prasads-booth',title:'Athadu · Prasads interior telephone',completionKind:'placement',requiresVisibleActor:true,
    manualSteps:['Catch an order and stop at the actual Prasads entrance steps.','Watch Mahesh remain inside the interior telephone booth during the automatic conversation.','Observe the carton left on the entrance steps, with no customer collection, and retain the view until Next.'],
    negativeTrial:'A hovering car, remote interaction or a phone prop without its actual actor cannot certify this delivery.',
-   requiredFacts:['grounded-arrival','bound-phone-visible','receiver-stays-in-booth','pizza-left-on-steps'],
+   requiredFacts:['grounded-arrival','receiver-stays-in-booth','pizza-left-on-steps'],
    visualChecks:['The booth is inside Prasads and the carton rests on the actual entrance steps.','Mahesh matches the Athadu Prasads phone scene; the handset meets his hand/ear and he remains in the booth after delivery.'],artIds:['mahesh-athadu']},
   {id:'raja-moving-auto',title:'Raja · Moving auto right-side handoff',requiresVisibleActor:true,
    manualSteps:['Catch an order, then approach the actual marked auto from its right on a legal same-direction lane.','Match speed on the road to trigger the blue marker; watch the actual auto and car continue moving during dialogue and handoff.','Hold the completed moving view until Next; separately test a stopped pre-entry carrier recycling without jumping at a brief signal.'],
