@@ -51,11 +51,11 @@ export interface Car {
   arcadeFlight?: ArcadeVehicleFlight;
   shove?: {vx:number; vz:number};
 }
-type LaunchBody = Pick<Car,'x'|'y'|'z'|'size'|'group'|'lane'> & {edge?:GEdge};
+type LaunchBody = Pick<Car,'x'|'y'|'z'|'hx'|'hz'|'size'|'group'|'lane'> & {edge?:GEdge};
 type ContactBody = Pick<Car,'x'|'y'|'z'|'size'|'hx'|'hz'>;
 interface ArcadeLanding { edge:GEdge; dir:1|-1; s:number; lane:number; pose:ReturnType<RoadGraph['pointAt']>; }
 interface ArcadeVehicleFlight {
-  elapsed:number; duration:number; startX:number; startY:number; startZ:number;
+  elapsed:number; duration:number; startX:number; startY:number; startZ:number; startYaw:number; landingTurn:number;
   vx:number; vy:number; vz:number; landing:ArcadeLanding;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
@@ -165,8 +165,9 @@ export class Traffic {
         const flight=motion.flight;
         body.pitch=this.stepFlight(body,flight,dt);
         if (flight.elapsed===flight.duration) {
-          Object.assign(body,flight.landing.pose);body.pitch=0;
-          body.settledPose={...flight.landing.pose,pitch:0};
+          const {x,y,z}=flight.landing.pose;
+          Object.assign(body,{x,y,z,pitch:0});
+          body.settledPose={x,y,z,hx:body.hx,hz:body.hz,pitch:0};
           this.parkedMotion.delete(body);
         }
       } else {
@@ -241,7 +242,11 @@ export class Traffic {
       if(landing)break;
     }
     if(!landing)return;
-    return {
+    const startYaw=Math.atan2(car.hx,car.hz);
+    // Occupied vehicles ease into the receiving lane. Parked ones keep their own heading.
+    const landingTurn=car.edge ? Math.atan2(landing.pose.hx*car.hz-landing.pose.hz*car.hx,
+      landing.pose.hx*car.hx+landing.pose.hz*car.hz) : 0;
+    return {startYaw,landingTurn,
       elapsed: 0, duration, startX: car.x, startY: car.y, startZ: car.z, landing,
       vx: (landing.pose.x - car.x) / duration,
       vy: (landing.pose.y - car.y + 4.9 * duration * duration) / duration,
@@ -268,7 +273,9 @@ export class Traffic {
         const lane=Math.max(lo,Math.min(hi,car.lane)),s=dir===1?canonical:edge.len-canonical;
         const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-x,pose.z-z),height=Math.abs(pose.y-car.y);
         if(distance>8||height>1.2)continue;
-        const heading = pose.hx * impactX + pose.hz * impactZ;
+        if ((pose.x-car.x)*impactX+(pose.z-car.z)*impactZ<=0) continue;
+        const heading = pose.hx * car.hx + pose.hz * car.hz;
+        if (car.edge && heading < -.01) continue;
         const score=distance+height*.8+(heading<0?Math.abs(heading)*12:0)+(edge===car.edge?5:0);
         if (best && best.score <= score) continue;
         if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
@@ -280,10 +287,12 @@ export class Traffic {
 
   private stepFlight(car:ContactBody, flight:ArcadeVehicleFlight, dt:number) {
     flight.elapsed=Math.min(flight.duration,flight.elapsed+dt);
-    const t=flight.elapsed, horizontalSpeed=Math.hypot(flight.vx,flight.vz)||1;
+    const t=flight.elapsed;
+    const blend=Math.max(0,3*t/flight.duration-2);
+    const yaw=flight.startYaw+flight.landingTurn*blend*blend*(3-2*blend);
     car.x=flight.startX+flight.vx*t;car.z=flight.startZ+flight.vz*t;
     car.y=flight.startY+flight.vy*t-4.9*t*t;
-    car.hx=flight.vx/horizontalSpeed;car.hz=flight.vz/horizontalSpeed;
+    car.hx=Math.sin(yaw);car.hz=Math.cos(yaw);
     return -Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));
   }
 

@@ -177,3 +177,20 @@ test('unoccupied street vehicles use the bumper threshold, settle, and leave the
    if(launch)assert.equal(traffic.resolvePlayerContact(bumper,0,0,-1).impact,undefined);
  }
 });
+
+test('a head-on kick carries the vehicle backwards with its front facing the player through touchdown',()=>{
+ const {traffic,car}=fixture('auto');
+ const {x,z,hx,hz}=car;
+ const gap=car.size[2]/2+2.39;
+ const pos={x:x+hx*gap,z:z+hz*gap,y:car.y+.55};
+ car.speed=12;
+ assert.equal(traffic.resolvePlayerContact(pos,12,-hx,-hz).impact?.kicked,true);
+ for(let i=0;i<128;i++){
+   (traffic as any).advanceArcadeVehicle(car,1/60);
+   assert.ok(car.hx*hx+car.hz*hz>.999);
+   assert.ok((car.x-x)*hx+(car.z-z)*hz<0);
+   if(!car.arcadeFlight)break;
+ }
+ assert.equal(car.arcadeFlight,undefined);
+ assert.equal(car.dir,1);
+});
