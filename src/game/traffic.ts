@@ -148,6 +148,11 @@ export class Traffic {
       car.speed=horizontalSpeed;this.placeVisual(car.g,car,car.size);car.g.rotation.x=-Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));return;
     }
     const {edge,dir,s,lane,pose}=flight.landing;
+    if (car.busRun) {
+      const run = car.busRun;
+      const index = run.path.findIndex((step, i) => i >= run.step && step.edge === edge && step.dir === dir);
+      if (index >= 0) run.step = index;
+    }
     car.edge=edge;car.dir=dir;car.s=s;car.lane=car.laneT=car.base=lane;
     car.x=pose.x;car.y=pose.y;car.z=pose.z;car.hx=pose.hx;car.hz=pose.hz;car.planAfter=0;
     car.arcadeFlight=undefined;car.speed=Math.max(2,Math.min(8,Math.hypot(flight.vx,flight.vz)*.35));car.motion=undefined;this.prepare(car);this.placeVisual(car.g,car,car.size);

@@ -31,6 +31,20 @@ for (const group of ['auto', 'bike', 'car', 'truck', 'bus'] as const) test(`a fa
  assert.equal(car.g.uuid,identity);assert.equal(car.arcadeFlight,undefined);assert.equal(car.edge.e.id,'parallel');
  assert.equal(car.g.parent,traffic.scene);assert.equal(traffic.storyVehicleLeaseStatus(identity),'active');assert.ok(Math.abs(car.y-traffic.graph.pointAt(targetEdge,car.s,car.dir,car.lane).y)<.01);
 });
+test('a scheduled bus resumes the correct route segment after a kick across multiple segments', () => {
+ const {traffic, car, graph} = fixture('bus');
+ const road = graph.edges[0].e;
+ traffic.graph = new RoadGraph([road, {...road, id:'last', from:'c', to:'d', pts:[[30,0],[30,-1000]]}]);
+ const [start, end] = traffic.graph.edges;
+ car.edge = start;
+ car.busRun = {step:0, path:[{edge:start, dir:1}, {edge:start, dir:-1}, {edge:end, dir:1}],
+   target:1, ended:false, stopPosition:{edge:end, dir:1, s:400}} as typeof car.busRun;
+ assert.equal(traffic.kickVehicle(car,18,1,0), true);
+ (traffic as any).advanceArcadeVehicle(car,2.1);
+ assert.equal(car.edge, end);
+ assert.equal(car.busRun?.step,2);
+ assert.equal(car.busRun?.target,1);
+});
 test('leasing a near carrier does not change its road clock, acceleration or trajectory',()=>{
  const a=fixture(),b=fixture();a.traffic.leaseStoryVehicle(a.car.g.uuid);
  for(let i=0;i<90;i++)for(const f of [a,b])f.traffic.update(1/60,0,-100,{x:0,y:.55,z:-100,speed:0});
