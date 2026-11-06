@@ -7,7 +7,8 @@ import assetManifest from './character-assets.json';
 import { CHARACTER_REVIEW_MANIFEST, getCharacterReleaseDecision, type CharacterCandidate, type CharacterReviewManifest } from './release-gate';
 import { applyCharacterMotionBounds, validateCharacterMotionBounds, type CharacterMotionBounds } from './motion-bounds';
 import { createAuthoredMotionPlayer, validateAuthoredMotions, type AuthoredMotionContract } from './authored-motion';
-import { installActorPerformance, prepareActorPerformanceGeometry } from './actor-performance';
+import rodinMouths from './rodin-mouths.json';
+import { createMouthPerformance, installActorPerformance, prepareActorPerformanceGeometry } from './actor-performance';
 import type { FaceAnnotation } from './face-annotations';
 
 export interface ReleasedCharacterResources {
@@ -289,7 +290,14 @@ export class ReleasedGltfRegistry {
     // Native face annotations are picked in this exact authored initial pose.
     // Establish it once before validating skinned barycentric landmarks.
     result.animate?.(0,'idle',0);
-    performance=template.entry.candidate.assetId.endsWith('-rodin-cast-v1')?installRodinHandoff(result,resources):installActorPerformance(result,identity,resources,facePreview);template.memory.instanceGeometryBytes+=performance.bytes;
+    if (template.entry.candidate.assetId.endsWith('-rodin-cast-v1')) {
+      const handoff = installRodinHandoff(result, resources);
+      const annotation = (rodinMouths as FaceAnnotation[]).find(record => record.characterId === identity);
+      const mouth = createMouthPerformance(group, resources, annotation);
+      if (mouth) result.setSpeechEnvelope = amount => mouth.set(amount);
+      performance = { bytes: handoff.bytes + (mouth?.bytes ?? 0), dispose() { mouth?.dispose(); handoff.dispose(); } };
+    } else performance = installActorPerformance(result,identity,resources,facePreview);
+    template.memory.instanceGeometryBytes += performance.bytes;
     return result;
   }
 

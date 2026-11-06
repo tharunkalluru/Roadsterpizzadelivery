@@ -40,6 +40,9 @@ export class MatchAndLand extends ModuleBase {
   get exitPending(){return this.interior?.exitPending??false;}
   get sceneryPending(){return this.interior?.sceneryPending??(this.ready&&this.ended&&this.vehicleKind==='train'&&this.vehicle.visible&&distanceXZ(this.ctx.player(),this.target)<850);}
   get hideWorldGuidance(){return this.interior?.hideWorldGuidance??false;}
+  override setStorySpeech(amount:number){if(this.interior)this.interior.setStorySpeech(amount);else super.setStorySpeech(amount);}
+  override get conversationFocus(){return this.interior?.conversationFocus??super.conversationFocus;}
+  get storyDialogueReady(){return this.interior?.storyDialogueReady??true;}
   get cameraFocus(){
     if(this.interior)return this.interior.cameraFocus;
     if(!this.roofCustomerNear(7)||Math.abs(this.ctx.player().speed)>.75||this.matched<numberParam(this.params,'holdSeconds',.45,0,2))return undefined;

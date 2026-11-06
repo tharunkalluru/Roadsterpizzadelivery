@@ -29,6 +29,10 @@ export function validateLevels(input: unknown): LevelConfig[] {
       const audio = level.storyAudio;
       if (!audio || typeof audio.url !== 'string' || !/^\/audio\/[a-z0-9-]+\.mp3$/.test(audio.url) ||
           !Number.isFinite(audio.duration) || audio.duration <= 0) bad('invalid story recording.');
+      if (audio.speakers !== undefined && (!Array.isArray(audio.speakers) || !audio.speakers.length ||
+          audio.speakers[0]?.at !== 0 || audio.speakers.some((cue: {at:number;who:string}, i:number) =>
+          !cue || !['player','customer'].includes(cue.who) || !Number.isFinite(cue.at) || cue.at >= audio.duration ||
+          (i > 0 && cue.at <= audio.speakers[i-1].at)))) bad('speaker cues must identify ordered turns within the recording.');
       const ends = audio.lineEnds;
       if (ends !== undefined && (!Array.isArray(ends) || ends.length !== level.storyScript?.length ||
           ends.some((end: number, i: number) => !Number.isFinite(end) || end <= (i ? ends[i - 1] : 0) || end > audio.duration))) {

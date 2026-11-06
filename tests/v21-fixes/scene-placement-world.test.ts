@@ -10,6 +10,7 @@ test('all nine current street scenes prepare collision-clear ground approaches i
     assert.deepEqual(report.budgetedPoint, report.point, `${report.id}: incremental search changed placement`);
     assert.ok(report.point!.y >= 0 && report.point!.y <= .37, `${report.id}: ground scene was placed on a roof`);
     assert.ok(report.offset! <= 250, `${report.id}: scene moved outside its public location's local approach`);
+    if (report.id === 'sukumar-angle-parking') assert.equal(report.offset, 0, 'Sukumar must stay at the configured courtyard');
     assert.ok(report.steps < 2000, `${report.id}: preparation work is unbounded`);
   }
 });

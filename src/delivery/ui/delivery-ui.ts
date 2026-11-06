@@ -10,7 +10,6 @@ const pizzaIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a16 
 const silhouette = '<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="43" r="24" fill="#9683A7"/><path d="M19 111v-9a41 41 0 0 1 82 0v9" fill="#9683A7"/><text x="60" y="60" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#271936">?</text></svg>';
 
 export const DELIVERY_UI_CSS = `
-.du-story-subtitle{position:absolute;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(680px,80vw);box-sizing:border-box;padding:12px 18px;border:1px solid #826C93;border-radius:15px;background:#21152f!important;color:#fff5dc;font:600 clamp(13px,2.2vw,18px)/1.45 sans-serif;text-align:center;pointer-events:none;z-index:7}
 
 .delivery-ui{position:absolute;inset:0;pointer-events:none;color:#FFF1D8;font-family:var(--body,system-ui,sans-serif);z-index:7}
 .delivery-ui[hidden],.delivery-ui [hidden]{display:none!important}
@@ -26,11 +25,10 @@ export const DELIVERY_UI_CSS = `
 .du-story-next{position:absolute;bottom:max(22px,env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);min-width:140px;z-index:16}
 #hud.story-cinematic>*{visibility:hidden;pointer-events:none}
 #hud.story-cinematic #b-help{visibility:visible;pointer-events:auto}
-#hud.story-cinematic .delivery-ui>.du-story-subtitle{visibility:visible;pointer-events:none}
 #hud.story-cinematic .delivery-ui>.du-story-next{visibility:visible;pointer-events:auto}
 #hud.story-cinematic .delivery-ui>.du-overlay{visibility:visible;pointer-events:auto}
 #hud.story-cinematic.has-modal #modal,#hud.story-cinematic.has-modal #modal *,#hud.story-cinematic.rotation-blocked #rotate,#hud.story-cinematic.rotation-blocked #rotate *{visibility:visible;pointer-events:auto}
-#hud.story-cinematic.has-modal .du-story-next,#hud.story-cinematic.rotation-blocked .du-story-next,#hud.story-cinematic.has-modal .du-story-subtitle,#hud.story-cinematic.rotation-blocked .du-story-subtitle{visibility:hidden;pointer-events:none}
+#hud.story-cinematic.has-modal .du-story-next,#hud.story-cinematic.rotation-blocked .du-story-next{visibility:hidden;pointer-events:none}
 .du-actions button{width:100%;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
 .du-actions svg{width:23px;height:23px;flex-shrink:0}
 /* Only contextual guidance uses a light translucent surface. Full-screen
@@ -90,11 +88,6 @@ export const DELIVERY_UI_CSS = `
 
 /** Plain opaque DOM overlay; gameplay owns physics and the pause boundary. */
 export class DeliveryUI {
-  private subtitleKey="";
-  setStorySubtitle(line:{who:string;text:string;speaker?:string}|null){
-    const key=line?`${line.who}:${line.text}`:"";if(key===this.subtitleKey)return;this.subtitleKey=key;
-    const el=this.elements["story-subtitle"];el.hidden=!line;if(line)el.textContent=`${line.speaker??(line.who==="player"?"Delivery boy":"Customer")}: ${line.text}`;
-  }
   readonly root: HTMLElement;
   private model: DeliveryView | null = null;
   private callback: DeliveryUIActions;
@@ -123,7 +116,6 @@ export class DeliveryUI {
     this.root = document.createElement('section'); this.root.className = 'delivery-ui'; this.root.setAttribute('aria-label', 'Pizza delivery');
     this.root.innerHTML = `<button class="du-call" data-du="call" type="button" aria-label="Call customer" title="Call customer" hidden>${phoneIcon}<span class="du-call-copy"><span data-du="call-label">Call customer</span><small data-du="call-hint">Tap to call</small></span></button>
       <div class="du-actions" data-du="actions"><button class="du-primary" data-du="drop" hidden>${pizzaIcon}<span data-du="drop-label">Drop</span></button><p class="du-action-hint" data-du="hint" hidden></p></div>
-      <div class="du-story-subtitle" data-du="story-subtitle" role="status" hidden></div>
       <div class="du-notice" data-du="notice" role="status" hidden></div>
       <button class="du-story-next du-primary" data-du="story-next" type="button" hidden>Next →</button>
       <div class="du-overlay" data-du="overlay" role="dialog" aria-modal="true" aria-label="Delivery conversation" hidden>

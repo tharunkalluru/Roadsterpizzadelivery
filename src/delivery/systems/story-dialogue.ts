@@ -14,11 +14,15 @@ export class StoryDialogue {
  private audio?: LevelConfig['storyAudio'];
  private player?: DialoguePlayer;
  private started = false;
+ private voiceLevel = 0;
+ private reaction = 0;
+ private turn = 0;
  private lineEnds: readonly number[] = [];
 
  start(lines: readonly ScriptLine[] = [], audio?: LevelConfig['storyAudio'], player?: DialoguePlayer) {
   this.reset();
   this.lines = lines;
+  this.reaction = !lines.length && !audio ? 1.4 : 0;
   if (!audio || !player) return;
   this.audio = audio;
   this.player = player;
@@ -36,16 +40,23 @@ export class StoryDialogue {
   this.audio = undefined;
   this.player = undefined;
   this.started = false;
+  this.voiceLevel = this.turn = this.reaction = 0;
   this.lineEnds = [];
   this.lines = [];
   this.index = this.elapsed = this.total = 0;
  }
 
+ get silentReaction(){return this.reaction>0;}
  get done() { return !this.audio && this.index >= this.lines.length; }
  get line() { return this.audio && !this.started ? null : this.lines[this.index] ?? null; }
 
  update(dt: number, active: boolean) {
-  if (!active || this.done || !Number.isFinite(dt) || dt <= 0) return;
+  if (!active || !Number.isFinite(dt) || dt <= 0) return;
+  if (this.reaction > 0) {
+   this.reaction = Math.max(0, this.reaction - Math.min(.1,dt));
+   this.total += Math.min(.1,dt);
+  }
+  if (this.done) return;
   if (this.audio && this.player) {
    if (!this.started) {
     this.started = true;
@@ -59,6 +70,9 @@ export class StoryDialogue {
    }
    if (playback.status !== 'failed') {
     this.total = playback.position;
+    this.voiceLevel = playback.speechLevel ?? 0;
+    const turns = this.audio.speakers;
+    while (turns && this.turn + 1 < turns.length && this.total >= turns[this.turn + 1].at) this.turn++;
     // Keep the final line until the recording itself ends, including its tail.
     while (this.index < this.lines.length - 1 && this.total >= this.lineEnds[this.index]) this.index++;
     return;
@@ -75,7 +89,13 @@ export class StoryDialogue {
   if (this.elapsed >= readingTime(line)) { this.index++; this.elapsed = 0; }
  }
 
+ get speaker() {
+  if (this.audio?.speakers?.length) return this.started ? this.audio.speakers[this.turn].who : undefined;
+  return this.line?.who;
+ }
  get speechEnvelope() {
-  return this.line?.who === 'customer' && !this.line.speaker ? .22 + Math.abs(Math.sin(this.total * 14)) * .55 : 0;
+  if (this.reaction>0) return .14 + Math.abs(Math.sin(this.total * 9)) * .24;
+  if (this.speaker !== 'customer') return 0;
+  return this.audio ? this.voiceLevel : .22 + Math.abs(Math.sin(this.total * 14)) * .55;
  }
 }

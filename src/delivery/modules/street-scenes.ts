@@ -225,11 +225,14 @@ export class RopeBucket extends StreetScene {
   private bucketParkingYaw=0;
   private roofLightRequest={position:this.roofLight,kind:'porch' as const};
   get sceneLamp(){
-    if(!this.ended||!this.cameraFocus||!this.rooftop)return undefined;
+    if((!this.ended&&!this.rooftopConversation)||!this.cameraFocus||!this.rooftop)return undefined;
     this.root.localToWorld(this.roofLight.copy(this.roofLightLocal));return this.roofLightRequest;
   }
+  private get rooftopConversation() {
+    return this.phase==='waiting' && !!this.ctx.storyActive?.() && this.ctx.storyDialogueComplete?.()===false;
+  }
   get cameraFocus(){
-    if(this.ready&&!this.ended&&this.ctx.storyActive?.()&&this.bucket){
+    if(this.ready&&!this.ended&&!this.rooftopConversation&&this.ctx.storyActive?.()&&this.bucket){
       const height=this.bucket.position.y,side=this.bucketParkingSide?-this.bucketParkingSide:this.roofCameraSide;
       const nx=this.roofNormal.x,nz=this.roofNormal.y,x=nx*1.5-nz*side*7.5,z=nz*1.5+nx*side*7.5;
       // The basket keeps its actual world-axis panels, even at a rotated
@@ -241,7 +244,7 @@ export class RopeBucket extends StreetScene {
       this.root.localToWorld(this.bucketFocusTarget.set(0,height*.55+2.4,0));
       return this.bucketFocus;
     }
-    if(!this.ready||!this.ended||!this.ctx.storyActive?.()||!this.charactersReady||!this.rooftop||this.rooftop.group.userData.characterRelease==='withheld')return undefined;
+    if(!this.ready||(!this.ended&&!this.rooftopConversation)||!this.ctx.storyActive?.()||!this.charactersReady||!this.rooftop||this.rooftop.group.userData.characterRelease==='withheld')return undefined;
     const actor=this.rooftop.group.position;this.root.updateWorldMatrix(true,false);
     const nx=this.roofNormal.x,nz=this.roofNormal.y,side=this.roofCameraSide;
     // Actor and camera stay on the same tangent side of the winch. The old
@@ -321,7 +324,9 @@ export class RopeBucket extends StreetScene {
     if(this.ready)this.rooftop?.animate?.(elapsed(dt),'idle',1);
     if (!this.tick(dt)) return;
     const step = elapsed(dt), close = distanceXZ(this.ctx.player(), this.ctx.destination) < 42;
-    if (this.phase === 'waiting' && close) this.phase = 'lowering';
+    const canLower = this.ctx.automaticStories && this.ctx.storyDialogueComplete
+      ? this.ctx.storyActive?.() && this.ctx.storyDialogueComplete() : close;
+    if (this.phase === 'waiting' && canLower) this.phase = 'lowering';
     if (this.phase === 'lowering') {
       this.bucket.position.y = Math.max(this.low, this.bucket.position.y - step * 3.4);
       if (this.bucket.position.y <= this.low) this.phase = 'ready';
@@ -398,6 +403,7 @@ export class GateDelivery extends StreetScene {
       this.root.rotation.y = Number(this.params.sceneYaw) || 0;
       // The existing 12 m citadel wall crosses local z = -16. The actor stands inside.
       this.receiver = this.actor('salaar', -8, 0, -26);
+      this.equipSalaarHammer(this.receiver);
       this.porchLocal.set(-6.5, 3.1, -24);
     }
     b.flush(`delivery-${this.theme}-architecture`);
@@ -420,6 +426,26 @@ export class GateDelivery extends StreetScene {
     const labels: Record<GateTheme, string> = { haunted: 'Mansion gate', college: 'College gate', villa: 'Villa entrance', salaar: 'Golconda Fort wall' };
     this.setTarget({ ...this.ctx.destination, z: this.ctx.destination.z + (this.theme === 'salaar' || this.params.realCampusId ? 0 : 2), label: this.ctx.destination.label || labels[this.theme] });
     this.status = { instruction: this.theme === 'salaar' ? 'Stop outside the fort wall' : 'Stop by the gate', canDrop: false, actionLabel: 'DELIVER' };
+  }
+  private equipSalaarHammer(actor: SceneCharacter) {
+    const wrist = actor.group.getObjectByName('RightHand'), index = actor.group.getObjectByName('RightIndex1');
+    const middle = actor.group.getObjectByName('RightMiddle2');
+    if (!(wrist instanceof THREE.Bone) || !middle || !index) return;
+    const grip = index.getWorldPosition(new THREE.Vector3()).lerp(middle.getWorldPosition(new THREE.Vector3()), .55);
+    const hammer = new THREE.Group(); hammer.name = 'salaar-forged-hammer';
+    this.root.add(hammer); hammer.position.copy(this.root.worldToLocal(grip));
+    hammer.rotation.set(-.74, -.12, -.27);
+    const metal = this.batch(hammer);
+    metal.cylinder(0, -.17, 0, .022, .82, '#61422D', .027);
+    metal.cylinder(0, .015, 0, .03, .19, '#372B25');
+    metal.cylinder(0, -.54, 0, .038, .09, '#46484A');
+    metal.box(0, -.625, 0, .34, .14, .14, '#585C61');
+    for (const sign of [-1, 1]) {
+      metal.box(sign * .17, -.625, 0, .035, .15, .15, '#73777A');
+      metal.box(sign * .19, -.625, 0, .012, .13, .13, '#A2A09A');
+    }
+    metal.flush('salaar-hammer-metal-and-grip');
+    wrist.attach(hammer);
   }
   private entranceOnly(b: SceneBatch) {
     const college = this.theme === 'college', height = college ? 5.6 : 3.6, wall = college ? '#C5B28F' : '#E9E2D1';

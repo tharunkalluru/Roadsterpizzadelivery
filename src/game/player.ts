@@ -280,8 +280,10 @@ export class Player {
     if (diving) { this.speed = Math.max(-3, Math.min(8, this.speed)); this.speed *= Math.exp(-.75 * dt); }
     // --- steering (sharper at low speed, reversed when reversing) ---
     const sf = Math.min(1, Math.abs(this.speed) / 6) * (1 / (1 + Math.abs(this.speed) * 0.045));
-    this.steerVis += (inp.steer - this.steerVis) * Math.min(1, dt * 8);
-    this.yaw -= this.steerVis * sf * 2.1 * dt * Math.sign(this.speed || 1);
+    // Ease into a turn, then straighten promptly when the player releases or counters.
+    const easingIn = inp.steer * this.steerVis >= 0 && Math.abs(inp.steer) > Math.abs(this.steerVis);
+    this.steerVis += (inp.steer - this.steerVis) * (1 - Math.exp(-dt * (easingIn ? 5 : 12)));
+    this.yaw -= this.steerVis * sf * (2 - .45 * Math.min(1, Math.abs(this.speed) / 23)) * dt * Math.sign(this.speed || 1);
     const prev = this.pos.clone();
     const f = this.forward;
     this.pos.x += f.x * this.speed * dt; this.pos.z += f.z * this.speed * dt;

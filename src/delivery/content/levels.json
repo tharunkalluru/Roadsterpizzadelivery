@@ -2,7 +2,7 @@
   {
     "id": "sandalwood-special",
     "level": 1,
-    "storyAudio": {"url": "/audio/pushpa.mp3", "duration": 22.361},
+    "storyAudio": {"url": "/audio/pushpa.mp3", "duration": 22.361, "speakers": [{"at": 0, "who": "player"}, {"at": 3.067, "who": "customer"}, {"at": 7.633, "who": "player"}, {"at": 11.767, "who": "customer"}, {"at": 16.233, "who": "player"}]},
     "celebrity": {
       "name": "Pushpa Raj",
       "movie": "Pushpa 2",
@@ -103,7 +103,7 @@
   {
     "id": "paradise-rope-bucket",
     "level": 4,
-    "storyAudio": {"url": "/audio/srikanth-odela.mp3", "duration": 9.77},
+    "storyAudio": {"url": "/audio/srikanth-odela.mp3", "duration": 9.77, "speakers": [{"at": 0, "who": "customer"}, {"at": 3.167, "who": "player"}, {"at": 7.767, "who": "customer"}]},
     "celebrity": {
       "name": "Srikanth Odela",
       "movie": "Paradise rooftop",
@@ -133,7 +133,7 @@
   {
     "id": "arundhati-haunted-gate",
     "level": 5,
-    "storyAudio": {"url": "/audio/arundathi.mp3", "duration": 18.913},
+    "storyAudio": {"url": "/audio/arundathi.mp3", "duration": 18.913, "speakers": [{"at": 0, "who": "player"}, {"at": 2.867, "who": "customer"}, {"at": 7.4, "who": "player"}]},
     "celebrity": {
       "name": "Arundhati",
       "movie": "Arundhati",
@@ -163,7 +163,7 @@
   {
     "id": "jessie-walking-delivery",
     "level": 6,
-    "storyAudio": {"url": "/audio/jessie.mp3", "duration": 26.253},
+    "storyAudio": {"url": "/audio/jessie.mp3", "duration": 26.253, "speakers": [{"at": 0, "who": "player"}, {"at": 1.267, "who": "customer"}, {"at": 2.567, "who": "player"}, {"at": 8.5, "who": "customer"}, {"at": 21.133, "who": "player"}]},
     "celebrity": {
       "name": "Jessie",
       "movie": "Ye Maaya Chesave",
@@ -224,7 +224,7 @@
   {
     "id": "bhanumathi-wedding-street",
     "level": 8,
-    "storyAudio": {"url": "/audio/bhanumathi.mp3", "duration": 16.144},
+    "storyAudio": {"url": "/audio/bhanumathi.mp3", "duration": 16.144, "speakers": [{"at": 0, "who": "player"}, {"at": 2.9, "who": "customer"}, {"at": 7.567, "who": "player"}]},
     "celebrity": {
       "name": "Bhanumathi",
       "movie": "Fidaa",
@@ -253,7 +253,7 @@
   {
     "id": "sukumar-angle-parking",
     "level": 9,
-    "storyAudio": {"url": "/audio/sukumar.mp3", "duration": 19.226},
+    "storyAudio": {"url": "/audio/sukumar.mp3", "duration": 19.226, "speakers": [{"at": 0, "who": "player"}, {"at": 2.133, "who": "customer"}, {"at": 10.4, "who": "player"}]},
     "celebrity": {
       "name": "Sukumar",
       "movie": "Film Nagar production office",
@@ -261,11 +261,11 @@
     },
     "destination": {
       "label": "Film Nagar · Fictional production courtyard",
-      "x": -9520.34,
-      "z": -741.51,
+      "x": -9601.6414,
+      "z": -707.83386,
       "y": 0,
-      "lat": 17.413,
-      "lon": 78.407
+      "lat": 17.412697,
+      "lon": 78.406235
     },
     "callMode": "NONE",
     "revealAt": "afterDelivery",
@@ -273,6 +273,7 @@
     "module": "angleParking",
     "moduleParams": {
       "characterId": "sukumar",
+      "fixedCourtyard": true,
       "parkingYaw": 0.7853981633974483,
       "angleTolerance": 8
     },
@@ -314,7 +315,7 @@
   {
     "id": "maruthi-villa-79",
     "level": 11,
-    "storyAudio": {"url": "/audio/maruthi.mp3", "duration": 22.491},
+    "storyAudio": {"url": "/audio/maruthi.mp3", "duration": 22.491, "speakers": [{"at": 0, "who": "player"}, {"at": 2.633, "who": "customer"}, {"at": 8.733, "who": "player"}, {"at": 10.933, "who": "customer"}, {"at": 12.6, "who": "player"}, {"at": 17.067, "who": "customer"}, {"at": 19.633, "who": "player"}]},
     "celebrity": {
       "name": "Maruthi",
       "movie": "Kondapur villa",
@@ -438,7 +439,7 @@
   {
     "id": "balayya-wine-mart",
     "level": 15,
-    "storyAudio": {"url": "/audio/balayya.mp3", "duration": 18.73, "lineEnds": [2.63, 4, 5.53, 7.43, 10.83, 13.43, 18.73]},
+    "storyAudio": {"url": "/audio/balayya.mp3", "duration": 18.73, "lineEnds": [2.63, 4, 5.53, 7.43, 10.83, 13.43, 18.73], "speakers": [{"at": 0, "who": "player"}, {"at": 2.633, "who": "customer"}, {"at": 4, "who": "player"}, {"at": 5.533, "who": "customer"}, {"at": 7.433, "who": "player"}, {"at": 10.833, "who": "customer"}, {"at": 13.433, "who": "player"}, {"at": 16.133, "who": "customer"}]},
     "celebrity": {
       "name": "Balayya",
       "movie": "Chennakesava Reddy",
@@ -501,7 +502,7 @@
   {
     "id": "shankar-arts-corridor",
     "level": 16,
-    "storyAudio": {"url": "/audio/shankar.mp3", "duration": 20.193, "lineEnds": [2.37, 7.1, 10.4, 15.85, 17.7, 20.193]},
+    "storyAudio": {"url": "/audio/shankar.mp3", "duration": 20.193, "lineEnds": [2.37, 7.1, 10.4, 15.85, 17.7, 20.193], "speakers": [{"at": 0, "who": "player"}, {"at": 2.367, "who": "customer"}, {"at": 7.1, "who": "player"}, {"at": 10.4, "who": "customer"}, {"at": 17.7, "who": "player"}]},
     "celebrity": {
       "name": "Shankar Dada",
       "movie": "Shankar Dada MBBS",
@@ -565,7 +566,7 @@
   {
     "id": "athadu-prasads-booth",
     "level": 17,
-    "storyAudio": {"url": "/audio/mahesh-babu.mp3", "duration": 23.798, "lineEnds": [3, 3.83, 9.9, 16.57, 23.798]},
+    "storyAudio": {"url": "/audio/mahesh-babu.mp3", "duration": 23.798, "lineEnds": [3, 3.83, 9.9, 16.57, 23.798], "speakers": [{"at": 0, "who": "player"}, {"at": 3, "who": "customer"}, {"at": 3.833, "who": "player"}, {"at": 9.9, "who": "customer"}, {"at": 16.567, "who": "player"}]},
     "celebrity": {
       "name": "Mahesh Babu",
       "movie": "Athadu",
@@ -625,7 +626,7 @@
   {
     "id": "raja-moving-auto",
     "level": 18,
-    "storyAudio": {"url": "/audio/raja.mp3", "duration": 22.256, "lineEnds": [4.23, 7.67, 10.5, 22.256]},
+    "storyAudio": {"url": "/audio/raja.mp3", "duration": 22.256, "lineEnds": [4.23, 7.67, 10.5, 22.256], "speakers": [{"at": 0, "who": "player"}, {"at": 4.233, "who": "customer"}, {"at": 7.667, "who": "player"}, {"at": 10.5, "who": "customer"}]},
     "celebrity": {
       "name": "Raja",
       "movie": "Raja",
@@ -673,7 +674,7 @@
   {
     "id": "indu-moving-bus",
     "level": 19,
-    "storyAudio": {"url": "/audio/indu.mp3", "duration": 24.764, "lineEnds": [3.2, 5.4, 6.05, 7.87, 16.7, 20.1, 21.07, 22.97, 24.764]},
+    "storyAudio": {"url": "/audio/indu.mp3", "duration": 24.764, "lineEnds": [3.2, 5.4, 6.05, 7.87, 16.7, 20.1, 21.07, 22.97, 24.764], "speakers": [{"at": 0, "who": "customer"}, {"at": 3.2, "who": "player"}, {"at": 5.4, "who": "customer"}, {"at": 7.867, "who": "player"}, {"at": 12.5, "who": "customer"}, {"at": 13.133, "who": "player"}, {"at": 16.7, "who": "customer"}, {"at": 20.1, "who": "player"}, {"at": 21.067, "who": "customer"}, {"at": 22.967, "who": "player"}]},
     "celebrity": {
       "name": "Indu",
       "movie": "Magadheera",

@@ -137,6 +137,8 @@ export interface DeliveryModule {
   /** A deliberate, physically valid parked delivery position, including a
    * retained completed set. Never suppresses recovery while trying to leave. */
   readonly intentionalStop?: boolean;
+  setStorySpeech?(amount:number):void;
+  readonly conversationFocus?:ModuleCameraFocus;
   readonly cameraFocus?: ModuleCameraFocus;
   readonly charactersReady?:boolean;
   /** Enclosed parking scenes can dim existing beams without changing light counts. */

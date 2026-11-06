@@ -14,6 +14,18 @@ export class RecordedTrack {
   constructor(private context: AudioContext, private output: AudioNode, private loop: boolean,
     private onFinish?: () => void) {}
 
+  /** Short RMS window of the decoded voice, independent of master volume. */
+  get speechLevel() {
+    if (!this.buffer || !this.source || this.status !== 'playing') return 0;
+    const pcm = this.buffer.getChannelData(0);
+    const end = Math.min(pcm.length, Math.floor(this.position * this.buffer.sampleRate));
+    const start = Math.max(0, end - Math.round(this.buffer.sampleRate * .028));
+    let sum = 0, count = 0;
+    for (let i = start; i < end; i += 8) { sum += pcm[i] * pcm[i]; count++; }
+    const rms = Math.sqrt(sum / Math.max(1, count));
+    return Math.max(0, Math.min(1, (rms - .012) * 8));
+  }
+
   get duration() { return this.buffer?.duration ?? 0; }
   get position() {
     const elapsed = this.offset + (this.source ? this.context.currentTime - this.startedAt : 0);

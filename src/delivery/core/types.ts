@@ -26,7 +26,7 @@ export interface LevelConfig {
   script: ScriptLine[];
   /** Automatic scene dialogue; independent from phone-call gating. */
   storyScript?: ScriptLine[];
-  storyAudio?: { url: string; duration: number; lineEnds?: number[] };
+  storyAudio?: { url: string; duration: number; lineEnds?: number[]; speakers?: {at: number; who: ScriptLine['who']}[] };
   nagScript?: ScriptLine[];
   bonusScript?: ScriptLine[];
   module: DeliveryModuleName;

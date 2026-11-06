@@ -10,7 +10,7 @@ test('train horn respects unlock, mute, hidden-page state, distance and spatial 
   const sound:any=Object.assign(Object.create(Sound.prototype),{ctx:null,master:null,muted:false,foreground:true,trainHornAt:-Infinity});
   try{
     sound.trainHorn(0,0);assert.equal(oscillators.length,0,'no gesture-unlocked context means no voices');
-    sound.ctx=context;sound.master={};sound.trainHorn(150,2);assert.equal(oscillators.length,3);assert.ok(nodes.some(n=>n.pan?.value===1));assert.ok(oscillators.every(o=>o.stopAt-o.startAt>=1.3));
+    sound.ctx=context;sound.effects={};sound.trainHorn(150,2);assert.equal(oscillators.length,3);assert.ok(nodes.some(n=>n.pan?.value===1));assert.ok(oscillators.every(o=>o.stopAt-o.startAt>=1.3));
     sound.trainHorn(150,0);assert.equal(oscillators.length,3,'adjacent crossing records do not layer duplicate horns');
     oscillators.forEach(o=>o.onended());assert.ok(nodes.every(n=>n.disconnected),'all transient horn nodes disconnect');
     context.currentTime=3;sound.muted=true;sound.trainHorn(0,0);sound.muted=false;(document as any).hidden=true;sound.trainHorn(0,0);(document as any).hidden=false;sound.foreground=false;sound.trainHorn(0,0);sound.foreground=true;sound.trainHorn(1000,0);assert.equal(oscillators.length,3);

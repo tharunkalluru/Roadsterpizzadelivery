@@ -7,7 +7,7 @@ import { mappedRoadLevels, repairRoadCrossingLevels, type CrossingLevelReport } 
 // Keep controlled ORR profiles and existing high-level crossings intact while
 // extending estimated approaches over their connected, same-level road network.
 const BASE_GRADE = .065, SAMPLE = 2, SEPARATION = 4.5;
-export interface RoadGradePatch { id: string; pts: XZ[]; elev: number[] | null; w?:number; joinedPavement?:RoadEdge['joinedPavement']; sceneryWidth?:number }
+export interface RoadGradePatch { id: string; pts: XZ[]; elev: number[] | null; w?:number; lanes?:number; joinedPavement?:RoadEdge['joinedPavement']; sceneryWidth?:number }
 export interface RoadGradeReport {
   roads: number; repairedRoads: number; sourceSteepSegments: number; modelSteepSegments: number; maxModelGrade: number;
   protectedRoads: number; protectedRoadsChanged: number; separatedCrossings: number; minCrossingSeparation: number;
@@ -35,7 +35,7 @@ export function roadHeightAlong(e: RoadEdge, distance: number) {
   }
   return gradeOf(e, 0);
 }
-const patchOf=(e:RoadEdge):RoadGradePatch=>({id:e.id,pts:e.pts,elev:e.elev,...(e.joinedPavement?.release==='reviewed-paradise-fork-20261105'?{w:e.w,joinedPavement:e.joinedPavement,sceneryWidth:e.sceneryWidth}:{})});
+const patchOf=(e:RoadEdge):RoadGradePatch=>({id:e.id,pts:e.pts,elev:e.elev,...((e.joinedPavement?.release==='reviewed-paradise-fork-20261105'||e.joinedPavement?.release==='reviewed-masab-tank-fork')?{w:e.w,lanes:e.lanes,joinedPavement:e.joinedPavement,sceneryWidth:e.sceneryWidth}:{})});
 export function roadGradePatches(roads: RoadEdge[]) { return patches.get(roads) || []; }
 // A cached core can already contain the repaired profiles when another World
 // is created. Publish those profiles even if this pass made no new changes.
@@ -48,7 +48,7 @@ export function currentRoadGradePatches(roads: RoadEdge[], seed: RoadGradePatch[
 export function roadGradeReport(roads: RoadEdge[]) { return reports.get(roads); }
 export function applyRoadGradePatches(roads: RoadEdge[], changes: RoadGradePatch[]) {
   const byId = new Map(changes.map(p => [p.id, p]));
-  return roads.map(e => { const p = byId.get(e.id); return p ? { ...e, pts: p.pts, elev: p.elev, ...(p.w===undefined?{}:{w:p.w,joinedPavement:p.joinedPavement,sceneryWidth:p.sceneryWidth}) } : e; });
+  return roads.map(e => { const p = byId.get(e.id); return p ? { ...e, pts: p.pts, elev: p.elev, ...(p.w===undefined?{}:{w:p.w,lanes:p.lanes??e.lanes,joinedPavement:p.joinedPavement,sceneryWidth:p.sceneryWidth}) } : e; });
 }
 export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
   if (prepared.has(roads)) return prepared.get(roads)!;

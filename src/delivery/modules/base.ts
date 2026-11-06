@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
 import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus, ModuleStoryFrame, ModuleStoryLandingZone } from './types';
 import type { SceneCharacter } from './character';
-import { createReleasedSceneCharacter } from '../art/scene-character';
+import { createReleasedSceneCharacter, sceneCharacterIdentity } from '../art/scene-character';
 import { InstancePreparation } from '../art/instance-preparation';
 import { deliveryPizzaBoxGeometry } from './pizza-box';
 
@@ -28,6 +28,17 @@ export abstract class ModuleBase implements DeliveryModule {
   protected dropFeedback = '';
   protected bodies: MovingRailBody[] = [];
   private actorPreparation:InstancePreparation|null=null;
+  private speakingActor?:SceneCharacter;
+  private readonly speakerShot={position:new THREE.Vector3(),target:new THREE.Vector3(),translationAnchor:new THREE.Vector3(),context:'stationary-handoff' as const};
+  setStorySpeech(amount:number){this.speakingActor?.setSpeechEnvelope?.(amount);}
+  get conversationFocus(){
+    const actor=this.speakingActor?.group;
+    if(!actor?.visible)return undefined;
+    actor.localToWorld(this.speakerShot.target.set(0,1.45,0));
+    actor.localToWorld(this.speakerShot.position.set(.55,1.58,2.05));
+    actor.getWorldPosition(this.speakerShot.translationAnchor);
+    return this.speakerShot;
+  }
   protected get prepareActors(){return true;}
   get charactersReady(){return this.actorPreparation?.ready??true;}
   private handoff: { receiver:SceneCharacter; from:THREE.Vector3; elapsed:number; after:()=>void }|null=null;
@@ -117,6 +128,7 @@ export abstract class ModuleBase implements DeliveryModule {
   }
   protected character(style: string, x: number, y: number, z: number, seated=false, parent=this.root) {
     const character=(this.ctx.characterFactory??createReleasedSceneCharacter)(style,seated,{geometry:g=>this.own(g),material:(key,m)=>this.materials.set(`${key}:${this.materials.size}`,m)});
+    if(sceneCharacterIdentity(style)===this.params.characterId&&this.params.characterId)this.speakingActor=character;
     character.group.position.set(x,y,z);parent.add(character.group);this.prepareActor(character);return character;
   }
   protected prepareActor(character:SceneCharacter){if(character.group.userData.releasedCharacter||character.group.userData.localCharacterArtPreview)this.actorPreparation?.add(character.group);}
@@ -194,7 +206,7 @@ export abstract class ModuleBase implements DeliveryModule {
       previous: { x: d.x, y: d.y, z: d.z, hx: 0, hz: 1 } });
   }
   teardown() {
-    this.actorPreparation?.dispose();this.actorPreparation=null;
+    this.speakingActor=undefined;this.actorPreparation?.dispose();this.actorPreparation=null;
     this.cancelHandoff();this.handoffPizza=null;
     for (const mesh of this.instances) mesh.dispose();
     this.instances.clear();

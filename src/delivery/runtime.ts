@@ -1,6 +1,6 @@
 import type { Car } from '../game/traffic';
 import { StoryDialogue } from './systems/story-dialogue';
-import type { Group } from 'three';
+import { Vector3, type Group } from 'three';
 import { prepareCharacterGpu } from './art/gpu-preparation';
 import { campaignSession, campaignSpawn } from './campaign';
 import type { Game } from '../game/game';
@@ -9,7 +9,7 @@ import { loadLevels } from './content/levels';
 import { NavSystem } from './systems/nav-system';
 import { DeliveryUI, type DeliveryView, type DeliveryUIActions } from './ui/delivery-ui';
 import { createDeliveryModule } from './modules';
-import type { DeliveryModule, DeliveryPoint, DeliveryRoadVehicle } from './modules/types';
+import type { DeliveryModule, DeliveryPoint, DeliveryRoadVehicle, ModuleCameraFocus } from './modules/types';
 import type { MovingRailBody } from '../game/moving-rail';
 import { roofUnder, supportAt, collideBuildings } from '../game/physics';
 import type { LevelConfig, StorageLike } from './core/types';
@@ -67,7 +67,7 @@ export function deliveryStoryPoseClear(city:CityData&{tiles?:Map<string,unknown>
   return true;
 }
 
-type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'|'setStorySubtitle'>>;
+type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'>>;
 /** Content/adapters are injectable without changing the state machine or gameplay timing. */
 export interface DeliveryRuntimeOptions {
   levels?: LevelConfig[];
@@ -220,7 +220,20 @@ export class DeliveryRuntime {
   }
   get destination() { return this.target; }
   get hideWorldGuidance(){return this.cinematic||this.activeOrder&&!!this.module?.hideWorldGuidance;}
-  get cameraFocus(){
+  get conversationSpeaker(){return this.cinematic&&!this.director.viewing?this.storyDialogue.speaker:undefined;}
+  private readonly driverShot={position:new Vector3(),target:new Vector3(),translationAnchor:new Vector3(),context:'stationary-handoff' as const};
+  get cameraFocus():ModuleCameraFocus|undefined{
+    const speaker=this.conversationSpeaker;
+    if(speaker==='player'){
+      const {pos,yaw}=this.game.player,frontX=-Math.sin(yaw),frontZ=-Math.cos(yaw);
+      const indoor=this.module?.hideWorldGuidance&&this.controller.activeLevel?.moduleParams.scene==='truckInterior';
+      const side=indoor ? .65 : 2.45,forward=indoor?2.8:4.25;
+      this.driverShot.target.set(pos.x+frontX*.45,pos.y+.5,pos.z+frontZ*.45);
+      this.driverShot.position.set(pos.x+frontX*forward-frontZ*side,pos.y+(indoor?1.0:1.55),pos.z+frontZ*forward+frontX*side);
+      this.driverShot.translationAnchor.copy(pos);
+      return this.driverShot;
+    }
+    if(speaker==='customer')return this.module?.cameraFocus??this.module?.conversationFocus;
     const active=this.module?.cameraFocus;if(active||this.activeOrder)return active;
     // Let a parked player see a receiver settle after Next. The module's own
     // stop/flight/orbit gates still release this view; a new job owns its camera.
@@ -360,7 +373,7 @@ export class DeliveryRuntime {
     }
     this.module?.update(dt);
     if(this.roadCarrierLost){
-      this.roadCarrierLost=false;this.removeModule();this.director.reset();this.storyDialogue.reset();this.ui.setStorySubtitle?.(null);this.storyLanding.reset();
+      this.roadCarrierLost=false;this.removeModule();this.director.reset();this.storyDialogue.reset();this.storyLanding.reset();
       this.storyPoseReady=false;this.storyLandingReady=false;this.prepareAfter=this.elapsed+.5;
       const p=this.game.player.pos;if(c.activeLevel){c.activeLevel.destination={...c.activeLevel.destination,x:p.x,z:p.z,y:p.y-.55};this.setTarget({...c.activeLevel.destination,y:p.y-.55});}
       this.game.resetInput();this.notice='Finding another nearby delivery vehicle…';this.noticeUntil=this.elapsed+3;this.syncView();return;
@@ -394,8 +407,13 @@ export class DeliveryRuntime {
       this.syncView();
     }
     this.module?.setStoryPresentation?.(this.cinematic,landing);
-    this.storyDialogue.update(dt,this.cinematic&&!this.director.viewing&&this.module?.storyDialogueReady!==false);
-    this.ui.setStorySubtitle?.(this.cinematic&&!this.director.viewing?this.storyDialogue.line:null);
+    // Unvoiced reactions belong at the handoff: a long metro ride or a dive
+    // may begin well before the character comes into view.
+    const perform=this.cinematic&&(this.storyDialogue.silentReaction?
+      !!this.module?.status.canDrop||this.director.viewing:
+      !this.director.viewing&&this.module?.storyDialogueReady!==false);
+    this.storyDialogue.update(dt,perform);
+    this.module?.setStorySpeech?.(perform?this.storyDialogue.speechEnvelope:0);
     if(this.director.actionReady(dt,this.storyDialogue.done&&this.storyPoseReady&&!!this.module?.status.canDrop&&c.canDrop))this.module?.onDrop();
     if(this.retainedCompletedScene&&!this.cinematic&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
     this.trafficBodies.length = 0;
@@ -611,7 +629,7 @@ export class DeliveryRuntime {
     }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop&&(level.callMode!=='NONE'||this.cinematic||this.storyLandingReady), automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
       storyDialogueComplete:()=>this.storyDialogue.done,storySpeechEnvelope:()=>this.storyDialogue.speechEnvelope,
-      storySpeaker:()=>this.storyDialogue.line?.who,
+      storySpeaker:()=>this.storyDialogue.speaker,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       cameraPathClear: (from, to) => {
@@ -794,7 +812,7 @@ export class DeliveryRuntime {
   }
   private releaseStoryTrain(){this.game.rail?.clearStoryShuttle?.();this.storyShuttle='';this.storyRun=null;}
   private clearDelivery(preserveExit=false) {
-    this.director.reset();this.storyDialogue.reset();this.ui.setStorySubtitle?.(null);this.storyLanding.reset();this.storyLandingReady=false;this.showFinale=false;this.storyPoseReady=false;
+    this.director.reset();this.storyDialogue.reset();this.storyLanding.reset();this.storyLandingReady=false;this.showFinale=false;this.storyPoseReady=false;
     if(!preserveExit||!this.retainedCompletedScene||!this.module?.exitPending)this.removeModule(preserveExit);
     if(!preserveExit){for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[];}
     this.releaseStoryTrain(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;

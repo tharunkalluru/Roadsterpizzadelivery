@@ -23,3 +23,40 @@ test('subtitles and speaker changes follow playback through buffering, pause and
  dialogue.start([],clip,player);dialogue.update(.1,true);dialogue.reset();
  assert.deepEqual(events,['/story.mp3','stopped','/story.mp3','stopped']);
 });
+
+import { DELIVERY_LEVELS } from '../../src/delivery/content/levels';
+
+test('every current recording switches shots at its edit cues and articulates only the customer voice', () => {
+ const levels = DELIVERY_LEVELS.filter(level => level.storyAudio);
+ assert.equal(levels.length, 12);
+ for (const level of levels) {
+  const clip = level.storyAudio!;
+  const cues = clip.speakers!;
+  assert.equal(cues[0].who, [4,19].includes(level.level) ? 'customer' : 'player');
+  assert.ok(cues.some(cue => cue.who==='customer') && cues.some(cue => cue.who==='player'));
+  const clock:Sound['dialoguePlayback'] = {status:'playing',duration:clip.duration,position:0,speechLevel:.73};
+  const dialogue = new StoryDialogue();
+  dialogue.start(level.storyScript, clip, {dialoguePlayback:clock,startDialogue(){},stopDialogue(){}});
+  for (const [i,cue] of cues.entries()) {
+   if (i>0) {
+    clock.position=cue.at-.001;
+    dialogue.update(.016,true);
+    assert.equal(dialogue.speaker,cues[i-1].who);
+   }
+   clock.position=cue.at;
+   dialogue.update(.016,true);
+   assert.equal(dialogue.speaker,cue.who);
+   assert.equal(dialogue.speechEnvelope,cue.who==='customer'?.73:0);
+  }
+  clock.status='ended';dialogue.update(.016,true);
+  assert.equal(dialogue.speaker,undefined);assert.equal(dialogue.speechEnvelope,0);
+  assert.equal(dialogue.done,true);
+ }
+});
+
+test('a silent reaction leaves delivery ready and returns to a closed mouth',()=>{
+ const dialogue=new StoryDialogue();dialogue.start();assert.equal(dialogue.done,true);
+ dialogue.update(.1,true);assert.ok(dialogue.speechEnvelope>0);
+ for(let i=0;i<20;i++)dialogue.update(.1,true);
+ assert.equal(dialogue.speechEnvelope,0);assert.equal(dialogue.done,true);
+});

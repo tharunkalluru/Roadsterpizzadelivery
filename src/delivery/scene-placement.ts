@@ -227,24 +227,27 @@ export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGrap
     return null;
   }
   const candidates: { x: number; z: number; score: number; params?: ModuleParams }[] = profile.street ? [] : [{ x: origin.x, z: origin.z, score: 0 }];
-  for (const street of streets) {
-    if (profile.street && !['residential', 'living_street', 'service', 'unclassified', 'tertiary'].includes(street.edge.e.cls)) continue;
-    const p = project(origin.x, origin.z, street), dx = street.bx - street.ax, dz = street.bz - street.az, length = Math.hypot(dx, dz) || 1;
-    if (profile.street && (length < 38 || street.halfWidth < 2.5)) continue;
-    for (const shift of [0, -24, 24, -48, 48]) {
-      const walkLength = Math.min(70, length - 18), minimum = profile.street ? (level.module === 'walkingHandoff' ? walkLength + 8 : 25) / length : 0;
-      const maximum = profile.street ? (length - (level.module === 'walkingHandoff' ? 8 : 12)) / length : 1;
-      const t = Math.max(minimum, Math.min(maximum, p.t + shift / length));
-      for (const offset of profile.street ? [0] : [0, street.halfWidth - 1.6, -street.halfWidth + 1.6, street.halfWidth + 3, -street.halfWidth - 3]) {
-        const x = street.ax + dx * t - dz / length * offset, z = street.az + dz * t - (profile.street ? 0 : profile.accessZ) + dx / length * offset;
-        candidates.push({ x, z, score: Math.hypot(x - origin.x, z - origin.z), params: profile.street ? { streetYaw: Math.atan2(dx, dz), walkLength, walkSide: -Math.min(3.5, street.halfWidth - .6) } : undefined });
+  // A fixed scene uses only its authored lot, with the same footprint and driveway checks as any candidate.
+  if (!level.moduleParams.fixedCourtyard) {
+    for (const street of streets) {
+      if (profile.street && !['residential', 'living_street', 'service', 'unclassified', 'tertiary'].includes(street.edge.e.cls)) continue;
+      const p = project(origin.x, origin.z, street), dx = street.bx - street.ax, dz = street.bz - street.az, length = Math.hypot(dx, dz) || 1;
+      if (profile.street && (length < 38 || street.halfWidth < 2.5)) continue;
+      for (const shift of [0, -24, 24, -48, 48]) {
+        const walkLength = Math.min(70, length - 18), minimum = profile.street ? (level.module === 'walkingHandoff' ? walkLength + 8 : 25) / length : 0;
+        const maximum = profile.street ? (length - (level.module === 'walkingHandoff' ? 8 : 12)) / length : 1;
+        const t = Math.max(minimum, Math.min(maximum, p.t + shift / length));
+        for (const offset of profile.street ? [0] : [0, street.halfWidth - 1.6, -street.halfWidth + 1.6, street.halfWidth + 3, -street.halfWidth - 3]) {
+          const x = street.ax + dx * t - dz / length * offset, z = street.az + dz * t - (profile.street ? 0 : profile.accessZ) + dx / length * offset;
+          candidates.push({ x, z, score: Math.hypot(x - origin.x, z - origin.z), params: profile.street ? { streetYaw: Math.atan2(dx, dz), walkLength, walkSide: -Math.min(3.5, street.halfWidth - .6) } : undefined });
+        }
       }
+      yield;
     }
-    yield;
-  }
-  if (!profile.street) for (const radius of [16, 32, 56, 88, 124, 164, 208]) for (let i = 0; i < 16; i++) {
-    const x = origin.x + Math.cos(i * Math.PI / 8) * radius, z = origin.z + Math.sin(i * Math.PI / 8) * radius;
-    candidates.push({ x, z, score: radius });
+    if (!profile.street) for (const radius of [16, 32, 56, 88, 124, 164, 208]) for (let i = 0; i < 16; i++) {
+      const x = origin.x + Math.cos(i * Math.PI / 8) * radius, z = origin.z + Math.sin(i * Math.PI / 8) * radius;
+      candidates.push({ x, z, score: radius });
+    }
   }
   candidates.sort((a, b) => a.score - b.score); const seen = new Set<string>();
   for (const candidate of candidates) {

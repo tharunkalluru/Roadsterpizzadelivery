@@ -16,7 +16,7 @@
     },
     {
       "path": "src/world/road-grades.ts",
-      "sha256": "d93e33295591896ec0240932e5c79b98210af3efc58102680caad230e999df0c"
+      "sha256": "0902abe26b47e981fe8cc901f12e6da95fbd0c755ab2c333ab290e9266a1cd73"
     },
     {
       "path": "src/world/road-crossing-levels.ts",
@@ -1260,7 +1260,7 @@
     },
     {
       "path": "src/world/flyover-terminals.ts",
-      "sha256": "5fdcd91790d36284af37765dfd71a5d4cac3ea03b620117ae51dfa9b5f3874b8"
+      "sha256": "b230809772eacc823ed988336da3b773557db941137f81753c0ab08fa0cce957"
     }
   ],
   "rawPacks": 304,
@@ -1268,6 +1268,7 @@
   "newSurveyedOrOptimizedRoadHeightClaim": false,
   "scopedRoadCorrections": [
     "Nagole station: remove two generated elevated road sections; preserve XY, IDs and connectivity.",
-    "Paradise/Sardar Patel: repair eight mapped fork mouths, keep source ground routes level, retain two 3.4m lanes and delay ramp rise until finite pavements separate. No new routes or changed XY/connectivity."
+    "Paradise/Sardar Patel: repair eight mapped fork mouths, keep source ground routes level, retain two 3.4m lanes and delay ramp rise until finite pavements separate. No new routes or changed XY/connectivity.",
+    "Masab Tank / Mahavir Marg: repair four mapped ramp mouths, keep ground branches level, and separate the existing bypasses through the low-clearance section. Existing endpoints and connectivity are preserved."
   ]
 }

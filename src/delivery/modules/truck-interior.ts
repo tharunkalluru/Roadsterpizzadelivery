@@ -73,6 +73,7 @@ export class TruckInterior extends ModuleBase {
     return p.y>BED+.2&&p.y<CONTAINER_TOP-.2&&Math.abs(p.x)<CONTAINER_HALF_WIDTH-CONTAINER_WALL&&p.z>REAR&&p.z<8.15;
   }
   get headlightGain(){return this.hideWorldGuidance ? .02 : undefined;}
+  get storyDialogueReady(){return this.entered&&this.graphicsReady&&this.steady>.35;}
   get cameraFocus(){
     const p=this.ctx?.player();
     if(!p||!this.entered||!this.graphicsReady||!this.hideWorldGuidance||this.steady<=.35||Math.abs(p.speed)>.75||p.flying||p.jumping)return undefined;

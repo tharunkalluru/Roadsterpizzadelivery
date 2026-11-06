@@ -81,3 +81,25 @@ for (const [nx, nz] of [[0, 1], [1, 0], [0, -1], [-1, 0], [Math.SQRT1_2, Math.SQ
     module.teardown();
   });
 }
+
+test('voiced rooftop conversation finishes before the basket starts down', () => {
+  const scene = new THREE.Scene(), module = new RopeBucket(), actor = new THREE.Group();
+  const player = {x: 0, y: .55, z: 4, yaw: 0, speed: 0};
+  let active = false, spoken = false;
+  module.setup({scene, destination:{x:0,y:0,z:0}, player:()=>player, emit(){}, automaticStories:true,
+    storyActive:()=>active, storyDialogueComplete:()=>spoken,
+    characterFactory:()=>({group:actor, leftArm:new THREE.Group(), rightArm:new THREE.Group(), catchPose(){}})}, {roofHeight:15});
+  const basket=scene.getObjectByName('delivery-rope-bucket')!, height=basket.position.y;
+  for(let i=0;i<100;i++)module.update(.05);
+  assert.equal(basket.position.y,height);
+  active=true;
+  for(let i=0;i<100;i++)module.update(.05);
+  assert.equal(basket.position.y,height);
+  assert.ok(module.sceneLamp);
+  assert.equal(module.cameraFocus?.target.y,actor.position.y+1.1);
+  spoken=true;
+  module.update(.05);
+  assert.ok(basket.position.y<height);
+  assert.equal(module.sceneLamp,undefined);
+  module.teardown();
+});

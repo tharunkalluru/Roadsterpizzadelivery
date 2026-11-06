@@ -1,13 +1,45 @@
 import type { RoadEdge, XZ } from './types';
 
-// Reviewed Paradise/Sardar Patel fork corridors. This corrects inherited game
+// Reviewed Paradise/Sardar Patel and Masab Tank fork corridors. This corrects inherited game
 // elevation estimates, not surveyed alignments. Never invent a new service road.
-const REVIEWED = new Set(['c74bed09-107_0','d0978a06-15a_0','8a2c3f45-5c3_0','51be01ba-57f_0']);
+const MASAB_DECKS = new Set(['72e2e384-7c5_0','4e324c1c-ae5_0']);
+// Long, uninterrupted surface branches alongside each low approach. Endpoints stay fixed.
+const MASAB_GROUND_FORKS = new Map([['cd18974b-973_0', true], ['adb701c2-bb8_0', false], ['e0d9297d-546_0', true]]);
+const REVIEWED = new Set([...MASAB_DECKS,'c74bed09-107_0','d0978a06-15a_0','8a2c3f45-5c3_0','51be01ba-57f_0']);
 const GRADE = .065;
 // Packed two-lane widths include an oversized legacy apron. At these reviewed
 // forks, retain two 3.4m traffic lanes rather than two overlapping 9.4m decks.
-const width = (e:RoadEdge) => e.oneway && e.lanes===2 && e.w>6.8 && e.w<=10 && !e.expressway && !e.joinedPavement ? 6.8 : e.w;
+const width = (e:RoadEdge) => MASAB_DECKS.has(e.id) ? 6.4 : e.oneway && e.lanes===2 && e.w>6.8 && e.w<=10 && !e.expressway && !e.joinedPavement ? 6.8 : e.w;
 const flat = (e:RoadEdge) => !/survey|explicit/.test(String((e as RoadEdge & {elevationSource?:string}).elevationSource||'')) && !e.expressway && !e.elev?.some(y=>Math.abs(y)>.01) && /^(primary|secondary|tertiary|trunk|unclassified|service|residential)(_link)?$/.test(e.cls);
+function smooth(value: number) {
+  const t = Math.max(0, Math.min(1, value));
+  return t * t * (3 - 2 * t);
+}
+
+// Keep the original nodes. Ease the bypass outward while its neighbouring
+// deck has low headroom and rejoin the source alignment under the high deck.
+function separateMasabGroundBranch(edge: RoadEdge): RoadEdge {
+  const startsAtMouth = MASAB_GROUND_FORKS.get(edge.id);
+  if (startsAtMouth === undefined || !flat(edge)) return edge;
+  const last = edge.pts.length - 1;
+  const mouth = edge.pts[startsAtMouth ? 0 : last];
+  const pts: XZ[] = [];
+  for (let i = 0; i < last; i++) {
+    const a = edge.pts[i], b = edge.pts[i + 1];
+    const dx = b[0] - a[0], dz = b[1] - a[1], length = Math.hypot(dx, dz);
+    if (!length) continue;
+    const steps = Math.ceil(length / 4);
+    for (let j = 0; j < steps; j++) {
+      const x = a[0] + dx * j / steps, z = a[1] + dz * j / steps;
+      const d = Math.hypot(x - mouth[0], z - mouth[1]);
+      const offset = 4 * smooth(d / 40) * smooth((190 - d) / 45);
+      pts.push([x + offset * dz / length, z - offset * dx / length]);
+    }
+  }
+  pts.push(edge.pts[last]);
+  pts[0] = edge.pts[0];
+  return { ...edge, pts, elev: pts.map(() => 0) };
+}
 const distanceToLine=(p:XZ,pts:XZ[])=>{
  let best=Infinity;
  for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],dx=b[0]-a[0],dz=b[1]-a[1],u=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dz)/(dx*dx+dz*dz||1)));best=Math.min(best,Math.hypot(p[0]-a[0]-u*dx,p[1]-a[1]-u*dz));}
@@ -15,8 +47,12 @@ const distanceToLine=(p:XZ,pts:XZ[])=>{
 };
 const rise=(distance:number)=>{const d=Math.max(0,distance);return GRADE*(d<20?d*d/40:d-10);};
 export function repairReviewedFlyoverTerminals(source:RoadEdge[],prepared:RoadEdge[]):RoadEdge[]{
- const originals=new Map(source.map(e=>[e.id,e])),byNode=new Map<string,RoadEdge[]>();
- for(const e of source)for(const n of [e.from,e.to])if(n)(byNode.get(n)||byNode.set(n,[]).get(n)!).push(e);
+ const originals=new Map(source.map(e=>[e.id,e])),bypasses=new Map<string,RoadEdge>(),byNode=new Map<string,RoadEdge[]>();
+ for(const e of source){
+  const branch=separateMasabGroundBranch(e);
+  if(branch!==e)bypasses.set(e.id,branch);
+  for(const n of [e.from,e.to])if(n)(byNode.get(n)||byNode.set(n,[]).get(n)!).push(branch);
+ }
  const forks:{p:XZ;id:string;start:boolean;flatUntil:number}[]=[];
  for(const e of prepared){
   if(!REVIEWED.has(e.id)||/survey|explicit/.test(String((originals.get(e.id) as RoadEdge & {elevationSource?:string})?.elevationSource||'')))continue;
@@ -41,7 +77,8 @@ export function repairReviewedFlyoverTerminals(source:RoadEdge[],prepared:RoadEd
   }
  }
  if(!forks.length)return prepared;
- return prepared.map(e=>{
+ return prepared.map(preparedEdge=>{
+  const e=bypasses.get(preparedEdge.id)??preparedEdge;
   const original=originals.get(e.id),own=forks.filter(f=>f.id===e.id);
   if(!original||!e.elev||!own.length&&!flat(original))return e;
   let distance=0;const along=e.pts.map((p,i)=>{if(i)distance+=Math.hypot(p[0]-e.pts[i-1][0],p[1]-e.pts[i-1][1]);return distance;});
@@ -53,9 +90,10 @@ export function repairReviewedFlyoverTerminals(source:RoadEdge[],prepared:RoadEd
    if(Math.abs(height-y)>1e-8)changed=true;
    return height;
   });
-  const narrow = width(original)<e.w && (own.length>0 || e.pts.some(p=>forks.some(f=>Math.hypot(p[0]-f.p[0],p[1]-f.p[1])<200)));
+  const narrow = width(original)<e.w && (own.length>0 || e.pts.some(p=>forks.some(f=>(!MASAB_DECKS.has(f.id)||e.name==='Masab Tank Road')&&Math.hypot(p[0]-f.p[0],p[1]-f.p[1])<200)));
   if(!changed&&!narrow)return e;
   const w=narrow?width(original):e.w;
-  return {...e,elev,...(narrow?{w,sceneryWidth:Math.max(e.sceneryWidth||0,e.w),joinedPavement:{sourceWidth:e.w,originalWidth:w,physicalWidth:w,intervals:[[0,distance]] as [number,number][],taper:40,release:'reviewed-paradise-fork-20261105',usableLanes:e.lanes}}:{})};
+  const masabDeck=MASAB_DECKS.has(e.id);
+  return {...e,elev,...(narrow?{w,lanes:masabDeck?2:e.lanes,sceneryWidth:Math.max(e.sceneryWidth||0,e.w),joinedPavement:{sourceWidth:e.w,originalWidth:masabDeck?e.w:w,physicalWidth:w,intervals:[[0,distance]] as [number,number][],taper:40,release:masabDeck||e.name==='Masab Tank Road'?'reviewed-masab-tank-fork':'reviewed-paradise-fork-20261105',usableLanes:masabDeck?2:e.lanes}}:{})};
  });
 }

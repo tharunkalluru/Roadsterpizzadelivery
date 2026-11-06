@@ -119,3 +119,12 @@ test('dedicated desktop brake stops both directions and never starts reversing',
     assert.ok(player.speed < 0);
   }
 });
+
+for (const hz of [30, 60, 120]) test(`a short high-speed steering tap is gentle and releases promptly at ${hz} Hz`, () => {
+  const player = car(100 / 3.6);
+  simulate(player, { ...idle, steer: 1 }, .1, hz);
+  assert.ok(player.steerVis > .38 && player.steerVis < .41);
+  assert.ok(player.yaw < 0 && player.yaw > -.03);
+  simulate(player, idle, .2, hz);
+  assert.ok(player.steerVis < .04);
+});

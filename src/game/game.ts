@@ -131,6 +131,7 @@ export class Game {
   cameraPlacementRevision = -1;
   private cameraTranslation?: CameraTranslationFollow;
   private focusTranslation?: CameraTranslationFollow;
+  private lastCameraSpeaker?:'customer'|'player';
   private focusTranslationOwner?: object;
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: {
@@ -1075,6 +1076,7 @@ export class Game {
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const storyVisible = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
+    this.sound.setStoryActive?.(!!this.story?.cinematic);
     this.sound.setGameplayActive?.(storyVisible && !this.relocating);
     this.story?.tick(dt, storyVisible);
     const active = storyVisible && !this.story?.blocking;
@@ -1107,6 +1109,7 @@ export class Game {
     }else{this.rail.setRiderStop(null);this.railRiderWarned=false;}
     this.rail.update(dt, this.player.pos.x, this.player.pos.z, runningRailwayTracks(this.city.railway?.profiles || railwayNetwork().profiles));
     this.story?.beforePlayer(dt);
+    this.sound.setStoryActive?.(!!this.story?.cinematic);
     // A capture can begin in beforePlayer, after this frame's input sample.
     // Consume that old sample too: a queued Jump/Fly cannot leak into story.
     if(this.story?.cinematic)Object.assign(inp,{throttle:0,brake:0,steer:0,flyPressed:false,jumpPressed:false,boost:false});
@@ -1267,6 +1270,9 @@ export class Game {
       Math.abs((P.x-bed.x)*bed.hz-(P.z-bed.z)*bed.hx)<bed.halfWidth-.15&&
       Math.abs((P.x-bed.x)*bed.hx+(P.z-bed.z)*bed.hz)<bed.halfLength+.5;
     const requestedFocus=this.story?.cameraFocus;
+    const speaker=this.story?.conversationSpeaker;
+    const cutToSpeaker=!!speaker&&speaker!==this.lastCameraSpeaker;
+    this.lastCameraSpeaker=speaker;
     const parkedHandoff=requestedFocus?.context==='stationary-handoff'&&!flight&&!this.player.jumping&&!this.player.descending&&Math.abs(this.player.speed)<=.75&&Math.abs(this.orbitPitch-.38)<.04&&Math.abs(this.orbitDist)<.1;
     // Once controls are captured, a previous manual orbit cannot lock the
     // customer out of view. Ordinary driving/interior orbit keeps its gates.
@@ -1311,7 +1317,7 @@ export class Game {
       }
     }else{this.focusTranslation?.reset();this.focusTranslationOwner=undefined;}
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
-    if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
+    if (cutToSpeaker||!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
     // This captured truck shot has a checked pivot beyond the car's nose.
     // Its smoothed transition must not pass through the parked Roadster on
     // the way there. Apply the existing solid-escape cut only to this opt-in
@@ -1331,7 +1337,7 @@ export class Game {
       new THREE.Vector3(P.x + f.x * ahead, P.y + 1.4 + (DRIVING_CAMERA.lookHeight - 1.4) * aimWeight, P.z + f.z * ahead) :
       moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * (interior ? 4 : 20), P.y + 1.2, P.z + f.z * (interior ? 4 : 20)) : pivot.clone();
     const aimK = driving && !this.dragging ? 1 - Math.exp(-dt * DRIVING_CAMERA.aimDamping) : k;
-    if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, aimK);
+    if (cutToSpeaker||!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, aimK);
     const cam = this.engine.camera;
     cam.position.copy(this.camPos);
     if (this.player.bump > 0) cam.position.add(new THREE.Vector3((Math.random() - 0.5) * this.player.bump, (Math.random() - 0.5) * this.player.bump, 0));

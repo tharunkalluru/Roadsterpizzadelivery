@@ -15,9 +15,18 @@ export class Sound {
 
   private music: RecordedTrack | null = null;
   private dialogue: RecordedTrack | null = null;
-  private musicGain: GainNode | null = null;
   private gameplayActive = false;
   private dialogueUnavailable = false;
+  private effects: GainNode | null = null;
+  private storyActive = false;
+
+  setStoryActive(active: boolean) {
+    if (active === this.storyActive) return;
+    this.storyActive = active;
+    if (this.effects) this.effects.gain.value = active ? 0 : 1;
+    this.pending = null;
+    this.syncRecordings();
+  }
 
   setGameplayActive(active: boolean) {
     if (this.gameplayActive === active) return;
@@ -29,38 +38,28 @@ export class Sound {
     this.dialogueUnavailable = !this.dialogue;
     if (!this.dialogue) return;
     void this.dialogue.load(url);
-    this.mixMusic();
     this.syncRecordings();
   }
 
   stopDialogue() {
     this.dialogueUnavailable = false;
     this.dialogue?.clear();
-    this.mixMusic();
   }
 
-  get dialoguePlayback(): { status: TrackStatus; position: number; duration: number } {
+  get dialoguePlayback(): { status: TrackStatus; position: number; duration: number; speechLevel?: number } {
     return {
       status: this.dialogueUnavailable ? 'failed' : this.dialogue?.status ?? 'idle',
-      position: this.dialogue?.position ?? 0, duration: this.dialogue?.duration ?? 0,
+      speechLevel: this.dialogue?.speechLevel ?? 0, position: this.dialogue?.position ?? 0, duration: this.dialogue?.duration ?? 0,
     };
-  }
-
-  private mixMusic() {
-    if (!this.musicGain || !this.ctx) return;
-    const speaking = this.dialogue?.status === 'loading' || this.dialogue?.status === 'playing';
-    const now = this.ctx.currentTime;
-    this.musicGain.gain.cancelScheduledValues(now);
-    this.musicGain.gain.setTargetAtTime(speaking ? .09 : .34, now, speaking ? .06 : .32);
   }
 
   private syncRecordings() {
     const active = this.gameplayActive && this.foreground && !document.hidden;
-    this.music?.setActive(active && !this.muted);
-    // A muted conversation follows the same timeline, so captions and story
+    this.music?.setActive(active && !this.muted && !this.storyActive);
+    // A muted conversation follows the same timeline, so camera cuts and story
     // actions stay in sync if sound is turned on again halfway through it.
     this.dialogue?.setActive(active);
-    if (active && !this.muted && this.ctx?.state === 'running' && this.music?.status === 'idle')
+    if (active && !this.muted && !this.storyActive && this.ctx?.state === 'running' && this.music?.status === 'idle')
       void this.music.load('/audio/background.mp3');
   }
 
@@ -93,12 +92,15 @@ export class Sound {
         this.vehicleTargets = { frequency: -1, filter: -1, motor: -1, thrust: -1 };
         this.master.gain.value = this.muted || !this.foreground ? 0 : 0.5;
         this.master.connect(c.destination);
-        this.createVehicleVoices(c, this.master);
+        this.effects = c.createGain();
+        this.effects.gain.value = this.storyActive ? 0 : 1;
+        this.effects.connect(this.master);
+        this.createVehicleVoices(c, this.effects);
         if (this.dialogue?.status === 'playing' || this.dialogue?.status === 'loading') this.dialogueUnavailable = true;
         this.music?.clear(); this.dialogue?.clear();
-        this.musicGain = c.createGain(); this.musicGain.gain.value = .34; this.musicGain.connect(this.master);
-        this.music = new RecordedTrack(c, this.musicGain, true);
-        this.dialogue = new RecordedTrack(c, this.master, false, () => this.mixMusic());
+        const musicGain = c.createGain(); musicGain.gain.value = .34; musicGain.connect(this.master);
+        this.music = new RecordedTrack(c, musicGain, true);
+        this.dialogue = new RecordedTrack(c, this.master, false);
       } catch { this.ctx = null; this.master = null; return; }
     }
     const c = this.ctx;
@@ -156,7 +158,7 @@ export class Sound {
     ramp('frequency', this.motor.frequency, 55 + speed * 4.2 + throttle * 24, 0.08, 0.5);
     ramp('filter', this.motorFilter.frequency, 450 + speed * 28 + throttle * 160, 0.08, 5);
     ramp('motor', this.motorGain.gain, active && !air ? 0.035 + speed / 45 * 0.065 + throttle * 0.02 : 0, 0.04, 0.0005);
-    ramp('thrust', this.thrustGain.gain, active && air ? (s.flying ? 0.16 : 0.06) : 0, 0.04, 0.0005);
+    ramp('thrust', this.thrustGain.gain, active && air ? (s.flying ? 0.08 : 0.03) : 0, 0.04, 0.0005);
   }
 
   private silence() {
@@ -172,7 +174,7 @@ export class Sound {
 
   cue(kind: SoundCue) {
     const c = this.ctx;
-    if (!c || !this.master || this.muted || !this.foreground || document.hidden) return;
+    if (!c || !this.effects || this.storyActive || this.muted || !this.foreground || document.hidden) return;
     if (c.state !== 'running') { this.pending = { kind, time: performance.now() }; return; }
     const now = c.currentTime;
     if (now - (this.cueTimes.get(kind) ?? -Infinity) < (kind === 'bump' ? 0.45 : 0.12)) return;
@@ -193,17 +195,17 @@ export class Sound {
       o.frequency.setValueAtTime(f, start);
       if (kind === 'flight' || kind === 'bump') o.frequency.exponentialRampToValueAtTime(kind === 'flight' ? 700 : 40, start + duration);
       gain.gain.setValueAtTime(0, start);
-      gain.gain.linearRampToValueAtTime(kind === 'bump' ? 0.25 : 0.16, start + 0.008);
+      gain.gain.linearRampToValueAtTime(kind === 'bump' ? 0.25 : kind === 'flight' ? 0.08 : 0.16, start + 0.008);
       gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
-      o.connect(gain); gain.connect(this.master); o.start(start); o.stop(start + duration + 0.02);
+      o.connect(gain); gain.connect(this.effects); o.start(start); o.stop(start + duration + 0.02);
       o.onended = () => { o.disconnect(); gain.disconnect(); };
     }
   }
 
   // Nearby traffic and the player's horn; distant traffic fades out and pans across the street.
   horn(kind: string, dist: number, pan = 0, double = false) {
-    const c = this.ctx, m = this.master;
-    if (!c || !m || this.muted || !this.foreground || document.hidden || c.state !== 'running') return;
+    const c = this.ctx, m = this.effects;
+    if (!c || !m || this.storyActive || this.muted || !this.foreground || document.hidden || c.state !== 'running') return;
     const now = c.currentTime; if (now - this.last < 0.12) return;
     const vol = Math.max(0, Math.min(1, 1 - dist / 70)) * 0.32; if (vol < 0.01) return;
     this.last = now;
@@ -229,8 +231,8 @@ export class Sound {
   // A long, low railway chord carries farther than the short city horns.
   // It shares the gesture/mute/background protections of all existing sound.
   trainHorn(dist: number, pan = 0) {
-    const c = this.ctx, master = this.master;
-    if (!c || !master || this.muted || !this.foreground || document.hidden || c.state !== 'running') return;
+    const c = this.ctx, master = this.effects;
+    if (!c || !master || this.storyActive || this.muted || !this.foreground || document.hidden || c.state !== 'running') return;
     const now = c.currentTime;
     if (now - (this.trainHornAt ?? -Infinity) < 1.5) return;
     const volume = Math.max(0, 1 - Math.max(0, dist) / 650) * .26;

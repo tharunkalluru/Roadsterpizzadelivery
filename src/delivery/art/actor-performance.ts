@@ -28,7 +28,7 @@ export function createMouthPerformance(root:THREE.Group,resources:ReleasedCharac
   root.updateWorldMatrix(true,true);
   // Anatomical placement is explicit and independently viewed. A proportional
   // head-height guess was rejected natively because it aimed pizza at a nose.
-  const anchor=new THREE.Object3D();anchor.name='delivery-mouth-anchor';anchor.position.fromArray(annotation.anchorHeadLocal);head.add(anchor);
+  const anchor=new THREE.Object3D();anchor.name=root.getObjectByName('delivery-mouth-anchor')?'delivery-speech-anchor':'delivery-mouth-anchor';anchor.position.fromArray(annotation.anchorHeadLocal);head.add(anchor);
   const edits=new Map([[mesh,annotation.mask]]);
   const buffers:{attribute:THREE.BufferAttribute;source:THREE.BufferAttribute;edits:{index:number;weight:number;lower:boolean}[];delta:THREE.Vector3;low:number;high:number}[]=[];
   let bytes=0,vertices=0,disposed=false,previous=-1;

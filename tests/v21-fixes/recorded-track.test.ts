@@ -55,3 +55,32 @@ test('loading a different level cancels the previous recording even during decod
   assert.equal(f.starts.length,1);assert.equal(f.track.status,'playing');
   f.track.clear();assert.equal(f.track.status,'idle');assert.equal(f.track.duration,0);
 });
+
+test('story mode silences the world from capture through viewing and restores driving music after Next', async () => {
+  const { Sound } = await import('../../src/game/audio');
+  const prior = Object.getOwnPropertyDescriptor(globalThis, 'document');
+  Object.defineProperty(globalThis, 'document', { configurable: true, value: { hidden: false } });
+  const music: boolean[] = [], voice: boolean[] = [];
+  const sound = Object.assign(Object.create(Sound.prototype), {
+    gameplayActive: true, foreground: true, muted: false, effects: { gain: { value: 1 } },
+    music: { setActive(active: boolean) { music.push(active); } },
+    dialogue: { setActive(active: boolean) { voice.push(active); }, clear() {} },
+  });
+  try {
+    sound.setStoryActive(true);
+    assert.equal(sound.effects.gain.value, 0);
+    assert.equal(music.at(-1), false);
+    assert.equal(voice.at(-1), true);
+    sound.stopDialogue();
+    assert.equal(music.at(-1), false);
+    sound.setGameplayActive(false);
+    sound.setGameplayActive(true);
+    assert.equal(music.at(-1), false);
+    sound.setStoryActive(false);
+    assert.equal(sound.effects.gain.value, 1);
+    assert.equal(music.at(-1), true);
+  } finally {
+    if (prior) Object.defineProperty(globalThis, 'document', prior);
+    else Reflect.deleteProperty(globalThis, 'document');
+  }
+});
