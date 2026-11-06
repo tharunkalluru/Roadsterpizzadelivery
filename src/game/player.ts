@@ -1,0 +1,524 @@
+import * as THREE from 'three';
+import { roadster, type RoadsterNozzle } from '../world/vehicles';
+import { labelTexture } from '../world/signs';
+import type { CityData } from '../world/city';
+import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } from './physics';
+import { landmarkCarContact } from './landmark-contact';
+import { TakeoffKickflip } from './takeoff-kickflip';
+import { advanceJump, jumpCeiling, jumpProfile, JUMP_AIRTIME, JUMP_COOLDOWN_SECONDS } from './jump-motion';
+import { buoyantHeight, waterHeightAt } from '../world/water';
+import { PlayerLights } from './player-lights';
+import { roadsterDecals } from '../world/roadster-decals';
+import { roadWheelContact } from './road-wheel-contact';
+
+export interface Input { allowReverse?: boolean; throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
+export const ROAD_SPEED_LIMIT = 120 / 3.6;
+export const FLIGHT_SPEED_LIMIT = 160 / 3.6;
+
+// Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and unlimited flight.
+export class Player {
+  lamps!: PlayerLights;
+  group: THREE.Group; pods: THREE.Mesh[]; glow: THREE.Mesh; light = new THREE.PointLight('#45E3D3', 0, 9, 1.8);
+  pos = new THREE.Vector3(); yaw = 0; speed = 0; vy = 0; steerVis = 0;
+  waterWake: THREE.Group | null = null;
+  flying = false; descending = false; charge = 2.5; chargeCap = 20; earnT = 0; onRoad = true; lastSupport = 0;
+  hitCooldown = 0; bump = 0; lastKind: SupportKind = 'road'; lastElevRoad = false; flyAlt = 24; altT = 0; kerbT = 0;
+  placementRevision = 0;
+  /** Optional, local story-scene assistance. Ordinary city motion never sets it. */
+  deliveryMotion?: { mode: 'approach' | 'underwater'; x: number; z: number; radius: number; altitude: number };
+  jumpCooldown = 0;
+  private jumpActive = false;
+  private jumpHeld = false;
+  private roadBrakeHold = 0;
+  private jumpCooldownPendingLanding = false;
+  private jumpBodyTop = 2.4;
+  private jumpStartY = 0;
+  private jumpElapsed = 0;
+  private jumpForcedFall = false;
+  private jumpCollisionMeshes: { mesh: THREE.Mesh; positions: THREE.BufferAttribute | THREE.InterleavedBufferAttribute }[] = [];
+  private jumpBoundsDirty = true;
+  private voiceStrip!: THREE.Mesh;
+  private voiceAmount = 0;
+  setDriverVoice(level: number, dt: number) {
+    if (!this.voiceStrip) return;
+    const target = Math.max(0, Math.min(1, level));
+    this.voiceAmount = target <= 0 ? 0 : this.voiceAmount + (target - this.voiceAmount) * (1 - Math.exp(-22 * dt));
+    this.voiceStrip.visible = this.voiceAmount > .015;
+    if (this.voiceStrip.visible) this.voiceStrip.scale.x = .12 + .88 * Math.sqrt(this.voiceAmount);
+  }
+  private pizzaCargo!: THREE.Group;
+  setCarryingPizza(carrying: boolean) {
+    if (this.pizzaCargo.visible === carrying) return;
+    this.pizzaCargo.visible = carrying; this.jumpBoundsDirty = true;
+  }
+  private jumpBounds = { bottom: 0, top: 0 };
+  get jumping() { return !!this.jumpActive; }
+  get airborne() { return this.flying || this.descending || this.jumping; }
+  get jumpTrafficBounds(): { bottom: number; top: number } | undefined {
+    if (!this.jumping) return undefined;
+    if (!this.jumpBoundsDirty) return this.jumpBounds;
+    this.group.updateMatrixWorld(true);
+    let bottom = Infinity, top = -Infinity;
+    for (const { mesh, positions } of this.jumpCollisionMeshes) {
+      let visible = true;
+      for (let node: THREE.Object3D | null = mesh; node; node = node.parent) if (!node.visible) { visible = false; break; }
+      if (!visible) continue;
+      const e = mesh.matrixWorld.elements;
+      // Real vertices avoid treating a spinning tyre's rotated bounding cube
+      // as solid bodywork. Cached attributes keep this limited to the hero car.
+      for (let i = 0; i < positions.count; i++) {
+        const y = e[1] * positions.getX(i) + e[5] * positions.getY(i) + e[9] * positions.getZ(i) + e[13];
+        bottom = Math.min(bottom, y); top = Math.max(top, y);
+      }
+    }
+    if (!Number.isFinite(bottom) || !Number.isFinite(top)) return undefined;
+    this.jumpBounds.bottom = bottom; this.jumpBounds.top = top; this.jumpBoundsDirty = false;
+    return this.jumpBounds;
+  }
+  get canJump() {
+    if (this.airborne || this.glide || (this.jumpCooldown ?? 0) > 1e-8 || this.speed < 0 || Math.abs(this.vy) > .15) return false;
+    const support = supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - .55, false);
+    if (Math.abs(this.pos.y - .55 - support.y) > .2) return false;
+    const ceiling = jumpCeiling(this.city, this.pos.x, this.pos.z, this.pos.y + .65);
+    return ceiling === null || ceiling - this.pos.y > this.jumpBodyTop + .15;
+  }
+  private finishJump() {
+    if (!this.jumping) return;
+    this.jumpActive = false; this.jumpCooldown = JUMP_COOLDOWN_SECONDS;
+    this.resetKickflip();
+  }
+  constructor(public city: CityData, mats: Record<string, any>) {
+    const logo = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'HYDERABAD ROADSTER', font: '{s}px "Bungee", sans-serif', color: '#FFB627', size: 44 }], 512, 128, '#17132B') });
+    const plate = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'TG 09 P2P 01', font: '800 {s}px "Baloo 2", sans-serif', color: '#17132B', size: 70 }], 512, 128, '#F6EEDC', '#17132B') });
+    const tail = new THREE.MeshBasicMaterial({ color: '#ff160b', toneMapped: false });
+    const reverse = new THREE.MeshBasicMaterial({ color: '#292b32', toneMapped: false });
+    const R = roadster({
+      paint: new THREE.MeshPhysicalMaterial({ color: '#d5d9dc', metalness: 0.48, roughness: 0.23, clearcoat: 1, clearcoatRoughness: 0.06 }),
+      canopy: new THREE.MeshPhysicalMaterial({ color: '#29221c', metalness: 0.38, roughness: 0.13, transparent: true, opacity: 0.94, side: THREE.DoubleSide }),
+      helmet: new THREE.MeshStandardMaterial({ color: '#FFB627', roughness: 0.35 }),
+      trim: new THREE.MeshStandardMaterial({ color: '#16151b', roughness: 0.4, metalness: 0.6 }),
+      accent: new THREE.MeshStandardMaterial({ color: '#a69377', metalness: 0.86, roughness: 0.27 }),
+      pizzaBox: new THREE.MeshStandardMaterial({ color: '#FFB627', roughness: 0.55 }),
+      red: new THREE.MeshStandardMaterial({ color: '#E8413A', roughness: 0.5 }),
+      heatLed: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff7a2a').multiplyScalar(2.5), toneMapped: false }),
+      tail, reverse,
+      head: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff').multiplyScalar(2.5), toneMapped: false }),
+      pod: new THREE.MeshStandardMaterial({ color: '#64686b', roughness: 0.28, metalness: 0.85 }),
+      podGlow: new THREE.MeshBasicMaterial({ color: new THREE.Color('#bfeaff').multiplyScalar(1.6), toneMapped: false }),
+      tyre: new THREE.MeshStandardMaterial({ color: '#1b1b1f', roughness: 0.92 }),
+      rim: new THREE.MeshStandardMaterial({ color: '#c9ccd3', roughness: 0.25, metalness: 0.9 }),
+      seat: new THREE.MeshStandardMaterial({ color: '#e4e0d8', roughness: 0.7 }),
+      jet: new THREE.MeshBasicMaterial({ color: '#eef1f2', alphaMap: jetFade(), transparent: true, opacity: 0.28, depthWrite: false, side: THREE.DoubleSide }),
+      jetCore: new THREE.MeshBasicMaterial({ color: '#ffffff', alphaMap: jetFade(), transparent: true, opacity: 0.45, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }),
+    }, { logo, plate, ...roadsterDecals() });
+    this.group = R.group; this.pods = R.pods; this.wheels = R.wheels; this.wheelRollers = R.wheelRollers; this.nozzles = R.nozzles; this.setDeployment = R.setDeployment;
+    // The physical/support root keeps its normal yaw and road posture. Only its
+    // model rolls, around the body's centre rather than the tyre contact plane.
+    this.group.updateMatrixWorld(true);
+    const bounds = new THREE.Box3();
+    this.group.traverseVisible(node => {
+      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal) return;
+      node.geometry.computeBoundingBox();
+      if (node.geometry.boundingBox) bounds.union(node.geometry.boundingBox.clone().applyMatrix4(node.matrixWorld));
+    });
+    this.kickflipCentre = (bounds.min.y + bounds.max.y) / 2;
+    const halfWidth = Math.max(Math.abs(bounds.min.x), Math.abs(bounds.max.x)) + .04, halfHeight = (bounds.max.y - bounds.min.y) / 2 + .04;
+    this.jumpBodyTop = Math.max(bounds.max.y, this.kickflipCentre + 2 * halfWidth - halfHeight + .45);
+    this.kickflip = new TakeoffKickflip(Math.max(Math.abs(bounds.min.x), Math.abs(bounds.max.x)) + 0.04, (bounds.max.y - bounds.min.y) / 2 + 0.04);
+    this.kickflipPivot = new THREE.Group(); this.kickflipPivot.name = 'Takeoff kickflip'; this.kickflipPivot.position.y = this.kickflipCentre;
+    for (const child of [...this.group.children]) { child.position.y -= this.kickflipCentre; this.kickflipPivot.add(child); }
+    this.group.add(this.kickflipPivot);
+    // Lights share the visual model's transform but add no collision geometry.
+    // A dashboard-style voice meter sits inside the dark grille. It never casts a beam.
+    this.voiceStrip = new THREE.Mesh(new THREE.BoxGeometry(1.38, .052, .012),
+      new THREE.MeshBasicMaterial({ color: '#47e6d8', toneMapped: false }));
+    this.voiceStrip.name = 'Delivery boy voice strip';
+    this.voiceStrip.position.set(0, .44, -2.349);
+    this.voiceStrip.visible = false;
+    R.lampMount.add(this.voiceStrip);
+    this.lamps = new PlayerLights(R.lampMount, tail, reverse);
+    const plumes = new Set<THREE.Object3D>();
+    for (const nozzle of this.nozzles) nozzle.jet?.traverse(node => plumes.add(node));
+    this.group.traverse(node => {
+      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal || node === this.voiceStrip || plumes.has(node)) return;
+      const positions = node.geometry.getAttribute('position');
+      if (positions) this.jumpCollisionMeshes.push({ mesh: node, positions });
+    });
+    // Keep the existing jump envelope/equipment dimensions; only the current
+    // visible cargo changes. No duplicate billboard is attached to the cabin.
+    this.pizzaCargo=R.cargo;this.setCarryingPizza(false);
+    this.gas = new GasPuffs(mats.radial);
+    this.glow = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 5.6), new THREE.MeshBasicMaterial({ map: mats.radial, color: new THREE.Color('#45E3D3'), transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false }));
+    this.glow.rotation.x = -Math.PI / 2;
+  }
+  wheels: THREE.Group[]; wheelRollers: THREE.Group[]; nozzles: RoadsterNozzle[]; gas: GasPuffs; wasFlying = false; puffAcc = 0; burst = 0;
+  setDeployment: (amount: number) => void; thrusterDeployment = 0;
+  private kickflip?: TakeoffKickflip; private kickflipPivot?: THREE.Group; private kickflipCentre = 0;
+  get takeoffAnimating() { return !!this.kickflip?.active; }
+  private resetKickflip() {
+    this.kickflip?.reset();
+    if (this.kickflipPivot) { this.kickflipPivot.rotation.z = 0; this.kickflipPivot.position.y = this.kickflipCentre; }
+  }
+  addTo(scene: THREE.Scene) { scene.add(this.group, this.glow, this.light, this.gas.group); }
+  // place on the road surface nearest to height `y` (a ground street under a flyover stays on the ground)
+  place(x: number, z: number, yaw: number, y = 0) {
+    this.finishJump();
+    if (this.jumpCooldownPendingLanding) { this.jumpCooldownPendingLanding = false; this.jumpCooldown = JUMP_COOLDOWN_SECONDS; }
+    this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.roadBrakeHold = 0; this.vy = 0; this.flying = false; this.descending = false;
+    const s = supportAt(this.city, x, z, y + 0.5, true); this.pos.y = s.y + 0.55;
+    this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad; this.onRoad = s.onRoad;
+    this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
+    this.resetKickflip();
+    this.group.position.copy(this.pos); this.group.rotation.set(0, yaw, 0, 'YXZ');
+    if (s.kind === 'road' && this.wheels?.length === 4 && roadWheelContact(this.city, x, this.pos.y, z, yaw, 0, 0, s.y, this.wheelSuspension)) {
+      this.wheels.forEach((w, i) => { w.position.y = .36 + this.wheelSuspension[i]; });
+    } else this.resetWheelSuspension();
+  }
+  // one puff of vented gas from a nozzle (k), blown along the nozzle direction plus a share of the car's motion
+  puff(power: number, k: number) {
+    const nz = this.nozzles[k % this.nozzles.length]; if (!nz) return;
+    const p = new THREE.Vector3(); nz.node.getWorldPosition(p);
+    const d = nz.dir.clone().applyQuaternion(nz.node.parent ? nz.node.parent.getWorldQuaternion(new THREE.Quaternion()) : this.group.quaternion);
+    const f = this.forward, v = new THREE.Vector3(f.x * this.speed * 0.25, 0, f.z * this.speed * 0.25);
+    v.addScaledVector(d, (5 + Math.random() * 3) * power).add(new THREE.Vector3((Math.random() - 0.5) * 1.2, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 1.2));
+    this.gas.emit(p, v, 0.8 + Math.random() * 0.6, 0.3, (2.0 + Math.random() * 1.4) * Math.max(0.7, power));
+  }
+  // A shared source ID/node does not prove that two local surfaces are on the
+  // same level. Continuity is decided by the actual tyre-support height below.
+  lastEdge: any = null;
+  roadPitch = 0;
+  landmarkRoll = 0;
+  wheelSuspension: number[] = [0, 0, 0, 0];
+  resetWheelSuspension() {
+    this.wheelSuspension = [0, 0, 0, 0];
+    this.wheels?.forEach(w => { w.position.y = .36; });
+  }
+  updateGlide(dt: number, t: number) {
+    const g = this.glide!; g.t += dt;
+    const P = this.pos, dx = g.x - P.x, dz = g.z - P.z, d = Math.hypot(dx, dz);
+    // rise clear of the roofs around, cross over, then settle onto the street
+    const cruise = Math.max(g.y, P.y) + (d > 6 ? 4 : 0);
+    const step = Math.min(d, 16 * dt);
+    if (d > 0.05) { P.x += (dx / d) * step; P.z += (dz / d) * step; this.yaw += ((Math.atan2(-dx, -dz) - this.yaw + Math.PI * 3) % (Math.PI * 2) - Math.PI) * Math.min(1, dt * 3); }
+    const wantY = d > 6 ? cruise : g.y;
+    P.y += (wantY - P.y) * Math.min(1, dt * (d > 6 ? 2.5 : 3.5));
+    this.group.position.set(P.x, P.y, P.z); this.group.rotation.set(-0.04, this.yaw, 0, 'YXZ');
+    this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
+    this.animateThrusters(dt, t, 0.7);
+    if ((d < 0.3 && Math.abs(P.y - g.y) < 0.15) || g.t > 8) {
+      if (this.jumpCooldownPendingLanding) { this.jumpCooldownPendingLanding = false; this.jumpCooldown = JUMP_COOLDOWN_SECONDS; }
+      P.set(g.x, g.y, g.z); this.yaw = g.yaw; this.glide = null; this.vy = 0; this.speed = 0;
+      this.lastSupport = g.y - 0.55; this.lastKind = 'road'; this.lastElevRoad = g.y - 0.55 > 1.2; this.lastEdge = null;
+      this.onRoad = true; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
+      this.group.position.copy(P); this.group.rotation.set(0, this.yaw, 0, 'YXZ');
+      this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
+    }
+  }
+  get forward() { return new THREE.Vector3(-Math.sin(this.yaw), 0, -Math.cos(this.yaw)); }
+  enforceSpeedLimit() {
+    this.speed = Math.max(-6, Math.min(this.speed, this.flying || this.descending ? FLIGHT_SPEED_LIMIT : ROAD_SPEED_LIMIT));
+  }
+  // rescue: glide on the cold-gas jets to a street spot (off a roof, out of a gap between buildings); needs no boost
+  glide: { x: number; y: number; z: number; yaw: number; t: number } | null = null;
+  glideTo(x: number, y: number, z: number, yaw: number) { const interruptedJump = this.jumping; this.finishJump(); if (interruptedJump) this.jumpCooldownPendingLanding = true; this.resetKickflip(); this.glide = { x, y: y + 0.55, z, yaw, t: 0 }; this.flying = false; this.descending = false; this.speed = 0; this.roadBrakeHold = 0; this.vy = 0; }
+  update(dt: number, inp: Input, t: number) {
+    if (!Number.isFinite(dt) || dt <= 0) return;
+    this.jumpBoundsDirty = true;
+    // Only the short hop needs substeps. This also makes a low-frame-rate jump
+    // test the actual wall/ceiling path instead of skipping through an object.
+    if ((this.jumping || inp.jumpPressed) && dt > 1 / 60 + 1e-8) {
+      const count = Math.ceil(dt * 60), step = dt / count;
+      for (let i = 0; i < count; i++) this.update(step, i ? { ...inp, flyPressed: false } : inp, t - dt + step * (i + 1));
+      return;
+    }
+    this.jumpCooldown = this.jumpCooldownPendingLanding ? JUMP_COOLDOWN_SECONDS : Math.max(0, (this.jumpCooldown ?? 0) - dt);
+    const jumpPressed = !!inp.jumpPressed && !this.jumpHeld; this.jumpHeld = !!inp.jumpPressed;
+    if (this.glide) { this.updateGlide(dt, t); return; }
+    // FLY remains the separate unlimited-flight mode and cannot cancel a hop
+    // into a hover. Simultaneous fresh inputs give FLY precedence on the road.
+    if (inp.flyPressed && !this.jumping) {
+      if (this.flying) { this.flying = false; this.descending = true; this.kickflip?.cancel(); }
+      else {
+        this.flying = true; this.descending = false; this.vy = 0; this.altT = 0;
+        (this.kickflip ||= new TakeoffKickflip()).begin();
+      }
+    }
+    if (jumpPressed && this.canJump) {
+      this.jumpActive = true; this.jumpStartY = this.pos.y; this.jumpElapsed = 0; this.jumpForcedFall = false; this.vy = 0;
+      this.resetKickflip(); (this.kickflip ||= new TakeoffKickflip()).begin(JUMP_AIRTIME);
+    }
+    const air = this.airborne;
+    const delivery = this.deliveryMotion;
+    const inDelivery = delivery && Math.hypot(this.pos.x - delivery.x, this.pos.z - delivery.z) <= delivery.radius;
+    const diving = inDelivery && delivery.mode === 'underwater' && waterHeightAt(this.city.waterGrid, this.pos.x, this.pos.z) !== null;
+    // --- longitudinal ---
+    if (this.jumping) {
+      this.roadBrakeHold = 0;
+      // A hop carries the launch speed; holding GO never adds a jump boost.
+      if (inp.brake > 0) this.speed = Math.max(0, this.speed - 20 * inp.brake * dt);
+    } else if (inp.brake > 0 && inp.allowReverse === false) {
+      this.speed = Math.sign(this.speed) * Math.max(0, Math.abs(this.speed) - 24 * inp.brake * dt) || 0;
+      this.roadBrakeHold = 0;
+    } else if (this.flying || this.descending) {
+      this.roadBrakeHold = 0;
+      // Keep forward acceleration consistent across powered road, flight,
+      // and descent modes.
+      if (inp.throttle > 0) this.speed += (this.flying ? 18 : 13.5) * inp.throttle * dt;
+      if (inp.brake > 0) this.speed -= (this.speed > 0.5 ? 20 : 6) * inp.brake * dt;
+      if (inp.throttle <= 0 && inp.brake <= 0) this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
+    } else if (inp.brake > 0) {
+      // BRAKE wins over a second thumb/key still holding GO. The former
+      // additive inputs weakened braking and could creep instead of stopping.
+      if (this.speed > 0 || this.speed < 0 && inp.throttle > 0) {
+        const remaining = Math.max(0, Math.abs(this.speed) - 24 * inp.brake * dt);
+        this.speed = remaining > 0 ? Math.sign(this.speed) * remaining : 0;
+        // Keep a held BRAKE moving into reverse as soon as forward motion ends.
+        this.roadBrakeHold = remaining === 0 ? .35 : 0;
+      } else if (inp.throttle > 0) {
+        // Space is a dedicated brake; regular BRAKE continues into reverse.
+        this.speed = 0; this.roadBrakeHold = 0;
+      } else if (this.speed < 0) {
+        this.speed -= 4 * inp.brake * dt;
+      } else {
+        // A fresh press from rest can still reverse after a short hold.
+        const wait = Math.min(dt, Math.max(0, .35 - (this.roadBrakeHold || 0)));
+        this.roadBrakeHold = (this.roadBrakeHold || 0) + wait;
+        this.speed -= 4 * inp.brake * (dt - wait);
+      }
+    } else {
+      this.roadBrakeHold = 0;
+      // Faster forward response across ground and water while retaining the
+      // existing speed caps and immediate proportional control.
+      if (inp.throttle > 0) this.speed += (this.lastKind === 'water' ? 13.5 : 5.4) * inp.throttle * dt;
+      else this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
+    }
+    this.enforceSpeedLimit();
+    if (diving) { this.speed = Math.max(-3, Math.min(8, this.speed)); this.speed *= Math.exp(-.75 * dt); }
+    // --- steering (sharper at low speed, reversed when reversing) ---
+    const sf = Math.min(1, Math.abs(this.speed) / 6) * (1 / (1 + Math.abs(this.speed) * 0.045));
+    // Ease into a turn, then straighten promptly when the player releases or counters.
+    const easingIn = inp.steer * this.steerVis >= 0 && Math.abs(inp.steer) > Math.abs(this.steerVis);
+    this.steerVis += (inp.steer - this.steerVis) * (1 - Math.exp(-dt * (easingIn ? 5 : 12)));
+    this.yaw -= this.steerVis * sf * (2 - .45 * Math.min(1, Math.abs(this.speed) / 23)) * dt * Math.sign(this.speed || 1);
+    const prev = this.pos.clone();
+    const f = this.forward;
+    this.pos.x += f.x * this.speed * dt; this.pos.z += f.z * this.speed * dt;
+    // Flight clears a barrier only after the body is above it; pressing Space
+    // beside a parapet must not disable collision during the initial ascent.
+    {
+      const w = collideWalls(this.city, prev, this.pos, 1.05, this.pos.y - 0.55, this.pos.y + (this.jumping ? this.jumpBodyTop : 0.6),
+        { hx: f.x, hz: f.z, halfLength: 2.4, halfWidth: 1.1 });
+      if (w.hit > 0.02) {
+        // scrape along the barrier: keep the part of the speed parallel to it
+        const f2 = this.forward, into = f2.x * -w.nx + f2.z * -w.nz;
+        this.speed *= into > 0.5 ? 0.35 : 0.8;
+        if (into > 0.25) this.yaw += Math.sign(f2.x * w.nz - f2.z * w.nx) * 0.02;
+        this.bump = Math.max(this.bump, Math.min(0.5, w.hit * 0.6));
+        if (this.hitCooldown <= 0 && into > 0.5 && Math.abs(this.speed) > 3) this.hitCooldown = 0.4;
+      }
+      if (w.kerb && this.kerbT <= 0) { this.kerbT = 0.35; this.bump = Math.max(this.bump, 0.18); if (Math.abs(this.speed) > 6) this.speed *= 0.85; }
+    }
+    this.kerbT -= dt;
+    // --- vertical ---
+    const sup = supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55,road:this.lastEdge??undefined} : undefined);
+    const landmark = sup.kind === 'landmark' ? landmarkCarContact(this.city.landmarkSurfaceGrid, this.pos.x, this.pos.z, this.yaw, sup.y) : null;
+    const ground = landmark?.y ?? sup.y + 0.55;
+    if (diving && !this.jumping) {
+      // The scripted lake scene has no oxygen/failure timer. Height approaches
+      // the underwater handoff smoothly while the normal steering still works.
+      this.vy += (delivery.altitude - this.pos.y) * 2.2 * dt;
+      this.vy *= Math.exp(-2.2 * dt); this.vy = Math.max(-3, Math.min(3, this.vy));
+      this.pos.y += this.vy * dt;
+    } else if (this.jumping) {
+      const oldFeet = this.pos.y - .55;
+      this.jumpElapsed = Math.min(JUMP_AIRTIME, this.jumpElapsed + dt);
+      const profile = jumpProfile(this.jumpElapsed), step = advanceJump(this.vy, dt);
+      let nextY = this.jumpForcedFall ? this.pos.y + step.rise : this.jumpStartY + profile.rise;
+      this.vy = this.jumpForcedFall ? step.velocity : profile.velocity;
+      const ceiling = jumpCeiling(this.city, this.pos.x, this.pos.z, oldFeet + .1);
+      if (ceiling !== null && nextY + this.jumpBodyTop >= ceiling) {
+        nextY = Math.min(nextY, ceiling - this.jumpBodyTop); this.vy = Math.min(0, this.vy); this.jumpForcedFall = true;
+      }
+      // A downward crossing onto an actual reachable surface ends the hop.
+      // Query below the old feet so an overhead bridge cannot pull us onto it.
+      let landing = supportAt(this.city, this.pos.x, this.pos.z, oldFeet);
+      if (landing.y > oldFeet + .02) landing = supportAt(this.city, this.pos.x, this.pos.z, oldFeet - 1.6 + .001);
+      const floor = landing.y + .55;
+      if (this.vy <= 0 && this.pos.y >= floor - .02 && nextY <= floor) {
+        this.pos.y = floor; this.vy = 0; this.finishJump();
+      } else {
+        this.pos.y = nextY;
+        if (this.jumpElapsed >= JUMP_AIRTIME) this.jumpForcedFall = true;
+      }
+    } else if (this.flying) {
+      // cruise at 24 m, climbing over anything taller just ahead
+      if ((this.altT -= dt) <= 0) {
+        this.altT = 0.25;
+        const f2 = this.forward, P = this.pos;
+        // Keep the original altitude easing, but prepare several seconds of
+        // road ahead at flight speed. A fixed 45m probe gave a tall Green-line
+        // station less than a second of warning and sampled only the car centre.
+        const reach = Math.max(60, Math.abs(this.speed) * 3.5), points: [number, number][] = [];
+        for (let d = 0; d <= reach + .01; d += reach / Math.ceil(reach / 8)) for (const side of [-2, 0, 2]) points.push([P.x + f2.x * d + f2.z * side, P.z + f2.z * d - f2.x * side]);
+        const roof = roofUnder(this.city, points);
+        this.flyAlt = inDelivery && delivery.mode === 'approach' ? delivery.altitude : Math.max(24, roof + 6);
+      }
+      this.pos.y += (this.flyAlt - this.pos.y) * Math.min(1, dt * 1.6);
+    } else if (!this.descending && sup.kind === 'water' && this.pos.y <= ground + 1) {
+      this.pos.y = buoyantHeight(this.pos.y, ground, dt); this.vy = 0;
+      // A small water drag communicates flotation while preserving all controls.
+      this.speed *= Math.exp(-.28 * dt);
+    } else if (!air && this.onRoad && sup.onRoad && Math.abs(sup.y - this.lastSupport) <= Math.max(.2, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * .14 + .03)) {
+      // Tyres follow a continuous grade in both directions. Applying free fall
+      // on every small downhill step makes a descending car repeatedly detach.
+      this.pos.y = ground; this.vy = 0;
+    } else if (!air && this.lastKind === 'landmark' && landmark && Math.abs(sup.y - this.lastSupport) <= Math.max(.25, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * 2 + .03)) {
+      // Real landmark facets use the same continuous contact rule as roads.
+      // Otherwise every downhill sample becomes another tiny fall/landing.
+      this.pos.y = ground; this.vy = 0;
+    } else if (!air && this.lastElevRoad && sup.y < this.lastSupport - Math.max(.35, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * .14 + .03)) {
+      // A real ramp follows the bounded local grade. Never let an unrelated
+      // lower road win after a tile seam or at a crossing just because its
+      // source ID/node also appears somewhere on this elevated road.
+      this.pos.x = prev.x; this.pos.z = prev.z; this.speed *= 0.5; this.bump = 0.3;
+    } else if (this.descending || this.pos.y > ground + 0.05) {
+      // falling: off a roof edge, or the protected landing after a flight
+      this.vy -= 18 * dt; this.pos.y += this.vy * dt;
+      if (this.descending) this.vy = Math.max(this.vy, -6);
+      if (this.pos.y <= ground) { if (this.vy < -9) { this.bump = 0.6; this.speed *= 0.6; } this.pos.y = ground; this.vy = 0; this.descending = false; }
+    } else { this.pos.y = ground; this.vy = 0; }
+    const sup2 = this.airborne ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55,road:this.lastEdge??undefined} : undefined);
+    const grounded = !this.airborne && Math.abs(this.pos.y - (sup2.kind === 'landmark' && landmark ? landmark.y : sup2.y + .55)) < 0.1;
+    // Descent can retain airborne speed, but the same touchdown frame obeys the road cap.
+    if (grounded) this.enforceSpeedLimit();
+    if (grounded) { this.lastSupport = sup2.y; this.lastKind = sup2.kind; this.lastElevRoad = sup2.elevatedRoad; this.lastEdge = sup2.s?.e || null; }
+    this.onRoad = grounded && sup2.onRoad;
+    // --- buildings ---
+    const hit = collideBuildings(this.city, this.pos, 1.15, this.pos.y - 0.4, this.pos.y + (this.jumping ? this.jumpBodyTop : .75));
+    if (hit > 0.05) { this.speed *= 0.55; this.bump = Math.min(0.6, hit); }
+    this.hitCooldown -= dt; this.bump = Math.max(0, this.bump - dt);
+    // --- visuals ---
+    let pitch = 0, roll = 0;
+    if (!air && this.onRoad) {
+      const nose = supportAt(this.city, this.pos.x + f.x * 1.6, this.pos.z + f.z * 1.6, this.pos.y - .55, true), tail = supportAt(this.city, this.pos.x - f.x * 1.6, this.pos.z - f.z * 1.6, this.pos.y - .55, true);
+      if (nose.onRoad && tail.onRoad && Math.abs(nose.y - tail.y) < 1) pitch = Math.atan2(nose.y - tail.y, 3.2);
+    }
+    const onLandmark = grounded && sup2.kind === 'landmark' && landmark;
+    if (onLandmark) { pitch = landmark.pitch; roll = landmark.roll; }
+    this.roadPitch = (this.roadPitch || 0) + (pitch - (this.roadPitch || 0)) * Math.min(1, dt * 12);
+    this.landmarkRoll = (this.landmarkRoll || 0) + (roll - (this.landmarkRoll || 0)) * Math.min(1, dt * 12);
+    const lean = -this.steerVis * Math.min(1, Math.abs(this.speed) / 15) * 0.06;
+    this.resetWheelSuspension();
+    if (onLandmark) {
+      // Recompute the actual tilted tyre positions after interpolation. Matching
+      // that posture's height and suspension prevents the easing itself from
+      // briefly burying wheels at a facet transition or after landing.
+      const contacts = landmarkCarContact(this.city.landmarkSurfaceGrid, this.pos.x, this.pos.z, this.yaw, sup2.y,
+        { pitch: this.roadPitch, roll: this.landmarkRoll + lean });
+      if (contacts) {
+        this.pos.y = contacts.y; this.vy = 0; this.wheelSuspension = contacts.suspension;
+        this.wheels?.forEach((w, i) => { w.position.y = .36 + contacts.suspension[i]; });
+      }
+    } else if (grounded && sup2.kind === 'road' && this.wheels?.length === 4) {
+      if (roadWheelContact(this.city, this.pos.x, this.pos.y, this.pos.z, this.yaw, this.roadPitch, this.landmarkRoll + lean, sup2.y, this.wheelSuspension)) {
+        this.wheels.forEach((w, i) => { w.position.y = .36 + this.wheelSuspension[i]; });
+      } else this.resetWheelSuspension();
+    }
+    const visuallyAirborne = this.airborne;
+    if (!visuallyAirborne) this.resetKickflip();
+    const flip = this.kickflip?.update(dt);
+    if (this.kickflipPivot && flip) {
+      // Keep the same .45 m roll clearance accent, spread over the low apex
+      // rather than adding a taller arc. Unlimited FLY keeps its existing pose.
+      const jumpLift = this.jumping ? .45 * (jumpProfile(this.jumpElapsed).envelope - Math.sin(flip.roll / 2) ** 2) : 0;
+      this.kickflipPivot.rotation.z = flip.roll; this.kickflipPivot.position.y = this.kickflipCentre + flip.lift + jumpLift;
+    }
+    this.group.position.set(this.pos.x, this.pos.y + (this.flying || this.descending ? Math.sin(t * 2.6) * 0.06 : 0), this.pos.z);
+    this.group.rotation.set(this.jumping ? 0 : visuallyAirborne ? -0.06 : this.roadPitch, this.yaw, (visuallyAirborne ? 0 : this.landmarkRoll) + lean, 'YXZ');
+    this.updateWaterWake(sup2.kind === 'water' && !visuallyAirborne && Math.abs(this.pos.y-ground)<.15, t);
+    this.glow.position.set(this.pos.x, (air ? sup.y : this.pos.y - 0.55) + 0.06, this.pos.z);
+    this.glow.visible = this.pos.y - sup.y < 6;
+    this.light.position.set(this.pos.x, this.pos.y - 0.2, this.pos.z);
+    // wheels roll with the road speed, the front pair steers
+    const spin = (this.speed * dt) / 0.36;
+    // The model faces -Z, so its front wheel yaw has the same negative sign
+    // as the actual change of vehicle yaw (including the visible reverse steer).
+    this.wheels.forEach((w, i) => { w.rotation.y = i < 2 ? -this.steerVis * 0.38 : 0; });
+    this.wheelRollers.forEach((w) => { w.rotation.x -= air ? spin * 0.2 : spin; });
+    this.animateThrusters(dt, t, this.flying ? 1 : this.jumping ? .65 : this.descending ? 0.35 : 0);
+  }
+  // One visual path for normal flight and rescue: deployment, plume and stow stay in sync.
+  private updateWaterWake(floating: boolean, t: number) {
+    if (floating && !this.waterWake) {
+      const material = new THREE.MeshBasicMaterial({ color:'#b6ece6', transparent:true, opacity:.42, depthWrite:false, side:THREE.DoubleSide });
+      this.waterWake=new THREE.Group();
+      for(let i=0;i<2;i++) { const ring=new THREE.Mesh(new THREE.RingGeometry(.92,1,28),material);ring.rotation.x=-Math.PI/2;this.waterWake.add(ring); }
+      this.city.group.add(this.waterWake);
+    }
+    if (!this.waterWake) return;
+    this.waterWake.visible=floating;
+    if (!floating) return;
+    const level=waterHeightAt(this.city.waterGrid,this.pos.x,this.pos.z);
+    this.waterWake.position.set(this.pos.x,(level??.02)+.035,this.pos.z);this.waterWake.rotation.y=this.yaw;
+    this.waterWake.children.forEach((ring,i)=>{const phase=(t*.65+i*.5)%1;ring.scale.set(1.2+phase*.8,2.6+phase,1);});
+  }
+  animateThrusters(dt: number, t: number, firing: number) {
+    this.thrusterDeployment += ((firing > 0 ? 1 : 0) - this.thrusterDeployment) * Math.min(1, dt * 7);
+    this.setDeployment(this.thrusterDeployment);
+    this.group.updateMatrixWorld();
+    if (firing > 0.7 && !this.wasFlying) { for (let k = 0; k < this.nozzles.length * 2; k++) this.puff(1.5, k); this.burst = 1; }
+    this.burst = Math.max(0, this.burst - dt * 1.4);
+    this.nozzles.forEach((nz, i) => {
+      if (!nz.jet) return;
+      nz.jet.visible = firing > 0;
+      if (!firing) return;
+      // Downward lift jets have the longest plume; rear outlets supply a shorter push.
+      const lift = nz.dir.y < -0.5 ? 1 : 0.55;
+      const flutter = 0.88 + Math.sin(t * 53 + i * 1.7) * 0.08 + Math.sin(t * 31 + i) * 0.04;
+      const length = (0.65 + firing * 1.2 + this.burst) * lift * flutter;
+      nz.jet.scale.set(0.8 + this.burst * 0.35, length, 0.8 + this.burst * 0.35);
+    });
+    this.wasFlying = firing > 0.7;
+    this.puffAcc += dt * firing * 38;
+    while (this.puffAcc >= 1) { this.puffAcc -= 1; this.puff(firing > 0.5 ? 1 : 0.6, Math.floor(Math.random() * this.nozzles.length)); }
+    this.pods.forEach((p) => { p.visible = firing > 0; p.scale.setScalar(0.75 + firing * 0.25); (p.material as THREE.MeshBasicMaterial).color.setScalar(0.7 + firing * 0.5); });
+    this.gas.update(dt);
+  }
+}
+
+// alpha along a jet: solid at the nozzle (canvas top = tip), gone by the open end
+let fadeTex: THREE.Texture | null = null;
+function jetFade() {
+  if (fadeTex) return fadeTex;
+  const c = document.createElement('canvas'); c.width = 4; c.height = 64; const x = c.getContext('2d')!;
+  const gr = x.createLinearGradient(0, 0, 0, 64); gr.addColorStop(0, '#fff'); gr.addColorStop(0.35, '#999'); gr.addColorStop(1, '#000');
+  x.fillStyle = gr; x.fillRect(0, 0, 4, 64); return (fadeTex = new THREE.CanvasTexture(c));
+}
+
+// Vented cold gas: white condensate puffs that shoot out, slow down, swell and fade (a small sprite pool).
+class GasPuffs {
+  group = new THREE.Group(); items: { s: THREE.Sprite; v: THREE.Vector3; age: number; life: number; s0: number; s1: number }[] = []; next = 0;
+  constructor(tex: THREE.Texture) {
+    for (let i = 0; i < 120; i++) {
+      const m = new THREE.SpriteMaterial({ map: tex, color: '#f2f8ff', transparent: true, opacity: 0, depthWrite: false });
+      const s = new THREE.Sprite(m); s.visible = false; this.group.add(s);
+      this.items.push({ s, v: new THREE.Vector3(), age: 1, life: 1, s0: 0.2, s1: 1 });
+    }
+  }
+  emit(p: THREE.Vector3, v: THREE.Vector3, life: number, s0: number, s1: number) {
+    const it = this.items[this.next]; this.next = (this.next + 1) % this.items.length;
+    it.s.position.copy(p); it.v.copy(v); it.age = 0; it.life = life; it.s0 = s0; it.s1 = s1; it.s.visible = true;
+  }
+  update(dt: number) {
+    for (const it of this.items) {
+      if (!it.s.visible) continue;
+      it.age += dt; const f = it.age / it.life;
+      if (f >= 1) { it.s.visible = false; continue; }
+      it.v.multiplyScalar(Math.max(0, 1 - dt * 3.2)); it.v.y += dt * 0.6;           // drag, a little lift as it warms
+      it.s.position.addScaledVector(it.v, dt);
+      const sc = it.s0 + (it.s1 - it.s0) * (1 - (1 - f) * (1 - f));
+      it.s.scale.setScalar(sc);
+      (it.s.material as THREE.SpriteMaterial).opacity = 0.72 * (1 - f) * Math.min(1, f * 8);
+    }
+  }
+}

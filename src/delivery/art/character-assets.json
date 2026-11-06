@@ -1,0 +1,3967 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "characterId": "pushpa-raj",
+      "candidate": {
+        "assetId": "pushpa-raj-rodin-cast-v1",
+        "sha256": "61b94423e0f90b14e9482c855c105b86e12ebce784303e2771065bfd9fc9d86f"
+      },
+      "glb": {
+        "url": "/delivery/characters/pushpa-raj/rodin-49f1bba5cd19.glb",
+        "sha256": "49f1bba5cd19cdfdda565bbb492d58e3cd7083ae688be5242441718e868c5276"
+      },
+      "contractPath": "public/delivery/characters/pushpa-raj/rodin-49f1bba5cd19.rig.json",
+      "contract": {
+        "id": "rodin-pushpa-raj-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch",
+          "book": "JapaneseBook"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.9
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "49f1bba5cd19cdfdda565bbb492d58e3cd7083ae688be5242441718e868c5276",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 20859,
+              "center": [
+                -0.000376085133286963,
+                -0.007715241644521309,
+                0.12640318590202182
+              ],
+              "radius": 1.261254396496351
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "jessie",
+      "candidate": {
+        "assetId": "jessie-rodin-cast-v1",
+        "sha256": "f25ed2466ff145a22778cc9e8406aed0e3b521fe7791e9f4d2d2b532fc488caf"
+      },
+      "glb": {
+        "url": "/delivery/characters/jessie/rodin-6a5680fa3df8.glb",
+        "sha256": "6a5680fa3df813cd536fabe4bba75c61c9fdcd02f08cc6651a4d66d530b1d3f2"
+      },
+      "contractPath": "public/delivery/characters/jessie/rodin-6a5680fa3df8.rig.json",
+      "contract": {
+        "id": "rodin-jessie-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.6
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5959999999999999,
+          "max": 1.764
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "6a5680fa3df813cd536fabe4bba75c61c9fdcd02f08cc6651a4d66d530b1d3f2",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 23014,
+              "center": [
+                -0.0022953472799694674,
+                -0.04306007301723014,
+                0.12741545100594628
+              ],
+              "radius": 1.2129252456787234
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "hasini",
+      "candidate": {
+        "assetId": "hasini-rodin-cast-v1",
+        "sha256": "38602d290db9cda2837a067d66a18942d3bf3e25d3b879e5125a7d7d9ec17374"
+      },
+      "glb": {
+        "url": "/delivery/characters/hasini/rodin-705d16eb40cb.glb",
+        "sha256": "705d16eb40cb40f5e131056943c58c7f7c9f3a35e21555ef8f1b8132eb7d2c81"
+      },
+      "contractPath": "public/delivery/characters/hasini/rodin-705d16eb40cb.rig.json",
+      "contract": {
+        "id": "rodin-hasini-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.577,
+          "max": 1.7429999999999999
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "705d16eb40cb40f5e131056943c58c7f7c9f3a35e21555ef8f1b8132eb7d2c81",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 26981,
+              "center": [
+                0.0002839064408700076,
+                -0.03953876200667217,
+                0.1559765889945769
+              ],
+              "radius": 1.1748164271166865
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "devara",
+      "candidate": {
+        "assetId": "devara-rodin-cast-v1",
+        "sha256": "19f0c732fac607ffe463250beb50d0ef8739b88b68602a675ddc547150d2ee9c"
+      },
+      "glb": {
+        "url": "/delivery/characters/devara/rodin-f02fe91d8de3.glb",
+        "sha256": "f02fe91d8de37662331396625ee4353105ed990649508c2f7c081a08897961ed"
+      },
+      "contractPath": "public/delivery/characters/devara/rodin-f02fe91d8de3.rig.json",
+      "contract": {
+        "id": "rodin-devara-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "authored-static"
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "f02fe91d8de37662331396625ee4353105ed990649508c2f7c081a08897961ed",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 63,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              }
+            ]
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 19150,
+              "center": [
+                9.252027558501186e-05,
+                -0.05000982232404311,
+                0.17204741128071638
+              ],
+              "radius": 1.188156980937702
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "ram-vvr",
+      "candidate": {
+        "assetId": "ram-vvr-rodin-cast-v1",
+        "sha256": "964572b7d697217115af4290f54547b40d5b2da7b2471cde4f1db2e78ed1287a"
+      },
+      "glb": {
+        "url": "/delivery/characters/ram-vvr/rodin-5bc57fc273bd.glb",
+        "sha256": "5bc57fc273bd4b8d41bcb06e8ab89f2883b5c783a0c4084f5d3df1c156dc1585"
+      },
+      "contractPath": "public/delivery/characters/ram-vvr/rodin-5bc57fc273bd.rig.json",
+      "contract": {
+        "id": "rodin-ram-vvr-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8666666666666667
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "box-center",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "5bc57fc273bd4b8d41bcb06e8ab89f2883b5c783a0c4084f5d3df1c156dc1585",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 20415,
+              "center": [
+                0.00026103843181504716,
+                -0.04722264032073081,
+                0.08416274238662205
+              ],
+              "radius": 1.2490175632414686
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "sukumar",
+      "candidate": {
+        "assetId": "sukumar-rodin-cast-v1",
+        "sha256": "a12c831a0e6217f6279956f688fd11f3db2f730195b291d68d44288b29584ea6"
+      },
+      "glb": {
+        "url": "/delivery/characters/sukumar/rodin-b38c5cf4ad58.glb",
+        "sha256": "b38c5cf4ad587143fb6cbf1718d9f22f850ce1d379379a12d12db27f7a21501b"
+      },
+      "contractPath": "public/delivery/characters/sukumar/rodin-b38c5cf4ad58.rig.json",
+      "contract": {
+        "id": "rodin-sukumar-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.6909999999999998,
+          "max": 1.8690000000000002
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "b38c5cf4ad587143fb6cbf1718d9f22f850ce1d379379a12d12db27f7a21501b",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 20564,
+              "center": [
+                -0.0002750551243043964,
+                -0.0010489466093667188,
+                0.1603056667406526
+              ],
+              "radius": 1.156883141406744
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "nani-jersey",
+      "candidate": {
+        "assetId": "nani-jersey-rodin-cast-v1",
+        "sha256": "92b95ffb38b756c2d07795ee9c2f352bda61b094d5a6ee42a40c10c3569b0278"
+      },
+      "glb": {
+        "url": "/delivery/characters/nani-jersey/rodin-5f7dde640527.glb",
+        "sha256": "5f7dde64052772f4e5b98bc354330155f6c6c61858edf9b2b71d11f8572b383e"
+      },
+      "contractPath": "public/delivery/characters/nani-jersey/rodin-5f7dde640527.rig.json",
+      "contract": {
+        "id": "rodin-nani-jersey-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.71,
+          "max": 1.8900000000000001
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "5f7dde64052772f4e5b98bc354330155f6c6c61858edf9b2b71d11f8572b383e",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 18488,
+              "center": [
+                0.0011607179586870797,
+                -0.030038784632901105,
+                0.15666609127256875
+              ],
+              "radius": 1.1977919608730139
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "arjun-reddy",
+      "candidate": {
+        "assetId": "arjun-reddy-rodin-cast-v1",
+        "sha256": "cc43e7a38404e9b6b053282b1cfb16b1ffd4542a6a6a4a39ace78d83ccde3395"
+      },
+      "glb": {
+        "url": "/delivery/characters/arjun-reddy/rodin-cec1ed83baeb.glb",
+        "sha256": "cec1ed83baeb92fca5dd554fe8f82f55084e42d47d0c024414e481e85a4a98b5"
+      },
+      "contractPath": "public/delivery/characters/arjun-reddy/rodin-cec1ed83baeb.rig.json",
+      "contract": {
+        "id": "rodin-arjun-reddy-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "cec1ed83baeb92fca5dd554fe8f82f55084e42d47d0c024414e481e85a4a98b5",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 19991,
+              "center": [
+                0.00022572931026826337,
+                -0.03172773101621701,
+                0.1788506189046015
+              ],
+              "radius": 1.1951580782064541
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "maruthi",
+      "candidate": {
+        "assetId": "maruthi-rodin-cast-v1",
+        "sha256": "77786d749dc5fdd7bfdd16ca78570036103251635beca20a2e0d2114b688e32e"
+      },
+      "glb": {
+        "url": "/delivery/characters/maruthi/rodin-59152a7f5337.glb",
+        "sha256": "59152a7f5337386192dcb23d1a7886ab7a9018f20eec868f0ee522c79ebdf090"
+      },
+      "contractPath": "public/delivery/characters/maruthi/rodin-59152a7f5337.rig.json",
+      "contract": {
+        "id": "rodin-maruthi-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "height": {
+          "min": 1.672,
+          "max": 1.848
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "59152a7f5337386192dcb23d1a7886ab7a9018f20eec868f0ee522c79ebdf090",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 19830,
+              "center": [
+                -0.0006043778955162893,
+                -0.011415123658833182,
+                0.09345873556970553
+              ],
+              "radius": 1.1474957016557026
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "arundhati",
+      "candidate": {
+        "assetId": "arundhati-rodin-cast-v1",
+        "sha256": "1813ad3efaf2299db35e90abbfa44df13fdb2874fad8c98f35dcbe643a9a54ad"
+      },
+      "glb": {
+        "url": "/delivery/characters/arundhati/rodin-09048a9596f0.glb",
+        "sha256": "09048a9596f0db0d9c224c70523e1b2e82d30be8f66744426546f8cca633ede8"
+      },
+      "contractPath": "public/delivery/characters/arundhati/rodin-09048a9596f0.rig.json",
+      "contract": {
+        "id": "rodin-arundhati-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "catchPointSpace": "palm-contact",
+        "pose": {
+          "mode": "authored-static"
+        },
+        "height": {
+          "min": 1.6624999999999999,
+          "max": 1.8375000000000001
+        },
+        "materialTreatment": "as-authored",
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "09048a9596f0db0d9c224c70523e1b2e82d30be8f66744426546f8cca633ede8",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 63,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              }
+            ]
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 26637,
+              "center": [
+                0.0004568834114812015,
+                -0.06682936717157517,
+                0.0022579200682120992
+              ],
+              "radius": 1.1832007109533373
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "bhanumathi",
+      "candidate": {
+        "assetId": "bhanumathi-rodin-cast-v1",
+        "sha256": "f49b27a3d3d32a5cb0fa5a38f0e2dc5121fd3253563001c6349775f7b439732a"
+      },
+      "glb": {
+        "url": "/delivery/characters/bhanumathi/rodin-db28689d97a7.glb",
+        "sha256": "db28689d97a7915ff8e74de115a1aa6b0428b9f7491cee28eca05f5e6606ede0"
+      },
+      "contractPath": "public/delivery/characters/bhanumathi/rodin-db28689d97a7.rig.json",
+      "contract": {
+        "id": "rodin-bhanumathi-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.6666666666666667
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5959999999999999,
+          "max": 1.764
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "db28689d97a7915ff8e74de115a1aa6b0428b9f7491cee28eca05f5e6606ede0",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 24216,
+              "center": [
+                -0.00013558584498243875,
+                -0.08386772155990085,
+                0.12439800229905357
+              ],
+              "radius": 1.2667255311752177
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "vakeel-saab",
+      "candidate": {
+        "assetId": "vakeel-saab-rodin-cast-v1",
+        "sha256": "787d95c11e469d2147a877df56b6865bd7efb0164e3235d1b4a7fd98ce01dc7c"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-saab/rodin-cf5f3590bbc3.glb",
+        "sha256": "cf5f3590bbc35a4433c8920c2c4fe58e0b02c55183bdd51a0ddb0f7daa27cb33"
+      },
+      "contractPath": "public/delivery/characters/vakeel-saab/rodin-cf5f3590bbc3.rig.json",
+      "contract": {
+        "id": "rodin-vakeel-saab-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8333333333333334
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "cf5f3590bbc35a4433c8920c2c4fe58e0b02c55183bdd51a0ddb0f7daa27cb33",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 19915,
+              "center": [
+                0.0011812817010392607,
+                -0.010703298227863145,
+                0.10924402166026959
+              ],
+              "radius": 1.203432921268171
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "vakeel-woman-1",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-one-v1",
+        "sha256": "cb61dba907ac639634fee7d66fd63f126433f4adba146095c99976a83666695b"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+        "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02"
+      },
+      "contractPath": "public/delivery/characters/vakeel-woman-1/platform-companion-v1.rig.json",
+      "contract": {
+        "id": "vakeel-woman-1-on-metro-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.65
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5579999999999998,
+          "max": 1.722
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.025,
+            "poseCount": 7062,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftWristTwist",
+                "LeftHand",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightWristTwist",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 2115,
+              "center": [
+                0.21640580417842673,
+                0.9973256948504178,
+                0.19002561516725233
+              ],
+              "radius": 0.48874990049818107
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 2112,
+              "center": [
+                -0.2162628562424118,
+                0.99698238635375,
+                0.19510100878858952
+              ],
+              "radius": 0.4857913407859361
+            },
+            "geometry_0": {
+              "vertexCount": 26696,
+              "center": [
+                -9.549290762198015e-05,
+                0.8018177304933872,
+                0.0330507619005867
+              ],
+              "radius": 0.9591594843357416
+            },
+            "geometry_0_1": {
+              "vertexCount": 80,
+              "center": [
+                0.23879682766174343,
+                1.0284861544545767,
+                0.06106079065855241
+              ],
+              "radius": 0.2330622238667199
+            },
+            "geometry_0_2": {
+              "vertexCount": 88,
+              "center": [
+                -0.23790465948116407,
+                1.0295974168805087,
+                0.0636343308130271
+              ],
+              "radius": 0.2315567362300862
+            },
+            "geometry_0_3": {
+              "vertexCount": 1876,
+              "center": [
+                0.010788217534860131,
+                1.3489189380786986,
+                -0.035799938567817866
+              ],
+              "radius": 0.3605529433786719
+            },
+            "geometry_0_4": {
+              "vertexCount": 1017,
+              "center": [
+                -0.00026974754378059074,
+                1.37137837888789,
+                -0.007951024650405869
+              ],
+              "radius": 0.25636431425150386
+            },
+            "MeasuredLeftWatchBand": {
+              "vertexCount": 508,
+              "center": [
+                0.21067544087869755,
+                1.0075717079653295,
+                0.1480816496197904
+              ],
+              "radius": 0.35423397089412323
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "vakeel-woman-2",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-two-v1",
+        "sha256": "585f53c0c2fb44cb3859ea15ea72959358db752b98e79f4bd86c58fe10b751bc"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+        "sha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702"
+      },
+      "contractPath": "public/delivery/characters/vakeel-woman-2/platform-companion-v1.rig.json",
+      "contract": {
+        "id": "vakeel-woman-2-on-metro-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.6833333333333333
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5579999999999998,
+          "max": 1.722
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.025,
+            "poseCount": 7062,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftWristTwist",
+                "LeftHand",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightWristTwist",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                0.23216742047234462,
+                0.98885594465673,
+                0.24329347564103992
+              ],
+              "radius": 0.4694330442879584
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                -0.23145395297466564,
+                0.9891638718923048,
+                0.24342401606422576
+              ],
+              "radius": 0.46885150985950813
+            },
+            "geometry_0": {
+              "vertexCount": 21791,
+              "center": [
+                0.00023380444994788863,
+                0.8092219403611364,
+                0.05884347388905051
+              ],
+              "radius": 0.9798671836775333
+            },
+            "geometry_0_1": {
+              "vertexCount": 2634,
+              "center": [
+                0.006645190703384589,
+                1.4026439305770673,
+                -0.009260489274287666
+              ],
+              "radius": 0.3076882081975358
+            },
+            "geometry_0_2": {
+              "vertexCount": 1070,
+              "center": [
+                0.006067514779448169,
+                1.4432257489969573,
+                0.03459383226187593
+              ],
+              "radius": 0.1802380430019475
+            },
+            "geometry_0_3": {
+              "vertexCount": 2356,
+              "center": [
+                0.00046695251707884466,
+                1.2410791440397855,
+                0.013333635035083884
+              ],
+              "radius": 0.38316316219342583
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "vakeel-woman-3",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-three-v1",
+        "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+        "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+      },
+      "contractPath": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.rig.json",
+      "contract": {
+        "id": "vakeel-woman-3-on-metro-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftWristTwist",
+            "LeftHand",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightWristTwist",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.7333333333333334
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5579999999999998,
+          "max": 1.722
+        },
+        "materialTreatment": "as-authored",
+        "catchPointSpace": "palm-contact",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 24,
+            "marginMetres": 0.025,
+            "poseCount": 7062,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 42
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 83
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftWristTwist",
+                "LeftHand",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightWristTwist",
+                "RightHand",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "LeftAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                0.20418186426661103,
+                0.9938755826761589,
+                0.2104202992065864
+              ],
+              "radius": 0.4749671088124864
+            },
+            "RightAuthoredAnatomicalHand": {
+              "vertexCount": 1752,
+              "center": [
+                -0.2055744487208243,
+                0.9953760037212622,
+                0.20144121266244908
+              ],
+              "radius": 0.47971278048840615
+            },
+            "geometry_0": {
+              "vertexCount": 25873,
+              "center": [
+                -0.0020605601950211827,
+                0.8016554261335184,
+                0.042039352461693796
+              ],
+              "radius": 0.9815055749340263
+            },
+            "geometry_0_1": {
+              "vertexCount": 1132,
+              "center": [
+                0.0034418126173289265,
+                1.515669257053498,
+                -0.018218404060717855
+              ],
+              "radius": 0.21797809076243416
+            },
+            "geometry_0_2": {
+              "vertexCount": 1204,
+              "center": [
+                0.001016673776423227,
+                1.3659122890249022,
+                -0.015652263690760358
+              ],
+              "radius": 0.2667754845076563
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "srikanth-odela",
+      "candidate": {
+        "assetId": "srikanth-odela-rodin-cast-v1",
+        "sha256": "31aa07573e0a097bded93f0af022ff62724d0c2d9d9d9e7900a0d73d3f4c130b"
+      },
+      "glb": {
+        "url": "/delivery/characters/srikanth-odela/rodin-674eaff4f179.glb",
+        "sha256": "674eaff4f17960b6c4a75c2ca54fa6b4faf622056164ca9b5d3f26923fced102"
+      },
+      "contractPath": "public/delivery/characters/srikanth-odela/rodin-674eaff4f179.rig.json",
+      "contract": {
+        "id": "rodin-srikanth-odela-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "catchPointSpace": "palm-contact",
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8380952380952382
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.672,
+          "max": 1.848
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "674eaff4f17960b6c4a75c2ca54fa6b4faf622056164ca9b5d3f26923fced102",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 16747,
+              "center": [
+                -0.0005183274501829038,
+                -0.013023693671713354,
+                0.0852364983143154
+              ],
+              "radius": 1.1974960484946717
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "candidate": {
+        "assetId": "prabhas-salaar-rodin-cast-v1",
+        "sha256": "ae5bf2e0103b8a795b7362cf0e89d4d55367703c7a6ccdb39476c260ee9c438b"
+      },
+      "glb": {
+        "url": "/delivery/characters/prabhas-salaar/rodin-53594954baef.glb",
+        "sha256": "53594954baef76b3b962d0a31872166f1c94eb9131af2a66b07c8fdce4a263d2"
+      },
+      "contractPath": "public/delivery/characters/prabhas-salaar/rodin-53594954baef.rig.json",
+      "contract": {
+        "id": "rodin-prabhas-salaar-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "catchPointSpace": "palm-contact",
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8952380952380953
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7859999999999998,
+          "max": 1.974
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "53594954baef76b3b962d0a31872166f1c94eb9131af2a66b07c8fdce4a263d2",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 22204,
+              "center": [
+                0.0010508624692992519,
+                -0.038786101302080545,
+                0.08305278519739343
+              ],
+              "radius": 1.2585504451723755
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "balayya-chennakesava",
+      "candidate": {
+        "assetId": "balayya-chennakesava-rodin-cast-v1",
+        "sha256": "8aec4e06efdd8fd0c6d82eff5ec3edacd9fc68f499ebc3164ff07e522fb61e45"
+      },
+      "glb": {
+        "url": "/delivery/characters/balayya-chennakesava/rodin-df3bc818b69a.glb",
+        "sha256": "df3bc818b69a56e4885258667d49f745924af16ca9239c12c2392d3be6c75319"
+      },
+      "contractPath": "public/delivery/characters/balayya-chennakesava/rodin-df3bc818b69a.rig.json",
+      "contract": {
+        "id": "rodin-balayya-chennakesava-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8666666666666667
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "df3bc818b69a56e4885258667d49f745924af16ca9239c12c2392d3be6c75319",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 18280,
+              "center": [
+                -0.0001961874470408076,
+                -0.03541927422006991,
+                0.0826418858871247
+              ],
+              "radius": 1.218890223259617
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "mahesh-athadu",
+      "candidate": {
+        "assetId": "mahesh-athadu-rodin-cast-v1",
+        "sha256": "f48758bdc25d318b97179a96dbfb6c5d55a09c663eab194fe3c3e124a347aeb5"
+      },
+      "glb": {
+        "url": "/delivery/characters/mahesh-athadu/rodin-8d69977df5f1.glb",
+        "sha256": "8d69977df5f19acd674d1deb84b8028e20101b2cfed99fe194c1be6e9c435539"
+      },
+      "contractPath": "public/delivery/characters/mahesh-athadu/rodin-8d69977df5f1.rig.json",
+      "contract": {
+        "id": "rodin-mahesh-athadu-phone-v2",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "authored-static"
+        },
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "8d69977df5f19acd674d1deb84b8028e20101b2cfed99fe194c1be6e9c435539",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 63,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 4.800000190734863,
+                "samples": 62
+              }
+            ]
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 21046,
+              "center": [
+                -0.0006053185124054172,
+                0.0011328811690551888,
+                -0.0004072433461912994
+              ],
+              "radius": 1.0876791583606238
+            }
+          }
+        },
+        "height": {
+          "min": 1.76,
+          "max": 1.97
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "shankar-dada",
+      "candidate": {
+        "assetId": "shankar-dada-rodin-cast-v1",
+        "sha256": "de3e05c91dc1ae5b56c3ab7773b20db0ba9480489ac1b2c489be1e5bd20a9125"
+      },
+      "glb": {
+        "url": "/delivery/characters/shankar-dada/rodin-6dad765a6846.glb",
+        "sha256": "6dad765a68468288ac07566d6c8193a56fdac4d7312d785dd7023813b7e04257"
+      },
+      "contractPath": "public/delivery/characters/shankar-dada/rodin-6dad765a6846.rig.json",
+      "contract": {
+        "id": "rodin-shankar-dada-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8476190476190476
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.6909999999999998,
+          "max": 1.8690000000000002
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "6dad765a68468288ac07566d6c8193a56fdac4d7312d785dd7023813b7e04257",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 20951,
+              "center": [
+                -0.00019927413901957292,
+                -0.02287620404773749,
+                0.07309206555865377
+              ],
+              "radius": 1.229554804294634
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "venkatesh-raja",
+      "candidate": {
+        "assetId": "venkatesh-raja-rodin-cast-v1",
+        "sha256": "0613bbaeb8cf9b13b3428d3f1dfdfcea8bf31d0ba68843f604de52708afae9a2"
+      },
+      "glb": {
+        "url": "/delivery/characters/venkatesh-raja/rodin-8b2145c40dfc.glb",
+        "sha256": "8b2145c40dfc24593ae556b2940bcab2cf238c74271b9846d6f6f0d82a8fc6e2"
+      },
+      "contractPath": "public/delivery/characters/venkatesh-raja/rodin-8b2145c40dfc.rig.json",
+      "contract": {
+        "id": "rodin-venkatesh-raja-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.9
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "8b2145c40dfc24593ae556b2940bcab2cf238c74271b9846d6f6f0d82a8fc6e2",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 21882,
+              "center": [
+                0.012889415920699088,
+                -0.005044826596574903,
+                0.15445856650525372
+              ],
+              "radius": 1.2663409836687902
+            }
+          }
+        }
+      }
+    },
+    {
+      "characterId": "kajal-indu",
+      "candidate": {
+        "assetId": "kajal-indu-rodin-cast-v1",
+        "sha256": "b223ddd0247b747bb127f0475698931d93fe43b9ffae9dee4e9f03a6a51dfa64"
+      },
+      "glb": {
+        "url": "/delivery/characters/kajal-indu/rodin-9bf21a5a0995.glb",
+        "sha256": "9bf21a5a099546c8544e3eb5dcd3bfb2d43d0aefae233130d73bdf6730a9a0cc"
+      },
+      "contractPath": "public/delivery/characters/kajal-indu/rodin-9bf21a5a0995.rig.json",
+      "contract": {
+        "id": "rodin-kajal-indu-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "InduWave",
+          "upperBodyNodes": [
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
+            "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.9
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.5675,
+          "max": 1.7325
+        },
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "9bf21a5a099546c8544e3eb5dcd3bfb2d43d0aefae233130d73bdf6730a9a0cc",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "InduWave",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "InduWave",
+              "upperBodyNodes": [
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 23957,
+              "center": [
+                -0.0003440859051387357,
+                -0.012909437068125917,
+                0.15144469244034123
+              ],
+              "radius": 1.2358395141400205
+            }
+          }
+        }
+      }
+    }
+  ]
+}

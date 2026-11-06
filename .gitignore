@@ -1,13 +1,36 @@
 node_modules/
-game/dist/
-game/.wrangler/
-pipeline/build/
-pipeline/raw/
-pipeline/__pycache__/
-*.env
+dist/
 .DS_Store
 
-pipeline/.venv/
+.wrangler/
 
-# Regenerated from the attributed transit/city packs for development inspection.
-game/bus-readiness-fixture.json
+.playwright-cli/
+output/
+artifacts/
+
+# Isolated preview: exclude credentials, local runtime and private evidence.
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+work/
+.openai/*
+!.openai/hosting.json
+docs/performance/evidence/browserstack-access-original.png
+docs/performance/evidence/samsung-rtl-access-original.png
+
+# Preserve local character authoring iterations; commit the curated exact
+# reviewed sources/evidence under production/final-avatars-20261102 instead.
+docs/delivery/character-review/production/missing-avatars-20261102/
+
+# Keep intermediate neural meshes and rejected scene drafts locally. The exact
+# reviewed files listed in the nineteen-level art inventory are tracked explicitly.
+docs/delivery/character-review/candidates/levels15-19-20261105/
+docs/delivery/character-review/production/levels15-19-20261105/

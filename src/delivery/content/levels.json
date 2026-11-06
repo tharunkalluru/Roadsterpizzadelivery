@@ -1,0 +1,744 @@
+[
+  {
+    "id": "sandalwood-special",
+    "level": 1,
+    "storyAudio": {"url": "/audio/pushpa.mp3", "duration": 22.361, "speakers": [{"at": 0, "who": "player"}, {"at": 3.067, "who": "customer"}, {"at": 7.633, "who": "player"}, {"at": 11.767, "who": "customer"}, {"at": 16.233, "who": "player"}]},
+    "celebrity": {
+      "name": "Pushpa Raj",
+      "movie": "Pushpa 2",
+      "image": "/delivery/celebrities/allu-arjun.jpg"
+    },
+    "destination": {
+      "label": "Inner Ring Road · Sandalwood truck",
+      "x": 6597.702079788641,
+      "z": 1788.7502300308,
+      "y": 0,
+      "lat": 17.390231456790957,
+      "lon": 78.55871217026612
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "matchAndLand",
+    "moduleParams": {
+      "scene": "truckInterior",
+      "speed": 8,
+      "immersiveHandoff": true,
+      "characterId": "pushpa-raj"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Pizza cart",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe.",
+    "campaignRole": "opening",
+    "campaignOrder": "fixed"
+  },
+  {
+    "id": "train-top-table",
+    "level": 2,
+    "celebrity": {
+      "name": "Ram",
+      "movie": "Vinaya Vidheya Rama",
+      "image": "/delivery/characters/ram-vvr/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Ghatkesar — Hitec City · Vande Bharat",
+      "x": 510,
+      "z": -2844.3,
+      "y": 4.2
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "matchAndLand",
+    "moduleParams": {
+      "vehicle": "train",
+      "scene": "trainRoof",
+      "speed": 18,
+      "radius": 6,
+      "holdSeconds": 0.35,
+      "matchTolerance": 5,
+      "immersiveHandoff": true,
+      "shuttle": [
+        "n1974699692",
+        "n1425916857"
+      ],
+      "characterId": "ram-vvr"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Cart canopy",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "devara-depths",
+    "level": 3,
+    "celebrity": {
+      "name": "Devara",
+      "movie": "Devara",
+      "image": "/delivery/characters/devara/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Hussain Sagar · Water handoff",
+      "x": -2273.8,
+      "z": -1361.3,
+      "y": 0,
+      "lat": 17.4186,
+      "lon": 78.4752
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "underwater",
+    "moduleParams": {
+      "scene": "devaraUnderwater",
+      "depth": 6,
+      "characterId": "devara"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Street stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "paradise-rope-bucket",
+    "level": 4,
+    "storyAudio": {"url": "/audio/srikanth-odela.mp3", "duration": 9.77, "speakers": [{"at": 0, "who": "customer"}, {"at": 3.167, "who": "player"}, {"at": 7.767, "who": "customer"}]},
+    "celebrity": {
+      "name": "Srikanth Odela",
+      "movie": "Paradise rooftop",
+      "image": "/delivery/celebrities/unknown.svg"
+    },
+    "destination": {
+      "label": "Paradise Circle · Rooftop bucket",
+      "x": -1020.04,
+      "z": -3917.85,
+      "y": 0,
+      "lat": 17.4417,
+      "lon": 78.487
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "ropeBucket",
+    "moduleParams": {
+      "roofHeight": 15,
+      "characterId": "srikanth-odela"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Counter and oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arundhati-haunted-gate",
+    "level": 5,
+    "storyAudio": {"url": "/audio/arundathi.mp3", "duration": 18.913, "speakers": [{"at": 0, "who": "player"}, {"at": 2.867, "who": "customer"}, {"at": 7.4, "who": "player"}]},
+    "celebrity": {
+      "name": "Arundhati",
+      "movie": "Arundhati",
+      "image": "/delivery/characters/arundhati/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Old mansion · Fictional Hyderabad outskirts",
+      "x": -8610.261684147968,
+      "z": -5786.2969821742845,
+      "y": 0,
+      "lat": 17.458278952409042,
+      "lon": 78.41554116568253
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "haunted",
+      "characterId": "arundhati"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Takeaway stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "jessie-walking-delivery",
+    "level": 6,
+    "storyAudio": {"url": "/audio/jessie.mp3", "duration": 26.253, "speakers": [{"at": 0, "who": "player"}, {"at": 1.267, "who": "customer"}, {"at": 2.567, "who": "player"}, {"at": 8.5, "who": "customer"}, {"at": 21.133, "who": "player"}]},
+    "celebrity": {
+      "name": "Jessie",
+      "movie": "Ye Maaya Chesave",
+      "image": "/delivery/characters/jessie/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Jubilee Hills · Quiet residential lane",
+      "x": -8833.766936478234,
+      "z": -2017.753034909226,
+      "y": 0,
+      "lat": 17.424425700996313,
+      "lon": 78.41343703971258
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "walkingHandoff",
+    "moduleParams": {
+      "characterId": "jessie",
+      "walkSpeed": 0.7
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "First shop",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "hasini-college-gate",
+    "level": 7,
+    "celebrity": {
+      "name": "Hasini",
+      "movie": "Bommarillu",
+      "image": "/delivery/characters/hasini/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nizam College · Basheerbagh gate",
+      "x": -2244.823,
+      "z": 991.6,
+      "y": 0,
+      "lat": 17.39734033783488,
+      "lon": 78.47547300089708
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "college",
+      "characterId": "hasini",
+      "realCampusId": "nizam_college",
+      "sceneYaw": -1.3089969389957474
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Shop seating",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "bhanumathi-wedding-street",
+    "level": 8,
+    "storyAudio": {"url": "/audio/bhanumathi.mp3", "duration": 16.144, "speakers": [{"at": 0, "who": "player"}, {"at": 2.9, "who": "customer"}, {"at": 7.567, "who": "player"}]},
+    "celebrity": {
+      "name": "Bhanumathi",
+      "movie": "Fidaa",
+      "image": "/delivery/characters/bhanumathi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Shamirpet outskirts · Fictional wedding procession",
+      "x": 6311.47,
+      "z": -17453.26,
+      "y": 0,
+      "lat": 17.564,
+      "lon": 78.556
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "weddingHandoff",
+    "moduleParams": {
+      "characterId": "bhanumathi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Brick oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "sukumar-angle-parking",
+    "level": 9,
+    "storyAudio": {"url": "/audio/sukumar.mp3", "duration": 19.226, "speakers": [{"at": 0, "who": "player"}, {"at": 2.133, "who": "customer"}, {"at": 10.4, "who": "player"}]},
+    "celebrity": {
+      "name": "Sukumar",
+      "movie": "Film Nagar production office",
+      "image": "/delivery/characters/sukumar/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Film Nagar · Fictional production courtyard",
+      "x": -9861.6414,
+      "z": -717.83386,
+      "y": 0,
+      "lat": 17.412748,
+      "lon": 78.40376
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "angleParking",
+    "moduleParams": {
+      "characterId": "sukumar",
+      "fixedCourtyard": true,
+      "parkingYaw": 0.7853981633974483,
+      "angleTolerance": 8
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant kitchen",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "vakeel-next-station",
+    "level": 10,
+    "celebrity": {
+      "name": "Pawan Kalyan",
+      "movie": "Vakeel Saab",
+      "image": "/delivery/characters/vakeel-saab/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nearest metro · Next-station handoff",
+      "x": -5482.69,
+      "z": -3176.34,
+      "y": 18,
+      "lat": 17.435,
+      "lon": 78.445
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "metroRide",
+    "moduleParams": {
+      "characterId": "vakeel-saab",
+      "immersiveHandoff": true,
+      "nearestMetro": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Dining room",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "maruthi-villa-79",
+    "level": 11,
+    "storyAudio": {"url": "/audio/maruthi.mp3", "duration": 22.491, "speakers": [{"at": 0, "who": "player"}, {"at": 2.633, "who": "customer"}, {"at": 8.733, "who": "player"}, {"at": 10.933, "who": "customer"}, {"at": 12.6, "who": "player"}, {"at": 17.067, "who": "customer"}, {"at": 19.633, "who": "player"}]},
+    "celebrity": {
+      "name": "Maruthi",
+      "movie": "Kondapur villa",
+      "image": "/delivery/characters/maruthi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Kondapur · Villa 17 near Kolla Luxuria",
+      "x": -15364.29,
+      "z": -6828.57,
+      "y": 0,
+      "lat": 17.468,
+      "lon": 78.352
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "villa",
+      "villaNumber": 17,
+      "characterId": "maruthi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant terrace",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "salaar-inner-compound",
+    "level": 12,
+    "celebrity": {
+      "name": "Prabhas",
+      "movie": "Salaar",
+      "image": "/delivery/celebrities/unknown.svg"
+    },
+    "destination": {
+      "label": "Golconda Fort · outer citadel wall",
+      "x": -10229.094,
+      "z": 2867.762,
+      "y": 0,
+      "lat": 17.38038816,
+      "lon": 78.40032957
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "salaar",
+      "sceneYaw": 0.03257852,
+      "characterId": "prabhas-salaar"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "New facade",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arjun-classroom",
+    "level": 13,
+    "celebrity": {
+      "name": "Arjun Reddy",
+      "movie": "Arjun Reddy",
+      "image": "/delivery/characters/arjun-reddy/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Osmania Medical College · Koti main courtyard",
+      "x": -1472.161,
+      "z": 2664.201,
+      "y": 0,
+      "lat": 17.382227447929274,
+      "lon": 78.48274485238427
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "classroomHandoff",
+    "moduleParams": {
+      "characterId": "arjun-reddy",
+      "realCampusId": "osmania_medical",
+      "sceneYaw": -1.3962634015954638
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Neon sign",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "between-overs",
+    "level": 14,
+    "celebrity": {
+      "name": "Nani",
+      "movie": "Jersey",
+      "image": "/delivery/characters/nani-jersey/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Uppal Stadium · Field handoff",
+      "x": 5730.556092228551,
+      "z": 5.93329211314066,
+      "y": 7,
+      "lat": 17.40624638937244,
+      "lon": 78.55053274344411
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "beatDrop",
+    "moduleParams": {
+      "theme": "jersey",
+      "characterId": "nani-jersey",
+      "windowStart": 0.35,
+      "windowEnd": 0.65,
+      "period": 5,
+      "immersiveHandoff": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Grand opening",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "balayya-wine-mart",
+    "level": 15,
+    "storyAudio": {"url": "/audio/balayya.mp3", "duration": 18.73, "lineEnds": [2.63, 4, 5.53, 7.43, 10.83, 13.43, 18.73], "speakers": [{"at": 0, "who": "player"}, {"at": 2.633, "who": "customer"}, {"at": 4, "who": "player"}, {"at": 5.533, "who": "customer"}, {"at": 7.433, "who": "player"}, {"at": 10.833, "who": "customer"}, {"at": 13.433, "who": "player"}, {"at": 16.133, "who": "customer"}]},
+    "celebrity": {
+      "name": "Balayya",
+      "movie": "Chennakesava Reddy",
+      "image": "/delivery/characters/balayya-chennakesava/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Q by Tonique · Film Nagar",
+      "x": -9133.034,
+      "z": -1706.318,
+      "y": 0,
+      "lat": 17.4217175417,
+      "lon": 78.41064506445
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello balayya babu garu, Namaskaram andi"
+      },
+      {
+        "who": "customer",
+        "text": "Hello, Namaskaram"
+      },
+      {
+        "who": "player",
+        "text": "Em chestunnar andi"
+      },
+      {
+        "who": "customer",
+        "text": "Evad ra nuvvu, evad ra matladedhi"
+      },
+      {
+        "who": "player",
+        "text": "Balayya Babu garu, Nenandi Pizza delivery boy ni"
+      },
+      {
+        "who": "customer",
+        "text": "adi cheppu mundu, gadidha"
+      },
+      {
+        "who": "player",
+        "text": "Sorry Balayya, Pizza teskondi"
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "wineMart",
+      "actorStyle": "balayya",
+      "characterId": "balayya-chennakesava",
+      "immersiveHandoff": true,
+      "sceneYaw": -0.33154362,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Takeaway expansion",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "shankar-arts-corridor",
+    "level": 16,
+    "storyAudio": {"url": "/audio/shankar.mp3", "duration": 20.193, "lineEnds": [2.37, 7.1, 10.4, 15.85, 17.7, 20.193], "speakers": [{"at": 0, "who": "player"}, {"at": 2.367, "who": "customer"}, {"at": 7.1, "who": "player"}, {"at": 10.4, "who": "customer"}, {"at": 17.7, "who": "player"}]},
+    "celebrity": {
+      "name": "Shankar Dada",
+      "movie": "Shankar Dada MBBS",
+      "image": "/delivery/characters/shankar-dada/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Osmania University · Arts College corridor",
+      "x": 3188.103,
+      "z": -1366.926,
+      "y": 0,
+      "lat": 17.41865094074603,
+      "lon": 78.52660461316053
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello Bossu, Pizza occhindi"
+      },
+      {
+        "who": "customer",
+        "text": "Induvadhana…..wow"
+      },
+      {
+        "who": "player",
+        "text": "Chala baga padaru Boss, inka em patalu occhu"
+      },
+      {
+        "who": "customer",
+        "text": "Naku occhinde nalugu mukkalu,"
+      },
+      {
+        "who": "player",
+        "text": "OK boss, take pizza"
+      },
+      {
+        "who": "customer",
+        "text": "Mee anathamaina premani eppudu marachipolenu, good night"
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "artsCorridor",
+      "actorStyle": "shankarDada",
+      "sceneYaw": 0.43633231299858233,
+      "actorOffset": [
+        0,
+        3.4,
+        -15
+      ],
+      "characterId": "shankar-dada",
+      "immersiveHandoff": true,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Roof garden",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "athadu-prasads-booth",
+    "level": 17,
+    "storyAudio": {"url": "/audio/mahesh-babu.mp3", "duration": 23.798, "lineEnds": [3, 3.83, 9.9, 16.57, 23.798], "speakers": [{"at": 0, "who": "player"}, {"at": 3, "who": "customer"}, {"at": 3.833, "who": "player"}, {"at": 9.9, "who": "customer"}, {"at": 16.567, "who": "player"}]},
+    "celebrity": {
+      "name": "Mahesh Babu",
+      "movie": "Athadu",
+      "image": "/delivery/characters/mahesh-athadu/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Prasads · entrance steps",
+      "x": -3222.52,
+      "z": -728.728,
+      "y": 0,
+      "lat": 17.41288447134651,
+      "lon": 78.46627147382058
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello Saar, Pizza teskoniki Baitaki ostara?"
+      },
+      {
+        "who": "customer",
+        "text": "Avasaram ledu"
+      },
+      {
+        "who": "player",
+        "text": "Naku Avasram, 4 Kilometres ride cheskuntu occhina, kanisam baitki rakapothe ela"
+      },
+      {
+        "who": "customer",
+        "text": "Gun Chudali anuko tappu ledu, kani Bullet chudali anukoku Chacchipothav"
+      },
+      {
+        "who": "player",
+        "text": "Aithe meru kuda pizza ni chudali anukondi tappu ledu, kani bill chudali anukoku, chacchipothav."
+      }
+    ],
+    "module": "cinematicVenue",
+    "moduleParams": {
+      "venue": "phoneBooth",
+      "actorStyle": "athadu",
+      "characterId": "mahesh-athadu",
+      "immersiveHandoff": true,
+      "actorOffset": [-2, 6, -15],
+      "sceneYaw": 1.2950343049797925,
+      "dropOffset": [
+        10.5,
+        0.62,
+        -8.5
+      ]
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Patio lighting",
+    "completionLine": "Pizza on the steps."
+  },
+  {
+    "id": "raja-moving-auto",
+    "level": 18,
+    "storyAudio": {"url": "/audio/raja.mp3", "duration": 22.256, "lineEnds": [4.23, 7.67, 10.5, 22.256], "speakers": [{"at": 0, "who": "player"}, {"at": 4.233, "who": "customer"}, {"at": 7.667, "who": "player"}, {"at": 10.5, "who": "customer"}]},
+    "celebrity": {
+      "name": "Raja",
+      "movie": "Raja",
+      "image": "/delivery/characters/venkatesh-raja/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Moving auto",
+      "x": -1763.812,
+      "z": -2069.6,
+      "y": 0,
+      "lat": 17.425,
+      "lon": 78.48
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "player",
+        "text": "Hello mamaa, Pizza Konchem challaga aindi aindi, emi anukoku"
+      },
+      {
+        "who": "customer",
+        "text": "Oh shit myan, Ohh"
+      },
+      {
+        "who": "player",
+        "text": "Aina endi mama meeru, Auto Naduputunnaru?"
+      },
+      {
+        "who": "customer",
+        "text": "Adantha appud andi, ippud nen maripoyanu"
+      }
+    ],
+    "module": "rajaAutoDelivery",
+    "moduleParams": {
+      "characterId": "venkatesh-raja",
+      "immersiveHandoff": true,
+      "retainReceivedCarton": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Delivery garage",
+    "completionLine": "Another unforgettable Hyderabad delivery."
+  },
+  {
+    "id": "indu-moving-bus",
+    "level": 19,
+    "storyAudio": {"url": "/audio/indu.mp3", "duration": 24.764, "lineEnds": [3.2, 5.4, 6.05, 7.87, 16.7, 20.1, 21.07, 22.97, 24.764], "speakers": [{"at": 0, "who": "customer"}, {"at": 3.2, "who": "player"}, {"at": 5.4, "who": "customer"}, {"at": 7.867, "who": "player"}, {"at": 12.5, "who": "customer"}, {"at": 13.133, "who": "player"}, {"at": 16.7, "who": "customer"}, {"at": 20.1, "who": "player"}, {"at": 21.067, "who": "customer"}, {"at": 22.967, "who": "player"}]},
+    "celebrity": {
+      "name": "Indu",
+      "movie": "Magadheera",
+      "image": "/delivery/characters/kajal-indu/portrait-v1.png"
+    },
+    "destination": {
+      "label": "RTC bus · Charminar Road",
+      "x": -2408.4,
+      "z": 5353.5,
+      "y": 0,
+      "lat": 17.357928,
+      "lon": 78.473933
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "storyScript": [
+      {
+        "who": "customer",
+        "text": "Hello"
+      },
+      {
+        "who": "player",
+        "text": "Hello madam, merena rani?"
+      },
+      {
+        "who": "customer",
+        "text": "Indu",
+        "speaker": "Offscreen voice"
+      },
+      {
+        "who": "customer",
+        "text": "Thana peru rani kade"
+      },
+      {
+        "who": "player",
+        "text": "Avna, mari Rani peru mida enduku order pettaru? Ippud e pizza evardi?"
+      },
+      {
+        "who": "customer",
+        "text": "Arey Emchestunnav, immantunnana, ah pizza ivvu"
+      },
+      {
+        "who": "player",
+        "text": "Nen ivvani ellehe,"
+      },
+      {
+        "who": "customer",
+        "text": "Champutha ne abba"
+      },
+      {
+        "who": "player",
+        "text": "Champeyyy!!!!"
+      }
+    ],
+    "module": "induBusDelivery",
+    "moduleParams": {
+      "characterId": "kajal-indu",
+      "immersiveHandoff": true,
+      "keepPizzaOnCompletion": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Hyderabad flagship",
+    "completionLine": "Pizza stays with the delivery boy. Champeyyy!",
+    "campaignRole": "finale"
+  }
+]
