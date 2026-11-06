@@ -3,8 +3,10 @@ import * as M from '../world/traffic_models';
 import { rng } from '../core/util';
 import type { RoadGraph, GEdge, GNode } from './roadgraph';
 import { hasCentreMedian, type BusStop, type CityData } from '../world/city';
+import type { ParkedVehicle } from '../world/parked-vehicles';
+import { supportAt } from './physics';
 import { segmentHitsVehicle } from './spatial-safety';
-import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear, trafficOverlap, turnProfile, turnSpeed } from './traffic-path';
+import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear, trafficStaticClear, trafficOverlap, turnProfile, turnSpeed } from './traffic-path';
 import { isORR } from '../world/expressway';
 import { BusServices, type BusRun, type BusFeed } from './bus-services';
 import { signalAspect } from '../world/signals';
@@ -49,6 +51,8 @@ export interface Car {
   arcadeFlight?: ArcadeVehicleFlight;
   shove?: {vx:number; vz:number};
 }
+type LaunchBody = Pick<Car,'x'|'y'|'z'|'size'|'group'|'lane'> & {edge?:GEdge};
+type ContactBody = Pick<Car,'x'|'y'|'z'|'size'|'hx'|'hz'>;
 interface ArcadeLanding { edge:GEdge; dir:1|-1; s:number; lane:number; pose:ReturnType<RoadGraph['pointAt']>; }
 interface ArcadeVehicleFlight {
   elapsed:number; duration:number; startX:number; startY:number; startZ:number;
@@ -80,14 +84,16 @@ export class Traffic {
   private lostStoryVehicleId:string|null=null;
   private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
 
-  private bumperContact(car:Car, pos:{x:number; z:number}, hx:number, hz:number, vertical:TrafficVerticalBounds) {
+  private parkedMotion = new Map<ParkedVehicle,{vx:number;vz:number;flight?:ArcadeVehicleFlight}>();
+
+  private bumperContact(car:ContactBody, pitch:number, pos:{x:number; z:number}, hx:number, hz:number, vertical:TrafficVerticalBounds) {
     const dx = car.x - pos.x, dz = car.z - pos.z;
     const reach = car.size[2] / 2 + car.size[0] / 2 + 3.5;
     if (Math.abs(dx) > reach || Math.abs(dz) > reach) return null;
     const dot = hx * car.hx + hz * car.hz, cross = hx * car.hz - hz * car.hx;
     const span = 2.4 * Math.abs(dot) + 1.1 * Math.abs(cross);
     const along = -(dx * car.hx + dz * car.hz);
-    const section = trafficBodySection(car.y, car.size[1], car.size[2], car.g.rotation.x, along, span);
+    const section = trafficBodySection(car.y, car.size[1], car.size[2], pitch, along, span);
     if (!section || vertical.bottom >= section.top || vertical.top <= section.bottom) return null;
     const halfLength = (section.maximumAlong - section.minimumAlong) / 2;
     const center = (section.maximumAlong + section.minimumAlong) / 2;
@@ -109,34 +115,78 @@ export class Traffic {
   /** Use the same oriented bumper contact for launch, momentum transfer and separation. */
   resolvePlayerContact(pos: {x:number; y:number; z:number}, speed:number, hx:number, hz:number, bounds?:TrafficVerticalBounds) {
     const vertical = playerVerticalBounds(pos.y, bounds);
-    let strongest: {car:Car; closing:number; kicked:boolean} | undefined;
-    for (const car of this.cars) {
-      if (car.arcadeFlight) continue;
-      const contact = this.bumperContact(car,pos,hx,hz,vertical);
-      if (!contact) continue;
+    let strongest: {car?:Car; kind:string; closing:number; kicked:boolean} | undefined;
+    const respond = (body:ContactBody, group:Group, pitch:number, vx:number, vz:number, car?:Car, parked?:ParkedVehicle) => {
+      const contact = this.bumperContact(body,pitch,pos,hx,hz,vertical);
+      if (!contact) return;
       const {depth,nx,nz} = contact;
       const playerAxis = hx*nx+hz*nz;
-      const npcVelocity = car.speed*(car.hx*nx+car.hz*nz) + (car.shove?.vx ?? 0)*nx + (car.shove?.vz ?? 0)*nz;
-      const closing = Math.max(0, speed*playerAxis - npcVelocity);
-      const kicked = closing > 60/3.6 && this.kickVehicle(car,closing,nx,nz);
-      if (!kicked) {
+      const closing = Math.max(0, speed*playerAxis - vx*nx - vz*nz);
+      let kicked = false;
+      if (closing > 60/3.6 && group !== 'bus' && group !== 'truck') {
+        if (car) kicked = this.kickVehicle(car,closing,nx,nz);
+        else if (parked) {
+          const flight = this.planKick({...parked,group,lane:0},closing,nx,nz,false);
+          if (flight) {this.parkedMotion.set(parked,{vx:0,vz:0,flight}); kicked=true;}
+        }
+      }
+      if (kicked) speed *= .35;
+      else {
         pos.x -= depth*nx; pos.z -= depth*nz;
         if (closing > 0) {
-          const share = PUSH_SHARE[car.group];
-          const impulse = closing*share;
-          const shove = car.shove ??= {vx:0,vz:0};
-          shove.vx += nx*impulse; shove.vz += nz*impulse;
-          // A constrained Roadster sheds its inward velocity, without reversing on impact.
+          const share = PUSH_SHARE[group], impulse=closing*share;
+          if (car) {
+            const shove=car.shove ??= {vx:0,vz:0};
+            shove.vx+=nx*impulse; shove.vz+=nz*impulse;
+          } else if (parked) this.parkedMotion.set(parked,{vx:vx+nx*impulse,vz:vz+nz*impulse});
           const loss = closing*(1-share)*playerAxis;
           if (loss*speed > 0) speed = Math.sign(speed)*Math.max(0,Math.abs(speed)-Math.abs(loss));
         }
-      } else {
-        speed *= .35;
       }
       if (!strongest || (kicked && !strongest.kicked) || (kicked === strongest.kicked && closing > strongest.closing))
-        strongest = {car, closing, kicked};
+        strongest = {car,kind:car?.kind ?? group,closing,kicked};
+    };
+    for (const car of this.cars) {
+      if (!car.arcadeFlight) respond(car,car.group,car.g.rotation.x,car.speed*car.hx+(car.shove?.vx??0),car.speed*car.hz+(car.shove?.vz??0),car);
+    }
+    for (const parked of this.city?.parkedVehiclesNear?.(pos.x,pos.z,12) ?? []) {
+      const motion=this.parkedMotion.get(parked);
+      if (!motion?.flight) respond(parked,parked.kind,parked.pitch,motion?.vx??0,motion?.vz??0,undefined,parked);
     }
     return {speed, impact:strongest};
+  }
+
+  private advanceParked(dt:number) {
+    const city=this.city;
+    if (!city || !this.parkedMotion?.size) return;
+    for (const [body,motion] of this.parkedMotion) {
+      if (!body.loaded) {this.parkedMotion.delete(body);continue;}
+      if (motion.flight) {
+        const flight=motion.flight;
+        body.pitch=this.stepFlight(body,flight,dt);
+        if (flight.elapsed===flight.duration) {
+          Object.assign(body,flight.landing.pose);body.pitch=0;
+          body.settledPose={...flight.landing.pose,pitch:0};
+          this.parkedMotion.delete(body);
+        }
+      } else {
+        const drag=Math.exp(-2.8*dt), step=(1-drag)/2.8;
+        const x=body.x+motion.vx*step,z=body.z+motion.vz*step;
+        const y=supportAt(city,x,z,body.y).y;
+        const pose={x,y,z,hx:body.hx,hz:body.hz,size:body.size};
+        const approaching=(other:ContactBody)=>other!==body && trafficOverlap(pose,other,0) &&
+          Math.hypot(x-other.x,z-other.z)<Math.hypot(body.x-other.x,body.z-other.z);
+        if (Math.abs(y-body.y)>.45 || !trafficStaticClear(city,pose,body.size) ||
+            this.cars.some(approaching) || city.parkedVehiclesNear?.(x,z,12).some(approaching)) {
+          this.parkedMotion.delete(body);continue;
+        }
+        body.x=x;body.y=y;body.z=z;
+        body.settledPose={x,y,z,hx:body.hx,hz:body.hz,pitch:0};
+        motion.vx*=drag;motion.vz*=drag;
+        if (Math.hypot(motion.vx,motion.vz)<.015) this.parkedMotion.delete(body);
+      }
+      body.sync();
+    }
   }
 
   private rollShove(c:Car,dt:number,player:{x:number;y:number;z:number;hx?:number;hz?:number},walkers:Walker[]) {
@@ -170,7 +220,15 @@ export class Traffic {
   kickVehicle(car:Car, impactSpeed:number, hx:number, hz:number) {
     if (car.group === 'bus' || car.group === 'truck') return false;
     if(car.arcadeFlight||!Number.isFinite(impactSpeed)||Math.abs(impactSpeed)<=60/3.6)return false;
-    const length=Math.hypot(hx,hz);if(length<.01)return false;hx/=length;hz/=length;
+    const flight=this.planKick(car,impactSpeed,hx,hz,this.storyLeased(car));
+    if (!flight) return false;
+    car.shove=undefined; car.arcadeFlight=flight;
+    car.speed=0; car.motion=undefined; car.stopS=undefined; car.dwell=0;
+    return true;
+  }
+
+  private planKick(car:LaunchBody, impactSpeed:number, hx:number, hz:number, leased:boolean):ArcadeVehicleFlight|undefined {
+    const length=Math.hypot(hx,hz);if(length<.01)return;hx/=length;hz/=length;
     const direction=Math.sign(impactSpeed),speed=Math.abs(impactSpeed),duration=2.1;
     const launchSpeed=Math.min(55,speed*.9+4);
     const desiredDistance=launchSpeed*duration;
@@ -179,27 +237,21 @@ export class Traffic {
     let landing:ArcadeLanding|undefined;
     for(const fraction of [1,.85,.7,.55,.4,.28,.18,.1]){
       const distance=desiredDistance*fraction;
-      landing=this.arcadeLanding(car, hx*direction, hz*direction, car.x+hx*direction*distance, car.z+hz*direction*distance);
+      landing=this.arcadeLanding(car, hx*direction, hz*direction, car.x+hx*direction*distance, car.z+hz*direction*distance, leased);
       if(landing)break;
     }
-    if(!landing)return false;
-    car.shove = undefined;
-    car.arcadeFlight = {
+    if(!landing)return;
+    return {
       elapsed: 0, duration, startX: car.x, startY: car.y, startZ: car.z, landing,
       vx: (landing.pose.x - car.x) / duration,
       vy: (landing.pose.y - car.y + 4.9 * duration * duration) / duration,
       vz: (landing.pose.z - car.z) / duration,
     };
-    car.speed = 0;
-    car.motion = undefined;
-    car.stopS = undefined;
-    car.dwell = 0;
-    return true;
   }
 
-  private arcadeLanding(car:Car, impactX:number, impactZ:number, x:number, z:number):ArcadeLanding|undefined {
+  private arcadeLanding(car:LaunchBody, impactX:number, impactZ:number, x:number, z:number, leased:boolean):ArcadeLanding|undefined {
     const nearby=this.graph.nearestEdges(x,z,4).filter(edge=>
-      this.allowed(car,edge)&&!edge.e.workZone&&(!this.storyLeased(car)||this.graph.permanent.has(edge.e.id)));
+      this.allowed(car,edge)&&!edge.e.workZone&&(!leased||this.graph.permanent.has(edge.e.id)));
     let best:(ArcadeLanding&{score:number})|undefined;
     for(const edge of nearby){
       let canonical=0,bd=Infinity;
@@ -226,13 +278,19 @@ export class Traffic {
     return best;
   }
 
-  private advanceArcadeVehicle(car:Car,dt:number){
-    const flight=car.arcadeFlight!;flight.elapsed=Math.min(flight.duration,flight.elapsed+dt);const t=flight.elapsed;
+  private stepFlight(car:ContactBody, flight:ArcadeVehicleFlight, dt:number) {
+    flight.elapsed=Math.min(flight.duration,flight.elapsed+dt);
+    const t=flight.elapsed, horizontalSpeed=Math.hypot(flight.vx,flight.vz)||1;
     car.x=flight.startX+flight.vx*t;car.z=flight.startZ+flight.vz*t;
     car.y=flight.startY+flight.vy*t-4.9*t*t;
-    const horizontalSpeed=Math.hypot(flight.vx,flight.vz)||1;car.hx=flight.vx/horizontalSpeed;car.hz=flight.vz/horizontalSpeed;
+    car.hx=flight.vx/horizontalSpeed;car.hz=flight.vz/horizontalSpeed;
+    return -Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));
+  }
+
+  private advanceArcadeVehicle(car:Car,dt:number){
+    const flight=car.arcadeFlight!, pitch=this.stepFlight(car,flight,dt);
     if(flight.elapsed<flight.duration){
-      car.speed=horizontalSpeed;this.placeVisual(car.g,car,car.size);car.g.rotation.x=-Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));return;
+      car.speed=Math.hypot(flight.vx,flight.vz);this.placeVisual(car.g,car,car.size);car.g.rotation.x=pitch;return;
     }
     const {edge,dir,s,lane,pose}=flight.landing;
     car.edge=edge;car.dir=dir;car.s=s;car.lane=car.laneT=car.base=lane;
@@ -663,7 +721,7 @@ export class Traffic {
     return c;
   }
   private plans = 0;
-  private allowed(c: Car, edge: GEdge) { return !((c.group === 'auto' || c.group === 'bike') && /^motorway/.test(edge.e.cls)); }
+  private allowed(c: Pick<Car,'group'>, edge: GEdge) { return !((c.group === 'auto' || c.group === 'bike') && /^motorway/.test(edge.e.cls)); }
   private curveOK(c: Car, curve: TrafficCurve, spans: readonly { edge: GEdge; dir: 1 | -1; start: number; end: number }[]) {
     if (this.city) curve.setRoadSupport(new TrafficCurveRoadSupport(this.city.surfaceGrid,
       spans.map(span => trafficCurveRoadWindow(span.edge, span.dir, span.start, span.end))));
@@ -911,6 +969,7 @@ export class Traffic {
     const body = { x: player.x, z: player.z, y: player.y - 0.55, hx: player.hx ?? c.hx, hz: player.hz ?? c.hz, size: [2, 1.6, 4.8] };
     // Small swept steps prevent a long bus or a fast auto tunnelling through a
     // crossing vehicle between frames. This is simulation collision, not a test driver.
+    const roadside = distance > 1e-6 ? this.city?.parkedVehiclesNear?.(c.x,c.z,c.size[2]/2+distance+1) : undefined;
     for (let guard = 0; distance > 1e-6 && guard < 32; guard++) {
       const railwayDistance = this.railwayDistance(c);
       if (railwayDistance <= 1e-5) { c.speed = 0; break; }
@@ -936,7 +995,7 @@ export class Traffic {
       const overlaps = (o: Parameters<typeof trafficOverlap>[1]) => trafficOverlap(bounds, o, 0.18) &&
         (!trafficOverlap(c, o, 0.18) || Math.hypot(p.x - o.x, p.z - o.z) <= Math.hypot(c.x - o.x, c.z - o.z));
       const walkerHit = walkers.some(w => w.crossing && trafficOverlap(bounds, { ...w, y: p.y, hx: 1, hz: 0, size: [0.7, 1.8, 0.7] }, 0.5));
-      if (overlaps(body) || this.cars.some(o => o !== c && overlaps(o)) ||
+      if (overlaps(body) || roadside?.some(overlaps) || this.cars.some(o => o !== c && overlaps(o)) ||
         (this.kinematicVehicles || NO_KINEMATIC_VEHICLES).some(o=>!(o.reservation&&trafficOverlap(c,o,.18))&&overlaps(o)) || walkerHit || (this.city && !trafficPoseClear(this.city, p, c.size))) { c.speed = 0; break; }
       distance -= step;
       if (active) {
@@ -965,6 +1024,7 @@ export class Traffic {
   update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number; hx?: number; hz?: number }, walkers: Walker[] = []) {
     this.plans = 0;
     this.t += dt;
+    this.advanceParked(dt);
     for (let i = (this.passengerExchanges?.length || 0) - 1; i >= 0; i--) {
       const exchange = this.passengerExchanges[i]; exchange.update(dt);
       if (exchange.finished || Math.hypot(exchange.group.position.x - px, exchange.group.position.z - pz) > 200) {

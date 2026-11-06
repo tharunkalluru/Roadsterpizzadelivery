@@ -153,3 +153,27 @@ test('a side touch shifts the lane and a clear overhead pass never pushes',()=>{
  (traffic as any).rollShove(car,1/60,pos,[]);
  assert.ok(car.lane>before);assert.equal(car.arcadeFlight,undefined);
 });
+
+test('unoccupied street vehicles use the bumper threshold, settle, and leave the old parking spot clear',()=>{
+ for(const [kind,speed,launch] of [['bike',2,false],['bike',28,true],['bus',28,false]] as const){
+   const {traffic,car,graph}=fixture(kind); traffic.clear();
+   const pose=graph.pointAt(graph.edges[0],100,1,3);
+   const body={...pose,id:'bay-1',kind,size:car.size,pitch:0,loaded:true,sync(){}};
+   const road={kind:'road',ax:0,az:0,bx:0,bz:-1000,ya:0,yb:0,hw:20,e:graph.edges[0].e};
+   const surfaceGrid=new Map(); for(let i=-1;i<=1;i++)for(let j=-34;j<=0;j++)surfaceGrid.set(i+','+j,[road]);
+   const city={surfaceGrid,walls:new Map(),obstacles:new Map(),buildingGrid:new Map(),parkedVehiclesNear:()=>[body]};
+   (traffic as any).city=city;
+   const gap=car.size[2]/2+2.39;
+   const bumper={x:body.x,y:.55,z:body.z+gap};
+   const result=traffic.resolvePlayerContact(bumper,speed,0,-1);
+   assert.equal(result.impact?.kicked,launch);
+   assert.equal(traffic.cars.length,0,'unoccupied vehicle never becomes an NPC with a driver');
+   let peak=0;
+   for(let i=0;i<185;i++){(traffic as any).advanceParked(1/60);peak=Math.max(peak,body.y);}
+   assert.equal(peak>2,launch);
+   assert.equal(body.y,0);
+   assert.ok(body.z<pose.z-.01);
+   assert.equal((traffic as any).parkedMotion.size,0);
+   if(launch)assert.equal(traffic.resolvePlayerContact(bumper,0,0,-1).impact,undefined);
+ }
+});

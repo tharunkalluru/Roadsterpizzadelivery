@@ -112,7 +112,7 @@ function bodySegment(p: TrafficPose, size: number[], ax: number, az: number, bx:
   return [lo, hi];
 }
 
-function trafficStaticClear(city: CityData, p: TrafficPose, size: number[]) {
+export function trafficStaticClear(city: CityData, p: TrafficPose, size: number[]) {
   const low = p.y + 0.15, high = p.y + size[1] + 0.04;
   for (const b of nearbyBuildings(city, p.x, p.z)) {
     if (b.h < low) continue;

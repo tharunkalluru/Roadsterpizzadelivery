@@ -1,3 +1,4 @@
+import type { ParkedVehicleSite } from './parked-vehicles';
 import * as THREE from 'three';
 import { TPL, rng, hash } from '../core/util';
 import type { XZ } from './types';
@@ -13,6 +14,7 @@ import { railwayStationBoards, railwayStationCode } from './railway-stations';
 export interface OsmFeature { id: string; k: string; t: Record<string, string>; p?: XZ; l?: XZ[]; r?: XZ[][]; h?: XZ[][] }
 export interface RoadHit { e: any; d: number; cx: number; cz: number; hx: number; hz: number; w: number; y: number }
 export interface ExtrasCtx {
+  parkedVehicle?: (site: ParkedVehicleSite) => void;
   B: any; inTile: (x: number, z: number) => boolean;
   nearestRoad: (x: number, z: number, maxD: number, ground?: boolean) => RoadHit | null;
   onRoad: (x: number, z: number, pad?: number) => boolean;
@@ -409,9 +411,7 @@ function busStation(f: OsmFeature, C: ExtrasCtx) {
     for (let u = -len / 2 + 6; u <= len / 2 - 6; u += 12) {
       if (rr() < 0.35) continue;
       const x = cx + hx * u - hz * 3.2, z = cz + hz * u + hx * 3.2;
-      B.st.box(x, 1.65, z, 2.5, 2.9, 11, rr() < 0.5 ? '#c8352e' : '#2f6bb4', { ry: ang });
-      B.st.box(x, 2.25, z, 2.54, 0.8, 10, '#1c2533', { ry: ang });
-      C.obstacle(x, z, 1.6, 3.2);
+      if (C.inTile(x, z)) C.parkedVehicle?.({ id: `${f.id}:bus:${k}:${u}`, kind: 'bus', x, y: 0, z, yaw: ang, color: rr() < .5 ? '#c8352e' : '#2f6bb4' });
     }
   }
   const t = upper(name.replace(/^T[GS]S?RTC\s*/i, '').replace(/^,\s*/, '')) || 'BUS STATION';

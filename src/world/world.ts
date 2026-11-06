@@ -1,3 +1,4 @@
+import { createParkedVehicles, type ParkedVehicle, type ParkedVehiclePose } from './parked-vehicles';
 import * as THREE from 'three';
 import { SignSystem, SignInst } from './signs';
 import type { CityData, TileBuilt, Surface, Wall, BusStop, WalkPath } from './city';
@@ -16,7 +17,7 @@ import { RAILWAY_UNDERPASS_EVIDENCE } from './railway-evidence';
 import { prepareRoadUnderpasses } from './road-underpasses';
 import { metroFlightClearance } from './metro-flight-clearance';
 
-export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
+export interface LoadedTile { parkedVehicles?: ParkedVehicle[]; key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
 
 const TILE_ATTEMPTS = 3, TILE_TIMEOUT = 20000, ENSURE_TIMEOUT = 75000, STREAM_RETRY_DELAY = 30000, MAX_PENDING = 2;
 
@@ -32,6 +33,20 @@ const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }
 // through the same grids the single-zone city used, so physics, traffic and walkers don't care where a tile ends.
 export class World implements CityData {
   metroFlightClearance: ReturnType<typeof metroFlightClearance>;
+  parkedVehicles: ParkedVehicle[] = [];
+  private parkedGrid = new Map<string, Set<ParkedVehicle>>();
+  private parkedPoses = new Map<string, ParkedVehiclePose>();
+  // Preview fixtures can publish tiles without running the network constructor.
+  private ensureParkedState() {
+    this.parkedVehicles ??= []; this.parkedGrid ??= new Map(); this.parkedPoses ??= new Map();
+  }
+  parkedVehiclesNear(x: number, z: number, radius: number) {
+    this.ensureParkedState();
+    const out: ParkedVehicle[] = [], pad = radius + 6;
+    for (let i=Math.floor((x-pad)/30);i<=Math.floor((x+pad)/30);i++) for(let j=Math.floor((z-pad)/30);j<=Math.floor((z+pad)/30);j++)
+      for(const b of this.parkedGrid.get(`${i},${j}`)||[]) if(Math.hypot(b.x-x,b.z-z)<=radius+Math.hypot(b.size[0],b.size[2])/2) out.push(b);
+    return out;
+  }
   movingRail: import('../game/moving-rail').MovingRailBody[] = [];
   railwayWalls: Wall[] = [];
   group = new THREE.Group(); signs: SignSystem; lit = null; glow = null;
@@ -224,6 +239,7 @@ export class World implements CityData {
     if (this.focus) this.update(this.focus[0], this.focus[1], 0, true);
   }
   add(b: TileBuilt) {
+    this.ensureParkedState();
     if (this.tiles.has(b.key)) return;
     const g = new THREE.Group(); g.name = 'tile ' + b.key;
     if (!b.underpassGround) { const ground = new THREE.Mesh(this.groundGeo, this.mats.ground); ground.rotation.x = -Math.PI / 2; ground.position.set(b.i * 1000 + 500, 0, b.j * 1000 + 500); ground.receiveShadow = true; g.add(ground); }
@@ -237,6 +253,20 @@ export class World implements CityData {
       const r = RENDER[buf.mat] || { cast: true, receive: true };
       const m = new THREE.Mesh(geo, this.mats[buf.mat]); m.castShadow = r.cast; m.receiveShadow = r.receive; m.renderOrder = r.order || 0;
       g.add(m);
+    }
+    const parked = createParkedVehicles(b.parkedVehicles || [], this.mats.st);
+    if (parked.bodies.length) g.add(parked.group);
+    this.parkedVehicles.push(...parked.bodies);
+    for(const body of parked.bodies) {
+      Object.assign(body, this.parkedPoses.get(body.id) || {});
+      body.settledPose = {x:body.x,y:body.y,z:body.z,hx:body.hx,hz:body.hz,pitch:body.pitch};
+      const renderSync=body.sync; let cell='';
+      body.sync=()=>{
+        if (!body.loaded) return;
+        const next=`${Math.floor(body.x/30)},${Math.floor(body.z/30)}`;
+        if(next!==cell) { if(cell) { const old=this.parkedGrid.get(cell); old?.delete(body); if(!old?.size)this.parkedGrid.delete(cell); } const bucket=this.parkedGrid.get(next)||new Set<ParkedVehicle>();bucket.add(body);this.parkedGrid.set(next,bucket);cell=next; }
+        renderSync();
+      }; body.sync();
     }
     const signalLights = b.signals.length ? new SignalLights(b.signals) : undefined;
     if (signalLights) { signalLights.update(this.signalSeconds); g.add(signalLights.mesh); }
@@ -252,14 +282,26 @@ export class World implements CityData {
     for (const [k, n] of b.activity || []) this.activity.set(k, (this.activity.get(k) || 0) + n);
     for (const r of b.rails || []) this.rails.set(r.id, r);
     this.lamps.push(...lamps); this.signals.push(...b.signals); this.busStops.push(...b.busStops); this.walkPaths.push(...b.walkPaths);
-    const t: LoadedTile = { key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings], signalLights };
+    const t: LoadedTile = { parkedVehicles: parked.bodies, key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings], signalLights };
     this.tiles.set(b.key, t);
     this.onTileAdded(t);           // boards get atlas slots on the next regular sign update (spreads the work)
   }
   unload(t: LoadedTile) {
+    this.ensureParkedState();
     this.tiles.delete(t.key);
+    const removedParked = new Set(t.parkedVehicles || []);
+    for(const b of removedParked) {
+      b.loaded=false;
+      const pose=b.settledPose, source=t.built.parkedVehicles?.find(s=>s.id===b.id);
+      if(pose && source && Object.values(pose).every(Number.isFinite)) {
+        const changed=Math.hypot(pose.x-source.x,pose.y-source.y,pose.z-source.z)>1e-5 || Math.abs(pose.hx-Math.sin(source.yaw))+Math.abs(pose.hz-Math.cos(source.yaw))+Math.abs(pose.pitch)>1e-5;
+        if(changed) this.parkedPoses.set(b.id,{...pose}); else this.parkedPoses.delete(b.id);
+      }
+      const cell=`${Math.floor(b.x/30)},${Math.floor(b.z/30)}`,bucket=this.parkedGrid.get(cell);bucket?.delete(b);if(!bucket?.size)this.parkedGrid.delete(cell);
+    }
+    this.parkedVehicles = this.parkedVehicles.filter(b => !removedParked.has(b));
     this.group.remove(t.group);
-    t.group.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== this.groundGeo && m.geometry !== t.signalLights?.geometry) m.geometry.dispose(); });
+    t.group.traverse((o) => { if ((o as THREE.InstancedMesh).isInstancedMesh) (o as THREE.InstancedMesh).dispose(); const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== this.groundGeo && m.geometry !== t.signalLights?.geometry) m.geometry.dispose(); });
     t.signalLights?.dispose();
     const strip = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => {
       for (const [k, a] of src) { const gone = new Set(a); const d = dst.get(k); if (!d) continue; const f = d.filter((x) => !gone.has(x)); if (f.length) dst.set(k, f); else dst.delete(k); }

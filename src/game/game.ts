@@ -1166,11 +1166,11 @@ export class Game {
       const marker = this.carriers.markers.find(m => m.carrierId === hit.g.uuid);
       if (marker) this.pickupDetector.collectMarkedAuto(marker.carrierId, marker.position);
     }
-    if (hit && impact && impact.closing > 2.5 && this.player.hitCooldown <= 0) {
+    if (impact && impact.closing > 2.5 && this.player.hitCooldown <= 0) {
       this.sound.cue('bump');
       this.player.hitCooldown = 1.5; this.player.bump = 0.6;
       if (this.order && this.order.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; this.hud.toast(this.order.slices ? 'Baigan! −1 slice' : 'Pizza ruined!', 'pink'); }
-      else if (!kickedVehicle) this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
+      else if (!kickedVehicle) this.hud.toast('Arre! Watch the ' + (impact.kind.startsWith('bike') ? 'bike' : impact.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
     }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
     this.story?.afterTraffic?.(dt);

@@ -1,3 +1,4 @@
+import type { ParkedVehicle, ParkedVehicleSite } from './parked-vehicles';
 import {inOsmaniaCampus,osmaniaAcademicBuilding} from './osmania-campus-context';
 import * as THREE from 'three';
 import { TiledBatch, TPL, rng, hash, Rng } from '../core/util';
@@ -60,6 +61,7 @@ export interface SignEntry { id: string; text: string; bg: string; fg: string; c
 export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
+  parkedVehicles?: ParkedVehicleSite[];
   key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[];
   underpassGround?: boolean;
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number; bottom?: number }[]>;
@@ -97,6 +99,8 @@ const FILL: [string, string, number, number, string?][] = [
 ];
 const BIKE_COLS = ['#1d1c22', '#1d1c22', '#b3262b', '#1f4fa8', '#8b8f99', '#e9e6e1', '#2f2d36', '#6b1f2a'];
 export interface CityData {
+  parkedVehicles?: ParkedVehicle[];
+  parkedVehiclesNear?: (x: number, z: number, radius: number) => ParkedVehicle[];
   metroFlightClearance?: MetroFlightClearance;
   movingRail?: import('../game/moving-rail').MovingRailBody[];
   railwayWalls?: Wall[];
@@ -737,7 +741,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     return out;
   };
   const unitsByEdge = new Map<string, number>();
-  let fillShops = 0, bikesLeft = opts.lowQ ? 0 : 260, cartsLeft = opts.lowQ ? 0 : 20;
+  const parkedVehicles: ParkedVehicleSite[] = [];
+  let fillShops = 0, bikesLeft = opts.lowQ ? 55 : 260, cartsLeft = opts.lowQ ? 0 : 20;
   const up0 = new THREE.Vector3(0, 1, 0);
   const signs: SignEntry[] = [];
   // a ground-floor board with its frame and awning, centred at (x, z) on a face with outward normal (nx, nz)
@@ -759,13 +764,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // a parked two-wheeler, nose towards heading ang (atan2(dx, dz))
   const bike = (x: number, z: number, ang: number, s: Rng) => {
     if (!structureClearance.clear({ x, z, hx: Math.sin(ang), hz: Math.cos(ang), hw: .45, hl: 1 }, 0, 1.25)) return;
-    const col = s.pick(BIKE_COLS), fx = Math.sin(ang), fz = Math.cos(ang);
-    for (const k of [0.62, -0.62]) B.st.add(TPL.cyl6, x + fx * k, 0.3, z + fz * k, 0.3, 0.09, 0.3, '#18171c', { rz: Math.PI / 2, ry: ang });
-    B.st.box(x, 0.6, z, 0.3, 0.36, 1.05, col, { ry: ang });
-    B.st.box(x - fx * 0.18, 0.84, z - fz * 0.18, 0.3, 0.1, 0.62, '#151418', { ry: ang });
-    B.st.box(x + fx * 0.5, 0.95, z + fz * 0.5, 0.08, 0.55, 0.12, col, { ry: ang, rx: -0.35 });
-    B.st.box(x + fx * 0.58, 1.18, z + fz * 0.58, 0.68, 0.05, 0.05, '#2a2930', { ry: ang });
-    addObstacle(x, z, 0.5, 1.1);
+    if (!inTile(x, z)) return;
+    parkedVehicles.push({ id: `${zone.i}_${zone.j}:bike:${parkedVehicles.length}`, kind: 'bike', x, y: 0, z, yaw: ang, color: s.pick(BIKE_COLS) });
   };
 
   // ---------- buildings ----------
@@ -905,15 +905,14 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
             groundBoard(`f_${b.id}_${f.i}_${u}`, text, group, ux, uz, ex, ez, f.nx, f.nz, Math.max(1.4, Math.min(uw - 0.35, 6.4)), h);
           }
         }
-        if (opts.lowQ) continue;
         if (yard >= 2.2 && bikesLeft > 0 && fr.chance(f.rank >= 2 || f.market ? 0.42 : 0.3)) {
-          const k = fr.int(1, f.rank >= 2 || f.market ? 4 : 2), off = 0.4 + 0.95;
+          const k = opts.lowQ ? 1 : fr.int(1, f.rank >= 2 || f.market ? 4 : 2), off = 0.4 + 0.95;
           for (let j = 0; j < k && bikesLeft > 0; j++, bikesLeft--) {
             const along = (j - (k - 1) / 2) * 0.85;
             if (Math.abs(along) > uw / 2) continue;
             bike(ux + ex * along + f.nx * off, uz + ez * along + f.nz * off, ang + Math.PI + fr.range(-0.15, 0.15), fr);
           }
-        } else if (yard >= 3.0 && cartsLeft > 0 && fr.chance(0.06)) {
+        } else if (!opts.lowQ && yard >= 3.0 && cartsLeft > 0 && fr.chance(0.06)) {
           cartsLeft--;
           const x = ux + f.nx * 1.6, z = uz + f.nz * 1.6;
           if (!structureClearance.clear({ x, z, hx: ex, hz: ez, hw: 1.4, hl: 1.8 }, 0, 3.2)) continue;
@@ -1318,6 +1317,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       ...railways.map(r => r.source), ...railway.stations.filter(f => inTile(...railway.center(f)))];
     drawExtras(extras, {
       B, inTile, lowQ: !!opts.lowQ,
+      parkedVehicle: site => parkedVehicles.push(site),
       structureClear: structureClearance.clear,
       railway,
       platformPieces: ring => platformClearance.correct({ id: 'platform', name: null, cls: null, h: Math.max(1, ...ring.map(p => (railway.closest(...p, 30)?.y || 0) + 1)), hs: 'mapped', ring, fc: null, rc: null })?.pieces.map(p => p.ring) || [ring],
@@ -1635,7 +1635,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   void r; void byBuilding;
   return {
     key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads, ...(underpass ? { underpassGround: true } : {}),
-    buildingGrid, surfaceGrid, landmarkSurfaceGrid, waterGrid: waterGrid(zone.areas, zone), walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
+    parkedVehicles, buildingGrid, surfaceGrid, landmarkSurfaceGrid, waterGrid: waterGrid(zone.areas, zone), walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
     activity: [...activity],
     rails: railways.filter(r => !r.service).map(r => ({ id: r.id, pts: r.pts, elev: r.elev, bridge: r.bridge })),
     counts: { buildings: zone.buildings.length, boards: zone.boards.length, roads: ownRoads.length, verts, fillShops, inferredSignals },
