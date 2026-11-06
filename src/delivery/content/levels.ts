@@ -25,6 +25,16 @@ export function validateLevels(input: unknown): LevelConfig[] {
     if (level.callMode === 'NONE' ? !Array.isArray(level.script) || level.script.length !== 0 : !scriptValid(level.script)) bad('call script is invalid.');
     if (level.callMode === 'NONE' && (level.revealAt !== 'afterDelivery' || level.nagScript || level.bonusScript)) bad('scene-only levels cannot require a call.');
     if (level.storyScript && !scriptValid(level.storyScript)) bad('cinematic script is invalid.');
+    if (level.storyAudio !== undefined) {
+      const audio = level.storyAudio;
+      if (!audio || typeof audio.url !== 'string' || !/^\/audio\/[a-z0-9-]+\.mp3$/.test(audio.url) ||
+          !Number.isFinite(audio.duration) || audio.duration <= 0) bad('invalid story recording.');
+      const ends = audio.lineEnds;
+      if (ends !== undefined && (!Array.isArray(ends) || ends.length !== level.storyScript?.length ||
+          ends.some((end: number, i: number) => !Number.isFinite(end) || end <= (i ? ends[i - 1] : 0) || end > audio.duration))) {
+        bad('subtitle timings must increase within the recording and match the script.');
+      }
+    }
     if (level.nagScript && !scriptValid(level.nagScript)) bad('nag script is invalid.');
     if (level.callMode === 'CUSTOMER_NAGS_EN_ROUTE' && !scriptValid(level.nagScript)) bad('nag call needs a script.');
     if (level.bonusScript && !scriptValid(level.bonusScript)) bad('bonus script is invalid.');

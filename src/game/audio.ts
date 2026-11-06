@@ -1,4 +1,4 @@
-// Small synthesized game sounds. No downloads, media permissions, or autoplay before a gesture.
+import { RecordedTrack, type TrackStatus } from './recorded-track';
 export type SoundCue = 'start' | 'offer' | 'accept' | 'pickup' | 'delivery' | 'flight' | 'bump' | 'error';
 export interface VehicleSound { speed: number; throttle: number; flying: boolean; descending?: boolean; active: boolean }
 
@@ -12,6 +12,57 @@ export class Sound {
   private cueTimes = new Map<SoundCue, number>();
   private vehicleTargets = { frequency: -1, filter: -1, motor: -1, thrust: -1 };
   private trainHornAt = -Infinity;
+
+  private music: RecordedTrack | null = null;
+  private dialogue: RecordedTrack | null = null;
+  private musicGain: GainNode | null = null;
+  private gameplayActive = false;
+  private dialogueUnavailable = false;
+
+  setGameplayActive(active: boolean) {
+    if (this.gameplayActive === active) return;
+    this.gameplayActive = active;
+    this.syncRecordings();
+  }
+
+  startDialogue(url: string) {
+    this.dialogueUnavailable = !this.dialogue;
+    if (!this.dialogue) return;
+    void this.dialogue.load(url);
+    this.mixMusic();
+    this.syncRecordings();
+  }
+
+  stopDialogue() {
+    this.dialogueUnavailable = false;
+    this.dialogue?.clear();
+    this.mixMusic();
+  }
+
+  get dialoguePlayback(): { status: TrackStatus; position: number; duration: number } {
+    return {
+      status: this.dialogueUnavailable ? 'failed' : this.dialogue?.status ?? 'idle',
+      position: this.dialogue?.position ?? 0, duration: this.dialogue?.duration ?? 0,
+    };
+  }
+
+  private mixMusic() {
+    if (!this.musicGain || !this.ctx) return;
+    const speaking = this.dialogue?.status === 'loading' || this.dialogue?.status === 'playing';
+    const now = this.ctx.currentTime;
+    this.musicGain.gain.cancelScheduledValues(now);
+    this.musicGain.gain.setTargetAtTime(speaking ? .09 : .34, now, speaking ? .06 : .32);
+  }
+
+  private syncRecordings() {
+    const active = this.gameplayActive && this.foreground && !document.hidden;
+    this.music?.setActive(active && !this.muted);
+    // A muted conversation follows the same timeline, so captions and story
+    // actions stay in sync if sound is turned on again halfway through it.
+    this.dialogue?.setActive(active);
+    if (active && !this.muted && this.ctx?.state === 'running' && this.music?.status === 'idle')
+      void this.music.load('/audio/background.mp3');
+  }
 
   constructor() {
     // Capture runs before Play/settings handlers. touchend/click also cover mobile browsers
@@ -43,6 +94,11 @@ export class Sound {
         this.master.gain.value = this.muted || !this.foreground ? 0 : 0.5;
         this.master.connect(c.destination);
         this.createVehicleVoices(c, this.master);
+        if (this.dialogue?.status === 'playing' || this.dialogue?.status === 'loading') this.dialogueUnavailable = true;
+        this.music?.clear(); this.dialogue?.clear();
+        this.musicGain = c.createGain(); this.musicGain.gain.value = .34; this.musicGain.connect(this.master);
+        this.music = new RecordedTrack(c, this.musicGain, true);
+        this.dialogue = new RecordedTrack(c, this.master, false, () => this.mixMusic());
       } catch { this.ctx = null; this.master = null; return; }
     }
     const c = this.ctx;
@@ -50,7 +106,7 @@ export class Sound {
     // iOS can report "interrupted" as well as "suspended" after a call or app switch.
     if (c.state !== 'running' && !this.resumePending) {
       this.resumePending = true;
-      c.resume().then(() => { this.resumePending = false; this.flushCue(); })
+      c.resume().then(() => { this.resumePending = false; this.syncRecordings(); this.flushCue(); })
         .catch(() => { this.resumePending = false; });
     } else if (c.state === 'running') this.flushCue();
   }
@@ -63,6 +119,7 @@ export class Sound {
   }
 
   private applyMaster() {
+    this.syncRecordings();
     if (!this.ctx || !this.master || this.ctx.state === 'closed') return;
     const now = this.ctx.currentTime;
     this.master.gain.cancelScheduledValues(now);

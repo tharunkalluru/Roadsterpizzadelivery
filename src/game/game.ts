@@ -1075,6 +1075,7 @@ export class Game {
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const storyVisible = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
+    this.sound.setGameplayActive?.(storyVisible && !this.relocating);
     this.story?.tick(dt, storyVisible);
     const active = storyVisible && !this.story?.blocking;
     this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('Space') && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&

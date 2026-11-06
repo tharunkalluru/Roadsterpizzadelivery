@@ -630,3 +630,27 @@ test('restaurant entry cannot replace a live phone call or completion card', () 
   f.actions.continue(); assert.deepEqual(f.runtime.pauseProgress, { current: 2, total: 7, completed: 1 });
   f.runtime.dispose(); assert.equal(f.runtime.openRestaurant(), false);
 });
+
+test('automatic pizza handoff waits for the actual end of a recording even without subtitles',()=>{
+  const f=fixture(), level=f.runtime.controller.levels[0];
+  level.callMode='NONE';level.storyScript=[];level.storyAudio={url:'/test.mp3',duration:2};
+  let plays=0,stops=0;
+  const playback={status:'loading',position:0,duration:2};
+  Object.assign(f.game.sound,{startDialogue(){plays++;},stopDialogue(){stops++;},dialoguePlayback:playback});
+  pickup(f);f.runtime.beforePlayer(.05);approach(f);f.runtime.tick(.05,true);
+  f.game.player.pos=new THREE.Vector3(f.game.player.pos.x,f.game.player.pos.y,f.game.player.pos.z);
+  f.game.player.group=new THREE.Group();
+  f.module.story={entry:true,point:{...f.game.player.pos}};
+  const run=(frames:number)=>{for(let i=0;i<frames;i++){f.runtime.beforePlayer(.05);f.runtime.afterPlayer(.05);}};
+  run(70);
+  assert.equal(plays,1);
+  assert.equal(f.runtime.director.phase,'playing');
+  f.actions.drop(); f.module.ctx.emit('done');
+  assert.equal(f.runtime.controller.complete,false);
+  playback.status='playing';playback.position=2;run(40);
+  assert.equal(f.runtime.controller.complete,false,'a rounded position equal to the recorded duration cannot deliver the order early');
+  playback.status='ended';run(1);
+  assert.equal(f.runtime.controller.complete,true);
+  f.runtime.dispose();
+  assert.equal(stops,1);
+});

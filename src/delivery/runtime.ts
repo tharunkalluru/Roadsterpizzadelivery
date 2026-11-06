@@ -142,7 +142,7 @@ export class DeliveryRuntime {
       call: () => this.act(() => this.controller.call()),
       advanceCall: reply => this.act(() => this.controller.advanceCall(reply)),
       endCall: () => this.act(() => this.controller.endCall()),
-      drop: () => { if (this.controller.canDrop && this.module) this.module.onDrop(); this.syncView(); },
+      drop: () => { if (this.controller.canDrop && this.controller.activeLevel?.callMode !== 'NONE' && this.module) this.module.onDrop(); this.syncView(); },
       continue: () => { void this.continueStory(); },
       bonusCall: () => this.act(() => this.controller.bonusCall()),
       collectionOpen: () => game.resetInput(),
@@ -386,7 +386,7 @@ export class DeliveryRuntime {
     }else{this.storyLanding.reset();this.storyLandingReady=false;}
     if(this.director.tryStart(frame,c.canDrop&&this.storyLandingReady)){
       this.storyPoseReady=false;
-      this.storyDialogue.start(c.activeLevel?.storyScript);
+      this.storyDialogue.start(c.activeLevel?.storyScript, c.activeLevel?.storyAudio, this.game.sound);
       this.game.resetInput();this.game.orbitYaw=0;this.game.orbitDist=0;this.game.orbitPitch=.38;
       // Capture happens after the frame's regular UI tick. Hide controls in
       // this same frame, before any cinematic can be rendered or observed.
@@ -685,7 +685,10 @@ export class DeliveryRuntime {
       cue: kind => {if(kind==='throw'){this.notice='';this.noticeUntil=0;}this.game.sound.cue(kind === 'success' ? 'delivery' : kind === 'retry' ? 'error' : kind === 'throw' ? 'flight' : 'accept');},
       emit: (type, detail) => {
         if (this.module !== module || !c.canDrop) return;
-        if (type === 'done') c.setpieceDone(); else c.setpieceFailed(detail?.reason);
+        if (type === 'done') {
+          if (level.storyAudio && (!this.cinematic || !this.storyDialogue.done)) return;
+          c.setpieceDone();
+        } else c.setpieceFailed(detail?.reason);
       },
     }, level.moduleParams);
   }
@@ -820,7 +823,7 @@ export class DeliveryRuntime {
   startFromLevelOne() { this.controller.reset(); this.clearDelivery(); this.syncView(); }
   dispose() {
     if (this.disposed) return;
-    this.disposed = true; this.characterPreparation.dispose();this.removeModule();for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[]; this.releaseStoryTrain(); this.setTarget(null);retainSceneCharacters([]);
+    this.disposed = true; this.storyDialogue.reset(); this.characterPreparation.dispose();this.removeModule();for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[]; this.releaseStoryTrain(); this.setTarget(null);retainSceneCharacters([]);
     this.game.player.setCarryingPizza?.(false);
     for (const off of this.off) off(); this.off = [];
     this.controller.dispose(); this.ui.dispose(); this.game.hud.storyBlocked = false;
