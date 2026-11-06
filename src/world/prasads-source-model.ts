@@ -26,9 +26,29 @@ export function drawPrasadsSource(K:Kit){
  }
  const ring=plan.outer.map(p=>new THREE.Vector2(...p as [number,number]));
  for(const t of THREE.ShapeUtils.triangulateShape(ring,[])){const p=t.map(i=>{const w=K.P(...plan.outer[i] as [number,number]);return[w[0],20,w[1]];});K.k.B.roof.tri(p[0],p[2],p[1],dark);}
- // Glazed upper frontage, restrained corporate lettering and shallow steps.
- for(let u=-33;u<58;u+=5){K.box(u,41.55,7.8,4.65,5,.12,'#506979');K.box(u,41.7,7.8,.16,5,.18,'#B9C4C2');}
- K.box(-10,43,4.8,17,.35,4,wall);K.board('PRASADS',-10,44.7,8.1,14,1.8,'#D7D3C8','#C23F34');
+ // Photo-guided current frontage: a dark glass grid under the silver curved
+ // canopy and the familiar multicolour letters (not the older IMAX branding).
+ for(let u=-33;u<58;u+=4.5){
+  K.box(u,41.55,5.4,4.3,8,.12,'#354E5B');
+  K.box(u,41.7,5.4,.13,8,.18,'#AAB5BA');
+ }
+ for(const y of [5.4,8.1,10.8,13.4])K.box(12,41.74,y,91,.12,.18,'#AAB5BA');
+ // Broad, shallow segmented bow mirrors the photographed metal awning.
+ for(let i=0;i<18;i++){
+  const u=-34+i*5.2,arch=Math.sin(i/17*Math.PI);
+  K.box(u,43+arch*1.2,13.3+arch*.6,5.3,.55,4.7,'#BAC0BE');
+  K.box(u,45.3+arch*1.2,13.18+arch*.6,5.3,.16,.18,'#E0E1D9');
+ }
+ K.box(-10,43,4.8,17,.35,4,wall);
+ K.box(-10,44.75,6.4,17,2.8,.18,'#2A3D47');
+ const colours=['#CF333B','#EEA52E','#70AC46','#2A93C3','#9B5BAD','#DB3C64','#E48E32'];
+ K.board('PRASADS',-10,44.95,7.9,17,1.8,'#2A3D47','#F1E4CD');
+ colours.forEach((colour,i)=>K.box(-16.4+i*2.1,45.08,6.5,1.8,.2,.12,colour));
+ for(const u of [-28,9]){
+  K.box(u,41.98,1.1,5.5,5.7,.18,'#263841');
+  K.board('NOW SHOWING',u,42.15,6.1,4.9,.55,'#263841','#EDCF80');
+  K.box(u,42.1,1.5,4.8,3.8,.06,'#527781');
+ }
  // The car remains outside. These small steps are visual public-entry detail,
  // while the central ground approach remains free of any new barrier.
  for(const side of [-1,1])for(let n=0;n<3;n++)K.box(-10+side*10.5,42.5+n*.6,0,5,.2*(3-n),.7,'#B9B7AE');

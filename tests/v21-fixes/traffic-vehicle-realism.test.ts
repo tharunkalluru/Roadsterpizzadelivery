@@ -206,7 +206,7 @@ test('boarding and alighting paths clear door jambs throughout the exchange, not
   assert.equal(crossing.size,4);exchange.group.dispatchEvent({type:'removed'});
 });
 
-test('new archetypes retain existing traffic groups and transmit real heights to jump-grab markers',()=>{
+test('vans and minitrucks retain their body heights and leave order pickups to autos',()=>{
   init();const graph=new RoadGraph([road]),scene=new THREE.Scene(),traffic=new Traffic(graph,scene,{vBody:new THREE.MeshStandardMaterial(),vLight:new THREE.MeshBasicMaterial()},0);
   for(const [group,spec]of [['car',S.van],['truck',S.miniTruck]]as const){
     const proto=traffic.byGroup[group].find(p=>Math.abs(p.size[2]-spec.length)<1e-6)!;assert.ok(proto,`${group} prototype is registered`);
@@ -214,7 +214,7 @@ test('new archetypes retain existing traffic groups and transmit real heights to
     const old=traffic.byGroup[group];traffic.byGroup[group]=[proto];const car=traffic.spawnAt(group,graph.edges[0],1,100,0);traffic.byGroup[group]=old;
     const marker=new CarrierMarker(scene,{...PICKUP_CONFIG,maxCarriersNearby:1});
     marker.update(.016,[car],{x:car.x,y:car.y,z:car.z+8},true);
-    assert.equal(marker.activeCount,1);assert.ok(marker.markers[0].position.y>car.y+spec.height+.1);
+    assert.equal(marker.activeCount,0);
     // Exterior camera/orbit remains independent of both simulation lifetime
     // and the taller actual roof used by jumping/collision calculations.
     traffic.hideNear(new THREE.Vector3(car.x+3,car.y+spec.height+.2,car.z));assert.equal(car.g.visible,true);

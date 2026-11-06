@@ -22,7 +22,7 @@ function reset() {
   const constructor = constructors[select.value as keyof typeof constructors] ?? GateDelivery; module = new constructor();
   module.setup({ scene, player: () => player, destination: { x: 0, y: 0, z: 0, label: select.selectedOptions[0].text },
     emit: (type, detail) => { lastEvent = `${type}${detail?.reason ? ': ' + detail.reason : ''}`; }, canInteract: () => true },
-  { theme: select.value, villaNumber: 79 });
+  { theme: select.value, villaNumber: 17 });
 }
 select.onchange = reset; document.querySelector<HTMLButtonElement>('#reset')!.onclick = reset;
 document.querySelector<HTMLButtonElement>('#deliver')!.onclick = () => module.onDrop();

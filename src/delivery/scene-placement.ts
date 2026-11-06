@@ -70,7 +70,6 @@ function profileFor(level: LevelConfig): Profile {
     drive: [rect(-7.5, 7.5, -24, 12)], accessZ: 3, street: true, search: 230 };
   if (level.module === 'angleParking') return { props: [rect(-17.5, 17.5, -29, -15, 10.5), rect(-14, -10, -14, -10, 4.2), rect(10, 14, -14, -10, 4.2), rect(-4.5, 4.5, -4.5, 4.5)], drive: [rect(-4.2, 4.2, -6, 12)], accessZ: 12, search: 220 };
   if (level.module === 'classroomHandoff') return { props: [rect(-23, -9, -28, -8.5, 10.5), rect(8, 22, -28, -8.5, 10.5), rect(-23, 23, -26, -7.2, 10.5)], drive: [rect(-4, 4, -6, 15)], accessZ: 13, search: 180 };
-  if (level.module === 'gateDelivery' && theme === 'salaar') return { props: [rect(-28.5, -21.5, -51, 4.5, 33), rect(21.5, 28.5, -51, 4.5, 33), rect(-28, 28, -52, -46, 33), rect(-28, 28, -8.5, -1.5, 33), rect(-20, -14, -37, -29, 11), rect(14, 20, -43, -33, 9)].map(r => ({ ...r, x0: r.x0 * .55, x1: r.x1 * .55, z0: r.z0 * .55, z1: r.z1 * .55 })), drive: [rect(-4, 4, -14, 15)], accessZ: 13, search: 230, params: { sceneScale: .55 } };
   if (level.module === 'gateDelivery' && theme === 'college') return { props: [rect(-23, 23, -39.5, -24.5, 15), rect(-10.4, -7.6, -7.5, -4.5, 8.2), rect(7.6, 10.4, -7.5, -4.5, 8.2), rect(-35, -10, -6.7, -5.3, 5), rect(10, 35, -6.7, -5.3, 5)], drive: [rect(-4, 4, -3, 15)], accessZ: 13, search: 180 };
   if (level.module === 'gateDelivery' && theme === 'villa') return { props: [rect(-18, 14, -32, -14.4, 12), rect(-9.7, -7.3, -7.2, -4.8, 5), rect(7.3, 9.7, -7.2, -4.8, 5), rect(-29, -9, -6.7, -5.3, 4.5), rect(9, 29, -6.7, -5.3, 4.5), rect(-14, -10, -14, -10, 4), rect(10, 14, -14, -10, 4)], drive: [rect(-4, 4, -3, 15)], accessZ: 13, search: 220 };
   return { props: [rect(-17, 17, -35, -16.5, 26), rect(-10, 10, -6.5, -3.5, 8), rect(-26, -10, -5.7, -4.3, 4.5), rect(10, 26, -5.7, -4.3, 4.5), rect(-26, -14, -17, -11, 11), rect(14, 26, -17, -11, 11)].map(r => ({ ...r, x0: r.x0 * .55, x1: r.x1 * .55, z0: r.z0 * .55, z1: r.z1 * .55 })), drive: [rect(-4, 4, -1, 15)], accessZ: 13, search: 230, params: { sceneScale: .55 } };
@@ -82,6 +81,12 @@ function profileFor(level: LevelConfig): Profile {
 type PlacementCity = CityData & { rails?: ReadonlyMap<string, { pts: XZ[]; elev?: number[] }> };
 export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGraph, level: LevelConfig, options: ScenePlacementOptions = {}): Generator<void, GroundScenePlacement | null, void> {
   if (!needsGroundScenePlacement(level.module) || !Number.isFinite(level.destination.x) || !Number.isFinite(level.destination.z)) return null;
+  if (level.moduleParams.theme === 'salaar') {
+    // The configured stopping point is on the road outside segment 0 of the existing citadel ring.
+    const { x, z } = level.destination;
+    if (options.isLoaded && !options.isLoaded(x, z)) return null;
+    return { destination: { ...level.destination, y: 0 }, moduleParams: { sceneYaw: level.moduleParams.sceneYaw }, attempts: 1 };
+  }
   const campusId=collegeCampusId(String(level.moduleParams.realCampusId||''));
   if(campusId){
     // Named campuses have one researched entrance, never a nearby vacant lot.

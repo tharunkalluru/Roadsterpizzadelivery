@@ -53,7 +53,7 @@ test('Paradise bucket lowers only near the player, accepts a visible pizza and c
 
 for (const theme of ['haunted', 'college', 'villa', 'salaar']) {
   test(`${theme} scene requires deliberate nearby delivery, remains retryable and shows a physical pizza pass`, () => {
-    const f = fixture(), module = new GateDelivery(); module.setup(f.ctx, { theme, villaNumber: 79 });
+    const f = fixture(), module = new GateDelivery(); module.setup(f.ctx, { theme, villaNumber: 17 });
     module.update(.05); module.onDrop(); assert.equal(doneCount(f.events), 0); assert.equal(f.events.at(-1)?.type, 'failed');
     Object.assign(f.player, { x: module.target.x, y: module.target.y, z: module.target.z, speed: 7 });
     module.update(.05); assert.equal(module.status.canDrop, false, 'no handover at road speed');
@@ -67,19 +67,11 @@ for (const theme of ['haunted', 'college', 'villa', 'salaar']) {
   });
 }
 
-test('Salaar heavy gates slide apart with matching physical colliders and leave a car-sized central entrance', () => {
-  const f = fixture(), module = new GateDelivery(); module.setup(f.ctx, { theme: 'salaar' });
-  const gateBodies = module.supports.filter(body => body.id.startsWith('delivery-sliding-gate:'));
-  assert.equal(gateBodies.length, 2);
-  assert.ok(gateBodies.every(body => Math.abs(body.x - 100) - body.halfWidth < 1));
-  Object.assign(f.player, { x: 100, z: 220 }); advance(module, 2.6);
-  const doors: THREE.Object3D[] = []; f.scene.traverse(object => { if (object.name === 'delivery-salaar-sliding-gate') doors.push(object); });
-  assert.equal(doors.length, 2);
-  for (let i = 0; i < 2; i++) {
-    assert.ok(Math.abs(gateBodies[i].x - 100) - gateBodies[i].halfWidth > 10);
-    assert.equal(gateBodies[i].x, 100 + doors[i].position.x, 'colliders follow exactly what is drawn');
-  }
-  assert.ok(!f.scene.getObjectByName('delivery-character-prabhas'), 'this scene does not create a Prabhas stand-in');
+test('Golconda uses the permanent landmark and leaves the delivery target outside', () => {
+  const f = fixture(), module = new GateDelivery(); module.setup(f.ctx, {theme: 'salaar'});
+  assert.equal(module.target.z, f.ctx.destination.z);
+  assert.equal(module.supports.length, 0);
+  assert.equal(f.scene.getObjectByName('delivery-salaar-sliding-gate'), undefined);
   module.teardown();
 });
 
@@ -268,7 +260,7 @@ test('the compact medical-college treatment contains an open physical classroom 
 
 test('compact college and villa approaches retain complete architectural frontage without blocking the handoff lane',()=>{
   for(const theme of ['college','villa']){
-    const f=fixture(),module=new GateDelivery();module.setup(f.ctx,{theme,useExistingFacade:true,villaNumber:79,sign:'NIZAM COLLEGE'});
+    const f=fixture(),module=new GateDelivery();module.setup(f.ctx,{theme,useExistingFacade:true,villaNumber:17,sign:'NIZAM COLLEGE'});
     const bounds=new THREE.Box3().setFromObject(f.scene);assert.ok(bounds.max.x-bounds.min.x>=15,'a labeled post is not a campus or villa frontage');
     assert.ok(bounds.max.z-bounds.min.z>=9,'frontage needs an actual covered entry depth');assert.ok(bounds.max.y-bounds.min.y>=6.8);
     for(let z=module.target.z;z<=module.target.z+12;z+=1)for(const body of module.supports){
@@ -369,23 +361,6 @@ test('completed haunted property remains physical until the car has left the del
   assert.ok(Math.abs(underside.y-f.ctx.destination.y)<1e-6,'the physical carton rests on the paving');
   assert.ok(Math.abs(underside.x-f.player.x)>1.5,'the carton is beside the full car footprint');
   f.player.z = module.target.z + 46; module.update(.05); assert.equal(module.exitPending, false); module.teardown();
-});
-
-test('Salaar retains its complete courtyard and open gates until the entire car exits, including compact placement', () => {
-  for (const scale of [1, .55]) {
-    const f = fixture(), module = new GateDelivery(); module.setup(f.ctx, { theme: 'salaar', sceneScale: scale });
-    Object.assign(f.player, { x: f.ctx.destination.x, y: f.ctx.destination.y, z: f.ctx.destination.z - 5 * scale });
-    advance(module, 3); assert.equal(module.status.canDrop, false, 'straddling the gate is not an inner-courtyard delivery');
-    Object.assign(f.player, module.target); module.update(.05); assert.equal(module.status.canDrop, true); module.onDrop(); advance(module, 1);
-    assert.equal(doneCount(f.events), 1); assert.equal(module.exitPending, true); assert.match(module.status.instruction, /Leave the courtyard/);
-    // A full-size set extends farther than the normal 45m retention circle.
-    f.player.z = f.ctx.destination.z - 48 * scale; module.update(.05); assert.equal(module.exitPending, true);
-    f.player.z = f.ctx.destination.z + 4.5 * scale + 1 + 2.3; module.update(.05); assert.equal(module.exitPending, true, 'the rear of the car still intersects the front boundary');
-    f.player.z += .2; module.update(.05); assert.equal(module.exitPending, false);
-    assert.equal(module.sceneryPending, true, 'clearing the gate must not erase the visible compound');
-    f.player.z = f.ctx.destination.z + 851; assert.equal(module.sceneryPending, false);
-    module.teardown(); assert.equal(f.scene.children.length, 0);
-  }
 });
 
 test('a valid retry clears the old failure and preserves passing feedback until the physical handoff ends', () => {

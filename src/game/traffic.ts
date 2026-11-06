@@ -45,6 +45,12 @@ export interface Car {
   motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
   busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
   passengerExchange?: BusPassengerExchange; lamps?: TrafficLampRig;
+  arcadeFlight?: ArcadeAutoFlight;
+}
+interface ArcadeLanding { edge:GEdge; dir:1|-1; s:number; lane:number; pose:ReturnType<RoadGraph['pointAt']>; }
+interface ArcadeAutoFlight {
+  elapsed:number; duration:number; startX:number; startY:number; startZ:number;
+  vx:number; vy:number; vz:number; landing:ArcadeLanding;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
 export interface TrafficVerticalBounds { bottom: number; top: number }
@@ -71,6 +77,77 @@ export class Traffic {
   private storyVehicleId:string|null=null;
   private lostStoryVehicleId:string|null=null;
   private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
+
+  /** A high-speed collision can launch an auto; it keeps its vehicle identity and lands on mapped road. */
+  kickAuto(car:Car, impactSpeed:number, hx:number, hz:number) {
+    if(car.group!=='auto'||car.arcadeFlight||!Number.isFinite(impactSpeed)||Math.abs(impactSpeed)<=60/3.6)return false;
+    const length=Math.hypot(hx,hz);if(length<.01)return false;hx/=length;hz/=length;
+    const direction=Math.sign(impactSpeed),speed=Math.abs(impactSpeed),duration=2.1;
+    const launchSpeed=Math.min(55,speed*.9+4);
+    const desiredDistance=launchSpeed*duration;
+    // Choose an exact legal mapped landing before lift-off. If the full range
+    // has no road, progressively shorten the flight; never snap to a late pick.
+    let landing:ArcadeLanding|undefined;
+    for(const fraction of [1,.85,.7,.55,.4,.28,.18,.1]){
+      const distance=desiredDistance*fraction;
+      landing=this.arcadeLanding(car, hx*direction, hz*direction, car.x+hx*direction*distance, car.z+hz*direction*distance);
+      if(landing)break;
+    }
+    if(!landing)return false;
+    car.arcadeFlight = {
+      elapsed: 0, duration, startX: car.x, startY: car.y, startZ: car.z, landing,
+      vx: (landing.pose.x - car.x) / duration,
+      vy: (landing.pose.y - car.y + 4.9 * duration * duration) / duration,
+      vz: (landing.pose.z - car.z) / duration,
+    };
+    car.speed = 0;
+    car.motion = undefined;
+    car.stopS = undefined;
+    car.dwell = 0;
+    return true;
+  }
+
+  private arcadeLanding(car:Car, impactX:number, impactZ:number, x:number, z:number):ArcadeLanding|undefined {
+    const nearby=this.graph.nearestEdges(x,z,4).filter(edge=>
+      this.allowed(car,edge)&&!edge.e.workZone&&(!this.storyLeased(car)||this.graph.permanent.has(edge.e.id)));
+    let best:(ArcadeLanding&{score:number})|undefined;
+    for(const edge of nearby){
+      let canonical=0,bd=Infinity;
+      for(let i=1;i<edge.e.pts.length;i++){
+        const a=edge.e.pts[i-1],b=edge.e.pts[i],dx=b[0]-a[0],dz=b[1]-a[1],length2=dx*dx+dz*dz||1;
+        const u=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/length2));
+        const distance=Math.hypot(x-a[0]-dx*u,z-a[1]-dz*u);
+        if(distance<bd){bd=distance;canonical=edge.cum[i-1]+Math.sqrt(length2)*u;}
+      }
+      for(const dir of [1,-1] as const){
+        // RoadGraph stores one-way as the forbidden heading.
+        if(edge.e.oneway===(dir===1?'forward':'backward'))continue;
+        const [lo,hi]=this.laneRange(edge,car.size[0],dir);if(hi<lo)continue;
+        const lane=Math.max(lo,Math.min(hi,car.lane)),s=dir===1?canonical:edge.len-canonical;
+        const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-x,pose.z-z),height=Math.abs(pose.y-car.y);
+        if(distance>8||height>1.2)continue;
+        if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
+        const heading = pose.hx * impactX + pose.hz * impactZ;
+        const score=distance+height*.8+(heading<0?Math.abs(heading)*12:0)+(edge===car.edge?5:0);
+        if(!best||score<best.score)best={edge,dir,s,lane,pose,score};
+      }
+    }
+    return best;
+  }
+
+  private advanceArcadeAuto(car:Car,dt:number){
+    const flight=car.arcadeFlight!;flight.elapsed=Math.min(flight.duration,flight.elapsed+dt);const t=flight.elapsed;
+    car.x=flight.startX+flight.vx*t;car.z=flight.startZ+flight.vz*t;
+    car.y=flight.startY+flight.vy*t-4.9*t*t;
+    const horizontalSpeed=Math.hypot(flight.vx,flight.vz)||1;car.hx=flight.vx/horizontalSpeed;car.hz=flight.vz/horizontalSpeed;
+    if(flight.elapsed<flight.duration){
+      car.speed=horizontalSpeed;this.placeVisual(car.g,car,car.size);car.g.rotation.x=-Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));return;
+    }
+    const {edge,dir,s,lane,pose}=flight.landing;
+    car.edge=edge;car.dir=dir;car.s=s;car.lane=car.laneT=car.base=lane;
+    car.x=pose.x;car.y=pose.y;car.z=pose.z;car.hx=pose.hx;car.hz=pose.hz;car.planAfter=0;
+    car.arcadeFlight=undefined;car.speed=Math.max(2,Math.min(8,Math.hypot(flight.vx,flight.vz)*.35));car.motion=undefined;this.prepare(car);this.placeVisual(car.g,car,car.size);
+  }
   /** One scene-owned live NPC; all ordinary traffic retains its original clock. */
   leaseStoryVehicle(id:string|null){
     // Runtime reads the same selected NPC each frame. Renewing an unchanged
@@ -78,7 +155,16 @@ export class Traffic {
     if(id&&id===this.storyVehicleId&&this.cars.some(c=>c.g.uuid===id&&c.g.parent))return;
     this.pendingStoryVehicle=null;if(!id)this.storyCorridor=null;
     this.storyVehicleId=null;this.lostStoryVehicleId=null;this.storyEntryCheck=null;
-    if(id){if(this.cars.some(c=>c.g.uuid===id&&c.g.parent))this.storyVehicleId=id;else this.lostStoryVehicleId=id;}
+    if(id){
+      const car=this.cars.find(c=>c.g.uuid===id&&c.g.parent);
+      if(car){
+        this.storyVehicleId=id;
+        // The marked RTC service follows its verified two-lane corridor.
+        // A published stop path may turn away from that corridor and recenter
+        // the bus during a span, removing the player's right-side lane.
+        if(car.group==='bus'){car.want=Math.min(car.want,4);if(car.busRun){car.busRun=undefined;car.motion=undefined;car.stopS=undefined;car.planAfter=0;car.dwell=0;}}
+      }else this.lostStoryVehicleId=id;
+    }
   }
   storyVehicleLeaseStatus(id:string):'active'|'lost'|'none'{
     if(this.lostStoryVehicleId===id)return 'lost';
@@ -95,13 +181,13 @@ export class Traffic {
       const room=edge.len-s;
       if(left<=room){const pose=this.graph.pointAt(edge,s+left,dir,c.lane);return {...c,edge,dir,s:s+left,...pose};}
       left-=room;const end=this.graph.pointAt(edge,edge.len-.01,dir,c.lane),node=this.graph.nodes.get(dir===1?edge.to:edge.from);
-      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),p=this.graph.pointAt(o.edge,.01,o.dir,c.lane);return {...o,room:sideLane>=lo+.15&&sideLane<=hi-.15,dot:p.hx*end.hx+p.hz*end.hz,p};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.p.y-end.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
+      const next=node?.out.filter(o=>o.edge!==edge&&this.graph.permanent.has(o.edge.e.id)&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),p=this.graph.pointAt(o.edge,.01,o.dir,c.lane);return {...o,room:sideLane>=lo+.15&&sideLane<=hi-.15,dot:p.hx*end.hx+p.hz*end.hz,p};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.p.y-end.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
       if(!next)return null;edge=next.edge;dir=next.dir;s=0;
     }return null;
   }
   private trySpawnStoryCandidate(candidate:Car,px:number,pz:number,validated=false):Car|null {
     const {edge,dir,s,lane,size}=candidate,kind=candidate.group as 'auto'|'bus',distance=Math.hypot(candidate.x-px,candidate.z-pz);
-    if(distance<60||distance>220||this.graph.byId.get(edge.e.id)!==edge||!validated&&!this.canEnterStoryVehicle(candidate))return null;
+    if(distance<60||distance>300||this.graph.byId.get(edge.e.id)!==edge||!validated&&!this.canEnterStoryVehicle(candidate))return null;
     const side=size[0]/2+(kind==='bus'?2.5:2.1),back=kind==='bus'?size[2]/2+5:-.42;
     const approach={x:candidate.x-candidate.hz*side-candidate.hx*back,y:candidate.y,z:candidate.z+candidate.hx*side-candidate.hz*back,hx:candidate.hx,hz:candidate.hz,size:[2,1.6,4.8]};
     if(this.railwayCrossings?.spawnBlocked(candidate,size[2]/2,size[0]/2)||this.cars.some(c=>trafficOverlap(candidate,c,2)||trafficOverlap(approach,c,1))||(this.kinematicVehicles||NO_KINEMATIC_VEHICLES).some(c=>trafficOverlap(candidate,c,2)||trafficOverlap(approach,c,1)))return null;
@@ -148,12 +234,12 @@ export class Traffic {
       let best=Infinity,s=0;
       for(let i=1;i<edge.e.pts.length;i++){const a=edge.e.pts[i-1],b=edge.e.pts[i],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz),u=Math.max(0,Math.min(1,((px-a[0])*dx+(pz-a[1])*dz)/(len*len||1))),d=Math.hypot(px-a[0]-dx*u,pz-a[1]-dz*u);if(d<best){best=d;s=edge.cum[i-1]+len*u;}}
       return {edge,s,distance:best};
-    }).sort((a,b)=>(a.edge.len>=220?0:1)-(b.edge.len>=220?0:1)||a.distance-b.distance).slice(0,12);
+    }).sort((a,b)=>a.distance-b.distance).slice(0,12);
     let checks=0,physicalChecks=0;
     for(const item of nearest)for(const offset of [0,90,-90,180,-180,20-item.s,item.edge.len-20-item.s])for(const dir of [1,-1]as const){
       const edge=item.edge;if(edge.e.oneway===(dir===1?'forward':'backward'))continue;
       const margin=Math.min(12,proto.size[2]/2+1),canonical=Math.max(margin,Math.min(edge.len-margin,item.s+offset)),s=dir===1?canonical:edge.len-canonical;
-      const [lo,hi]=this.laneRange(edge,proto.size[0],dir),lane=hi-.2;if(lane<lo)continue;
+      const [lo,hi]=this.laneRange(edge,proto.size[0],dir),lane=hi-(kind==='bus'?.35:.2);if(lane<lo)continue;
       const sideLane=lane-proto.size[0]/2-(kind==='bus'?2.5:2.1),[sideLow,sideHigh]=this.laneRange(edge,2,dir);if(sideLane<sideLow+.15||sideLane>sideHigh-.15)continue;
       if(++checks>64)return null;
       const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-px,pose.z-pz);
@@ -174,7 +260,7 @@ export class Traffic {
         this.storyRejectedFootprints.set(probeKey,this.t+60);continue;
       }
       this.storyCorridor={x:approach.x,y:approach.y,z:approach.z};
-      if(distance>220){
+      if(distance>300){
         const future=this.storyForwardCandidate(proposed,100);
         if(future&&physicalChecks<2){physicalChecks++;if(this.canEnterStoryVehicle(future)){this.pendingStoryVehicle={kind,candidate:future,hint:this.storyCorridor};return null;}}
         this.storyRejectedFootprints.set(probeKey,this.t+60);this.storyCorridor=null;continue;
@@ -195,7 +281,14 @@ export class Traffic {
     return true;
   }
   canHostStoryVehicle(c:Car){
-    if(!this.storyApproachLaneClear(c)||c.speed<=1||c.busRun?.ended||c.dwell>0)return false;
+    if(!this.graph.permanent.has(c.edge.e.id)||c.arcadeFlight||c.group==='bus'&&c.motion?.kind==='route'&&c.motion.progress>=0||!this.storyApproachLaneClear(c)||c.speed<=1||c.busRun?.ended||c.dwell>0)return false;
+    // Do not advertise a bus trapped behind an existing junction queue.
+    // Its first capture runway must be reachable before traffic clears.
+    if(c.group==='bus'&&this.cars.some(other=>{
+      if(other===c||other.speed>.5||Math.abs(other.y-c.y)>2)return false;
+      const dx=other.x-c.x,dz=other.z-c.z,along=dx*c.hx+dz*c.hz,side=dx*c.hz-dz*c.hx;
+      return along>0&&along<45&&Math.abs(side)<(other.size[0]+c.size[0])/2+.35;
+    }))return false;
     const offset=c.size[0]/2+(c.group==='bus'?2.5:2.1),lane=c.lane-offset;
     const [low,high]=this.laneRange(c.edge,2,c.dir);
     if(lane<low+.15||lane>high-.15)return false;
@@ -203,7 +296,7 @@ export class Traffic {
     let edge=c.edge,dir=c.dir,distance=edge.len-c.s;
     for(let n=0;n<96&&distance<needed;n++){
       const node=this.graph.nodes.get(dir===1?edge.to:edge.from),end=this.graph.pointAt(edge,edge.len-.01,dir,lane);
-      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{
+      const next=node?.out.filter(o=>o.edge!==edge&&this.graph.permanent.has(o.edge.e.id)&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{
         const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);
         return {...o,pose,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*end.hx+pose.hz*end.hz};
       }).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-end.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
@@ -215,11 +308,13 @@ export class Traffic {
    * have reached a narrower junction while the player was catching up. Cache
    * only this selected vehicle's geometry probe; ordinary NPCs do no extra work. */
   canEnterStoryVehicle(c:Car){
+    if(c.arcadeFlight)return false;
     const cached=this.storyEntryCheck;
     if(c.g.uuid&&cached?.id===c.g.uuid&&this.t-cached.at<.65&&Math.hypot(c.x-cached.x,c.z-cached.z)<4)return cached.allowed;
-    let allowed=this.canHostStoryVehicle(c);
+    const leased=this.storyLeased(c);
+    let allowed=leased?this.storyApproachLaneClear(c)&&c.dwell<=0:this.canHostStoryVehicle(c);
     const side=c.size[0]/2+(c.group==='bus'?2.5:2.1),back=c.group==='bus'?c.size[2]/2+5:-.42,lane=c.lane-side;
-    const needed=this.storyHorizon(c);let edge=c.edge,dir=c.dir,start=c.s,total=0;
+    const needed=leased?Math.max(28,c.speed*25+25):this.storyHorizon(c);let edge=c.edge,dir=c.dir,start=c.s,total=0;
     for(let record=0;allowed&&record<96&&total<needed;record++){
       const end=Math.min(edge.len,start+needed-total);
       if(this.city)for(let s=start;allowed&&s<=end+.01;s+=Math.min(12,Math.max(.01,end-s))){
@@ -229,7 +324,7 @@ export class Traffic {
       }
       total+=end-start;if(!allowed||total>=needed)break;
       const endpoint=this.graph.pointAt(edge,edge.len-.01,dir,lane),node=this.graph.nodes.get(dir===1?edge.to:edge.from);
-      const next=node?.out.filter(o=>o.edge!==edge&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);return {...o,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*endpoint.hx+pose.hz*endpoint.hz,pose};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-endpoint.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
+      const next=node?.out.filter(o=>o.edge!==edge&&this.graph.permanent.has(o.edge.e.id)&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);return {...o,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*endpoint.hx+pose.hz*endpoint.hz,pose};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-endpoint.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
       if(!next){allowed=false;break;}edge=next.edge;dir=next.dir;start=0;
     }
     allowed=allowed&&total>=needed;if(c.g.uuid)this.storyEntryCheck={id:c.g.uuid,at:this.t,x:c.x,z:c.z,allowed};return allowed;
@@ -423,8 +518,8 @@ export class Traffic {
     const lane = e.oneway ? e.w / 2 - (k + 0.5) * lw : half - (k + 0.5) * lw;
     return Math.max(lo, Math.min(hi, lane + (group === 'bike' ? (this.r() - 0.5) * 1.2 : 0)));
   }
-  spawn(px: number, pz: number) {
-    const cand = this.graph.nearestEdges(px, pz, 4).filter((g) => (WEIGHT[g.e.cls] || 0) > 0.1 && !(g.e.elev && Math.max(...g.e.elev) > 1.2 && this.r() < 0.3));
+  spawn(px: number, pz: number, forcedGroup?:Group) {
+    const cand = this.graph.nearestEdges(px, pz, 4).filter((g) => (WEIGHT[g.e.cls] || 0) > 0.1 && (!forcedGroup||this.allowed({group:forcedGroup}as Car,g)) && !(g.e.elev && Math.max(...g.e.elev) > 1.2 && this.r() < 0.3));
     if (!cand.length) return;
     let tot = 0; for (const g of cand) tot += (WEIGHT[g.e.cls] || 0.2) * g.len;
     let pick = this.r() * tot, edge = cand[0];
@@ -441,7 +536,7 @@ export class Traffic {
     // Hyderabad mix: two-wheelers dominate, then autos and cars; buses and lorries on main roads
     const roll = this.r();
     const fast = /^motorway/.test(edge.e.cls);
-    let group: Group = fast ? (roll < 0.66 ? 'car' : roll < 0.82 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car');
+    let group: Group = forcedGroup ?? (fast ? (roll < 0.66 ? 'car' : roll < 0.82 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car'));
     const busRun = group === 'bus' ? this.services?.bind(edge, dir, s, this.r()) : null;
     if (group === 'bus' && !busRun) group = fast ? 'truck' : 'car';
     const pr = this.r.pick(this.byGroup[group]);
@@ -646,7 +741,8 @@ export class Traffic {
     const node = this.graph.nodes.get(c.dir === 1 ? edge.to : edge.from);
     if (!node) return;
     const assigned = c.busRun && this.services?.next(c.busRun, edge, c.dir, c.s);
-    const opts = c.busRun ? (assigned ? [assigned] : []) : node.out.filter(o => o.edge !== edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1 && this.allowed(c, o.edge));
+    const opts = (c.busRun ? (assigned ? [assigned] : []) : node.out.filter(o => o.edge !== edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1 && this.allowed(c, o.edge))).filter(o=>{if(!this.storyLeased(c))return true;const side=c.lane-c.size[0]/2-(c.group==='bus'?2.5:2.1),[lo,hi]=this.laneRange(o.edge,2,o.dir);return this.graph.permanent.has(o.edge.e.id)&&side>=lo+.15&&side<=hi-.15;});
+    if(this.storyLeased(c)&&!opts.length){c.stopS=Math.max(c.s,edge.len-35);return;}
     // Only some autos take opportunistic U-turns; all drivers can return at a
     // sufficiently large dead end. A one-way edge has no reverse graph exit.
     const reverse = node.out.find(o => o.edge === edge && o.dir !== c.dir);
@@ -792,11 +888,12 @@ export class Traffic {
       if (far >= 0) { this.release(this.cars[far]); this.cars.splice(far, 1); }
     }
     const byEdge = new Map<GEdge, Car[]>();
-    for (const c of this.cars) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
+    for (const c of this.cars) if(!c.arcadeFlight) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
     for (let i = this.cars.length - 1; i >= 0; i--) {
       const c = this.cars[i];
       if (Math.hypot(c.x - px, c.z - pz) > 340&&!this.storyLeased(c)) { this.release(c); this.cars.splice(i, 1); continue; }
       const previousSpeed = c.speed;
+      if(c.arcadeFlight){this.advanceArcadeAuto(c,dt);this.updateLamps(c,previousSpeed,dt);continue;}
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {
         c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);
@@ -932,6 +1029,7 @@ export class Traffic {
     let hit: Car | null = null;
     const { bottom, top } = playerVerticalBounds(pos.y, bounds);
     for (const c of this.cars) {
+      if(c.arcadeFlight)continue;
       const dx = pos.x - c.x, dz = pos.z - c.z;
       const along = dx * c.hx + dz * c.hz, side = dx * c.hz - dz * c.hx;
       const section = trafficBodySection(c.y, c.size[1], c.size[2], c.g.rotation.x, along, halfL);
@@ -949,6 +1047,7 @@ export class Traffic {
   hitTest(x: number, y: number, z: number, r: number, bounds?: TrafficVerticalBounds): Car | null {
     const { bottom, top } = playerVerticalBounds(y, bounds);
     for (const c of this.cars) {
+      if(c.arcadeFlight)continue;
       const dx = x - c.x, dz = z - c.z;
       const along = dx * c.hx + dz * c.hz, side = dx * c.hz - dz * c.hx;
       const section = trafficBodySection(c.y, c.size[1], c.size[2], c.g.rotation.x, along, r);

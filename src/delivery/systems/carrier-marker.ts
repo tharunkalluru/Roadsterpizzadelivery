@@ -224,7 +224,8 @@ export class CarrierMarker {
   }
 
   private eligible(car: Car) {
-    return (car.group === 'auto' || car.group === 'bus' || car.group === 'bike' || car.group === 'car' || car.group === 'truck') &&
+    // Delivery slices ride only on Hyderabad autos; other traffic remains scenery.
+    return car.group === 'auto' &&
       car.size.length >= 3 && Number.isFinite(car.size[1]) && car.size[1] > 0 &&
       Number.isFinite(car.x) && Number.isFinite(car.y) && Number.isFinite(car.z);
   }

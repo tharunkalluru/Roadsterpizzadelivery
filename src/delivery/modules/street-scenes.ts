@@ -101,7 +101,7 @@ abstract class StreetScene extends ModuleBase {
   protected override done() {
     if (!this.ended && this.unlocked()) {
       this.ring.visible = false;
-      this.status.instruction = this.params.theme === 'salaar' ? 'Leave the courtyard through the open gates to continue' : 'Leave the delivery area to continue';
+      this.status.instruction = 'Leave the delivery area to continue';
     }
     super.done();
   }
@@ -349,19 +349,12 @@ export type GateTheme = 'haunted' | 'college' | 'villa' | 'salaar';
 export class GateDelivery extends StreetScene {
   override get story(){
     const frame=super.story;if(!frame)return undefined;
-    const p=this.ctx.player(),d=this.ctx.destination,s=numberParam(this.params,'sceneScale',1,.5,1),dx=p.x-d.x,dz=p.z-d.z;
-    if(this.params.realCampusId)return {...frame,entry:frame.entry&&distanceXZ(p,this.target)<9,yaw:Number(this.params.sceneYaw)||0};
-    if(this.theme!=='salaar')return{...frame,entry:frame.entry&&dz>=1&&Math.abs(dx)<14&&distanceXZ(p,this.target)<16};
-    const inside=Math.abs(dx)<19*s&&dz< -8.5*s&&dz> -43*s;
-    const atGate=Math.abs(dx)<8*s&&dz>=-6*s&&dz<18*s;
-    const point=!inside&&(Math.abs(dx)>.35||this.opening<1)?{x:d.x,y:d.y+.55,z:d.z+4*s}:frame.point;
-    return {...frame,entry:frame.entry&&(inside||atGate),point,landing:{point,radius:3.15},yaw:0};
+    const p=this.ctx.player(),d=this.ctx.destination,dx=p.x-d.x,dz=p.z-d.z;
+    if(this.params.realCampusId || this.theme==='salaar')return {...frame,entry:frame.entry&&distanceXZ(p,this.target)<9,yaw:Number(this.params.sceneYaw)||0};
+    return{...frame,entry:frame.entry&&dz>=1&&Math.abs(dx)<14&&distanceXZ(p,this.target)<16};
   }
   private theme: GateTheme = 'haunted';
   private receiver: SceneCharacter | null = null;
-  private doors: THREE.Group[] = [];
-  private opening = 0;
-  private doorBodies: number[] = [];
   private porchLocal=new THREE.Vector3();
   private porchWorld=new THREE.Vector3();
   private porchRequest={position:this.porchWorld,kind:'reading' as const};
@@ -392,26 +385,23 @@ export class GateDelivery extends StreetScene {
     this.root.localToWorld(this.focusPosition.set(actor.x+(close?1.1:1.8),1.7,actor.z+(close?2.7:4.2)));
     this.root.localToWorld(this.focusTarget.set(actor.x,1.1,actor.z));return this.gateFocus;
   }
-  override get exitPending() {
-    if (!this.ready || !this.ended) return false;
-    if (this.theme !== 'salaar') return super.exitPending;
-    const p = this.ctx.player(), d = this.ctx.destination, scale = numberParam(this.params, 'sceneScale', 1, .5, 1);
-    const sx = Math.abs(Math.sin(p.yaw)), sz = Math.abs(Math.cos(p.yaw)), halfX = sx * 2.4 + sz * 1.15, halfZ = sz * 2.4 + sx * 1.15;
-    const dx = p.x - d.x, dz = p.z - d.z;
-    return dz - halfZ <= 4.5 * scale + 1 && Math.abs(dx) - halfX <= 28.5 * scale + 1 && dz + halfZ >= -52 * scale - 1 && p.y - .55 < d.y + 34;
-  }
   protected build() {
     this.theme = (['haunted', 'college', 'villa', 'salaar'].includes(String(this.params.theme)) ? this.params.theme : 'haunted') as GateTheme;
-    this.receiver = null; this.doors = []; this.doorBodies = []; this.opening = 0;
+    this.receiver = null;
     const b = this.batch();
     if(this.params.realCampusId==='nizam_college'){this.root.rotation.y=Number(this.params.sceneYaw)||0;this.receiver=this.actor('hasini',-3.2,0,-7);}
     else if (this.params.useExistingFacade && ['college', 'villa'].includes(this.theme)) this.entranceOnly(b);
     else if (this.theme === 'haunted') this.haunted(b);
     else if (this.theme === 'college') this.college(b);
     else if (this.theme === 'villa') this.villa(b);
-    else this.salaar(b);
+    else {
+      this.root.rotation.y = Number(this.params.sceneYaw) || 0;
+      // The existing 12 m citadel wall crosses local z = -16. The actor stands inside.
+      this.receiver = this.actor('salaar', -8, 0, -26);
+      this.porchLocal.set(-6.5, 3.1, -24);
+    }
     b.flush(`delivery-${this.theme}-architecture`);
-    const scale = ['haunted', 'salaar'].includes(this.theme) ? numberParam(this.params, 'sceneScale', 1, .5, 1) : 1;
+    const scale = this.theme === 'haunted' ? numberParam(this.params, 'sceneScale', 1, .5, 1) : 1;
     this.scaleSet(scale);
     if (this.receiver) { this.receiver.group.position.x *= scale; this.receiver.group.position.z *= scale; }
     if(this.theme==='haunted'){
@@ -419,7 +409,6 @@ export class GateDelivery extends StreetScene {
       // scale. No new light or fixture is added to the haunted property.
       this.porchLocal.set(-9*scale,6.1,-3.75*scale);
     }
-    if(this.theme==='salaar'){this.porchLocal.x*=scale;this.porchLocal.z*=scale;}
     if(this.receiver&&['college','villa'].includes(this.theme)){
       const actor=this.receiver.group.position,x=actor.x+1.4,z=actor.z+1.5;
       // A small entrance light stands beside the human opening, outside the
@@ -428,10 +417,9 @@ export class GateDelivery extends StreetScene {
       b.box(x-.8,2.94,z,.32,.025,.18,'#FFE0B0');b.flush('delivery-entrance-light');
       this.porchLocal.set(x-.8,2.91,z);
     }
-    for (const door of this.doors) { door.position.x *= scale; door.position.z *= scale; door.scale.set(scale, 1, scale); }
-    const labels: Record<GateTheme, string> = { haunted: 'Mansion gate', college: 'College gate', villa: 'Villa entrance', salaar: 'Fortified courtyard' };
-    this.setTarget({ ...this.ctx.destination, z: this.ctx.destination.z + (this.theme === 'salaar' ? -21 * scale : this.params.realCampusId ? 0 : 2), label: this.ctx.destination.label || labels[this.theme] });
-    this.status = { instruction: this.theme === 'salaar' ? 'Enter through the great gates' : 'Stop by the gate', canDrop: false, actionLabel: 'DELIVER' };
+    const labels: Record<GateTheme, string> = { haunted: 'Mansion gate', college: 'College gate', villa: 'Villa entrance', salaar: 'Golconda Fort wall' };
+    this.setTarget({ ...this.ctx.destination, z: this.ctx.destination.z + (this.theme === 'salaar' || this.params.realCampusId ? 0 : 2), label: this.ctx.destination.label || labels[this.theme] });
+    this.status = { instruction: this.theme === 'salaar' ? 'Stop outside the fort wall' : 'Stop by the gate', canDrop: false, actionLabel: 'DELIVER' };
   }
   private entranceOnly(b: SceneBatch) {
     const college = this.theme === 'college', height = college ? 5.6 : 3.6, wall = college ? '#C5B28F' : '#E9E2D1';
@@ -465,7 +453,7 @@ export class GateDelivery extends StreetScene {
       }
       b.box(-2.5, 7, -7.2, 15.6, .22, 5.6, '#62594D');
       b.box(-.5, 2.2, -1.52, 2.8, .95, .12, '#51483D');
-      b.sign(`VILLA ${Math.round(numberParam(this.params, 'villaNumber', 79, 1, 999))}`, -.5, 2.2, -1.42, 2.5);
+      b.sign(`VILLA ${Math.round(numberParam(this.params, 'villaNumber', 17, 1, 999))}`, -.5, 2.2, -1.42, 2.5);
       for (const x of [-7.1, .9]) { b.cylinder(x, .45, -4.6, .55, .9, '#826F56'); b.cylinder(x, 1.25, -4.6, .85, 1.05, '#3E6B4D', .45); }
     }
     // Two short fence wings leave the central human entry open and keep the
@@ -542,59 +530,21 @@ export class GateDelivery extends StreetScene {
     for (const x of [-19, 19]) this.block(b, x, 1.9, -6, 19, 3.8, .7, '#D6C9B1');
     b.box(0, .02, -14, 15, .04, 28, '#A69D8B');
     b.box(11, 2.8, -4.92, 4.8, 1.7, .12, '#51483D');
-    b.sign(`VILLA ${Math.round(numberParam(this.params, 'villaNumber', 79, 1, 999))}`, 11, 2.8, -4.8, 4.1);
+    b.sign(`VILLA ${Math.round(numberParam(this.params, 'villaNumber', 17, 1, 999))}`, 11, 2.8, -4.8, 4.1);
     for (const side of [-1, 1]) {
       b.cylinder(side * 12, .8, -12, 1.2, 1.6, '#786D58');
       b.cylinder(side * 12, 2, -12, 1.9, 1.4, '#3A6043', .9);
     }
     this.receiver = this.actor('maruthi', 4, 0, -10);
   }
-  private salaar(b: SceneBatch) {
-    for (const side of [-1, 1]) this.block(b, side * 25, 16, -23, 6, 32, 54, '#4B4C48');
-    this.block(b, 0, 16, -49, 55, 32, 5, '#55544E');
-    for (const side of [-1, 1]) this.block(b, side * 19.5, 16, -5, 17, 32, 5, '#4B4C48');
-    this.block(b, 0, 29.5, -5, 24, 5, 6, '#373A39');
-    for (const side of [-1, 1]) for (let z = -43; z <= 0; z += 12) b.box(side * 21.8, 16, z, .35, 31, 1, '#6A685C');
-    b.box(0, -.06, -22, 43, .12, 52, '#7D7565');
-    for (const side of [-1, 1]) {
-      const group = new THREE.Group(); group.name = 'delivery-salaar-sliding-gate'; group.position.set(side * 5.4, 12, -5); this.root.add(group); this.doors.push(group);
-      const door = this.batch(group); door.box(0, 0, 0, 10.6, 24, 1.5, '#252E30');
-      for (const x of [-4.5, 0, 4.5]) door.box(x, 0, .8, .4, 23, .16, '#797264');
-      for (const y of [-10, -5, 0, 5, 10]) door.box(0, y, .8, 10.3, .35, .15, '#797264');
-      door.flush('delivery-salaar-gate-metal');
-      const index = this.bodies.length, d = this.ctx.destination;
-      this.bodies.push({ id: `delivery-sliding-gate:${side}`, x: d.x + side * 5.4, y: d.y + 12, z: d.z - 5,
-        hx: 0, hz: 1, halfWidth: 5.3, halfLength: .75, bottom: d.y, roof: d.y + 24,
-        previous: { x: d.x + side * 5.4, y: d.y + 12, z: d.z - 5, hx: 0, hz: 1 } });
-      this.doorBodies.push(index);
-    }
-    b.box(-17, 5, -33, 5, 10, 6, '#665C4B'); b.box(17, 4, -38, 6, 8, 8, '#665C4B');
-    b.cylinder(4.3,1.55,-21.5,.055,3.1,'#494638');
-    b.box(4.3,3.18,-21.5,.7,.14,.28,'#252E30');b.box(4.3,3.1,-21.5,.4,.025,.18,'#FFE0B0');
-    this.receiver=this.actor('salaar',2.8,0,-23);
-    this.porchLocal.set(4.3,3.1,-21.5);
-  }
-  private updateDoors(dt: number) {
-    if (this.theme === 'salaar') {
-      const near = distanceXZ(this.ctx.player(), this.ctx.destination) < 48;
-      this.opening = Math.min(1, this.opening + (near ? elapsed(dt) / 2.4 : 0));
-      for (let i = 0; i < this.doors.length; i++) {
-        const side = i === 0 ? -1 : 1, door = this.doors[i], body = this.bodies[this.doorBodies[i]];
-        Object.assign(body.previous, { x: body.x, y: body.y, z: body.z, hx: body.hx, hz: body.hz });
-        door.position.x = side * (5.4 + 11 * this.opening) * numberParam(this.params, 'sceneScale', 1, .5, 1); body.x = this.ctx.destination.x + door.position.x;
-      }
-    }
-  }
   update(dt: number) {
-    if (this.ready && this.ended) { this.receiver?.animate?.(elapsed(dt), 'idle', 1); this.releaseCatch(dt);this.updateDoors(dt); this.status.canDrop = false; return; }
+    if (this.ready && this.ended) { this.receiver?.animate?.(elapsed(dt), 'idle', 1); this.releaseCatch(dt); this.status.canDrop = false; return; }
     if (!this.tick(dt)) return;
-    this.receiver?.animate?.(elapsed(dt), 'idle', 1); this.updateDoors(dt);
+    this.receiver?.animate?.(elapsed(dt), 'idle', 1);
     if(this.theme==='haunted')this.ring.visible=!this.hideWorldGuidance;
-    const p = this.ctx.player(), scale = numberParam(this.params, 'sceneScale', 1, .5, 1);
-    const halfZ = Math.abs(Math.cos(p.yaw)) * 2.4 + Math.abs(Math.sin(p.yaw)) * 1.15;
-    const inside = this.theme !== 'salaar' || p.z + halfZ < this.ctx.destination.z - 8.5 * scale;
-    this.status.canDrop = !this.transferring && this.unlocked() && this.grounded() && inside && this.within(7, 3) && Math.abs(p.speed) <= 2;
-    this.status.instruction = this.status.canDrop ? 'Deliver the pizza here' : this.theme === 'salaar' ? 'Enter the courtyard and slow down' : 'Slow down by the gate';
+    const p = this.ctx.player();
+    this.status.canDrop = !this.transferring && this.unlocked() && this.grounded() && this.within(7, 3) && Math.abs(p.speed) <= 2;
+    this.status.instruction = this.status.canDrop ? 'Deliver the pizza here' : this.theme === 'salaar' ? 'Stop beside the fort wall' : 'Slow down by the gate';
     this.updateTransfer(dt);
   }
   onDrop() {

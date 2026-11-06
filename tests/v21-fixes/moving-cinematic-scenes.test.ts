@@ -57,25 +57,29 @@ test('Raja driver camera stays outside the right-front opening below the auto ro
  assert.ok(focus.position.x>f.vehicle.size[0]/2+.5);assert.ok(focus.position.x<module.target.x-1.05,'eye remains in the gap between auto and Roadster bodies');assert.ok(focus.position.z<-.7,'look through front-right opening rather than rear canopy');assert.ok(focus.position.y<f.vehicle.size[1],'eye stays below roof height');assert.ok(focus.target.y>1.3&&focus.target.y<1.6,'face remains the subject');module.teardown();
 });
 
-test('pre-entry terminal stop recycles after ten seconds, while a normal six-second stop retains its exact carrier',()=>{
+test('pre-entry terminal stop retains the same service through long signals',()=>{
  const f=fixture('auto'),module=new RajaAutoDelivery(),requests:(string|undefined)[]=[],released:string[]=[];
  f.ctx.existingRoadVehicle=(_kind,id)=>{requests.push(id);f.vehicle.group.position.set(f.vehicle.x,f.vehicle.y+.02,f.vehicle.z);return f.vehicle;};f.ctx.releaseRoadVehicle=id=>released.push(id);
  module.setup(f.ctx,{});module.update(.05);f.vehicle.speed=0;Object.defineProperty(f.vehicle,'approachValid',{get:()=>f.vehicle.speed>1});
  for(let i=0;i<120;i++)module.update(.05);assert.equal(released.length,0,'ordinary RTC dwell or short signal cannot jump the marker');
- for(let i=0;i<85;i++)module.update(.05);assert.deepEqual(released,['auto']);assert.ok(requests.slice(-5).includes(undefined),'new nearest eligible carrier requested after release');module.teardown();
+ for(let i=0;i<85;i++)module.update(.05);assert.deepEqual(released,[]);assert.ok(requests.slice(-5).every(id=>id==='auto'),'the level never asks for a replacement service');module.teardown();
 });
 test('active story and held viewing never recycle their exact carrier because of a prolonged traffic signal',()=>{
  const f=fixture('bus'),module=new InduBusDelivery();let releases=0;f.ctx.releaseRoadVehicle=()=>releases++;module.setup(f.ctx,{});module.update(.05);f.active=true;f.vehicle.speed=0;f.vehicle.approachValid=false;
  for(let i=0;i<300;i++)module.update(.05);assert.equal(releases,0);assert.ok(module.cameraFocus);module.teardown();
 });
-test('pre-entry carrier losing its legal right lane recycles only after a short hysteresis period',()=>{
+test('pre-entry carrier losing its legal right lane retains identity while refusing entry',()=>{
  const f=fixture('bus'),module=new InduBusDelivery();let releases=0;f.ctx.releaseRoadVehicle=()=>releases++;module.setup(f.ctx,{});module.update(.05);f.vehicle.approachValid=false;
- for(let i=0;i<40;i++)module.update(.05);assert.equal(releases,0);for(let i=0;i<22;i++)module.update(.05);assert.equal(releases,1);module.teardown();
+ for(let i=0;i<40;i++)module.update(.05);assert.equal(releases,0);for(let i=0;i<22;i++)module.update(.05);assert.equal(releases,0);assert.equal(module.story?.entry,false);module.teardown();
 });
 
-test('recycling many pre-entry carriers retains one prepared character instead of accumulating rig instances',()=>{
- const f=fixture('bus'),module=new InduBusDelivery();let built=0;f.ctx.characterFactory=()=>{built++;return actor();};module.setup(f.ctx,{});module.update(.05);
- for(let i=0;i<20;i++){f.selected=null;module.update(.05);f.selected={...f.vehicle,id:`bus-${i}`};module.update(.05);}assert.equal(built,1);module.teardown();
+test('offscreen service and a kicked airborne player retain one exact target across direction changes',()=>{
+ const f=fixture('bus'),module=new InduBusDelivery(),requests:(string|undefined)[]=[];let releases=0;
+ const read=f.ctx.existingRoadVehicle!;f.ctx.existingRoadVehicle=(kind,id)=>{requests.push(id);return read(kind,id);};f.ctx.releaseRoadVehicle=()=>releases++;
+ module.setup(f.ctx,{});module.update(.05);f.p.x=900;f.p.flying=true;
+ for(let i=0;i<250;i++)module.update(.05);assert.equal(releases,0);assert.ok(requests.slice(1).every(id=>id==='bus'));assert.equal(module.story?.entry,false);
+ f.selected=null;module.update(.05);f.selected=f.vehicle;f.vehicle.hx=1;f.vehicle.hz=0;module.update(.05);assert.equal(requests.at(-1),'bus');
+ Object.assign(f.p,module.target,{yaw:-Math.PI/2,speed:8,flying:false,jumping:true});assert.equal(module.story?.entry,false);f.p.jumping=false;f.p.descending=true;assert.equal(module.story?.entry,false);f.p.descending=false;assert.equal(module.story?.entry,true);module.teardown();
 });
 
 test('actor mounting and camera use the actual carrier visual chassis transform, including road pitch',()=>{
@@ -96,4 +100,9 @@ test('Raja deposits the received carton onto a supported visible dashboard tray 
 });
 test('Indu establishes the bus and scarf, moves close to the real window for dialogue, and widens during the pass',()=>{
  const f=fixture('bus'),module=new InduBusDelivery();module.setup(f.ctx,{});module.update(.05);f.active=true;module.update(.05);const focus=module.cameraFocus!,wideDistance=focus.position.z-focus.target.z;for(let i=0;i<50;i++)module.update(.05);assert.equal(module.cameraFocus,focus);assert.ok(Math.hypot(focus.position.x-focus.target.x,focus.position.z-focus.target.z)<3,'actual window actor readable for dialogue');assert.ok(wideDistance>8);f.dialogue=true;for(let i=0;i<20;i++)module.update(.05);module.onDrop();assert.equal(module.cameraFocus,focus);assert.ok(focus.position.z-focus.target.z>8,'overtake retains establishing road context');module.teardown();
+});
+
+test('Indu can rendezvous with her same stopped bus using a grounded, aligned approach',()=>{
+ const f=fixture('bus'),module=new InduBusDelivery();module.setup(f.ctx,{});module.update(.05);f.vehicle.speed=0;f.vehicle.approachValid=true;module.update(.05);
+ Object.assign(f.p,module.target,{speed:0});assert.equal(module.story?.entry,true);f.p.jumping=true;assert.equal(module.story?.entry,false);module.teardown();
 });

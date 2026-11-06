@@ -314,7 +314,7 @@
       "image": "/delivery/characters/maruthi/portrait-v1.png"
     },
     "destination": {
-      "label": "Kondapur · Fictional Villa 79 near Kolla Luxuria",
+      "label": "Kondapur · Villa 17 near Kolla Luxuria",
       "x": -15364.29,
       "z": -6828.57,
       "y": 0,
@@ -327,7 +327,7 @@
     "module": "gateDelivery",
     "moduleParams": {
       "theme": "villa",
-      "villaNumber": 79,
+      "villaNumber": 17,
       "characterId": "maruthi"
     },
     "arrivalRadius": 100,
@@ -344,12 +344,12 @@
       "image": "/delivery/celebrities/unknown.svg"
     },
     "destination": {
-      "label": "Fictional fortified compound · Hyderabad outskirts",
-      "x": -16636.87953851929,
-      "z": -6170.91953851929,
+      "label": "Golconda Fort · outer citadel wall",
+      "x": -10229.094,
+      "z": 2867.762,
       "y": 0,
-      "lat": 17.461734059814223,
-      "lon": 78.33997687848031
+      "lat": 17.38038816,
+      "lon": 78.40032957
     },
     "callMode": "NONE",
     "revealAt": "afterDelivery",
@@ -357,6 +357,7 @@
     "module": "gateDelivery",
     "moduleParams": {
       "theme": "salaar",
+      "sceneYaw": 0.03257852,
       "characterId": "prabhas-salaar"
     },
     "arrivalRadius": 100,
@@ -599,6 +600,7 @@
       "actorStyle": "athadu",
       "characterId": "mahesh-athadu",
       "immersiveHandoff": true,
+      "actorOffset": [-2, 6, -15],
       "sceneYaw": 1.2950343049797925,
       "dropOffset": [
         10.5,
@@ -666,12 +668,12 @@
       "image": "/delivery/characters/kajal-indu/portrait-v1.png"
     },
     "destination": {
-      "label": "RTC bus",
-      "x": -701.275,
-      "z": -2622.969,
+      "label": "RTC bus · Charminar Road",
+      "x": -2408.4,
+      "z": 5353.5,
       "y": 0,
-      "lat": 17.43,
-      "lon": 78.49
+      "lat": 17.357928,
+      "lon": 78.473933
     },
     "callMode": "NONE",
     "revealAt": "afterDelivery",

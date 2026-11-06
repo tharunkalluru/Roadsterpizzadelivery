@@ -154,7 +154,7 @@ export class DeliveryRuntime {
         game.player.setCarryingPizza?.(true);
         const level = this.controller.activeLevel;
         let destination = { ...event.destination, y: event.destination.y ?? 0 };
-        if(level&&['rajaAutoDelivery','induBusDelivery'].includes(level.module)){const p=this.game.player.pos;destination={...destination,x:p.x,y:p.y-.55,z:p.z};}
+        if(level?.module==='rajaAutoDelivery'){const p=this.game.player.pos;destination={...destination,x:p.x,y:p.y-.55,z:p.z};}
         if (level?.moduleParams.nearestMetro) {
           const p=this.game.player.pos;
           const station=[...this.game.zone.metro.stations].sort((a,b)=>Math.hypot(a.p[0]-p.x,a.p[1]-p.z)-Math.hypot(b.p[0]-p.x,b.p[1]-p.z))[0];
@@ -611,6 +611,7 @@ export class DeliveryRuntime {
     }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop&&(level.callMode!=='NONE'||this.cinematic||this.storyLandingReady), automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
       storyDialogueComplete:()=>this.storyDialogue.done,storySpeechEnvelope:()=>this.storyDialogue.speechEnvelope,
+      storySpeaker:()=>this.storyDialogue.line?.who,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       cameraPathClear: (from, to) => {
@@ -638,7 +639,9 @@ export class DeliveryRuntime {
         if(!currentId&&this.elapsed<this.roadVehicleSearchAfter)return null;
         const cars=this.game.traffic.cars;
         let car=currentId?cars.find(c=>c.g.uuid===currentId):undefined;
-        if(!currentId){this.roadVehicleSearchAfter=this.elapsed+.5;const p=this.game.player.pos;
+        if(!currentId){this.roadVehicleSearchAfter=this.elapsed+.5;const player=this.game.player.pos,p=kind==='bus'?destination:player;
+          // Indu's service belongs to the Charminar corridor throughout the level.
+          if(kind==='bus'&&Math.hypot(player.x-p.x,player.z-p.z)>600)return null;
           // Check only the nearest two viable mapped carriers per search.
           // Full scene-footprint validation must not scan all city traffic in
           // one frame or capture a vehicle whose earlier runway has expired.
@@ -655,7 +658,7 @@ export class DeliveryRuntime {
           this.roadVehicleView={car,view:{id:car.g.uuid,group:car.g,size:car.size,
             get x(){return selected.x;},get y(){return selected.y;},get z(){return selected.z;},
             get hx(){return selected.hx;},get hz(){return selected.hz;},get speed(){return selected.speed;},
-            get approachValid(){return traffic.canEnterStoryVehicle?.(selected)??traffic.storyApproachLaneClear?.(selected)??true;}}};
+            get approachValid(){return !selected.arcadeFlight&&(traffic.canEnterStoryVehicle?.(selected)??traffic.storyApproachLaneClear?.(selected)??true);}}};
         }
         return this.roadVehicleView.view;
       },

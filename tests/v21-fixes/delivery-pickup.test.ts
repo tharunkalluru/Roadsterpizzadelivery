@@ -32,6 +32,17 @@ test('jump pickup gives one anonymous event, latches before callbacks and copies
   assert.equal(detector.update(pose(), pose(), [marker()]), null);
 });
 
+test('direct marked-auto impact uses the same one-order latch and anonymous event contract', () => {
+  const { detector, events } = fixture(), point = { x: 3, y: 2, z: -4 };
+  assert.equal(detector.collectMarkedAuto('', point), null);
+  assert.deepEqual(detector.collectMarkedAuto('auto-7', point), { carrierId: 'auto-7', position: point });
+  point.x = 99;
+  assert.equal(events.length, 1); assert.equal(events[0].position.x, 3); assert.equal(detector.caught, true);
+  assert.equal(detector.collectMarkedAuto('auto-7', point), null);
+  detector.reset(); detector.enabled = false;
+  assert.equal(detector.collectMarkedAuto('auto-7', point), null);
+});
+
 test('a miss remains retryable and reset starts the next delivery', () => {
   const { detector, events } = fixture();
   assert.equal(detector.update(pose(), pose(), [marker(8)]), null); assert.equal(detector.caught, false);

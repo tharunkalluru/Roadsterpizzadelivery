@@ -83,5 +83,14 @@ export class PickupDetector {
     return event;
   }
 
+  /** A direct impact with a marked auto collects the same anonymous order. */
+  collectMarkedAuto(carrierId: string, position: { x: number; y: number; z: number }): OrderPicked | null {
+    if (!this.enabled || this.picked || !carrierId || !validPoint(position)) return null;
+    this.picked = true;
+    const event: OrderPicked = { carrierId, position: { ...position } };
+    this.events.emit('orderPicked', event);
+    return event;
+  }
+
   reset(): void { this.picked = false; }
 }

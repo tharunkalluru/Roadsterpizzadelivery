@@ -110,27 +110,27 @@ function physicsPlayer(): any {
   });
 }
 
-test('production Player jump trajectory can collect a moving bus roof slice at 30 and 60Hz without changing jump physics', () => {
+test('production Player jump trajectory can collect a moving auto roof slice at 30 and 60Hz without changing jump physics', () => {
   for (const hz of [30, 60]) {
     const player = physicsPlayer(), scene = new THREE.Scene(); scene.add(player.group);
-    const bus: Car = { g: new THREE.Group(), group: 'bus', kind: 'bus', size: [2.5, 3.3, 12], x: 0, y: 0, z: 0 } as Car;
-    scene.add(bus.g); bus.g.position.y = .02;
+    const auto: Car = { g: new THREE.Group(), group: 'auto', kind: 'auto', size: [1.36, 1.85, 2.65], x: 0, y: 0, z: 0 } as Car;
+    scene.add(auto.g); auto.g.position.y = .02;
     const markers = new CarrierMarker(scene), events = new EventBus<DeliveryEvents>(), detector = new PickupDetector(events);
     let caught = 0, catchHeight = 0;
     events.on('orderPicked', event => { caught++; catchHeight = player.pos.y; markers.collect(event.carrierId, player.group); });
     const game: any = Object.assign(Object.create(Game.prototype), {
       player, city: player.city, carriers: markers, pickupDetector: detector, carrierSpawnT: 0, engine: { camera: new THREE.PerspectiveCamera() },
-      traffic: { cars: [bus], max: 32, spawn() { throw Error('A valid carrier already exists'); } },
+      traffic: { cars: [auto], max: 32, spawn() { throw Error('A valid carrier already exists'); } },
       pickupBefore: {} as JumpPickupPose, pickupAfter: {} as JumpPickupPose,
     });
-    markers.update(0, [bus], player.pos);
+    markers.update(0, [auto], player.pos);
     for (let i = 0; i < hz * 3; i++) {
       game.capturePickupPose(game.pickupBefore); markers.beforeFrame();
       player.update(1 / hz, { ...idle, jumpPressed: i === 0 }, (i + 1) / hz);
-      bus.z -= 6 / hz; bus.g.position.z = bus.z;
+      auto.z -= 6 / hz; auto.g.position.z = auto.z;
       game.updateCarrierPickup(1 / hz);
     }
-    assert.equal(caught, 1, `${hz}Hz moving bus collection`); assert.ok(catchHeight > 3, 'catch occurs in the kickflip, above street traffic');
+    assert.equal(caught, 1, `${hz}Hz moving auto collection`); assert.ok(catchHeight > 1.85, 'catch occurs in the kickflip, above street traffic');
     assert.equal(player.jumping, false); assert.equal(player.flying, false); assert.ok(Math.abs(player.pos.y - .55) < .001);
     assert.equal(markers.activeCount, 0); assert.equal(markers.holding, true);
     markers.dispose();

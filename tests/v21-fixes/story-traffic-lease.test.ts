@@ -19,13 +19,27 @@ test('a story lease preserves only its live carrier through distance and budget 
  assert.equal(traffic.cars.includes(car),true);assert.equal(traffic.cars.includes(other),false);assert.ok(car.z<z,'leased carrier still follows actual road simulation');assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'active');
  traffic.leaseStoryVehicle(null);traffic.update(1/60,1000,1000,{x:1000,y:.55,z:1000,speed:0});assert.equal(traffic.cars.includes(car),false);
 });
+test('a fast impact launches the same auto above the street and lands it on another mapped road under the same lease',()=>{
+ const {traffic,car,graph}=fixture(),origin=graph.edges[0],identity=car.g.uuid,e=origin.e;
+ traffic.graph=new RoadGraph([e,{...e,id:'parallel',from:'pa',to:'pb',pts:[[30,0],[30,-1000]]}]);
+ const targetEdge=traffic.graph.byId.get('parallel')!;Object.assign(car,{edge:origin,s:100,...traffic.graph.pointAt(origin,100,1,12)});
+ traffic.leaseStoryVehicle(identity);
+ assert.equal(traffic.kickAuto(car,18,1,0),true);assert.equal(car.arcadeFlight!==undefined,true);
+ (traffic as any).advanceArcadeAuto(car,.5);assert.ok(car.y>2,'the auto, rather than the Roadster, visibly rises above the roadway');
+ (traffic as any).advanceArcadeAuto(car,1.6);
+ assert.equal(car.g.uuid,identity);assert.equal(car.arcadeFlight,undefined);assert.equal(car.edge.e.id,'parallel');
+ assert.equal(car.g.parent,traffic.scene);assert.equal(traffic.storyVehicleLeaseStatus(identity),'active');assert.ok(Math.abs(car.y-traffic.graph.pointAt(targetEdge,car.s,car.dir,car.lane).y)<.01);
+});
 test('leasing a near carrier does not change its road clock, acceleration or trajectory',()=>{
  const a=fixture(),b=fixture();a.traffic.leaseStoryVehicle(a.car.g.uuid);
  for(let i=0;i<90;i++)for(const f of [a,b])f.traffic.update(1/60,0,-100,{x:0,y:.55,z:-100,speed:0});
  for(const key of ['x','y','z','hx','hz','speed','s']as const)assert.equal(a.car[key],b.car[key],key);
 });
-test('mapped edge unloading explicitly loses a lease rather than retaining a ghost vehicle over absent roads',()=>{
- const {traffic,car}=fixture();traffic.leaseStoryVehicle(car.g.uuid);traffic.dropEdges(new Set([car.edge]));assert.equal(traffic.cars.includes(car),false);assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'lost');assert.equal(car.g.parent,null);traffic.clear();assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'none');
+test('streaming cannot unload a marked service on the permanent core road graph',()=>{
+ const {traffic,car,graph}=fixture();traffic.leaseStoryVehicle(car.g.uuid);const gone=graph.removeRoads([car.edge.e.id]);traffic.dropEdges(gone);
+ assert.equal(gone.size,0);assert.equal(traffic.cars.includes(car),true);assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'active');assert.equal(car.g.parent,traffic.scene);
+ graph.permanent.delete(car.edge.e.id);assert.equal(traffic.canHostStoryVehicle(car),false,'tile-only roads cannot supply a marked delivery carrier');
+ traffic.clear();assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'none');
 });
 test('selection rejects an inner-lane bus, a road end and an ended service; a wide real left lane with forward runway is eligible',()=>{
  const {traffic,car}=fixture('bus');assert.equal(traffic.canHostStoryVehicle(car),true);car.lane=2;assert.equal(traffic.canHostStoryVehicle(car),false);car.lane=12;car.s=980;assert.equal(traffic.canHostStoryVehicle(car),false);car.s=100;car.busRun={ended:true}as any;assert.equal(traffic.canHostStoryVehicle(car),false);
@@ -72,4 +86,24 @@ test('fast flight directly onto a stable offered rendezvous spawns one actual bu
 test('an occupied rendezvous spawn probes a nearby clear position on the same corridor without moving other traffic',()=>{
  const {traffic}=fixture();traffic.clear();traffic.ensureStoryVehicle('bus',700,0);const hint={...traffic.getStoryVehicleCorridor()!},candidate=(traffic as any).pendingStoryVehicle.candidate;
  const other=traffic.spawnAt('car',candidate.edge,candidate.dir,candidate.s,candidate.lane),before={x:other.x,z:other.z,s:other.s};traffic.t+=3;const bus=traffic.ensureStoryVehicle('bus',hint.x,hint.z);assert.ok(bus);assert.equal(bus.edge,candidate.edge);assert.ok(Math.hypot(bus.x-hint.x,bus.z-hint.z)>=60);assert.deepEqual({x:other.x,z:other.z,s:other.s},before,'traffic was never displaced to stage the scene');assert.equal(traffic.cars.filter(c=>c.group==='bus').length,1);
+});
+
+test('the marked RTC service retains its lane and identity instead of following a published stop span onto a narrow turn',()=>{
+ const {traffic,car}=fixture('bus'),id=car.g.uuid,lane=car.lane;
+ car.busRun={ended:false}as any;car.stopS=120;car.planAfter=100;car.dwell=4;
+ traffic.leaseStoryVehicle(id);
+ assert.equal(car.busRun,undefined);assert.equal(car.motion,undefined);assert.equal(car.stopS,undefined);assert.equal(car.dwell,0);assert.equal(car.lane,lane);assert.equal(car.g.uuid,id);
+ traffic.update(1/30,0,-100,{x:0,y:.55,z:-100,speed:0});assert.ok(car.speed>0);assert.equal(traffic.storyVehicleLeaseStatus(id),'active');
+});
+
+test('bus acquisition waits for a clear moving approach instead of marking an existing stopped junction queue',()=>{
+ const {traffic,car,graph}=fixture('bus');const obstacle=traffic.spawnAt('auto',graph.edges[0],1,125,12);obstacle.speed=0;
+ assert.equal(traffic.canHostStoryVehicle(car),false);obstacle.speed=8;assert.equal(traffic.canHostStoryVehicle(car),true);
+});
+
+test('a leased bus waits on its wide road before the legal passing corridor ends and remains approachable',()=>{
+ const {traffic,car,graph}=fixture('bus');traffic.leaseStoryVehicle(car.g.uuid);car.s=940;Object.assign(car,graph.pointAt(car.edge,car.s,car.dir,car.lane));traffic.update(1/30,0,-100,{x:0,y:.55,z:-100,speed:0});
+ assert.equal(car.stopS,graph.edges[0].len-35);assert.equal(car.motion,undefined);
+ car.s=car.stopS!;Object.assign(car,graph.pointAt(car.edge,car.s,car.dir,car.lane));car.speed=0;
+ assert.equal(traffic.canEnterStoryVehicle(car),true,'the same waiting bus still accepts a grounded approach');assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'active');
 });

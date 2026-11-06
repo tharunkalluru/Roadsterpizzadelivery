@@ -48,7 +48,18 @@ test('Prasads visibly places the carton on the actual side steps and leaves Mahe
  for(let i=0;i<40;i++)module.update(.05);assert.equal(done,1);
  assert.ok(carton.position.distanceTo(new THREE.Vector3(...level.moduleParams.dropOffset as [number,number,number]))<1e-9);
  const actor=scene.getObjectByName('withheld-character-mahesh-athadu');
- if(actor)assert.ok(actor.position.z < -10,'even a withheld test rig remains inside the booth');
+ if(actor){assert.ok(actor.position.z < -10,'even a withheld test rig remains inside the booth');assert.equal(actor.position.y,6,'receiver stands on upper first floor');}
+ assert.ok(module.cameraFocus!.target.distanceTo(carton.getWorldPosition(new THREE.Vector3()))<1e-9,'completion holds on exterior pizza, not booth');
  for(let i=0;i<100;i++)module.update(.05);assert.equal(done,1);assert.equal(carton.parent!==null,true);
  module.teardown();assert.equal(scene.children.length,0);
+});
+
+test('Prasads reverse shots move from parked street to upper booth for the current speaker',()=>{
+ const level=loadLevels()[16],scene=new THREE.Scene(),module=createDeliveryModule(level.module);
+ let speaker:'player'|'customer'='player';
+ module.setup({scene,destination:level.destination,player:()=>({...level.destination,yaw:0,speed:0,flying:false}),
+   automaticStories:true,storyActive:()=>true,storySpeaker:()=>speaker,emit(){}},level.moduleParams);
+ const street=module.cameraFocus!;assert.ok(street.position.y<3);
+ speaker='customer';const booth=module.cameraFocus!;assert.ok(booth.position.y>7);assert.ok(booth.target.y>7);
+ assert.ok(street.position.distanceTo(booth.position)>12);module.teardown();
 });

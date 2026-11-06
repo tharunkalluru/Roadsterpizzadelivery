@@ -14,9 +14,9 @@ function fixture() {
   return { scene, system, make, player: { x: 0, y: .55, z: 0 } };
 }
 
-test('carrier pool caps nearby offers, retains leases and reuses objects and geometry after a reset', () => {
+test('carrier pool caps auto offers, retains leases and reuses objects and geometry after a reset', () => {
   const { system, make, player } = fixture();
-  const cars = ['auto', 'bus', 'bike', 'car', 'truck'].map((group, i) => make(group as Car['group'], 10 + i));
+  const cars = ['auto', 'auto', 'auto', 'auto', 'auto'].map((group, i) => make(group as Car['group'], 10 + i));
   system.update(0, cars, player);
   const markers = system.markers, leases = [...markers], children = cars.flatMap(c => c.g.children);
   assert.equal(system.activeCount, PICKUP_CONFIG.maxCarriersNearby);
@@ -28,11 +28,13 @@ test('carrier pool caps nearby offers, retains leases and reuses objects and geo
   system.dispose();
 });
 
-test('all five traffic kinds may carry a slice without encoding the customer identity', () => {
+test('only autos carry a slice without encoding the customer identity', () => {
   for (const group of ['auto', 'bus', 'bike', 'car', 'truck'] as const) {
     const { system, make, player } = fixture(), car = make(group);
     system.update(0, [car], player);
-    assert.equal(system.activeCount, 1); assert.equal(system.markers[0].carrierId, car.g.uuid);
+    assert.equal(system.activeCount, group === 'auto' ? 1 : 0);
+    if(group !== 'auto') { system.dispose(); continue; }
+    assert.equal(system.markers[0].carrierId, car.g.uuid);
     assert.equal(system.markers[0].position.y, car.g.position.y + car.size[1] + PICKUP_CONFIG.boxHeightAboveRoof);
     assert.equal('celebrity' in system.markers[0], false);
     system.dispose();
@@ -40,7 +42,7 @@ test('all five traffic kinds may carry a slice without encoding the customer ide
 });
 
 test('a carrier crossing the chase camera cannot fill the screen or change the real grab coordinates', () => {
-  const {system,make,player}=fixture(),car=make('bike');system.update(0,[car],player);
+  const {system,make,player}=fixture(),car=make('auto');system.update(0,[car],player);
   const point={...system.markers[0].position},visual=car.g.getObjectByName('delivery-box-visual')!;
   const view={forwardX:1,forwardZ:0,jumping:false,cameraX:point.x,cameraY:point.y,cameraZ:point.z+.35};
   system.update(0,[car],player,true,view);
@@ -54,18 +56,18 @@ test('a carrier crossing the chase camera cannot fill the screen or change the r
 
 test('despawn, unloaded traffic and range recycling immediately free slots for nearby replacements', () => {
   const { system, make, player, scene } = fixture();
-  const a = make('bus'), b = make('auto', 20), distant = make('car', PICKUP_CONFIG.carrierRange + 40);
+  const a = make('auto'), b = make('auto', 20), distant = make('car', PICKUP_CONFIG.carrierRange + 40);
   system.update(0, [a], player); const slot = system.markers[0];
   scene.remove(a.g); system.update(0, [b, distant], player);
   assert.equal(system.markers[0], slot); assert.equal(slot.carrierId, b.g.uuid); assert.equal(a.g.children.length, 0);
-  b.x = 1000; b.g.position.x = b.x; const c = make('bike', 15);
+  b.x = 1000; b.g.position.x = b.x; const c = make('auto', 15);
   system.update(0, [b, c, distant], player);
   assert.equal(system.activeCount, 1); assert.equal(system.markers[0].carrierId, c.g.uuid);
   system.dispose();
 });
 
 test('marker world positions follow moving roof and snapshot relative movement, fresh leases never sweep from old car', () => {
-  const { system, make, player } = fixture(), car = make('truck', 18);
+  const { system, make, player } = fixture(), car = make('auto', 18);
   car.g.rotation.y = .7;
   system.update(0, [car], player);
   const marker = system.markers[0], before = { ...marker.position };
@@ -80,7 +82,7 @@ test('marker world positions follow moving roof and snapshot relative movement, 
 
 test('unparented, hidden and overhead vehicles do not become fresh street-level carriers', () => {
   const { system, make, player, scene } = fixture();
-  const hidden = make('car'), detached = make('truck'), overhead = make('bus', 10, 12);
+  const hidden = make('car'), detached = make('truck'), overhead = make('auto', 10, 12);
   hidden.g.visible = false; scene.remove(detached.g);
   system.update(0, [hidden, detached, overhead], player); assert.equal(system.activeCount, 0);
   system.update(0, [overhead], { ...player, y: 30 }); assert.equal(system.activeCount, 1, 'flight can spot streets below');
@@ -88,7 +90,7 @@ test('unparented, hidden and overhead vehicles do not become fresh street-level 
 });
 
 test('catch clears alternatives atomically, latches until reset and uses a short non-modal pooled effect', () => {
-  const { system, make, player, scene } = fixture(), cars = [make('bus'), make('car', 20)];
+  const { system, make, player, scene } = fixture(), cars = [make('auto'), make('auto', 20)];
   system.update(0, cars, player);
   assert.equal(system.collect('missing'), false);
   const id = system.markers[0].carrierId;
@@ -102,7 +104,7 @@ test('catch clears alternatives atomically, latches until reset and uses a short
 });
 
 test('dispose releases owned shared resources once and leaves vehicle resources and scene untouched', () => {
-  const { system, make, player, scene } = fixture(), car = make('car');
+  const { system, make, player, scene } = fixture(), car = make('auto');
   const vehicleGeometry = new THREE.BoxGeometry(), vehicleMaterial = new THREE.MeshBasicMaterial();
   car.g.add(new THREE.Mesh(vehicleGeometry, vehicleMaterial));
   system.update(0, [car], player);
@@ -119,7 +121,7 @@ test('dispose releases owned shared resources once and leaves vehicle resources 
 });
 
 test('caught slice leaves the forward view while the order remains held; clear reuses its pooled offer', () => {
-  const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
+  const { system, make, player, scene } = fixture(), car = make('auto'), hero = new THREE.Group();
   scene.add(hero); system.update(0, [car], player);
   const pooledBox = car.g.getObjectByName('delivery-carrier-box')!;
   assert.equal(system.collect(system.markers[0].carrierId, hero), true);
@@ -169,6 +171,7 @@ test('slice hover remains separated from every carrier roof and anonymous across
     const { system, make, player } = fixture(), car = make(group);
     const view = { forwardX: 1, forwardZ: 0, jumping: false, cameraX: 0, cameraY: 3, cameraZ: 14 };
     system.update(0, [car], player, true, view);
+    if(group !== 'auto') { assert.equal(system.activeCount, 0); system.dispose(); continue; }
     const marker = system.markers[0], visual = car.g.getObjectByName('delivery-box-visual')!;
     const materials: string[] = [];
     visual.traverse(node => { if (node instanceof THREE.Mesh) materials.push((node.material as THREE.MeshBasicMaterial).color.getHexString()); });
@@ -187,7 +190,7 @@ test('slice hover remains separated from every carrier roof and anonymous across
 });
 
 test('a rotated flying Roadster never reacquires a carried billboard or new offer after collection', () => {
-  const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
+  const { system, make, player, scene } = fixture(), car = make('auto'), hero = new THREE.Group();
   scene.add(hero); hero.position.set(40, 30, -20); hero.rotation.set(-.06, 1.2, 0, 'YXZ');
   const view = { forwardX: 0, forwardZ: -1, jumping: false, airborne: true, cameraX: 10, cameraY: 36, cameraZ: 5 };
   system.update(0, [car], player, true, view); system.collect(system.markers[0].carrierId, hero);
@@ -201,8 +204,8 @@ test('a rotated flying Roadster never reacquires a carried billboard or new offe
 
 test('fresh offers prefer vehicles in the forward view over closer vehicles behind or on side streets', () => {
   const { system, make, player } = fixture();
-  const behind = [make('bus', -6), make('auto', -8), make('truck', -10)];
-  const ahead = [make('car', 28), make('bus', 50), make('bike', 75)];
+  const behind = [make('auto', -6), make('auto', -8), make('auto', -10)];
+  const ahead = [make('auto', 28), make('auto', 50), make('auto', 75)];
   const side = make('car', 2); side.z = 12; side.g.position.z = 12;
   const view = { forwardX: 4, forwardZ: 0, jumping: false, airborne: false };
   system.update(0, [...behind, side, ...ahead], player, true, view);
@@ -212,8 +215,8 @@ test('fresh offers prefer vehicles in the forward view over closer vehicles behi
 
 test('same-direction traffic wins over equally close oncoming traffic without excluding any vehicle kind', () => {
   const { system, make, player } = fixture();
-  const oncoming = [make('bus', 25), make('auto', 30), make('bike', 35)];
-  const aligned = [make('truck', 25), make('car', 30), make('bus', 35)];
+  const oncoming = [make('auto', 25), make('auto', 30), make('auto', 35)];
+  const aligned = [make('auto', 25), make('auto', 30), make('auto', 35)];
   oncoming.forEach(c => { c.hx = -1; c.hz = 0; }); aligned.forEach(c => { c.hx = 1; c.hz = 0; });
   system.update(0, [...oncoming, ...aligned], player, true, { forwardX: 1, forwardZ: 0, jumping: false });
   assert.deepEqual(new Set(system.markers.map(m => m.carrierId)), new Set(aligned.map(c => c.g.uuid)));
@@ -221,10 +224,10 @@ test('same-direction traffic wins over equally close oncoming traffic without ex
 });
 
 test('three seconds without a forward offer swaps only one behind lease and resets its swept position', () => {
-  const { system, make, player } = fixture(), behind = [make('auto', -20), make('bus', -30), make('car', -40)];
+  const { system, make, player } = fixture(), behind = [make('auto', -20), make('auto', -30), make('auto', -40)];
   const view = { forwardX: 1, forwardZ: 0, jumping: false, airborne: false };
   system.update(0, behind, player, true, view);
-  const ids = system.markers.map(m => m.carrierId), slots = [...system.markers], ahead = [make('bike', 28), make('truck', 45)];
+  const ids = system.markers.map(m => m.carrierId), slots = [...system.markers], ahead = [make('auto', 28), make('auto', 45)];
   system.update(2.9, [...behind, ...ahead], player, true, view);
   assert.deepEqual(system.markers.map(m => m.carrierId), ids);
   system.beforeFrame(); system.update(.11, [...behind, ...ahead], player, true, view);
@@ -239,10 +242,10 @@ test('three seconds without a forward offer swaps only one behind lease and rese
 });
 
 test('jump and airborne hover preserve valid leases; jump cannot add offers or recycle by range or height', () => {
-  const { system, make, player } = fixture(), cars = [make('bus', -20), make('auto', -30), make('car', -40)];
+  const { system, make, player } = fixture(), cars = [make('auto', -20), make('auto', -30), make('auto', -40)];
   const view = { forwardX: 1, forwardZ: 0, jumping: false, airborne: false };
   system.update(0, cars, player, true, view); const ids = system.markers.map(m => m.carrierId);
-  const ahead = make('truck', 25);
+  const ahead = make('auto', 25);
   view.jumping = true;
   system.update(10, [...cars, ahead], { x: 300, y: 6, z: 0 }, true, view);
   assert.deepEqual(system.markers.map(m => m.carrierId), ids, 'range and surface changes during a jump cannot remove its box');
@@ -260,7 +263,7 @@ test('jump and airborne hover preserve valid leases; jump cannot add offers or r
 
 test('direction-aware offers stay on the current surface and never choose descendants of hidden traffic groups', () => {
   const { system, make, player, scene } = fixture();
-  const below = make('bus', 10, -6), overhead = make('truck', 12, 8), hidden = make('car', 14), valid = make('auto', 30);
+  const below = make('auto', 10, -6), overhead = make('auto', 12, 8), hidden = make('auto', 14), valid = make('auto', 30);
   const hiddenTraffic = new THREE.Group(); hiddenTraffic.visible = false; scene.add(hiddenTraffic); hiddenTraffic.add(hidden.g);
   const view = { forwardX: 1, forwardZ: 0, jumping: false, airborne: false };
   system.update(0, [below, overhead, hidden, valid], player, true, view);

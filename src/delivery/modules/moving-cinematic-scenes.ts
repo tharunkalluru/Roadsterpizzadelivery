@@ -28,15 +28,12 @@ abstract class MovingRoadScene extends ModuleBase {
   protected active=false;
   private driverPrepared=false;
   private notifiedLost=false;
-  private stoppedBeforeEntry=0;
-  private invalidBeforeEntry=0;
-  private farBeforeEntry=0;
   private localBuffer=new THREE.Vector3();
   private focus:ModuleCameraFocus={position:{x:0,y:0,z:0},target:{x:0,y:0,z:0},translationAnchor:{x:0,y:0,z:0}};
   private restoreDriver:(()=>void)|null=null;
   protected abstract get actorStyle():string;
   protected actorSeat():THREE.Vector3{return new THREE.Vector3();}
-  protected build(){this.vehicle=null;this.receiver=null;this.capturedTime=0;this.active=false;this.notifiedLost=false;this.stoppedBeforeEntry=0;this.invalidBeforeEntry=0;this.farBeforeEntry=0;this.status={instruction:'Find the marked vehicle',canDrop:false,actionLabel:'DELIVER'};}
+  protected build(){this.vehicle=null;this.receiver=null;this.capturedTime=0;this.active=false;this.notifiedLost=false;this.status={instruction:'Find the marked vehicle',canDrop:false,actionLabel:'DELIVER'};}
   protected localPoint(x:number,y:number,z:number):DeliveryPoint {
     const v=this.vehicle;if(!v)return {...this.ctx.destination};
     v.group.updateWorldMatrix(true,false);this.localBuffer.set(x,y,z).applyMatrix4(v.group.matrixWorld);
@@ -55,27 +52,14 @@ abstract class MovingRoadScene extends ModuleBase {
       this.root.visible=false;this.status.canDrop=false;
       const corridor=this.ctx.waitingRoadTarget?.();if(!captured&&corridor){Object.assign(this.target,corridor,{label:this.ctx.destination.label});this.ctx.onTarget?.({...this.target});this.status.instruction='Follow the road to the delivery vehicle';}
       if(captured&&!this.notifiedLost){this.notifiedLost=true;this.ctx.storyCarrierLost?.();}
-      if(!captured){if(this.vehicle)this.ctx.releaseRoadVehicle?.(this.vehicle.id);this.restoreDriver?.();this.restoreDriver=null;this.vehicle=null;}
+      // A temporary missing snapshot must never select another service.
+      // The traffic lease owns this identity until the level is torn down.
       return false;
     }
-    if(!captured&&this.vehicle?.id===selected.id){
-      this.stoppedBeforeEntry=Math.abs(selected.speed)<.5?this.stoppedBeforeEntry+seconds:0;
-      // The live adapter also returns false while a carrier is stopped. A
-      // normal red light must use the longer stopped timer, not masquerade
-      // as a newly blocked side lane and jump markers after three seconds.
-      this.invalidBeforeEntry=Math.abs(selected.speed)>.5&&selected.approachValid===false?this.invalidBeforeEntry+seconds:0;
-      this.farBeforeEntry=distanceXZ(this.ctx.player(),selected)>330?this.farBeforeEntry+seconds:0;
-      // A short signal/dwell never makes the marker jump. An inaccessible
-      // side lane, terminal stop or distant carrier can recycle BEFORE capture.
-      if(this.stoppedBeforeEntry>=10||this.invalidBeforeEntry>=3||this.farBeforeEntry>=2){
-        this.ctx.releaseRoadVehicle?.(selected.id);this.restoreDriver?.();this.restoreDriver=null;this.vehicle=null;
-        this.stoppedBeforeEntry=0;this.invalidBeforeEntry=0;this.farBeforeEntry=0;this.root.visible=false;this.status.canDrop=false;return false;
-      }
-    }
     if(this.vehicle?.id!==selected.id){
-      if(captured){this.root.visible=false;this.status.canDrop=false;if(!this.notifiedLost){this.notifiedLost=true;this.ctx.storyCarrierLost?.();}return false;}
+      if(captured||this.vehicle){this.root.visible=false;this.status.canDrop=false;if(!this.notifiedLost){this.notifiedLost=true;this.ctx.storyCarrierLost?.();}return false;}
       this.restoreDriver?.();this.restoreDriver=null;
-      this.vehicle=selected;this.notifiedLost=false;this.stoppedBeforeEntry=0;this.invalidBeforeEntry=0;this.farBeforeEntry=0;
+      this.vehicle=selected;this.notifiedLost=false;
       this.driverPrepared=this.kind!=='auto';
       if(this.kind==='auto'){this.restoreDriver=replaceBakedAutoDriver(selected.group);this.driverPrepared=!!this.restoreDriver;}
       this.receiver??=this.character(this.actorStyle,0,0,0,true);
@@ -103,7 +87,7 @@ abstract class MovingRoadScene extends ModuleBase {
   protected entryAllowed(){
     const v=this.vehicle,p=this.ctx.player();if(!v||(!this.active&&v.approachValid===false)||!this.driverPrepared||!this.charactersReady||p.flying||p.descending||p.jumping||Math.abs(p.y-(v.y+.55))>.55)return false;
     const h={x:-Math.sin(p.yaw),z:-Math.cos(p.yaw)},dot=h.x*v.hx+h.z*v.hz;
-    return v.speed>1&&Math.abs(p.speed-v.speed)<4&&dot>.9&&distanceXZ(p,this.approachPoint())<2.25;
+    return (this.kind==='bus'?v.speed>=0:v.speed>1)&&Math.abs(p.speed-v.speed)<4&&dot>.9&&distanceXZ(p,this.approachPoint())<2.25;
   }
   get story():ModuleStoryFrame|undefined {
     if(!this.vehicle||!this.root.visible||!this.ctx.automaticStories)return undefined;

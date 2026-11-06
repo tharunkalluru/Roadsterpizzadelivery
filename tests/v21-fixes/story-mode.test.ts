@@ -29,7 +29,7 @@ function run(levelIndex:number,seconds=35){
     emit(type){if(type==='done'){done++;director.complete();}}},level.moduleParams);
   if(levelIndex===0)Object.assign(p,{x:0,z:-21,y:.55});
   else if(levelIndex===1)Object.assign(p,{x:0,z:-3,y:4.75});
-  else if(level.moduleParams.realCampusId)Object.assign(p,{x:module.target.x,z:module.target.z,y:.55,flying:false}); // the researched campus marker, not an arbitrary world-axis side
+  else if(level.moduleParams.realCampusId || level.moduleParams.theme === 'salaar')Object.assign(p,{x:module.target.x,z:module.target.z,y:.55,flying:false}); // the researched campus marker, not an arbitrary world-axis side
   else Object.assign(p,{x:module.target.x+10,z:module.target.z,y:8,flying:true});
   let started=false;
   const step=()=>{

@@ -97,6 +97,8 @@ export interface DeliveryModuleContext {
   /** Host restores controls and restages the same active order after an invalidated carrier. */
   storyCarrierLost?:()=>void;
   storySpeechEnvelope?:()=>number;
+  /** Current subtitle speaker, for authored reverse shots. */
+  storySpeaker?:()=>'player'|'customer'|undefined;
   /** Presentation anchor only; never advances player simulation. */
   playerObject?:()=>THREE.Group;
   existingTrain?: (exactBodyId?: string) => MovingRailBody | null;

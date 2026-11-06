@@ -907,7 +907,7 @@ export class Hud {
   }
   pickupStatus(caught: boolean) {
     this.root.dataset.pickupState = caught ? 'carrying' : 'searching';
-    this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing pizza slice above traffic');
+    this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing slice above an auto');
   }
   pickupHintVisible(visible:boolean) { const hint=this.el['pickup-status'];if(hint)hint.hidden=!visible; }
   storyBlocked = false;

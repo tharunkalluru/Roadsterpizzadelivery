@@ -37,14 +37,15 @@ for(let index=0;index<14;index++)test(`level ${index+1}: safe blue marker, navig
   module.teardown();assert.equal(scene.children.length,0);
 });
 
-test('basket and Salaar entry markers remain in safe exterior bays, separate from the physical handoff',()=>{
-  for(const [index,minDistance] of [[3,4],[11,20]]){
+test('the basket has a separate approach bay and Salaar shares the exterior stop for landing and delivery',()=>{
+  for(const index of [3,11]){
     const level=loadLevels()[index],module=createDeliveryModule(level.module),scene=new THREE.Scene();
     const player:DeliveryPlayer={x:0,y:.55,z:4,yaw:0,speed:0};
     module.setup({scene,destination:{x:0,y:0,z:0},player:()=>player,automaticStories:true,canInteract:()=>false,emit(){}},level.moduleParams);
     module.update(.05);const zone=storyLandingZone(module.story)!;
-    assert.ok(Math.hypot(zone.point.x-module.target.x,zone.point.z-module.target.z)>minDistance);
-    if(index===11)assert.ok(zone.point.z>0,'arrival is outside the still-closed Salaar gate');
+    const separation = Math.hypot(zone.point.x-module.target.x, zone.point.z-module.target.z);
+    if(index===11)assert.equal(separation,0,'the car stays at its exterior stopping point');
+    else assert.ok(separation>4);
     module.teardown();
   }
 });

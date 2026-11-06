@@ -976,8 +976,8 @@ export class Game {
     if (this.carrierPickupMode) {
       const touch = document.documentElement.classList.contains('is-touch');
       this.hud.tip(touch
-        ? 'Look for a glowing pizza slice floating above traffic. Hold GO to approach, release it, then tap JUMP to grab the slice. Fly does not collect it.'
-        : 'Look for a glowing pizza slice floating above traffic. Drive with W and steer with A / D, then press E to jump through the slice. Q flies; it does not collect.');
+        ? 'Find an auto with a glowing slice. Tap JUMP to grab it, or hit that auto above 60 km/h.'
+        : 'Find an auto with a glowing slice. Press E to jump through it, or hit that auto above 60 km/h.');
       return;
     }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
@@ -1145,6 +1145,15 @@ export class Game {
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const jumpBounds = this.player.jumping ? this.player.jumpTrafficBounds : undefined;
     const hit = this.player.flying || this.story?.cinematic ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
+    const autoArcadeKick = !!hit && hit.group === 'auto' && Math.abs(this.player.speed) > 60 / 3.6;
+    const kickedAuto = autoArcadeKick && this.traffic.kickAuto(hit!, this.player.speed, fw.x, fw.z);
+    if (kickedAuto) {
+      this.sound.cue('flight'); this.hud.toast('Auto arcade kick!', 'teal');
+    }
+    if (kickedAuto && hit?.group === 'auto' && this.carrierPickupMode && this.story?.canPickup !== false) {
+      const marker = this.carriers.markers.find(m => m.carrierId === hit.g.uuid);
+      if (marker) this.pickupDetector.collectMarkedAuto(marker.carrierId, marker.position);
+    }
     if (!this.player.flying&&!this.story?.cinematic) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
     if (hit && this.player.hitCooldown <= 0) {
       this.sound.cue('bump');
@@ -1451,7 +1460,7 @@ export class Game {
       // A bounded call to Traffic's collision/gate-aware spawner also covers a
       // full budget of distant cars. Its normal update retires the farthest car.
       this.carrierSpawnT = 1;
-      if (this.traffic.cars.length <= this.traffic.max) this.traffic.spawn(P.x, P.z);
+      if (this.traffic.cars.length <= this.traffic.max) this.traffic.spawn(P.x, P.z, 'auto');
       this.carriers.update(0, this.traffic.cars, P, available, view);
     }
     this.capturePickupPose(this.pickupAfter);

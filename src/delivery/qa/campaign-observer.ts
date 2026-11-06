@@ -81,7 +81,7 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
   const hide = button('Hide (F4 restores)', () => panel.hidden = true);
   panel.append(title, status, path, add, save, hide, visual, review); document.body.append(panel);
   const off: (() => void)[] = [], railContacts = new Set<string>();
-  let currentModule: unknown = null, root: THREE.Object3D | null = null, cachedLevel = levels[0], cachedOrigin = new THREE.Vector3();
+  let currentModule: unknown = null, root: THREE.Object3D | null = null, cachedLevel = levels[0];
   let lastFloor: MovingRailBody | null = null, sawBucketPizza = false, firstMetroStation = '', lastMetroStop = '', metroTrain = '', metroTravel = 0;
   let metroLast: { x: number; z: number } | null = null, openingSince:number|null=null,openingLast:number|null=null,openingNode:Element|null=null;
   const motionTimes = new Map<string, { time: number; clip: string; duration: number }>();
@@ -175,7 +175,7 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
     const module = story.module, active = story.controller.activeLevel, p = game.player;
     if (module && module !== currentModule) {
       currentModule = module;const moduleRoot=(module as any).root;root=moduleRoot instanceof THREE.Object3D?moduleRoot:game.engine.scene.children.find(child => child.name === 'delivery-setpiece') ?? null;
-      if (root) cachedOrigin.copy(root.position); if (active) cachedLevel = active;
+      if (active) cachedLevel = active;
     }
     observeNext();
     const actualSupport=game.railContacts?.supportId;
@@ -275,9 +275,6 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
       recorder.fact('crowd-animation');
     }
     if (level.module === 'angleParking' && (module?.status.canDrop||physicalCompletion)&&grounded) recorder.fact('bay-aligned');
-    const doors = root?.children.filter(object => object.name === 'delivery-salaar-sliding-gate') ?? [];
-    if (doors.length === 2 && Math.abs(doors[0].position.x - doors[1].position.x) - 10.6 * doors[0].scale.x > 3) recorder.fact('gate-open');
-    if (level.moduleParams.theme === 'salaar' && (module?.status.canDrop||physicalCompletion)&&grounded&&p.pos.z<cachedOrigin.z-8.5*Number(level.moduleParams.sceneScale??1)) recorder.fact('courtyard-entry');
     if (level.moduleParams.useExistingStadium && p.lastKind === 'landmark' && !p.flying && !p.descending && !p.jumping) recorder.fact('real-stadium-surface');
     if (level.module === 'beatDrop' && (module?.status.canDrop||physicalCompletion)&&module?.status.timing?.ready) recorder.fact('valid-timing-window');
     const walkers = new Set<string>();
@@ -301,10 +298,7 @@ export function attachCampaignQA(game: Game, options: { full: boolean; touch: bo
         const dx = p.pos.x - lastFloor.x, dz = p.pos.z - lastFloor.z;
         if (dx * lastFloor.hx + dz * lastFloor.hz < -lastFloor.halfLength - 10.9) recorder.fact('truck-exit');
       }
-      if (level.moduleParams.theme === 'salaar') {
-        const scale = Number(level.moduleParams.sceneScale ?? 1), extent = Math.abs(Math.cos(p.yaw)) * 2.4 + Math.abs(Math.sin(p.yaw)) * 1.15;
-        if (p.pos.z - cachedOrigin.z - extent > 4.5 * scale + 1 && Math.abs(p.pos.x - cachedOrigin.x) < 10 * scale) recorder.fact('compound-exit');
-      }
+
     }
     const opening = document.querySelector('.du-grand-opening'),wall=performance.now();
     const viewingOpening=opening&&hudVisible('.du-grand-opening')&&opening.getAttribute('data-opening')==='open'&&

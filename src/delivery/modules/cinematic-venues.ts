@@ -44,8 +44,11 @@ export class CinematicVenue extends ModuleBase {
  get cameraFocus(){
   if(!this.ctx.storyActive?.())return undefined;
   this.root.updateWorldMatrix(true,false);
-  if(this.placing&&this.placementT<2.4&&this.carton){
-    return {position:this.point(15,3.3,-3),target:this.carton.getWorldPosition(new THREE.Vector3()),context:'stationary-handoff' as const};
+  if(this.placing&&this.carton){
+    return {position:this.point(13,2.2,-2),target:this.carton.getWorldPosition(new THREE.Vector3()),context:'stationary-handoff' as const};
+  }
+  if(this.theme==='phoneBooth'&&this.ctx.storySpeaker?.()==='player'){
+    return {position:this.point(4,2.2,6),target:this.point(0,1,0),context:'stationary-handoff' as const};
   }
   const target=this.actor.group.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0,this.handoffPending?1.15:1.4,0));
   const a=this.actor.group.position;
@@ -58,7 +61,7 @@ export class CinematicVenue extends ModuleBase {
   this.root.rotation.y=Number(this.params.sceneYaw)||0;
   const b=new SceneBatch(g=>this.own(g),c=>this.mat(c),this.root);
   const offset=this.params.actorOffset as number[]|undefined;
-  this.actorStart.set(...(offset??(this.theme==='artsCorridor'?[0,3.4,-15]:this.theme==='phoneBooth'?[-2,0,-12]:[-1.3,0,-6])) as [number,number,number]);
+  this.actorStart.set(...(offset??(this.theme==='artsCorridor'?[0,3.4,-15]:this.theme==='phoneBooth'?[-2,6,-15]:[-1.3,0,-6])) as [number,number,number]);
   this.actor=this.character(String(this.params.actorStyle),this.actorStart.x,this.actorStart.y,this.actorStart.z);
   if(this.theme==='wineMart'){
    // Retail shelving and labels inside the researched shop footprint, clear
@@ -69,10 +72,15 @@ export class CinematicVenue extends ModuleBase {
    const brand=new SceneBatch(g=>this.own(g),c=>this.mat(c),bottle);brand.sign('MANSION',0,.124,.051,.065,'#342819');brand.sign('HOUSE',0,.102,.051,.054,'#342819');brand.flush('mansion-house-label');
    this.boothReceiver=new THREE.Group();this.boothReceiver.name='film-phone-receiver';this.actor.group.add(this.boothReceiver);this.bindProp(this.boothReceiver,'phone');this.box(0,0,0,.055,.15,.025,'#181A1D',this.boothReceiver);
   }else if(this.theme==='phoneBooth'){
-   const x=this.actorStart.x,z=this.actorStart.z;
-   for(const dx of [-.9,.9]){b.box(x+dx,1.45,z,.1,2.9,1.8,'#7A5651');b.box(x+dx,1.5,z-.9,.1,2.9,.1,'#BCA995');}
-   b.box(x,2.9,z,1.9,.15,1.9,'#765747');b.box(x,2.55,z+.92,1.9,.45,.15,'#DCCDB6');b.sign('TELEPHONES',x,2.56,z+1.01,1.7,'#342F2D');
-   b.box(x,.85,z-.82,1.7,1.65,.12,'#725749');b.box(x+.5,1.35,z-.68,.35,.6,.12,'#D3BE79');
+   const x=this.actorStart.x,z=this.actorStart.z,y=this.actorStart.y;
+   // Authored Athadu phone vignette on the real upper floor, behind the
+   // opaque exterior fascia. The roadster never teleports into the building.
+   b.box(x,y-.16,z-1,12,.3,9,'#B5A89A');
+   b.box(x,y+1.6,z-3,12,3.5,.2,'#CEBFAA');
+   b.box(x-3,y+1.6,z, .18,3.5,6,'#9F9689');
+   for(const dx of [-.9,.9]){b.box(x+dx,y+1.45,z,.1,2.9,1.8,'#7A5651');b.box(x+dx,y+1.5,z-.9,.1,2.9,.1,'#BCA995');}
+   b.box(x,y+2.9,z,1.9,.15,1.9,'#765747');b.box(x,y+2.55,z+.92,1.9,.45,.15,'#DCCDB6');b.sign('TELEPHONES',x,y+2.56,z+1.01,1.7,'#342F2D');
+   b.box(x,y+.85,z-.82,1.7,1.65,.12,'#725749');b.box(x+.5,y+1.35,z-.68,.35,.6,.12,'#D3BE79');
    this.boothReceiver=new THREE.Group();this.boothReceiver.name='film-phone-receiver';this.actor.group.add(this.boothReceiver);this.bindProp(this.boothReceiver,'phone');
    this.boothReceiver.position.y-=.06;
    const spine=new THREE.CatmullRomCurve3([new THREE.Vector3(0,-.11,.035),new THREE.Vector3(0,-.06,0),new THREE.Vector3(0,.06,0),new THREE.Vector3(0,.11,.035)]);
@@ -80,7 +88,7 @@ export class CinematicVenue extends ModuleBase {
    for(const y of [-.115,.115]){const pad=this.cylinder(0,y,.043,.037,.04,'#151719',this.boothReceiver);pad.rotation.x=Math.PI/2;}
 
    // The cord follows the actual handset's lower end, not an assumed shoulder.
-   this.phoneWall.set(x+.5,1.12,z-.62);
+   this.phoneWall.set(x+.5,y+1.12,z-.62);
    const cordGeometry=this.own(new THREE.BufferGeometry());cordGeometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array(64*3),3).setUsage(THREE.DynamicDrawUsage));
    const cordMaterial=new THREE.LineBasicMaterial({color:'#17191B',toneMapped:false});this.materials.set('phone-cord',cordMaterial);
    this.phoneCord=new THREE.Line(cordGeometry,cordMaterial);this.phoneCord.name='booth-attached-telephone-cord';this.phoneCord.frustumCulled=false;this.root.add(this.phoneCord);
