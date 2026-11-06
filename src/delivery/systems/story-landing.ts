@@ -22,7 +22,7 @@ export class StoryLandingGate {
     // Ordinary destinations, trains and metro retain the stopped arrival rule.
     const moving=frame?.allowMovingEntry===true;
     const headingMatches=!moving||frame.yaw!==undefined&&Math.abs(Math.atan2(Math.sin(player.yaw-frame.yaw),Math.cos(player.yaw-frame.yaw)))<.45;
-    const speedMatches=moving?Number.isFinite(frame.speed)&&frame.speed!>1&&Math.abs(player.speed-frame.speed!)<4:Math.abs(player.speed)<=.35;
+    const speedMatches=moving?Number.isFinite(frame.speed)&&frame.speed!>=0&&Math.abs(player.speed-frame.speed!)<(frame.speed!<=1?1.5:4):Math.abs(player.speed)<=.35;
     const settled = allowed && frame?.entry && zone && !player.flying && !player.descending && !player.jumping && !gliding &&
       [dt, player.x, player.y, player.z, player.speed, player.verticalSpeed ?? 0, supportY,
         zone.point.x, zone.point.y, zone.point.z, zone.radius].every(Number.isFinite) &&

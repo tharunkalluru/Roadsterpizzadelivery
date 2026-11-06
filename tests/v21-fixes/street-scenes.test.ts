@@ -359,6 +359,7 @@ test('completed haunted property remains physical until the car has left the del
   carton.updateWorldMatrix(true,false);carton.geometry.computeBoundingBox();
   const underside=carton.localToWorld(new THREE.Vector3(0,carton.geometry.boundingBox!.min.y,0));
   assert.ok(Math.abs(underside.y-f.ctx.destination.y)<1e-6,'the physical carton rests on the paving');
+  assert.ok(underside.z >= f.ctx.destination.z - 5 + 1.9, 'carton remains on the street side of the shut gate');
   assert.ok(Math.abs(underside.x-f.player.x)>1.5,'the carton is beside the full car footprint');
   f.player.z = module.target.z + 46; module.update(.05); assert.equal(module.exitPending, false); module.teardown();
 });

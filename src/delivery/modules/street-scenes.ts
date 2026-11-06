@@ -364,6 +364,7 @@ export class GateDelivery extends StreetScene {
   private porchWorld=new THREE.Vector3();
   private porchRequest={position:this.porchWorld,kind:'reading' as const};
   private villaPorchRequest={position:this.porchWorld,kind:'porch' as const};
+  private gateParcel=new THREE.Vector3();
   private hauntedLanternRequest={position:this.porchWorld,kind:'lantern' as const};
   private focusPosition=new THREE.Vector3();
   private focusTarget=new THREE.Vector3();
@@ -386,6 +387,13 @@ export class GateDelivery extends StreetScene {
     if(this.receiver.group.userData.characterRelease==='withheld')return undefined;
     const p=this.ctx.player();if(Math.abs(p.speed)>.75||distanceXZ(p,this.target)>9)return undefined;
     const actor=this.receiver.group.position;this.root.updateWorldMatrix(true,false);
+    if (this.theme === 'haunted' && (this.transferring || this.ended)) {
+      // Frame the parcel on the street, with the bars and customer behind it.
+      const parcel = this.gateParcel;
+      this.root.localToWorld(this.focusPosition.set(parcel.x - 1.65, 2.05, parcel.z + 2.65));
+      this.root.localToWorld(this.focusTarget.set(parcel.x + .35, .48, parcel.z - .7));
+      return this.gateFocus;
+    }
     const close=this.theme==='salaar'&&this.ended&&this.ctx.storyActive?.();
     this.root.localToWorld(this.focusPosition.set(actor.x+(close?1.1:1.8),1.7,actor.z+(close?2.7:4.2)));
     this.root.localToWorld(this.focusTarget.set(actor.x,1.1,actor.z));return this.gateFocus;
@@ -413,6 +421,7 @@ export class GateDelivery extends StreetScene {
     if(this.theme==='haunted'){
       // Borrow the existing left gate lantern, including the actual X/Z set
       // scale. No new light or fixture is added to the haunted property.
+      this.gateParcel.set(-3.1, DELIVERY_PIZZA_BOX.palmToCentre, -5 * scale + 2.0);
       this.porchLocal.set(-9*scale,6.1,-3.75*scale);
     }
     if(this.receiver&&['college','villa'].includes(this.theme)){
@@ -579,11 +588,11 @@ export class GateDelivery extends StreetScene {
     const fallback = () => new THREE.Vector3(this.target.x, this.target.y + .45, this.target.z - 1.5);
     // A drop at Arundhati's gate never forces a collection animation.
     if (this.theme === 'haunted' || this.theme === 'salaar') {
-      const scale=numberParam(this.params,'sceneScale',1,.5,1),d=this.ctx.destination;
+      const d=this.ctx.destination;
       // A leave-at-gate delivery stays on the paving, beside the car's full
       // footprint. It must not hover at waist height or vanish before leaving.
-      const floorDrop=()=>new THREE.Vector3(this.target.x+1.8,d.y+DELIVERY_PIZZA_BOX.palmToCentre,
-        this.theme==='haunted'?d.z-5*scale+.7:this.target.z-1.5);
+      const floorDrop=()=>this.theme === 'haunted' ? this.root.localToWorld(this.gateParcel.clone()) :
+        new THREE.Vector3(this.target.x+1.8,d.y+DELIVERY_PIZZA_BOX.palmToCentre,this.target.z-1.5);
       this.beginTransfer(floorDrop, () => this.done(),true);
     }
     else this.transferToActor(this.receiver, fallback, () => this.done());
@@ -602,6 +611,35 @@ export class WalkingHandoff extends StreetScene {
   private previousZ = 0;
   private walkSpeed = 0;
   private direction = -1;
+  private handbag = new THREE.Group();
+  private bagGrip: THREE.Object3D | undefined;
+  private fitHandbag(actor: SceneCharacter) {
+    this.bagGrip = actor.group.getObjectByName('RightMiddle1') ?? actor.rightArm;
+    const bag = this.handbag = new THREE.Group();
+    bag.name = 'jessie-navy-leather-handbag';
+    actor.group.add(bag);
+    const b = this.batch(bag), leather = '#192C47', trim = '#334965', brass = '#B69764';
+    b.box(0, -.215, 0, .105, .19, .31, leather);
+    b.box(0, -.148, 0, .115, .078, .29, trim);
+    b.box(0, -.131, 0, .12, .028, .052, brass);
+    for (const x of [-.039, .039]) {
+      let prev = [x, -.12, -.103];
+      for (let k = 1; k <= 8; k++) {
+        const a = Math.PI * k / 8, next = [x, -.12 + Math.sin(a)*.13, -.103*Math.cos(a)];
+        b.rod(prev, next, .009, leather); prev = next;
+      }
+      for (const z of [-.103, .103]) b.box(x, -.121, z, .025, .03, .021, brass);
+    }
+    b.flush('jessie-stitched-handbag');
+    this.followHand();
+  }
+  private followHand() {
+    if (!this.bagGrip || !this.receiver) return;
+    const p = this.handbag.position;
+    this.bagGrip.getWorldPosition(p);
+    this.receiver.group.worldToLocal(p);
+    p.x += Math.sign(p.x) * .035;
+  }
   private streetLampWorld=new THREE.Vector3();
   private streetLampRequest={position:this.streetLampWorld,kind:'street-scene' as const};
   private focusPosition=new THREE.Vector3();
@@ -648,6 +686,7 @@ export class WalkingHandoff extends StreetScene {
       b.box(side-.56,4.025,z,.48,.025,.19,'#FFE6C2');
     }
     b.flush('delivery-quiet-street'); this.receiver = this.actor('jessie', side, 0, 0);
+    this.fitHandbag(this.receiver);
     this.streetTarget(side, 0, this.ctx.destination.label || 'Walking customer');
     this.status = { instruction: 'Follow slowly alongside the customer', canDrop: false, actionLabel: 'HAND OVER' };
   }
@@ -671,7 +710,7 @@ export class WalkingHandoff extends StreetScene {
       else if (!this.transferring) { receiver.leftArm.rotation.x = Math.sin(this.time * 4) * .13; receiver.rightArm.rotation.x = -Math.sin(this.time * 4) * .13; }
     }
     this.streetTarget(walkSide, this.localZ, this.target.label, !completed);
-    if (completed) { this.releaseCatch(dt);this.status.canDrop = false; return; }
+    if (completed) { this.releaseCatch(dt);this.followHand();this.status.canDrop = false; return; }
     const player = this.ctx.player(), h = heading(player.yaw), yaw = this.params.useExistingStreet ? numberParam(this.params, 'streetYaw', 0, -Math.PI * 2, Math.PI * 2) : 0;
     const dx = player.x - this.target.x, dz = player.z - this.target.z, side = dx * Math.cos(yaw) - dz * Math.sin(yaw), along = dx * Math.sin(yaw) + dz * Math.cos(yaw);
     const alongside = side > 1.5 && side < 7.5 && Math.abs(along) < 5;
@@ -679,6 +718,7 @@ export class WalkingHandoff extends StreetScene {
     this.status.canDrop = !this.transferring && this.unlocked() && this.grounded() && alongside && matching && Math.abs(player.y - this.target.y) < 2.8;
     this.status.instruction = this.status.canDrop ? 'Hand over while rolling alongside' : 'Follow slowly alongside the customer';
     this.updateTransfer(dt);
+    this.followHand();
   }
   onDrop() {
     if (!this.unlocked() || this.ended || this.transferring) return;

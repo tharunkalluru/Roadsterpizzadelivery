@@ -56,7 +56,7 @@ test('loading a different level cancels the previous recording even during decod
   f.track.clear();assert.equal(f.track.status,'idle');assert.equal(f.track.duration,0);
 });
 
-test('story mode silences the world from capture through viewing and restores driving music after Next', async () => {
+test('story interludes keep music playing and mute world effects through viewing', async () => {
   const { Sound } = await import('../../src/game/audio');
   const prior = Object.getOwnPropertyDescriptor(globalThis, 'document');
   Object.defineProperty(globalThis, 'document', { configurable: true, value: { hidden: false } });
@@ -69,13 +69,13 @@ test('story mode silences the world from capture through viewing and restores dr
   try {
     sound.setStoryActive(true);
     assert.equal(sound.effects.gain.value, 0);
-    assert.equal(music.at(-1), false);
+    assert.equal(music.at(-1), true);
     assert.equal(voice.at(-1), true);
     sound.stopDialogue();
-    assert.equal(music.at(-1), false);
+    assert.equal(music.at(-1), true);
     sound.setGameplayActive(false);
     sound.setGameplayActive(true);
-    assert.equal(music.at(-1), false);
+    assert.equal(music.at(-1), true);
     sound.setStoryActive(false);
     assert.equal(sound.effects.gain.value, 1);
     assert.equal(music.at(-1), true);

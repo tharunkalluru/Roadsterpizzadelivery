@@ -93,6 +93,7 @@ export interface DeliveryModuleContext {
   existingRoadVehicle?: (kind:'auto'|'bus', currentId?:string) => DeliveryRoadVehicle|null;
   releaseRoadVehicle?:(id:string)=>void;
   waitingRoadTarget?:()=>DeliveryPoint|null;
+  storyDialogueTime?:()=>number;
   storyDialogueComplete?:()=>boolean;
   /** Host restores controls and restages the same active order after an invalidated carrier. */
   storyCarrierLost?:()=>void;

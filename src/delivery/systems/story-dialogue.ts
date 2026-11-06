@@ -17,6 +17,7 @@ export class StoryDialogue {
  private voiceLevel = 0;
  private reaction = 0;
  private turn = 0;
+ private stalled = 0;
  private lineEnds: readonly number[] = [];
 
  start(lines: readonly ScriptLine[] = [], audio?: LevelConfig['storyAudio'], player?: DialoguePlayer) {
@@ -40,12 +41,13 @@ export class StoryDialogue {
   this.audio = undefined;
   this.player = undefined;
   this.started = false;
-  this.voiceLevel = this.turn = this.reaction = 0;
+  this.voiceLevel = this.turn = this.reaction = this.stalled = 0;
   this.lineEnds = [];
   this.lines = [];
   this.index = this.elapsed = this.total = 0;
  }
 
+ get elapsedPlayback(){return this.total;}
  get silentReaction(){return this.reaction>0;}
  get done() { return !this.audio && this.index >= this.lines.length; }
  get line() { return this.audio && !this.started ? null : this.lines[this.index] ?? null; }
@@ -63,12 +65,18 @@ export class StoryDialogue {
     this.player.startDialogue(this.audio.url);
    }
    const playback = this.player.dialoguePlayback;
-   if (playback.status === 'ended') {
+   // Some mobile audio devices suspend their clock or omit the source's ended
+   // callback. Only count visible, active story time toward stall recovery.
+   this.stalled = playback.position > this.total + .0001 ? 0 : this.stalled + dt;
+   const atEnd = playback.duration > 0 && playback.position >= playback.duration - .001;
+   if (playback.status === 'ended' || atEnd) {
+    if (atEnd && playback.status !== 'ended') this.player.stopDialogue();
     this.index = this.lines.length;
     this.audio = undefined;
     return;
    }
-   if (playback.status !== 'failed') {
+   const timedOut = this.stalled > (playback.status === 'loading' ? 8 : 4);
+   if (playback.status !== 'failed' && !timedOut) {
     this.total = playback.position;
     this.voiceLevel = playback.speechLevel ?? 0;
     const turns = this.audio.speakers;
@@ -77,7 +85,8 @@ export class StoryDialogue {
     while (this.index < this.lines.length - 1 && this.total >= this.lineEnds[this.index]) this.index++;
     return;
    }
-   // Continue from the current subtitle if an audio download or decode fails.
+   // Release any late decoder/source before continuing the remaining story beats.
+   if (timedOut) this.player.stopDialogue();
    this.audio = undefined;
    this.elapsed = 0;
   }
@@ -92,6 +101,9 @@ export class StoryDialogue {
  get speaker() {
   if (this.audio?.speakers?.length) return this.started ? this.audio.speakers[this.turn].who : undefined;
   return this.line?.who;
+ }
+ get driverVoiceLevel() {
+  return this.audio && this.speaker === 'player' ? this.voiceLevel : 0;
  }
  get speechEnvelope() {
   if (this.reaction>0) return .14 + Math.abs(Math.sin(this.total * 9)) * .24;

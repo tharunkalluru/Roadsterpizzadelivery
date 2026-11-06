@@ -12,7 +12,7 @@ export class RecordedTrack {
   status: TrackStatus = 'idle';
 
   constructor(private context: AudioContext, private output: AudioNode, private loop: boolean,
-    private onFinish?: () => void) {}
+    private onFinish?: () => void, private onStart?: () => void) {}
 
   /** Short RMS window of the decoded voice, independent of master volume. */
   get speechLevel() {
@@ -79,6 +79,7 @@ export class RecordedTrack {
     this.startedAt = this.context.currentTime;
     source.start(0, this.offset);
     this.status = 'playing';
+    this.onStart?.();
   }
 
   private pause() {

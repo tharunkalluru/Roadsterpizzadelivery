@@ -1220,6 +1220,7 @@ export class Game {
     // Apply after all driving, collision and camera-visibility transforms.
     const darkness = vehicleDarkness(this.engine.mood?.lampLights ?? 0);
     this.deliveryHeadlightGain=stepSceneHeadlightGain(this.deliveryHeadlightGain,this.story?.headlightGain,dt);
+    this.player.setDriverVoice?.(this.story?.driverVoiceLevel ?? 0, dt);
     this.player.lamps?.update(darkness, inp.brake, this.player.speed, (this.opts.lowQ ? 1 : .22)*this.deliveryHeadlightGain);
     this.trafficHeadlights?.update(P, this.traffic.cars, darkness);
     if (this.beacon.visible) {

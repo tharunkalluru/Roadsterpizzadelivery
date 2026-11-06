@@ -10,7 +10,7 @@ import { railwayNetwork } from '../../../src/world/railway-geometry';
 
 /** Real shipped polygons, generated filler buildings, barriers, roads, water,
  * landmarks and railway clearances. No idealized empty-world substitution. */
-export function auditGroundScenePlacements(only?: string) {
+export function auditGroundScenePlacements(only?: string, lowQ = true) {
   const unpack = (file: string) => JSON.parse(gunzipSync(readFileSync('public/city/' + file)).toString());
   const core = unpack('core.pack.wasm'), packs = new Map(), railway = railwayNetwork();
   const landmarks = placeLandmarks(core.origin, core.packs.flatMap((pack: any) => pack.tiles)); initTemplates();
@@ -23,7 +23,7 @@ export function auditGroundScenePlacements(only?: string) {
       if (!pack) continue;
       if (!packs.has(pack.file)) packs.set(pack.file, unpack(pack.file));
       const zone = packs.get(pack.file).tiles[key]; if (!zone) continue;
-      const built = buildTile(zone, { lowQ: true, landmarks, metro: core.metro, railway }); loaded.add(key); graph.addRoads(built.roads);
+      const built = buildTile(zone, { lowQ, landmarks, metro: core.metro, railway }); loaded.add(key); graph.addRoads(built.roads);
       for (const name of ['buildingGrid', 'surfaceGrid', 'walls', 'obstacles', 'waterGrid', 'landmarkSurfaceGrid'])
         for (const [cell, items] of built[name] ?? []) c[name].set(cell, [...c[name].get(cell) ?? [], ...items]);
       for (const rail of built.rails) c.rails.set(rail.id, rail);

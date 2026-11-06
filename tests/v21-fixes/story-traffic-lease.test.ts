@@ -194,3 +194,11 @@ test('a head-on kick carries the vehicle backwards with its front facing the pla
  assert.equal(car.arcadeFlight,undefined);
  assert.equal(car.dir,1);
 });
+
+test('a queued leased Raja needs just his actual side bay at a junction, then moving runway validation resumes',()=>{
+ const {traffic,car,graph}=fixture();
+ car.s=995;Object.assign(car,graph.pointAt(car.edge,car.s,car.dir,car.lane));traffic.leaseStoryVehicle(car.g.uuid);
+ assert.equal(traffic.canEnterStoryVehicle(car),false,'approaching the dead end lacks a moving runway');
+ car.speed=0;assert.equal(traffic.canEnterStoryVehicle(car),true,'stopping immediately invalidates the moving refusal');
+ car.speed=6;assert.equal(traffic.canEnterStoryVehicle(car),false,'restarting immediately validates the moving corridor again');
+});

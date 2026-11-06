@@ -220,6 +220,7 @@ export class DeliveryRuntime {
   }
   get destination() { return this.target; }
   get hideWorldGuidance(){return this.cinematic||this.activeOrder&&!!this.module?.hideWorldGuidance;}
+  get driverVoiceLevel(){return this.cinematic && !this.director.viewing ? this.storyDialogue.driverVoiceLevel : 0;}
   get conversationSpeaker(){return this.cinematic&&!this.director.viewing?this.storyDialogue.speaker:undefined;}
   private readonly driverShot={position:new Vector3(),target:new Vector3(),translationAnchor:new Vector3(),context:'stationary-handoff' as const};
   get cameraFocus():ModuleCameraFocus|undefined{
@@ -628,7 +629,7 @@ export class DeliveryRuntime {
       if(c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel);
     }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop&&(level.callMode!=='NONE'||this.cinematic||this.storyLandingReady), automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
-      storyDialogueComplete:()=>this.storyDialogue.done,storySpeechEnvelope:()=>this.storyDialogue.speechEnvelope,
+      storyDialogueTime:()=>this.storyDialogue.elapsedPlayback,storyDialogueComplete:()=>this.storyDialogue.done,storySpeechEnvelope:()=>this.storyDialogue.speechEnvelope,
       storySpeaker:()=>this.storyDialogue.speaker,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),

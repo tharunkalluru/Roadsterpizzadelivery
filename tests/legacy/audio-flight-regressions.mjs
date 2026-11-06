@@ -76,7 +76,7 @@ function audioFixture(Sound, initialState = 'running') {
   const sound = new Sound();
   return {
     sound, document,
-    emit: name => { for (const callback of listeners.get(name) || []) callback(); },
+    emit: (name,event) => { for (const callback of listeners.get(name) || []) callback(event); },
     visibility: hidden => { document.hidden = hidden; for (const callback of documentListeners.get('visibilitychange') || []) callback(); },
   };
 }
@@ -182,18 +182,19 @@ try {
     const context = sound.ctx, nodes = vehicleNodes(context);
     const driving = { speed: 22, throttle: 1, flying: false, active: true };
     sound.vehicle(driving);
-    assert.ok(nodes.motorGain.gain.value > 0); assert.equal(nodes.thrustGain.gain.value, 0);
+    assert.equal(nodes.motorGain.gain.value, .5 * (.035 + 22 / 45 * .065 + .02)); assert.equal(nodes.thrustGain.gain.value, 0);
     assert.ok(nodes.motor.frequency.value > 55); assert.ok(nodes.motorFilter.frequency.value > 450);
     const automation = context.automationCount();
     for (let frame = 0; frame < 20 * 60 * 60; frame++) { context.currentTime += 1 / 60; sound.vehicle(driving); }
     assert.equal(context.automationCount(), automation, 'steady frames must reuse automation targets');
     sound.vehicle({ ...driving, flying: true });
     assert.equal(nodes.motorGain.gain.value, 0); assert.ok(nodes.thrustGain.gain.value > 0);
-    const flightGain = nodes.thrustGain.gain.value, flightAutomation = context.automationCount();
+    assert.equal(nodes.thrustGain.gain.value, .04);
+    const flightAutomation = context.automationCount();
     for (let frame = 0; frame < 20 * 60 * 60; frame++) sound.vehicle({ ...driving, flying: true });
     assert.equal(context.automationCount(), flightAutomation);
     sound.vehicle({ ...driving, flying: false, descending: true });
-    assert.ok(nodes.thrustGain.gain.value > 0 && nodes.thrustGain.gain.value < flightGain);
+    assert.equal(nodes.thrustGain.gain.value, .015);
     sound.vehicle({ ...driving, active: false });
     assert.equal(nodes.motorGain.gain.value, 0); assert.equal(nodes.thrustGain.gain.value, 0);
     sound.vehicle({ ...driving, speed: Infinity, throttle: NaN });
@@ -228,6 +229,15 @@ try {
     await context.completeResume(); assert.equal(context.oscillators.length, count, 'stale cues should not replay after a long interruption');
     context.state = 'suspended'; sound.unlock(); sound.cue('pickup'); sound.setMuted(true); await context.completeResume();
     assert.equal(context.oscillators.length, count, 'muting cancels a pending cue');
+  });
+
+  await test('a trusted tap retries a pending resume when an earlier touch began before activation', async () => {
+    const { sound, emit } = audioFixture(Sound, 'suspended');
+    emit('pointerdown', {isTrusted:true}); const context=sound.ctx;
+    assert.equal(context.resumeCalls,1);
+    emit('touchend', {isTrusted:true});
+    assert.equal(context.resumeCalls,2);
+    await context.completeResume(); assert.equal(context.state,'running');
   });
 
   await test('closed context recreation rebuilds voices and reapplies current vehicle state', () => {

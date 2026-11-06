@@ -87,7 +87,7 @@ abstract class MovingRoadScene extends ModuleBase {
   protected entryAllowed(){
     const v=this.vehicle,p=this.ctx.player();if(!v||(!this.active&&v.approachValid===false)||!this.driverPrepared||!this.charactersReady||p.flying||p.descending||p.jumping||Math.abs(p.y-(v.y+.55))>.55)return false;
     const h={x:-Math.sin(p.yaw),z:-Math.cos(p.yaw)},dot=h.x*v.hx+h.z*v.hz;
-    return (this.kind==='bus'?v.speed>=0:v.speed>1)&&Math.abs(p.speed-v.speed)<4&&dot>.9&&distanceXZ(p,this.approachPoint())<2.25;
+    return v.speed>=0&&Math.abs(p.speed-v.speed)<4&&dot>.9&&distanceXZ(p,this.approachPoint())<2.25;
   }
   get story():ModuleStoryFrame|undefined {
     if(!this.vehicle||!this.root.visible||!this.ctx.automaticStories)return undefined;
@@ -149,9 +149,10 @@ export class InduBusDelivery extends MovingRoadScene {
   private clothWorld=new THREE.Vector3();
   private source=new THREE.Vector3();
   private overtaking=false;
+  private passTime=0;
   private lampWorld=new THREE.Vector3();private windowLamp={position:this.lampWorld,kind:'reading' as const};
   protected build(){
-    super.build();this.overtaking=false;this.cloth=null;
+    super.build();this.overtaking=false;this.passTime=0;this.cloth=null;
     this.box(1.255,2.72,2.55,.07,.055,.14,'#303b41');
     this.box(1.28,2.685,2.55,.045,.018,.10,'#FFE0B0').name='Indu practical window courtesy lamp';
   }
@@ -159,18 +160,26 @@ export class InduBusDelivery extends MovingRoadScene {
   protected actorSeat(){return new THREE.Vector3((this.vehicle?.size[0]??2.5)/2-.25,.96044,2.2);}
   protected sideOffset(){return (this.vehicle?.size[0]??2.5)/2+2.5;}
   protected behindOffset(){return (this.vehicle?.size[2]??11)/2+5;}
-  protected cameraEye(){return this.capturedTime<2.1||this.overtaking&&!this.ended?super.cameraEye():this.localPoint((this.vehicle?.size[0]??2.5)/2+2,2.35,3.3);}
-  protected cameraSubject(){const seat=this.actorSeat();return this.capturedTime<2.1||this.overtaking&&!this.ended?super.cameraSubject():this.localPoint(seat.x+.10,seat.y+1.2,seat.z);}
-  get storyDialogueReady(){return this.active&&this.capturedTime>2.8;}
+  private get scarfTime(){return this.ctx.storyDialogueTime?.()??this.capturedTime-this.scarfReleaseAt;}
+  protected cameraEye(){return this.scarfTime<1.4||this.overtaking&&!this.ended?super.cameraEye():this.localPoint((this.vehicle?.size[0]??2.5)/2+2,2.35,3.3);}
+  protected cameraSubject(){const seat=this.actorSeat();return this.scarfTime<1.4||this.overtaking&&!this.ended?super.cameraSubject():this.localPoint(seat.x+.10,seat.y+1.2,seat.z);}
+  private readonly scarfReleaseAt=.7;
+  get storyDialogueReady(){return this.active&&this.capturedTime>=this.scarfReleaseAt;}
   private passingPoint(){return this.localPoint(this.sideOffset(),.55,-(this.vehicle?.size[2]??11)/2-7);}
-  get story(){const frame=super.story;if(frame&&this.overtaking){frame.point=this.passingPoint();frame.maxSpeed=Math.max(12,(this.vehicle?.speed??0)+9);}return frame;}
+  get story(){const frame=super.story;if(frame&&this.overtaking){frame.point=this.passingPoint();const busSpeed=this.vehicle?.speed??0;
+    const gain=this.ended?0:Math.min(12,this.passTime*8);
+    frame.speed=busSpeed+gain;frame.maxSpeed=Math.max(12,busSpeed+gain+2);}return frame;}
   private scarf(){
     if(!this.cloth){
       const geometry=this.own(new THREE.PlaneGeometry(1.7,.52,8,3)),positions=geometry.getAttribute('position');
       for(let i=0;i<positions.count;i++)positions.setZ(i,Math.sin(positions.getX(i)*6)*.055);geometry.computeVertexNormals();
       this.cloth=new THREE.Mesh(geometry,this.mat('#FAF5E9'));this.cloth.name='Indu chunni retained on windshield';this.ctx.scene.add(this.cloth);this.cloth.visible=false;
     }
-    const p=this.ctx.player(),window=this.localPoint((this.vehicle?.size[0]??2.5)/2+.08,2.1,2.2),progress=Math.min(1,Math.max(0,(this.capturedTime-.7)/1.4));
+    // Start the cloth on the first audio sample as well as on a silent
+    // fallback. A slow download must not let it land before Indu says hello.
+    const trackTime=this.scarfTime;
+    const p=this.ctx.player(),window=this.localPoint((this.vehicle?.size[0]??2.5)/2+.08,2.1,2.2);
+    const progress=Math.max(0,Math.min(1,trackTime/1.4));
     const playerObject=this.ctx.playerObject?.();
     if(progress>=1&&playerObject){
       if(this.cloth.parent!==playerObject)playerObject.add(this.cloth);
@@ -181,12 +190,13 @@ export class InduBusDelivery extends MovingRoadScene {
     // without a full-screen opaque blindfold. Once settled it never blows away.
     this.clothWorld.set(p.x-Math.sin(p.yaw)*1.35,p.y+.95,p.z-Math.cos(p.yaw)*1.35);
     this.cloth.position.lerpVectors(this.source,this.clothWorld,progress);this.cloth.position.y+=Math.sin(progress*Math.PI)*.6;
-    this.cloth.rotation.set(-.65,p.yaw,Math.sin(progress*Math.PI)*.4);this.cloth.visible=this.capturedTime>.7;
+    this.cloth.rotation.set(-.65,p.yaw,Math.sin(progress*Math.PI)*.4);this.cloth.visible=trackTime>0;
   }
   update(dt:number){
     if(!this.sync(dt))return;
-    if(this.active||this.ended){this.scarf();this.receiver?.catchPose(this.capturedTime<3?.22+.16*Math.sin(this.capturedTime*8):0);}
+    if(this.active||this.ended){this.scarf();this.receiver?.catchPose(this.scarfTime>0&&this.scarfTime<2.3?.22+.16*Math.sin(this.scarfTime*8):0);}
     this.status.canDrop=!this.ended&&!this.overtaking&&this.active&&this.capturedTime>2.8&&this.unlocked()&&(this.ctx.storyDialogueComplete?.()??true);
+    if(this.overtaking&&!this.ended)this.passTime+=Math.max(0,Math.min(.1,dt));
     this.status.instruction=this.overtaking?'Passing the bus':'Follow the bus in the right lane';
     if(this.overtaking&&distanceXZ(this.ctx.player(),this.passingPoint())<1.5)this.done();
   }

@@ -14,3 +14,10 @@ test('all nine current street scenes prepare collision-clear ground approaches i
     assert.ok(report.steps < 2000, `${report.id}: preparation work is unbounded`);
   }
 });
+
+test('Sukumar’s fixed 45-degree courtyard clears the full-detail park fences and driveway', () => {
+  const [high] = auditGroundScenePlacements('sukumar-angle-parking', false);
+  assert.equal(high.fit, true);
+  assert.equal(high.offset, 0);
+  assert.deepEqual(high.budgetedPoint, high.point);
+});

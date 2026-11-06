@@ -82,7 +82,7 @@ export class Traffic {
   getStoryVehicleCorridor(){return this.storyCorridor;}
   private storyVehicleId:string|null=null;
   private lostStoryVehicleId:string|null=null;
-  private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
+  private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean;stoppedAuto:boolean}|null=null;
 
   private parkedMotion = new Map<ParkedVehicle,{vx:number;vz:number;flight?:ArcadeVehicleFlight}>();
 
@@ -467,9 +467,17 @@ export class Traffic {
    * only this selected vehicle's geometry probe; ordinary NPCs do no extra work. */
   canEnterStoryVehicle(c:Car){
     if(c.arcadeFlight)return false;
+    const leased=this.storyLeased(c),stoppedAuto=leased&&c.group==='auto'&&c.speed<=1;
     const cached=this.storyEntryCheck;
-    if(c.g.uuid&&cached?.id===c.g.uuid&&this.t-cached.at<.65&&Math.hypot(c.x-cached.x,c.z-cached.z)<4)return cached.allowed;
-    const leased=this.storyLeased(c);
+    if(c.g.uuid&&cached?.id===c.g.uuid&&cached.stoppedAuto===stoppedAuto&&this.t-cached.at<.65&&Math.hypot(c.x-cached.x,c.z-cached.z)<4)return cached.allowed;
+    // A queued auto needs room at its current right-side marker. A short
+    // block or a junction ahead must not require it to move before handoff.
+    if(stoppedAuto){
+      const side=c.size[0]/2+2.1,lane=c.lane-side,[low,high]=this.laneRange(c.edge,2,c.dir);
+      const approach={x:c.x-c.hz*side+c.hx*.42,y:c.y,z:c.z+c.hx*side+c.hz*.42,hx:c.hx,hz:c.hz};
+      const allowed=!!c.g.parent&&!c.edge.e.workZone&&lane>=low+.15&&lane<=high-.15&&(!this.city||trafficPoseClear(this.city,approach,[2,1.6,4.8]));
+      this.storyEntryCheck={id:c.g.uuid,at:this.t,x:c.x,z:c.z,allowed,stoppedAuto};return allowed;
+    }
     let allowed=leased?this.storyApproachLaneClear(c)&&c.dwell<=0:this.canHostStoryVehicle(c);
     const side=c.size[0]/2+(c.group==='bus'?2.5:2.1),back=c.group==='bus'?c.size[2]/2+5:-.42,lane=c.lane-side;
     const needed=leased?Math.max(28,c.speed*25+25):this.storyHorizon(c);let edge=c.edge,dir=c.dir,start=c.s,total=0;
@@ -485,7 +493,7 @@ export class Traffic {
       const next=node?.out.filter(o=>o.edge!==edge&&this.graph.permanent.has(o.edge.e.id)&&this.allowed(c,o.edge)&&!o.edge.e.workZone).map(o=>{const [lo,hi]=this.laneRange(o.edge,2,o.dir),pose=this.graph.pointAt(o.edge,.01,o.dir,lane);return {...o,room:lane>=lo+.15&&lane<=hi-.15,dot:pose.hx*endpoint.hx+pose.hz*endpoint.hz,pose};}).filter(o=>o.room&&o.dot>.97&&Math.abs(o.pose.y-endpoint.y)<.5).sort((a,b)=>b.dot-a.dot)[0];
       if(!next){allowed=false;break;}edge=next.edge;dir=next.dir;start=0;
     }
-    allowed=allowed&&total>=needed;if(c.g.uuid)this.storyEntryCheck={id:c.g.uuid,at:this.t,x:c.x,z:c.z,allowed};return allowed;
+    allowed=allowed&&total>=needed;if(c.g.uuid)this.storyEntryCheck={id:c.g.uuid,at:this.t,x:c.x,z:c.z,allowed,stoppedAuto};return allowed;
   }
   private placeVisual(g: THREE.Group, p: { x: number; y: number; z: number; hx: number; hz: number }, size: number[]) {
     g.position.set(p.x, p.y + .02, p.z);

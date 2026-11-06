@@ -106,3 +106,28 @@ test('Indu can rendezvous with her same stopped bus using a grounded, aligned ap
  const f=fixture('bus'),module=new InduBusDelivery();module.setup(f.ctx,{});module.update(.05);f.vehicle.speed=0;f.vehicle.approachValid=true;module.update(.05);
  Object.assign(f.p,module.target,{speed:0});assert.equal(module.story?.entry,true);f.p.jumping=true;assert.equal(module.story?.entry,false);module.teardown();
 });
+
+test('a grounded Roadster can trigger the actual story gate beside a queued Raja, even while both are stopped', async()=>{
+ const {StoryLandingGate}=await import('../../src/delivery/systems/story-landing');
+ const f=fixture('auto'),module=new RajaAutoDelivery(),gate=new StoryLandingGate();
+ module.setup(f.ctx,{});module.update(.05);f.vehicle.speed=0;Object.assign(f.p,module.target,{speed:0});
+ const hold=()=>Array.from({length:10},()=>gate.update(.05,f.p,module.story,0,true)).at(-1);
+ assert.equal(hold(),true);f.p.yaw=Math.PI;assert.equal(hold(),false);
+ f.p.yaw=0;f.p.speed=3.5;assert.equal(hold(),false);
+ f.p.speed=0;f.p.x=-f.p.x;assert.equal(hold(),false);module.teardown();
+});
+
+test('Indu releases her scarf with the recording and passes without a handoff when it finishes',()=>{
+ const f=fixture('bus'),module=new InduBusDelivery();let seconds=0;
+ f.ctx.storyDialogueTime=()=>seconds;module.setup(f.ctx,{});module.update(.05);f.active=true;
+ for(let i=0;i<16;i++)module.update(.05);
+ assert.equal(module.storyDialogueReady,true);const cloth=f.ctx.scene.getObjectByName('Indu chunni retained on windshield')!;
+ for(let i=0;i<50;i++)module.update(.05);
+ assert.equal(cloth.visible,false,'buffering voice cannot race ahead of the scarf release');
+ seconds=.05;module.update(.05);assert.equal(cloth.visible,true);const released=cloth.position.clone();
+ seconds=1;module.update(.05);assert.ok(cloth.position.distanceTo(released)>1);
+ assert.equal(module.status.canDrop,false);f.dialogue=true;module.update(.05);module.onDrop();
+ module.update(.1);assert.ok(module.story!.speed!>f.vehicle.speed);assert.equal(f.done,0);
+ Object.assign(f.p,module.story!.point);module.update(.05);assert.equal(f.done,1);
+ assert.equal(f.ctx.scene.getObjectByName('delivery-handoff-pizza'),undefined);module.teardown();
+});

@@ -19,6 +19,20 @@ export class Sound {
   private dialogueUnavailable = false;
   private effects: GainNode | null = null;
   private storyActive = false;
+  private musicGain: GainNode | null = null;
+  private musicTarget = -1;
+  private resumeAttempt = 0;
+
+  private mixMusic() {
+    if (!this.ctx || !this.musicGain) return;
+    const speaking = this.storyActive && this.dialogue?.status === 'playing';
+    const target = speaking ? 0 : this.storyActive ? .21 : .34;
+    if (target === this.musicTarget) return;
+    this.musicTarget = target;
+    const gain = this.musicGain.gain, now = this.ctx.currentTime;
+    gain.cancelScheduledValues(now);
+    gain.setTargetAtTime(target, now, speaking ? .012 : .15);
+  }
 
   setStoryActive(active: boolean) {
     if (active === this.storyActive) return;
@@ -44,6 +58,7 @@ export class Sound {
   stopDialogue() {
     this.dialogueUnavailable = false;
     this.dialogue?.clear();
+    this.mixMusic();
   }
 
   get dialoguePlayback(): { status: TrackStatus; position: number; duration: number; speechLevel?: number } {
@@ -55,11 +70,12 @@ export class Sound {
 
   private syncRecordings() {
     const active = this.gameplayActive && this.foreground && !document.hidden;
-    this.music?.setActive(active && !this.muted && !this.storyActive);
+    this.music?.setActive(active && !this.muted);
+    this.mixMusic();
     // A muted conversation follows the same timeline, so camera cuts and story
     // actions stay in sync if sound is turned on again halfway through it.
     this.dialogue?.setActive(active);
-    if (active && !this.muted && !this.storyActive && this.ctx?.state === 'running' && this.music?.status === 'idle')
+    if (active && !this.muted && this.ctx?.state === 'running' && this.music?.status === 'idle')
       void this.music.load('/audio/background.mp3');
   }
 
@@ -67,9 +83,15 @@ export class Sound {
     // Capture runs before Play/settings handlers. touchend/click also cover mobile browsers
     // that do not unlock audio on pointerdown, and keyboard activation of real buttons.
     for (const ev of ['keydown', 'pointerdown', 'touchend', 'click'])
-      addEventListener(ev, () => this.unlock(), { capture: true, passive: true });
+      addEventListener(ev, event => this.unlock(event?.isTrusted && (ev === 'touchend' || ev === 'click')), { capture: true, passive: true });
     addEventListener('blur', () => { this.foreground = false; this.silence(); this.applyMaster(); });
-    addEventListener('focus', () => { this.foreground = !document.hidden; this.applyMaster(); });
+    const restorePlayback = () => {
+      this.foreground = !document.hidden;
+      if (this.foreground && this.ctx) this.unlock();
+      else this.applyMaster();
+    };
+    addEventListener('focus', restorePlayback);
+    addEventListener('pageshow', restorePlayback);
     addEventListener('pagehide', () => { this.foreground = false; this.silence(); this.applyMaster(); });
     document.addEventListener('visibilitychange', () => {
       this.foreground = !document.hidden;
@@ -79,12 +101,15 @@ export class Sound {
     });
   }
 
-  unlock() {
+  unlock(retryOnGesture = false) {
     this.foreground = !document.hidden;
     if (!this.ctx || this.ctx.state === 'closed') {
       try {
         const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
         if (!AC) return;
+        // Request media playback routing on phones that expose the Audio Session API.
+        const session = (window.navigator as Navigator & {audioSession?: {type: string}} | undefined)?.audioSession;
+        if (session) { try { session.type = 'playback'; } catch { /* Optional browser capability. */ } }
         const c: AudioContext = new AC();
         this.ctx = c; this.master = c.createGain();
         this.resumePending = false; this.last = -Infinity; this.cueTimes.clear();
@@ -98,18 +123,23 @@ export class Sound {
         this.createVehicleVoices(c, this.effects);
         if (this.dialogue?.status === 'playing' || this.dialogue?.status === 'loading') this.dialogueUnavailable = true;
         this.music?.clear(); this.dialogue?.clear();
-        const musicGain = c.createGain(); musicGain.gain.value = .34; musicGain.connect(this.master);
+        c.onstatechange = () => { if (this.ctx === c && c.state === 'running') { this.syncRecordings(); this.flushCue(); } };
+        this.musicTarget = -1;
+        const musicGain = this.musicGain = c.createGain(); musicGain.gain.value = .34; musicGain.connect(this.master);
         this.music = new RecordedTrack(c, musicGain, true);
-        this.dialogue = new RecordedTrack(c, this.master, false);
+        this.dialogue = new RecordedTrack(c, this.master, false, () => this.mixMusic(), () => this.mixMusic());
       } catch { this.ctx = null; this.master = null; return; }
     }
     const c = this.ctx;
     this.applyMaster();
     // iOS can report "interrupted" as well as "suspended" after a call or app switch.
-    if (c.state !== 'running' && !this.resumePending) {
+    if (c.state !== 'running' && (!this.resumePending || retryOnGesture)) {
       this.resumePending = true;
-      c.resume().then(() => { this.resumePending = false; this.syncRecordings(); this.flushCue(); })
-        .catch(() => { this.resumePending = false; });
+      const attempt = ++this.resumeAttempt;
+      c.resume().then(() => {
+        if (attempt !== this.resumeAttempt || c !== this.ctx) return;
+        this.resumePending = false; this.syncRecordings(); this.flushCue();
+      }).catch(() => { if (attempt === this.resumeAttempt) this.resumePending = false; });
     } else if (c.state === 'running') this.flushCue();
   }
 
@@ -157,8 +187,8 @@ export class Sound {
     // Do not enqueue identical automation events throughout a long drive or unlimited flight.
     ramp('frequency', this.motor.frequency, 55 + speed * 4.2 + throttle * 24, 0.08, 0.5);
     ramp('filter', this.motorFilter.frequency, 450 + speed * 28 + throttle * 160, 0.08, 5);
-    ramp('motor', this.motorGain.gain, active && !air ? 0.035 + speed / 45 * 0.065 + throttle * 0.02 : 0, 0.04, 0.0005);
-    ramp('thrust', this.thrustGain.gain, active && air ? (s.flying ? 0.08 : 0.03) : 0, 0.04, 0.0005);
+    ramp('motor', this.motorGain.gain, active && !air ? (0.035 + speed / 45 * 0.065 + throttle * 0.02) * .5 : 0, 0.04, 0.0005);
+    ramp('thrust', this.thrustGain.gain, active && air ? (s.flying ? 0.04 : 0.015) : 0, 0.04, 0.0005);
   }
 
   private silence() {
@@ -195,7 +225,7 @@ export class Sound {
       o.frequency.setValueAtTime(f, start);
       if (kind === 'flight' || kind === 'bump') o.frequency.exponentialRampToValueAtTime(kind === 'flight' ? 700 : 40, start + duration);
       gain.gain.setValueAtTime(0, start);
-      gain.gain.linearRampToValueAtTime(kind === 'bump' ? 0.25 : kind === 'flight' ? 0.08 : 0.16, start + 0.008);
+      gain.gain.linearRampToValueAtTime(kind === 'bump' ? 0.25 : kind === 'flight' ? 0.04 : 0.16, start + 0.008);
       gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
       o.connect(gain); gain.connect(this.effects); o.start(start); o.stop(start + duration + 0.02);
       o.onended = () => { o.disconnect(); gain.disconnect(); };

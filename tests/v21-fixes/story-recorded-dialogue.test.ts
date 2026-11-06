@@ -14,7 +14,7 @@ test('subtitles and speaker changes follow playback through buffering, pause and
  dialogue.update(.1,false);assert.equal(dialogue.line,null);assert.deepEqual(events,[]);
  dialogue.update(.1,true);assert.deepEqual(events,['/story.mp3']);
  state.status='playing';state.position=2.9;
- for(let i=0;i<100;i++)dialogue.update(.1,true);
+ for(let i=0;i<10;i++)dialogue.update(.1,true);
  assert.equal(dialogue.line?.text,'First line');
  state.position=3.05;dialogue.update(.1,true);assert.equal(dialogue.line?.text,'Second line');
  state.status='failed';
@@ -47,6 +47,7 @@ test('every current recording switches shots at its edit cues and articulates on
    dialogue.update(.016,true);
    assert.equal(dialogue.speaker,cue.who);
    assert.equal(dialogue.speechEnvelope,cue.who==='customer'?.73:0);
+   assert.equal(dialogue.driverVoiceLevel,cue.who==='player'?.73:0);
   }
   clock.status='ended';dialogue.update(.016,true);
   assert.equal(dialogue.speaker,undefined);assert.equal(dialogue.speechEnvelope,0);
@@ -59,4 +60,17 @@ test('a silent reaction leaves delivery ready and returns to a closed mouth',()=
  dialogue.update(.1,true);assert.ok(dialogue.speechEnvelope>0);
  for(let i=0;i<20;i++)dialogue.update(.1,true);
  assert.equal(dialogue.speechEnvelope,0);assert.equal(dialogue.done,true);
+});
+
+test('a stalled mobile clock cannot hold a story forever or play a late recording after handoff',()=>{
+ for(const status of ['loading','playing'] as const){
+  const dialogue=new StoryDialogue();let stops=0;
+  const clock:Sound['dialoguePlayback']={status,position:0,duration:status==='loading'?0:6};
+  dialogue.start([{who:'player',text:'Hello'},{who:'customer',text:'Thank you'}],{url:'/story.mp3',duration:6},
+   {dialoguePlayback:clock,startDialogue(){},stopDialogue(){stops++;}});
+  for(let i=0;i<400;i++)dialogue.update(.1,false);
+  assert.equal(stops,0);
+  for(let i=0;i<200;i++)dialogue.update(.1,true);
+  assert.equal(stops,1);assert.equal(dialogue.done,true);
+ }
 });

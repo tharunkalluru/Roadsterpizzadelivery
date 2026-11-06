@@ -37,6 +37,15 @@ export class Player {
   private jumpForcedFall = false;
   private jumpCollisionMeshes: { mesh: THREE.Mesh; positions: THREE.BufferAttribute | THREE.InterleavedBufferAttribute }[] = [];
   private jumpBoundsDirty = true;
+  private voiceStrip!: THREE.Mesh;
+  private voiceAmount = 0;
+  setDriverVoice(level: number, dt: number) {
+    if (!this.voiceStrip) return;
+    const target = Math.max(0, Math.min(1, level));
+    this.voiceAmount = target <= 0 ? 0 : this.voiceAmount + (target - this.voiceAmount) * (1 - Math.exp(-22 * dt));
+    this.voiceStrip.visible = this.voiceAmount > .015;
+    if (this.voiceStrip.visible) this.voiceStrip.scale.x = .12 + .88 * Math.sqrt(this.voiceAmount);
+  }
   private pizzaCargo!: THREE.Group;
   setCarryingPizza(carrying: boolean) {
     if (this.pizzaCargo.visible === carrying) return;
@@ -120,11 +129,18 @@ export class Player {
     for (const child of [...this.group.children]) { child.position.y -= this.kickflipCentre; this.kickflipPivot.add(child); }
     this.group.add(this.kickflipPivot);
     // Lights share the visual model's transform but add no collision geometry.
+    // A dashboard-style voice meter sits inside the dark grille. It never casts a beam.
+    this.voiceStrip = new THREE.Mesh(new THREE.BoxGeometry(1.38, .052, .012),
+      new THREE.MeshBasicMaterial({ color: '#47e6d8', toneMapped: false }));
+    this.voiceStrip.name = 'Delivery boy voice strip';
+    this.voiceStrip.position.set(0, .44, -2.349);
+    this.voiceStrip.visible = false;
+    R.lampMount.add(this.voiceStrip);
     this.lamps = new PlayerLights(R.lampMount, tail, reverse);
     const plumes = new Set<THREE.Object3D>();
     for (const nozzle of this.nozzles) nozzle.jet?.traverse(node => plumes.add(node));
     this.group.traverse(node => {
-      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal || plumes.has(node)) return;
+      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal || node === this.voiceStrip || plumes.has(node)) return;
       const positions = node.geometry.getAttribute('position');
       if (positions) this.jumpCollisionMeshes.push({ mesh: node, positions });
     });
