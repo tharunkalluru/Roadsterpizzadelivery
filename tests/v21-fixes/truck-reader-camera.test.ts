@@ -1,3 +1,4 @@
+import {installRodinHandoff} from '../../src/delivery/art/rodin-handoff';
 import test,{after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,writeFile} from 'node:fs/promises';
@@ -47,7 +48,7 @@ for(const aspect of [1579/1180,16/9,2.33])for(const [yaw,grade]of [[0,0],[.72,.0
       for(const g of geometries)resources.geometry(g);for(const m of materials)resources.material(m.uuid,m);
       motion=createAuthoredMotionPlayer(group,gltf.animations,contract.motions,contract.pose.mode==='handoff-clip'?contract.pose:undefined);motion.animate?.(0,'idle',0);
       actor={group,leftArm:group.getObjectByName(contract.nodes.leftArm)as THREE.Group,rightArm:group.getObjectByName(contract.nodes.rightArm)as THREE.Group,catchPoint:group.getObjectByName(contract.nodes.catchPoint),book:group.getObjectByName(contract.nodes.book!),animate:motion.animate,catchPose:motion.catchPose};
-      performance=installActorPerformance(actor,entry.characterId,resources);return actor;
+      performance=entry.candidate.assetId.endsWith('-rodin-cast-v1')?installRodinHandoff(actor,resources):installActorPerformance(actor,entry.characterId,resources);return actor;
     },
   },{scene:'truckInterior',vehicle:'truck',speed:6});
   const advance=(seconds:number)=>{for(let t=0;t<seconds-1e-8;t+=.05)module.update(.05);};
@@ -68,10 +69,14 @@ for(const aspect of [1579/1180,16/9,2.33])for(const [yaw,grade]of [[0,0],[.72,.0
     player:{pos:new THREE.Vector3(player.x,player.y,player.z),yaw:player.yaw,forward:new THREE.Vector3(hx,0,hz),speed:0,flying:false,descending:false,jumping:false,lastSupport:player.y-.55,placementRevision:0,bump:0,takeoffAnimating:false},
     story:{cinematic:true,get supports(){return module.supports;},get cameraFocus(){return module.cameraFocus;}},engine:{camera:new THREE.PerspectiveCamera(60,aspect,.3,2500),placeSun(){}},traffic:{hideNear(){}},city:{...city,signs:{update(){}}},placeLampLights(){},
   });
-  const handSkin:{mesh:THREE.SkinnedMesh;indices:number[]}[]=[];actor.group.traverse(node=>{if(!(node instanceof THREE.SkinnedMesh))return;const si=node.geometry.getAttribute('skinIndex'),sw=node.geometry.getAttribute('skinWeight'),p=node.geometry.getAttribute('position');if(!si||!sw)return;const left=node.skeleton.bones.map(b=>/^Left(?:Hand|Index|Middle|Ring|Pinky|Thumb)/.test(b.name)),indices:number[]=[];for(let i=0;i<p.count;i++){let w=0;for(let k=0;k<4;k++)if(left[si.getComponent(i,k)])w+=sw.getComponent(i,k);if(w>=.6)indices.push(i);}if(indices.length)handSkin.push({mesh:node,indices});});
-  const poses:unknown[]=[];
+  // Historical builds held the open meal in the left hand. Rodin uses the authored actual catch palm.
+  let handSide='Left';
+  if(entry.candidate.assetId.endsWith('-rodin-cast-v1'))for(let parent=actor.catchPoint;parent;parent=parent.parent??undefined){if(parent.name==='RightHand'){handSide='Right';break;}if(parent.name==='LeftHand')break;}
+  const supportBones=new RegExp('^'+handSide+'(?:Hand|Index|Middle|Ring|Pinky|Thumb)');
+  const handSkin:{mesh:THREE.SkinnedMesh;indices:number[]}[]=[];actor.group.traverse(node=>{if(!(node instanceof THREE.SkinnedMesh))return;const si=node.geometry.getAttribute('skinIndex'),sw=node.geometry.getAttribute('skinWeight'),p=node.geometry.getAttribute('position');if(!si||!sw)return;const left=node.skeleton.bones.map(b=>supportBones.test(b.name)),indices:number[]=[];for(let i=0;i<p.count;i++){let w=0;for(let k=0;k<4;k++)if(left[si.getComponent(i,k)])w+=sw.getComponent(i,k);if(w>=.6)indices.push(i);}if(indices.length)handSkin.push({mesh:node,indices});});
+  const poses:unknown[]=[];let sampledSeconds=0;
   for(const seconds of [.05,.1,.3,.5,1.1,1.6,2.2,2.8,3.2,3.8,4.5,5.2,6]){
-    while(actor.group.userData.deliveryPerformance.time<seconds-1e-8)module.update(.05);
+    while(sampledSeconds<seconds-1e-8){module.update(.05);sampledSeconds+=.05;}
     const focus=module.cameraFocus;assert.ok(focus);assert.equal(pathClear(focus.clearanceTarget!,focus.position),true);
     assert.ok(new THREE.Vector3().subVectors(focus.target,focus.position).normalize().dot(new THREE.Vector3().subVectors(focus.clearanceTarget!,focus.position).normalize())>.99999,'optical subject and checked pivot share the same framing ray');
     assert.equal(staticSolidAt(city,focus.position,.35,.35,{deliverySolids:module.supports}),false);
@@ -80,7 +85,7 @@ for(const aspect of [1579/1180,16/9,2.33])for(const [yaw,grade]of [[0,0],[.72,.0
     const front=new THREE.Vector3(0,0,1).transformDirection(head.matrixWorld),view=new THREE.Vector3().subVectors(focus.position,mouth).normalize();assert.ok(front.dot(view)>.78,'camera remains in front of the actual downward-looking face');front.y=0;front.normalize();view.y=0;view.normalize();assert.ok(front.dot(view)>.94,'frontal azimuth follows actual head rather than a fixed truck axis');
     game.camPos.set(0,0,0);game.camLook.set(0,0,0);game.updateCamera(0);assert.ok(game.camPos.distanceTo(focus.position)<.01,'actual Game consumer uses the checked pivot and keeps the optical subject');
     const camera=game.engine.camera as THREE.PerspectiveCamera;camera.updateMatrixWorld(true);
-    const carton=actor.group.getObjectByName('received-pizza-openable-carton')!,hand=actor.group.getObjectByName('LeftHand')!;
+    const carton=actor.group.getObjectByName('received-delivery-carton')??actor.group.getObjectByName('received-pizza-openable-carton')!,hand=actor.group.getObjectByName(handSide+'Hand')!;
     const projections:unknown[]=[];for(const [label,at]of [['mouth',mouth],['hair/head',head.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0,.18,0))],['carton',carton.getWorldPosition(new THREE.Vector3())],['support wrist',hand.getWorldPosition(new THREE.Vector3())]]as const){const p=at.clone().project(camera);assert.ok(Number.isFinite(p.x+p.y+p.z)&&Math.abs(p.x)<.85&&Math.abs(p.y)<.85&&p.z>-1&&p.z<1,JSON.stringify({label,seconds,ndc:p.toArray(),position:focus.position.toArray(),target:focus.target.toArray()}));projections.push({label,world:at.toArray(),ndc:p.toArray()});}
     const ray=new THREE.Raycaster(camera.position,new THREE.Vector3().subVectors(mouth,camera.position).normalize(),0,camera.position.distanceTo(mouth)-.012);
     const environment:THREE.Mesh[]=[];scene.traverseVisible(node=>{if(!(node instanceof THREE.Mesh))return;let cartonPart=false;for(let n:THREE.Object3D|null=node;n;n=n.parent){if(n===carton)cartonPart=true;if(n===actor.group){if(cartonPart)environment.push(node);return;}}environment.push(node);});const hit=ray.intersectObjects(environment,false)[0];

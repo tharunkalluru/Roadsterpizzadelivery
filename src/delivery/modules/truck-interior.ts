@@ -82,7 +82,7 @@ export class TruckInterior extends ModuleBase {
     if(this.ctx.automaticStories&&this.ctx.storyActive?.()&&Math.hypot(parked.x-.55,parked.z-PARK_Z)>.18)return undefined;
     const mouth=this.reader.group.getObjectByName('delivery-mouth-anchor'),head=this.reader.group.getObjectByName('Head');
     if(!mouth||!head||!this.reader.group.visible)return undefined;
-    const carton=this.reader.group.getObjectByName('received-pizza-openable-carton'),received=carton?.visible===true;
+    const carton=this.reader.group.getObjectByName('received-delivery-carton')??this.reader.group.getObjectByName('received-pizza-openable-carton'),received=carton?.visible===true;
     if(this.cameraPlan?.received!==received){
       if(this.cameraTime<this.cameraRetryAt)return undefined;this.cameraRetryAt=this.cameraTime+1;
       this.vehicle.updateWorldMatrix(true,true);
@@ -99,7 +99,10 @@ export class TruckInterior extends ModuleBase {
       const near=parked.z+forwardAlong*2.4+forwardSide*1.15+.38,far=6-.75-.38,strip=(near+far)/2;
       const faceAlong=(face.x-this.pose.x)*this.pose.hx+(face.z-this.pose.z)*this.pose.hz,frontAlong=front.x*this.pose.hx+front.z*this.pose.hz,sideAlong=side.x*this.pose.hx+side.z*this.pose.hz,upAlong=up.x*this.pose.hx+up.z*this.pose.hz;
       this.cameraPlan=null;
-      for(const elevation of [.02,.55])for(const lateral of [.22,-.15,0]){
+      // The closed carton is shallow and rests above a single supporting palm.
+      // Start slightly below the face to keep that support visible on an uphill truck.
+      const elevations=received&&carton?.name==='received-delivery-carton'?[-.15,-.05,.02,.22,.55]:[.02,.55];
+      for(const elevation of elevations)for(const lateral of [.22,-.15,0]){
         if(this.cameraPlan)break;
         const distance=near<=far&&frontAlong<-.5?(strip-faceAlong-sideAlong*lateral-upAlong*elevation)/frontAlong:1.45;
         if(distance<.5||distance>2.2)continue;

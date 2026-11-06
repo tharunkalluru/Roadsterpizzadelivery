@@ -1,3 +1,4 @@
+import { installRodinHandoff } from './rodin-handoff';
 import * as THREE from 'three';
 import { clone as cloneSkeleton } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -238,7 +239,7 @@ export class ReleasedGltfRegistry {
       if (!template || template.clearWhenUnused || !getCharacterReleaseDecision(identity, template.entry.candidate, this.reviews).allowed) { failed.push({ characterId: identity, reason: 'Character GPU preparation was cancelled.' }); continue; }
       template.gpuBorrows++;
       try {
-        await prepareActorPerformanceGeometry(template.root,identity,()=>!template.clearWhenUnused&&this.templates.get(identity)===template);
+        if(!template.entry.candidate.assetId.endsWith('-rodin-cast-v1'))await prepareActorPerformanceGeometry(template.root,identity,()=>!template.clearWhenUnused&&this.templates.get(identity)===template);
         await prepare(template.root, template.entry);
         if (template.clearWhenUnused || this.templates.get(identity) !== template) throw new Error('Character GPU preparation was cancelled.');
         if (template.entryFingerprint !== JSON.stringify(template.entry) || !getCharacterReleaseDecision(identity, template.entry.candidate, this.reviews).allowed) throw new Error('Character metadata or approval changed during GPU preparation.');
@@ -288,7 +289,7 @@ export class ReleasedGltfRegistry {
     // Native face annotations are picked in this exact authored initial pose.
     // Establish it once before validating skinned barycentric landmarks.
     result.animate?.(0,'idle',0);
-    performance=installActorPerformance(result,identity,resources,facePreview);template.memory.instanceGeometryBytes+=performance.bytes;
+    performance=template.entry.candidate.assetId.endsWith('-rodin-cast-v1')?installRodinHandoff(result,resources):installActorPerformance(result,identity,resources,facePreview);template.memory.instanceGeometryBytes+=performance.bytes;
     return result;
   }
 

@@ -6,7 +6,7 @@ export type ReviewCheck = 'identity' | 'film-role' | 'hair-and-face' | 'costume-
 export interface CharacterCandidate { assetId: string; sha256: string }
 export interface CharacterArtifactFingerprint { path: string; sha256: string }
 export interface CharacterReference {
-  id: string; characterId: string; kind: 'film-still' | 'actor-portrait' | 'public-appearance';
+  id: string; characterId: string; kind: 'film-still' | 'actor-portrait' | 'public-appearance' | 'character-illustration';
   sourceUrl: string; publisher: string; path: string; sha256: string;
   primarySource: boolean; visuallyVerified: boolean; note: string;
 }

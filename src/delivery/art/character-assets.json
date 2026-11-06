@@ -4,16 +4,16 @@
     {
       "characterId": "pushpa-raj",
       "candidate": {
-        "assetId": "pushpa-raj-seated-reader-v1",
-        "sha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835"
+        "assetId": "pushpa-raj-rodin-cast-v1",
+        "sha256": "61b94423e0f90b14e9482c855c105b86e12ebce784303e2771065bfd9fc9d86f"
       },
       "glb": {
-        "url": "/delivery/characters/pushpa-raj/reader-v1.glb",
-        "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb"
+        "url": "/delivery/characters/pushpa-raj/rodin-49f1bba5cd19.glb",
+        "sha256": "49f1bba5cd19cdfdda565bbb492d58e3cd7083ae688be5242441718e868c5276"
       },
-      "contractPath": "public/delivery/characters/pushpa-raj/reader-v1.rig.json",
+      "contractPath": "public/delivery/characters/pushpa-raj/rodin-49f1bba5cd19.rig.json",
       "contract": {
-        "id": "pushpa-reader-in-container-v5",
+        "id": "rodin-pushpa-raj-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -26,10 +26,35 @@
           "mode": "handoff-clip",
           "clipName": "TakePizza",
           "upperBodyNodes": [
+            "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -41,13 +66,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist",
-            "Neck",
-            "Head"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -81,46 +100,71 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb",
+          "glbSha256": "49f1bba5cd19cdfdda565bbb492d58e3cd7083ae688be5242441718e868c5276",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7062,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               },
               {
                 "name": "Dance",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Idle",
-                "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "Read",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -132,13 +176,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist",
-                "Neck",
-                "Head"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -151,32 +189,14 @@
             }
           },
           "meshes": {
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2498,
+            "model": {
+              "vertexCount": 20859,
               "center": [
-                0.253599859420269,
-                1.0288549878605175,
-                0.14984504450588235
+                -0.000376085133286963,
+                -0.007715241644521309,
+                0.12640318590202182
               ],
-              "radius": 0.42642168859829327
-            },
-            "pushpa-raj-review-mesh": {
-              "vertexCount": 37171,
-              "center": [
-                -0.006406160183081405,
-                0.7696112710610432,
-                0.09824784421007568
-              ],
-              "radius": 1.025223173491693
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2498,
-              "center": [
-                -0.26550178670566094,
-                1.154859078118199,
-                0.21301163295768835
-              ],
-              "radius": 0.5731875092599569
+              "radius": 1.261254396496351
             }
           }
         }
@@ -185,16 +205,16 @@
     {
       "characterId": "jessie",
       "candidate": {
-        "assetId": "jessie-blue-saree-walking-v1",
-        "sha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82"
+        "assetId": "jessie-rodin-cast-v1",
+        "sha256": "f25ed2466ff145a22778cc9e8406aed0e3b521fe7791e9f4d2d2b532fc488caf"
       },
       "glb": {
-        "url": "/delivery/characters/jessie/walking-v1.glb",
-        "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+        "url": "/delivery/characters/jessie/rodin-6a5680fa3df8.glb",
+        "sha256": "6a5680fa3df813cd536fabe4bba75c61c9fdcd02f08cc6651a4d66d530b1d3f2"
       },
-      "contractPath": "public/delivery/characters/jessie/walking-v1.rig.json",
+      "contractPath": "public/delivery/characters/jessie/rodin-6a5680fa3df8.rig.json",
       "contract": {
-        "id": "jessie-walking-in-city-v1",
+        "id": "rodin-jessie-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -207,11 +227,15 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
             "LeftArm",
             "LeftForeArm",
-            "LeftWristTwist",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
             "LeftIndex1",
             "LeftIndex2",
             "LeftIndex3",
@@ -224,14 +248,13 @@
             "LeftPinky1",
             "LeftPinky2",
             "LeftPinky3",
-            "LeftThumb1",
-            "LeftThumb2",
-            "LeftThumb3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
-            "RightWristTwist",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -243,10 +266,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -280,48 +300,52 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64",
+          "glbSha256": "6a5680fa3df813cd536fabe4bba75c61c9fdcd02f08cc6651a4d66d530b1d3f2",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7062,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               },
               {
                 "name": "Dance",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
                 "LeftArm",
                 "LeftForeArm",
-                "LeftWristTwist",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
                 "LeftIndex1",
                 "LeftIndex2",
                 "LeftIndex3",
@@ -334,14 +358,13 @@
                 "LeftPinky1",
                 "LeftPinky2",
                 "LeftPinky3",
-                "LeftThumb1",
-                "LeftThumb2",
-                "LeftThumb3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
-                "RightWristTwist",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -353,10 +376,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -369,77 +389,14 @@
             }
           },
           "meshes": {
-            "geometry_0001": {
-              "vertexCount": 1443,
+            "model": {
+              "vertexCount": 23014,
               "center": [
-                0.002103285723542153,
-                0.061574190207511634,
-                0.05085647441656574
+                -0.0022953472799694674,
+                -0.04306007301723014,
+                0.12741545100594628
               ],
-              "radius": 0.36573622629936414
-            },
-            "geometry_0001_1": {
-              "vertexCount": 248,
-              "center": [
-                0.0009961126583465374,
-                0.15284265098385638,
-                0.056970872481903134
-              ],
-              "radius": 0.348636589318077
-            },
-            "geometry_0": {
-              "vertexCount": 33604,
-              "center": [
-                0.04468731479935631,
-                0.8635971348646159,
-                -0.010884586010074637
-              ],
-              "radius": 0.9110411003460641
-            },
-            "geometry_0_1": {
-              "vertexCount": 149,
-              "center": [
-                0.003055731886134491,
-                1.170329534367637,
-                -0.00009140208601066124
-              ],
-              "radius": 0.311213491472463
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.21897791798357907,
-                1.0334441809889077,
-                0.20034608184661906
-              ],
-              "radius": 0.47831518778531834
-            },
-            "LeftAuthoredUpperArmSkin": {
-              "vertexCount": 160,
-              "center": [
-                0.22947961624897661,
-                1.1563489651611238,
-                0.06603301146055543
-              ],
-              "radius": 0.2460172432134649
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.21595978566980106,
-                1.036219938213251,
-                0.19829266448277733
-              ],
-              "radius": 0.4766043602193873
-            },
-            "RightAuthoredUpperArmSkin": {
-              "vertexCount": 160,
-              "center": [
-                -0.22498993795135466,
-                1.1607251874616917,
-                0.06366967538766546
-              ],
-              "radius": 0.24981576149128967
+              "radius": 1.2129252456787234
             }
           }
         }
@@ -448,16 +405,16 @@
     {
       "characterId": "hasini",
       "candidate": {
-        "assetId": "hasini-bommarillu-college-v1",
-        "sha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b"
+        "assetId": "hasini-rodin-cast-v1",
+        "sha256": "38602d290db9cda2837a067d66a18942d3bf3e25d3b879e5125a7d7d9ec17374"
       },
       "glb": {
-        "url": "/delivery/characters/hasini/college-v1.glb",
-        "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+        "url": "/delivery/characters/hasini/rodin-705d16eb40cb.glb",
+        "sha256": "705d16eb40cb40f5e131056943c58c7f7c9f3a35e21555ef8f1b8132eb7d2c81"
       },
-      "contractPath": "public/delivery/characters/hasini/college-v1.rig.json",
+      "contractPath": "public/delivery/characters/hasini/rodin-705d16eb40cb.rig.json",
       "contract": {
-        "id": "hasini-at-college-v1",
+        "id": "rodin-hasini-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -470,14 +427,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -489,11 +466,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -514,36 +487,56 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965",
+          "glbSha256": "705d16eb40cb40f5e131056943c58c7f7c9f3a35e21555ef8f1b8132eb7d2c81",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 2040,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -555,11 +548,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -572,77 +561,14 @@
             }
           },
           "meshes": {
-            "geometry_0": {
-              "vertexCount": 34730,
+            "model": {
+              "vertexCount": 26981,
               "center": [
-                -0.006348112255560284,
-                0.8271495960560256,
-                -5.719912477414324e-7
+                0.0002839064408700076,
+                -0.03953876200667217,
+                0.1559765889945769
               ],
-              "radius": 0.9105395672523668
-            },
-            "geometry_0_1": {
-              "vertexCount": 19737,
-              "center": [
-                -0.019706258189143816,
-                1.5075059332515541,
-                -0.008986574737717176
-              ],
-              "radius": 0.31579154804779447
-            },
-            "geometry_0_2": {
-              "vertexCount": 2563,
-              "center": [
-                -0.0055360461875685885,
-                0.8980533526366372,
-                -0.03423020892865525
-              ],
-              "radius": 0.5325718827368499
-            },
-            "geometry_0_3": {
-              "vertexCount": 736,
-              "center": [
-                0.03408041223883629,
-                1.6226640754762869,
-                -0.016193663472864835
-              ],
-              "radius": 0.10390898358621883
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
-              "center": [
-                0.2135710002428186,
-                0.8581113382141421,
-                0.24952064588672995
-              ],
-              "radius": 0.3236037546988286
-            },
-            "LeftAuthoredContinuousBareArm": {
-              "vertexCount": 220,
-              "center": [
-                0.20639490788404444,
-                1.0513180849000539,
-                0.14165078711935386
-              ],
-              "radius": 0.35578778686686197
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
-              "center": [
-                -0.21594982974445714,
-                0.8606855311587085,
-                0.24800314427398312
-              ],
-              "radius": 0.3240303659498775
-            },
-            "RightAuthoredContinuousBareArm": {
-              "vertexCount": 220,
-              "center": [
-                -0.20844887900669032,
-                1.056139692166507,
-                0.14755073475257557
-              ],
-              "radius": 0.35134060717678356
+              "radius": 1.1748164271166865
             }
           }
         }
@@ -651,16 +577,16 @@
     {
       "characterId": "devara",
       "candidate": {
-        "assetId": "devara-underwater-neck-grip-v1",
-        "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+        "assetId": "devara-rodin-cast-v1",
+        "sha256": "19f0c732fac607ffe463250beb50d0ef8739b88b68602a675ddc547150d2ee9c"
       },
       "glb": {
-        "url": "/delivery/characters/devara/neck-grip-v1.glb",
-        "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+        "url": "/delivery/characters/devara/rodin-f02fe91d8de3.glb",
+        "sha256": "f02fe91d8de37662331396625ee4353105ed990649508c2f7c081a08897961ed"
       },
-      "contractPath": "public/delivery/characters/devara/neck-grip-v1.rig.json",
+      "contractPath": "public/delivery/characters/devara/rodin-f02fe91d8de3.rig.json",
       "contract": {
-        "id": "devara-neck-grip-in-water-v3",
+        "id": "rodin-devara-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -688,74 +614,29 @@
         "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399",
+          "glbSha256": "f02fe91d8de37662331396625ee4353105ed990649508c2f7c081a08897961ed",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 53,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 63,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 52
+                "samples": 62
               }
             ]
           },
           "meshes": {
-            "geometry_0": {
-              "vertexCount": 30371,
+            "model": {
+              "vertexCount": 19150,
               "center": [
-                0.0017756301463972834,
-                0.9974292882409211,
-                0.06377130550466009
+                0.00009252027558501186,
+                -0.05000982232404311,
+                0.17204741128071638
               ],
-              "radius": 0.7155182710634462
-            },
-            "geometry_0_1": {
-              "vertexCount": 433,
-              "center": [
-                0.0005419924190915582,
-                1.3409122015662365,
-                0.10418463870224662
-              ],
-              "radius": 0.47734999576894127
-            },
-            "geometry_0_2": {
-              "vertexCount": 8317,
-              "center": [
-                0.015704469409964977,
-                0.2628550174174781,
-                0.04416973645387948
-              ],
-              "radius": 0.45037931139432125
-            },
-            "geometry_0_3": {
-              "vertexCount": 88,
-              "center": [
-                0.007430884926902026,
-                1.2878461580699536,
-                0.09123136029639885
-              ],
-              "radius": 0.456049973521814
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.2090104925904076,
-                1.186483642364273,
-                0.2314722132354956
-              ],
-              "radius": 0.5635217437787123
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.2048417562810682,
-                1.183729641809162,
-                0.22029342776523142
-              ],
-              "radius": 0.5704066242699373
+              "radius": 1.188156980937702
             }
           }
         }
@@ -764,16 +645,16 @@
     {
       "characterId": "ram-vvr",
       "candidate": {
-        "assetId": "ram-vvr-train-roof-v1",
-        "sha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d"
+        "assetId": "ram-vvr-rodin-cast-v1",
+        "sha256": "964572b7d697217115af4290f54547b40d5b2da7b2471cde4f1db2e78ed1287a"
       },
       "glb": {
-        "url": "/delivery/characters/ram-vvr/train-roof-v1.glb",
-        "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+        "url": "/delivery/characters/ram-vvr/rodin-5bc57fc273bd.glb",
+        "sha256": "5bc57fc273bd4b8d41bcb06e8ab89f2883b5c783a0c4084f5d3df1c156dc1585"
       },
-      "contractPath": "public/delivery/characters/ram-vvr/train-roof-v1.rig.json",
+      "contractPath": "public/delivery/characters/ram-vvr/rodin-5bc57fc273bd.rig.json",
       "contract": {
-        "id": "ram-vvr-on-train-v2",
+        "id": "rodin-ram-vvr-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -786,11 +667,15 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
             "LeftArm",
             "LeftForeArm",
-            "LeftWristTwist",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
             "LeftIndex1",
             "LeftIndex2",
             "LeftIndex3",
@@ -803,14 +688,13 @@
             "LeftPinky1",
             "LeftPinky2",
             "LeftPinky3",
-            "LeftThumb1",
-            "LeftThumb2",
-            "LeftThumb3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
-            "RightWristTwist",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -822,10 +706,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -859,48 +740,52 @@
         "catchPointSpace": "box-center",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+          "glbSha256": "5bc57fc273bd4b8d41bcb06e8ab89f2883b5c783a0c4084f5d3df1c156dc1585",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7062,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
                 "LeftArm",
                 "LeftForeArm",
-                "LeftWristTwist",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
                 "LeftIndex1",
                 "LeftIndex2",
                 "LeftIndex3",
@@ -913,14 +798,13 @@
                 "LeftPinky1",
                 "LeftPinky2",
                 "LeftPinky3",
-                "LeftThumb1",
-                "LeftThumb2",
-                "LeftThumb3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
-                "RightWristTwist",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -932,10 +816,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -948,32 +829,14 @@
             }
           },
           "meshes": {
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2498,
+            "model": {
+              "vertexCount": 20415,
               "center": [
-                0.2581275795489819,
-                0.9868909693528485,
-                0.18446498193855987
+                0.00026103843181504716,
+                -0.04722264032073081,
+                0.08416274238662205
               ],
-              "radius": 0.4954423086273171
-            },
-            "ram-vvr-review-mesh": {
-              "vertexCount": 30451,
-              "center": [
-                -0.00027682229724695917,
-                0.7704127446905858,
-                0.02308285615050193
-              ],
-              "radius": 0.9856761897891161
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2498,
-              "center": [
-                -0.25851085982041183,
-                0.9868423795615227,
-                0.18199233855112262
-              ],
-              "radius": 0.4971593425888899
+              "radius": 1.2490175632414686
             }
           }
         }
@@ -982,16 +845,16 @@
     {
       "characterId": "sukumar",
       "candidate": {
-        "assetId": "sukumar-studio-director-v1",
-        "sha256": "16c105800c3169f253b05d2b9e2bba8f8ca070c4948d3e12db66db040491641d"
+        "assetId": "sukumar-rodin-cast-v1",
+        "sha256": "a12c831a0e6217f6279956f688fd11f3db2f730195b291d68d44288b29584ea6"
       },
       "glb": {
-        "url": "/delivery/characters/sukumar/director-v1.glb",
-        "sha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292"
+        "url": "/delivery/characters/sukumar/rodin-b38c5cf4ad58.glb",
+        "sha256": "b38c5cf4ad587143fb6cbf1718d9f22f850ce1d379379a12d12db27f7a21501b"
       },
-      "contractPath": "public/delivery/characters/sukumar/director-v1.rig.json",
+      "contractPath": "public/delivery/characters/sukumar/rodin-b38c5cf4ad58.rig.json",
       "contract": {
-        "id": "sukumar-at-studio-v1",
+        "id": "rodin-sukumar-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -1004,14 +867,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -1023,11 +906,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -1048,36 +927,56 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292",
+          "glbSha256": "b38c5cf4ad587143fb6cbf1718d9f22f850ce1d379379a12d12db27f7a21501b",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 2040,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -1089,11 +988,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -1106,95 +1001,14 @@
             }
           },
           "meshes": {
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2174,
+            "model": {
+              "vertexCount": 20564,
               "center": [
-                0.22058500870999145,
-                1.0021824673790747,
-                0.2009219015900074
+                -0.0002750551243043964,
+                -0.0010489466093667188,
+                0.1603056667406526
               ],
-              "radius": 0.4160482444356632
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2202,
-              "center": [
-                -0.2223654691006509,
-                0.9935420271447772,
-                0.1962207375177547
-              ],
-              "radius": 0.41848231981170025
-            },
-            "geometry_0": {
-              "vertexCount": 41143,
-              "center": [
-                0.0028492253307770277,
-                0.8899771262405624,
-                0.022887785551085338
-              ],
-              "radius": 0.9940992649253354
-            },
-            "geometry_0_1": {
-              "vertexCount": 12307,
-              "center": [
-                -0.004378121346235275,
-                1.6099929336149248,
-                -0.027257685365809137
-              ],
-              "radius": 0.2612967324030959
-            },
-            "geometry_0_2": {
-              "vertexCount": 185,
-              "center": [
-                0.07290148691175666,
-                1.5090115718194914,
-                0.053400625382657774
-              ],
-              "radius": 0.06751660432143125
-            },
-            "geometry_0_3": {
-              "vertexCount": 657,
-              "center": [
-                0.0016715858391097849,
-                1.1614738019586996,
-                0.031122794815821322
-              ],
-              "radius": 0.36159401852096973
-            },
-            "Measured_actual_eyes_and_eyelid_backing001": {
-              "vertexCount": 3780,
-              "center": [
-                -0.035161048639565706,
-                1.6171266346684843,
-                0.07079899009291155
-              ],
-              "radius": 0.07557650277759694
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_1": {
-              "vertexCount": 834,
-              "center": [
-                -0.035161047242581844,
-                1.6171929749230136,
-                0.08134632238532243
-              ],
-              "radius": 0.06661058707731923
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_2": {
-              "vertexCount": 834,
-              "center": [
-                -0.035161049803718925,
-                1.6172057481523145,
-                0.08233466232472951
-              ],
-              "radius": 0.06149223204185085
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_3": {
-              "vertexCount": 320,
-              "center": [
-                -0.03516104817390442,
-                1.6172462247313557,
-                0.08165435448053066
-              ],
-              "radius": 0.09668692096985844
+              "radius": 1.156883141406744
             }
           }
         }
@@ -1203,16 +1017,16 @@
     {
       "characterId": "nani-jersey",
       "candidate": {
-        "assetId": "nani-jersey-cricketer-v1",
-        "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+        "assetId": "nani-jersey-rodin-cast-v1",
+        "sha256": "92b95ffb38b756c2d07795ee9c2f352bda61b094d5a6ee42a40c10c3569b0278"
       },
       "glb": {
-        "url": "/delivery/characters/nani-jersey/cricketer-v1.glb",
-        "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+        "url": "/delivery/characters/nani-jersey/rodin-5f7dde640527.glb",
+        "sha256": "5f7dde64052772f4e5b98bc354330155f6c6c61858edf9b2b71d11f8572b383e"
       },
-      "contractPath": "public/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+      "contractPath": "public/delivery/characters/nani-jersey/rodin-5f7dde640527.rig.json",
       "contract": {
-        "id": "nani-jersey-at-stadium-v1",
+        "id": "rodin-nani-jersey-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -1225,14 +1039,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -1244,11 +1078,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -1269,36 +1099,56 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+          "glbSha256": "5f7dde64052772f4e5b98bc354330155f6c6c61858edf9b2b71d11f8572b383e",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 2040,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -1310,11 +1160,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -1327,95 +1173,14 @@
             }
           },
           "meshes": {
-            "Sphere": {
-              "vertexCount": 661,
+            "model": {
+              "vertexCount": 18488,
               "center": [
-                0.22054393300363473,
-                1.1328575173396667,
-                0.12532617951905675
+                0.0011607179586870797,
+                -0.030038784632901105,
+                0.15666609127256875
               ],
-              "radius": 0.3344660025626068
-            },
-            "Sphere_1": {
-              "vertexCount": 1650,
-              "center": [
-                0.22822907265624398,
-                0.9462726753655504,
-                0.23686546802039377
-              ],
-              "radius": 0.36302527918450767
-            },
-            "geometry_0": {
-              "vertexCount": 35210,
-              "center": [
-                0.0024221722981976335,
-                0.8577195113643181,
-                0.006966015634887968
-              ],
-              "radius": 0.9481929944878793
-            },
-            "geometry_0_1": {
-              "vertexCount": 5274,
-              "center": [
-                0.002767696976661682,
-                1.5912029320609693,
-                -0.02349135836798795
-              ],
-              "radius": 0.23356109133463304
-            },
-            "geometry_0_2": {
-              "vertexCount": 180,
-              "center": [
-                -0.0006769677008142405,
-                1.1713543885842044,
-                0.055581442968723256
-              ],
-              "radius": 0.2616184849753488
-            },
-            "geometry_0_3": {
-              "vertexCount": 534,
-              "center": [
-                0.0024221722981976335,
-                1.256440612260227,
-                0.02402590938541445
-              ],
-              "radius": 0.3644053974863028
-            },
-            "geometry_0_4": {
-              "vertexCount": 1935,
-              "center": [
-                -0.000278860424521514,
-                1.6762753015752025,
-                0.027756406149125938
-              ],
-              "radius": 0.2266478667755305
-            },
-            "geometry_0_5": {
-              "vertexCount": 14548,
-              "center": [
-                0.0034035779535770416,
-                1.676097495021578,
-                -0.028636773150682387
-              ],
-              "radius": 0.23663610143380834
-            },
-            "Sphere022": {
-              "vertexCount": 633,
-              "center": [
-                -0.22124399451027763,
-                1.135275201907921,
-                0.12431035264171791
-              ],
-              "radius": 0.33502927852060416
-            },
-            "Sphere022_1": {
-              "vertexCount": 1665,
-              "center": [
-                -0.22956788478342754,
-                0.9462591215011065,
-                0.23572463043202696
-              ],
-              "radius": 0.36352041077842
+              "radius": 1.1977919608730139
             }
           }
         }
@@ -1424,16 +1189,16 @@
     {
       "characterId": "arjun-reddy",
       "candidate": {
-        "assetId": "arjun-reddy-medical-courtyard-v1",
-        "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+        "assetId": "arjun-reddy-rodin-cast-v1",
+        "sha256": "cc43e7a38404e9b6b053282b1cfb16b1ffd4542a6a6a4a39ace78d83ccde3395"
       },
       "glb": {
-        "url": "/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
-        "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+        "url": "/delivery/characters/arjun-reddy/rodin-cec1ed83baeb.glb",
+        "sha256": "cec1ed83baeb92fca5dd554fe8f82f55084e42d47d0c024414e481e85a4a98b5"
       },
-      "contractPath": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+      "contractPath": "public/delivery/characters/arjun-reddy/rodin-cec1ed83baeb.rig.json",
       "contract": {
-        "id": "arjun-reddy-at-medical-college-v1",
+        "id": "rodin-arjun-reddy-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -1446,14 +1211,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -1465,11 +1250,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -1490,36 +1271,56 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5",
+          "glbSha256": "cec1ed83baeb92fca5dd554fe8f82f55084e42d47d0c024414e481e85a4a98b5",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 2040,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -1531,11 +1332,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -1548,86 +1345,14 @@
             }
           },
           "meshes": {
-            "geometry_0": {
-              "vertexCount": 32888,
+            "model": {
+              "vertexCount": 19991,
               "center": [
-                -0.008179083797540565,
-                0.910055021394682,
-                0.011643186053658189
+                0.00022572931026826337,
+                -0.03172773101621701,
+                0.1788506189046015
               ],
-              "radius": 0.9941282868340707
-            },
-            "geometry_0_1": {
-              "vertexCount": 22024,
-              "center": [
-                -0.007478594681899403,
-                1.6497038542779028,
-                -0.013594683567652602
-              ],
-              "radius": 0.2867375574872673
-            },
-            "geometry_0_2": {
-              "vertexCount": 552,
-              "center": [
-                -0.008179083797540565,
-                1.2626131505001186,
-                0.0343621262777109
-              ],
-              "radius": 0.35813836513558717
-            },
-            "Measured_actual_eyes_and_eyelid_backing001": {
-              "vertexCount": 1890,
-              "center": [
-                -0.039061546325683594,
-                1.6474348193092432,
-                0.0872207271349709
-              ],
-              "radius": 0.04179304837385238
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_1": {
-              "vertexCount": 417,
-              "center": [
-                -0.039061546325683594,
-                1.647501159407312,
-                0.09776810271424488
-              ],
-              "radius": 0.030314856767504665
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_2": {
-              "vertexCount": 417,
-              "center": [
-                -0.039061546325683594,
-                1.6475139922397974,
-                0.09875639458359806
-              ],
-              "radius": 0.02472351608840139
-            },
-            "Measured_actual_eyes_and_eyelid_backing001_3": {
-              "vertexCount": 160,
-              "center": [
-                -0.03906154539436102,
-                1.6475521499700831,
-                0.09769336420800422
-              ],
-              "radius": 0.06192075867420109
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2265,
-              "center": [
-                0.24387897232054895,
-                1.065020956981181,
-                0.2172666678047327
-              ],
-              "radius": 0.44456829557361033
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2289,
-              "center": [
-                -0.25096032984065525,
-                1.0588263101289128,
-                0.21921606572529034
-              ],
-              "radius": 0.44695642470918445
+              "radius": 1.1951580782064541
             }
           }
         }
@@ -1636,16 +1361,16 @@
     {
       "characterId": "maruthi",
       "candidate": {
-        "assetId": "maruthi-kondapur-director-v1",
-        "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+        "assetId": "maruthi-rodin-cast-v1",
+        "sha256": "77786d749dc5fdd7bfdd16ca78570036103251635beca20a2e0d2114b688e32e"
       },
       "glb": {
-        "url": "/delivery/characters/maruthi/director-v1.glb",
-        "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+        "url": "/delivery/characters/maruthi/rodin-59152a7f5337.glb",
+        "sha256": "59152a7f5337386192dcb23d1a7886ab7a9018f20eec868f0ee522c79ebdf090"
       },
-      "contractPath": "public/delivery/characters/maruthi/director-v1.rig.json",
+      "contractPath": "public/delivery/characters/maruthi/rodin-59152a7f5337.rig.json",
       "contract": {
-        "id": "maruthi-at-villa-v2",
+        "id": "rodin-maruthi-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -1658,14 +1383,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -1677,12 +1422,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist",
-            "LeftWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -1703,36 +1443,56 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f",
+          "glbSha256": "59152a7f5337386192dcb23d1a7886ab7a9018f20eec868f0ee522c79ebdf090",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 2040,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 1521,
             "clips": [
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -1744,12 +1504,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist",
-                "LeftWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -1762,41 +1517,14 @@
             }
           },
           "meshes": {
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
+            "model": {
+              "vertexCount": 19830,
               "center": [
-                0.22559669362071988,
-                0.9969343440954683,
-                0.11923351365662677
+                -0.0006043778955162893,
+                -0.011415123658833182,
+                0.09345873556970553
               ],
-              "radius": 0.3466000603882657
-            },
-            "geometry_0": {
-              "vertexCount": 46674,
-              "center": [
-                -0.0030469408006487397,
-                0.8795582796394048,
-                0.06873560124940405
-              ],
-              "radius": 0.9868126265233238
-            },
-            "geometry_0_1": {
-              "vertexCount": 4440,
-              "center": [
-                -0.007689207589097913,
-                1.6156484124558048,
-                0.008526046938858368
-              ],
-              "radius": 0.22600609050026013
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.2562407172048593,
-                0.9968696875698029,
-                0.1238341871043508
-              ],
-              "radius": 0.3535144464691007
+              "radius": 1.1474957016557026
             }
           }
         }
@@ -1805,18 +1533,18 @@
     {
       "characterId": "arundhati",
       "candidate": {
-        "assetId": "arundhati-haunted-gate-v1",
-        "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+        "assetId": "arundhati-rodin-cast-v1",
+        "sha256": "1813ad3efaf2299db35e90abbfa44df13fdb2874fad8c98f35dcbe643a9a54ad"
       },
       "glb": {
-        "url": "/delivery/characters/arundhati/gate-presence-v1.glb",
-        "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+        "url": "/delivery/characters/arundhati/rodin-09048a9596f0.glb",
+        "sha256": "09048a9596f0db0d9c224c70523e1b2e82d30be8f66744426546f8cca633ede8"
       },
-      "contractPath": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+      "contractPath": "public/delivery/characters/arundhati/rodin-09048a9596f0.rig.json",
       "contract": {
-        "id": "arundhati-behind-haunted-gate-v1",
-        "sceneName": "ArundhatiGateStaticScene",
-        "requireSkin": false,
+        "id": "rodin-arundhati-v1",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
         "nodes": {
           "leftArm": "LeftArm",
           "rightArm": "RightArm",
@@ -1830,22 +1558,60 @@
           "min": 1.6624999999999999,
           "max": 1.8375000000000001
         },
-        "materialTreatment": "as-authored"
+        "materialTreatment": "as-authored",
+        "motions": {
+          "required": [
+            "idle"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            }
+          }
+        },
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "09048a9596f0db0d9c224c70523e1b2e82d30be8f66744426546f8cca633ede8",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 63,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              }
+            ]
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 26637,
+              "center": [
+                0.0004568834114812015,
+                -0.06682936717157517,
+                0.0022579200682120992
+              ],
+              "radius": 1.1832007109533373
+            }
+          }
+        }
       }
     },
     {
       "characterId": "bhanumathi",
       "candidate": {
-        "assetId": "bhanumathi-fidaa-procession-v1",
-        "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+        "assetId": "bhanumathi-rodin-cast-v1",
+        "sha256": "f49b27a3d3d32a5cb0fa5a38f0e2dc5121fd3253563001c6349775f7b439732a"
       },
       "glb": {
-        "url": "/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
-        "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+        "url": "/delivery/characters/bhanumathi/rodin-db28689d97a7.glb",
+        "sha256": "db28689d97a7915ff8e74de115a1aa6b0428b9f7491cee28eca05f5e6606ede0"
       },
-      "contractPath": "public/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+      "contractPath": "public/delivery/characters/bhanumathi/rodin-db28689d97a7.rig.json",
       "contract": {
-        "id": "bhanumathi-at-wedding-v2",
+        "id": "rodin-bhanumathi-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -1858,11 +1624,15 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
             "LeftArm",
             "LeftForeArm",
-            "LeftWristTwist",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
             "LeftIndex1",
             "LeftIndex2",
             "LeftIndex3",
@@ -1875,14 +1645,13 @@
             "LeftPinky1",
             "LeftPinky2",
             "LeftPinky3",
-            "LeftThumb1",
-            "LeftThumb2",
-            "LeftThumb3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
-            "RightWristTwist",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -1894,10 +1663,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -1931,48 +1697,52 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146",
+          "glbSha256": "db28689d97a7915ff8e74de115a1aa6b0428b9f7491cee28eca05f5e6606ede0",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7062,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
               {
-                "name": "Dance",
+                "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
               },
               {
                 "name": "Read",
                 "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
-                "name": "Idle",
-                "duration": 2.0416667461395264,
-                "samples": 83
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
                 "LeftArm",
                 "LeftForeArm",
-                "LeftWristTwist",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
                 "LeftIndex1",
                 "LeftIndex2",
                 "LeftIndex3",
@@ -1985,14 +1755,13 @@
                 "LeftPinky1",
                 "LeftPinky2",
                 "LeftPinky3",
-                "LeftThumb1",
-                "LeftThumb2",
-                "LeftThumb3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
-                "RightWristTwist",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -2004,10 +1773,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -2020,167 +1786,15 @@
             }
           },
           "meshes": {
-            "geometry_0001": {
-              "vertexCount": 847,
+            "model": {
+              "vertexCount": 24216,
               "center": [
-                0.0017872169608993405,
-                0.06712509969530805,
-                0.06395718347942059
+                -0.00013558584498243875,
+                -0.08386772155990085,
+                0.12439800229905357
               ],
-              "radius": 0.37974935518462155
-            },
-            "geometry_0001_1": {
-              "vertexCount": 196,
-              "center": [
-                0.00029970167791314173,
-                0.15340007127402333,
-                0.012142591228755328
-              ],
-              "radius": 0.3223570325943962
-            },
-            "geometry_0": {
-              "vertexCount": 30279,
-              "center": [
-                0.00031877811855896,
-                0.8729127617618737,
-                0.0035036444247769916
-              ],
-              "radius": 0.9924285731033553
-            },
-            "geometry_0_1": {
-              "vertexCount": 130,
-              "center": [
-                -0.11646785823084169,
-                1.247560723079342,
-                -0.01180936920829695
-              ],
-              "radius": 0.2119853002107421
-            },
-            "BhanumathiActualOuterHair": {
-              "vertexCount": 14539,
-              "center": [
-                0.046719776556035465,
-                1.3517021134773277,
-                -0.009481421610043436
-              ],
-              "radius": 0.42363060061115726
-            },
-            "BhanumathiNativeUpperSkirtJoin_1": {
-              "vertexCount": 457,
-              "center": [
-                -0.005122373987766576,
-                0.9387281286857634,
-                0.052119494266415954
-              ],
-              "radius": 0.27641497931041453
-            },
-            "BhanumathiNativeUpperSkirtJoin_2": {
-              "vertexCount": 319,
-              "center": [
-                -0.00684261216113996,
-                0.938593785290915,
-                -0.026947909264207332
-              ],
-              "radius": 0.24357199044106975
-            },
-            "BhanumathiReconstructedTorso002": {
-              "vertexCount": 235,
-              "center": [
-                -0.01628030049065915,
-                1.1683303113721202,
-                0.05453352343522429
-              ],
-              "radius": 0.296598084613479
-            },
-            "BhanumathiReconstructedTorso002_1": {
-              "vertexCount": 190,
-              "center": [
-                -0.02044088188213282,
-                1.168431807491131,
-                -0.05543285722540664
-              ],
-              "radius": 0.29411970536002263
-            },
-            "BhanumathiReconstructedTorso002_2": {
-              "vertexCount": 256,
-              "center": [
-                3.0515451276968975e-12,
-                1.4178438384817198,
-                -0.014369556400012057
-              ],
-              "radius": 0.2338156978245995
-            },
-            "BhanumathiReconstructedTorso002_3": {
-              "vertexCount": 164,
-              "center": [
-                0.11453811066799013,
-                1.1858865380879147,
-                0.003372813200156824
-              ],
-              "radius": 0.260107556197133
-            },
-            "Measured_wedding_wrist_bangles": {
-              "vertexCount": 768,
-              "center": [
-                -0.016726809751768407,
-                1.0405485815132798,
-                0.15235119181848555
-              ],
-              "radius": 0.4989007987957106
-            },
-            "Measured_wedding_wrist_bangles_1": {
-              "vertexCount": 576,
-              "center": [
-                -0.01649579678239191,
-                1.0421293525675193,
-                0.1504105109680175
-              ],
-              "radius": 0.49334426223405864
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2233,
-              "center": [
-                0.2171793975520906,
-                1.0361183052303593,
-                0.19888036846798035
-              ],
-              "radius": 0.4767659432011297
-            },
-            "LeftAuthoredUpperArmSkin": {
-              "vertexCount": 1762,
-              "center": [
-                0.2200007875061915,
-                1.1804045889537036,
-                0.06848300562619888
-              ],
-              "radius": 0.29058012828891544
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2225,
-              "center": [
-                -0.23443669820582577,
-                1.0294694504779254,
-                0.2092671084532971
-              ],
-              "radius": 0.4811082293651029
-            },
-            "RightAuthoredUpperArmSkin": {
-              "vertexCount": 1858,
-              "center": [
-                -0.22286776696170155,
-                1.176295410864522,
-                0.07600555891742464
-              ],
-              "radius": 0.28819464944993634
+              "radius": 1.2667255311752177
             }
-          },
-          "derivation": {
-            "source": "/tmp/roadster-bhanumathi-production/bhanumathi-measured-side-v40.motion-bounds.json",
-            "sourceBoundsSha256": "5cf1743b3deddcd7976021780d2db7d7c49cfcf0b500a77011f3c00cf6c63791",
-            "sourceModelSha256": "58654d11f957dfdc7d6423f6575831fb1db8735fdf8e59e8b11832d1e70f8334",
-            "equivalenceProof": "/tmp/roadster-bhanumathi-production/v41-exact-geometry-rig-animation.json",
-            "equivalenceProofSha256": "db32fcc1303d39e392c6f14e17e78861ad85e91dfd0278ed9854ced5c66b0785",
-            "method": "V40 actual24fps7062pose bounds reused only after bit-exact geometry,all node transforms,skin inverse binds,animation samplers and motion/pose contract equality. Only model image pixels changed."
           }
         }
       }
@@ -2188,16 +1802,16 @@
     {
       "characterId": "vakeel-saab",
       "candidate": {
-        "assetId": "vakeel-saab-metro-lawyer-v1",
-        "sha256": "c711b033e1168850e4d8f93db57146053d7b10cf83da8adea0e226e87e6d4348"
+        "assetId": "vakeel-saab-rodin-cast-v1",
+        "sha256": "787d95c11e469d2147a877df56b6865bd7efb0164e3235d1b4a7fd98ce01dc7c"
       },
       "glb": {
-        "url": "/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
-        "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+        "url": "/delivery/characters/vakeel-saab/rodin-cf5f3590bbc3.glb",
+        "sha256": "cf5f3590bbc35a4433c8920c2c4fe58e0b02c55183bdd51a0ddb0f7daa27cb33"
       },
-      "contractPath": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.rig.json",
+      "contractPath": "public/delivery/characters/vakeel-saab/rodin-cf5f3590bbc3.rig.json",
       "contract": {
-        "id": "vakeel-saab-on-metro-v2",
+        "id": "rodin-vakeel-saab-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -2210,11 +1824,15 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
             "LeftArm",
             "LeftForeArm",
-            "LeftWristTwist",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
             "LeftIndex1",
             "LeftIndex2",
             "LeftIndex3",
@@ -2227,14 +1845,13 @@
             "LeftPinky1",
             "LeftPinky2",
             "LeftPinky3",
-            "LeftThumb1",
-            "LeftThumb2",
-            "LeftThumb3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
-            "RightWristTwist",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -2246,10 +1863,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -2283,48 +1897,52 @@
         "catchPointSpace": "palm-contact",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+          "glbSha256": "cf5f3590bbc35a4433c8920c2c4fe58e0b02c55183bdd51a0ddb0f7daa27cb33",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7062,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
               },
               {
                 "name": "TakePizza",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
                 "LeftArm",
                 "LeftForeArm",
-                "LeftWristTwist",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
                 "LeftIndex1",
                 "LeftIndex2",
                 "LeftIndex3",
@@ -2337,14 +1955,13 @@
                 "LeftPinky1",
                 "LeftPinky2",
                 "LeftPinky3",
-                "LeftThumb1",
-                "LeftThumb2",
-                "LeftThumb3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
-                "RightWristTwist",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -2356,10 +1973,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -2372,32 +1986,14 @@
             }
           },
           "meshes": {
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
+            "model": {
+              "vertexCount": 19915,
               "center": [
-                0.22489282967068425,
-                0.9223840451094387,
-                0.23375988225258734
+                0.0011812817010392607,
+                -0.010703298227863145,
+                0.10924402166026959
               ],
-              "radius": 0.40185964331893836
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
-              "center": [
-                -0.22423302972505918,
-                0.9214017759836808,
-                0.22822496164863176
-              ],
-              "radius": 0.4057950624146536
-            },
-            "vakeel-saab-review-mesh": {
-              "vertexCount": 26897,
-              "center": [
-                0.0017362891154766025,
-                0.9026287824865558,
-                0.05320754002860731
-              ],
-              "radius": 1.0972949952329178
+              "radius": 1.203432921268171
             }
           }
         }
@@ -3150,16 +2746,16 @@
     {
       "characterId": "srikanth-odela",
       "candidate": {
-        "assetId": "srikanth-odela-visible-scene-v3",
-        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+        "assetId": "srikanth-odela-rodin-cast-v1",
+        "sha256": "31aa07573e0a097bded93f0af022ff62724d0c2d9d9d9e7900a0d73d3f4c130b"
       },
       "glb": {
-        "url": "/delivery/characters/srikanth-odela/actor-v3.glb",
-        "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+        "url": "/delivery/characters/srikanth-odela/rodin-674eaff4f179.glb",
+        "sha256": "674eaff4f17960b6c4a75c2ca54fa6b4faf622056164ca9b5d3f26923fced102"
       },
-      "contractPath": "public/delivery/characters/srikanth-odela/actor-v3.rig.json",
+      "contractPath": "public/delivery/characters/srikanth-odela/rodin-674eaff4f179.rig.json",
       "contract": {
-        "id": "srikanth-odela-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-navy-shirt-uv-v3",
+        "id": "rodin-srikanth-odela-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3173,14 +2769,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3192,11 +2808,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -3226,22 +2838,124 @@
           "min": 1.672,
           "max": 1.848
         },
-        "materialTreatment": "as-authored"
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "674eaff4f17960b6c4a75c2ca54fa6b4faf622056164ca9b5d3f26923fced102",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 16747,
+              "center": [
+                -0.0005183274501829038,
+                -0.013023693671713354,
+                0.0852364983143154
+              ],
+              "radius": 1.1974960484946717
+            }
+          }
+        }
       }
     },
     {
       "characterId": "prabhas-salaar",
       "candidate": {
-        "assetId": "prabhas-salaar-visible-scene-v4",
-        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+        "assetId": "prabhas-salaar-rodin-cast-v1",
+        "sha256": "ae5bf2e0103b8a795b7362cf0e89d4d55367703c7a6ccdb39476c260ee9c438b"
       },
       "glb": {
-        "url": "/delivery/characters/prabhas-salaar/actor-v4.glb",
-        "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+        "url": "/delivery/characters/prabhas-salaar/rodin-53594954baef.glb",
+        "sha256": "53594954baef76b3b962d0a31872166f1c94eb9131af2a66b07c8fdce4a263d2"
       },
-      "contractPath": "public/delivery/characters/prabhas-salaar/actor-v4.rig.json",
+      "contractPath": "public/delivery/characters/prabhas-salaar/rodin-53594954baef.rig.json",
       "contract": {
-        "id": "prabhas-salaar-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-plain-tee-uv-v3-natural-short-nape-collar-v4-native-conformal-rear-collar-v4",
+        "id": "rodin-prabhas-salaar-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3255,14 +2969,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3274,11 +3008,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -3308,22 +3038,124 @@
           "min": 1.7859999999999998,
           "max": 1.974
         },
-        "materialTreatment": "as-authored"
+        "materialTreatment": "as-authored",
+        "motionBounds": {
+          "schemaVersion": 1,
+          "glbSha256": "53594954baef76b3b962d0a31872166f1c94eb9131af2a66b07c8fdce4a263d2",
+          "sceneName": "ReviewedCharacterScene",
+          "sampling": {
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
+            "clips": [
+              {
+                "name": "Idle",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Walk",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
+              }
+            ],
+            "maskedHandoff": {
+              "clipName": "TakePizza",
+              "upperBodyNodes": [
+                "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
+                "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
+                "RightIndex1",
+                "RightIndex2",
+                "RightIndex3",
+                "RightMiddle1",
+                "RightMiddle2",
+                "RightMiddle3",
+                "RightRing1",
+                "RightRing2",
+                "RightRing3",
+                "RightPinky1",
+                "RightPinky2",
+                "RightPinky3"
+              ],
+              "fractions": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "baseFramesPerSecond": 12
+            }
+          },
+          "meshes": {
+            "model": {
+              "vertexCount": 22204,
+              "center": [
+                0.0010508624692992519,
+                -0.038786101302080545,
+                0.08305278519739343
+              ],
+              "radius": 1.2585504451723755
+            }
+          }
+        }
       }
     },
     {
       "characterId": "balayya-chennakesava",
       "candidate": {
-        "assetId": "balayya-chennakesava-independent-appearance-v28",
-        "sha256": "c8b9f04254e51769f638c172cbe12ffe3677fa3fc40aa9b4ba1658ce797d2113"
+        "assetId": "balayya-chennakesava-rodin-cast-v1",
+        "sha256": "8aec4e06efdd8fd0c6d82eff5ec3edacd9fc68f499ebc3164ff07e522fb61e45"
       },
       "glb": {
-        "url": "/delivery/characters/balayya-chennakesava/actor-v28.glb",
-        "sha256": "b77a014e627e68af453b34e164ed2c66a1d57a86723e1687df7f7850fab624b9"
+        "url": "/delivery/characters/balayya-chennakesava/rodin-df3bc818b69a.glb",
+        "sha256": "df3bc818b69a56e4885258667d49f745924af16ca9239c12c2392d3be6c75319"
       },
-      "contractPath": "public/delivery/characters/balayya-chennakesava/actor-v28.rig.json",
+      "contractPath": "public/delivery/characters/balayya-chennakesava/rodin-df3bc818b69a.rig.json",
       "contract": {
-        "id": "balayya-chennakesava-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-mobile-jpeg89-v1",
+        "id": "rodin-balayya-chennakesava-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3336,14 +3168,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3355,11 +3207,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -3385,58 +3233,78 @@
             }
           }
         },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "b77a014e627e68af453b34e164ed2c66a1d57a86723e1687df7f7850fab624b9",
+          "glbSha256": "df3bc818b69a56e4885258667d49f745924af16ca9239c12c2392d3be6c75319",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 5983,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 52
-              },
-              {
-                "name": "PreservedOriginalIdle",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -3448,11 +3316,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -3465,73 +3329,32 @@
             }
           },
           "meshes": {
-            "balayya-chennakesava-review-mesh": {
-              "vertexCount": 15547,
+            "model": {
+              "vertexCount": 18280,
               "center": [
-                -0.028628086970030137,
-                0.779074116396867,
-                0.03287190911338822
+                -0.0001961874470408076,
+                -0.03541927422006991,
+                0.0826418858871247
               ],
-              "radius": 1.0241445437528893
-            },
-            "LeftAnatomicalWristTransition": {
-              "vertexCount": 98,
-              "center": [
-                0.2535114416112242,
-                0.9977640563122577,
-                0.22179228051532526
-              ],
-              "radius": 0.47280773167776025
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.2572010132551159,
-                0.9921352923959754,
-                0.2030950507201932
-              ],
-              "radius": 0.5574650334117053
-            },
-            "RightAnatomicalWristTransition": {
-              "vertexCount": 98,
-              "center": [
-                -0.2531864018589009,
-                1.2230970896520126,
-                0.22529984995555669
-              ],
-              "radius": 0.6229843664622379
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.2609323816353756,
-                1.210398919480239,
-                0.20434168478647885
-              ],
-              "radius": 0.7036868089536169
+              "radius": 1.218890223259617
             }
           }
-        },
-        "height": {
-          "min": 1.7289999999999999,
-          "max": 1.9110000000000003
-        },
-        "materialTreatment": "as-authored"
+        }
       }
     },
     {
       "characterId": "mahesh-athadu",
       "candidate": {
-        "assetId": "mahesh-athadu-independent-appearance-v20",
-        "sha256": "affb40e645a9618bf8f744432c96e6dfc62f4c189dd5476edbe3b70f872bcca9"
+        "assetId": "mahesh-athadu-rodin-cast-v1",
+        "sha256": "99c7da4991f0aee8b0f079e2cab19721fd2d73d3d49ee3510233b74c13331af8"
       },
       "glb": {
-        "url": "/delivery/characters/mahesh-athadu/actor-v20.glb",
-        "sha256": "c8a62c4dafd108b5509c8103257107cd6c4860b97debdc258584df0b553766b4"
+        "url": "/delivery/characters/mahesh-athadu/rodin-8ac8116cb0e4.glb",
+        "sha256": "8ac8116cb0e46c8b3809cc3d83aaa890dea5987ba8484a576fb1238b407c1730"
       },
-      "contractPath": "public/delivery/characters/mahesh-athadu/actor-v20.rig.json",
+      "contractPath": "public/delivery/characters/mahesh-athadu/rodin-8ac8116cb0e4.rig.json",
       "contract": {
-        "id": "mahesh-athadu-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-mobile-jpeg89-v1",
+        "id": "rodin-mahesh-athadu-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3544,14 +3367,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3563,11 +3406,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -3593,58 +3432,78 @@
             }
           }
         },
+        "height": {
+          "min": 1.767,
+          "max": 1.9530000000000003
+        },
+        "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "c8a62c4dafd108b5509c8103257107cd6c4860b97debdc258584df0b553766b4",
+          "glbSha256": "8ac8116cb0e46c8b3809cc3d83aaa890dea5987ba8484a576fb1238b407c1730",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 5983,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 52
-              },
-              {
-                "name": "PreservedOriginalIdle",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -3656,11 +3515,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -3673,73 +3528,32 @@
             }
           },
           "meshes": {
-            "LeftAnatomicalWristTransition": {
-              "vertexCount": 84,
+            "model": {
+              "vertexCount": 17708,
               "center": [
-                0.28114658362369216,
-                1.003093132879626,
-                0.1469948292420113
+                0.0001497651678055989,
+                -0.034459582351237195,
+                0.07631972688875516
               ],
-              "radius": 0.4515458417237092
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
-              "center": [
-                0.2852834465465943,
-                0.954459063567029,
-                0.1962357432345928
-              ],
-              "radius": 0.5234119369620883
-            },
-            "mahesh-athadu-review-mesh": {
-              "vertexCount": 13393,
-              "center": [
-                -0.0011355505229702079,
-                0.8206499560466202,
-                0.022491194738438136
-              ],
-              "radius": 1.1012638353113933
-            },
-            "RightAnatomicalWristTransition": {
-              "vertexCount": 92,
-              "center": [
-                -0.2776898408094901,
-                1.2423396979561765,
-                0.13713949497844524
-              ],
-              "radius": 0.5941450672945561
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 1752,
-              "center": [
-                -0.2842474005200537,
-                1.223290011701968,
-                0.1869035745928923
-              ],
-              "radius": 0.6876275231013504
+              "radius": 1.194581652265453
             }
           }
-        },
-        "height": {
-          "min": 1.767,
-          "max": 1.9530000000000003
-        },
-        "materialTreatment": "as-authored"
+        }
       }
     },
     {
       "characterId": "shankar-dada",
       "candidate": {
-        "assetId": "shankar-dada-independent-appearance-v24",
-        "sha256": "97bbf187f50760baf37b8dae3820eccc6602bbfa9e23998d49966fb6a3292f5a"
+        "assetId": "shankar-dada-rodin-cast-v1",
+        "sha256": "de3e05c91dc1ae5b56c3ab7773b20db0ba9480489ac1b2c489be1e5bd20a9125"
       },
       "glb": {
-        "url": "/delivery/characters/shankar-dada/actor-v24.glb",
-        "sha256": "2801fe2aaae22e878cd786a92e2c81a5c09e956e9ce9969eafc8c674dae6ecd4"
+        "url": "/delivery/characters/shankar-dada/rodin-6dad765a6846.glb",
+        "sha256": "6dad765a68468288ac07566d6c8193a56fdac4d7312d785dd7023813b7e04257"
       },
-      "contractPath": "public/delivery/characters/shankar-dada/actor-v24.rig.json",
+      "contractPath": "public/delivery/characters/shankar-dada/rodin-6dad765a6846.rig.json",
       "contract": {
-        "id": "shankar-dada-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-role-idle-v1-native-trouser-spill-repair-v1-mobile-jpeg89-v1",
+        "id": "rodin-shankar-dada-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3752,14 +3566,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
             "LeftShoulder",
-            "RightShoulder",
             "LeftArm",
-            "RightArm",
             "LeftForeArm",
-            "RightForeArm",
             "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
+            "RightShoulder",
+            "RightArm",
+            "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3771,11 +3605,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -3801,58 +3631,78 @@
             }
           }
         },
+        "height": {
+          "min": 1.6909999999999998,
+          "max": 1.8690000000000002
+        },
+        "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "2801fe2aaae22e878cd786a92e2c81a5c09e956e9ce9969eafc8c674dae6ecd4",
+          "glbSha256": "6dad765a68468288ac07566d6c8193a56fdac4d7312d785dd7023813b7e04257",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 5983,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 52
-              },
-              {
-                "name": "PreservedOriginalIdle",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
                 "LeftShoulder",
-                "RightShoulder",
                 "LeftArm",
-                "RightArm",
                 "LeftForeArm",
-                "RightForeArm",
                 "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
+                "RightShoulder",
+                "RightArm",
+                "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -3864,11 +3714,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -3881,73 +3727,32 @@
             }
           },
           "meshes": {
-            "LeftAnatomicalWristTransition": {
-              "vertexCount": 98,
+            "model": {
+              "vertexCount": 20951,
               "center": [
-                0.255172082627934,
-                0.9900938944018786,
-                0.17604954631950714
+                -0.00019927413901957292,
+                -0.02287620404773749,
+                0.07309206555865377
               ],
-              "radius": 0.4912349928726298
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.25912812351784187,
-                0.9849755137769471,
-                0.1759284429518282
-              ],
-              "radius": 0.5646278937278902
-            },
-            "RightAnatomicalWristTransition": {
-              "vertexCount": 98,
-              "center": [
-                -0.2567871993422357,
-                0.9773756256898959,
-                0.1740073702047949
-              ],
-              "radius": 0.48222061754191553
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.2606147359044385,
-                0.9718239459672318,
-                0.17520367193259984
-              ],
-              "radius": 0.5550891921774725
-            },
-            "shankar-dada-review-mesh": {
-              "vertexCount": 14258,
-              "center": [
-                -0.009482619250136243,
-                0.7570199581809588,
-                0.018504705925401266
-              ],
-              "radius": 0.9868505341587218
+              "radius": 1.229554804294634
             }
           }
-        },
-        "height": {
-          "min": 1.6909999999999998,
-          "max": 1.8690000000000002
-        },
-        "materialTreatment": "as-authored"
+        }
       }
     },
     {
       "characterId": "venkatesh-raja",
       "candidate": {
-        "assetId": "venkatesh-raja-independent-appearance-v24",
-        "sha256": "d741bb6352836f7ccd7b06703d18f004634296bad38992ba0c12f50af76a9364"
+        "assetId": "venkatesh-raja-rodin-cast-v1",
+        "sha256": "0613bbaeb8cf9b13b3428d3f1dfdfcea8bf31d0ba68843f604de52708afae9a2"
       },
       "glb": {
-        "url": "/delivery/characters/venkatesh-raja/actor-v24.glb",
-        "sha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9"
+        "url": "/delivery/characters/venkatesh-raja/rodin-8b2145c40dfc.glb",
+        "sha256": "8b2145c40dfc24593ae556b2940bcab2cf238c74271b9846d6f6f0d82a8fc6e2"
       },
-      "contractPath": "public/delivery/characters/venkatesh-raja/actor-v24.rig.json",
+      "contractPath": "public/delivery/characters/venkatesh-raja/rodin-8b2145c40dfc.rig.json",
       "contract": {
-        "id": "venkatesh-raja-authored-rig-v1-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-seated-cloth-refinement-v1-seated-role-v1-continuous-elbows-v1-mobile-jpeg89-v1",
+        "id": "rodin-venkatesh-raja-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -3960,10 +3765,34 @@
           "clipName": "TakePizza",
           "upperBodyNodes": [
             "Chest",
+            "Neck",
+            "Head",
+            "LeftShoulder",
+            "LeftArm",
+            "LeftForeArm",
+            "LeftHand",
+            "LeftThumb1",
+            "LeftThumb2",
+            "LeftThumb3",
+            "LeftIndex1",
+            "LeftIndex2",
+            "LeftIndex3",
+            "LeftMiddle1",
+            "LeftMiddle2",
+            "LeftMiddle3",
+            "LeftRing1",
+            "LeftRing2",
+            "LeftRing3",
+            "LeftPinky1",
+            "LeftPinky2",
+            "LeftPinky3",
             "RightShoulder",
             "RightArm",
             "RightForeArm",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -3975,11 +3804,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3",
-            "RightWristTwist"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -4005,54 +3830,78 @@
             }
           }
         },
+        "height": {
+          "min": 1.7289999999999999,
+          "max": 1.9110000000000003
+        },
+        "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "8b9f1f43e098a0f552b0c4ae5f1a3fba55371a46586697cf75ffada51a5973f9",
+          "glbSha256": "8b2145c40dfc24593ae556b2940bcab2cf238c74271b9846d6f6f0d82a8fc6e2",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7145,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "PreservedSeatedSourceIdle",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "TakePizza",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
               "clipName": "TakePizza",
               "upperBodyNodes": [
                 "Chest",
+                "Neck",
+                "Head",
+                "LeftShoulder",
+                "LeftArm",
+                "LeftForeArm",
+                "LeftHand",
+                "LeftThumb1",
+                "LeftThumb2",
+                "LeftThumb3",
+                "LeftIndex1",
+                "LeftIndex2",
+                "LeftIndex3",
+                "LeftMiddle1",
+                "LeftMiddle2",
+                "LeftMiddle3",
+                "LeftRing1",
+                "LeftRing2",
+                "LeftRing3",
+                "LeftPinky1",
+                "LeftPinky2",
+                "LeftPinky3",
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -4064,11 +3913,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3",
-                "RightWristTwist"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -4081,91 +3926,32 @@
             }
           },
           "meshes": {
-            "LeftAnatomicalWristTransition": {
-              "vertexCount": 98,
+            "model": {
+              "vertexCount": 21882,
               "center": [
-                0.3657204203148632,
-                0.7570313877483402,
-                0.15621710590658044
+                0.012889415920699088,
+                -0.005044826596574903,
+                0.15445856650525372
               ],
-              "radius": 0.4882648364862743
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.3490160482823164,
-                0.8343249706858575,
-                0.17858092529873523
-              ],
-              "radius": 0.624965180272792
-            },
-            "LeftAuthoredElbowTransition": {
-              "vertexCount": 128,
-              "center": [
-                0.3151702137381154,
-                0.9945108293096323,
-                0.047579861801264084
-              ],
-              "radius": 0.4045266388725783
-            },
-            "RightAnatomicalWristTransition": {
-              "vertexCount": 98,
-              "center": [
-                -0.34778970067135495,
-                0.78303446891071,
-                0.1390438261190896
-              ],
-              "radius": 0.5183750372550269
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.32899452196007317,
-                0.8326208944924479,
-                0.15403365197116176
-              ],
-              "radius": 0.6314573427784324
-            },
-            "RightAuthoredElbowTransition": {
-              "vertexCount": 128,
-              "center": [
-                -0.26914999254871064,
-                0.9949886072551912,
-                0.01108385431999842
-              ],
-              "radius": 0.40680786973354144
-            },
-            "venkatesh-raja-review-mesh": {
-              "vertexCount": 13806,
-              "center": [
-                0.00004748131328957683,
-                0.7737239549463981,
-                0.05963326824500431
-              ],
-              "radius": 1.0250409777139686
+              "radius": 1.2663409836687902
             }
           }
-        },
-        "height": {
-          "min": 1.7289999999999999,
-          "max": 1.9110000000000003
-        },
-        "materialTreatment": "as-authored"
+        }
       }
     },
     {
       "characterId": "kajal-indu",
       "candidate": {
-        "assetId": "kajal-indu-independent-appearance-v57",
-        "sha256": "19cf319bea7ac38b131a178453526618be94b71e3702daa638baa69a2de15393"
+        "assetId": "kajal-indu-rodin-cast-v1",
+        "sha256": "b223ddd0247b747bb127f0475698931d93fe43b9ffae9dee4e9f03a6a51dfa64"
       },
       "glb": {
-        "url": "/delivery/characters/kajal-indu/actor-v57.glb",
-        "sha256": "348ed7055ae68b6e4f6268976c7c4500e5e922cdf03dcd8842370bb9c7b09227"
+        "url": "/delivery/characters/kajal-indu/rodin-9bf21a5a0995.glb",
+        "sha256": "9bf21a5a099546c8544e3eb5dcd3bfb2d43d0aefae233130d73bdf6730a9a0cc"
       },
-      "contractPath": "public/delivery/characters/kajal-indu/actor-v57.rig.json",
+      "contractPath": "public/delivery/characters/kajal-indu/rodin-9bf21a5a0995.rig.json",
       "contract": {
-        "id": "kajal-indu-authored-rig-v1-measured-background-cleanup-anatomical-hands-v1-fragment-cleanup-v1-wrist-transition-v1-seated-cloth-refinement-v1-seated-role-v1-continuous-elbows-v1-native-front-face-projection-v1-seated-role-v1-continuous-elbows-v1-mobile-jpeg89-v1",
+        "id": "rodin-kajal-indu-v1",
         "sceneName": "ReviewedCharacterScene",
         "requireSkin": true,
         "nodes": {
@@ -4180,8 +3966,10 @@
             "RightShoulder",
             "RightArm",
             "RightForeArm",
-            "RightWristTwist",
             "RightHand",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
             "RightIndex1",
             "RightIndex2",
             "RightIndex3",
@@ -4193,10 +3981,7 @@
             "RightRing3",
             "RightPinky1",
             "RightPinky2",
-            "RightPinky3",
-            "RightThumb1",
-            "RightThumb2",
-            "RightThumb3"
+            "RightPinky3"
           ]
         },
         "motions": {
@@ -4222,49 +4007,44 @@
             }
           }
         },
+        "height": {
+          "min": 1.5675,
+          "max": 1.7325
+        },
+        "materialTreatment": "as-authored",
         "motionBounds": {
           "schemaVersion": 1,
-          "glbSha256": "348ed7055ae68b6e4f6268976c7c4500e5e922cdf03dcd8842370bb9c7b09227",
+          "glbSha256": "9bf21a5a099546c8544e3eb5dcd3bfb2d43d0aefae233130d73bdf6730a9a0cc",
           "sceneName": "ReviewedCharacterScene",
           "sampling": {
-            "framesPerSecond": 24,
-            "marginMetres": 0.02,
-            "poseCount": 7187,
+            "framesPerSecond": 12,
+            "marginMetres": 0.045,
+            "poseCount": 5265,
             "clips": [
-              {
-                "name": "Dance",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
               {
                 "name": "Idle",
                 "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "InduWave",
-                "duration": 1.0416666269302368,
-                "samples": 42
-              },
-              {
-                "name": "PreservedSeatedSourceIdle",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "Read",
-                "duration": 2.0416667461395264,
-                "samples": 83
-              },
-              {
-                "name": "TakePizza",
-                "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 62
               },
               {
                 "name": "Walk",
                 "duration": 1.0416666269302368,
-                "samples": 42
+                "samples": 32
+              },
+              {
+                "name": "Dance",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "Read",
+                "duration": 2.0416667461395264,
+                "samples": 62
+              },
+              {
+                "name": "InduWave",
+                "duration": 1.0416666269302368,
+                "samples": 32
               }
             ],
             "maskedHandoff": {
@@ -4273,8 +4053,10 @@
                 "RightShoulder",
                 "RightArm",
                 "RightForeArm",
-                "RightWristTwist",
                 "RightHand",
+                "RightThumb1",
+                "RightThumb2",
+                "RightThumb3",
                 "RightIndex1",
                 "RightIndex2",
                 "RightIndex3",
@@ -4286,10 +4068,7 @@
                 "RightRing3",
                 "RightPinky1",
                 "RightPinky2",
-                "RightPinky3",
-                "RightThumb1",
-                "RightThumb2",
-                "RightThumb3"
+                "RightPinky3"
               ],
               "fractions": [
                 0,
@@ -4302,67 +4081,17 @@
             }
           },
           "meshes": {
-            "geometry_0": {
-              "vertexCount": 13064,
+            "model": {
+              "vertexCount": 23957,
               "center": [
-                0.013765183584489277,
-                0.6776542976836127,
-                0.18593943131619117
+                -0.0003440859051387357,
+                -0.012909437068125917,
+                0.15144469244034123
               ],
-              "radius": 0.9414831829511909
-            },
-            "geometry_0_1": {
-              "vertexCount": 4,
-              "center": [
-                0.07689003668727358,
-                1.0293725959002873,
-                0.0464746791398457
-              ],
-              "radius": 0.2533943501394704
-            },
-            "LeftAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                0.33659443634930997,
-                0.7423702250337265,
-                0.2094676205521832
-              ],
-              "radius": 0.5732946544308021
-            },
-            "LeftAuthoredElbowTransition": {
-              "vertexCount": 128,
-              "center": [
-                0.27191158129636517,
-                0.8952535881425912,
-                0.08932943348722062
-              ],
-              "radius": 0.3719684301364481
-            },
-            "RightAuthoredAnatomicalHand": {
-              "vertexCount": 2502,
-              "center": [
-                -0.19599962205845767,
-                0.9385691634603283,
-                0.27849546992834656
-              ],
-              "radius": 0.7468561784250538
-            },
-            "RightAuthoredElbowTransition": {
-              "vertexCount": 128,
-              "center": [
-                -0.18549287447969226,
-                0.9339463403733228,
-                0.13258779379776475
-              ],
-              "radius": 0.42185129192307447
+              "radius": 1.2358395141400205
             }
           }
-        },
-        "height": {
-          "min": 1.5675,
-          "max": 1.7325
-        },
-        "materialTreatment": "as-authored"
+        }
       }
     }
   ]
