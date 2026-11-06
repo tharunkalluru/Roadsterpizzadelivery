@@ -28,7 +28,7 @@ import { railwayMapLayer, drawRailways } from '../ui/railway-map';
 import { strokeMinimapRoute, drawMinimapPlayer, MINIMAP_NAVIGATION } from '../ui/minimap-navigation';
 import { AreaPicker, AreaChoice } from '../ui/areapicker';
 import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, fullscreenFallbackHtml } from '../ui/title';
-import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings, pauseMenuHtml } from '../ui/settings';
+import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings, levelPickerHtml, pauseMenuHtml } from '../ui/settings';
 import { paintDiagnostics, graphicsDiagnostics } from '../ui/paint-safety';
 import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
@@ -867,6 +867,19 @@ export class Game {
         if (!this.story) return;
         this.hud.modal(null); this.paused = false; this.resetInput(); this.clock.getDelta();
         if (!this.story.openRestaurant()) this.openPause();
+      });
+      sh.querySelector('#choose-level')?.addEventListener('click', () => {
+        const story = this.story;
+        if (!story) return;
+        this.hud.modal(levelPickerHtml(story.controller.levels), sheet => {
+          sheet.querySelector('#levels-back')!.addEventListener('click', () => this.openPause());
+          sheet.querySelectorAll<HTMLButtonElement>('[data-play-level]').forEach(button => {
+            button.addEventListener('click', () => {
+              this.resume();
+              void story.restartCurrentLevel(button.dataset.playLevel);
+            });
+          });
+        });
       });
       const unstick=sh.querySelector<HTMLButtonElement>('#unstick')!;
       if(this.story?.cinematic){unstick.disabled=true;unstick.title='Resume the story, or restart this level.';}

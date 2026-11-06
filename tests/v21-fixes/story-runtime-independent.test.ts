@@ -195,3 +195,15 @@ test('the actual runtime player closure forwards null, exact live roof support, 
   assert.equal(ctx.player().railSupportId, null, 'removing the actual support immediately invalidates the closure');
   f.runtime.dispose();
 });
+
+test('selecting a later level replaces an active delivery and keeps skipped campaign levels available', async () => {
+  const f = fixture();
+  f.pickup();
+  await f.runtime.restartCurrentLevel(f.levels[1].id);
+  assert.ok(Math.abs(f.relocations[0].x - f.levels[1].destination.x) < 4000);
+  f.complete();
+  assert.equal(f.runtime.controller.activeLevel?.id, f.levels[1].id);
+  assert.deepEqual(f.runtime.controller.progress.completedIds, []);
+  assert.equal(f.runtime.controller.nextLevel?.id, f.levels[0].id);
+  f.runtime.dispose();
+});

@@ -767,11 +767,11 @@ export class DeliveryRuntime {
         final: c.progress.finished, bonusAvailable: !!level.bonusScript?.length } : null,
       collection: c.progress.cards,
       noticeContext:this.retainedCompletedScene&&!c.complete?'scene-exit':undefined,
-      notice: this.retainedCompletedScene&&!c.complete?(this.module?.status.actionLabel==='EXIT TRUCK'?'Reverse down the ramp':this.module?.status.instruction||'Leave the delivery scene'):this.noticeUntil > this.elapsed ? this.notice : c.progress.finished && !level ? 'Your restaurant is open. Hyderabad is yours to explore.' : '',
+      notice: this.retainedCompletedScene&&!c.complete?(this.module?.status.actionLabel==='EXIT TRUCK'?'Reverse down the ramp':this.module?.status.instruction||'Leave the delivery scene'):this.noticeUntil > this.elapsed ? this.notice : !c.nextLevel && !level ? 'Your restaurant is open. Hyderabad is yours to explore.' : '',
     };
     this.ui.update(view);
     this.game.hud.set('level', this.levelLabel);
-    this.game.hud.pickupHintVisible?.(!c.progress.finished);
+    this.game.hud.pickupHintVisible?.(!!(level || c.nextLevel));
   }
   private removeModule(preserveScenery=false) {
     this.groundPlacement?.job.cancel(); this.groundPlacement = undefined;
@@ -800,14 +800,17 @@ export class DeliveryRuntime {
     this.prepareCharacterWindow();
   }
   retry() { this.controller.retry(); this.clearDelivery(); this.syncView(); }
-  async restartCurrentLevel(){
+  async restartCurrentLevel(selectedId?: string){
     if(this.restarting||this.disposed)return;
-    const level=this.controller.activeLevel??this.controller.nextLevel??this.controller.levels.at(-1);if(!level)return;
-    const spawn=campaignSpawn(this.game.graph,this.module?.target??level.destination);
+    const level = selectedId === undefined
+      ? this.controller.activeLevel ?? this.controller.nextLevel ?? this.controller.levels.at(-1)
+      : this.controller.levels.find(candidate => candidate.id === selectedId);
+    if (!level) return;
+    const spawn=campaignSpawn(this.game.graph, selectedId === undefined ? this.module?.target ?? level.destination : level.destination);
     if(!spawn){this.game.hud.toast('Preparing a safe road for this delivery. Try again.','teal');return;}
     this.restarting=true;
     try{
-      this.controller.restartCurrentLevel();this.clearDelivery();this.syncView();
+      this.controller.selectLevel(level.id);this.clearDelivery();this.syncView();
       // relocate() performs ordinary retry cleanup too; the explicit queued
       // replay survives it and supplies the correct assets under the loader.
       await this.game.relocate(spawn);

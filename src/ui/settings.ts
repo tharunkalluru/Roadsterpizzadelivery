@@ -45,10 +45,15 @@ export function pauseMenuHtml(campaign = false, progress?: PauseProgress, sessio
     <div class="pause-grid${campaign ? ' campaign-grid' : ''}">
       <button type="button" class="pause-card" id="settings"><span>Settings</span><small>Sound, steering and graphics</small></button>
       ${campaign ? '<button type="button" class="pause-card" id="restaurant"><span>My restaurant</span><small>Restaurant and delivered customers</small></button>' : '<button type="button" class="pause-card" id="area"><span>Change area</span><small>Choose another part of Hyderabad</small></button>'}
+      ${campaign ? '<button type="button" class="pause-card" id="choose-level"><span>Choose level</span><small>Play any delivery</small></button>' : ''}
       <button type="button" class="pause-card" id="unstick"><span>Back to the road</span><small>Recover your Roadster nearby</small></button>
     </div>
     <footer class="pause-footer${campaign ? ' campaign-restarts' : ''}"><button type="button" class="pause-reset" id="reset">${campaign ? 'Restart current level' : 'Reset progress'}</button>${campaign ? '<button type="button" class="pause-reset" id="start-level-one">Start from level 1</button>' : ''}</footer>
     <a class="pause-credits" href="/credits.html" target="_blank" rel="noopener">Map credits</a></div>`;
+}
+export function levelPickerHtml(levels: readonly {id: string; level: number; celebrity: {name: string}}[]) {
+  return `<div class="pause-menu"><header class="sheet-header"><h2>Choose level</h2><button type="button" class="btn" id="levels-back">Back</button></header>
+    <div class="pause-grid campaign-grid">${levels.map(level => `<button type="button" class="pause-card" data-play-level="${esc(level.id)}"><small>Level ${level.level}</small><span>${esc(level.celebrity.name)}</span></button>`).join('')}</div></div>`;
 }
 export function bindSettings(sheet: HTMLElement, s: Settings, apply: (s: Settings, changed: keyof Settings) => void) {
   sheet.querySelectorAll<HTMLButtonElement>('.opt[data-k]').forEach((b) => b.addEventListener('click', () => {

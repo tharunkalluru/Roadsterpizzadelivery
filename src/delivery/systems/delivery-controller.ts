@@ -100,8 +100,9 @@ export class DeliveryController {
   retry() { this.clearActive(); }
   /** Explicit Pause replay. Unlike relocation cleanup, this can select the
    * just-completed scene without deleting its earned card or later unlock. */
-  restartCurrentLevel(){
-    const level=this.activeLevel??this.nextLevel??this.levels.at(-1);if(!level)return null;
+  selectLevel(id: string){
+    const level = this.levels.find(candidate => candidate.id === id);
+    if (!level) return null;
     this.clearActive();this.replayLevelId=level.id;return level;
   }
   /** Explicit new-story action only; never touches the baseline game's storage. */
