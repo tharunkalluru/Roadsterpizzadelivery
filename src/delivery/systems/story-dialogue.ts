@@ -69,7 +69,7 @@ export class StoryDialogue {
    // callback. Only count visible, active story time toward stall recovery.
    this.stalled = playback.position > this.total + .0001 ? 0 : this.stalled + dt;
    const atEnd = playback.duration > 0 && playback.position >= playback.duration - .001;
-   if (playback.status === 'ended' || atEnd) {
+   if (playback.status === 'ended' || (atEnd && this.stalled > 4)) {
     if (atEnd && playback.status !== 'ended') this.player.stopDialogue();
     this.index = this.lines.length;
     this.audio = undefined;
