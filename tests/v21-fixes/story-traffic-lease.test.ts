@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import {Traffic} from '../../src/game/traffic';
 import {RoadGraph} from '../../src/game/roadgraph';
 import {initTemplates} from '../../src/core/util';
-function fixture(group:'auto'|'bus'='auto'){
+function fixture(group:'auto'|'bus'|'bike'|'car'|'truck'='auto'){
  const gradient={addColorStop(){}};
  const context=new Proxy({measureText:(s:string)=>({width:s.length*12}),createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(o:any,k)=>k in o?o[k]:()=>{}});
  (globalThis as any).document={createElement:()=>({width:256,height:128,getContext:()=>context})};
@@ -19,14 +19,15 @@ test('a story lease preserves only its live carrier through distance and budget 
  assert.equal(traffic.cars.includes(car),true);assert.equal(traffic.cars.includes(other),false);assert.ok(car.z<z,'leased carrier still follows actual road simulation');assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'active');
  traffic.leaseStoryVehicle(null);traffic.update(1/60,1000,1000,{x:1000,y:.55,z:1000,speed:0});assert.equal(traffic.cars.includes(car),false);
 });
-test('a fast impact launches the same auto above the street and lands it on another mapped road under the same lease',()=>{
- const {traffic,car,graph}=fixture(),origin=graph.edges[0],identity=car.g.uuid,e=origin.e;
+for (const group of ['auto', 'bike', 'car', 'truck', 'bus'] as const) test(`a fast impact launches a ${group} and it lands on a mapped road with the same identity`,()=>{
+ const {traffic,car,graph}=fixture(group),origin=graph.edges[0],identity=car.g.uuid,e=origin.e;
  traffic.graph=new RoadGraph([e,{...e,id:'parallel',from:'pa',to:'pb',pts:[[30,0],[30,-1000]]}]);
  const targetEdge=traffic.graph.byId.get('parallel')!;Object.assign(car,{edge:origin,s:100,...traffic.graph.pointAt(origin,100,1,12)});
  traffic.leaseStoryVehicle(identity);
- assert.equal(traffic.kickAuto(car,18,1,0),true);assert.equal(car.arcadeFlight!==undefined,true);
- (traffic as any).advanceArcadeAuto(car,.5);assert.ok(car.y>2,'the auto, rather than the Roadster, visibly rises above the roadway');
- (traffic as any).advanceArcadeAuto(car,1.6);
+ assert.equal(traffic.kickVehicle(car,60/3.6,1,0),false);
+ assert.equal(traffic.kickVehicle(car,18,1,0),true);assert.equal(car.arcadeFlight!==undefined,true);
+ (traffic as any).advanceArcadeVehicle(car,.5);assert.ok(car.y>2,'the auto, rather than the Roadster, visibly rises above the roadway');
+ (traffic as any).advanceArcadeVehicle(car,1.6);
  assert.equal(car.g.uuid,identity);assert.equal(car.arcadeFlight,undefined);assert.equal(car.edge.e.id,'parallel');
  assert.equal(car.g.parent,traffic.scene);assert.equal(traffic.storyVehicleLeaseStatus(identity),'active');assert.ok(Math.abs(car.y-traffic.graph.pointAt(targetEdge,car.s,car.dir,car.lane).y)<.01);
 });

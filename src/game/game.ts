@@ -1145,12 +1145,11 @@ export class Game {
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const jumpBounds = this.player.jumping ? this.player.jumpTrafficBounds : undefined;
     const hit = this.player.flying || this.story?.cinematic ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
-    const autoArcadeKick = !!hit && hit.group === 'auto' && Math.abs(this.player.speed) > 60 / 3.6;
-    const kickedAuto = autoArcadeKick && this.traffic.kickAuto(hit!, this.player.speed, fw.x, fw.z);
-    if (kickedAuto) {
-      this.sound.cue('flight'); this.hud.toast('Auto arcade kick!', 'teal');
+    const kickedVehicle = hit && this.traffic.kickVehicle(hit, this.player.speed, fw.x, fw.z);
+    if (kickedVehicle) {
+      this.sound.cue('flight'); this.hud.toast('Arcade kick!', 'teal');
     }
-    if (kickedAuto && hit?.group === 'auto' && this.carrierPickupMode && this.story?.canPickup !== false) {
+    if (kickedVehicle && hit.group === 'auto' && this.carrierPickupMode && this.story?.canPickup !== false) {
       const marker = this.carriers.markers.find(m => m.carrierId === hit.g.uuid);
       if (marker) this.pickupDetector.collectMarkedAuto(marker.carrierId, marker.position);
     }
@@ -1159,7 +1158,7 @@ export class Game {
       this.sound.cue('bump');
       this.player.hitCooldown = 1.5; this.player.speed *= 0.35; this.player.bump = 0.6;
       if (this.order && this.order.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; this.hud.toast(this.order.slices ? 'Baigan! −1 slice' : 'Pizza ruined!', 'pink'); }
-      else this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
+      else if (!kickedVehicle) this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
     }
     // order flow
     const o = this.order;

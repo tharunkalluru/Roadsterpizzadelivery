@@ -45,10 +45,10 @@ export interface Car {
   motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
   busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
   passengerExchange?: BusPassengerExchange; lamps?: TrafficLampRig;
-  arcadeFlight?: ArcadeAutoFlight;
+  arcadeFlight?: ArcadeVehicleFlight;
 }
 interface ArcadeLanding { edge:GEdge; dir:1|-1; s:number; lane:number; pose:ReturnType<RoadGraph['pointAt']>; }
-interface ArcadeAutoFlight {
+interface ArcadeVehicleFlight {
   elapsed:number; duration:number; startX:number; startY:number; startZ:number;
   vx:number; vy:number; vz:number; landing:ArcadeLanding;
 }
@@ -78,9 +78,9 @@ export class Traffic {
   private lostStoryVehicleId:string|null=null;
   private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
 
-  /** A high-speed collision can launch an auto; it keeps its vehicle identity and lands on mapped road. */
-  kickAuto(car:Car, impactSpeed:number, hx:number, hz:number) {
-    if(car.group!=='auto'||car.arcadeFlight||!Number.isFinite(impactSpeed)||Math.abs(impactSpeed)<=60/3.6)return false;
+  /** A high-speed collision can launch a traffic vehicle; it keeps its vehicle identity and lands on mapped road. */
+  kickVehicle(car:Car, impactSpeed:number, hx:number, hz:number) {
+    if(car.arcadeFlight||!Number.isFinite(impactSpeed)||Math.abs(impactSpeed)<=60/3.6)return false;
     const length=Math.hypot(hx,hz);if(length<.01)return false;hx/=length;hz/=length;
     const direction=Math.sign(impactSpeed),speed=Math.abs(impactSpeed),duration=2.1;
     const launchSpeed=Math.min(55,speed*.9+4);
@@ -124,6 +124,10 @@ export class Traffic {
         if(edge.e.oneway===(dir===1?'forward':'backward'))continue;
         const [lo,hi]=this.laneRange(edge,car.size[0],dir);if(hi<lo)continue;
         const lane=Math.max(lo,Math.min(hi,car.lane)),s=dir===1?canonical:edge.len-canonical;
+        // A scheduled bus must still be able to serve its next stop after landing.
+        const run = car.busRun;
+        if (run && (!run.path.slice(run.step).some(step => step.edge === edge && step.dir === dir) ||
+          (edge === run.stopPosition.edge && dir === run.stopPosition.dir && s > run.stopPosition.s))) continue;
         const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-x,pose.z-z),height=Math.abs(pose.y-car.y);
         if(distance>8||height>1.2)continue;
         if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
@@ -135,7 +139,7 @@ export class Traffic {
     return best;
   }
 
-  private advanceArcadeAuto(car:Car,dt:number){
+  private advanceArcadeVehicle(car:Car,dt:number){
     const flight=car.arcadeFlight!;flight.elapsed=Math.min(flight.duration,flight.elapsed+dt);const t=flight.elapsed;
     car.x=flight.startX+flight.vx*t;car.z=flight.startZ+flight.vz*t;
     car.y=flight.startY+flight.vy*t-4.9*t*t;
@@ -893,7 +897,7 @@ export class Traffic {
       const c = this.cars[i];
       if (Math.hypot(c.x - px, c.z - pz) > 340&&!this.storyLeased(c)) { this.release(c); this.cars.splice(i, 1); continue; }
       const previousSpeed = c.speed;
-      if(c.arcadeFlight){this.advanceArcadeAuto(c,dt);this.updateLamps(c,previousSpeed,dt);continue;}
+      if(c.arcadeFlight){this.advanceArcadeVehicle(c,dt);this.updateLamps(c,previousSpeed,dt);continue;}
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {
         c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);
