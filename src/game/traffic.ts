@@ -80,6 +80,7 @@ export class Traffic {
 
   /** A high-speed collision can launch a traffic vehicle; it keeps its vehicle identity and lands on mapped road. */
   kickVehicle(car:Car, impactSpeed:number, hx:number, hz:number) {
+    if (car.group === 'bus' || car.group === 'truck') return false;
     if(car.arcadeFlight||!Number.isFinite(impactSpeed)||Math.abs(impactSpeed)<=60/3.6)return false;
     const length=Math.hypot(hx,hz);if(length<.01)return false;hx/=length;hz/=length;
     const direction=Math.sign(impactSpeed),speed=Math.abs(impactSpeed),duration=2.1;
@@ -124,10 +125,6 @@ export class Traffic {
         if(edge.e.oneway===(dir===1?'forward':'backward'))continue;
         const [lo,hi]=this.laneRange(edge,car.size[0],dir);if(hi<lo)continue;
         const lane=Math.max(lo,Math.min(hi,car.lane)),s=dir===1?canonical:edge.len-canonical;
-        // A scheduled bus must still be able to serve its next stop after landing.
-        const run = car.busRun;
-        if (run && (!run.path.slice(run.step).some(step => step.edge === edge && step.dir === dir) ||
-          (edge === run.stopPosition.edge && dir === run.stopPosition.dir && s > run.stopPosition.s))) continue;
         const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-x,pose.z-z),height=Math.abs(pose.y-car.y);
         if(distance>8||height>1.2)continue;
         if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
@@ -148,11 +145,6 @@ export class Traffic {
       car.speed=horizontalSpeed;this.placeVisual(car.g,car,car.size);car.g.rotation.x=-Math.max(-.45,Math.min(.45,(flight.vy-9.8*t)*.025));return;
     }
     const {edge,dir,s,lane,pose}=flight.landing;
-    if (car.busRun) {
-      const run = car.busRun;
-      const index = run.path.findIndex((step, i) => i >= run.step && step.edge === edge && step.dir === dir);
-      if (index >= 0) run.step = index;
-    }
     car.edge=edge;car.dir=dir;car.s=s;car.lane=car.laneT=car.base=lane;
     car.x=pose.x;car.y=pose.y;car.z=pose.z;car.hx=pose.hx;car.hz=pose.hz;car.planAfter=0;
     car.arcadeFlight=undefined;car.speed=Math.max(2,Math.min(8,Math.hypot(flight.vx,flight.vz)*.35));car.motion=undefined;this.prepare(car);this.placeVisual(car.g,car,car.size);
