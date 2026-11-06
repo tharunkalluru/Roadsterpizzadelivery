@@ -18,6 +18,7 @@ import { trafficRoadPitch, trafficBodySection } from './traffic-road-posture';
 import { TrafficCurveRoadSupport, trafficCurveRoadWindow } from './traffic-curve-road-support';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
+const PUSH_SHARE: Record<Group, number> = {bike:.90, auto:.72, car:.43, truck:.025, bus:.02};
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; tailLights?: THREE.BufferGeometry; reverseLights?: THREE.BufferGeometry; headlights?: readonly M.LampAnchor[]; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
 interface Motion {
   kind: 'bend' | 'junction' | 'lane' | 'uturn' | 'route'; curve: TrafficCurve; startS: number; endS: number;
@@ -46,6 +47,7 @@ export interface Car {
   busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
   passengerExchange?: BusPassengerExchange; lamps?: TrafficLampRig;
   arcadeFlight?: ArcadeVehicleFlight;
+  shove?: {vx:number; vz:number};
 }
 interface ArcadeLanding { edge:GEdge; dir:1|-1; s:number; lane:number; pose:ReturnType<RoadGraph['pointAt']>; }
 interface ArcadeVehicleFlight {
@@ -78,6 +80,92 @@ export class Traffic {
   private lostStoryVehicleId:string|null=null;
   private storyEntryCheck:{id:string;at:number;x:number;z:number;allowed:boolean}|null=null;
 
+  private bumperContact(car:Car, pos:{x:number; z:number}, hx:number, hz:number, vertical:TrafficVerticalBounds) {
+    const dx = car.x - pos.x, dz = car.z - pos.z;
+    const reach = car.size[2] / 2 + car.size[0] / 2 + 3.5;
+    if (Math.abs(dx) > reach || Math.abs(dz) > reach) return null;
+    const dot = hx * car.hx + hz * car.hz, cross = hx * car.hz - hz * car.hx;
+    const span = 2.4 * Math.abs(dot) + 1.1 * Math.abs(cross);
+    const along = -(dx * car.hx + dz * car.hz);
+    const section = trafficBodySection(car.y, car.size[1], car.size[2], car.g.rotation.x, along, span);
+    if (!section || vertical.bottom >= section.top || vertical.top <= section.bottom) return null;
+    const halfLength = (section.maximumAlong - section.minimumAlong) / 2;
+    const center = (section.maximumAlong + section.minimumAlong) / 2;
+    let depth = Infinity, nx = 0, nz = 0;
+    for (const [ax, az] of [[car.hx,car.hz],[car.hz,-car.hx],[hx,hz],[hz,-hx]]) {
+      const playerExtent = 2.4 * Math.abs(hx*ax+hz*az) + 1.1 * Math.abs(hz*ax-hx*az);
+      const carAxis = car.hx*ax+car.hz*az;
+      const extent = halfLength*Math.abs(carAxis) + car.size[0]/2*Math.abs(car.hz*ax-car.hx*az);
+      const separation = dx*ax+dz*az+center*carAxis;
+      const overlap = playerExtent + extent - Math.abs(separation);
+      if (overlap < depth) {
+        depth = overlap; const sign = Math.sign(separation) || 1; nx = sign*ax; nz = sign*az;
+      }
+    }
+    if (depth < 0) return null;
+    return {depth,nx,nz};
+  }
+
+  /** Use the same oriented bumper contact for launch, momentum transfer and separation. */
+  resolvePlayerContact(pos: {x:number; y:number; z:number}, speed:number, hx:number, hz:number, bounds?:TrafficVerticalBounds) {
+    const vertical = playerVerticalBounds(pos.y, bounds);
+    let strongest: {car:Car; closing:number; kicked:boolean} | undefined;
+    for (const car of this.cars) {
+      if (car.arcadeFlight) continue;
+      const contact = this.bumperContact(car,pos,hx,hz,vertical);
+      if (!contact) continue;
+      const {depth,nx,nz} = contact;
+      const playerAxis = hx*nx+hz*nz;
+      const npcVelocity = car.speed*(car.hx*nx+car.hz*nz) + (car.shove?.vx ?? 0)*nx + (car.shove?.vz ?? 0)*nz;
+      const closing = Math.max(0, speed*playerAxis - npcVelocity);
+      const kicked = closing > 60/3.6 && this.kickVehicle(car,closing,nx,nz);
+      if (!kicked) {
+        pos.x -= depth*nx; pos.z -= depth*nz;
+        if (closing > 0) {
+          const share = PUSH_SHARE[car.group];
+          const impulse = closing*share;
+          const shove = car.shove ??= {vx:0,vz:0};
+          shove.vx += nx*impulse; shove.vz += nz*impulse;
+          // A constrained Roadster sheds its inward velocity, without reversing on impact.
+          const loss = closing*(1-share)*playerAxis;
+          if (loss*speed > 0) speed = Math.sign(speed)*Math.max(0,Math.abs(speed)-Math.abs(loss));
+        }
+      } else {
+        speed *= .35;
+      }
+      if (!strongest || (kicked && !strongest.kicked) || (kicked === strongest.kicked && closing > strongest.closing))
+        strongest = {car, closing, kicked};
+    }
+    return {speed, impact:strongest};
+  }
+
+  private rollShove(c:Car,dt:number,player:{x:number;y:number;z:number;hx?:number;hz?:number},walkers:Walker[]) {
+    const shove=c.shove!;
+    const drag=Math.exp(-2.8*dt), step=(1-drag)/2.8;
+    const forward=(shove.vx*c.hx+shove.vz*c.hz)*step;
+    const lateral=(shove.vx*c.hz-shove.vz*c.hx)*step;
+    // Move forward through the same junction, queue and rail guards as traffic.
+    if (forward>0) this.advance(c,forward,player,walkers);
+    if (!(c.motion && c.motion.progress>=0) && (forward<0 || Math.abs(lateral)>1e-6)) {
+      const s=Math.max(0,c.s+Math.min(0,forward));
+      const [lo,hi]=this.laneRange(c.edge,c.size[0],c.dir);
+      const lane=Math.max(lo,Math.min(hi,c.lane+lateral));
+      const pose=this.graph.pointAt(c.edge,s,c.dir,lane);
+      const body={...pose,size:c.size};
+      if ((!this.city || trafficPoseClear(this.city,pose,c.size)) &&
+          !this.railwayCrossings?.movementBlocked(c,pose,c.size[2]/2,c.size[0]/2) &&
+          !this.cars.some(other=>other!==c && !other.arcadeFlight && trafficOverlap(body,other,0)) &&
+          !(this.kinematicVehicles||NO_KINEMATIC_VEHICLES).some(other=>trafficOverlap(body,other,0)) &&
+          !walkers.some(w=>w.crossing && trafficOverlap(body,{...w,y:pose.y,hx:1,hz:0,size:[.7,1.8,.7]},.3))) {
+        c.s=s; c.lane=lane; Object.assign(c,pose);
+        if (c.motion && Math.abs(lateral)>.001) {c.motion=undefined;c.planAfter=0;}
+        this.placeVisual(c.g,c,c.size);
+      }
+    }
+    shove.vx*=drag; shove.vz*=drag;
+    if (Math.hypot(shove.vx,shove.vz)<.015) c.shove=undefined;
+  }
+
   /** A high-speed collision can launch a traffic vehicle; it keeps its vehicle identity and lands on mapped road. */
   kickVehicle(car:Car, impactSpeed:number, hx:number, hz:number) {
     if (car.group === 'bus' || car.group === 'truck') return false;
@@ -95,6 +183,7 @@ export class Traffic {
       if(landing)break;
     }
     if(!landing)return false;
+    car.shove = undefined;
     car.arcadeFlight = {
       elapsed: 0, duration, startX: car.x, startY: car.y, startZ: car.z, landing,
       vx: (landing.pose.x - car.x) / duration,
@@ -127,10 +216,11 @@ export class Traffic {
         const lane=Math.max(lo,Math.min(hi,car.lane)),s=dir===1?canonical:edge.len-canonical;
         const pose=this.graph.pointAt(edge,s,dir,lane),distance=Math.hypot(pose.x-x,pose.z-z),height=Math.abs(pose.y-car.y);
         if(distance>8||height>1.2)continue;
-        if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
         const heading = pose.hx * impactX + pose.hz * impactZ;
         const score=distance+height*.8+(heading<0?Math.abs(heading)*12:0)+(edge===car.edge?5:0);
-        if(!best||score<best.score)best={edge,dir,s,lane,pose,score};
+        if (best && best.score <= score) continue;
+        if (this.city && !trafficPoseClear(this.city, pose, car.size)) continue;
+        best={edge,dir,s,lane,pose,score};
       }
     }
     return best;
@@ -895,6 +985,7 @@ export class Traffic {
       if (Math.hypot(c.x - px, c.z - pz) > 340&&!this.storyLeased(c)) { this.release(c); this.cars.splice(i, 1); continue; }
       const previousSpeed = c.speed;
       if(c.arcadeFlight){this.advanceArcadeVehicle(c,dt);this.updateLamps(c,previousSpeed,dt);continue;}
+      if (c.shove) this.rollShove(c,dt,player,walkers);
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {
         c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);

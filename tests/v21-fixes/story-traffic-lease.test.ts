@@ -116,3 +116,40 @@ test('a leased bus waits on its wide road before the legal passing corridor ends
  car.s=car.stopS!;Object.assign(car,graph.pointAt(car.edge,car.s,car.dir,car.lane));car.speed=0;
  assert.equal(traffic.canEnterStoryVehicle(car),true,'the same waiting bus still accepts a grounded approach');assert.equal(traffic.storyVehicleLeaseStatus(car.g.uuid),'active');
 });
+
+test('the first overlapping bumper frame uses relative inward speed, including oncoming traffic',()=>{
+ const {traffic,car}=fixture('bike');
+ for(const [playerSpeed,npcSpeed,oncoming,kicked] of [[70,68,false,false],[70,0,false,true],[35,35,true,true],[40,65,false,false]] as const){
+   const heading=oncoming?-1:1;
+   car.speed=npcSpeed/3.6;car.arcadeFlight=undefined;car.shove=undefined;
+   const distance=car.size[2]/2+2.4-.001;
+   const pos={x:car.x-car.hx*heading*distance,y:car.y+.55,z:car.z-car.hz*heading*distance};
+   const result=traffic.resolvePlayerContact(pos,playerSpeed/3.6,car.hx*heading,car.hz*heading);
+   assert.equal(result.impact?.kicked,kicked);
+   assert.ok(Math.abs(result.impact!.closing*3.6-Math.max(0,playerSpeed-heading*npcSpeed))<1e-6);
+ }
+});
+test('slow touches transfer momentum by weight, move the same NPC down its road, and then decay',()=>{
+ let previous=Infinity;
+ for(const group of ['bike','auto','car','truck','bus'] as const){
+   const {traffic,car}=fixture(group);car.speed=0;
+   const distance=car.size[2]/2+2.39;
+   const pos={x:car.x-car.hx*distance,y:car.y+.55,z:car.z-car.hz*distance};
+   const result=traffic.resolvePlayerContact(pos,2,car.hx,car.hz);
+   assert.equal(result.impact?.kicked,false);
+   assert.ok(result.speed < previous);previous=result.speed;
+   const start=car.s;
+   for(let i=0;i<120 && car.shove;i++) (traffic as any).rollShove(car,1/60,pos,[]);
+   assert.ok(car.s>start);assert.equal(car.shove,undefined);
+ }
+});
+test('a side touch shifts the lane and a clear overhead pass never pushes',()=>{
+ const {traffic,car}=fixture('auto');car.speed=0;
+ const hx=car.hz,hz=-car.hx,dist=2.39+car.size[0]/2;
+ const pos={x:car.x-hx*dist,y:car.y+.55,z:car.z-hz*dist};
+ assert.equal(traffic.resolvePlayerContact(pos,5,hx,hz,{bottom:4,top:5}).impact,undefined);
+ const before=car.lane;
+ traffic.resolvePlayerContact(pos,5,hx,hz);
+ (traffic as any).rollShove(car,1/60,pos,[]);
+ assert.ok(car.lane>before);assert.equal(car.arcadeFlight,undefined);
+});

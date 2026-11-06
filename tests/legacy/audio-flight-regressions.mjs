@@ -131,13 +131,13 @@ try {
     player.update(1 / 60, { ...input, throttle: 1, brake: 1 }, 1 / 60);
     assert.ok(player.speed < speed, 'brake takes priority over held GO');
     for (let n = 0; n < 600; n++) player.update(1 / 60, { ...input, brake: 1 }, (n + 2) / 60);
-    assert.equal(player.speed, 0, 'a forward-braking press remains stopped while held');
-    const stoppedAt = player.pos.clone();
-    for (let n = 0; n < 120; n++) player.update(1 / 60, { ...input, brake: 1 }, 10.1 + n / 60);
-    assert.ok(player.pos.distanceTo(stoppedAt) < 1e-8, 'continued braking cannot roll the stopped car backwards');
+    assert.ok(player.speed < 0 && player.speed >= -6, 'held BRAKE transitions to bounded reverse after stopping');
+    player.speed = 40 / 3.6;
+    for (let n = 0; n < 600; n++) player.update(1 / 60, { ...input, brake: 1, allowReverse: false }, 10.1 + n / 60);
+    assert.equal(player.speed, 0, 'the dedicated brake stops without reversing while held');
     player.update(1 / 60, input, 12.1);
     for (let n = 0; n < 600; n++) player.update(1 / 60, { ...input, brake: 1 }, 12.2 + n / 60);
-    assert.ok(player.speed < 0 && player.speed >= -6, 'release and a fresh brake press from rest permit bounded reverse');
+    assert.ok(player.speed < 0 && player.speed >= -6, 'a fresh brake press from rest permits bounded reverse');
   });
 
   await test('both front wheels steer toward the actual forward turn; rear wheels stay straight', () => {

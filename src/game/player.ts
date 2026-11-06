@@ -30,8 +30,6 @@ export class Player {
   private jumpActive = false;
   private jumpHeld = false;
   private roadBrakeHold = 0;
-  private roadBrakeHeld = false;
-  private roadBrakeStopLatch = false;
   private jumpCooldownPendingLanding = false;
   private jumpBodyTop = 2.4;
   private jumpStartY = 0;
@@ -150,7 +148,7 @@ export class Player {
   place(x: number, z: number, yaw: number, y = 0) {
     this.finishJump();
     if (this.jumpCooldownPendingLanding) { this.jumpCooldownPendingLanding = false; this.jumpCooldown = JUMP_COOLDOWN_SECONDS; }
-    this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.roadBrakeHold = 0; this.roadBrakeHeld = false; this.roadBrakeStopLatch = false; this.vy = 0; this.flying = false; this.descending = false;
+    this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.roadBrakeHold = 0; this.vy = 0; this.flying = false; this.descending = false;
     const s = supportAt(this.city, x, z, y + 0.5, true); this.pos.y = s.y + 0.55;
     this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad; this.onRoad = s.onRoad;
     this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
@@ -206,7 +204,7 @@ export class Player {
   }
   // rescue: glide on the cold-gas jets to a street spot (off a roof, out of a gap between buildings); needs no boost
   glide: { x: number; y: number; z: number; yaw: number; t: number } | null = null;
-  glideTo(x: number, y: number, z: number, yaw: number) { const interruptedJump = this.jumping; this.finishJump(); if (interruptedJump) this.jumpCooldownPendingLanding = true; this.resetKickflip(); this.glide = { x, y: y + 0.55, z, yaw, t: 0 }; this.flying = false; this.descending = false; this.speed = 0; this.roadBrakeHold = 0; this.roadBrakeHeld = false; this.roadBrakeStopLatch = false; this.vy = 0; }
+  glideTo(x: number, y: number, z: number, yaw: number) { const interruptedJump = this.jumping; this.finishJump(); if (interruptedJump) this.jumpCooldownPendingLanding = true; this.resetKickflip(); this.glide = { x, y: y + 0.55, z, yaw, t: 0 }; this.flying = false; this.descending = false; this.speed = 0; this.roadBrakeHold = 0; this.vy = 0; }
   update(dt: number, inp: Input, t: number) {
     if (!Number.isFinite(dt) || dt <= 0) return;
     this.jumpBoundsDirty = true;
@@ -238,11 +236,6 @@ export class Player {
     const inDelivery = delivery && Math.hypot(this.pos.x - delivery.x, this.pos.z - delivery.z) <= delivery.radius;
     const diving = inDelivery && delivery.mode === 'underwater' && waterHeightAt(this.city.waterGrid, this.pos.x, this.pos.z) !== null;
     // --- longitudinal ---
-    if (inp.brake <= 0) {
-      this.roadBrakeHeld = false; this.roadBrakeStopLatch = false;
-    } else if (!this.roadBrakeHeld) {
-      this.roadBrakeHeld = true; this.roadBrakeStopLatch = this.speed > 0;
-    }
     if (this.jumping) {
       this.roadBrakeHold = 0;
       // A hop carries the launch speed; holding GO never adds a jump boost.
@@ -252,8 +245,9 @@ export class Player {
       this.roadBrakeHold = 0;
     } else if (this.flying || this.descending) {
       this.roadBrakeHold = 0;
-      // Flight and descent keep their existing response.
-      if (inp.throttle > 0) this.speed += (this.flying ? 12 : 9) * inp.throttle * dt;
+      // Keep forward acceleration consistent across powered road, flight,
+      // and descent modes.
+      if (inp.throttle > 0) this.speed += (this.flying ? 18 : 13.5) * inp.throttle * dt;
       if (inp.brake > 0) this.speed -= (this.speed > 0.5 ? 20 : 6) * inp.brake * dt;
       if (inp.throttle <= 0 && inp.brake <= 0) this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
     } else if (inp.brake > 0) {
@@ -262,10 +256,10 @@ export class Player {
       if (this.speed > 0 || this.speed < 0 && inp.throttle > 0) {
         const remaining = Math.max(0, Math.abs(this.speed) - 24 * inp.brake * dt);
         this.speed = remaining > 0 ? Math.sign(this.speed) * remaining : 0;
-        this.roadBrakeHold = 0;
-      } else if (inp.throttle > 0 || this.roadBrakeStopLatch) {
-        // A press that slowed forward motion remains a stop until released.
-        // Reverse requires a fresh press while already at rest.
+        // Keep a held BRAKE moving into reverse as soon as forward motion ends.
+        this.roadBrakeHold = remaining === 0 ? .35 : 0;
+      } else if (inp.throttle > 0) {
+        // Space is a dedicated brake; regular BRAKE continues into reverse.
         this.speed = 0; this.roadBrakeHold = 0;
       } else if (this.speed < 0) {
         this.speed -= 4 * inp.brake * dt;
@@ -277,9 +271,9 @@ export class Player {
       }
     } else {
       this.roadBrakeHold = 0;
-      // A full press reaches 60 km/h in about 4.6 seconds, retaining immediate
-      // proportional control and the existing top speed without a launch surge.
-      if (inp.throttle > 0) this.speed += (this.lastKind === 'water' ? 9 : 3.6) * inp.throttle * dt;
+      // Faster forward response across ground and water while retaining the
+      // existing speed caps and immediate proportional control.
+      if (inp.throttle > 0) this.speed += (this.lastKind === 'water' ? 13.5 : 5.4) * inp.throttle * dt;
       else this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
     }
     this.enforceSpeedLimit();

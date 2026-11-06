@@ -30,17 +30,17 @@ function accelerate(kmh: number, hz: number) {
 function stop(kmh: number, hz: number, throttle = 0) {
   const player = car(kmh / 3.6); let frame = 0;
   while (frame < hz * 10 && player.speed > 0) {
-    frame++; player.update(1 / hz, { ...idle, throttle, brake: 1 }, frame / hz);
+    frame++; player.update(1 / hz, { ...idle, throttle, brake: 1, allowReverse: false }, frame / hz);
   }
   return { seconds: frame / hz, distance: -player.pos.z, speed: player.speed };
 }
 
-for (const hz of [30, 60, 120]) test(`road throttle gives a controllable launch and retains 120 km/h at ${hz} Hz`, t => {
+for (const hz of [30, 60, 120]) test(`road throttle gives a 1.5x launch and retains 120 km/h at ${hz} Hz`, t => {
   const thirty = accelerate(30, hz), sixty = accelerate(60, hz), top = accelerate(120, hz);
   t.diagnostic(JSON.stringify({ hz, zeroTo30: thirty, zeroTo60: sixty, zeroTo120: top }));
-  assert.ok(thirty.seconds >= 2.1 && thirty.seconds < 2.8, 'slow road manoeuvres have time for steering corrections');
-  assert.ok(sixty.seconds >= 4.3 && sixty.seconds < 5.2, '60 km/h arrives gradually rather than in under two seconds');
-  assert.ok(top.seconds >= 8.5 && top.seconds < 10.5, 'sustained GO still reaches the unchanged road cap');
+  assert.ok(thirty.seconds >= 1.0 && thirty.seconds < 1.8, '30 km/h takes about two thirds of the former time');
+  assert.ok(sixty.seconds >= 2.5 && sixty.seconds < 3.7, '60 km/h takes about two thirds of the former time');
+  assert.ok(top.seconds >= 5 && top.seconds < 7.2, 'sustained GO still reaches the unchanged road cap');
   assert.equal(top.speed, ROAD_SPEED_LIMIT);
 });
 
@@ -52,7 +52,7 @@ for (const hz of [30, 60, 120]) test(`braking stops firmly without rolling backw
   assert.equal(cityStop.speed, 0); assert.equal(fastStop.speed, 0);
   assert.ok(Math.abs(both.seconds - fastStop.seconds) <= 1 / hz, 'GO cannot weaken a deliberate brake press');
   assert.equal(both.speed, 0);
-  const player = car(60 / 3.6); simulate(player, { ...idle, brake: 1 }, .8, hz);
+  const player = car(60 / 3.6); simulate(player, { ...idle, brake: 1, allowReverse: false }, .8, hz);
   assert.equal(player.speed, 0, 'the same forward-braking press remains a stop');
   simulate(player, idle, .5, hz); assert.equal(player.speed, 0, 'releasing the brake after stopping leaves the car still');
 });
@@ -69,31 +69,33 @@ test('reverse needs an intentional stopped hold, and holding GO with BRAKE canno
 
 test('partial throttle, coasting and low-speed steering remain immediate and proportional', () => {
   const quarter = car(), half = car(); simulate(quarter, { ...idle, throttle: .25 }, 2); simulate(half, { ...idle, throttle: .5 }, 2);
-  assert.ok(quarter.speed > 1.6 && quarter.speed < 2.2); assert.ok(Math.abs(half.speed - quarter.speed * 2) < 1e-8);
+  assert.ok(quarter.speed > 2.5 && quarter.speed < 3); assert.ok(Math.abs(half.speed - quarter.speed * 2) < 1e-8);
   const coast = car(60 / 3.6); simulate(coast, idle, 1); assert.ok(Math.abs(coast.speed - (60 / 3.6 - 4)) < 1e-8);
   const straight = car(), turning = car(); simulate(straight, { ...idle, throttle: 1 }, 1); simulate(turning, { ...idle, throttle: 1, steer: 1 }, 1);
   assert.equal(straight.speed, turning.speed); assert.ok(turning.yaw < -.1, 'reduced acceleration does not add input lag or disable low-speed steering');
 });
 
-test('unlimited flight and descent retain their previous longitudinal response and speed caps', () => {
+test('unlimited flight and descent use the 1.5x forward acceleration and retain speed caps', () => {
   const flight = car(); flight.flying = true; flight.pos.y = 24; simulate(flight, { ...idle, throttle: 1 }, 2);
-  assert.ok(Math.abs(flight.speed - 24) < 1e-8, 'flight acceleration remains 12 m/s²');
+  assert.ok(Math.abs(flight.speed - 36) < 1e-8, 'flight acceleration is 18 m/s²');
   simulate(flight, { ...idle, throttle: 1 }, 4); assert.equal(flight.speed, FLIGHT_SPEED_LIMIT);
   simulate(flight, { ...idle, brake: 1 }, .5); assert.ok(Math.abs(flight.speed - (FLIGHT_SPEED_LIMIT - 10)) < 1e-8, 'flight braking remains 20 m/s²');
   const descent = car(); descent.descending = true; descent.pos.y = 100;
-  simulate(descent, { ...idle, throttle: 1 }, .5); assert.ok(Math.abs(descent.speed - 4.5) < 1e-8, 'descent keeps its existing 9 m/s² until touchdown');
+  simulate(descent, { ...idle, throttle: 1 }, .5); assert.ok(Math.abs(descent.speed - 6.75) < 1e-8, 'descent acceleration is 13.5 m/s² until touchdown');
 });
 
 
-for (const hz of [30, 60, 120]) test(`forward braking latches at rest until release and a fresh reverse press at ${hz} Hz`, () => {
+for (const hz of [30, 60, 120]) test(`held BRAKE automatically reverses after stopping at ${hz} Hz`, () => {
   for (const kmh of [3.6, 60, 120]) {
     const player = car(kmh / 3.6);
-    simulate(player, { ...idle, brake: 1 }, 1.5, hz);
+    let frames = 0;
+    while (player.speed > 0 && frames < hz * 2) {
+      player.update(1 / hz, { ...idle, brake: 1 }, ++frames / hz);
+    }
     assert.equal(player.speed, 0, `stopped from ${kmh} km/h`);
-    const stopped = player.pos.clone();
-    simulate(player, { ...idle, brake: 1 }, 3, hz);
-    assert.equal(player.speed, 0, 'a long brake hold cannot turn an ordinary stop into reverse');
-    assert.ok(player.pos.distanceTo(stopped) < 1e-8, 'no rollback while the same thumb remains on BRAKE');
+    simulate(player, { ...idle, brake: 1 }, .2, hz);
+    assert.ok(player.speed < 0, 'continuing to hold BRAKE transitions from stopping into reverse');
+    player.speed = 0;
     simulate(player, idle, .1, hz);
     simulate(player, { ...idle, brake: 1 }, .2, hz);
     assert.equal(player.speed, 0, 'a fresh reverse press retains its intentional hold delay');
@@ -102,7 +104,7 @@ for (const hz of [30, 60, 120]) test(`forward braking latches at rest until rele
   }
   const slowedByCollision = car(.2);
   simulate(slowedByCollision, { ...idle, brake: 1 }, .8, hz);
-  assert.equal(slowedByCollision.speed, 0, 'a low-speed scrape followed by a normal brake hold cannot roll backwards');
+  assert.ok(slowedByCollision.speed < 0, 'a held brake transitions into reverse after a low-speed stop');
 });
 
 test('dedicated desktop brake stops both directions and never starts reversing', () => {

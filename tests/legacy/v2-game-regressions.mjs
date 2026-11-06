@@ -118,7 +118,7 @@ try {
       engine: { renderer: { domElement: canvas }, camera: new PerspectiveCamera(), render() { counts.render++; }, placeSun() {} },
       clock: { getDelta() { counts.clock++; return 0.05; } },
       city: { rails: new Map(), update() { counts.city++; }, updateSignals(seconds) { counts.signals++; counts.signalSeconds = seconds; }, signs: { update() {} }, loadedBuildings: () => [] },
-      traffic: { t: 0, update(dt) { this.t += dt; counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], clear() { this.list.length = 0; }, update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], setRiderStop() {}, update() {} },
+      traffic: { t: 0, update(dt) { this.t += dt; counts.traffic++; }, resolvePlayerContact: (_pos, speed) => ({speed}), hideNear() {} }, walkers: { list: [], clear() { this.list.length = 0; }, update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], setRiderStop() {}, update() {} },
       // This fixture bypasses Game's constructor, so retain its real initially
       // inactive train-rider guard rather than weakening production frame code.
       railRiderClearance: new RailRiderClearance(), railRiderWarned: false,

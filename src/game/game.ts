@@ -989,8 +989,8 @@ export class Game {
     if (this.carrierPickupMode) {
       const touch = document.documentElement.classList.contains('is-touch');
       this.hud.tip(touch
-        ? 'Find an auto with a glowing slice. Tap JUMP to grab it, or hit that auto above 60 km/h.'
-        : 'Find an auto with a glowing slice. Press E to jump through it, or hit that auto above 60 km/h.');
+        ? 'Find an auto with a glowing slice. Tap JUMP to grab it, or hit that auto with a closing speed above 60 km/h.'
+        : 'Find an auto with a glowing slice. Press E to jump through it, or hit that auto with a closing speed above 60 km/h.');
       return;
     }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
@@ -1150,29 +1150,33 @@ export class Game {
     this.city.update(P.x, P.z, dt);
     this.railTrackFallback?.update(P.x, P.z, this.city.tiles, dt, this.rail.bodies);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
+    const fw = this.player.forward;
+    const collision = this.player.flying || this.story?.cinematic ? undefined :
+      this.traffic.resolvePlayerContact(P,this.player.speed,fw.x,fw.z,this.player.jumping ? this.player.jumpTrafficBounds : undefined);
+    if (collision?.impact) {
+      this.player.speed = collision.speed;
+      this.player.group.position.x = P.x;
+      this.player.group.position.z = P.z;
+    }
+    const impact = collision?.impact, hit = impact?.car, kickedVehicle = impact?.kicked;
+    if (kickedVehicle) {
+      this.sound.cue('flight'); this.hud.toast('Arcade kick!', 'teal');
+    }
+    if (kickedVehicle && hit?.group === 'auto' && this.carrierPickupMode && this.story?.canPickup !== false) {
+      const marker = this.carriers.markers.find(m => m.carrierId === hit.g.uuid);
+      if (marker) this.pickupDetector.collectMarkedAuto(marker.carrierId, marker.position);
+    }
+    if (hit && impact && impact.closing > 2.5 && this.player.hitCooldown <= 0) {
+      this.sound.cue('bump');
+      this.player.hitCooldown = 1.5; this.player.bump = 0.6;
+      if (this.order && this.order.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; this.hud.toast(this.order.slices ? 'Baigan! −1 slice' : 'Pizza ruined!', 'pink'); }
+      else if (!kickedVehicle) this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
+    }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
     this.story?.afterTraffic?.(dt);
     if (this.carrierPickupMode) this.updateCarrierPickup(dt);
     this.city.updateSignals(this.traffic.t);
-    const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
-    const jumpBounds = this.player.jumping ? this.player.jumpTrafficBounds : undefined;
-    const hit = this.player.flying || this.story?.cinematic ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
-    const kickedVehicle = hit && this.traffic.kickVehicle(hit, this.player.speed, fw.x, fw.z);
-    if (kickedVehicle) {
-      this.sound.cue('flight'); this.hud.toast('Arcade kick!', 'teal');
-    }
-    if (kickedVehicle && hit.group === 'auto' && this.carrierPickupMode && this.story?.canPickup !== false) {
-      const marker = this.carriers.markers.find(m => m.carrierId === hit.g.uuid);
-      if (marker) this.pickupDetector.collectMarkedAuto(marker.carrierId, marker.position);
-    }
-    if (!this.player.flying&&!this.story?.cinematic) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
-    if (hit && this.player.hitCooldown <= 0) {
-      this.sound.cue('bump');
-      this.player.hitCooldown = 1.5; this.player.speed *= 0.35; this.player.bump = 0.6;
-      if (this.order && this.order.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; this.hud.toast(this.order.slices ? 'Baigan! −1 slice' : 'Pizza ruined!', 'pink'); }
-      else if (!kickedVehicle) this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
-    }
     // order flow
     const o = this.order;
     let promptText: string | null = null;
