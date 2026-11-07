@@ -1,5 +1,6 @@
 import type { CityData } from '../world/city';
-import { collideBuildings, collideWalls, supportAt } from './physics';
+import { collideBuildings, collideWalls, supportAt, GuidanceCollisionQueries } from './physics';
+import { frameProfile } from '../core/frame-profile';
 import type { RoadRoute } from './roadgraph';
 
 export type RoutePoint = [number, number, number];
@@ -36,7 +37,7 @@ export function advanceRoadRoute(route: RoadRoute, position: { x: number; y: num
 // Offset endpoints at a source split can differ by a few centimetres. Keep the
 // source route, but do not draw an out-and-back ribbon around that tiny join.
 // Every replacement still needs loaded, same-grade pavement and car clearance.
-function compactRoadJoins(city: CityData, pts: RoutePoint[]): RoutePoint[] {
+function compactRoadJoins(city: CityData, pts: RoutePoint[], queries: GuidanceCollisionQueries): RoutePoint[] {
   const out: RoutePoint[] = [pts[0]]; let travelled = 0;
   for (let i = 1; i < pts.length - 1; i++) {
     const a = out[out.length - 1], b = pts[i], c = pts[i + 1];
@@ -53,7 +54,7 @@ function compactRoadJoins(city: CityData, pts: RoutePoint[]): RoutePoint[] {
     for (let j = 1; j <= steps; j++) {
       const t = j / steps, p = { x: a[0] + dx * t, z: a[2] + dz * t }, y = a[1] + (c[1] - a[1]) * t;
       const support = supportAt(city, p.x, p.z, y + .1, true);
-      if (!support.onRoad || Math.abs(support.y - y) > .35 || collideWalls(city, previous, p, 1.05, y + .08, y + 1.3).hit || collideBuildings(city, p, 1.15, y + .2)) { clear = false; break; }
+      if (!support.onRoad || Math.abs(support.y - y) > .35 || collideWalls(city, previous, p, 1.05, y + .08, y + 1.3, undefined, queries).hit || collideBuildings(city, p, 1.15, y + .2, undefined, queries)) { clear = false; break; }
       previous = p;
     }
     if (!clear) out.push(b);
@@ -65,8 +66,12 @@ function compactRoadJoins(city: CityData, pts: RoutePoint[]): RoutePoint[] {
 // and with the player's wall/facade clearance. Tight or unverified turns keep
 // their legal polyline; a cosmetic spline must never invent a shortcut.
 export function softenRoadCorners(city: CityData, pts: RoutePoint[]): RoutePoint[] {
+  return frameProfile.enabled ? frameProfile.measure('gps.guidance.soften', () => softenRoadCornersNow(city, pts)) : softenRoadCornersNow(city, pts);
+}
+function softenRoadCornersNow(city: CityData, pts: RoutePoint[]): RoutePoint[] {
   if (pts.length < 3 || !city.surfaceGrid) return pts;
-  pts = compactRoadJoins(city, pts);
+  const queries = new GuidanceCollisionQueries(city);
+  pts = compactRoadJoins(city, pts, queries);
   const out: RoutePoint[] = [pts[0]]; let traversed = 0;
   for (let i = 1; i < pts.length - 1; i++) {
     const a = pts[i - 1], b = pts[i], c = pts[i + 1];
@@ -85,7 +90,7 @@ export function softenRoadCorners(city: CityData, pts: RoutePoint[]): RoutePoint
       const p = b.map((n, k) => v * v * entry[k] + 2 * u * v * n + u * u * exit[k]) as RoutePoint;
       const support = supportAt(city, p[0], p[2], p[1] + .1, true);
       const prev = curve[curve.length - 1], probe = { x: p[0], z: p[2] };
-      if (!support.onRoad || Math.abs(support.y - p[1]) > .35 || collideWalls(city, { x: prev[0], z: prev[2] }, probe, 1.05, p[1] + .08, p[1] + 1.3).hit || collideBuildings(city, probe, 1.15, p[1] + .2)) { valid = false; break; }
+      if (!support.onRoad || Math.abs(support.y - p[1]) > .35 || collideWalls(city, { x: prev[0], z: prev[2] }, probe, 1.05, p[1] + .08, p[1] + 1.3, undefined, queries).hit || collideBuildings(city, probe, 1.15, p[1] + .2, undefined, queries)) { valid = false; break; }
       curve.push(p);
     }
     out.push(...(valid ? curve : [b]));
@@ -96,6 +101,9 @@ export function softenRoadCorners(city: CityData, pts: RoutePoint[]): RoutePoint
 // Shared vertices close strip joins; bounded mitres and round end caps avoid
 // gaps/spikes while keeping exactly the requested half-width on straight roads.
 export function guidanceRibbon(pts: RoutePoint[], width = GUIDE_WIDTH): number[] {
+  return frameProfile.enabled ? frameProfile.measure('gps.guidance.ribbon', () => guidanceRibbonNow(pts, width)) : guidanceRibbonNow(pts, width);
+}
+function guidanceRibbonNow(pts: RoutePoint[], width: number): number[] {
   if (pts.length < 2) return [];
   const out: number[] = [], sides: { l: RoutePoint; r: RoutePoint }[] = [], radius = width / 2;
   for (let i = 0; i < pts.length; i++) {
@@ -136,7 +144,11 @@ export function navigationReadout(route: RoadRoute | null, blocked: boolean, pos
 // Only draw the locally checked portion of the road route. A straight connector
 // between two graph edges is not permission to drive through a divider or facade.
 export function clearRoadGuidance(city: CityData, pts: RoutePoint[], maxLength = 700): { pts: RoutePoint[]; blocked: boolean } {
+  return frameProfile.enabled ? frameProfile.measure('gps.guidance.clearance', () => clearRoadGuidanceNow(city, pts, maxLength)) : clearRoadGuidanceNow(city, pts, maxLength);
+}
+function clearRoadGuidanceNow(city: CityData, pts: RoutePoint[], maxLength: number): { pts: RoutePoint[]; blocked: boolean } {
   if (!pts.length) return { pts: [], blocked: false };
+  const queries = new GuidanceCollisionQueries(city);
   const out: RoutePoint[] = [pts[0]];
   let distance = 0;
   for (let i = 1; i < pts.length && distance < maxLength; i++) {
@@ -148,8 +160,8 @@ export function clearRoadGuidance(city: CityData, pts: RoutePoint[], maxLength =
       const u = (covered / length) * j / steps;
       const x = a[0] + (b[0] - a[0]) * u, y = a[1] + (b[1] - a[1]) * u, z = a[2] + (b[2] - a[2]) * u;
       const probe = { x, z };
-      const wall = collideWalls(city, previous, probe, 1.05, y + 0.08, y + 1.3);
-      const building = collideBuildings(city, probe, 1.15, y + 0.2);
+      const wall = collideWalls(city, previous, probe, 1.05, y + 0.08, y + 1.3, undefined, queries);
+      const building = collideBuildings(city, probe, 1.15, y + 0.2, undefined, queries);
       if (wall.hit > 0 || building > 0) return { pts: out.length > 1 ? out : [], blocked: true };
       out.push([x, y, z]); previous = { x, z };
     }

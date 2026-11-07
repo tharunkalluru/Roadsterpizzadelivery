@@ -85,6 +85,34 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
   return best;
 }
 
+// A synchronous guidance build samples many positions in the same grid cell.
+// Cache candidate lists only for that build; moving gates and streamed city data
+// must be queried afresh on the next build. Never retain this across frames.
+export class GuidanceCollisionQueries {
+  private buildings = new Map<string, Building[]>();
+  private wallLists = new Map<string, { walls: Wall[]; gateCount: number }>();
+  constructor(readonly city: CityData) {}
+  buildingsAt(x: number, z: number): Building[] {
+    const key = k50(x, z);
+    let list = this.buildings.get(key);
+    if (!list) { list = nearbyBuildings(this.city, x, z); this.buildings.set(key, list); }
+    return list;
+  }
+  wallsAt(x: number, z: number): { walls: Wall[]; gateCount: number } {
+    const key = k30(x, z);
+    let list = this.wallLists.get(key);
+    if (!list) {
+      const seen = new Set<Wall>(this.city.railwayWalls || []), walls = [...seen], gateCount = walls.length;
+      const cx = Math.floor(x / 30), cz = Math.floor(z / 30);
+      for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const wall of this.city.walls.get(`${cx + i},${cz + j}`) || []) {
+        if (!seen.has(wall)) { seen.add(wall); walls.push(wall); }
+      }
+      list = { walls, gateCount }; this.wallLists.set(key, list);
+    }
+    return list;
+  }
+}
+
 export function nearbyBuildings(city: CityData, x: number, z: number): Building[] {
   const out = new Set<Building>();
   const cx = Math.floor(x / 50), cz = Math.floor(z / 50);
@@ -115,9 +143,9 @@ export function roofUnder(city: CityData, pts: [number, number][]): number {
 }
 
 // Push a circle out of building footprints taller than the car's height. Returns penetration depth (0 = no hit).
-export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number, bodyTop = y + 1.2): number {
+export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number, bodyTop = y + 1.2, queries?: GuidanceCollisionQueries): number {
   let hit = 0;
-  for (const b of nearbyBuildings(city, pos.x, pos.z)) {
+  for (const b of queries?.city === city ? queries.buildingsAt(pos.x, pos.z) : nearbyBuildings(city, pos.x, pos.z)) {
     // Source building footprints start at local ground, not an infinite
     // basement through a road-under-bridge cut.
     if (bodyTop < 0) continue;
@@ -156,16 +184,17 @@ export function collideBuildings(city: CityData, pos: { x: number; z: number }, 
 // Dividers, kerbs and bridge parapets. `bottom`/`top` is the car body's vertical extent.
 // Solid walls stop the car (no tunnelling: a step that crosses the line is pulled back); kerbs only report a bump.
 export function collideWalls(city: CityData, prev: { x: number; z: number }, pos: { x: number; z: number }, r: number, bottom: number, top: number,
-  gateFootprint?: { hx: number; hz: number; halfLength: number; halfWidth: number }): { hit: number; kerb: boolean; nx: number; nz: number } {
+  gateFootprint?: { hx: number; hz: number; halfLength: number; halfWidth: number }, queries?: GuidanceCollisionQueries): { hit: number; kerb: boolean; nx: number; nz: number } {
   const res = { hit: 0, kerb: false, nx: 0, nz: 0 };
-  const seen = new Set<Wall>();
+  const cached = queries?.city === city ? queries.wallsAt(pos.x, pos.z) : undefined;
+  const seen = cached ? null : new Set<Wall>();
   const cx = Math.floor(pos.x / 30), cz = Math.floor(pos.z / 30);
-  const nearby: Wall[] = [...(city.railwayWalls || [])];
-  const gateCount = nearby.length;
-  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) nearby.push(...(city.walls.get(`${cx + i},${cz + j}`) || []));
+  const nearby: Wall[] = cached?.walls ?? [...(city.railwayWalls || [])];
+  const gateCount = cached?.gateCount ?? nearby.length;
+  if (!cached) for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) nearby.push(...(city.walls.get(`${cx + i},${cz + j}`) || []));
   for (let i = 0; i < nearby.length; i++) {
     const w = nearby[i];
-    if (seen.has(w)) continue; seen.add(w);
+    if (seen?.has(w)) continue; seen?.add(w);
     const dx = w.bx - w.ax, dz = w.bz - w.az, L2 = dx * dx + dz * dz || 1, L = Math.sqrt(L2);
     const t = Math.max(0, Math.min(1, ((pos.x - w.ax) * dx + (pos.z - w.az) * dz) / L2));
     const y0 = w.y0a + (w.y0b - w.y0a) * t, y1 = w.y1a + (w.y1b - w.y1a) * t;
