@@ -133,8 +133,13 @@ test('the background tile result transfers cut terrain and physical support; Wor
   const world:any=Object.assign(Object.create(World.prototype),{group:new THREE.Group(),tiles:new Map(),groundGeo:new THREE.PlaneGeometry(1000,1000),mats,
     buildingGrid:new Map(),surfaceGrid:new Map(),walls:new Map(),obstacles:new Map(),byBuilding:new Map(),landmarkSurfaceGrid:new Map(),waterGrid:new Map(),activity:new Map(),rails:new Map(),lamps:[],signals:[],busStops:[],walkPaths:[],signs:{add(){},remove(){}},onTileAdded(){},onTileRemoved(){},
     underpassTerrain:{build(){throw new Error('cut tessellation must not execute inside World.add');}}});
-  world.add(wire);const loaded=world.tiles.get('0_0');assert.ok(loaded);assert.equal(loaded.group.children.length,wire.buffers.length,'no default solid plane is added over the prepared hole');
-  const mesh=loaded.group.children.find((m:any)=>m.geometry.attributes.position.array===wire.buffers.find(b=>b.mat==='ground')!.pos);assert.ok(mesh);mesh.updateMatrixWorld(true);
+  world.add(wire);const loaded=world.tiles.get('0_0');assert.ok(loaded);
+  // Preparation may add organizational Groups; assert installed geometry, not child count.
+  const meshes:THREE.Mesh[]=[];loaded.group.traverse((o:THREE.Object3D)=>{if(o instanceof THREE.Mesh)meshes.push(o);});
+  assert.equal(meshes.length,wire.buffers.length,'only the transferred tile meshes are installed');
+  assert.ok(meshes.every(m=>m.geometry!==world.groundGeo),'no default solid plane is added over the prepared hole');
+  for(const buffer of wire.buffers)assert.equal(meshes.filter(m=>m.geometry.attributes.position.array===buffer.pos).length,1,'each worker geometry is installed exactly once');
+  const mesh=meshes.find(m=>m.geometry.attributes.position.array===wire.buffers.find(b=>b.mat==='ground')!.pos);assert.ok(mesh);mesh.updateMatrixWorld(true);
   assert.equal(new THREE.Raycaster(new THREE.Vector3(500,20,500),new THREE.Vector3(0,-1,0)).intersectObject(mesh).length,0,'prepared hole stays open after scene installation');
   assert.ok(supportAt(world,500,508,-5).y< -4.8,'worker-produced pavement and side support were merged');assert.ok(world.walls.size>0);
   world.unload(loaded);assert.equal(world.surfaceGrid.size,0);assert.equal(world.walls.size,0);world.groundGeo.dispose();material.dispose();
