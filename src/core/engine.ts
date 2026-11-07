@@ -7,6 +7,7 @@ import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTe
 import { stationWindowMaterial } from './world-materials';
 import { makeSky, Mood, sunDirection } from './sky';
 import { EnvironmentSkyCapture } from './environment-capture';
+import { frameProfile } from './frame-profile';
 
 export class Engine {
   renderer: THREE.WebGLRenderer; scene = new THREE.Scene(); camera: THREE.PerspectiveCamera;
@@ -17,6 +18,7 @@ export class Engine {
   pmrem: THREE.PMREMGenerator; envRT: THREE.WebGLRenderTarget | null = null; envKey = '';
   mood!: Mood;
   private environmentCapture: EnvironmentSkyCapture | null = null;
+  private environmentCaptureTime = -Infinity;
   constructor(public container: HTMLElement, public opts: { lowQ: boolean; still?: { w: number; h: number } }) {
     const still = opts.still;
     this.renderer = new THREE.WebGLRenderer({ antialias: !still, preserveDrawingBuffer: !!still, powerPreference: 'high-performance' });
@@ -90,7 +92,7 @@ export class Engine {
     this.renderer.setSize(w, h); this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
     this.composer?.setSize(w, h);
   }
-  applyMood(m: Mood, extra: { signs?: (v: number) => void } = {}) {
+  applyMood(m: Mood, extra: { signs?: (v: number) => void } = {}, now = performance.now()) {
     this.mood = m;
     const u = (this.sky.material as THREE.ShaderMaterial).uniforms;
     u.top.value.set(m.skyTop); u.hor.value.set(m.skyHor); u.bot.value.set(m.skyBot);
@@ -108,15 +110,19 @@ export class Engine {
     extra.signs?.(m.signs);
     this.lampLights.forEach((p, i) => (p.intensity = i < Math.round(m.lampLights) ? 22 : 0));
     if (this.bloom) this.bloom.strength = m.bloom;
-    // refresh the image-based light only when the sky changed noticeably
+    // Direct lighting and the visible sky update above on every mood tick.
+    // Recapture reflections at most once per three seconds during transitions;
+    // an empty key bypasses the interval for initialization and context recovery.
     const k = m.skyTop + m.skyHor;
-    if (k !== this.envKey) {
+    if (k !== this.envKey && (!this.envKey || now - this.environmentCaptureTime >= 3000)) {
       // Keep this private source material alive: disposing it per refresh
       // would release the PMREM-specific linked shader program as well.
       const capture = this.environmentCapture ??= new EnvironmentSkyCapture();
-      const rt = capture.render(this.pmrem, u);
+      const rt = frameProfile.enabled
+        ? frameProfile.measure('environment.capture', () => capture.render(this.pmrem, u))
+        : capture.render(this.pmrem, u);
       const previous = this.envRT;
-      this.envRT = rt; this.scene.environment = rt.texture; this.envKey = k;
+      this.envRT = rt; this.scene.environment = rt.texture; this.envKey = k; this.environmentCaptureTime = now;
       previous?.dispose();
     }
     (this.scene as any).environmentIntensity = m.env;
@@ -153,6 +159,8 @@ export class Engine {
     this.renderer.info.autoReset = false; this.renderer.info.reset();
     if (!force && typeof document !== 'undefined' && (document.hidden || document.documentElement.classList.contains('ui-blocks-world') || document.documentElement.classList.contains('game-loading'))) return;
     this.sky.position.copy(this.camera.position);
+    const started = frameProfile.enabled ? performance.now() : 0;
     if (this.composer) this.composer.render(); else this.renderer.render(this.scene, this.camera);
+    if (frameProfile.enabled) frameProfile.record('render.submit', performance.now() - started);
   }
 }

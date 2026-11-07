@@ -26,7 +26,7 @@ function fixture() {
     sky: mainSky, hemi: new THREE.HemisphereLight(), sun: new THREE.DirectionalLight(),
     scene: new THREE.Scene(), renderer: { toneMappingExposure: 1 },
     mats: { lit: { color: new THREE.Color() }, wall: {}, shop: {}, stationWindow: {}, glow: {}, vLight: { color: new THREE.Color() } },
-    lampLights: [], bloom: null, envRT: previous, envKey: 'previous-environment',
+    lampLights: [], bloom: null, envRT: previous, envKey: 'previous-environment', environmentCaptureTime: -Infinity,
     pmrem: {
       fromScene(scene: THREE.Scene, sigma: number) {
         calls.push(scene);
@@ -92,7 +92,7 @@ test('sky transitions reuse one private scene/geometry/material and keep its pro
     const next = f.replacement(), index = targetDisposals.push(0) - 1;
     next.addEventListener('dispose', () => targetDisposals[index]++); return next;
   });
-  for (let index = 0; index < 32; index++) f.engine.applyMood(index % 2 ? MOODS.night : MOODS.dawn);
+  for (let index = 0; index < 32; index++) f.engine.applyMood(index % 2 ? MOODS.night : MOODS.dawn, {}, index * 3000);
   assert.equal(f.calls.length, 32); assert.equal(f.captures.length, 1);
   assert.deepEqual(targetDisposals, [...Array(31).fill(1), 0]);
   assert.equal(f.engine.envRT, f.replacements.at(-1)); assert.equal(f.engine.scene.environment, f.replacements.at(-1)!.texture);
@@ -107,7 +107,7 @@ test('capture retains the exact old sky geometry, shaders, uniform values, trans
     assertSameSkyInput(scene.children[0] as ReturnType<typeof makeSky>, f.mainSky);
     return f.replacement();
   });
-  f.engine.applyMood(MOODS.day); f.engine.applyMood(MOODS.dusk); f.engine.applyMood(MOODS.night);
+  f.engine.applyMood(MOODS.day, {}, 0); f.engine.applyMood(MOODS.dusk, {}, 3000); f.engine.applyMood(MOODS.night, {}, 6000);
   assert.equal(f.calls.length, 3); assert.equal(f.captures.length, 1);
   assert.deepEqual(f.mainSky.position.toArray(), [412, 32, -85]);
 });
@@ -158,4 +158,47 @@ test('BFCache and context restoration retain the source owner, while final page 
   page.dispatchEvent(finalExit); page.dispatchEvent(finalExit);
   assert.deepEqual([f.captures[0].geometryDisposals, f.captures[0].materialDisposals], [1, 1]);
   assert.deepEqual(f.counts(), { previousDisposals: 1, mainGeometryDisposals: 0, mainMaterialDisposals: 0 });
+});
+
+
+test('three-second capture budget keeps live sky, fog, exposure and direct lights current', () => {
+  const f = fixture();
+  f.engine.applyMood(MOODS.day, {}, 0);
+  const initial = f.engine.envRT;
+  f.engine.applyMood(MOODS.dawn, {}, 500);
+  f.engine.applyMood(MOODS.dusk, {}, 2999);
+  assert.equal(f.calls.length, 1); assert.equal(f.engine.envRT, initial);
+  assert.equal(f.engine.mood, MOODS.dusk);
+  assert.equal(f.mainSky.material.uniforms.top.value.getHexString(), new THREE.Color(MOODS.dusk.skyTop).getHexString());
+  assert.equal((f.engine.scene.fog as THREE.FogExp2).density, MOODS.dusk.fogD);
+  assert.equal(f.engine.renderer.toneMappingExposure, MOODS.dusk.exposure);
+  assert.equal(f.engine.sun.intensity, MOODS.dusk.sunInt);
+  assert.equal(f.engine.scene.environmentIntensity, MOODS.dusk.env);
+  f.engine.applyMood(MOODS.dusk, {}, 3000);
+  assert.equal(f.calls.length, 2); assert.notEqual(f.engine.envRT, initial);
+  assertSameSkyInput(f.captures[0].mesh, f.mainSky);
+  f.engine.applyMood(MOODS.dusk, {}, 9000);
+  assert.equal(f.calls.length, 2, 'stable sky does not capture just because time elapsed');
+});
+
+test('restoration and explicit release bypass the refresh interval without duplicating source ownership', () => {
+  const f = fixture(), canvas = new EventTarget(), page = new EventTarget();
+  (f.engine as any).watchEnvironmentCaptureLifecycle(canvas, page);
+  f.engine.applyMood(MOODS.day, {}, 0);
+  canvas.dispatchEvent(new Event('webglcontextrestored'));
+  f.engine.applyMood(MOODS.day, {}, 20);
+  assert.equal(f.calls.length, 2); assert.equal(f.captures.length, 1);
+  f.engine.releaseEnvironmentCapture();
+  f.engine.applyMood(MOODS.day, {}, 40);
+  assert.equal(f.calls.length, 3); assert.equal(f.captures.length, 2);
+});
+
+test('failed scheduled replacement preserves its previous target and remains eligible to retry', () => {
+  const f = fixture(); f.engine.applyMood(MOODS.day, {}, 0);
+  const previous = f.engine.envRT;
+  f.setRender(() => { throw Error('capture interrupted'); });
+  assert.throws(() => f.engine.applyMood(MOODS.dusk, {}, 3000), /capture interrupted/);
+  assert.equal(f.engine.envRT, previous); assert.equal(f.engine.envKey, MOODS.day.skyTop + MOODS.day.skyHor);
+  f.setRender(f.replacement); f.engine.applyMood(MOODS.dusk, {}, 3001);
+  assert.notEqual(f.engine.envRT, previous); assert.equal(f.calls.length, 3);
 });
