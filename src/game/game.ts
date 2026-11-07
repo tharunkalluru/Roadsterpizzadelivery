@@ -1,3 +1,4 @@
+import { frameProfile } from '../core/frame-profile';
 import { applySceneLamp } from './scene-lamp-pool';
 import { roadNavigationCue } from '../ui/flight-navigation';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
@@ -1066,6 +1067,11 @@ export class Game {
     return inp;
   }
   frame() {
+    if (!frameProfile.enabled) return this.tickFrame();
+    frameProfile.frame(performance.now(), !document.hidden && !this.paused && !this.choosing && !this.relocating && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !!this.area);
+    return frameProfile.measure('frame.cpu', () => this.tickFrame());
+  }
+  private tickFrame() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     this.bugReports?.retryPending();
     this.tutorialTick();
