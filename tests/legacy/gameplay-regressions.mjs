@@ -114,6 +114,7 @@ try {
   const fakeWorld = () => Object.assign(Object.create(World.prototype), { ...worldFixtureState(), 
     tiles: new Map(), pending: new Map(), requestIds: new Map(), nextRequestId: 0, workerTimer: null,
     empty: new Set(), failures: new Map(), waiters: [], focus: [0, 0], buildMs: [], addMs: [],
+    schedulePreparation() {}, *prepareTile(built) { yield; return built; }, publishTile(built) { this.tiles.set(built.key,built); },
     worker: { postMessage() {} }, wanted: () => ['0_0'], packOf: new Map([['0_0', 'test.pack.wasm']]), update() {},
   });
   await test('a transient tile error is retryable and never counts as an empty street', async () => {
@@ -122,10 +123,13 @@ try {
     w.request('0_0');
     try { w.onMessage({ type: 'error', key: '0_0', requestId: messages.at(-1).requestId, error: '503' }); } finally { console.error = oldError; }
     assert.equal(w.empty.has('0_0'), false); assert.equal(w.failures.get('0_0').attempts, 1);
-    w.failures.get('0_0').retryAt = 0; w.request('0_0'); assert.equal(messages.length, 2);
+    assert.equal(messages.filter(m=>m.type==='cancel'&&m.key==='0_0').length,1,'failed tile work is cancelled before retry');
+    w.failures.get('0_0').retryAt = 0; w.request('0_0'); assert.equal(messages.filter(m=>m.type==='build').length, 2,'exactly two build attempts, ignoring cancellation control messages');
     const ready = w.ensure(0, 0);
-    w.add = (built) => w.tiles.set(built.key, built);
+    w.add = () => { throw new Error('worker replies must not use synchronous tile installation'); };
     w.onMessage({ type: 'built', key: '0_0', requestId: messages.at(-1).requestId, built: { key: '0_0', buffers: [] }, ms: 1 });
+    assert.equal(w.tiles.has('0_0'),false,'worker result stays unpublished until preparation runs');
+    w.pumpPreparation(Infinity);
     await ready; assert.equal(w.failures.has('0_0'), false); assert.equal(w.waiters.length, 0);
   });
   await test('three failed tile attempts reject area loading instead of silently succeeding', async () => {

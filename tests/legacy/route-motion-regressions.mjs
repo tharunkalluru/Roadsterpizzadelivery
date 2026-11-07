@@ -26,7 +26,12 @@ try {
     const graph = new RoadGraph([e]), g = Object.create(Game.prototype), city = cityOf([e]);
     Object.assign(g, { graph, city, route: null, routeT: 0, routeGuide: [], routeGuideT: 0, routeGraphRevision: -1, routeAlpha: 0, routeWasAirborne: false, routePlacementRevision: -1, routeGuidanceBlocked: false,
       routeTarget: { x: 800, y: 0, z: -5 }, player: { pos: new Vector3(20, .55, -5), forward: new Vector3(1, 0, 0), speed: 6, placementRevision: 0, flying: false, descending: false, lastEdge: e }, gps: new Mesh(new BufferGeometry(), new MeshBasicMaterial()) });
-    let calls = 0; const route = graph.route.bind(graph); graph.route = (...args) => { calls++; return route(...args); };
+    let calls = 0; const routeJob = graph.routeJob.bind(graph); graph.routeJob = (...args) => { calls++; return routeJob(...args); };
+    graph.route = () => { throw new Error('foreground navigation must not use synchronous route search'); };
+    // These motion assertions wait for bounded search completion; budget/cancellation
+    // semantics are independently exercised by navigation-search-budget.test.ts.
+    const update = g.updateRoute.bind(g);
+    g.updateRoute = dt => { update(dt); let frames=0; while(g.routeSearch && frames++<100)update(0); assert.ok(!g.routeSearch,'small fixture search completes within 100 slices'); }; 
     return { g, graph, city, calls: () => calls };
   };
   test('route progress never jumps to a nearby later arm or another bridge level', () => {

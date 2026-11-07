@@ -1487,7 +1487,10 @@ export class Game {
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
     if (advanced && !offRoute) this.route = advanced.route;
-    const urgent = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || missingRoad;
+    const urgent = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || missingRoad || offRoute;
+    // Retain only valid guidance while searching: a departure, opposite lane,
+    // relocation or removed road must not leave a stale ribbon on screen.
+    if (urgent) { this.route = null; this.routeGuide = []; this.routeGuideT = 0; this.routeAlpha = 0; }
     // Repeated failed/off-road requests wait briefly; an active search receives
     // one shared foreground slice per rendered frame and retains valid guidance.
     this.stepRouteSearch(roadTarget, false, !!replan && (urgent || this.routeT <= 0), on?.g.e.id);

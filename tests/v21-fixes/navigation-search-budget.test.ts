@@ -50,7 +50,7 @@ test('obsolete and cancelled graph searches release traversal and never publish 
 });
 
 function gameFixture() {
-  const jobs: any[] = [], graph:any={revision:1,byId:new Map(),edgeAt:()=>null,
+  const jobs: any[] = [], edge={id:'main',w:8,cls:'residential',oneway:null}, graph:any={revision:1,byId:new Map([['main',edge]]),edgeAt:()=>({g:{e:edge},s:0}),
     routeJob(...args: any[]) { const job={state:'pending',result:{pts:[[0,0,0],[100,0,0]],len:100,complete:true},calls:0,cancel(){this.state='cancelled';},step(){if(++this.calls>=3)this.state='complete';},args};jobs.push(job);return job; }};
   const game:any=Object.assign(Object.create(Game.prototype), { graph,city:{walls:new Map(),buildingGrid:new Map(),obstacles:new Map()},
     player:{pos:new THREE.Vector3(0,.55,0),forward:{x:1,z:0},flying:false,descending:false,jumping:false,speed:0,placementRevision:1},
@@ -62,6 +62,7 @@ function gameFixture() {
 
 test('pending foreground route retains the existing ribbon and receives only one slice per update', () => {
   const {game,jobs}=gameFixture();
+  game.routePlacementRevision=game.player.placementRevision;game.routeGraphRevision=0;game.route.complete=false;
   game.updateRoute(1/60);assert.equal(jobs.length,1);assert.equal(jobs[0].calls,1);assert.equal(game.gps.visible,true);
   game.updateRoute(1/60);assert.equal(jobs.length,1);assert.equal(jobs[0].calls,2);assert.equal(game.gps.visible,true);
   game.updateRoute(1/60);assert.equal(jobs[0].calls,3);assert.equal(game.routeSearch,undefined);assert.equal(game.gps.visible,true);
@@ -93,8 +94,8 @@ test('finishing a search after taking another branch cannot publish the old road
   game.player.pos.z=20;
   game.updateRoute(1/60);game.updateRoute(1/60);
   assert.equal(jobs[0].state,'complete');
-  // Rejected work leaves the previous route in place rather than publishing an
-  // unrelated source path, and the next off-route retry is bounded by .6s.
+  // Invalid previous guidance is hidden, never replaced by an unrelated source
+  // path, and the next off-route retry is bounded by .6s.
   assert.equal(game.route,retained);assert.notEqual(game.route,jobs[0].result);
   assert.equal(game.routeT,.6);assert.equal(game.routeGuideT>0,true);
 });
