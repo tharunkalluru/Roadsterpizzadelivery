@@ -1,4 +1,4 @@
-import { createParkedVehicles, type ParkedVehicle, type ParkedVehiclePose } from './parked-vehicles';
+import { prepareParkedVehicles, type ParkedVehicle, type ParkedVehiclePose } from './parked-vehicles';
 import * as THREE from 'three';
 import { SignSystem, SignInst } from './signs';
 import type { CityData, TileBuilt, Surface, Wall, BusStop, WalkPath } from './city';
@@ -16,8 +16,11 @@ import type { WaterGrid } from './water';
 import { RAILWAY_UNDERPASS_EVIDENCE } from './railway-evidence';
 import { prepareRoadUnderpasses } from './road-underpasses';
 import { metroFlightClearance } from './metro-flight-clearance';
+import { frameProfile } from '../core/frame-profile';
 
 export interface LoadedTile { parkedVehicles?: ParkedVehicle[]; key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
+
+type PreparedTile = LoadedTile & { grids: Pick<TileBuilt, 'buildingGrid' | 'surfaceGrid' | 'walls' | 'obstacles' | 'landmarkSurfaceGrid' | 'waterGrid'> };
 
 const TILE_ATTEMPTS = 3, TILE_TIMEOUT = 20000, ENSURE_TIMEOUT = 75000, STREAM_RETRY_DELAY = 30000, MAX_PENDING = 2;
 
@@ -65,6 +68,67 @@ export class World implements CityData {
   tiles = new Map<string, LoadedTile>(); pending = new Map<string, number>(); empty = new Set<string>();
   failures = new Map<string, { attempts: number; retryAt: number; message: string }>();
   private requestIds = new Map<string, number>(); private nextRequestId = 0;
+  private preparations = new Map<string, { job: Generator<void, PreparedTile>; requestId: number; requested: number; workerMs: number; workMs: number; tile?: PreparedTile }>();
+  private preparationFrame = 0;
+  private ensurePreparationState() { this.preparations ??= new Map(); this.preparationFrame ??= 0; }
+  private schedulePreparation() {
+    this.ensurePreparationState();
+    if (this.preparationFrame || !this.preparations.size) return;
+    this.preparationFrame = requestAnimationFrame(() => {
+      this.preparationFrame = 0;
+      this.pumpPreparation();
+      this.schedulePreparation();
+    });
+  }
+  /** All pending tiles share one frame budget. No partial tile is observable. */
+  pumpPreparation(budgetMs = 1) {
+    this.ensurePreparationState();
+    const start = performance.now();
+    let preparationMs = 0;
+    for (const [key, preparation] of this.preparations) {
+      if (performance.now() - start >= budgetMs) break;
+      try {
+        if (!preparation.tile) {
+          let step: IteratorResult<void, PreparedTile>;
+          do {
+            const before = performance.now();
+            step = preparation.job.next();
+            const elapsed = performance.now() - before;
+            preparation.workMs += elapsed; preparationMs += elapsed;
+          } while (!step.done && performance.now() - start < budgetMs);
+          if (!step.done) break;
+          preparation.tile = step.value;
+          if (performance.now() - start >= budgetMs) break;
+        }
+        // Publishing is one indivisible step: renderer, collision grids and
+        // callbacks see this exact same completed tile in the same JS turn.
+        const publishStart = performance.now();
+        frameProfile.measure('tile.publish', () => this.publishTile(preparation.tile!));
+        const publishMs = performance.now() - publishStart;
+        this.preparations.delete(key); this.pending.delete(key); this.requestIds.delete(key);
+        this.addMs.push(preparation.workMs + publishMs); this.buildMs.push(preparation.workerMs);
+        this.buildMs.push(performance.now() - preparation.requested); this.failures.delete(key);
+        this.notify();
+        break; // one atomic publication at most per frame
+      } catch {
+        // publishTile owns rollback once publication has begun.
+        if (preparation.tile) preparation.tile = undefined;
+        this.fail(key, 'Could not display this part of the city. Please try again.'); this.notify();
+      }
+    }
+    frameProfile.record('tile.prepare.slice', preparationMs);
+    if (this.focus) this.update(this.focus[0], this.focus[1], 0, true);
+  }
+  private cancelPreparation(key: string) {
+    this.ensurePreparationState();
+    const preparing = this.preparations.get(key);
+    if (preparing?.tile) this.disposeTileResources(preparing.tile.group, preparing.tile.signalLights);
+    else preparing?.job.return(undefined as never);
+    this.preparations.delete(key);
+    const requestId = this.requestIds.get(key);
+    this.pending.delete(key); this.requestIds.delete(key);
+    try { this.worker?.postMessage({type:'cancel', key, requestId}); } catch { /* a failed worker has no work to cancel */ }
+  }
   private workerUnavailable = false; private workerRestarts = 0; private workerFailed = false;
   private workerTimer: ReturnType<typeof setTimeout> | null = null;
   packOf = new Map<string, string>(); worker: Worker | null = null; groundGeo = new THREE.PlaneGeometry(1000, 1000);
@@ -133,13 +197,14 @@ export class World implements CityData {
     this.update(this.focus[0], this.focus[1], 0, true);
   }
   private fail(k: string, message: string) {
-    this.pending.delete(k); this.requestIds.delete(k);
+    this.cancelPreparation(k);
     const attempts = (this.failures.get(k)?.attempts || 0) + 1;
     this.failures.set(k, { attempts, retryAt: performance.now() + (attempts >= TILE_ATTEMPTS ? STREAM_RETRY_DELAY : 500 * 2 ** (attempts - 1)), message });
   }
   private expireRequests() {
     const now = performance.now();
-    for (const [k, at] of this.pending) if (now - at >= TILE_TIMEOUT) this.fail(k, 'Loading this part of the city timed out.');
+    this.ensurePreparationState();
+    for (const [k, at] of this.pending) if (!this.preparations.has(k) && now - at >= TILE_TIMEOUT) this.fail(k, 'Loading this part of the city timed out.');
   }
   centroid = (b: Building): XZ => { let x = 0, z = 0; for (const p of b.ring) { x += p[0]; z += p[1]; } return [x / b.ring.length, z / b.ring.length]; };
   // tiles whose square comes within `r` of (x, z), nearest first
@@ -155,10 +220,14 @@ export class World implements CityData {
   }
   // call every frame: request missing tiles near the player, drop far ones
   update(x: number, z: number, dt = 0.016, force = false) {
-    this.focus = [x, z];
+    if (!this.focus || this.focus[0] !== x || this.focus[1] !== z) this.focus = [x, z];
     if (!force && (this.t += dt) < 0.4) return; this.t = 0;
     this.expireRequests();
     const want = this.wanted(x, z, this.radius);
+    if (!this.waiters.length) {
+      const retained = new Set(this.wanted(x, z, this.radius + 450));
+      for (const key of this.pending.keys()) if (!retained.has(key)) this.cancelPreparation(key);
+    }
     for (const k of want) this.request(k);
     for (const [k, t] of this.tiles) {
       if (this.waiters.length) break;           // retain the old playable area until a relocation succeeds
@@ -201,6 +270,10 @@ export class World implements CityData {
         signal?.removeEventListener('abort', abort);
         this.waiters = this.waiters.filter((f) => f !== check);
         if (error && this.focus === targetFocus) this.focus = previousFocus;
+        if (error && !this.waiters.length) {
+          const retained = new Set(this.focus ? this.wanted(this.focus[0], this.focus[1], this.radius + 450) : []);
+          for (const key of want) if (this.pending.has(key) && !retained.has(key)) this.cancelPreparation(key);
+        }
         if (error) reject(error); else resolve();
       };
       const abort = () => finish(new DOMException('Area choice cancelled', 'AbortError'));
@@ -223,68 +296,139 @@ export class World implements CityData {
   }
   onMessage(m: any) {
     if (!this.pending.has(m.key) || m.requestId !== this.requestIds.get(m.key)) return;
-    const t0 = this.pending.get(m.key); this.pending.delete(m.key);
-    this.requestIds.delete(m.key);
+    const t0 = this.pending.get(m.key)!;
+    this.ensurePreparationState();
+    if (this.preparations.has(m.key)) return;
     if (m.type === 'built') {
-      try {
-        if (m.built?.key !== m.key) throw new Error('Mismatched city tile');
-        const a0 = performance.now(); this.add(m.built); this.addMs.push(Math.round(performance.now() - a0)); this.buildMs.push(m.ms); if (t0 !== undefined) this.buildMs.push(Math.round(performance.now() - t0)); this.failures.delete(m.key);
+      if (m.built?.key !== m.key) this.fail(m.key, 'Mismatched city tile');
+      else {
+        frameProfile.record('tile.worker', m.ms);
+        this.preparations.set(m.key, { job: this.prepareTile(m.built), requestId: m.requestId, requested: t0, workerMs: m.ms, workMs: 0 });
+        this.schedulePreparation();
       }
-      catch { this.fail(m.key, 'Could not display this part of the city. Please try again.'); }
+    } else {
+      this.pending.delete(m.key); this.requestIds.delete(m.key);
+      if (m.type === 'empty') { this.empty.add(m.key); this.failures.delete(m.key); }
+      else if (m.type === 'error') { console.error('City tile loading failed.', m.key); this.fail(m.key, 'Could not load this part of the city. Please try again.'); }
+      else this.fail(m.key, 'The city loader returned an invalid response.');
     }
-    else if (m.type === 'empty') { this.empty.add(m.key); this.failures.delete(m.key); }
-    else if (m.type === 'error') { console.error('City tile loading failed.', m.key); this.fail(m.key, 'Could not load this part of the city. Please try again.'); }
-    else this.fail(m.key, 'The city loader returned an invalid response.');
     this.notify();
     if (this.focus) this.update(this.focus[0], this.focus[1], 0, true);
   }
+  /** Preview/fixture callers that explicitly need an immediate tile keep it. */
   add(b: TileBuilt) {
-    this.ensureParkedState();
     if (this.tiles.has(b.key)) return;
+    const job = this.prepareTile(b);
+    let step = job.next(); while (!step.done) step = job.next();
+    this.publishTile(step.value);
+  }
+  private *prepareTile(b: TileBuilt): Generator<void, PreparedTile> {
+    this.ensureParkedState();
     const g = new THREE.Group(); g.name = 'tile ' + b.key;
-    if (!b.underpassGround) { const ground = new THREE.Mesh(this.groundGeo, this.mats.ground); ground.rotation.x = -Math.PI / 2; ground.position.set(b.i * 1000 + 500, 0, b.j * 1000 + 500); ground.receiveShadow = true; g.add(ground); }
-    for (const buf of b.buffers) {
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(buf.pos, 3));
-      geo.setAttribute('normal', new THREE.BufferAttribute(buf.nor, 3));
-      geo.setAttribute('uv', new THREE.BufferAttribute(buf.uv, 2));
-      geo.setAttribute('color', new THREE.BufferAttribute(buf.col, 3));
-      geo.computeBoundingSphere();
-      const r = RENDER[buf.mat] || { cast: true, receive: true };
-      const m = new THREE.Mesh(geo, this.mats[buf.mat]); m.castShadow = r.cast; m.receiveShadow = r.receive; m.renderOrder = r.order || 0;
-      g.add(m);
+    let completed = false;
+    let signalLights: SignalLights | undefined;
+    try {
+      if (!b.underpassGround) { const ground = new THREE.Mesh(this.groundGeo, this.mats.ground); ground.rotation.x = -Math.PI / 2; ground.position.set(b.i * 1000 + 500, 0, b.j * 1000 + 500); ground.receiveShadow = true; g.add(ground); }
+      for (const buf of b.buffers) {
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(buf.pos, 3));
+        geo.setAttribute('normal', new THREE.BufferAttribute(buf.nor, 3));
+        geo.setAttribute('uv', new THREE.BufferAttribute(buf.uv, 2));
+        geo.setAttribute('color', new THREE.BufferAttribute(buf.col, 3));
+        if (buf.sphere) geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(...buf.sphere.center), buf.sphere.radius);
+        else geo.computeBoundingSphere(); // synchronous legacy fixtures retain their API
+        const r = RENDER[buf.mat] || { cast: true, receive: true };
+        const m = new THREE.Mesh(geo, this.mats[buf.mat]); m.castShadow = r.cast; m.receiveShadow = r.receive; m.renderOrder = r.order || 0;
+        g.add(m);
+        yield;
+      }
+      const parkedGroup = new THREE.Group(); g.add(parkedGroup);
+      const parked = yield* prepareParkedVehicles(b.parkedVehicles || [], this.mats.st, parkedGroup);
+      signalLights = b.signals.length ? new SignalLights(b.signals) : undefined;
+      if (signalLights) { signalLights.update(this.signalSeconds); g.add(signalLights.mesh); }
+      yield;
+      const buildings = new Set<Building>();
+      let count = 0;
+      for (const bucket of b.buildingGrid.values()) {
+        for (const building of bucket) buildings.add(building);
+        if (++count % 64 === 0) yield;
+      }
+      const signs: SignInst[] = [];
+      for (const entry of b.signs) {
+        signs.push({ ...entry, station: entry.station, c: new THREE.Vector3(...entry.c), right: new THREE.Vector3(...entry.right), up: new THREE.Vector3(0, 1, 0), slot: -1, page: -1, lastUse: 0 });
+        if (signs.length % 32 === 0) yield;
+      }
+      const lamps: THREE.Vector3[] = [];
+      for (const lamp of b.lamps) { lamps.push(new THREE.Vector3(...lamp)); if (lamps.length % 64 === 0) yield; }
+      // Clone the incoming cell lists privately, in small batches. Publication
+      // reads current live buckets so another tile can unload or publish safely
+      // between preparation slices without resurrecting stale collision data.
+      const copyGrid = function*<T>(source: Map<string, T[]>): Generator<void, Map<string, T[]>> {
+        const copy = new Map<string, T[]>(); let count = 0;
+        for (const [key, items] of source) { copy.set(key, items.slice()); if (++count % 32 === 0) yield; }
+        return copy;
+      };
+      const grids = {
+        buildingGrid: yield* copyGrid(b.buildingGrid), surfaceGrid: yield* copyGrid(b.surfaceGrid),
+        walls: yield* copyGrid(b.walls), obstacles: yield* copyGrid(b.obstacles),
+        landmarkSurfaceGrid: b.landmarkSurfaceGrid ? yield* copyGrid(b.landmarkSurfaceGrid) : undefined,
+        waterGrid: b.waterGrid ? yield* copyGrid(b.waterGrid) : undefined,
+      };
+      completed = true;
+      return { parkedVehicles: parked.bodies, key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings], signalLights, grids };
+    } finally {
+      if (!completed) this.disposeTileResources(g, signalLights);
     }
-    const parked = createParkedVehicles(b.parkedVehicles || [], this.mats.st);
-    if (parked.bodies.length) g.add(parked.group);
-    this.parkedVehicles.push(...parked.bodies);
-    for(const body of parked.bodies) {
-      Object.assign(body, this.parkedPoses.get(body.id) || {});
-      body.settledPose = {x:body.x,y:body.y,z:body.z,hx:body.hx,hz:body.hz,pitch:body.pitch};
-      const renderSync=body.sync; let cell='';
-      body.sync=()=>{
-        if (!body.loaded) return;
-        const next=`${Math.floor(body.x/30)},${Math.floor(body.z/30)}`;
-        if(next!==cell) { if(cell) { const old=this.parkedGrid.get(cell); old?.delete(body); if(!old?.size)this.parkedGrid.delete(cell); } const bucket=this.parkedGrid.get(next)||new Set<ParkedVehicle>();bucket.add(body);this.parkedGrid.set(next,bucket);cell=next; }
-        renderSync();
-      }; body.sync();
-    }
-    const signalLights = b.signals.length ? new SignalLights(b.signals) : undefined;
-    if (signalLights) { signalLights.update(this.signalSeconds); g.add(signalLights.mesh); }
-    this.group.add(g);
-    const merge = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => { for (const [k, a] of src) { const d = dst.get(k); if (d) d.push(...a); else dst.set(k, a.slice()); } };
-    merge(this.buildingGrid, b.buildingGrid); merge(this.surfaceGrid, b.surfaceGrid); merge(this.walls, b.walls); merge(this.obstacles, b.obstacles);
-    if (b.landmarkSurfaceGrid) merge(this.landmarkSurfaceGrid, b.landmarkSurfaceGrid);
-    if (b.waterGrid) merge(this.waterGrid, b.waterGrid);
-    const buildings = new Set<Building>(); for (const a of b.buildingGrid.values()) for (const x of a) buildings.add(x);
-    for (const x of buildings) this.byBuilding.set(x.id, x);
-    const signs = b.signs.map((s) => this.signs.add({ id: s.id, text: s.text, bg: s.bg, fg: s.fg, c: new THREE.Vector3(...s.c), right: new THREE.Vector3(...s.right), up: new THREE.Vector3(0, 1, 0), w: s.w, h: s.h, station: s.station }));
-    const lamps = b.lamps.map((l) => new THREE.Vector3(l[0], l[1], l[2]));
-    for (const [k, n] of b.activity || []) this.activity.set(k, (this.activity.get(k) || 0) + n);
-    for (const r of b.rails || []) this.rails.set(r.id, r);
-    this.lamps.push(...lamps); this.signals.push(...b.signals); this.busStops.push(...b.busStops); this.walkPaths.push(...b.walkPaths);
-    const t: LoadedTile = { parkedVehicles: parked.bodies, key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings], signalLights };
+  }
+  private disposeTileResources(group: THREE.Group, lights?: SignalLights) {
+    group.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      if ((object as THREE.InstancedMesh).isInstancedMesh) (object as THREE.InstancedMesh).dispose();
+      if (mesh.isMesh && mesh.geometry !== this.groundGeo && mesh.geometry !== lights?.geometry) mesh.geometry.dispose();
+    });
+    lights?.dispose();
+  }
+  private publishTile(t: PreparedTile) {
+    this.ensureParkedState();
+    if (this.tiles.has(t.key)) { this.disposeTileResources(t.group, t.signalLights); return; }
+    const b = t.built, lamps = t.lamps;
+    const previousBuildings = new Map(t.buildings.map(building => [building.id, this.byBuilding.get(building.id)]));
+    const preparedSigns = t.signs; t.signs = [];
     this.tiles.set(b.key, t);
-    this.onTileAdded(t);           // boards get atlas slots on the next regular sign update (spreads the work)
+    try {
+      this.parkedVehicles.push(...(t.parkedVehicles || []));
+      for(const body of t.parkedVehicles || []) {
+        Object.assign(body, this.parkedPoses.get(body.id) || {});
+        body.settledPose = {x:body.x,y:body.y,z:body.z,hx:body.hx,hz:body.hz,pitch:body.pitch};
+        const renderSync=body.sync; let cell='';
+        body.sync=()=>{
+          if (!body.loaded) return;
+          const next=`${Math.floor(body.x/30)},${Math.floor(body.z/30)}`;
+          if(next!==cell) { if(cell) { const old=this.parkedGrid.get(cell); old?.delete(body); if(!old?.size)this.parkedGrid.delete(cell); } const bucket=this.parkedGrid.get(next)||new Set<ParkedVehicle>();bucket.add(body);this.parkedGrid.set(next,bucket);cell=next; }
+          renderSync();
+        }; body.sync();
+      }
+      t.signalLights?.update(this.signalSeconds);
+      this.group.add(t.group);
+      const merge = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => { for (const [k, a] of src) { const d = dst.get(k); if (d) d.push(...a); else dst.set(k, a); } };
+      merge(this.buildingGrid, t.grids.buildingGrid); merge(this.surfaceGrid, t.grids.surfaceGrid);
+      merge(this.walls, t.grids.walls); merge(this.obstacles, t.grids.obstacles);
+      if (t.grids.landmarkSurfaceGrid) merge(this.landmarkSurfaceGrid, t.grids.landmarkSurfaceGrid);
+      if (t.grids.waterGrid) merge(this.waterGrid, t.grids.waterGrid);
+      for (const building of t.buildings) this.byBuilding.set(building.id, building);
+      for (const sign of preparedSigns) t.signs.push(this.signs.add(sign));
+      for (const [k, n] of b.activity || []) this.activity.set(k, (this.activity.get(k) || 0) + n);
+      for (const r of b.rails || []) this.rails.set(r.id, r);
+      this.lamps.push(...lamps); this.signals.push(...b.signals); this.busStops.push(...b.busStops); this.walkPaths.push(...b.walkPaths);
+      this.onTileAdded(t);
+    } catch (error) {
+      // No animation/physics frame has run since publication began. Remove all
+      // registrations, including any successful callbacks before a later one failed.
+      try { this.unload(t); } finally {
+        for (const [id, previous] of previousBuildings) if (previous) this.byBuilding.set(id, previous);
+      }
+      throw error;
+    }
   }
   unload(t: LoadedTile) {
     this.ensureParkedState();

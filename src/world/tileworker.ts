@@ -21,6 +21,7 @@ let construction: ConstructionPlan | undefined;
 let railway: ReturnType<typeof railwayNetwork> | undefined;
 const packs = new Map<string, Promise<Record<string, TileZone>>>();
 const order: string[] = [];
+const requests = new Map<string, number>();
 function getPack(url: string) {
   let p = packs.get(url);
   if (!p) {
@@ -47,11 +48,17 @@ self.onmessage = async (ev: MessageEvent) => {
     railway = railwayNetwork(m.railwayPatches);
     return;
   }
+  if (m.type === 'cancel') {
+    if (requests.get(m.key) === m.requestId) requests.delete(m.key);
+    return;
+  }
   if (m.type === 'build') {
+    requests.set(m.key, m.requestId);
     try {
       const tiles = await getPack(m.url);
+      if (requests.get(m.key) !== m.requestId) return;
       const z = tiles[m.key];
-      if (!z) { (self as any).postMessage({ type: 'empty', key: m.key, requestId: m.requestId }); return; }
+      if (!z) { (self as any).postMessage({ type: 'empty', key: m.key, requestId: m.requestId }); requests.delete(m.key); return; }
       const t0 = performance.now();
       // The canonical source snapshot replaces only legacy signal furniture.
       // Include border context so a junction has one owner and a stable plan.
@@ -62,9 +69,20 @@ self.onmessage = async (ev: MessageEvent) => {
       const destinations = DESTINATION_IDENTITIES.filter(d => d.tile[0] === z.i && d.tile[1] === z.j);
       const built = buildTile({ ...z, furniture, roads }, { lowQ, metro, landmarks,airfields, construction, destinations, railway });
       const transfer: ArrayBuffer[] = [];
-      for (const b of built.buffers) transfer.push(b.pos.buffer, b.nor.buffer, b.uv.buffer, b.col.buffer);
+      // Compute the same Three.js culling sphere while the vertex arrays are
+      // still in the worker, avoiding millions of main-thread vertex visits.
+      for (const b of built.buffers) {
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(b.pos, 3));
+        geometry.computeBoundingSphere();
+        b.sphere = { center: geometry.boundingSphere!.center.toArray(), radius: geometry.boundingSphere!.radius };
+        transfer.push(b.pos.buffer, b.nor.buffer, b.uv.buffer, b.col.buffer);
+      }
       (self as any).postMessage({ type: 'built', key: m.key, requestId: m.requestId, built, ms: Math.round(performance.now() - t0) }, transfer);
+      requests.delete(m.key);
     } catch (e: any) {
+      if (requests.get(m.key) !== m.requestId) return;
+      requests.delete(m.key);
       (self as any).postMessage({ type: 'error', key: m.key, requestId: m.requestId, error: String(e?.message || e) });
     }
   }

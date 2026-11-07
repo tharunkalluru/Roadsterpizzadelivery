@@ -58,7 +58,7 @@ export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: 
 export interface TileZone { i: number; j: number; roads: (RoadEdge & { ctx?: number })[]; nodes: Record<string, XZ>; buildings: Building[]; boards: Board[]; furniture: Furniture[]; areas: Area[]; osm?: OsmFeature[] }
 export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; te?: string | null; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
 export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number; station?: StationBoardContent }
-export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
+export interface BuiltBuffers { sphere?: { center: number[]; radius: number }; mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
   parkedVehicles?: ParkedVehicleSite[];

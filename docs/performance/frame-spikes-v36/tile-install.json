@@ -1,0 +1,731 @@
+{
+  "kind": "realShippedTileCpuMicroprobe",
+  "baseline": "/Users/tharun/Downloads/Roadster-Rodin-Cast/perf-baseline",
+  "generatedAt": "2026-11-07T07:14:41.803Z",
+  "before": {
+    "count": 42,
+    "p50": 5.619042000000263,
+    "p95": 9.043041999999787,
+    "p99": 9.835042000000158,
+    "max": 10.263915999999881
+  },
+  "prepareSlices": {
+    "count": 68,
+    "p50": 0.8505410000000211,
+    "p95": 1.0046670000000404,
+    "p99": 1.0593750000000455,
+    "max": 1.275124999999889
+  },
+  "publish": {
+    "count": 42,
+    "p50": 0.5962500000000546,
+    "p95": 1.0049169999999776,
+    "p99": 2.6180420000000595,
+    "max": 2.8782499999997526
+  },
+  "rows": [
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 0,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 5.299958999999944,
+      "prepareMs": 1.8591659999999592,
+      "publishMs": 1.0049169999999776,
+      "sliceMs": [
+        1.0577080000000478,
+        0.8006669999999758
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 1,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 3.3816659999999956,
+      "prepareMs": 1.2994170000000622,
+      "publishMs": 0.7139590000000453,
+      "sliceMs": [
+        1.0040410000000293,
+        0.29437499999994543
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 2,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 3.24354100000005,
+      "prepareMs": 1.1313330000000406,
+      "publishMs": 0.5453330000000278,
+      "sliceMs": [
+        1.003708999999958,
+        0.1269169999999349
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 3,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 3.096749999999929,
+      "prepareMs": 1.0804580000000215,
+      "publishMs": 0.539833999999928,
+      "sliceMs": [
+        1.0014579999999569,
+        0.07841699999994489
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 4,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 4.936666999999943,
+      "prepareMs": 1.1929170000000795,
+      "publishMs": 0.5857500000000755,
+      "sliceMs": [
+        1.0046670000000404,
+        0.18704200000001947
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 5,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 7.296124999999961,
+      "prepareMs": 1.114958999999999,
+      "publishMs": 0.5574169999999867,
+      "sliceMs": [
+        1.0034999999999172,
+        0.11099999999999
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": true,
+      "run": 6,
+      "vertices": 232635,
+      "buffers": 99,
+      "parked": 46,
+      "beforeMs": 2.446292000000085,
+      "prepareMs": 1.0122499999999945,
+      "publishMs": 0.5104590000000826,
+      "sliceMs": [
+        1.001583000000096,
+        0.009667000000035841
+      ],
+      "workerBoundsMs": 3.596749999999929,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 0,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 4.966458999999986,
+      "prepareMs": 1.4946670000000495,
+      "publishMs": 0.7233750000000327,
+      "sliceMs": [
+        1.0075829999999542,
+        0.48649999999997817
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 1,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 5.021582999999964,
+      "prepareMs": 1.310124999999971,
+      "publishMs": 0.6669580000000224,
+      "sliceMs": [
+        1.0015419999999722,
+        0.3079169999999749
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 2,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 4.806834000000094,
+      "prepareMs": 1.2498339999999644,
+      "publishMs": 0.5987499999998818,
+      "sliceMs": [
+        1.002999999999929,
+        0.2463340000001608
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 3,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 4.602583000000095,
+      "prepareMs": 1.0459579999999278,
+      "publishMs": 0.637333000000126,
+      "sliceMs": [
+        1.0002499999998236,
+        0.04504199999996672
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 4,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 5.644625000000133,
+      "prepareMs": 1.0880420000000868,
+      "publishMs": 0.5847089999999753,
+      "sliceMs": [
+        1.0014169999999467,
+        0.08604200000013407
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 5,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 9.402624999999944,
+      "prepareMs": 1.146750000000111,
+      "publishMs": 0.5783329999999296,
+      "sliceMs": [
+        1.0022919999998976,
+        0.14383300000008603
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": true,
+      "run": 6,
+      "vertices": 406983,
+      "buffers": 96,
+      "parked": 53,
+      "beforeMs": 5.306916000000001,
+      "prepareMs": 0.9944170000001122,
+      "publishMs": 0.5647089999999935,
+      "sliceMs": [
+        0.9936669999999594
+      ],
+      "workerBoundsMs": 12.869916999999987,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 0,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 3.182207999999946,
+      "prepareMs": 0.9278750000000855,
+      "publishMs": 0.630292000000054,
+      "sliceMs": [
+        0.9271249999999327
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 1,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 2.713417000000163,
+      "prepareMs": 0.8489580000000387,
+      "publishMs": 1.5405839999998534,
+      "sliceMs": [
+        0.8477089999998952
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 2,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 2.8236669999998867,
+      "prepareMs": 0.7801249999999982,
+      "publishMs": 0.46508300000004965,
+      "sliceMs": [
+        0.7795419999999922
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 3,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 3.0306250000001,
+      "prepareMs": 1.0910420000000158,
+      "publishMs": 0.527625000000171,
+      "sliceMs": [
+        1.0004999999998745,
+        0.08920799999987139
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 4,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 2.7743339999999534,
+      "prepareMs": 0.8632500000001073,
+      "publishMs": 0.6888750000000528,
+      "sliceMs": [
+        0.8622499999999036
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 5,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 2.8593329999998787,
+      "prepareMs": 2.7858750000000327,
+      "publishMs": 0.8503749999999854,
+      "sliceMs": [
+        1.0593750000000455,
+        1.275124999999889,
+        0.4463339999999789
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": true,
+      "run": 6,
+      "vertices": 247014,
+      "buffers": 89,
+      "parked": 54,
+      "beforeMs": 2.793958999999859,
+      "prepareMs": 0.7997919999997976,
+      "publishMs": 0.44316699999990306,
+      "sliceMs": [
+        0.7992920000001504
+      ],
+      "workerBoundsMs": 1.6021670000000086,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 0,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.973292000000129,
+      "prepareMs": 0.8518750000000637,
+      "publishMs": 0.49137499999983447,
+      "sliceMs": [
+        0.8505410000000211
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 1,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.764499999999998,
+      "prepareMs": 0.8845830000000205,
+      "publishMs": 0.5388330000000678,
+      "sliceMs": [
+        0.8838749999999891
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 2,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.8645839999999225,
+      "prepareMs": 0.9198330000001533,
+      "publishMs": 0.6557909999999083,
+      "sliceMs": [
+        0.9194999999999709
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 3,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.726708000000144,
+      "prepareMs": 0.87824999999998,
+      "publishMs": 0.5962500000000546,
+      "sliceMs": [
+        0.877875000000131
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 4,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.616375000000062,
+      "prepareMs": 0.8379589999999553,
+      "publishMs": 0.659291999999823,
+      "sliceMs": [
+        0.8375839999998789
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 5,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.549582999999984,
+      "prepareMs": 0.8285000000000764,
+      "publishMs": 0.5940420000001723,
+      "sliceMs": [
+        0.8279999999999745
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_0",
+      "lowQ": false,
+      "run": 6,
+      "vertices": 707022,
+      "buffers": 114,
+      "parked": 231,
+      "beforeMs": 5.619042000000263,
+      "prepareMs": 0.7819159999999101,
+      "publishMs": 0.5737919999996848,
+      "sliceMs": [
+        0.7815409999998337
+      ],
+      "workerBoundsMs": 4.610833000000184,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 0,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 9.835042000000158,
+      "prepareMs": 1.3659169999996266,
+      "publishMs": 0.8087499999996908,
+      "sliceMs": [
+        1.0023329999999078,
+        0.3619579999999587
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 1,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 9.043041999999787,
+      "prepareMs": 1.1426249999999527,
+      "publishMs": 0.6948749999996835,
+      "sliceMs": [
+        1.00387499999988,
+        0.13816700000006676
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 2,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 9.015584000000217,
+      "prepareMs": 1.0565829999995913,
+      "publishMs": 2.6180420000000595,
+      "sliceMs": [
+        1.0024579999999332,
+        0.05154100000027029
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 3,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 10.263915999999881,
+      "prepareMs": 1.0734170000000631,
+      "publishMs": 0.7109999999997854,
+      "sliceMs": [
+        1.0013339999995878,
+        0.07120799999984229
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 4,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 8.80145900000025,
+      "prepareMs": 1.3638750000000073,
+      "publishMs": 0.81899999999996,
+      "sliceMs": [
+        1.0011669999998958,
+        0.3621250000001055
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 5,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 8.733083999999963,
+      "prepareMs": 1.0791669999998703,
+      "publishMs": 0.7639170000002196,
+      "sliceMs": [
+        1.0023330000003625,
+        0.07595899999978428
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "-1_0",
+      "lowQ": false,
+      "run": 6,
+      "vertices": 1161450,
+      "buffers": 106,
+      "parked": 248,
+      "beforeMs": 8.865084000000024,
+      "prepareMs": 1.0858750000002146,
+      "publishMs": 0.8754999999996471,
+      "sliceMs": [
+        1.0014999999998508,
+        0.0836659999999938
+      ],
+      "workerBoundsMs": 7.925999999999931,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 0,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 7.134415999999874,
+      "prepareMs": 1.074083999999857,
+      "publishMs": 2.8782499999997526,
+      "sliceMs": [
+        1.0008749999997235,
+        0.07254200000033961
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 1,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.355958000000101,
+      "prepareMs": 1.013915999999881,
+      "publishMs": 0.5912920000000668,
+      "sliceMs": [
+        1.0012079999996786,
+        0.011500000000069122
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 2,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.35470899999973,
+      "prepareMs": 0.820165999999972,
+      "publishMs": 0.6014169999998558,
+      "sliceMs": [
+        0.8197920000002341
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 3,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.22649999999976,
+      "prepareMs": 1.0537090000002536,
+      "publishMs": 0.5645840000001954,
+      "sliceMs": [
+        1.002375000000029,
+        0.04937500000005457
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 4,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.331458999999995,
+      "prepareMs": 0.9324589999996533,
+      "publishMs": 0.5123750000002474,
+      "sliceMs": [
+        0.9317920000003141
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 5,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.365542000000005,
+      "prepareMs": 0.9471659999999247,
+      "publishMs": 0.48225000000002183,
+      "sliceMs": [
+        0.9465419999996811
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    },
+    {
+      "key": "0_-1",
+      "lowQ": false,
+      "run": 6,
+      "vertices": 802974,
+      "buffers": 103,
+      "parked": 236,
+      "beforeMs": 6.290415999999823,
+      "prepareMs": 0.8492089999999735,
+      "publishMs": 0.48329199999989214,
+      "sliceMs": [
+        0.8487500000001091
+      ],
+      "workerBoundsMs": 5.535584000000199,
+      "exactGeometryAndGameplay": true
+    }
+  ],
+  "limitations": [
+    "Node host CPU microprobe with Three.js geometry and actual world grids. Renderer/GPU upload, onTileAdded gameplay subscribers and physical phones excluded.",
+    "Approximately 1 ms cooperative slice budget can overrun due to a primitive allocation, GC or OS scheduling. All raw observations retained.",
+    "Background worker bounding work reported separately; geometry bytes and gameplay records compared exactly per tile. Atomic publication remains synchronous."
+  ]
+}

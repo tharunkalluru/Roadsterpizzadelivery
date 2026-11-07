@@ -13,8 +13,8 @@ export interface ParkedVehicle extends ParkedVehicleSite {
 
 // A handful of colour prototypes per tile; each vehicle costs one instance,
 // including after a collision. No street vehicle is baked into static scenery.
-export function createParkedVehicles(sites: readonly ParkedVehicleSite[], material: THREE.Material) {
-  const group = new THREE.Group(), bodies: ParkedVehicle[] = [], dummy = new THREE.Object3D();
+export function* prepareParkedVehicles(sites: readonly ParkedVehicleSite[], material: THREE.Material, group = new THREE.Group()): Generator<void, {group: THREE.Group; bodies: ParkedVehicle[]}> {
+  const bodies: ParkedVehicle[] = [], dummy = new THREE.Object3D();
   const buckets = new Map<string, ParkedVehicleSite[]>();
   for (const site of sites) { const key = site.kind + site.color; const a = buckets.get(key) || []; a.push(site); buckets.set(key, a); }
   for (const sites of buckets.values()) {
@@ -40,7 +40,8 @@ export function createParkedVehicles(sites: readonly ParkedVehicleSite[], materi
     const position = new THREE.Vector3();
     let boundsReady = false;
     group.add(mesh);
-    sites.forEach((site, i) => {
+    for (let i = 0; i < sites.length; i++) {
+      const site = sites[i];
       const body: ParkedVehicle = { ...site, hx: Math.sin(site.yaw), hz: Math.cos(site.yaw), size: kind === 'bike' ? [.72, 1.22, 1.9] : [2.54, 3.1, 11], pitch: 0, loaded: true,
         sync() {
           dummy.position.set(body.x, body.y, body.z); dummy.rotation.set(body.pitch, Math.atan2(body.hx, body.hz), 0, 'YXZ'); dummy.updateMatrix();
@@ -52,8 +53,18 @@ export function createParkedVehicles(sites: readonly ParkedVehicleSite[], materi
           }
         } };
       body.sync(); bodies.push(body);
-    });
+      if (i % 16 === 15) yield;
+    }
     mesh.computeBoundingSphere(); mesh.boundingSphere!.radius += 32; boundsReady = true;
+    yield;
   }
   return { group, bodies };
+}
+
+/** Immediate callers retain the same prototypes, instances, and body ordering. */
+export function createParkedVehicles(sites: readonly ParkedVehicleSite[], material: THREE.Material) {
+  const job = prepareParkedVehicles(sites, material);
+  let step = job.next();
+  while (!step.done) step = job.next();
+  return step.value;
 }
