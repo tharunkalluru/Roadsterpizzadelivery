@@ -23,7 +23,10 @@ function templateParts(look:HumanBodyLook,low:boolean,seat?:HumanSeat){const key
  const normals=g.getAttribute('normal'),parts:Record<string,{p:number[];n:number[];ids:number[];weights:number[]}>=Object.fromEntries(['skin','top','pants','shoes','socks','hair','lips'].map(key=>[key,{p:[],n:[],ids:[],weights:[]}])) as any;
  const add=(region:string,ids:number[])=>{for(const i of ids){parts[region].p.push(positions[i*3],positions[i*3+1],positions[i*3+2]);parts[region].n.push(normals.getX(i),normals.getY(i),normals.getZ(i));for(let j=0;j<4;j++){parts[region].ids.push(data.skinIndex[i*4+j]);parts[region].weights.push(data.skinWeight[i*4+j]);}}};
  type V={p:number[];n:number[];ids:number[];weights:number[];r:number[];arm:number;neck:number};
- const point=(i:number):V=>({p:Array.from(positions.slice(i*3,i*3+3)),n:[normals.getX(i),normals.getY(i),normals.getZ(i)],ids:data.skinIndex.slice(i*4,i*4+4),weights:data.skinWeight.slice(i*4,i*4+4),r:Array.from(rest.slice(i*3,i*3+3)),arm:influence(data,i,limbIds),neck:influence(data,i,headIds)});
+ // Source vertices are immutable during clipping; share each indexed vertex
+ // within this build instead of allocating it again for every adjacent face.
+ const sourcePoints:V[]=[];
+ const point=(i:number):V=>sourcePoints[i]??(sourcePoints[i]={p:Array.from(positions.slice(i*3,i*3+3)),n:[normals.getX(i),normals.getY(i),normals.getZ(i)],ids:data.skinIndex.slice(i*4,i*4+4),weights:data.skinWeight.slice(i*4,i*4+4),r:Array.from(rest.slice(i*3,i*3+3)),arm:influence(data,i,limbIds),neck:influence(data,i,headIds)});
  const interpolate=(a:V,b:V,t:number):V=>{const all=new Map<number,number>();for(let j=0;j<4;j++){all.set(a.ids[j],(all.get(a.ids[j])??0)+a.weights[j]*(1-t));all.set(b.ids[j],(all.get(b.ids[j])??0)+b.weights[j]*t);}const ordered=[...all].sort((a,b)=>b[1]-a[1]).slice(0,4),total=ordered.reduce((s,v)=>s+v[1],0);return{p:a.p.map((v,i)=>v+(b.p[i]-v)*t),n:a.n.map((v,i)=>v+(b.n[i]-v)*t),r:a.r.map((v,i)=>v+(b.r[i]-v)*t),arm:a.arm+(b.arm-a.arm)*t,neck:a.neck+(b.neck-a.neck)*t,ids:Array.from({length:4},(_,i)=>ordered[i]?.[0]??0),weights:Array.from({length:4},(_,i)=>(ordered[i]?.[1]??0)/total)};};
  // Split by an anatomical scalar evaluated at both edge endpoints. Both
  // adjoining material regions retain precisely the same interpolated surface
@@ -151,7 +154,8 @@ function nativeClothPatch(look:HumanBodyLook,low:boolean,kind:'pallu'|'scarf'):H
  const key=[look.female,look.age,low,kind].join(':'),cached=clothPatches.get(key);if(cached)return cached;
  const data=low?source.humanLow:source.human,rest=variant(look,low),g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(rest,3));g.setIndex(data.indices);g.computeVertexNormals();const ns=g.getAttribute('normal');
  type V={p:THREE.Vector3;n:THREE.Vector3;w:Map<number,number>};
- const vertex=(i:number):V=>({p:new THREE.Vector3(rest[i*3],rest[i*3+1],rest[i*3+2]),n:new THREE.Vector3(ns.getX(i),ns.getY(i),ns.getZ(i)),w:new Map(Array.from({length:4},(_,j)=>[data.skinIndex[i*4+j],data.skinWeight[i*4+j]] as [number,number]))});
+ const sourceVertices:V[]=[];
+ const vertex=(i:number):V=>sourceVertices[i]??(sourceVertices[i]={p:new THREE.Vector3(rest[i*3],rest[i*3+1],rest[i*3+2]),n:new THREE.Vector3(ns.getX(i),ns.getY(i),ns.getZ(i)),w:new Map(Array.from({length:4},(_,j)=>[data.skinIndex[i*4+j],data.skinWeight[i*4+j]] as [number,number]))});
  const lerp=(a:V,b:V,t:number):V=>{const w=new Map<number,number>();for(const [id,v] of a.w)w.set(id,v*(1-t));for(const [id,v] of b.w)w.set(id,(w.get(id)??0)+v*t);return{p:a.p.clone().lerp(b.p,t),n:a.n.clone().lerp(b.n,t).normalize(),w};};
  const clip=(poly:V[],field:(p:THREE.Vector3)=>number)=>{const out:V[]=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],fa=field(a.p),fb=field(b.p);if(fa>=0)out.push(a);if((fa>=0)!==(fb>=0))out.push(lerp(a,b,fa/(fa-fb)));}return out;};
  const verts:V[]=[],tris:number[]=[],map=new Map<string,number>();
