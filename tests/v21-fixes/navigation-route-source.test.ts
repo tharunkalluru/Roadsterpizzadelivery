@@ -6,6 +6,11 @@ import { flightNavigationReadout } from '../../src/ui/flight-navigation';
 import type { RoutePoint } from '../../src/game/route-guidance';
 import { MINIMAP_NAVIGATION } from '../../src/ui/minimap-navigation';
 
+function installImmediateSearch(graph: any) {
+  if (graph.routeJob) return;
+  graph.routeJob = (...args: unknown[]) => ({ state: 'pending', result: null, cancel() { this.state = 'cancelled'; }, step() { this.result = graph.route(...args); this.state = 'complete'; } });
+}
+
 function fixture() {
   return Object.assign(Object.create(Game.prototype), {
     player: { pos: new THREE.Vector3(0, .55, 0), yaw: 0, flying: false, descending: false, jumping: false },
@@ -70,6 +75,7 @@ test('actual route update uses the mapped delivery approach while preserving the
     story:{roadNavigationTarget:approach},routeTarget:target,route:null,routeT:0,routeGuideT:0,routeGuide:[],routeAlpha:0,routeGraphRevision:-1,routePlacementRevision:-1,
     gps:new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshBasicMaterial()),
   });
+  installImmediateSearch(game.graph);
   game.updateRoute(1/60);
   assert.equal(planned.length,1);assert.equal(planned[0][2],100);assert.equal(planned[0][3],0);assert.equal(planned[0][5],0);
   assert.equal((planned[0][4] as {y:number}).y,.55,'starting carriageway grade stays strict');
@@ -87,6 +93,7 @@ test('ordinary road target retains its strict destination grade without a story 
     player:{pos:new THREE.Vector3(0,9.55,0),forward:{x:1,z:0},flying:true,descending:false,jumping:false},
     routeTarget:target,routeT:0,routeGuideT:0,gps:{visible:true},
   });
+  installImmediateSearch(game.graph);
   game.updateRoute(1/60);assert.equal(grade,9);assert.equal(game.routeTarget,target);
 });
 
@@ -99,6 +106,7 @@ test('occupied truck hides only world ribbon/beacon while map route and top loca
     story:{roadNavigationTarget:{...target,y:0},hideWorldGuidance:true,localNavigation:cue},routeTarget:target,route:null,routeT:0,routeGuideT:0,routeGuide:[],routeAlpha:0,routeGraphRevision:-1,routePlacementRevision:-1,
     gps:new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshBasicMaterial()),beacon:new THREE.Group(),
   });
+  installImmediateSearch(game.graph);
   game.updateRoute(1/60);assert.equal(game.gps.visible,false);assert.equal(game.beacon.visible,false);assert.ok(game.route.pts.length>1);
   assert.ok(game.navigationRoadPoints().length>1,'the minimap retains its normal road route');assert.equal(game.roadNavigation(target),cue);
   game.story.hideWorldGuidance=false;game.updateRoute(1/60);assert.equal(game.gps.visible,true);assert.equal(game.beacon.visible,true,'leaving the interior restores ordinary approach guidance');

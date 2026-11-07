@@ -1,3 +1,4 @@
+import { frameProfile } from '../core/frame-profile';
 import type { RoadEdge, XZ } from '../world/types';
 import { hasCentreMedian } from '../world/city';
 import type { SignalApproach, SignalSite } from '../world/signals';
@@ -189,6 +190,42 @@ export class RoadGraph {
   // GPS route. With the car's heading, it starts along the car's own road towards the junction ahead; turning back is
   // only offered where the road has no divider and it is legal, and costs a U-turn penalty.
   route(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0, allowPartial = false): RoadRoute | null {
+    return frameProfile.measure('gps.search.sync', () => {
+      const steps = this.routeSteps(fromX, fromZ, toX, toZ, car, targetY, sourceY, allowPartial);
+      let next = steps.next();
+      while (!next.done) next = steps.next();
+      return next.value;
+    });
+  }
+  routeJob(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0, allowPartial = false): RoadRouteJob {
+    return new RoadRouteJob(this, this.routeSteps(fromX, fromZ, toX, toZ, car, targetY, sourceY, allowPartial));
+  }
+  private *nearestRouteNode(x: number, z: number, maxR: number, y: number, terminal = false): Generator<void, GNode | null> {
+    let work = 0;
+    const cx = Math.floor(x / 60), cz = Math.floor(z / 60);
+    for (let r = 2; r <= maxR; r += 2) {
+      let best: GNode | null = null, distance = 1e9;
+      const seen = new Set<GEdge>();
+      for (let i = -r; i <= r; i++) for (let j = -r; j <= r; j++) {
+        if ((++work & 15) === 0) yield;
+        for (const edge of this.grid.get(`${cx + i},${cz + j}`) || []) {
+          if (seen.has(edge)) continue;
+          seen.add(edge);
+          for (const id of [edge.from, edge.to]) {
+            const node = this.nodes.get(id);
+            if (!node || Math.abs(node.y - y) > 1.6) continue;
+            const d = Math.hypot(node.x - x, node.z - z);
+            if (d < distance && (node.out.length || terminal)) { distance = d; best = node; }
+          }
+          if ((++work & 15) === 0) yield;
+        }
+      }
+      if (best) return best;
+    }
+    return null;
+  }
+  private *routeSteps(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0, allowPartial = false): Generator<void, RoadRoute | null> {
+    let work = 0;
     type Point = [number, number, number];
     const on = this.edgeAt(fromX, fromZ, sourceY, car);
     let sourceOffset = 0;
@@ -201,9 +238,9 @@ export class RoadGraph {
     const laneFraction = on && car && on.g.e.oneway ? sourceOffset * sourceDir / Math.max(.01, on.g.e.w / 2 - 1.25) : 0;
     // HUD progress is measured along these lane-offset points, so its total must
     // use the same geometry. The final approach remains a distance estimate.
-    const result = (pts: Point[], complete: boolean, edgeIds: string[] = []): RoadRoute => {
+    const result = function* (pts: Point[], complete: boolean, edgeIds: string[] = []): Generator<void, RoadRoute> {
       let len = 0;
-      for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]);
+      for (let i = 1; i < pts.length; i++) { len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]); if ((++work & 15) === 0) yield; }
       const last = pts[pts.length - 1];
       if (last) len += Math.hypot(toX - last[0], toZ - last[2]);
       if (!on && pts.length) len += Math.hypot(fromX - pts[0][0], fromZ - pts[0][2]);
@@ -240,8 +277,8 @@ export class RoadGraph {
       for (const d of [1, -1] as const) {
         if (!legal(g, d) || (targetSide && d !== targetSide)) continue;
         const pts: Point[] = [];
-        if (d === 1) for (let i = 0; i <= target.i; i++) pts.push(vertex(g, i, d));
-        else for (let i = g.e.pts.length - 1; i > target.i; i--) pts.push(vertex(g, i, d));
+        if (d === 1) for (let i = 0; i <= target.i; i++) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
+        else for (let i = g.e.pts.length - 1; i > target.i; i--) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
         // The beacon identifies the exact stop. Do not draw an unverified driveway
         // connector from the road through a shop/compound boundary.
         pts.push(at(g, target.s, d));
@@ -252,7 +289,7 @@ export class RoadGraph {
       }
     } else {
       // Distant streets may not yet be streamed; use the permanent road network as an overview.
-      const b = this.nearestNode(toX, toZ, 40, targetY, true); if (!b) return null;
+      const b = yield* this.nearestRouteNode(toX, toZ, 40, targetY, true); if (!b) return null;
       const len = Math.hypot(toX - b.x, toZ - b.z);
       ends.set(b.id, { pts: [[b.x, b.y, b.z]], len, cost: len });
     }
@@ -278,12 +315,12 @@ export class RoadGraph {
         if (target?.g === g && (!targetSide || targetSide === d) && (target.s - on.s) * d >= 0) {
           const foot = this.pointAt(g, target.s, 1), pts: Point[] = [];
           pts.push(at(g, on.s, d));
-          if (d === 1) for (let i = on.i + 1; i <= target.i; i++) pts.push(vertex(g, i, d));
-          else for (let i = on.i; i > target.i; i--) pts.push(vertex(g, i, d));
+          if (d === 1) for (let i = on.i + 1; i <= target.i; i++) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
+          else for (let i = on.i; i > target.i; i--) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
           pts.push(at(g, target.s, d));
           const along = Math.abs(target.s - on.s), offset = Math.hypot(toX - foot.x, toZ - foot.z);
           const cost = along * (COST[g.e.cls] || 1) + offset + (back ? 90 : 0);
-          if (cost < bestCost) { bestCost = cost; direct = result(pts, on.d <= g.e.w / 2 + 0.25, [g.e.id]); }
+          if (cost < bestCost) { bestCost = cost; direct = yield* result(pts, on.d <= g.e.w / 2 + 0.25, [g.e.id]); }
         }
         const node = d === 1 ? g.to : g.from, n = this.nodes.get(node); if (!n) continue;
         const along = d === 1 ? g.len - on.s : on.s;
@@ -291,17 +328,18 @@ export class RoadGraph {
         if (cost < (dist.get(node) ?? 1e15)) {
           dist.set(node, cost); open.push([cost, node]);
           const pts: Point[] = [at(g, on.s, d)];
-          if (d === 1) for (let i = on.i + 1; i < P.length; i++) pts.push(vertex(g, i, d));
-          else for (let i = on.i; i >= 0; i--) pts.push(vertex(g, i, d));
+          if (d === 1) for (let i = on.i + 1; i < P.length; i++) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
+          else for (let i = on.i; i >= 0; i--) { pts.push(vertex(g, i, d)); if ((++work & 15) === 0) yield; }
           lead.set(node, pts); leadLen.set(node, along); leadEdge.set(node, g.e.id);
         }
       }
     }
-    if (!open.size) { const a = this.nearestNode(fromX, fromZ, 8, sourceY); if (!a) return null; open.push([0, a.id]); dist.set(a.id, 0); lead.set(a.id, []); leadLen.set(a.id, Math.hypot(a.x - fromX, a.z - fromZ)); }
+    if (!open.size) { const a = yield* this.nearestRouteNode(fromX, fromZ, 8, sourceY); if (!a) return null; open.push([0, a.id]); dist.set(a.id, 0); lead.set(a.id, []); leadLen.set(a.id, Math.hypot(a.x - fromX, a.z - fromZ)); }
     const heur = (n: GNode) => Math.hypot(n.x - toX, n.z - toZ) * 0.7;
     const closed = new Set<string>();
     let it = 0;
     while (open.size && it++ < 400000) {
+      if ((++work & 15) === 0) yield;
       const [priority, id] = open.pop();
       if (priority >= bestCost) break;
       if (closed.has(id)) continue; closed.add(id);
@@ -309,6 +347,7 @@ export class RoadGraph {
       const end = ends.get(id);
       if (end && dn + end.cost < bestCost) { bestCost = dn + end.cost; endNode = id; direct = null; }
       for (const o of n.out) {
+        if ((++work & 15) === 0) yield;
         const nid = o.dir === 1 ? o.edge.to : o.edge.from;
         const nn = this.nodes.get(nid); if (!nn) continue;
         const nd = dn + o.edge.len * (COST[o.edge.e.cls] || 1);
@@ -323,6 +362,7 @@ export class RoadGraph {
       // ahead. End at the closest reachable mapped node, never bridge a gap.
       let remaining = Math.hypot(toX - fromX, toZ - fromZ) - 5;
       for (const id of closed) {
+        if ((++work & 15) === 0) yield;
         const node = this.nodes.get(id); if (!node) continue;
         const distance = Math.hypot(toX - node.x, toZ - node.z);
         if (distance < remaining) { remaining = distance; endNode = id; }
@@ -333,17 +373,47 @@ export class RoadGraph {
       partial = true;
     }
     const chain: { edge: GEdge; dir: 1 | -1 }[] = [];
-    let cur = endNode; while (prev.has(cur)) { const p = prev.get(cur)!; chain.unshift({ edge: p.edge, dir: p.dir }); cur = p.node; }
+    let cur = endNode; while (prev.has(cur)) { const p = prev.get(cur)!; chain.unshift({ edge: p.edge, dir: p.dir }); cur = p.node; if ((++work & 15) === 0) yield; }
     if (!lead.has(cur)) return null;
     const pts: [number, number, number][] = [...lead.get(cur)!]; let len = leadLen.get(cur) || 0;
     for (const c of chain) {
       const P = c.edge.e.pts, E = c.edge.e.elev;
       const idx = c.dir === 1 ? P.map((_, i) => i) : P.map((_, i) => P.length - 1 - i);
-      for (const i of idx) pts.push(vertex(c.edge, i, c.dir));
+      for (const i of idx) { pts.push(vertex(c.edge, i, c.dir)); if ((++work & 15) === 0) yield; }
       len += c.edge.len;
     }
     const end = ends.get(endNode)!;
     pts.push(...end.pts);
-    return result(pts, !partial && !!target && !!on && on.d <= on.g.e.w / 2 + 0.25, [leadEdge.get(cur), ...chain.map(c => c.edge.e.id), ...(partial ? [] : [target?.g.e.id])].filter((id): id is string => !!id));
+    return yield* result(pts, !partial && !!target && !!on && on.d <= on.g.e.w / 2 + 0.25, [leadEdge.get(cur), ...chain.map(c => c.edge.e.id), ...(partial ? [] : [target?.g.e.id])].filter((id): id is string => !!id));
+  }
+}
+
+/** Owns one search snapshot. A graph mutation invalidates it before any further
+ * traversal or publication. A slice is cooperative; one primitive or GC can
+ * exceed its deadline, and its actual duration remains visible to profiling. */
+export class RoadRouteJob {
+  state: 'pending' | 'complete' | 'cancelled' = 'pending';
+  result: RoadRoute | null = null;
+  operations = 0;
+  private readonly revision: number;
+  constructor(private graph: RoadGraph, private steps: Generator<void, RoadRoute | null>) {
+    this.revision = graph.revision;
+  }
+  cancel() {
+    if (this.state !== 'pending') return;
+    this.state = 'cancelled';
+    this.steps.return(null);
+  }
+  step(budgetMs = 1) {
+    if (this.state !== 'pending') return;
+    if (this.graph.revision !== this.revision) { this.cancel(); return; }
+    if (!(budgetMs > 0)) return;
+    frameProfile.measure('gps.search.slice', () => {
+      const deadline = performance.now() + budgetMs;
+      do {
+        const next = this.steps.next(); this.operations++;
+        if (next.done) { this.result = next.value; this.state = 'complete'; return; }
+      } while (performance.now() < deadline);
+    });
   }
 }

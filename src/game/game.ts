@@ -14,7 +14,7 @@ import { hasCentreMedian } from '../world/city';
 import { moodAt } from '../core/sky';
 import { rng } from '../core/util';
 import { Player, Input } from './player';
-import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
+import { RoadGraph, GEdge, RoadRoute, RoadRouteJob } from './roadgraph';
 import { launchPreparedGame } from './startup-readiness';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
@@ -126,6 +126,51 @@ export class Game {
   routeGuidanceBlocked = false;
   routeGraphRevision = -1; routeGuideT = 0; routeAlpha = 0; routeWasAirborne = false; routePlacementRevision = -1;
   routeGuide: [number, number, number][] = [];
+  private routeSearch?: { job: RoadRouteJob; graph: RoadGraph; revision: number; placement: number;
+    targetOwner: Stop; target: { x: number; y: number; z: number }; source: { x: number; y: number; z: number };
+    heading: { x: number; z: number }; airborne: boolean };
+  private cancelRouteSearch() { this.routeSearch?.job.cancel(); this.routeSearch = undefined; }
+  private prepareRouteSearch(target: { x: number; y: number; z: number }, airborne: boolean) {
+    const pending = this.routeSearch, p = this.player.pos, f = this.player.forward;
+    // The marker follows a moving vehicle every frame. Its logical target keeps
+    // the existing four-second / 250m refresh cadence, rather than continually
+    // cancelling a slow search each time the marker advances eight metres.
+    if (pending && (pending.graph !== this.graph || pending.revision !== this.graph.revision ||
+      pending.placement !== this.player.placementRevision || pending.airborne !== airborne ||
+      pending.targetOwner !== this.routeTarget || Math.abs(pending.target.y - target.y) > 1.6 ||
+      Math.hypot(pending.target.x - target.x, pending.target.z - target.z) > 250 ||
+      Math.hypot(p.x - pending.source.x, p.z - pending.source.z) > 60 ||
+      !airborne && (Math.abs(p.y - pending.source.y) > 1.6 || f.x * pending.heading.x + f.z * pending.heading.z < .5))) {
+      this.cancelRouteSearch(); this.routeT = 0; this.routePlacementRevision = -1;
+    }
+  }
+  private stepRouteSearch(target: { x: number; y: number; z: number }, airborne: boolean, request: boolean, edgeId?: string) {
+    const p = this.player.pos, f = this.player.forward;
+    if (!this.routeSearch && request) {
+      this.routeSearch = { graph: this.graph, revision: this.graph.revision, placement: this.player.placementRevision,
+        targetOwner: this.routeTarget!, target: { ...target }, source: { x: p.x, y: p.y, z: p.z }, heading: { x: f.x, z: f.z }, airborne,
+        job: this.graph.routeJob(p.x, p.z, target.x, target.z, airborne ? undefined : { hx: f.x, hz: f.z, y: p.y, edgeId }, target.y, airborne ? 0 : p.y, !airborne) };
+    }
+    const pending = this.routeSearch;
+    if (!pending) return false;
+    frameProfile.measure(airborne ? 'gps.overview.slice' : 'gps.guidance.slice', () => pending.job.step(1));
+    if (pending.job.state === 'pending') return false;
+    this.routeSearch = undefined;
+    if (pending.job.state !== 'complete') { this.routeT = 0; return false; }
+    // The car may have travelled while A* yielded. Trim the published route to
+    // its present road position; never teleport the ribbon back to the request.
+    const result = pending.job.result;
+    const advanced = !airborne && result ? advanceRoadRoute(result, { x: p.x, y: p.y - .55, z: p.z }, 70) : null;
+    const on = !airborne ? this.graph.edgeAt(p.x, p.z, p.y, { hx: f.x, hz: f.z, edgeId: this.player.lastEdge?.id }) : null;
+    if (!airborne && result && (!advanced || advanced.distance > Math.max(7, (on?.g.e.w || 10) * .6) || advanced.heightError > 1.6 ||
+      on && result.edgeIds?.length && !result.edgeIds.includes(on.g.e.id))) {
+      this.routeT = .6;
+      return false;
+    }
+    this.route = advanced ? advanced.route : result;
+    this.routeT = airborne ? 4 : .6; this.routeGuideT = 0;
+    return true;
+  }
   gps = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: new THREE.Color('#45E3D3').multiplyScalar(1.4), transparent: true, opacity: 0.6, depthWrite: false, toneMapped: false }));
   beacon!: THREE.Group;
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
@@ -393,7 +438,7 @@ export class Game {
     const drops = this.residences.filter((d) => { const dd = Math.hypot(d.x - p.x, d.z - p.z); return dd > L.dmin && dd < L.dmax; });
     if (!drops.length) return null;
     const d = drops[Math.floor(this.r() * drops.length)];
-    const rt = this.graph.route(p.x, p.z, d.x, d.z, undefined, d.y, p.y);
+    const rt = frameProfile.measure('gps.offer.distance', () => this.graph.route(p.x, p.z, d.x, d.z, undefined, d.y, p.y));
     const dist = rt ? rt.len : Math.hypot(d.x - p.x, d.z - p.z) * 1.3;
     const drop: Stop = { ...d, label: `Home in ${this.areaName(d.x, d.z)}`, sub: d.label ? `off ${d.label}` : '' };
     const pickup: Stop = { ...p, label: pick.board, sub: p.sub };
@@ -428,7 +473,7 @@ export class Game {
     if (!restored) this.sound.cue('offer');
     const pay = Math.round(35 + o.dist * 0.07);
     const P = this.player.pos, f = this.player.forward;
-    const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying || this.player.jumping ? undefined : { hx: f.x, hz: f.z, y: P.y }, o.pickup.y);
+    const approach = frameProfile.measure('gps.offer.approach', () => this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying || this.player.jumping ? undefined : { hx: f.x, hz: f.z, y: P.y }, o.pickup.y));
     this.hud.offer(orderOfferHtml({ level: this.level + 1, pickupName: o.pickup.label, pickupRoad: o.pickup.sub || '',
       customerName: o.drop.label, approachMetres: approach?.len ?? null, approachEstimated: approach?.complete === false,
       deliveryMetres: o.dist, deliverySeconds: o.limit, basePay: pay, orderId: o.id }),
@@ -446,6 +491,7 @@ export class Game {
   }
   routeColor = '#FFB627';
   setTarget(s: Stop | null, color = '#FFB627', preserveRoad = false) {
+    this.cancelRouteSearch();
     if (s && preserveRoad && this.routeTarget && this.route) {
       this.routeTarget = s; this.routeT = 0; this.routePlacementRevision = -1;
       this.beacon.position.set(s.x,s.y,s.z); return;
@@ -1407,16 +1453,17 @@ export class Game {
     // occupied truck interior only clears its world-space beacon and ribbon.
     const hideWorldGuidance=!!this.story?.hideWorldGuidance;
     if(this.beacon)this.beacon.visible=!!tgt&&!hideWorldGuidance;
-    if (!tgt) { this.gps.visible = false; return; }
+    if (!tgt) { this.cancelRouteSearch(); this.gps.visible = false; return; }
     // Authored scenes may be on a roof, inside a hall or on a train. Route
     // the car along real roads to their approach; keep the exact scene marker.
     const roadTarget = this.story?.roadNavigationTarget ?? tgt;
     this.routeT -= dt; this.routeGuideT = (this.routeGuideT || 0) - dt;
     const airborne = this.player.flying || this.player.descending || this.player.jumping;
+    this.prepareRouteSearch(roadTarget, airborne);
     if (airborne) {
       // Flight uses the beacon. The map may retain a coarse road overview, but
       // landing always creates a new route from the actual road and height.
-      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, undefined, roadTarget.y); this.routeT = 4; }
+      this.stepRouteSearch(roadTarget, true, this.routeT <= 0);
       this.routeWasAirborne = true; this.gps.visible = false; return;
     }
     const revision = this.graph.revision || 0, changed = revision !== this.routeGraphRevision;
@@ -1439,10 +1486,11 @@ export class Game {
     const offRoute = !!this.route && (oppositeSide || (!advanced || advanced.distance > Math.max(7, (on?.g.e.w || 10) * .6) || advanced.heightError > 1.6 || !on || (this.route.edgeIds?.length && !this.route.edgeIds.includes(on.g.e.id))));
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
-    if (replan) {
-      this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, roadTarget.y, P.y, true);
-      this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
-    } else if (advanced) this.route = advanced.route;
+    if (advanced && !offRoute) this.route = advanced.route;
+    const urgent = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || missingRoad;
+    // Repeated failed/off-road requests wait briefly; an active search receives
+    // one shared foreground slice per rendered frame and retains valid guidance.
+    this.stepRouteSearch(roadTarget, false, !!replan && (urgent || this.routeT <= 0), on?.g.e.id);
     this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;
     if (changed || this.routeGuideT <= 0) {
       this.routeGuideT = .75;
