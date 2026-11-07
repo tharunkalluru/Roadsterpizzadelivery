@@ -1,0 +1,108 @@
+{
+  "assistance": "Player staged alongside a real marked traffic auto with its current speed via player.place; Jump tapped using touch emulation. No pickup/controller event invoked or Prepare button used.",
+  "samples": [
+    {
+      "picked": [],
+      "caught": false,
+      "activeOrder": false,
+      "state": "ROAMING",
+      "jumping": false,
+      "pos": [
+        6582.853035521266,
+        0.55,
+        1933.7922364673918
+      ],
+      "routePoints": 0,
+      "ribbon": false,
+      "target": false,
+      "guide": 0,
+      "markers": 3
+    },
+    {
+      "picked": [
+        {
+          "event": {
+            "carrierId": "7e93a532-1839-4ed5-92c7-c0e71faef125",
+            "position": {
+              "x": 6585.113148853707,
+              "y": 3.1106233006579576,
+              "z": 1932.888178307125
+            }
+          },
+          "jumping": true
+        }
+      ],
+      "caught": true,
+      "activeOrder": true,
+      "state": "SETPIECE",
+      "jumping": true,
+      "pos": [
+        6582.8738631976385,
+        1.2703655897748534,
+        1933.4554568701847
+      ],
+      "routePoints": 117,
+      "ribbon": false,
+      "target": true,
+      "guide": 0,
+      "markers": 0
+    }
+  ],
+  "errors": [],
+  "before": {
+    "picked": [],
+    "caught": false,
+    "activeOrder": false,
+    "state": "ROAMING",
+    "jumping": false,
+    "pos": [
+      6597.702079788641,
+      0.55,
+      1788.7502300308
+    ],
+    "routePoints": 0,
+    "ribbon": false,
+    "target": false,
+    "guide": 0,
+    "markers": 1
+  },
+  "staging": {
+    "carrier": "7e93a532-1839-4ed5-92c7-c0e71faef125",
+    "speed": 3.647903395358471,
+    "position": [
+      6582.832100543681,
+      0.55,
+      1934.1307511049501
+    ]
+  },
+  "after": {
+    "picked": [
+      {
+        "event": {
+          "carrierId": "7e93a532-1839-4ed5-92c7-c0e71faef125",
+          "position": {
+            "x": 6585.113148853707,
+            "y": 3.1106233006579576,
+            "z": 1932.888178307125
+          }
+        },
+        "jumping": true
+      }
+    ],
+    "caught": true,
+    "activeOrder": true,
+    "state": "SETPIECE",
+    "jumping": false,
+    "pos": [
+      6583.26730591205,
+      0.55,
+      1927.0935624125548
+    ],
+    "routePoints": 114,
+    "ribbon": true,
+    "target": true,
+    "guide": 521,
+    "markers": 0
+  },
+  "ok": true
+}

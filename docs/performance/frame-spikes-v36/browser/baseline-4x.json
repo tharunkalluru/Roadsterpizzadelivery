@@ -1,0 +1,3075 @@
+{
+  "throttle": 4,
+  "label": "baseline-4x",
+  "port": "4401",
+  "quality": "high",
+  "viewport": [
+    960,
+    540
+  ],
+  "device": "desktop Chrome, Apple Metal, synthetic CPU throttle recorded separately; QA placement followed by real control input",
+  "scenarios": [
+    {
+      "name": "stationary",
+      "timings": {
+        "gpu.texture.submit": {
+          "count": 16,
+          "retained": 16,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "total": 0,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.bufferData.submit": {
+          "count": 265,
+          "retained": 265,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.6999999284744263,
+          "max": 1,
+          "total": 3.6999998092651367,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "environment.pmrem": {
+          "count": 16,
+          "retained": 16,
+          "p50": 4.300000071525574,
+          "p95": 8.200000047683716,
+          "p99": 8.200000047683716,
+          "max": 8.200000047683716,
+          "total": 74.10000014305115,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "metro.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0.6999999284744263,
+          "p95": 1.3000000715255737,
+          "p99": 1.899999976158142,
+          "max": 3.399999976158142,
+          "total": 423.9000004529953,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "rail.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0.10000002384185791,
+          "p95": 1.2999999523162842,
+          "p99": 1.899999976158142,
+          "max": 16.90000009536743,
+          "total": 274.4000004529953,
+          "over16_67": 1,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "player.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0.3999999761581421,
+          "p95": 1,
+          "p99": 1.1999999284744263,
+          "max": 1.4000000953674316,
+          "total": 272.799999833107,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "world.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.30000007152557373,
+          "max": 0.8999999761581421,
+          "total": 6.200000047683716,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "traffic.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 13.100000023841858,
+          "p95": 19,
+          "p99": 29,
+          "max": 33.799999952316284,
+          "total": 8926.20000064373,
+          "over16_67": 62,
+          "over25": 18,
+          "over33_3": 1,
+          "over50": 0
+        },
+        "carrier.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0,
+          "p95": 0.40000009536743164,
+          "p99": 0.8999999761581421,
+          "max": 1,
+          "total": 39.80000019073486,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "walkers.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0.10000002384185791,
+          "p95": 0.8999999761581421,
+          "p99": 1.100000023841858,
+          "max": 1.899999976158142,
+          "total": 209.19999969005585,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "navigation.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 0,
+          "p95": 0.6000000238418579,
+          "p99": 0.8999999761581421,
+          "max": 1,
+          "total": 49.69999980926514,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "camera.update": {
+          "count": 651,
+          "retained": 651,
+          "p50": 1.8000000715255737,
+          "p95": 3.100000023841858,
+          "p99": 3.6999999284744263,
+          "max": 5.699999928474426,
+          "total": 1250.2999987602234,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "render.call": {
+          "count": 651,
+          "retained": 651,
+          "p50": 9.100000023841858,
+          "p95": 10.800000071525574,
+          "p99": 11.699999928474426,
+          "max": 13.5,
+          "total": 6013.500001311302,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "frame.cpu": {
+          "count": 651,
+          "retained": 651,
+          "p50": 28,
+          "p95": 36.200000047683716,
+          "p99": 45,
+          "max": 55.700000047683716,
+          "total": 18633.600000023842,
+          "over16_67": 650,
+          "over25": 547,
+          "over33_3": 58,
+          "over50": 1
+        },
+        "frame.interval": {
+          "count": 650,
+          "retained": 650,
+          "p50": 30,
+          "p95": 38.800000071525574,
+          "p99": 48.59999990463257,
+          "max": 62,
+          "total": 19982.600000023842,
+          "over16_67": 650,
+          "over25": 625,
+          "over33_3": 123,
+          "over50": 4
+        }
+      },
+      "resources": [
+        {
+          "t": 35338.60000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 682,
+          "triangles": 1874713,
+          "geometries": 505,
+          "textures": 74,
+          "phase": "driving"
+        },
+        {
+          "t": 36323.300000071526,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 679,
+          "triangles": 1874665,
+          "geometries": 505,
+          "textures": 74,
+          "phase": "driving"
+        },
+        {
+          "t": 37341.10000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 679,
+          "triangles": 1861724,
+          "geometries": 505,
+          "textures": 74,
+          "phase": "driving"
+        },
+        {
+          "t": 38329.200000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 676,
+          "triangles": 1863992,
+          "geometries": 505,
+          "textures": 74,
+          "phase": "driving"
+        },
+        {
+          "t": 39326.700000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 671,
+          "triangles": 1858479,
+          "geometries": 505,
+          "textures": 74,
+          "phase": "driving"
+        },
+        {
+          "t": 40338.39999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 668,
+          "triangles": 1842623,
+          "geometries": 509,
+          "textures": 75,
+          "phase": "driving"
+        },
+        {
+          "t": 41316.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 667,
+          "triangles": 1813501,
+          "geometries": 510,
+          "textures": 75,
+          "phase": "driving"
+        },
+        {
+          "t": 42344.200000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 667,
+          "triangles": 1811677,
+          "geometries": 512,
+          "textures": 75,
+          "phase": "driving"
+        },
+        {
+          "t": 43354.700000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 667,
+          "triangles": 1816858,
+          "geometries": 513,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 44327.39999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 666,
+          "triangles": 1833142,
+          "geometries": 513,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 45336.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 669,
+          "triangles": 1830090,
+          "geometries": 514,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 46330.60000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 667,
+          "triangles": 1821984,
+          "geometries": 515,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 47303.60000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 661,
+          "triangles": 1808732,
+          "geometries": 515,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 48349.700000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 661,
+          "triangles": 1808708,
+          "geometries": 515,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 49310,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 662,
+          "triangles": 1816884,
+          "geometries": 515,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 50324.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 660,
+          "triangles": 1820494,
+          "geometries": 516,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 51320.800000071526,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 661,
+          "triangles": 1831432,
+          "geometries": 516,
+          "textures": 76,
+          "phase": "driving"
+        },
+        {
+          "t": 52312,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 664,
+          "triangles": 1840028,
+          "geometries": 520,
+          "textures": 78,
+          "phase": "driving"
+        },
+        {
+          "t": 53325,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 665,
+          "triangles": 1840040,
+          "geometries": 520,
+          "textures": 78,
+          "phase": "driving"
+        },
+        {
+          "t": 54316,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 666,
+          "triangles": 1823848,
+          "geometries": 520,
+          "textures": 78,
+          "phase": "driving"
+        }
+      ],
+      "renderer": "WebKit WebGL",
+      "ratio": 1
+    },
+    {
+      "name": "dusk",
+      "timings": {
+        "metro.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0.7000000476837158,
+          "p95": 1.3000000715255737,
+          "p99": 2.200000047683716,
+          "max": 3.3000000715255737,
+          "total": 520.5999994277954,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "rail.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0.10000002384185791,
+          "p95": 1,
+          "p99": 1.100000023841858,
+          "max": 2.399999976158142,
+          "total": 245.6000006198883,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "player.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0.30000007152557373,
+          "p95": 1,
+          "p99": 1.100000023841858,
+          "max": 1.2999999523162842,
+          "total": 313.00000166893005,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "world.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.10000002384185791,
+          "max": 0.7000000476837158,
+          "total": 3.3999998569488525,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "traffic.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 9.600000023841858,
+          "p95": 15.600000023841858,
+          "p99": 23.5,
+          "max": 30.5,
+          "total": 7904.799997925758,
+          "over16_67": 34,
+          "over25": 3,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "carrier.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0,
+          "p95": 0.5,
+          "p99": 0.7999999523162842,
+          "max": 1,
+          "total": 51.700000166893005,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "walkers.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0.10000002384185791,
+          "p95": 0.9000000953674316,
+          "p99": 1.100000023841858,
+          "max": 1.2000000476837158,
+          "total": 224.90000104904175,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "navigation.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 0,
+          "p95": 0.5,
+          "p99": 0.8000000715255737,
+          "max": 1,
+          "total": 45.29999899864197,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "camera.update": {
+          "count": 773,
+          "retained": 773,
+          "p50": 1.7000000476837158,
+          "p95": 2.799999952316284,
+          "p99": 3.600000023841858,
+          "max": 4.5,
+          "total": 1398.9000004529953,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "render.call": {
+          "count": 773,
+          "retained": 773,
+          "p50": 9.200000047683716,
+          "p95": 10.799999952316284,
+          "p99": 11.799999952316284,
+          "max": 13,
+          "total": 7171.199999809265,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "frame.cpu": {
+          "count": 773,
+          "retained": 773,
+          "p50": 24.299999952316284,
+          "p95": 31.600000023841858,
+          "p99": 38.700000047683716,
+          "max": 45.799999952316284,
+          "total": 19335.89999783039,
+          "over16_67": 773,
+          "over25": 269,
+          "over33_3": 26,
+          "over50": 0
+        },
+        "frame.interval": {
+          "count": 772,
+          "retained": 772,
+          "p50": 25.09999990463257,
+          "p95": 33,
+          "p99": 39.60000002384186,
+          "max": 46.799999952316284,
+          "total": 19985.099999904633,
+          "over16_67": 772,
+          "over25": 388,
+          "over33_3": 37,
+          "over50": 0
+        },
+        "gpu.texture.submit": {
+          "count": 38,
+          "retained": 38,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.7999999523162842,
+          "max": 0.7999999523162842,
+          "total": 0.7999999523162842,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.bufferData.submit": {
+          "count": 373,
+          "retained": 373,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.6999999284744263,
+          "max": 0.8999999761581421,
+          "total": 6.9999998807907104,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "environment.pmrem": {
+          "count": 38,
+          "retained": 38,
+          "p50": 4.900000095367432,
+          "p95": 6,
+          "p99": 6.399999976158142,
+          "max": 6.399999976158142,
+          "total": 187.10000014305115,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        }
+      },
+      "resources": [
+        {
+          "t": 55322.300000071526,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 660,
+          "triangles": 1811047,
+          "geometries": 524,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 56319.5,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 661,
+          "triangles": 1810379,
+          "geometries": 524,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 57327.60000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 665,
+          "triangles": 1819319,
+          "geometries": 524,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 58338.10000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 674,
+          "triangles": 1861775,
+          "geometries": 525,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 59317.200000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 674,
+          "triangles": 1877457,
+          "geometries": 525,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 60316,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 676,
+          "triangles": 1898871,
+          "geometries": 525,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 61333.300000071526,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 681,
+          "triangles": 1911039,
+          "geometries": 525,
+          "textures": 79,
+          "phase": "driving"
+        },
+        {
+          "t": 62342.10000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 692,
+          "triangles": 1957383,
+          "geometries": 529,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 63298.700000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 695,
+          "triangles": 1967355,
+          "geometries": 530,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 64324.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 696,
+          "triangles": 1992653,
+          "geometries": 532,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 65337.200000047684,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 699,
+          "triangles": 1955252,
+          "geometries": 533,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 66328.10000002384,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 704,
+          "triangles": 1968224,
+          "geometries": 533,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 67318.30000007153,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 703,
+          "triangles": 1972936,
+          "geometries": 533,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 68326.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 701,
+          "triangles": 1970349,
+          "geometries": 533,
+          "textures": 81,
+          "phase": "driving"
+        },
+        {
+          "t": 69331.5,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 707,
+          "triangles": 1973204,
+          "geometries": 537,
+          "textures": 82,
+          "phase": "driving"
+        },
+        {
+          "t": 70316.89999997616,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 712,
+          "triangles": 1976674,
+          "geometries": 539,
+          "textures": 82,
+          "phase": "driving"
+        },
+        {
+          "t": 71326,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 715,
+          "triangles": 1963319,
+          "geometries": 539,
+          "textures": 82,
+          "phase": "driving"
+        },
+        {
+          "t": 72321.30000007153,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 719,
+          "triangles": 1960057,
+          "geometries": 541,
+          "textures": 82,
+          "phase": "driving"
+        },
+        {
+          "t": 73294.30000007153,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 722,
+          "triangles": 1966165,
+          "geometries": 541,
+          "textures": 82,
+          "phase": "driving"
+        },
+        {
+          "t": 74331,
+          "speed": 0,
+          "pos": [
+            -3228.4453820691656,
+            0.55,
+            -730.3664846722842
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 717,
+          "triangles": 1960445,
+          "geometries": 541,
+          "textures": 82,
+          "phase": "driving"
+        }
+      ],
+      "renderer": "WebKit WebGL",
+      "ratio": 1
+    },
+    {
+      "name": "road-input-120",
+      "timings": {
+        "metro.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0.7999999523162842,
+          "p95": 1.4000000953674316,
+          "p99": 1.899999976158142,
+          "max": 2.9000000953674316,
+          "total": 181.50000131130219,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "rail.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0,
+          "p95": 0.5,
+          "p99": 0.7999999523162842,
+          "max": 6.700000047683716,
+          "total": 26.09999930858612,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "player.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0.5,
+          "p95": 1.100000023841858,
+          "p99": 1.2999999523162842,
+          "max": 1.5,
+          "total": 120.50000083446503,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "world.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.20000004768371582,
+          "max": 0.7000000476837158,
+          "total": 2.3000004291534424,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "traffic.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 30,
+          "p95": 37.39999997615814,
+          "p99": 44.59999990463257,
+          "max": 50.699999928474426,
+          "total": 6824.900000572205,
+          "over16_67": 227,
+          "over25": 191,
+          "over33_3": 54,
+          "over50": 1
+        },
+        "carrier.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0,
+          "p95": 0.20000004768371582,
+          "p99": 0.8999999761581421,
+          "max": 1,
+          "total": 9.300000309944153,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "walkers.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 1.3000000715255737,
+          "p95": 71.70000004768372,
+          "p99": 153.79999995231628,
+          "max": 428.6999999284744,
+          "total": 4230.499999880791,
+          "over16_67": 55,
+          "over25": 48,
+          "over33_3": 48,
+          "over50": 36
+        },
+        "navigation.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 0.10000002384185791,
+          "p95": 157.5,
+          "p99": 187.39999997615814,
+          "max": 191.69999992847443,
+          "total": 2856.500000357628,
+          "over16_67": 17,
+          "over25": 17,
+          "over33_3": 17,
+          "over50": 17
+        },
+        "camera.update": {
+          "count": 227,
+          "retained": 227,
+          "p50": 5.199999928474426,
+          "p95": 7.800000071525574,
+          "p99": 12,
+          "max": 22.299999952316284,
+          "total": 1162.3999999761581,
+          "over16_67": 2,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.bufferData.submit": {
+          "count": 1191,
+          "retained": 1191,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.8999999761581421,
+          "max": 1.5,
+          "total": 40.59999918937683,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "render.call": {
+          "count": 227,
+          "retained": 227,
+          "p50": 13.699999928474426,
+          "p95": 27.600000023841858,
+          "p99": 32,
+          "max": 41.39999997615814,
+          "total": 3613.9999997615814,
+          "over16_67": 87,
+          "over25": 17,
+          "over33_3": 2,
+          "over50": 0
+        },
+        "frame.cpu": {
+          "count": 227,
+          "retained": 227,
+          "p50": 58.39999997615814,
+          "p95": 233.89999997615814,
+          "p99": 302.2999999523163,
+          "max": 688.7999999523163,
+          "total": 19719.899999141693,
+          "over16_67": 227,
+          "over25": 227,
+          "over33_3": 227,
+          "over50": 153
+        },
+        "frame.interval": {
+          "count": 226,
+          "retained": 226,
+          "p50": 60.59999990463257,
+          "p95": 235.79999995231628,
+          "p99": 304.2000000476837,
+          "max": 690,
+          "total": 19977.199999928474,
+          "over16_67": 226,
+          "over25": 226,
+          "over33_3": 226,
+          "over50": 157
+        },
+        "gps.call": {
+          "count": 25,
+          "retained": 25,
+          "p50": 14.100000023841858,
+          "p95": 18.699999928474426,
+          "p99": 23.299999952316284,
+          "max": 23.299999952316284,
+          "total": 242.39999997615814,
+          "over16_67": 4,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.texture.submit": {
+          "count": 20,
+          "retained": 20,
+          "p50": 0,
+          "p95": 0.40000009536743164,
+          "p99": 0.5,
+          "max": 0.5,
+          "total": 0.9000000953674316,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "environment.pmrem": {
+          "count": 20,
+          "retained": 20,
+          "p50": 4.600000023841858,
+          "p95": 12.100000023841858,
+          "p99": 13.5,
+          "max": 13.5,
+          "total": 110.700000166893,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        }
+      },
+      "resources": [
+        {
+          "t": 81441.5,
+          "speed": 120.00000000000001,
+          "pos": [
+            4319.475502675097,
+            0.55,
+            4222.828226693298
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 843,
+          "triangles": 2169916,
+          "geometries": 577,
+          "textures": 89,
+          "phase": "driving"
+        },
+        {
+          "t": 82505.10000002384,
+          "speed": 120.00000000000001,
+          "pos": [
+            4331.136590808169,
+            0.55,
+            4223.1889685177675
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 871,
+          "triangles": 2326427,
+          "geometries": 593,
+          "textures": 101,
+          "phase": "driving"
+        },
+        {
+          "t": 83547.30000007153,
+          "speed": 120.00000000000001,
+          "pos": [
+            4336.134200008057,
+            0.55,
+            4223.343572156826
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 868,
+          "triangles": 2355324,
+          "geometries": 601,
+          "textures": 109,
+          "phase": "driving"
+        },
+        {
+          "t": 84598.10000002384,
+          "speed": 120.00000000000001,
+          "pos": [
+            4349.461157874424,
+            0.55,
+            4223.755848527648
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 874,
+          "triangles": 2359456,
+          "geometries": 610,
+          "textures": 117,
+          "phase": "driving"
+        },
+        {
+          "t": 85474.70000004768,
+          "speed": 120.00000000000001,
+          "pos": [
+            4364.453985474088,
+            0.55,
+            4224.219659444822
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 873,
+          "triangles": 2379088,
+          "geometries": 618,
+          "textures": 122,
+          "phase": "driving"
+        },
+        {
+          "t": 86718.10000002384,
+          "speed": 120.00000000000001,
+          "pos": [
+            4376.1150736071595,
+            0.55,
+            4224.5804012692915
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 903,
+          "triangles": 2481854,
+          "geometries": 634,
+          "textures": 135,
+          "phase": "driving"
+        },
+        {
+          "t": 87495.80000007153,
+          "speed": 120.00000000000001,
+          "pos": [
+            4384.444422273639,
+            0.55,
+            4224.838074001055
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 900,
+          "triangles": 2487889,
+          "geometries": 638,
+          "textures": 139,
+          "phase": "driving"
+        },
+        {
+          "t": 88395.80000007153,
+          "speed": 120.00000000000001,
+          "pos": [
+            4396.116392952039,
+            0.55,
+            4224.847034269911
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 883,
+          "triangles": 2444307,
+          "geometries": 647,
+          "textures": 142,
+          "phase": "driving"
+        },
+        {
+          "t": 89524.80000007153,
+          "speed": 120.00000000000001,
+          "pos": [
+            4414.440960018294,
+            0.55,
+            4225.413914279791
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 858,
+          "triangles": 2334809,
+          "geometries": 656,
+          "textures": 150,
+          "phase": "driving"
+        },
+        {
+          "t": 90487.70000004768,
+          "speed": 120.00000000000001,
+          "pos": [
+            4431.099657351254,
+            0.55,
+            4225.929259743319
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 845,
+          "triangles": 2238825,
+          "geometries": 668,
+          "textures": 158,
+          "phase": "driving"
+        },
+        {
+          "t": 91350,
+          "speed": 120.00000000000001,
+          "pos": [
+            4449.424224417509,
+            0.55,
+            4226.496139753199
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 799,
+          "triangles": 2178934,
+          "geometries": 671,
+          "textures": 160,
+          "phase": "driving"
+        },
+        {
+          "t": 92489.20000004768,
+          "speed": 120.00000000000001,
+          "pos": [
+            4471.080530950357,
+            0.55,
+            4227.166088855784
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 769,
+          "triangles": 2097130,
+          "geometries": 671,
+          "textures": 156,
+          "phase": "driving"
+        },
+        {
+          "t": 93451.30000007153,
+          "speed": 110.74799999999999,
+          "pos": [
+            4486.09751366115,
+            0.55,
+            4227.630647023879
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 748,
+          "triangles": 2073194,
+          "geometries": 682,
+          "textures": 160,
+          "phase": "driving"
+        },
+        {
+          "t": 94618.30000007153,
+          "speed": 120.00000000000001,
+          "pos": [
+            4502.197439787581,
+            0.55,
+            4228.1287066096
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 727,
+          "triangles": 1996134,
+          "geometries": 692,
+          "textures": 160,
+          "phase": "driving"
+        },
+        {
+          "t": 95503.20000004768,
+          "speed": 120.00000000000001,
+          "pos": [
+            4518.856137120541,
+            0.55,
+            4228.644052073128
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 705,
+          "triangles": 1935333,
+          "geometries": 699,
+          "textures": 160,
+          "phase": "driving"
+        },
+        {
+          "t": 96420.5,
+          "speed": 108.804,
+          "pos": [
+            4532.4776207557525,
+            0.55,
+            4229.065439751743
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 710,
+          "triangles": 1933770,
+          "geometries": 697,
+          "textures": 154,
+          "phase": "driving"
+        },
+        {
+          "t": 97344.60000002384,
+          "speed": 3.8140601981417497,
+          "pos": [
+            4545.7665713572505,
+            0.55,
+            4228.456746770301
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 695,
+          "triangles": 2040088,
+          "geometries": 703,
+          "textures": 155,
+          "phase": "driving"
+        },
+        {
+          "t": 98365.10000002384,
+          "speed": 2.3774674907585367,
+          "pos": [
+            4545.88879313977,
+            0.55,
+            4228.126295284229
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 694,
+          "triangles": 2061266,
+          "geometries": 705,
+          "textures": 154,
+          "phase": "driving"
+        },
+        {
+          "t": 99379,
+          "speed": 2.825355219978253,
+          "pos": [
+            4546.013495257824,
+            0.55,
+            4227.789137705789
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 697,
+          "triangles": 2168783,
+          "geometries": 708,
+          "textures": 155,
+          "phase": "driving"
+        },
+        {
+          "t": 100341,
+          "speed": 3.315727592822273,
+          "pos": [
+            4546.130950504662,
+            0.55,
+            4227.471573519892
+          ],
+          "flying": false,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 707,
+          "triangles": 2192432,
+          "geometries": 712,
+          "textures": 156,
+          "phase": "driving"
+        }
+      ],
+      "renderer": "WebKit WebGL",
+      "ratio": 1
+    },
+    {
+      "name": "flight-160-streaming",
+      "timings": {
+        "metro.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 0.7000000476837158,
+          "p95": 1.399999976158142,
+          "p99": 2.600000023841858,
+          "max": 2.899999976158142,
+          "total": 185.00000035762787,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "rail.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 0,
+          "p95": 0.30000007152557373,
+          "p99": 1,
+          "max": 7,
+          "total": 27.699999809265137,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "player.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 0.6000000238418579,
+          "p95": 1.8000000715255737,
+          "p99": 3.200000047683716,
+          "max": 3.899999976158142,
+          "total": 173.39999997615814,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "world.update": {
+          "count": 262,
+          "retained": 262,
+          "p50": 0,
+          "p95": 0.09999990463256836,
+          "p99": 0.6999999284744263,
+          "max": 0.8999999761581421,
+          "total": 4.600000023841858,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "traffic.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 24.899999976158142,
+          "p95": 31.700000047683716,
+          "p99": 36.60000002384186,
+          "max": 39.799999952316284,
+          "total": 6666.299999952316,
+          "over16_67": 261,
+          "over25": 129,
+          "over33_3": 7,
+          "over50": 0
+        },
+        "carrier.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.7999999523162842,
+          "max": 0.9000000953674316,
+          "total": 7.300000071525574,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "walkers.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 1.6999999284744263,
+          "p95": 100.79999995231628,
+          "p99": 118,
+          "max": 153.80000007152557,
+          "total": 6116.299999475479,
+          "over16_67": 90,
+          "over25": 78,
+          "over33_3": 77,
+          "over50": 66
+        },
+        "navigation.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 15.399999976158142,
+          "max": 16.5,
+          "total": 59.5999995470047,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "camera.update": {
+          "count": 261,
+          "retained": 261,
+          "p50": 3.100000023841858,
+          "p95": 7,
+          "p99": 11.5,
+          "max": 20.299999952316284,
+          "total": 984.699999332428,
+          "over16_67": 1,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "render.call": {
+          "count": 261,
+          "retained": 261,
+          "p50": 17.699999928474426,
+          "p95": 27.799999952316284,
+          "p99": 31.899999976158142,
+          "max": 33.299999952316284,
+          "total": 4784.600000739098,
+          "over16_67": 154,
+          "over25": 23,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "frame.cpu": {
+          "count": 261,
+          "retained": 261,
+          "p50": 58.700000047683716,
+          "p95": 153.70000004768372,
+          "p99": 184.89999997615814,
+          "max": 224.19999992847443,
+          "total": 19621.099999666214,
+          "over16_67": 261,
+          "over25": 261,
+          "over33_3": 260,
+          "over50": 192
+        },
+        "frame.interval": {
+          "count": 260,
+          "retained": 260,
+          "p50": 59.90000009536743,
+          "p95": 157.69999992847443,
+          "p99": 186.5,
+          "max": 225.89999997615814,
+          "total": 19949.800000071526,
+          "over16_67": 260,
+          "over25": 260,
+          "over33_3": 260,
+          "over50": 198
+        },
+        "gpu.texture.submit": {
+          "count": 23,
+          "retained": 23,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.2999999523162842,
+          "max": 0.2999999523162842,
+          "total": 0.49999988079071045,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.bufferData.submit": {
+          "count": 1314,
+          "retained": 1314,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.7999999523162842,
+          "max": 3.4000000953674316,
+          "total": 43.60000038146973,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "environment.pmrem": {
+          "count": 23,
+          "retained": 23,
+          "p50": 4.899999976158142,
+          "p95": 6.299999952316284,
+          "p99": 7.899999976158142,
+          "max": 7.899999976158142,
+          "total": 116.20000004768372,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gps.call": {
+          "count": 3,
+          "retained": 3,
+          "p50": 15.700000047683716,
+          "p95": 16.5,
+          "p99": 16.5,
+          "max": 16.5,
+          "total": 47.60000002384186,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "tile.add": {
+          "count": 1,
+          "retained": 1,
+          "p50": 60.300000071525574,
+          "p95": 60.300000071525574,
+          "p99": 60.300000071525574,
+          "max": 60.300000071525574,
+          "total": 60.300000071525574,
+          "over16_67": 1,
+          "over25": 1,
+          "over33_3": 1,
+          "over50": 1
+        }
+      },
+      "resources": [
+        {
+          "t": 106382.5,
+          "speed": 160,
+          "pos": [
+            4343.5143916286925,
+            25.216784982140368,
+            4223.571882221867
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 1099,
+          "triangles": 2743031,
+          "geometries": 800,
+          "textures": 164,
+          "phase": "driving"
+        },
+        {
+          "t": 107400.10000002384,
+          "speed": 160,
+          "pos": [
+            4381.27410558339,
+            26.037513037417977,
+            4224.739998605857
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 1050,
+          "triangles": 2609097,
+          "geometries": 803,
+          "textures": 165,
+          "phase": "driving"
+        },
+        {
+          "t": 108375.89999997616,
+          "speed": 160,
+          "pos": [
+            4416.812659893694,
+            27.151342498249658,
+            4225.8394022613775
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 1002,
+          "triangles": 2532182,
+          "geometries": 800,
+          "textures": 165,
+          "phase": "driving"
+        },
+        {
+          "t": 109366.60000002384,
+          "speed": 160,
+          "pos": [
+            4445.687735270816,
+            28.374685912374723,
+            4226.732667731488
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 921,
+          "triangles": 2419669,
+          "geometries": 807,
+          "textures": 168,
+          "phase": "driving"
+        },
+        {
+          "t": 110367.30000007153,
+          "speed": 160,
+          "pos": [
+            4472.314997092048,
+            28.769853048866175,
+            4227.5563959205165
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 881,
+          "triangles": 2433688,
+          "geometries": 808,
+          "textures": 168,
+          "phase": "driving"
+        },
+        {
+          "t": 111384,
+          "speed": 160,
+          "pos": [
+            4505.5701992889735,
+            28.933949096356653,
+            4228.585162891202
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 862,
+          "triangles": 2436065,
+          "geometries": 808,
+          "textures": 167,
+          "phase": "driving"
+        },
+        {
+          "t": 112477.89999997616,
+          "speed": 160,
+          "pos": [
+            4538.127957355442,
+            28.9805216640496,
+            4229.592354065083
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 852,
+          "triangles": 2542468,
+          "geometries": 806,
+          "textures": 166,
+          "phase": "driving"
+        },
+        {
+          "t": 113371.30000007153,
+          "speed": 160,
+          "pos": [
+            4562.360809081076,
+            28.99215469408989,
+            4230.342009932854
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 828,
+          "triangles": 2498234,
+          "geometries": 802,
+          "textures": 163,
+          "phase": "driving"
+        },
+        {
+          "t": 114371.80000007153,
+          "speed": 160,
+          "pos": [
+            4591.084845603438,
+            28.99733060970207,
+            4231.230602937461
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 787,
+          "triangles": 2408130,
+          "geometries": 806,
+          "textures": 166,
+          "phase": "driving"
+        },
+        {
+          "t": 115352.5,
+          "speed": 160,
+          "pos": [
+            4618.329589804752,
+            25.80113394680714,
+            4232.073433264972
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 727,
+          "triangles": 2004590,
+          "geometries": 795,
+          "textures": 154,
+          "phase": "driving"
+        },
+        {
+          "t": 116374.60000002384,
+          "speed": 160,
+          "pos": [
+            4642.655730231214,
+            24.722804832170613,
+            4232.825975067208
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 697,
+          "triangles": 1847462,
+          "geometries": 774,
+          "textures": 130,
+          "phase": "driving"
+        },
+        {
+          "t": 117508.10000002384,
+          "speed": 160,
+          "pos": [
+            4664.498614176303,
+            24.318510278964435,
+            4233.501696039048
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 701,
+          "triangles": 1884181,
+          "geometries": 784,
+          "textures": 140,
+          "phase": "driving"
+        },
+        {
+          "t": 118508.30000007153,
+          "speed": 160,
+          "pos": [
+            4684.124780797346,
+            24.152540010523637,
+            4234.108841707906
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 705,
+          "triangles": 1994652,
+          "geometries": 791,
+          "textures": 146,
+          "phase": "driving"
+        },
+        {
+          "t": 119453,
+          "speed": 160,
+          "pos": [
+            4699.672898308104,
+            24.085093926423188,
+            4234.589830807196
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 722,
+          "triangles": 1988755,
+          "geometries": 799,
+          "textures": 153,
+          "phase": "driving"
+        },
+        {
+          "t": 120413.20000004768,
+          "speed": 160,
+          "pos": [
+            4735.629030630494,
+            24.022181203154496,
+            4235.702152455634
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 705,
+          "triangles": 1874057,
+          "geometries": 799,
+          "textures": 157,
+          "phase": "driving"
+        },
+        {
+          "t": 121420.80000007153,
+          "speed": 160,
+          "pos": [
+            4760.9857891340735,
+            24.008576898552985,
+            4236.486576963945
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 691,
+          "triangles": 1739959,
+          "geometries": 811,
+          "textures": 160,
+          "phase": "driving"
+        },
+        {
+          "t": 122490.30000007153,
+          "speed": 160,
+          "pos": [
+            4783.197385578013,
+            25.971950698984468,
+            4237.173704248645
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 687,
+          "triangles": 1757686,
+          "geometries": 810,
+          "textures": 157,
+          "phase": "driving"
+        },
+        {
+          "t": 123369.30000007153,
+          "speed": 160,
+          "pos": [
+            4806.568427357385,
+            27.73888117315606,
+            4237.896699577639
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 669,
+          "triangles": 1642856,
+          "geometries": 808,
+          "textures": 154,
+          "phase": "driving"
+        },
+        {
+          "t": 124385,
+          "speed": 160,
+          "pos": [
+            4841.622768860975,
+            28.658797921911297,
+            4238.98112385822
+          ],
+          "flying": true,
+          "tiles": 9,
+          "pending": 0,
+          "draws": 629,
+          "triangles": 1485818,
+          "geometries": 805,
+          "textures": 152,
+          "phase": "driving"
+        },
+        {
+          "t": 125420.20000004768,
+          "speed": 160,
+          "pos": [
+            4869.022994232102,
+            28.877785693938268,
+            4239.828764076559
+          ],
+          "flying": true,
+          "tiles": 10,
+          "pending": 0,
+          "draws": 626,
+          "triangles": 1430428,
+          "geometries": 808,
+          "textures": 149,
+          "phase": "driving"
+        }
+      ],
+      "renderer": "WebKit WebGL",
+      "ratio": 1
+    },
+    {
+      "name": "delivery-transition",
+      "timings": {
+        "metro.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0.7999999523162842,
+          "p95": 1.3000000715255737,
+          "p99": 1.600000023841858,
+          "max": 3.100000023841858,
+          "total": 715.4000004529953,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "rail.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0,
+          "p95": 0.5,
+          "p99": 0.9000000953674316,
+          "max": 7,
+          "total": 100.50000035762787,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "player.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0.10000002384185791,
+          "p95": 1,
+          "p99": 1.2000000476837158,
+          "max": 1.899999976158142,
+          "total": 346.0999994277954,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "world.update": {
+          "count": 1040,
+          "retained": 1040,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.40000009536743164,
+          "max": 0.8999999761581421,
+          "total": 11.300000309944153,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "traffic.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 12.600000023841858,
+          "p95": 20.90000009536743,
+          "p99": 25.399999976158142,
+          "max": 32.299999952316284,
+          "total": 14379.000000715256,
+          "over16_67": 230,
+          "over25": 13,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "carrier.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.7999999523162842,
+          "max": 0.9000000953674316,
+          "total": 25.999999284744263,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "walkers.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0.8000000715255737,
+          "p95": 1.399999976158142,
+          "p99": 13.399999976158142,
+          "max": 59.199999928474426,
+          "total": 1372.8999990224838,
+          "over16_67": 9,
+          "over25": 9,
+          "over33_3": 9,
+          "over50": 7
+        },
+        "navigation.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 0,
+          "p95": 0.6000000238418579,
+          "p99": 0.8000000715255737,
+          "max": 4.300000071525574,
+          "total": 87.49999988079071,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "camera.update": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 3.899999976158142,
+          "p95": 5.399999976158142,
+          "p99": 6.099999904632568,
+          "max": 7.600000023841858,
+          "total": 4181.799998760223,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gpu.bufferData.submit": {
+          "count": 591,
+          "retained": 591,
+          "p50": 0,
+          "p95": 0.10000002384185791,
+          "p99": 0.7999999523162842,
+          "max": 1.5,
+          "total": 15.5,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "render.call": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 10.300000071525574,
+          "p95": 12.399999976158142,
+          "p99": 15.899999976158142,
+          "max": 18.100000023841858,
+          "total": 10911.000000834465,
+          "over16_67": 4,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "frame.cpu": {
+          "count": 1039,
+          "retained": 1039,
+          "p50": 31.100000023841858,
+          "p95": 41.10000002384186,
+          "p99": 53.5,
+          "max": 109.30000007152557,
+          "total": 33854.29999959469,
+          "over16_67": 1039,
+          "over25": 1036,
+          "over33_3": 326,
+          "over50": 15
+        },
+        "frame.interval": {
+          "count": 1038,
+          "retained": 1038,
+          "p50": 31.899999976158142,
+          "p95": 43.10000002384186,
+          "p99": 60.39999997615814,
+          "max": 121.09999990463257,
+          "total": 34997.60000002384,
+          "over16_67": 1038,
+          "over25": 1035,
+          "over33_3": 380,
+          "over50": 21
+        },
+        "tile.add": {
+          "count": 1,
+          "retained": 1,
+          "p50": 43.10000002384186,
+          "p95": 43.10000002384186,
+          "p99": 43.10000002384186,
+          "max": 43.10000002384186,
+          "total": 43.10000002384186,
+          "over16_67": 1,
+          "over25": 1,
+          "over33_3": 1,
+          "over50": 0
+        },
+        "gpu.texture.submit": {
+          "count": 9,
+          "retained": 9,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "total": 0,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "environment.pmrem": {
+          "count": 9,
+          "retained": 9,
+          "p50": 4.399999976158142,
+          "p95": 5.800000071525574,
+          "p99": 5.800000071525574,
+          "max": 5.800000071525574,
+          "total": 40.40000009536743,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        },
+        "gps.call": {
+          "count": 56,
+          "retained": 56,
+          "p50": 0,
+          "p95": 0.6000000238418579,
+          "p99": 0.8000000715255737,
+          "max": 0.8000000715255737,
+          "total": 4.400000095367432,
+          "over16_67": 0,
+          "over25": 0,
+          "over33_3": 0,
+          "over50": 0
+        }
+      },
+      "resources": [
+        {
+          "t": 126372.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            28.67229512663677,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 10,
+          "pending": 1,
+          "draws": 582,
+          "triangles": 1385017,
+          "geometries": 822,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 127346.5,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            18.52535636615873,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 622,
+          "triangles": 1711472,
+          "geometries": 872,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 128302.80000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 563,
+          "triangles": 1234829,
+          "geometries": 874,
+          "textures": 148,
+          "phase": "driving"
+        },
+        {
+          "t": 129341.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 560,
+          "triangles": 1305434,
+          "geometries": 872,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 130366,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 561,
+          "triangles": 1302258,
+          "geometries": 872,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 131326.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 559,
+          "triangles": 1290186,
+          "geometries": 872,
+          "textures": 146,
+          "phase": "driving"
+        },
+        {
+          "t": 132320.89999997616,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 560,
+          "triangles": 1301586,
+          "geometries": 873,
+          "textures": 146,
+          "phase": "driving"
+        },
+        {
+          "t": 133350.60000002384,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 560,
+          "triangles": 1306320,
+          "geometries": 874,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 134326.20000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 559,
+          "triangles": 1301535,
+          "geometries": 874,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 135349.5,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 568,
+          "triangles": 1324247,
+          "geometries": 874,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 136367.89999997616,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 570,
+          "triangles": 1333739,
+          "geometries": 874,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 137355.80000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 568,
+          "triangles": 1322433,
+          "geometries": 873,
+          "textures": 146,
+          "phase": "driving"
+        },
+        {
+          "t": 138344.5,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 571,
+          "triangles": 1330627,
+          "geometries": 873,
+          "textures": 146,
+          "phase": "driving"
+        },
+        {
+          "t": 139294.89999997616,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 575,
+          "triangles": 1347337,
+          "geometries": 875,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 140338.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 574,
+          "triangles": 1347431,
+          "geometries": 875,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 141328.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 574,
+          "triangles": 1352240,
+          "geometries": 875,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 142335.89999997616,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 574,
+          "triangles": 1358432,
+          "geometries": 875,
+          "textures": 147,
+          "phase": "driving"
+        },
+        {
+          "t": 143292.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 575,
+          "triangles": 1363328,
+          "geometries": 877,
+          "textures": 148,
+          "phase": "driving"
+        },
+        {
+          "t": 144331.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 575,
+          "triangles": 1358416,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 145337.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 576,
+          "triangles": 1364146,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 146322.60000002384,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 576,
+          "triangles": 1356036,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 147350.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 576,
+          "triangles": 1356036,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 148346,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 575,
+          "triangles": 1356012,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 149310,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 576,
+          "triangles": 1365942,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 150338.70000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 576,
+          "triangles": 1365942,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 151328.60000002384,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 577,
+          "triangles": 1365966,
+          "geometries": 877,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 152292.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 577,
+          "triangles": 1358854,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 153347.80000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 582,
+          "triangles": 1365564,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 154332.10000002384,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 583,
+          "triangles": 1372906,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 155338.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 583,
+          "triangles": 1372894,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 156332.5,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 582,
+          "triangles": 1372846,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 157333.30000007153,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 584,
+          "triangles": 1382386,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 158312.5,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 583,
+          "triangles": 1402218,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 159332.20000004768,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 587,
+          "triangles": 1407123,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        },
+        {
+          "t": 160327.89999997616,
+          "speed": 0,
+          "pos": [
+            4889.003435813248,
+            0.55,
+            4240.446869425511
+          ],
+          "flying": false,
+          "tiles": 11,
+          "pending": 0,
+          "draws": 585,
+          "triangles": 1405449,
+          "geometries": 876,
+          "textures": 149,
+          "phase": "driving"
+        }
+      ],
+      "renderer": "WebKit WebGL",
+      "ratio": 1
+    }
+  ],
+  "errors": [],
+  "corridor": {
+    "edge": "47a50513-0a4_0",
+    "length": 268.42835170674516,
+    "pose": {
+      "x": 4307.93085883559,
+      "y": 0,
+      "z": 4222.471087133595,
+      "hx": -0.9995218399773016,
+      "hz": -0.03092072781144905
+    }
+  },
+  "delivery": {
+    "phase": "driving",
+    "next": false,
+    "voice": {
+      "status": "idle",
+      "speechLevel": 0,
+      "position": 0,
+      "duration": 0
+    }
+  }
+}

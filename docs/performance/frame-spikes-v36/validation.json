@@ -1,0 +1,24 @@
+{
+  "baseline": "c8f8e06b16c22acff4ca731ac1209414c2d78cc7",
+  "runtimeCommit": "e1874741e9f734429331c69aba2b5336884d9b2f",
+  "branch": "perf/frame-spikes-v36",
+  "verifiedAt": "2026-11-07T07:54:57.311491+00:00",
+  "commands": {
+    "npm run typecheck": "PASS (inside npm run check)",
+    "npm run typecheck:worker": "PASS (inside npm run check)",
+    "npm test": "PASS: 1303 current tests, 38/38 legacy suites",
+    "npm run build": "PASS",
+    "npm run check": "PASS exit 0"
+  },
+  "physicalAndroidTested": false,
+  "qualityReduction": false,
+  "limits": [
+    "Not sustained60FPS certification",
+    "4x synthetic CPU slowdown remains substantially below60FPS",
+    "Cold NPC construction, synchronous guidance clearance, first frame after loading and indivisible GPU/atomic publication costs remain."
+  ],
+  "buildWarnings": [
+    "Existing runtime fonts.css resolution warning",
+    "Large bundled chunks: client5.4MB, tileworker2.36MB before gzip"
+  ]
+}
