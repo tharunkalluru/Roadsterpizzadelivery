@@ -79,6 +79,7 @@ export class Engine {
       addEventListener('resize', resize);
       addEventListener('pageshow', resize);
       window.visualViewport?.addEventListener('resize', resize);
+      window.visualViewport?.addEventListener('scroll', resize);
       if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(container);
     }
   }

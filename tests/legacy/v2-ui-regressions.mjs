@@ -41,14 +41,14 @@ class Element extends Events {
 }
 try {
   const entry = path.join(temp, 'ui.mjs');
-  await build({ stdin: { contents: "export { TitleScreen } from './src/ui/title'; export { Hud, bindDeliverySwipe } from './src/ui/hud'; export { Game } from './src/game/game'; export { AreaPicker } from './src/ui/areapicker'; export { loadSettings, settingsHtml } from './src/ui/settings';", resolveDir: new URL('../../', import.meta.url).pathname, loader: 'ts' }, outfile: entry, bundle: true, platform: 'node', format: 'esm' });
+  await build({ stdin: { contents: "export { TitleScreen } from './src/ui/title'; export { Hud, bindDeliverySwipe } from './src/ui/hud'; export { Game } from './src/game/game'; export { AreaPicker } from './src/ui/areapicker'; export { loadSettings, settingsHtml } from './src/ui/settings';", resolveDir: new URL('../../', import.meta.url).pathname, loader: 'ts' }, outfile: entry, define: { 'import.meta.env.DEV': 'false' }, bundle: true, platform: 'node', format: 'esm' });
   const { TitleScreen, Hud, bindDeliverySwipe, Game, AreaPicker, loadSettings, settingsHtml } = await import(pathToFileURL(entry));
   const globalEvents = new Events(), docEvents = new Events(), portrait = new Events(), root = new Element('hud');
   portrait.matches = false;
   globalThis.addEventListener = globalEvents.addEventListener.bind(globalEvents);
   globalThis.ResizeObserver = class { observe() {} };
   globalThis.matchMedia = () => portrait;
-  globalThis.document = { head: new Element(), documentElement: new Element(), hidden: false, createElement: () => new Element(), getElementById: () => root, addEventListener: docEvents.addEventListener.bind(docEvents) };
+  globalThis.document = { head: new Element(), documentElement: new Element(), hidden: false, createElement: () => new Element(), getElementById: () => root, querySelector: () => null, addEventListener: docEvents.addEventListener.bind(docEvents) };
   globalThis.window = { DeviceOrientationEvent: class {} };
   globalThis.screen = { orientation: { angle: 90 } };
   const hud = new Hud(true), el = hud.el;

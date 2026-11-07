@@ -1,3 +1,4 @@
+import { protectGameplayGestures, isIOSGestureBrowser, installGameplayTouchDiagnostics } from './gameplay-gestures';
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
 import { DialogFocus } from './dialog';
 import { goFullscreen, fullscreenFallbackMessage } from './title';
@@ -784,6 +785,11 @@ export class Hud {
     this.releaseAction = hold('t-act', (v) => (this.touchAct = v), () => this.contextAction !== null && !this.el.prompt.hidden && !this.modalOpen && !this.rotationBlocked);
     this.el['t-act'].addEventListener('contextmenu', (e) => e.preventDefault());
     for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
+    const gameplaySurfaces = ['t-left', 't-right', 't-gas', 't-brake', 't-fly', 't-jump', 't-act'].map(id => this.el[id]);
+    const sceneCanvas = document.querySelector<HTMLCanvasElement>('#game canvas');
+    if (sceneCanvas) gameplaySurfaces.push(sceneCanvas);
+    protectGameplayGestures(gameplaySurfaces, () => this.controlsAvailable, isIOSGestureBrowser(navigator));
+    installGameplayTouchDiagnostics(gameplaySurfaces, () => this.controlsAvailable);
     addEventListener('blur', this.resetInput);
     addEventListener('resize', () => this.cancelOfferSwipe());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
