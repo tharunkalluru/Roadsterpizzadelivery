@@ -14,10 +14,12 @@ let checks = 0;
 const test = async (label, fn) => { await fn(); checks++; console.log(`PASS ${label}`); };
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 async function clock(fn) {
-  const saved = { performance: Object.getOwnPropertyDescriptor(globalThis, 'performance'), setTimeout, clearTimeout, setInterval, clearInterval };
+  const saved = { performance: Object.getOwnPropertyDescriptor(globalThis, 'performance'), setTimeout, clearTimeout, setInterval, clearInterval, requestAnimationFrame: globalThis.requestAnimationFrame, cancelAnimationFrame: globalThis.cancelAnimationFrame };
   let now = 0, id = 0; const timers = new Map();
   Object.defineProperty(globalThis, 'performance', { configurable: true, value: { now: () => now } });
   const schedule = (run, ms, interval) => { const key = ++id; timers.set(key, { run, at: now + ms, interval }); return key; };
+  globalThis.requestAnimationFrame = run => schedule(() => run(now), 16, 0);
+  globalThis.cancelAnimationFrame = key => timers.delete(key);
   globalThis.setTimeout = (run, ms) => schedule(run, ms, 0);
   globalThis.setInterval = (run, ms) => schedule(run, ms, ms);
   globalThis.clearTimeout = globalThis.clearInterval = (key) => timers.delete(key);
@@ -35,7 +37,7 @@ async function clock(fn) {
   try { await fn({ advance, timers, now: () => now }); }
   finally {
     Object.defineProperty(globalThis, 'performance', saved.performance);
-    Object.assign(globalThis, { setTimeout: saved.setTimeout, clearTimeout: saved.clearTimeout, setInterval: saved.setInterval, clearInterval: saved.clearInterval });
+    Object.assign(globalThis, { setTimeout: saved.setTimeout, clearTimeout: saved.clearTimeout, setInterval: saved.setInterval, clearInterval: saved.clearInterval, requestAnimationFrame: saved.requestAnimationFrame, cancelAnimationFrame: saved.cancelAnimationFrame });
   }
 }
 
@@ -57,7 +59,9 @@ try {
     empty: new Set(), failures: new Map(), waiters: [], focus: [10, 20], buildMs: [], addMs: [], radius: 900, t: 0,
     worker: { postMessage() {}, terminate() {} }, workerUnavailable: false, workerFailed: false, workerRestarts: 0, workerTimer: null,
     wanted: () => ['0_0'], packOf: new Map([['0_0', 'https://city.test/one.pack.wasm']]),
-    add(built) { this.tiles.set(built.key, { key: built.key }); },
+    // Keep the real queue/pump/publication timing, stub only expensive geometry.
+    *prepareTile(built) { yield; return { key: built.key }; },
+    publishTile(tile) { this.tiles.set(tile.key, tile); },
   });
   const reply = (w, type, extra = {}) => { w.onMessage({ type, key: '0_0', requestId: w.requestIds.get('0_0'), ...extra }); };
   const quiet = async (fn) => { const saved = console.error; console.error = () => {}; try { await fn(); } finally { console.error = saved; } };
@@ -111,21 +115,27 @@ try {
     await advance(500); w.request('0_0'); const newId = w.requestIds.get('0_0'); assert.notEqual(newId, staleId);
     w.onMessage({ type: 'empty', key: '0_0', requestId: staleId });
     assert.equal(w.empty.has('0_0'), false); assert.equal(w.requestIds.get('0_0'), newId);
+    const previousFailure = w.failures.get('0_0');
     reply(w, 'built', { built: { key: '0_0', buffers: [] }, ms: 2 });
     w.onMessage({ type: 'error', key: '0_0', requestId: newId, error: 'late duplicate' });
-    assert.equal(w.tiles.has('0_0'), true); assert.equal(w.failures.has('0_0'), false); assert.equal(timers.size, 0);
+    assert.equal(w.tiles.has('0_0'), false); assert.equal(w.preparations.size, 1);
+    assert.equal(w.failures.get('0_0'), previousFailure); // duplicate errors cannot cancel accepted geometry
+    await advance(16);
+    assert.equal(w.tiles.has('0_0'), true); assert.equal(w.pending.has('0_0'), false);
+    assert.equal(w.preparations.size, 0); assert.equal(w.failures.has('0_0'), false); assert.equal(timers.size, 0);
   }));
   await test('three timed-out tile attempts reject once, restore the old focus and clear the ensure timer', () => clock(async ({ advance, timers }) => {
     const w = fakeWorld(), messages = []; w.worker.postMessage = (m) => messages.push(m);
     const done = w.ensure(5000, 5000), rejected = assert.rejects(done, /Could not load the streets/);
     await advance(65000); await rejected;
-    assert.equal(messages.length, 3); assert.deepEqual(w.focus, [10, 20]);
+    assert.equal(messages.filter(m => m.type === 'build').length, 3); assert.deepEqual(w.focus, [10, 20]);
     assert.equal(w.pending.size, 0); assert.equal(w.requestIds.size, 0); assert.equal(w.waiters.length, 0); assert.equal(w.empty.size, 0); assert.equal(timers.size, 0);
-    await advance(100000); assert.equal(messages.length, 3);
+    await advance(100000); assert.equal(messages.filter(m => m.type === 'build').length, 3);
   }));
-  await test('explicit area retry clears prior failures and success releases its timer', () => clock(async ({ timers }) => quiet(async () => {
+  await test('explicit area retry clears prior failures and success releases its timer', () => clock(async ({ advance, timers }) => quiet(async () => {
     const w = fakeWorld(); w.failures.set('0_0', { attempts: 3, retryAt: Infinity, message: 'old failure' });
-    const done = w.ensure(0, 0); reply(w, 'built', { built: { key: '0_0', buffers: [] }, ms: 1 }); await done;
+    const done = w.ensure(0, 0); reply(w, 'built', { built: { key: '0_0', buffers: [] }, ms: 1 });
+    assert.equal(w.tiles.has('0_0'), false); await advance(16); await done;
     assert.equal(w.failures.size, 0); assert.equal(w.waiters.length, 0); assert.equal(timers.size, 0);
   })));
   await test('connectivity events cannot extend the seventy-five-second area deadline', () => clock(async ({ advance, timers }) => {
